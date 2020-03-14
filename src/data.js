@@ -124,7 +124,7 @@ module.exports = {
     /// for maintenance
     if (this.rawArgs.startsWith("/")) {
       // logging
-      console.log(this.args);
+      console.log(this.event.source);
       if (user_session.id !== process.env.DEV_ID) {
         
         // semua grup ga bisa
@@ -250,14 +250,14 @@ module.exports = {
 
   saveUserData: function(user_session) {
     // console.log("saved user_session", user_session.state);
-    let path = "/app/data/users/" + user_session.id + "_user.json";
+    let path = "/app/.data/users/" + user_session.id + "_user.json";
     let data = JSON.stringify(user_session, null, 2);
     fs.writeFileSync(path, data);
   },
 
   saveGroupData: function(group_session) {
     // console.log("saved group_session", group_session.players);
-    let path = "/app/data/groups/" + group_session.groupId + "_group.json";
+    let path = "/app/.data/groups/" + group_session.groupId + "_group.json";
     let data = JSON.stringify(group_session, null, 2);
     fs.writeFileSync(path, data);
 
