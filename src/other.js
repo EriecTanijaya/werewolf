@@ -1,6 +1,6 @@
 const fs = require("fs");
-const baseUserPath = "/app/data/users/";
-const baseGroupPath = "/app/data/groups/";
+const baseUserPath = "/app/.data/users/";
+const baseGroupPath = "/app/.data/groups/";
 
 module.exports = {
   receive: function(client, event) {

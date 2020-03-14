@@ -124,7 +124,7 @@ module.exports = {
     /// for maintenance
     if (this.rawArgs.startsWith("/")) {
       // logging
-      console.log(this.event.source);
+      console.log(this.args);
       if (user_session.id !== process.env.DEV_ID) {
         
         // semua grup ga bisa
@@ -267,7 +267,7 @@ module.exports = {
   },
 
   getUserData: function(id, newUserData) {
-    const baseUserPath = "/app/data/users/";
+    const baseUserPath = "/app/.data/users/";
     let userPath = baseUserPath + id + "_user.json";
     let user_session = {};
     fs.readFile(userPath, "utf8", (err, data) => {

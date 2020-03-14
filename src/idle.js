@@ -163,7 +163,7 @@ module.exports = {
 
   saveUserData: function() {
     const fs = require("fs");
-    const baseUserPath = "/app/data/users/";
+    const baseUserPath = "/app/.data/users/";
     let userPath = baseUserPath + this.user_session.id + "_user.json";
     var user_session = {};
     fs.readFile(userPath, "utf8", (err, data) => {

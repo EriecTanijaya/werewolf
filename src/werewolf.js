@@ -3539,7 +3539,7 @@ module.exports = {
   },
 
   saveUserData: function() {
-    const baseUserPath = "/app/data/users/";
+    const baseUserPath = "/app/.data/users/";
     let userPath = baseUserPath + this.user_session.id + "_user.json";
     let user_session = {};
     fs.readFile(userPath, "utf8", (err, data) => {

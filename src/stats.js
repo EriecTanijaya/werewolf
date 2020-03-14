@@ -1,7 +1,7 @@
 const fs = require("fs");
 
-const baseUserPath = "/app/data/users/";
-const baseGroupPath = "/app/data/groups/";
+const baseUserPath = "/app/.data/users/";
+const baseGroupPath = "/app/.data/groups/";
 
 // const datas = require("/app/src/data");
 
@@ -419,7 +419,7 @@ module.exports = {
   },
 
   saveUserData: function(raw_user_session) {
-    const baseUserPath = "/app/data/users/";
+    const baseUserPath = "/app/.data/users/";
     let userPath = baseUserPath + raw_user_session.id + "_user.json";
     let user_session = {};
     fs.readFile(userPath, "utf8", (err, data) => {
