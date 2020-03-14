@@ -1,0 +1,31 @@
+{
+  "id": "U36d344ef0cb7796e0c0cb233c96478e2",
+  "name": "ᘔBx. Ezra #AWO_LDNTA",
+  "state": "inactive",
+  "groupId": "",
+  "points": 375,
+  "villagerStats": {
+    "win": 53,
+    "lose": 26
+  },
+  "werewolfStats": {
+    "win": 10,
+    "lose": 14
+  },
+  "vampireStats": {
+    "win": 2,
+    "lose": 3
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 3
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 3
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 1
+  }
+}

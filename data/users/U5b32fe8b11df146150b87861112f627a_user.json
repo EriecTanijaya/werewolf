@@ -1,0 +1,31 @@
+{
+  "id": "U5b32fe8b11df146150b87861112f627a",
+  "name": "Ir Wipel S̷RTᴸᴳᴺᴰ",
+  "state": "inactive",
+  "groupId": "C624857e41b05cf86b997d542638e2acf",
+  "points": 6,
+  "villagerStats": {
+    "win": 1,
+    "lose": 1
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

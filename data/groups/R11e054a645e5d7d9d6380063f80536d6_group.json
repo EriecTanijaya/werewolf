@@ -1,0 +1,581 @@
+{
+  "groupId": "R11e054a645e5d7d9d6380063f80536d6",
+  "state": "idle",
+  "status": "active",
+  "players": [
+    {
+      "id": "U11bfc7113f0dc3cdeab66c99376467d0",
+      "name": "Mas Dalfa",
+      "state": "active",
+      "groupId": "R11e054a645e5d7d9d6380063f80536d6",
+      "points": 0,
+      "villagerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "werewolfStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "escort",
+        "team": "villager",
+        "description": "💋 Kamu adalah warga yang bisa block skill pemain lain, sehingga targetmu tidak dapat menggunakan skill malamnya. Hati hati, kamu bisa block skill sesama warga",
+        "canKill": false,
+        "cmdText": "/skill"
+      },
+      "status": "death",
+      "message": "👣 Kamu ke rumah JOANDRA\n\n💡 Target kamu immune!\n\n🔪 Kamu diserang serial-killer yang kamu kunjungi!\n\n",
+      "attacked": true,
+      "healed": false,
+      "targetIndex": -1,
+      "targetVoteIndex": -1,
+      "afkCounter": 0,
+      "visitors": [],
+      "blocked": false,
+      "attackers": [
+        {
+          "index": 5,
+          "name": "JOANDRA",
+          "role": {
+            "name": "serial-killer",
+            "team": "serial-killer",
+            "description": "🔪 Kamu adalah Psikopat yang hanya ingin semua orang mati. Kamu kebal dari serangan biasa, dan Menang jika semua yang menentangmu mati",
+            "canKill": true,
+            "cmdText": "/skill"
+          },
+          "deathNote": ""
+        }
+      ],
+      "intercepted": false,
+      "journals": [
+        {
+          "nightCounter": 2,
+          "content": "⚰️ Kamu berhasil dibangkitkan Retributionist!"
+        }
+      ],
+      "deathNote": "",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false,
+      "target": {
+        "index": "5",
+        "value": 1
+      },
+      "vampireBited": false,
+      "addonMessage": ""
+    },
+    {
+      "id": "U1dc200ea5b2960d1a8bc6b35e9e2bb75",
+      "name": "ᘔdek ira🐣",
+      "state": "active",
+      "groupId": "R11e054a645e5d7d9d6380063f80536d6",
+      "points": 0,
+      "villagerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "werewolfStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "veteran",
+        "team": "villager",
+        "description": "🎖️ Kamu adalah warga yang memiliki paranoia, jika kamu 'alert', maka kamu akan membunuh siapa saja yang kerumahmu. ",
+        "canKill": true,
+        "cmdText": "/alert",
+        "alert": 2
+      },
+      "status": "alive",
+      "message": "💡 Kamu tidak menggunakan skill mu\n\n",
+      "attacked": false,
+      "healed": false,
+      "targetIndex": -1,
+      "targetVoteIndex": -1,
+      "afkCounter": 1,
+      "visitors": [],
+      "blocked": false,
+      "attackers": [],
+      "intercepted": false,
+      "journals": [
+        {
+          "nightCounter": 2,
+          "content": "💡 Kamu tidak menggunakan skill mu"
+        },
+        {
+          "nightCounter": 3,
+          "content": "💡 Kamu tidak menggunakan skill mu"
+        },
+        {
+          "nightCounter": 4,
+          "content": "💡 Kamu tidak menggunakan skill mu"
+        },
+        {
+          "nightCounter": 5,
+          "content": "💡 Kamu tidak menggunakan skill mu"
+        }
+      ],
+      "deathNote": "",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false,
+      "target": {
+        "index": -1,
+        "value": 1
+      },
+      "vampireBited": false,
+      "addonMessage": ""
+    },
+    {
+      "id": "Ue277c6f09fbecdb83c42e609bfe306de",
+      "name": "Jevin",
+      "state": "active",
+      "groupId": "R11e054a645e5d7d9d6380063f80536d6",
+      "points": 0,
+      "villagerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "werewolfStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "lookout",
+        "team": "villager",
+        "description": "👀 Kamu adalah warga yang bisa memantau rumah seseorang pas malam, sehingga bisa mengetahui siapa pendatangnya",
+        "canKill": false,
+        "cmdText": "/skill"
+      },
+      "status": "alive",
+      "message": "💡 Kamu tidak menggunakan skill mu\n\n",
+      "attacked": false,
+      "healed": false,
+      "targetIndex": -1,
+      "targetVoteIndex": -1,
+      "afkCounter": 4,
+      "visitors": [],
+      "blocked": false,
+      "attackers": [],
+      "intercepted": false,
+      "journals": [
+        {
+          "nightCounter": 1,
+          "content": "👣 Kamu ke rumah Koko Ingkar\n\n👀 Rumah Koko Ingkar tidak didatangi siapa siapa"
+        },
+        {
+          "nightCounter": 2,
+          "content": "💡 Kamu tidak menggunakan skill mu"
+        },
+        {
+          "nightCounter": 3,
+          "content": "👣 Kamu ke rumah ᘔdek ira🐣\n\n👀 Rumah ᘔdek ira🐣 tidak didatangi siapa siapa"
+        },
+        {
+          "nightCounter": 4,
+          "content": "💡 Kamu tidak menggunakan skill mu"
+        },
+        {
+          "nightCounter": 5,
+          "content": "💡 Kamu tidak menggunakan skill mu"
+        }
+      ],
+      "deathNote": "",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false,
+      "target": {
+        "index": -1,
+        "value": 1
+      },
+      "vampireBited": false,
+      "addonMessage": ""
+    },
+    {
+      "id": "U7093d1b14262f1b54f0f6ea1bac6c911",
+      "name": "Adnan #NEXUS",
+      "state": "active",
+      "groupId": "R11e054a645e5d7d9d6380063f80536d6",
+      "points": 0,
+      "villagerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "werewolfStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "retributionist",
+        "team": "villager",
+        "description": "⚰️ Kamu adalah warga yang bisa membangkitkan orang yang telah mati. ",
+        "canKill": false,
+        "cmdText": "/skill",
+        "revive": 0
+      },
+      "status": "alive",
+      "message": "💡 Kamu tidak menggunakan skill mu\n\n",
+      "attacked": false,
+      "healed": false,
+      "targetIndex": -1,
+      "targetVoteIndex": -1,
+      "afkCounter": 1,
+      "visitors": [],
+      "blocked": false,
+      "attackers": [],
+      "intercepted": false,
+      "journals": [
+        {
+          "nightCounter": 1,
+          "content": "💡 Kamu tidak menggunakan skill mu"
+        },
+        {
+          "nightCounter": 2,
+          "content": "👣 Kamu ke rumah Mas Dalfa\n\n⚰️ Kamu berhasil membangkitkan Mas Dalfa (escort)"
+        },
+        {
+          "nightCounter": 3,
+          "content": "💡 Kamu tidak menggunakan skill mu"
+        },
+        {
+          "nightCounter": 4,
+          "content": "💡 Kamu tidak menggunakan skill mu"
+        },
+        {
+          "nightCounter": 5,
+          "content": "💡 Kamu tidak menggunakan skill mu"
+        }
+      ],
+      "deathNote": "",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false,
+      "target": {
+        "index": -1,
+        "value": 1
+      },
+      "vampireBited": false,
+      "addonMessage": ""
+    },
+    {
+      "id": "Ub1be4eac18c273d2bd988a7a2c42be28",
+      "name": "Koko Ingkar",
+      "state": "active",
+      "groupId": "R11e054a645e5d7d9d6380063f80536d6",
+      "points": 0,
+      "villagerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "werewolfStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "sheriff",
+        "team": "villager",
+        "description": "👮 Kamu adalah warga yang bisa cek suatu warga mencurigakan atau tidak. ",
+        "canKill": false,
+        "cmdText": "/skill"
+      },
+      "status": "death",
+      "message": "🐺 Kamu diserang werewolf!\n\n",
+      "attacked": true,
+      "healed": false,
+      "targetIndex": -1,
+      "targetVoteIndex": -1,
+      "afkCounter": 0,
+      "visitors": [
+        {
+          "name": "Rani,",
+          "role": {
+            "name": "werewolf",
+            "team": "werewolf",
+            "description": "🐺 Kamu adalah penjahat yang menyamar diantara werewolf. Kamu kebal dari serangan biasa. ",
+            "canKill": true,
+            "cmdText": "/skill"
+          }
+        }
+      ],
+      "blocked": false,
+      "attackers": [
+        {
+          "index": 6,
+          "name": "Rani,",
+          "role": {
+            "name": "werewolf",
+            "team": "werewolf",
+            "description": "🐺 Kamu adalah penjahat yang menyamar diantara werewolf. Kamu kebal dari serangan biasa. ",
+            "canKill": true,
+            "cmdText": "/skill"
+          },
+          "deathNote": ""
+        }
+      ],
+      "intercepted": false,
+      "journals": [
+        {
+          "nightCounter": 1,
+          "content": "👣 Kamu ke rumah Jevin\n\n👮 Kamu tidak menemukan bukti kesalahan target. Tampaknya Jevin tidak bersalah"
+        },
+        {
+          "nightCounter": 2,
+          "content": "💡 Kamu tidak menggunakan skill mu"
+        }
+      ],
+      "deathNote": "",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false,
+      "target": {
+        "index": "6",
+        "value": 1
+      },
+      "vampireBited": false,
+      "addonMessage": ""
+    },
+    {
+      "id": "U1091f9ee7d4297c299323e916b1eebe7",
+      "name": "JOANDRA",
+      "state": "active",
+      "groupId": "R11e054a645e5d7d9d6380063f80536d6",
+      "points": 0,
+      "villagerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "werewolfStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "serial-killer",
+        "team": "serial-killer",
+        "description": "🔪 Kamu adalah Psikopat yang hanya ingin semua orang mati. Kamu kebal dari serangan biasa, dan Menang jika semua yang menentangmu mati",
+        "canKill": true,
+        "cmdText": "/skill"
+      },
+      "status": "alive",
+      "message": "💡 Kamu tidak menggunakan skill mu\n\n",
+      "attacked": false,
+      "healed": false,
+      "targetIndex": -1,
+      "targetVoteIndex": -1,
+      "afkCounter": 5,
+      "visitors": [],
+      "blocked": false,
+      "attackers": [],
+      "intercepted": false,
+      "journals": [
+        {
+          "nightCounter": 1,
+          "content": "💡 Ada yang berusaha role block kamu!\n\n💡 Kamu tercegat oleh Mas Dalfa\n\n💡 Kamu menyerang Mas Dalfa"
+        },
+        {
+          "nightCounter": 2,
+          "content": "💡 Kamu tidak menggunakan skill mu"
+        },
+        {
+          "nightCounter": 3,
+          "content": "💡 Ada yang berusaha role block kamu!\n\n💡 Kamu tercegat oleh Mas Dalfa\n\n💡 Kamu menyerang Mas Dalfa"
+        },
+        {
+          "nightCounter": 4,
+          "content": "💡 Kamu tidak menggunakan skill mu"
+        },
+        {
+          "nightCounter": 5,
+          "content": "💡 Kamu tidak menggunakan skill mu"
+        }
+      ],
+      "deathNote": "",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false,
+      "target": {
+        "index": -1,
+        "value": 1
+      },
+      "vampireBited": false,
+      "addonMessage": ""
+    },
+    {
+      "id": "U2fe696277ae9911c15ad94e661b04983",
+      "name": "Rani,",
+      "state": "active",
+      "groupId": "R11e054a645e5d7d9d6380063f80536d6",
+      "points": 0,
+      "villagerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "werewolfStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "werewolf",
+        "team": "werewolf",
+        "description": "🐺 Kamu adalah penjahat yang menyamar diantara werewolf. Kamu kebal dari serangan biasa. ",
+        "canKill": true,
+        "cmdText": "/skill"
+      },
+      "status": "alive",
+      "message": "💡 Kamu tidak menggunakan skill mu\n\n",
+      "attacked": false,
+      "healed": false,
+      "targetIndex": -1,
+      "targetVoteIndex": -1,
+      "afkCounter": 4,
+      "visitors": [],
+      "blocked": false,
+      "attackers": [],
+      "intercepted": false,
+      "journals": [
+        {
+          "nightCounter": 1,
+          "content": "💡 Kamu tidak menggunakan skill mu"
+        },
+        {
+          "nightCounter": 2,
+          "content": "💡 Kamu tidak menggunakan skill mu"
+        },
+        {
+          "nightCounter": 3,
+          "content": "👣 Kamu ke rumah Koko Ingkar\n\n💡 Kamu menyerang Koko Ingkar\n\n🐺 Target Werewolf adalah : Koko Ingkar\n\n👣 Rani, mengunjungi rumah Koko Ingkar"
+        },
+        {
+          "nightCounter": 4,
+          "content": "💡 Kamu tidak menggunakan skill mu"
+        },
+        {
+          "nightCounter": 5,
+          "content": "💡 Kamu tidak menggunakan skill mu"
+        }
+      ],
+      "deathNote": "",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false,
+      "target": {
+        "index": -1,
+        "value": 1
+      },
+      "vampireBited": false,
+      "addonMessage": ""
+    }
+  ]
+}

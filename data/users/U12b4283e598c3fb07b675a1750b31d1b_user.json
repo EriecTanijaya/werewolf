@@ -1,0 +1,31 @@
+{
+  "id": "U12b4283e598c3fb07b675a1750b31d1b",
+  "name": "Danzel☬️⁰⁹",
+  "state": "inactive",
+  "groupId": "",
+  "points": 16,
+  "villagerStats": {
+    "win": 2,
+    "lose": 1
+  },
+  "werewolfStats": {
+    "win": 1,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

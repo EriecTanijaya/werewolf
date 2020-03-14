@@ -1,0 +1,31 @@
+{
+  "id": "U8fbaffe8bfa974c0b5b5b59e22673f98",
+  "name": "ʷᵃʳʲᵒᵏmikaa",
+  "state": "inactive",
+  "groupId": "C8d5032f19e1624d567eadac8a3dc4f42",
+  "points": 39,
+  "villagerStats": {
+    "win": 6,
+    "lose": 6
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 2
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 1
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

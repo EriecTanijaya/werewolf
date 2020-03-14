@@ -1,0 +1,31 @@
+{
+  "id": "Uda06862e98361017ff3c39ce2f73de1b",
+  "name": "ᴿ⍣Jeje,adpᵀᴾˢ",
+  "state": "inactive",
+  "groupId": "",
+  "points": 11,
+  "villagerStats": {
+    "win": 1,
+    "lose": 0
+  },
+  "werewolfStats": {
+    "win": 1,
+    "lose": 1
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

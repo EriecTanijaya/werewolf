@@ -1,0 +1,31 @@
+{
+  "id": "U666f5186d761062a4cdd816de2647e6a",
+  "name": "pradipta ⅌",
+  "state": "inactive",
+  "groupId": "Cfa52c392b8e6939cd2bc9082eb3dfeb5",
+  "points": 29,
+  "villagerStats": {
+    "win": 2,
+    "lose": 13
+  },
+  "werewolfStats": {
+    "win": 1,
+    "lose": 1
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

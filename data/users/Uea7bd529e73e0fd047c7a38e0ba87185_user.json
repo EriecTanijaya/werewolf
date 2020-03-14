@@ -1,0 +1,31 @@
+{
+  "id": "Uea7bd529e73e0fd047c7a38e0ba87185",
+  "name": "Baby kinjooo",
+  "state": "inactive",
+  "groupId": "",
+  "points": 56,
+  "villagerStats": {
+    "win": 4,
+    "lose": 6
+  },
+  "werewolfStats": {
+    "win": 5,
+    "lose": 3
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 1
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 1
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "id": "Uc046694fef8fd624e6c693e8553137a2",
+  "name": "MJ",
+  "state": "inactive",
+  "groupId": "Ca2c43501e6898185f3e58f28165e7cb2",
+  "points": 16,
+  "villagerStats": {
+    "win": 1,
+    "lose": 1
+  },
+  "werewolfStats": {
+    "win": 2,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

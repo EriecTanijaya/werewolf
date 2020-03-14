@@ -1,0 +1,31 @@
+{
+  "id": "U75eea6145347d755985b4caae09bd3e0",
+  "name": "Riisel",
+  "state": "inactive",
+  "groupId": "",
+  "points": 2,
+  "villagerStats": {
+    "win": 0,
+    "lose": 1
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 1
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

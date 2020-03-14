@@ -1,0 +1,31 @@
+{
+  "id": "Uea330bf42f83d72f85f063ff678900d1",
+  "name": "tasyaa",
+  "state": "inactive",
+  "groupId": "Cf5c6112ec3e7102ca4c1b54859c8c2ab",
+  "points": 11,
+  "villagerStats": {
+    "win": 2,
+    "lose": 1
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

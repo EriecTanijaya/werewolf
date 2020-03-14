@@ -1,0 +1,31 @@
+{
+  "id": "U469c171dcecb0a5288fbf899bd4c8f36",
+  "name": "Azka Iskandar",
+  "state": "inactive",
+  "groupId": "C730ffe901d4f3ef35d1475ccb0ff91bf",
+  "points": 90,
+  "villagerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "werewolfStats": {
+    "win": 18,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

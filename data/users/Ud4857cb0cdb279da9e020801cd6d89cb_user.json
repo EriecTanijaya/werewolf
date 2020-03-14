@@ -1,0 +1,31 @@
+{
+  "id": "Ud4857cb0cdb279da9e020801cd6d89cb",
+  "name": "unmood, jorgavin",
+  "state": "inactive",
+  "groupId": "C854651423f5e6e523fd36a3a0fd90f34",
+  "points": 12,
+  "villagerStats": {
+    "win": 0,
+    "lose": 12
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

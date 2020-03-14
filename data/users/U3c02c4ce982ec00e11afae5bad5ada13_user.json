@@ -1,0 +1,31 @@
+{
+  "id": "U3c02c4ce982ec00e11afae5bad5ada13",
+  "name": "piraun",
+  "state": "inactive",
+  "groupId": "",
+  "points": 0,
+  "villagerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

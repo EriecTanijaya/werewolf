@@ -1,0 +1,31 @@
+{
+  "id": "U321597e570989f5777cfd2b21b68a54a",
+  "name": "vanny",
+  "state": "inactive",
+  "groupId": "",
+  "points": 118,
+  "villagerStats": {
+    "win": 14,
+    "lose": 12
+  },
+  "werewolfStats": {
+    "win": 6,
+    "lose": 2
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 2
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 2
+  }
+}

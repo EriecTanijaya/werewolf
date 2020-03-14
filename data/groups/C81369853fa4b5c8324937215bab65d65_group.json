@@ -1,0 +1,376 @@
+{
+  "groupId": "C81369853fa4b5c8324937215bab65d65",
+  "state": "idle",
+  "status": "active",
+  "players": [
+    {
+      "id": "U5beeb884a96645f2424befdc6520f96a",
+      "name": "Darryl Edward",
+      "state": "active",
+      "groupId": "C81369853fa4b5c8324937215bab65d65",
+      "points": 0,
+      "villagerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "werewolfStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "werewolf",
+        "team": "werewolf",
+        "description": "🐺 Kamu adalah penjahat yang menyamar diantara werewolf. Kamu kebal dari serangan biasa. ",
+        "canKill": true,
+        "cmdText": "/skill"
+      },
+      "status": "alive",
+      "message": "💡 Kamu tidak menggunakan skill mu\n\n",
+      "attacked": false,
+      "healed": false,
+      "targetIndex": -1,
+      "targetVoteIndex": -1,
+      "afkCounter": 3,
+      "visitors": [],
+      "blocked": false,
+      "attackers": [],
+      "intercepted": false,
+      "journals": [
+        {
+          "nightCounter": 1,
+          "content": "💡 Kamu tidak menggunakan skill mu"
+        },
+        {
+          "nightCounter": 2,
+          "content": "💡 Kamu tidak menggunakan skill mu"
+        },
+        {
+          "nightCounter": 3,
+          "content": "💡 Kamu tidak menggunakan skill mu"
+        }
+      ],
+      "deathNote": "",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false,
+      "target": {
+        "index": -1,
+        "value": 1
+      },
+      "vampireBited": false,
+      "addonMessage": ""
+    },
+    {
+      "id": "U53c0c8ab7892339023df42cd16bae25a",
+      "name": "Cleon Dexter",
+      "state": "active",
+      "groupId": "C81369853fa4b5c8324937215bab65d65",
+      "points": 0,
+      "villagerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "werewolfStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "lookout",
+        "team": "villager",
+        "description": "👀 Kamu adalah warga yang bisa memantau rumah seseorang pas malam, sehingga bisa mengetahui siapa pendatangnya",
+        "canKill": false,
+        "cmdText": "/skill"
+      },
+      "status": "alive",
+      "message": "💡 Kamu tidak menggunakan skill mu\n\n",
+      "attacked": false,
+      "healed": false,
+      "targetIndex": -1,
+      "targetVoteIndex": -1,
+      "afkCounter": 1,
+      "visitors": [],
+      "blocked": false,
+      "attackers": [],
+      "intercepted": false,
+      "journals": [
+        {
+          "nightCounter": 1,
+          "content": "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu."
+        },
+        {
+          "nightCounter": 2,
+          "content": "👣 Kamu ke rumah Darryl Edward\n\n👀 Rumah Darryl Edward dikunjungi Gilbert semalam"
+        },
+        {
+          "nightCounter": 3,
+          "content": "💡 Kamu tidak menggunakan skill mu"
+        }
+      ],
+      "deathNote": "",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false,
+      "target": {
+        "index": -1,
+        "value": 1
+      },
+      "vampireBited": false,
+      "addonMessage": ""
+    },
+    {
+      "id": "Ud340ed4025553c1044dd707b33c638bd",
+      "name": "Griffin Tanuwijaya",
+      "state": "active",
+      "groupId": "C81369853fa4b5c8324937215bab65d65",
+      "points": 0,
+      "villagerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "werewolfStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "escort",
+        "team": "villager",
+        "description": "💋 Kamu adalah warga yang bisa block skill pemain lain, sehingga targetmu tidak dapat menggunakan skill malamnya. Hati hati, kamu bisa block skill sesama warga",
+        "canKill": false,
+        "cmdText": "/skill"
+      },
+      "status": "death",
+      "message": "👣 Kamu ke rumah Cleon Dexter\n\n",
+      "attacked": false,
+      "healed": false,
+      "targetIndex": -1,
+      "targetVoteIndex": "4",
+      "afkCounter": 0,
+      "visitors": [],
+      "blocked": false,
+      "attackers": [],
+      "intercepted": false,
+      "journals": [
+        {
+          "nightCounter": 1,
+          "content": "👣 Kamu ke rumah Cleon Dexter"
+        }
+      ],
+      "deathNote": "",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false,
+      "target": {
+        "index": "1",
+        "value": 1
+      },
+      "vampireBited": false,
+      "addonMessage": ""
+    },
+    {
+      "id": "U18e712e8a5f9247c24c10807b13f2aa7",
+      "name": "+62 852-1608-6572",
+      "state": "active",
+      "groupId": "C81369853fa4b5c8324937215bab65d65",
+      "points": 0,
+      "villagerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "werewolfStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "retributionist",
+        "team": "villager",
+        "description": "⚰️ Kamu adalah warga yang bisa membangkitkan orang yang telah mati. ",
+        "canKill": false,
+        "cmdText": "/skill",
+        "revive": 1
+      },
+      "status": "alive",
+      "message": "💡 Kamu tidak menggunakan skill mu\n\n",
+      "attacked": false,
+      "healed": false,
+      "targetIndex": -1,
+      "targetVoteIndex": -1,
+      "afkCounter": 5,
+      "visitors": [
+        {
+          "name": "Gilbert",
+          "role": {
+            "name": "seer",
+            "team": "villager",
+            "description": "🔮 Kamu adalah warga yang bisa cek identitas sebenarnya dari suatu orang. Gantung Werewolf supaya kamu menang",
+            "canKill": false,
+            "cmdText": "/skill"
+          }
+        }
+      ],
+      "blocked": false,
+      "attackers": [],
+      "intercepted": false,
+      "journals": [
+        {
+          "nightCounter": 1,
+          "content": "💡 Kamu tidak menggunakan skill mu"
+        },
+        {
+          "nightCounter": 2,
+          "content": "💡 Kamu tidak menggunakan skill mu"
+        },
+        {
+          "nightCounter": 3,
+          "content": "💡 Kamu tidak menggunakan skill mu"
+        }
+      ],
+      "deathNote": "",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false,
+      "target": {
+        "index": -1,
+        "value": 1
+      },
+      "vampireBited": false,
+      "addonMessage": ""
+    },
+    {
+      "id": "U3e67b29b08483a816f33c996a2d82afb",
+      "name": "Gilbert",
+      "state": "active",
+      "groupId": "C81369853fa4b5c8324937215bab65d65",
+      "points": 0,
+      "villagerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "werewolfStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "seer",
+        "team": "villager",
+        "description": "🔮 Kamu adalah warga yang bisa cek identitas sebenarnya dari suatu orang. Gantung Werewolf supaya kamu menang",
+        "canKill": false,
+        "cmdText": "/skill"
+      },
+      "status": "alive",
+      "message": "👣 Kamu ke rumah +62 852-1608-6572\n\n🔮 Role +62 852-1608-6572 adalah retributionist\n\nKamu bisa cek info role dengan ketik '/info retributionist'\n\n",
+      "attacked": false,
+      "healed": false,
+      "targetIndex": -1,
+      "targetVoteIndex": -1,
+      "afkCounter": 0,
+      "visitors": [],
+      "blocked": false,
+      "attackers": [],
+      "intercepted": false,
+      "journals": [
+        {
+          "nightCounter": 1,
+          "content": "💡 Kamu tidak menggunakan skill mu"
+        },
+        {
+          "nightCounter": 2,
+          "content": "👣 Kamu ke rumah Darryl Edward\n\n🔮 Role Darryl Edward adalah werewolf\n\nKamu bisa cek info role dengan ketik '/info werewolf'"
+        },
+        {
+          "nightCounter": 3,
+          "content": "👣 Kamu ke rumah +62 852-1608-6572\n\n🔮 Role +62 852-1608-6572 adalah retributionist\n\nKamu bisa cek info role dengan ketik '/info retributionist'"
+        }
+      ],
+      "deathNote": "",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false,
+      "target": {
+        "index": "3",
+        "value": 1
+      },
+      "vampireBited": false,
+      "addonMessage": ""
+    }
+  ]
+}

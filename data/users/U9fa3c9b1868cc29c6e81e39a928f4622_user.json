@@ -1,0 +1,31 @@
+{
+  "id": "U9fa3c9b1868cc29c6e81e39a928f4622",
+  "name": "Ilyas’",
+  "state": "inactive",
+  "groupId": "",
+  "points": 5,
+  "villagerStats": {
+    "win": 1,
+    "lose": 0
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

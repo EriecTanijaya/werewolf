@@ -1,0 +1,31 @@
+{
+  "id": "U97965aa541c91dea3d02f644ff8e1d21",
+  "name": "Ica kyut",
+  "state": "inactive",
+  "groupId": "",
+  "points": 5,
+  "villagerStats": {
+    "win": 1,
+    "lose": 0
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

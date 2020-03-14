@@ -1,0 +1,31 @@
+{
+  "id": "U476fdd152fd659340c317d8ca5dda1db",
+  "name": "Vaeavaea",
+  "state": "inactive",
+  "groupId": "",
+  "points": 2,
+  "villagerStats": {
+    "win": 0,
+    "lose": 2
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

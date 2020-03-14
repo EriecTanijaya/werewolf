@@ -1,0 +1,31 @@
+{
+  "id": "U10160701bd41e83dfc215752e792a0f3",
+  "name": "verent",
+  "state": "inactive",
+  "groupId": "C1ca5797c53dbadb7cf9b28bd1bd4dca3",
+  "points": 10,
+  "villagerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "werewolfStats": {
+    "win": 2,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

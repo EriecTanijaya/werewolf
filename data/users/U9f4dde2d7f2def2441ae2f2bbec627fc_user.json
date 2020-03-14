@@ -1,0 +1,31 @@
+{
+  "id": "U9f4dde2d7f2def2441ae2f2bbec627fc",
+  "name": "GUDEL FOR GDL❤️",
+  "state": "inactive",
+  "groupId": "C52204ea93cff514887cb0c3108273ba3",
+  "points": 40,
+  "villagerStats": {
+    "win": 8,
+    "lose": 0
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

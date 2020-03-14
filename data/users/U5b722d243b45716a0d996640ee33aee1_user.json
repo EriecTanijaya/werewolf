@@ -1,0 +1,31 @@
+{
+  "id": "U5b722d243b45716a0d996640ee33aee1",
+  "name": "`f̶̶s̶Yerina𖤝ཧ",
+  "state": "inactive",
+  "groupId": "C9345a00c6362d5e2c2bf742658f43f0c",
+  "points": 2,
+  "villagerStats": {
+    "win": 0,
+    "lose": 2
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

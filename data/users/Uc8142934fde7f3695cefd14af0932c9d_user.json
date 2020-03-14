@@ -1,0 +1,31 @@
+{
+  "id": "Uc8142934fde7f3695cefd14af0932c9d",
+  "name": "Dony Herryawan",
+  "state": "inactive",
+  "groupId": "",
+  "points": 7,
+  "villagerStats": {
+    "win": 1,
+    "lose": 0
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 2
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

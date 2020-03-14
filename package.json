@@ -1,27 +1,28 @@
 {
-  "//1": "describes your app and its dependencies",
-  "//2": "https://docs.npmjs.com/files/package.json",
-  "//3": "updating this file will download and update your packages",
-  "name": "hello-express",
-  "version": "0.0.1",
-  "description": "A simple Node app built on Express, instantly up and running.",
+  "name": "Werewolf-Basic",
+  "version": "0.9.2",
+  "description": "Bot Werewolf untuk line messenger",
   "main": "server.js",
   "scripts": {
+    "/// redis mode-on": "ini kalau mau pake redis",
+    "// start": "/app/bin/redis-server /app/redis.conf & node server.js",
     "start": "node server.js"
   },
   "dependencies": {
+    "@line/bot-sdk": "^6.8.4",
     "express": "^4.17.1"
   },
   "engines": {
     "node": "12.x"
   },
   "repository": {
-    "url": "https://glitch.com/edit/#!/hello-express"
+    "url": "https://github.com/EriecTanijaya/werewolf/"
   },
   "license": "MIT",
   "keywords": [
-    "node",
-    "glitch",
-    "express"
+    "werewolf",
+    "line",
+    "chatbot",
+    "messenger"
   ]
 }

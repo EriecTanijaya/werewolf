@@ -1,0 +1,31 @@
+{
+  "id": "U97e1028a277cb2838151e2b2a9ae3215",
+  "name": "jolgos sasike",
+  "state": "inactive",
+  "groupId": "C335485977cc784cc58f59f78cf3189e4",
+  "points": 14,
+  "villagerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 14
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

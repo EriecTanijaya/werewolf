@@ -1,0 +1,31 @@
+{
+  "id": "U51232368dd5b869875d0127a0e3924b9",
+  "name": "Erzakiel͜͡ℭ",
+  "state": "inactive",
+  "groupId": "Cb49f5d5567b26734be7f5e9c14b2060b",
+  "points": 16,
+  "villagerStats": {
+    "win": 2,
+    "lose": 1
+  },
+  "werewolfStats": {
+    "win": 1,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

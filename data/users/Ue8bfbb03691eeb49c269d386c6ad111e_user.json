@@ -1,0 +1,31 @@
+{
+  "id": "Ue8bfbb03691eeb49c269d386c6ad111e",
+  "name": "joergen",
+  "state": "inactive",
+  "groupId": "",
+  "points": 37,
+  "villagerStats": {
+    "win": 6,
+    "lose": 1
+  },
+  "werewolfStats": {
+    "win": 1,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 1
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

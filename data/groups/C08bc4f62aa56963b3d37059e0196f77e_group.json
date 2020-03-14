@@ -1,0 +1,378 @@
+{
+  "groupId": "C08bc4f62aa56963b3d37059e0196f77e",
+  "state": "idle",
+  "status": "inactive",
+  "players": [
+    {
+      "id": "U370fcdf2cc0b80228a440282172238b7",
+      "name": "𝓝𝓪𝓭𝓲𝓷𝓮",
+      "state": "active",
+      "groupId": "C08bc4f62aa56963b3d37059e0196f77e",
+      "points": 0,
+      "villagerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "werewolfStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "villager",
+        "description": "🧑‍🌾 Kamu berada di pihak warga. Kamu suka curigaan",
+        "team": "",
+        "canKill": false
+      },
+      "status": "alive",
+      "message": "",
+      "attacked": false,
+      "healed": false,
+      "targetIndex": -1,
+      "targetVoteIndex": -1,
+      "afkCounter": 0,
+      "visitors": [],
+      "blocked": false,
+      "attackers": [],
+      "intercepted": false,
+      "journals": [],
+      "deathNote": "",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false
+    },
+    {
+      "id": "U17924ff9382389801eb498911377da7c",
+      "name": "argi",
+      "state": "active",
+      "groupId": "C08bc4f62aa56963b3d37059e0196f77e",
+      "points": 0,
+      "villagerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "werewolfStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "villager",
+        "description": "🧑‍🌾 Kamu berada di pihak warga. Kamu suka curigaan",
+        "team": "",
+        "canKill": false
+      },
+      "status": "alive",
+      "message": "",
+      "attacked": false,
+      "healed": false,
+      "targetIndex": -1,
+      "targetVoteIndex": -1,
+      "afkCounter": 0,
+      "visitors": [],
+      "blocked": false,
+      "attackers": [],
+      "intercepted": false,
+      "journals": [],
+      "deathNote": "",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false
+    },
+    {
+      "id": "U11f21b9ad4c0e7ba6523fe39876a7678",
+      "name": "AnisaR",
+      "state": "active",
+      "groupId": "C08bc4f62aa56963b3d37059e0196f77e",
+      "points": 0,
+      "villagerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "werewolfStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "villager",
+        "description": "🧑‍🌾 Kamu berada di pihak warga. Kamu suka curigaan",
+        "team": "",
+        "canKill": false
+      },
+      "status": "alive",
+      "message": "",
+      "attacked": false,
+      "healed": false,
+      "targetIndex": -1,
+      "targetVoteIndex": -1,
+      "afkCounter": 0,
+      "visitors": [],
+      "blocked": false,
+      "attackers": [],
+      "intercepted": false,
+      "journals": [],
+      "deathNote": "",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false
+    },
+    {
+      "id": "Ua1a97657916c939be2d06201a33a2dfa",
+      "name": "Lene",
+      "state": "active",
+      "groupId": "C08bc4f62aa56963b3d37059e0196f77e",
+      "points": 0,
+      "villagerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "werewolfStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "villager",
+        "description": "🧑‍🌾 Kamu berada di pihak warga. Kamu suka curigaan",
+        "team": "",
+        "canKill": false
+      },
+      "status": "alive",
+      "message": "",
+      "attacked": false,
+      "healed": false,
+      "targetIndex": -1,
+      "targetVoteIndex": -1,
+      "afkCounter": 0,
+      "visitors": [],
+      "blocked": false,
+      "attackers": [],
+      "intercepted": false,
+      "journals": [],
+      "deathNote": "",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false
+    },
+    {
+      "id": "Uc60e763383e306420918a591ac1941d4",
+      "name": "nurfalisaaa",
+      "state": "active",
+      "groupId": "C08bc4f62aa56963b3d37059e0196f77e",
+      "points": 0,
+      "villagerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "werewolfStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "villager",
+        "description": "🧑‍🌾 Kamu berada di pihak warga. Kamu suka curigaan",
+        "team": "",
+        "canKill": false
+      },
+      "status": "alive",
+      "message": "",
+      "attacked": false,
+      "healed": false,
+      "targetIndex": -1,
+      "targetVoteIndex": -1,
+      "afkCounter": 0,
+      "visitors": [],
+      "blocked": false,
+      "attackers": [],
+      "intercepted": false,
+      "journals": [],
+      "deathNote": "",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false
+    },
+    {
+      "id": "U941a7eea31e5f84c1d21bb1e5085e166",
+      "name": "MEMEK SLAYER",
+      "state": "active",
+      "groupId": "C08bc4f62aa56963b3d37059e0196f77e",
+      "points": 0,
+      "villagerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "werewolfStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "villager",
+        "description": "🧑‍🌾 Kamu berada di pihak warga. Kamu suka curigaan",
+        "team": "",
+        "canKill": false
+      },
+      "status": "alive",
+      "message": "",
+      "attacked": false,
+      "healed": false,
+      "targetIndex": -1,
+      "targetVoteIndex": -1,
+      "afkCounter": 0,
+      "visitors": [],
+      "blocked": false,
+      "attackers": [],
+      "intercepted": false,
+      "journals": [],
+      "deathNote": "",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false
+    },
+    {
+      "id": "U8bfbfdd3d05dcc01c2ca264cdb1c5222",
+      "name": "Syahla Aryza",
+      "state": "active",
+      "groupId": "C08bc4f62aa56963b3d37059e0196f77e",
+      "points": 0,
+      "villagerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "werewolfStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "villager",
+        "description": "🧑‍🌾 Kamu berada di pihak warga. Kamu suka curigaan",
+        "team": "",
+        "canKill": false
+      },
+      "status": "alive",
+      "message": "",
+      "attacked": false,
+      "healed": false,
+      "targetIndex": -1,
+      "targetVoteIndex": -1,
+      "afkCounter": 0,
+      "visitors": [],
+      "blocked": false,
+      "attackers": [],
+      "intercepted": false,
+      "journals": [],
+      "deathNote": "",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false
+    }
+  ]
+}

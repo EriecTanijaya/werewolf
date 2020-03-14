@@ -1,0 +1,378 @@
+{
+  "groupId": "Cdd533e6b8c95acb7edc24374ea0180b8",
+  "state": "idle",
+  "status": "active",
+  "players": [
+    {
+      "id": "U52b943bf95cf30b7b9cfb1e8ef2d36b2",
+      "name": "mas aidil",
+      "state": "active",
+      "groupId": "Cdd533e6b8c95acb7edc24374ea0180b8",
+      "points": 1,
+      "villagerStats": {
+        "win": 0,
+        "lose": 1
+      },
+      "werewolfStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "doctor",
+        "team": "villager",
+        "description": "💉 Kamu adalah warga yang bisa menyembuhkan suatu orang pada malam hari, mana tau orang lain butuh bantuan.",
+        "canKill": false,
+        "cmdText": "/skill",
+        "selfHeal": 1
+      },
+      "status": "death",
+      "message": "⚰️ Kamu berhasil dibangkitkan Retributionist!\n\n💡 Kamu tidak menggunakan skill mu\n\n",
+      "attacked": false,
+      "healed": false,
+      "targetIndex": -1,
+      "targetVoteIndex": "1",
+      "afkCounter": 0,
+      "visitors": [],
+      "blocked": false,
+      "attackers": [],
+      "intercepted": false,
+      "journals": [
+        {
+          "nightCounter": 2,
+          "content": "⚰️ Kamu berhasil dibangkitkan Retributionist!\n\n💡 Kamu tidak menggunakan skill mu"
+        }
+      ],
+      "deathNote": "",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false,
+      "target": {
+        "index": -1,
+        "value": 1
+      },
+      "vampireBited": false,
+      "addonMessage": ""
+    },
+    {
+      "id": "U5197265c0972886113acc02d32ceb989",
+      "name": "Aneendita",
+      "state": "active",
+      "groupId": "Cdd533e6b8c95acb7edc24374ea0180b8",
+      "points": 1,
+      "villagerStats": {
+        "win": 0,
+        "lose": 1
+      },
+      "werewolfStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "retributionist",
+        "team": "villager",
+        "description": "⚰️ Kamu adalah warga yang bisa membangkitkan orang yang telah mati. ",
+        "canKill": false,
+        "cmdText": "/skill",
+        "revive": 0
+      },
+      "status": "alive",
+      "message": "💡 Kamu tidak menggunakan skill mu\n\n",
+      "attacked": false,
+      "healed": false,
+      "targetIndex": -1,
+      "targetVoteIndex": -1,
+      "afkCounter": 1,
+      "visitors": [],
+      "blocked": false,
+      "attackers": [],
+      "intercepted": false,
+      "journals": [
+        {
+          "nightCounter": 1,
+          "content": "💡 Kamu tidak menggunakan skill mu"
+        },
+        {
+          "nightCounter": 2,
+          "content": "👣 Kamu ke rumah mas aidil\n\n⚰️ Kamu berhasil membangkitkan mas aidil (doctor)"
+        },
+        {
+          "nightCounter": 3,
+          "content": "💡 Kamu tidak menggunakan skill mu"
+        }
+      ],
+      "deathNote": "",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false,
+      "target": {
+        "index": -1,
+        "value": 1
+      },
+      "vampireBited": false,
+      "addonMessage": ""
+    },
+    {
+      "id": "U8785db9563832a71093a06e0f9aeaf00",
+      "name": "veilish bern",
+      "state": "active",
+      "groupId": "Cdd533e6b8c95acb7edc24374ea0180b8",
+      "points": 1,
+      "villagerStats": {
+        "win": 0,
+        "lose": 1
+      },
+      "werewolfStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "seer",
+        "team": "villager",
+        "description": "🔮 Kamu adalah warga yang bisa cek identitas sebenarnya dari suatu orang. Gantung Werewolf supaya kamu menang",
+        "canKill": false,
+        "cmdText": "/skill"
+      },
+      "status": "death",
+      "message": "👣 Kamu ke rumah mas aidil\n\n🔮 Role mas aidil adalah doctor\n\nKamu bisa cek info role dengan ketik '/info doctor'\n\n",
+      "attacked": false,
+      "healed": false,
+      "targetIndex": -1,
+      "targetVoteIndex": "1",
+      "afkCounter": 0,
+      "visitors": [],
+      "blocked": false,
+      "attackers": [],
+      "intercepted": false,
+      "journals": [
+        {
+          "nightCounter": 1,
+          "content": "👣 Kamu ke rumah mas aidil\n\n🔮 Role mas aidil adalah doctor\n\nKamu bisa cek info role dengan ketik '/info doctor'"
+        }
+      ],
+      "deathNote": "",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false,
+      "target": {
+        "index": "0",
+        "value": 1
+      },
+      "vampireBited": false,
+      "addonMessage": ""
+    },
+    {
+      "id": "U804542da4fbac08cdfd994de0eba742f",
+      "name": "! byzel",
+      "state": "active",
+      "groupId": "Cdd533e6b8c95acb7edc24374ea0180b8",
+      "points": 5,
+      "villagerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "werewolfStats": {
+        "win": 1,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "werewolf",
+        "team": "werewolf",
+        "description": "🐺 Kamu adalah penjahat yang menyamar diantara werewolf. Kamu kebal dari serangan biasa. ",
+        "canKill": true,
+        "cmdText": "/skill"
+      },
+      "status": "alive",
+      "message": "👣 Kamu ke rumah ijut kamu gapapa ?\n\n💡 Kamu menyerang ijut kamu gapapa ?\n\n🐺 Target Werewolf adalah : ijut kamu gapapa ?\n\n👣 ! byzel mengunjungi rumah ijut kamu gapapa ?\n\n",
+      "attacked": false,
+      "healed": false,
+      "targetIndex": -1,
+      "targetVoteIndex": -1,
+      "afkCounter": 0,
+      "visitors": [],
+      "blocked": false,
+      "attackers": [],
+      "intercepted": false,
+      "journals": [
+        {
+          "nightCounter": 1,
+          "content": "👣 Kamu ke rumah mas aidil\n\n💡 Kamu menyerang mas aidil\n\n🐺 Target Werewolf adalah : mas aidil\n\n👣 ! byzel mengunjungi rumah mas aidil"
+        },
+        {
+          "nightCounter": 2,
+          "content": "💡 Kamu tidak menggunakan skill mu"
+        },
+        {
+          "nightCounter": 3,
+          "content": "👣 Kamu ke rumah ijut kamu gapapa ?\n\n💡 Kamu menyerang ijut kamu gapapa ?\n\n🐺 Target Werewolf adalah : ijut kamu gapapa ?\n\n👣 ! byzel mengunjungi rumah ijut kamu gapapa ?"
+        }
+      ],
+      "deathNote": "mas aidil",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false,
+      "target": {
+        "index": "4",
+        "value": 2
+      },
+      "vampireBited": false,
+      "addonMessage": ""
+    },
+    {
+      "id": "Ua2f78d91adf1906626ad6b0b3bea19eb",
+      "name": "ijut kamu gapapa ?",
+      "state": "active",
+      "groupId": "Cdd533e6b8c95acb7edc24374ea0180b8",
+      "points": 1,
+      "villagerStats": {
+        "win": 0,
+        "lose": 1
+      },
+      "werewolfStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "lookout",
+        "team": "villager",
+        "description": "👀 Kamu adalah warga yang bisa memantau rumah seseorang pas malam, sehingga bisa mengetahui siapa pendatangnya",
+        "canKill": false,
+        "cmdText": "/skill"
+      },
+      "status": "death",
+      "message": "🐺 Kamu diserang werewolf!\n\n",
+      "attacked": true,
+      "healed": false,
+      "targetIndex": -1,
+      "targetVoteIndex": -1,
+      "afkCounter": 1,
+      "visitors": [
+        {
+          "name": "! byzel",
+          "role": {
+            "name": "werewolf",
+            "team": "werewolf",
+            "description": "🐺 Kamu adalah penjahat yang menyamar diantara werewolf. Kamu kebal dari serangan biasa. ",
+            "canKill": true,
+            "cmdText": "/skill"
+          }
+        }
+      ],
+      "blocked": false,
+      "attackers": [
+        {
+          "index": 3,
+          "name": "! byzel",
+          "role": {
+            "name": "werewolf",
+            "team": "werewolf",
+            "description": "🐺 Kamu adalah penjahat yang menyamar diantara werewolf. Kamu kebal dari serangan biasa. ",
+            "canKill": true,
+            "cmdText": "/skill"
+          },
+          "deathNote": "mas aidil"
+        }
+      ],
+      "intercepted": false,
+      "journals": [
+        {
+          "nightCounter": 1,
+          "content": "👣 Kamu ke rumah mas aidil\n\n👀 Rumah mas aidil dikunjungi ! byzel, veilish bern semalam"
+        },
+        {
+          "nightCounter": 2,
+          "content": "👣 Kamu ke rumah ! byzel\n\n👀 Rumah ! byzel tidak didatangi siapa siapa"
+        }
+      ],
+      "deathNote": "",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false,
+      "target": {
+        "index": -1,
+        "value": 1
+      },
+      "vampireBited": false,
+      "addonMessage": ""
+    }
+  ]
+}

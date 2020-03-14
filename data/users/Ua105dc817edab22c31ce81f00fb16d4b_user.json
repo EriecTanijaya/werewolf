@@ -1,0 +1,31 @@
+{
+  "id": "Ua105dc817edab22c31ce81f00fb16d4b",
+  "name": "☠ཽ͓Riko pakboi, pdg✗",
+  "state": "inactive",
+  "groupId": "",
+  "points": 7,
+  "villagerStats": {
+    "win": 1,
+    "lose": 1
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 1
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

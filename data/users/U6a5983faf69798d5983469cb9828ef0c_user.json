@@ -1,0 +1,31 @@
+{
+  "id": "U6a5983faf69798d5983469cb9828ef0c",
+  "name": "Arim.",
+  "state": "inactive",
+  "groupId": "Cfd317e88f21b6cf29d90d3ea4ed84d14",
+  "points": 12,
+  "villagerStats": {
+    "win": 2,
+    "lose": 2
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

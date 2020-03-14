@@ -1,0 +1,430 @@
+{
+  "groupId": "C9369810b59230eecedd7635541a0fbf2",
+  "state": "idle",
+  "status": "inactive",
+  "players": [
+    {
+      "id": "U7093d1b14262f1b54f0f6ea1bac6c911",
+      "name": "Raj Malhotra",
+      "state": "active",
+      "groupId": "C9369810b59230eecedd7635541a0fbf2",
+      "points": 0,
+      "villagerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "werewolfStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "doctor",
+        "team": "villager",
+        "description": "💉 Kamu adalah warga yang bisa menyembuhkan suatu orang pada malam hari, mana tau orang lain butuh bantuan.",
+        "canKill": false,
+        "cmdText": "/skill",
+        "selfHeal": 0
+      },
+      "status": "alive",
+      "message": "",
+      "attacked": false,
+      "healed": false,
+      "targetIndex": -1,
+      "targetVoteIndex": -1,
+      "afkCounter": 0,
+      "visitors": [],
+      "blocked": false,
+      "attackers": [],
+      "intercepted": false,
+      "journals": [
+        {
+          "nightCounter": 1,
+          "content": "🏠 Kamu memilih diam di rumah dan jaga-jaga\n\n🐺 Kamu diserang werewolf!\n\n💉 Ada yang datang berusaha menyelamatkanmu!\n\n💡 Raj Malhotra diserang semalam!"
+        },
+        {
+          "nightCounter": 2,
+          "content": "👣 Kamu ke rumah Rani,"
+        }
+      ],
+      "deathNote": "",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false,
+      "target": {
+        "index": "5",
+        "value": 1
+      },
+      "vampireBited": false,
+      "addonMessage": ""
+    },
+    {
+      "id": "U11bfc7113f0dc3cdeab66c99376467d0",
+      "name": "Mas Dalfa",
+      "state": "active",
+      "groupId": "C9369810b59230eecedd7635541a0fbf2",
+      "points": 0,
+      "villagerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "werewolfStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "werewolf-cub",
+        "team": "werewolf",
+        "description": "🐕 Kamu dipihak werewolf, dan kamu suruhan Werewolf untuk membunuh orang lain. ",
+        "canKill": true,
+        "cmdText": "/skill"
+      },
+      "status": "death",
+      "message": "👣 Kamu disuruh ke rumah Raj Malhotra\n\n💡 Kamu menyerang Raj Malhotra\n\n🐺 Target Werewolf adalah : Raj Malhotra\n\n👣 Mas Dalfa mengunjungi rumah Raj Malhotra\n\n💡 Kamu tidak menggunakan skill mu\n\n",
+      "attacked": false,
+      "healed": false,
+      "targetIndex": -1,
+      "targetVoteIndex": "5",
+      "afkCounter": 0,
+      "visitors": [
+        {
+          "name": "Rani,",
+          "role": {
+            "name": "sheriff",
+            "team": "villager",
+            "description": "👮 Kamu adalah warga yang bisa cek suatu warga mencurigakan atau tidak. ",
+            "canKill": false,
+            "cmdText": "/skill"
+          }
+        }
+      ],
+      "blocked": false,
+      "attackers": [],
+      "intercepted": false,
+      "journals": [
+        {
+          "nightCounter": 1,
+          "content": "👣 Kamu disuruh ke rumah Raj Malhotra\n\n💡 Kamu menyerang Raj Malhotra\n\n🐺 Target Werewolf adalah : Raj Malhotra\n\n👣 Mas Dalfa mengunjungi rumah Raj Malhotra"
+        }
+      ],
+      "deathNote": "",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false,
+      "target": {
+        "index": "0",
+        "value": 1
+      },
+      "vampireBited": false,
+      "addonMessage": ""
+    },
+    {
+      "id": "U1dc200ea5b2960d1a8bc6b35e9e2bb75",
+      "name": "ᘔdek ira🐣",
+      "state": "active",
+      "groupId": "C9369810b59230eecedd7635541a0fbf2",
+      "points": 0,
+      "villagerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "werewolfStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "lookout",
+        "team": "villager",
+        "description": "👀 Kamu adalah warga yang bisa memantau rumah seseorang pas malam, sehingga bisa mengetahui siapa pendatangnya",
+        "canKill": false,
+        "cmdText": "/skill"
+      },
+      "status": "alive",
+      "message": "",
+      "attacked": false,
+      "healed": false,
+      "targetIndex": -1,
+      "targetVoteIndex": -1,
+      "afkCounter": 0,
+      "visitors": [],
+      "blocked": false,
+      "attackers": [],
+      "intercepted": false,
+      "journals": [
+        {
+          "nightCounter": 1,
+          "content": "👣 Kamu ke rumah Raj Malhotra\n\n👀 Rumah Raj Malhotra dikunjungi Mas Dalfa semalam"
+        },
+        {
+          "nightCounter": 2,
+          "content": "👣 Kamu ke rumah Rani,\n\n👀 Rumah Rani, dikunjungi Raj Malhotra semalam"
+        }
+      ],
+      "deathNote": "",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false,
+      "target": {
+        "index": -1,
+        "value": 1
+      },
+      "vampireBited": false,
+      "addonMessage": ""
+    },
+    {
+      "id": "Ue277c6f09fbecdb83c42e609bfe306de",
+      "name": "Jevin",
+      "state": "active",
+      "groupId": "C9369810b59230eecedd7635541a0fbf2",
+      "points": 0,
+      "villagerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "werewolfStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "retributionist",
+        "team": "villager",
+        "description": "⚰️ Kamu adalah warga yang bisa membangkitkan orang yang telah mati. ",
+        "canKill": false,
+        "cmdText": "/skill",
+        "revive": 1
+      },
+      "status": "alive",
+      "message": "",
+      "attacked": false,
+      "healed": false,
+      "targetIndex": -1,
+      "targetVoteIndex": -1,
+      "afkCounter": 4,
+      "visitors": [],
+      "blocked": false,
+      "attackers": [],
+      "intercepted": false,
+      "journals": [
+        {
+          "nightCounter": 1,
+          "content": "💡 Kamu tidak menggunakan skill mu"
+        },
+        {
+          "nightCounter": 2,
+          "content": "💡 Kamu tidak menggunakan skill mu"
+        }
+      ],
+      "deathNote": "",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false,
+      "target": {
+        "index": -1,
+        "value": 1
+      },
+      "vampireBited": false,
+      "addonMessage": ""
+    },
+    {
+      "id": "U1091f9ee7d4297c299323e916b1eebe7",
+      "name": "JOANDRA",
+      "state": "active",
+      "groupId": "C9369810b59230eecedd7635541a0fbf2",
+      "points": 0,
+      "villagerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "werewolfStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "werewolf",
+        "team": "werewolf",
+        "description": "🐺 Kamu adalah penjahat yang menyamar diantara werewolf. Kamu kebal dari serangan biasa. ",
+        "canKill": true,
+        "cmdText": "/skill"
+      },
+      "status": "alive",
+      "message": "",
+      "attacked": false,
+      "healed": false,
+      "targetIndex": -1,
+      "targetVoteIndex": -1,
+      "afkCounter": 4,
+      "visitors": [],
+      "blocked": false,
+      "attackers": [],
+      "intercepted": false,
+      "journals": [
+        {
+          "nightCounter": 1,
+          "content": "🐺 Target Werewolf adalah : Raj Malhotra\n\n👣 Mas Dalfa mengunjungi rumah Raj Malhotra"
+        },
+        {
+          "nightCounter": 2,
+          "content": "💡 Kamu tidak menggunakan skill mu"
+        }
+      ],
+      "deathNote": "",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false,
+      "target": {
+        "index": -1,
+        "value": 1
+      },
+      "vampireBited": false,
+      "addonMessage": ""
+    },
+    {
+      "id": "U2fe696277ae9911c15ad94e661b04983",
+      "name": "Rani,",
+      "state": "active",
+      "groupId": "C9369810b59230eecedd7635541a0fbf2",
+      "points": 0,
+      "villagerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "werewolfStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "sheriff",
+        "team": "villager",
+        "description": "👮 Kamu adalah warga yang bisa cek suatu warga mencurigakan atau tidak. ",
+        "canKill": false,
+        "cmdText": "/skill"
+      },
+      "status": "alive",
+      "message": "",
+      "attacked": false,
+      "healed": false,
+      "targetIndex": -1,
+      "targetVoteIndex": -1,
+      "afkCounter": 0,
+      "visitors": [],
+      "blocked": false,
+      "attackers": [],
+      "intercepted": false,
+      "journals": [
+        {
+          "nightCounter": 1,
+          "content": "👣 Kamu ke rumah Mas Dalfa\n\n👮 Mas Dalfa mencurigakan"
+        },
+        {
+          "nightCounter": 2,
+          "content": "👣 Kamu ke rumah Jevin\n\n👮 Kamu tidak menemukan bukti kesalahan target. Tampaknya Jevin tidak bersalah"
+        }
+      ],
+      "deathNote": "",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false,
+      "target": {
+        "index": -1,
+        "value": 1
+      },
+      "vampireBited": false,
+      "addonMessage": ""
+    }
+  ]
+}

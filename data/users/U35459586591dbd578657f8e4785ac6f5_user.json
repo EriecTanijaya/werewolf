@@ -1,0 +1,31 @@
+{
+  "id": "U35459586591dbd578657f8e4785ac6f5",
+  "name": "ꎇⷯCici gomiyexzonkᴶᵀ",
+  "state": "inactive",
+  "groupId": "",
+  "points": 7,
+  "villagerStats": {
+    "win": 1,
+    "lose": 2
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

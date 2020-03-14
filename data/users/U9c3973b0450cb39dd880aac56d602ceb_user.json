@@ -1,0 +1,31 @@
+{
+  "id": "U9c3973b0450cb39dd880aac56d602ceb",
+  "name": "Bangkit Adibrata V.2",
+  "state": "inactive",
+  "groupId": "",
+  "points": 5,
+  "villagerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 1,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "id": "U1b70b652a6eb4d98a79665a41de4f59c",
+  "name": "del",
+  "state": "inactive",
+  "groupId": "Cf67a81638670140090c444db9d8ca772",
+  "points": 14,
+  "villagerStats": {
+    "win": 0,
+    "lose": 14
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

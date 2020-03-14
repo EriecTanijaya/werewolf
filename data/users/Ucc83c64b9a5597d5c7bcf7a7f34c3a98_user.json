@@ -1,0 +1,31 @@
+{
+  "id": "Ucc83c64b9a5597d5c7bcf7a7f34c3a98",
+  "name": "joyko,",
+  "state": "inactive",
+  "groupId": "Ced254ccf4cca2b88d346a618a8f4b9ab",
+  "points": 7,
+  "villagerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 1,
+    "lose": 2
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

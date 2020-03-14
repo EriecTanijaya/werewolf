@@ -1,0 +1,31 @@
+{
+  "id": "U8d459b4e3ea3f93981d8135b35c7d4c9",
+  "name": "Ecan",
+  "state": "inactive",
+  "groupId": "C7dcba45ed5730d35d5374b7c1596fd30",
+  "points": 24,
+  "villagerStats": {
+    "win": 3,
+    "lose": 3
+  },
+  "werewolfStats": {
+    "win": 1,
+    "lose": 1
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "id": "U98abc3805e18fa743c83bf4f9bed8295",
+  "name": "Mina",
+  "state": "inactive",
+  "groupId": "Cede5fc215776e13301c26f4346b4cee2",
+  "points": 12,
+  "villagerStats": {
+    "win": 0,
+    "lose": 1
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 11
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

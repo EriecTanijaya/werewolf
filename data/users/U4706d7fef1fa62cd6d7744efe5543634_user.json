@@ -1,0 +1,31 @@
+{
+  "id": "U4706d7fef1fa62cd6d7744efe5543634",
+  "name": "ex Mikail mgntr",
+  "state": "inactive",
+  "groupId": "",
+  "points": 2,
+  "villagerStats": {
+    "win": 0,
+    "lose": 2
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

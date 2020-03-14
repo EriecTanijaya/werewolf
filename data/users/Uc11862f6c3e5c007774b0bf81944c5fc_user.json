@@ -1,0 +1,31 @@
+{
+  "id": "Uc11862f6c3e5c007774b0bf81944c5fc",
+  "name": "£lAraᴸᴳᴺᴰ`f̶̶s̶gᵤₘ",
+  "state": "inactive",
+  "groupId": "",
+  "points": 1,
+  "villagerStats": {
+    "win": 0,
+    "lose": 1
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

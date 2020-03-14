@@ -1,0 +1,31 @@
+{
+  "id": "U3b0922331745dce28c23b0c07fb3a324",
+  "name": "ˢᴬᴮᴱᴿ'Laito'smith⅌",
+  "state": "inactive",
+  "groupId": "",
+  "points": 6,
+  "villagerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 6
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "id": "Ud1706053b44395e7eab1c083021fc510",
+  "name": "ezra",
+  "state": "inactive",
+  "groupId": "C7f8fdf83185696486149132f35754d79",
+  "points": 61,
+  "villagerStats": {
+    "win": 11,
+    "lose": 1
+  },
+  "werewolfStats": {
+    "win": 1,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

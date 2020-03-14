@@ -1,0 +1,31 @@
+{
+  "id": "U83a25cb71a45dee3d142df72110f71ab",
+  "name": "Sherly",
+  "state": "inactive",
+  "groupId": "",
+  "points": 1,
+  "villagerStats": {
+    "win": 0,
+    "lose": 1
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

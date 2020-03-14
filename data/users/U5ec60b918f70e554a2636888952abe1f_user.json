@@ -1,0 +1,31 @@
+{
+  "id": "U5ec60b918f70e554a2636888952abe1f",
+  "name": "Radit",
+  "state": "inactive",
+  "groupId": "C730ffe901d4f3ef35d1475ccb0ff91bf",
+  "points": 18,
+  "villagerStats": {
+    "win": 0,
+    "lose": 18
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

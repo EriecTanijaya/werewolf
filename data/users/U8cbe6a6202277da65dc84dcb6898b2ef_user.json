@@ -1,0 +1,31 @@
+{
+  "id": "U8cbe6a6202277da65dc84dcb6898b2ef",
+  "name": "alterio mst 👽",
+  "state": "inactive",
+  "groupId": "C63e4e639f7d0708f3d4d3402ce0157da",
+  "points": 80,
+  "villagerStats": {
+    "win": 15,
+    "lose": 0
+  },
+  "werewolfStats": {
+    "win": 1,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

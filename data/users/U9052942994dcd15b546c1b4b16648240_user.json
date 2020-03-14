@@ -1,0 +1,31 @@
+{
+  "id": "U9052942994dcd15b546c1b4b16648240",
+  "name": "Zaaaa",
+  "state": "inactive",
+  "groupId": "C9ce1bdcec6f485bd9ca91146cdc392e7",
+  "points": 60,
+  "villagerStats": {
+    "win": 6,
+    "lose": 19
+  },
+  "werewolfStats": {
+    "win": 2,
+    "lose": 1
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

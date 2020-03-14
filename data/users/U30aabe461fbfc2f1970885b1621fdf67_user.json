@@ -1,0 +1,31 @@
+{
+  "id": "U30aabe461fbfc2f1970885b1621fdf67",
+  "name": "distra",
+  "state": "inactive",
+  "groupId": "C854651423f5e6e523fd36a3a0fd90f34",
+  "points": 10,
+  "villagerStats": {
+    "win": 0,
+    "lose": 10
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

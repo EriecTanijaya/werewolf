@@ -1,0 +1,31 @@
+{
+  "id": "Ue3c8a6c7bbc8b639caa3a8aafcc5c7ee",
+  "name": "jee",
+  "state": "inactive",
+  "groupId": "",
+  "points": 54,
+  "villagerStats": {
+    "win": 8,
+    "lose": 3
+  },
+  "werewolfStats": {
+    "win": 1,
+    "lose": 1
+  },
+  "vampireStats": {
+    "win": 1,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

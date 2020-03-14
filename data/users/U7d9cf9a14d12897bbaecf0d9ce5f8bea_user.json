@@ -1,0 +1,31 @@
+{
+  "id": "U7d9cf9a14d12897bbaecf0d9ce5f8bea",
+  "name": "annisa amalia",
+  "state": "inactive",
+  "groupId": "",
+  "points": 5,
+  "villagerStats": {
+    "win": 1,
+    "lose": 0
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

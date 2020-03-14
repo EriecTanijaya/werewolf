@@ -1,0 +1,31 @@
+{
+  "id": "U8cc8afdb4921b7621c2d5cbbcab0dfee",
+  "name": "°™Apa Ya™°",
+  "state": "inactive",
+  "groupId": "C9cb65dfc742f746f234edce13e28e933",
+  "points": 1,
+  "villagerStats": {
+    "win": 0,
+    "lose": 1
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

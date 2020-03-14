@@ -1,0 +1,31 @@
+{
+  "id": "U015c1fa8f95daa1d5cc40351947bc406",
+  "name": "Rental Mobil ਊꎇⷯ",
+  "state": "inactive",
+  "groupId": "",
+  "points": 10,
+  "villagerStats": {
+    "win": 1,
+    "lose": 0
+  },
+  "werewolfStats": {
+    "win": 1,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

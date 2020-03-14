@@ -1,0 +1,398 @@
+{
+  "groupId": "C854651423f5e6e523fd36a3a0fd90f34",
+  "state": "idle",
+  "status": "active",
+  "players": [
+    {
+      "id": "Uf65c3e0c46c6cfd7893977315be994e6",
+      "name": "Anantha apriliana",
+      "state": "active",
+      "groupId": "C854651423f5e6e523fd36a3a0fd90f34",
+      "points": 5,
+      "villagerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "werewolfStats": {
+        "win": 1,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "werewolf",
+        "team": "werewolf",
+        "description": "🐺 Kamu adalah penjahat yang menyamar diantara werewolf. Kamu kebal dari serangan biasa. ",
+        "canKill": true,
+        "cmdText": "/skill"
+      },
+      "status": "alive",
+      "message": "👣 Kamu ke rumah unmood, jorgavin\n\n💡 Kamu menyerang unmood, jorgavin\n\n🐺 Target Werewolf adalah : unmood, jorgavin\n\n👣 Anantha apriliana mengunjungi rumah unmood, jorgavin\n\n",
+      "attacked": false,
+      "healed": false,
+      "targetIndex": -1,
+      "targetVoteIndex": "4",
+      "afkCounter": 0,
+      "visitors": [],
+      "blocked": false,
+      "attackers": [],
+      "intercepted": false,
+      "journals": [
+        {
+          "nightCounter": 1,
+          "content": "👣 Kamu ke rumah Jeylie'Rusie\n\n💡 Kamu menyerang Jeylie'Rusie\n\n🐺 Target Werewolf adalah : Jeylie'Rusie\n\n👣 Anantha apriliana mengunjungi rumah Jeylie'Rusie"
+        },
+        {
+          "nightCounter": 2,
+          "content": "👣 Kamu ke rumah unmood, jorgavin\n\n💡 Kamu menyerang unmood, jorgavin\n\n🐺 Target Werewolf adalah : unmood, jorgavin\n\n👣 Anantha apriliana mengunjungi rumah unmood, jorgavin"
+        }
+      ],
+      "deathNote": "",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false,
+      "target": {
+        "index": "1",
+        "value": 2
+      },
+      "vampireBited": false,
+      "addonMessage": ""
+    },
+    {
+      "id": "Ud4857cb0cdb279da9e020801cd6d89cb",
+      "name": "unmood, jorgavin",
+      "state": "active",
+      "groupId": "C854651423f5e6e523fd36a3a0fd90f34",
+      "points": 1,
+      "villagerStats": {
+        "win": 0,
+        "lose": 1
+      },
+      "werewolfStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "retributionist",
+        "team": "villager",
+        "description": "⚰️ Kamu adalah warga yang bisa membangkitkan orang yang telah mati. ",
+        "canKill": false,
+        "cmdText": "/skill",
+        "revive": 0
+      },
+      "status": "death",
+      "message": "👣 Kamu ke rumah distra\n\n⚰️ Kamu berhasil membangkitkan distra (escort)\n\n🐺 Kamu diserang werewolf!\n\n",
+      "attacked": true,
+      "healed": false,
+      "targetIndex": -1,
+      "targetVoteIndex": -1,
+      "afkCounter": 0,
+      "visitors": [
+        {
+          "name": "Anantha apriliana",
+          "role": {
+            "name": "werewolf",
+            "team": "werewolf",
+            "description": "🐺 Kamu adalah penjahat yang menyamar diantara werewolf. Kamu kebal dari serangan biasa. ",
+            "canKill": true,
+            "cmdText": "/skill"
+          }
+        }
+      ],
+      "blocked": false,
+      "attackers": [
+        {
+          "index": 0,
+          "name": "Anantha apriliana",
+          "role": {
+            "name": "werewolf",
+            "team": "werewolf",
+            "description": "🐺 Kamu adalah penjahat yang menyamar diantara werewolf. Kamu kebal dari serangan biasa. ",
+            "canKill": true,
+            "cmdText": "/skill"
+          },
+          "deathNote": ""
+        }
+      ],
+      "intercepted": false,
+      "journals": [
+        {
+          "nightCounter": 1,
+          "content": "💡 Kamu tidak menggunakan skill mu"
+        }
+      ],
+      "deathNote": "",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false,
+      "target": {
+        "index": "4",
+        "value": 1
+      },
+      "vampireBited": false,
+      "addonMessage": ""
+    },
+    {
+      "id": "U980c210af0d92bac42cf3471c90c16d7",
+      "name": "Jeylie'Rusie",
+      "state": "active",
+      "groupId": "C854651423f5e6e523fd36a3a0fd90f34",
+      "points": 1,
+      "villagerStats": {
+        "win": 0,
+        "lose": 1
+      },
+      "werewolfStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "lookout",
+        "team": "villager",
+        "description": "👀 Kamu adalah warga yang bisa memantau rumah seseorang pas malam, sehingga bisa mengetahui siapa pendatangnya",
+        "canKill": false,
+        "cmdText": "/skill"
+      },
+      "status": "death",
+      "message": "🐺 Kamu diserang werewolf!\n\n",
+      "attacked": true,
+      "healed": false,
+      "targetIndex": -1,
+      "targetVoteIndex": -1,
+      "afkCounter": 0,
+      "visitors": [
+        {
+          "name": "distra",
+          "role": {
+            "name": "escort",
+            "team": "villager",
+            "description": "💋 Kamu adalah warga yang bisa block skill pemain lain, sehingga targetmu tidak dapat menggunakan skill malamnya. Hati hati, kamu bisa block skill sesama warga",
+            "canKill": false,
+            "cmdText": "/skill"
+          }
+        },
+        {
+          "name": "Anantha apriliana",
+          "role": {
+            "name": "werewolf",
+            "team": "werewolf",
+            "description": "🐺 Kamu adalah penjahat yang menyamar diantara werewolf. Kamu kebal dari serangan biasa. ",
+            "canKill": true,
+            "cmdText": "/skill"
+          }
+        }
+      ],
+      "blocked": true,
+      "attackers": [
+        {
+          "index": 0,
+          "name": "Anantha apriliana",
+          "role": {
+            "name": "werewolf",
+            "team": "werewolf",
+            "description": "🐺 Kamu adalah penjahat yang menyamar diantara werewolf. Kamu kebal dari serangan biasa. ",
+            "canKill": true,
+            "cmdText": "/skill"
+          },
+          "deathNote": ""
+        }
+      ],
+      "intercepted": false,
+      "journals": [],
+      "deathNote": "",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false,
+      "target": {
+        "index": "4",
+        "value": 1
+      },
+      "vampireBited": false,
+      "addonMessage": ""
+    },
+    {
+      "id": "Ufef81744c7597028029e5e2a2d4e59c7",
+      "name": "araa",
+      "state": "active",
+      "groupId": "C854651423f5e6e523fd36a3a0fd90f34",
+      "points": 1,
+      "villagerStats": {
+        "win": 0,
+        "lose": 1
+      },
+      "werewolfStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "seer",
+        "team": "villager",
+        "description": "🔮 Kamu adalah warga yang bisa cek identitas sebenarnya dari suatu orang. Gantung Werewolf supaya kamu menang",
+        "canKill": false,
+        "cmdText": "/skill"
+      },
+      "status": "alive",
+      "message": "💡 Kamu tidak menggunakan skill mu\n\n",
+      "attacked": false,
+      "healed": false,
+      "targetIndex": -1,
+      "targetVoteIndex": "4",
+      "afkCounter": 2,
+      "visitors": [],
+      "blocked": false,
+      "attackers": [],
+      "intercepted": false,
+      "journals": [
+        {
+          "nightCounter": 1,
+          "content": "👣 Kamu ke rumah distra\n\n🔮 Role distra adalah escort\n\nKamu bisa cek info role dengan ketik '/info escort'"
+        },
+        {
+          "nightCounter": 2,
+          "content": "💡 Kamu tidak menggunakan skill mu"
+        }
+      ],
+      "deathNote": "",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false,
+      "target": {
+        "index": -1,
+        "value": 1
+      },
+      "vampireBited": false,
+      "addonMessage": ""
+    },
+    {
+      "id": "U30aabe461fbfc2f1970885b1621fdf67",
+      "name": "distra",
+      "state": "active",
+      "groupId": "C854651423f5e6e523fd36a3a0fd90f34",
+      "points": 1,
+      "villagerStats": {
+        "win": 0,
+        "lose": 1
+      },
+      "werewolfStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "escort",
+        "team": "villager",
+        "description": "💋 Kamu adalah warga yang bisa block skill pemain lain, sehingga targetmu tidak dapat menggunakan skill malamnya. Hati hati, kamu bisa block skill sesama warga",
+        "canKill": false,
+        "cmdText": "/skill"
+      },
+      "status": "death",
+      "message": "⚰️ Kamu berhasil dibangkitkan Retributionist!\n\n",
+      "attacked": false,
+      "healed": false,
+      "targetIndex": -1,
+      "targetVoteIndex": "3",
+      "afkCounter": 0,
+      "visitors": [],
+      "blocked": false,
+      "attackers": [],
+      "intercepted": false,
+      "journals": [
+        {
+          "nightCounter": 1,
+          "content": "👣 Kamu ke rumah Jeylie'Rusie"
+        },
+        {
+          "nightCounter": 2,
+          "content": "⚰️ Kamu berhasil dibangkitkan Retributionist!"
+        }
+      ],
+      "deathNote": "",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false,
+      "target": {
+        "index": -1,
+        "value": 1
+      },
+      "vampireBited": false,
+      "addonMessage": ""
+    }
+  ]
+}

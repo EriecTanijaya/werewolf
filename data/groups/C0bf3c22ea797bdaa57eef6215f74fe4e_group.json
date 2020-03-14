@@ -1,0 +1,437 @@
+{
+  "groupId": "C0bf3c22ea797bdaa57eef6215f74fe4e",
+  "state": "idle",
+  "status": "active",
+  "players": [
+    {
+      "id": "U8814b551f0032cc9e0af44343e9d6a0b",
+      "name": "tyaa",
+      "state": "active",
+      "groupId": "C0bf3c22ea797bdaa57eef6215f74fe4e",
+      "points": 5,
+      "villagerStats": {
+        "win": 1,
+        "lose": 0
+      },
+      "werewolfStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "lookout",
+        "team": "villager",
+        "description": "👀 Kamu adalah warga yang bisa memantau rumah seseorang pas malam, sehingga bisa mengetahui siapa pendatangnya",
+        "canKill": false,
+        "cmdText": "/skill"
+      },
+      "status": "alive",
+      "message": "👣 Kamu ke rumah k.Numm\n\n👀 Rumah k.Numm tidak didatangi siapa siapa\n\n",
+      "attacked": false,
+      "healed": false,
+      "targetIndex": -1,
+      "targetVoteIndex": "2",
+      "afkCounter": 0,
+      "visitors": [],
+      "blocked": false,
+      "attackers": [],
+      "intercepted": false,
+      "journals": [
+        {
+          "nightCounter": 1,
+          "content": "💡 Kamu tidak menggunakan skill mu"
+        },
+        {
+          "nightCounter": 2,
+          "content": "👣 Kamu ke rumah Andina\n\n👀 Rumah Andina dikunjungi k.Numm semalam"
+        },
+        {
+          "nightCounter": 3,
+          "content": "👣 Kamu ke rumah k.Numm\n\n👀 Rumah k.Numm tidak didatangi siapa siapa"
+        }
+      ],
+      "deathNote": "",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false,
+      "target": {
+        "index": "2",
+        "value": 1
+      },
+      "vampireBited": false,
+      "addonMessage": ""
+    },
+    {
+      "id": "Uee2a114d8d733d104af35eb86070b515",
+      "name": "Geisya",
+      "state": "active",
+      "groupId": "C0bf3c22ea797bdaa57eef6215f74fe4e",
+      "points": 5,
+      "villagerStats": {
+        "win": 1,
+        "lose": 0
+      },
+      "werewolfStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "retributionist",
+        "team": "villager",
+        "description": "⚰️ Kamu adalah warga yang bisa membangkitkan orang yang telah mati. ",
+        "canKill": false,
+        "cmdText": "/skill",
+        "revive": 1
+      },
+      "status": "alive",
+      "message": "💡 Kamu tidak menggunakan skill mu\n\n",
+      "attacked": false,
+      "healed": false,
+      "targetIndex": -1,
+      "targetVoteIndex": "2",
+      "afkCounter": 1,
+      "visitors": [
+        {
+          "name": "Septi🍃🌈",
+          "role": {
+            "name": "escort",
+            "team": "villager",
+            "description": "💋 Kamu adalah warga yang bisa block skill pemain lain, sehingga targetmu tidak dapat menggunakan skill malamnya. Hati hati, kamu bisa block skill sesama warga",
+            "canKill": false,
+            "cmdText": "/skill"
+          }
+        }
+      ],
+      "blocked": true,
+      "attackers": [],
+      "intercepted": false,
+      "journals": [
+        {
+          "nightCounter": 1,
+          "content": "💡 Kamu tidak menggunakan skill mu"
+        },
+        {
+          "nightCounter": 2,
+          "content": "💡 Kamu tidak menggunakan skill mu"
+        },
+        {
+          "nightCounter": 3,
+          "content": "💡 Kamu tidak menggunakan skill mu"
+        }
+      ],
+      "deathNote": "",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false,
+      "target": {
+        "index": -1,
+        "value": 1
+      },
+      "vampireBited": false,
+      "addonMessage": ""
+    },
+    {
+      "id": "U21caddb4358e5dfff0491eded2d04f0b",
+      "name": "k.Numm",
+      "state": "active",
+      "groupId": "C0bf3c22ea797bdaa57eef6215f74fe4e",
+      "points": 1,
+      "villagerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "werewolfStats": {
+        "win": 0,
+        "lose": 1
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "werewolf",
+        "team": "werewolf",
+        "description": "🐺 Kamu adalah penjahat yang menyamar diantara werewolf. Kamu kebal dari serangan biasa. ",
+        "canKill": true,
+        "cmdText": "/skill"
+      },
+      "status": "death",
+      "message": "👣 Kamu ke rumah Septi🍃🌈\n\n💡 Kamu menyerang Septi🍃🌈\n\n🐺 Target Werewolf adalah : Septi🍃🌈\n\n👣 k.Numm mengunjungi rumah Septi🍃🌈\n\n",
+      "attacked": false,
+      "healed": false,
+      "targetIndex": -1,
+      "targetVoteIndex": "0",
+      "afkCounter": 0,
+      "visitors": [
+        {
+          "name": "tyaa",
+          "role": {
+            "name": "lookout",
+            "team": "villager",
+            "description": "👀 Kamu adalah warga yang bisa memantau rumah seseorang pas malam, sehingga bisa mengetahui siapa pendatangnya",
+            "canKill": false,
+            "cmdText": "/skill"
+          }
+        }
+      ],
+      "blocked": false,
+      "attackers": [],
+      "intercepted": false,
+      "journals": [
+        {
+          "nightCounter": 1,
+          "content": "💡 Kamu tidak menggunakan skill mu"
+        },
+        {
+          "nightCounter": 2,
+          "content": "👣 Kamu ke rumah Andina\n\n💡 Kamu menyerang Andina\n\n🐺 Target Werewolf adalah : Andina\n\n👣 k.Numm mengunjungi rumah Andina"
+        },
+        {
+          "nightCounter": 3,
+          "content": "👣 Kamu ke rumah Septi🍃🌈\n\n💡 Kamu menyerang Septi🍃🌈\n\n🐺 Target Werewolf adalah : Septi🍃🌈\n\n👣 k.Numm mengunjungi rumah Septi🍃🌈"
+        }
+      ],
+      "deathNote": "",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false,
+      "target": {
+        "index": "4",
+        "value": 2
+      },
+      "vampireBited": false,
+      "addonMessage": ""
+    },
+    {
+      "id": "Uea4070f67b8336670c14b49be46c239c",
+      "name": "Andina",
+      "state": "active",
+      "groupId": "C0bf3c22ea797bdaa57eef6215f74fe4e",
+      "points": 5,
+      "villagerStats": {
+        "win": 1,
+        "lose": 0
+      },
+      "werewolfStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "veteran",
+        "team": "villager",
+        "description": "🎖️ Kamu adalah warga yang memiliki paranoia, jika kamu 'alert', maka kamu akan membunuh siapa saja yang kerumahmu. ",
+        "canKill": true,
+        "cmdText": "/alert",
+        "alert": 2
+      },
+      "status": "death",
+      "message": "💡 Kamu tidak menggunakan skill mu\n\n🐺 Kamu diserang werewolf!\n\n",
+      "attacked": true,
+      "healed": false,
+      "targetIndex": -1,
+      "targetVoteIndex": -1,
+      "afkCounter": 1,
+      "visitors": [
+        {
+          "name": "k.Numm",
+          "role": {
+            "name": "werewolf",
+            "team": "werewolf",
+            "description": "🐺 Kamu adalah penjahat yang menyamar diantara werewolf. Kamu kebal dari serangan biasa. ",
+            "canKill": true,
+            "cmdText": "/skill"
+          }
+        },
+        {
+          "name": "tyaa",
+          "role": {
+            "name": "lookout",
+            "team": "villager",
+            "description": "👀 Kamu adalah warga yang bisa memantau rumah seseorang pas malam, sehingga bisa mengetahui siapa pendatangnya",
+            "canKill": false,
+            "cmdText": "/skill"
+          }
+        }
+      ],
+      "blocked": false,
+      "attackers": [
+        {
+          "index": 2,
+          "name": "k.Numm",
+          "role": {
+            "name": "werewolf",
+            "team": "werewolf",
+            "description": "🐺 Kamu adalah penjahat yang menyamar diantara werewolf. Kamu kebal dari serangan biasa. ",
+            "canKill": true,
+            "cmdText": "/skill"
+          },
+          "deathNote": ""
+        }
+      ],
+      "intercepted": false,
+      "journals": [],
+      "deathNote": "gw belum tau siapa yg jd ww",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false,
+      "target": {
+        "index": -1,
+        "value": 1
+      },
+      "vampireBited": false,
+      "addonMessage": ""
+    },
+    {
+      "id": "Ube04746b97a023ac9f6ef3e3161a6bd7",
+      "name": "Septi🍃🌈",
+      "state": "active",
+      "groupId": "C0bf3c22ea797bdaa57eef6215f74fe4e",
+      "points": 5,
+      "villagerStats": {
+        "win": 1,
+        "lose": 0
+      },
+      "werewolfStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "escort",
+        "team": "villager",
+        "description": "💋 Kamu adalah warga yang bisa block skill pemain lain, sehingga targetmu tidak dapat menggunakan skill malamnya. Hati hati, kamu bisa block skill sesama warga",
+        "canKill": false,
+        "cmdText": "/skill"
+      },
+      "status": "death",
+      "message": "👣 Kamu ke rumah Geisya\n\n🐺 Kamu diserang werewolf!\n\n",
+      "attacked": true,
+      "healed": false,
+      "targetIndex": -1,
+      "targetVoteIndex": -1,
+      "afkCounter": 0,
+      "visitors": [
+        {
+          "name": "k.Numm",
+          "role": {
+            "name": "werewolf",
+            "team": "werewolf",
+            "description": "🐺 Kamu adalah penjahat yang menyamar diantara werewolf. Kamu kebal dari serangan biasa. ",
+            "canKill": true,
+            "cmdText": "/skill"
+          }
+        }
+      ],
+      "blocked": false,
+      "attackers": [
+        {
+          "index": 2,
+          "name": "k.Numm",
+          "role": {
+            "name": "werewolf",
+            "team": "werewolf",
+            "description": "🐺 Kamu adalah penjahat yang menyamar diantara werewolf. Kamu kebal dari serangan biasa. ",
+            "canKill": true,
+            "cmdText": "/skill"
+          },
+          "deathNote": ""
+        }
+      ],
+      "intercepted": false,
+      "journals": [
+        {
+          "nightCounter": 1,
+          "content": "💡 Kamu tidak menggunakan skill mu"
+        },
+        {
+          "nightCounter": 2,
+          "content": "👣 Kamu ke rumah Geisya"
+        }
+      ],
+      "deathNote": "",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false,
+      "target": {
+        "index": "1",
+        "value": 1
+      },
+      "vampireBited": false,
+      "addonMessage": ""
+    }
+  ]
+}

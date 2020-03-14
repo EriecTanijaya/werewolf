@@ -1,0 +1,31 @@
+{
+  "id": "U786db7f8af3328dad0bfa5f75fbffc47",
+  "name": "Yudha",
+  "state": "inactive",
+  "groupId": "",
+  "points": 4,
+  "villagerStats": {
+    "win": 0,
+    "lose": 4
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

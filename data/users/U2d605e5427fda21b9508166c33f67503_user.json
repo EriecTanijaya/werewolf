@@ -1,0 +1,31 @@
+{
+  "id": "U2d605e5427fda21b9508166c33f67503",
+  "name": "Mas Wildanㄚв",
+  "state": "inactive",
+  "groupId": "C87a4885c1aea4781ced14e2f12705d64",
+  "points": 18,
+  "villagerStats": {
+    "win": 0,
+    "lose": 17
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 1
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

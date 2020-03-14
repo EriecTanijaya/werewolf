@@ -1,0 +1,31 @@
+{
+  "id": "U9be2740bbc49cd0bfb19067d8a2601a7",
+  "name": "Kevan C. (毛ヴァン)",
+  "state": "inactive",
+  "groupId": "",
+  "points": 12,
+  "villagerStats": {
+    "win": 0,
+    "lose": 1
+  },
+  "werewolfStats": {
+    "win": 2,
+    "lose": 1
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

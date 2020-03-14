@@ -1,0 +1,367 @@
+{
+  "groupId": "Ca1c37d4e6366b17d5edee454c4b7edbf",
+  "state": "idle",
+  "status": "active",
+  "players": [
+    {
+      "id": "U73bfced1eff29df011b29181522ae235",
+      "name": "royan pdg",
+      "state": "active",
+      "groupId": "Ca1c37d4e6366b17d5edee454c4b7edbf",
+      "points": 5,
+      "villagerStats": {
+        "win": 1,
+        "lose": 0
+      },
+      "werewolfStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "lookout",
+        "team": "villager",
+        "description": "👀 Kamu adalah warga yang bisa memantau rumah seseorang pas malam, sehingga bisa mengetahui siapa pendatangnya",
+        "canKill": false,
+        "cmdText": "/skill"
+      },
+      "status": "alive",
+      "message": "👣 Kamu ke rumah ajup 𝙙𝙖𝙜𝙪𝙞𝙨é\n\n👀 Rumah ajup 𝙙𝙖𝙜𝙪𝙞𝙨é dikunjungi Karael Latasha semalam\n\n",
+      "attacked": false,
+      "healed": false,
+      "targetIndex": -1,
+      "targetVoteIndex": "4",
+      "afkCounter": 0,
+      "visitors": [],
+      "blocked": false,
+      "attackers": [],
+      "intercepted": false,
+      "journals": [
+        {
+          "nightCounter": 1,
+          "content": "👣 Kamu ke rumah ajup 𝙙𝙖𝙜𝙪𝙞𝙨é\n\n👀 Rumah ajup 𝙙𝙖𝙜𝙪𝙞𝙨é dikunjungi Karael Latasha semalam"
+        }
+      ],
+      "deathNote": "",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false,
+      "target": {
+        "index": "2",
+        "value": 1
+      },
+      "vampireBited": false,
+      "addonMessage": ""
+    },
+    {
+      "id": "Ub648fed91d3ba453d81c0da9df92c1f8",
+      "name": "Karael Latasha",
+      "state": "active",
+      "groupId": "Ca1c37d4e6366b17d5edee454c4b7edbf",
+      "points": 5,
+      "villagerStats": {
+        "win": 1,
+        "lose": 0
+      },
+      "werewolfStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "doctor",
+        "team": "villager",
+        "description": "💉 Kamu adalah warga yang bisa menyembuhkan suatu orang pada malam hari, mana tau orang lain butuh bantuan.",
+        "canKill": false,
+        "cmdText": "/skill",
+        "selfHeal": 1
+      },
+      "status": "alive",
+      "message": "👣 Kamu ke rumah ajup 𝙙𝙖𝙜𝙪𝙞𝙨é\n\n",
+      "attacked": false,
+      "healed": false,
+      "targetIndex": -1,
+      "targetVoteIndex": "4",
+      "afkCounter": 0,
+      "visitors": [],
+      "blocked": false,
+      "attackers": [],
+      "intercepted": false,
+      "journals": [
+        {
+          "nightCounter": 1,
+          "content": "👣 Kamu ke rumah ajup 𝙙𝙖𝙜𝙪𝙞𝙨é"
+        }
+      ],
+      "deathNote": "",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false,
+      "target": {
+        "index": "2",
+        "value": 1
+      },
+      "vampireBited": false,
+      "addonMessage": ""
+    },
+    {
+      "id": "U7f45883f658d608a9554edae514f4736",
+      "name": "ajup 𝙙𝙖𝙜𝙪𝙞𝙨é",
+      "state": "active",
+      "groupId": "Ca1c37d4e6366b17d5edee454c4b7edbf",
+      "points": 5,
+      "villagerStats": {
+        "win": 1,
+        "lose": 0
+      },
+      "werewolfStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "retributionist",
+        "team": "villager",
+        "description": "⚰️ Kamu adalah warga yang bisa membangkitkan orang yang telah mati. ",
+        "canKill": false,
+        "cmdText": "/skill",
+        "revive": 1
+      },
+      "status": "alive",
+      "message": "💡 Kamu tidak menggunakan skill mu\n\n",
+      "attacked": false,
+      "healed": true,
+      "targetIndex": -1,
+      "targetVoteIndex": "4",
+      "afkCounter": 0,
+      "visitors": [
+        {
+          "name": "Karael Latasha",
+          "role": {
+            "name": "doctor",
+            "team": "villager",
+            "description": "💉 Kamu adalah warga yang bisa menyembuhkan suatu orang pada malam hari, mana tau orang lain butuh bantuan.",
+            "canKill": false,
+            "cmdText": "/skill",
+            "selfHeal": 1
+          }
+        },
+        {
+          "name": "royan pdg",
+          "role": {
+            "name": "lookout",
+            "team": "villager",
+            "description": "👀 Kamu adalah warga yang bisa memantau rumah seseorang pas malam, sehingga bisa mengetahui siapa pendatangnya",
+            "canKill": false,
+            "cmdText": "/skill"
+          }
+        }
+      ],
+      "blocked": false,
+      "attackers": [],
+      "intercepted": false,
+      "journals": [
+        {
+          "nightCounter": 1,
+          "content": "💡 Kamu tidak menggunakan skill mu"
+        }
+      ],
+      "deathNote": "",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false,
+      "target": {
+        "index": -1,
+        "value": 1
+      },
+      "vampireBited": false,
+      "addonMessage": ""
+    },
+    {
+      "id": "U2e4e066be629abcd4939567d6ed6c8fa",
+      "name": "peony",
+      "state": "active",
+      "groupId": "Ca1c37d4e6366b17d5edee454c4b7edbf",
+      "points": 5,
+      "villagerStats": {
+        "win": 1,
+        "lose": 0
+      },
+      "werewolfStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "seer",
+        "team": "villager",
+        "description": "🔮 Kamu adalah warga yang bisa cek identitas sebenarnya dari suatu orang. Gantung Werewolf supaya kamu menang",
+        "canKill": false,
+        "cmdText": "/skill"
+      },
+      "status": "alive",
+      "message": "👣 Kamu ke rumah tinzel corlijn\n\n🔮 Role tinzel corlijn adalah werewolf\n\nKamu bisa cek info role dengan ketik '/info werewolf'\n\n",
+      "attacked": false,
+      "healed": false,
+      "targetIndex": -1,
+      "targetVoteIndex": "4",
+      "afkCounter": 0,
+      "visitors": [],
+      "blocked": false,
+      "attackers": [],
+      "intercepted": false,
+      "journals": [
+        {
+          "nightCounter": 1,
+          "content": "👣 Kamu ke rumah tinzel corlijn\n\n🔮 Role tinzel corlijn adalah werewolf\n\nKamu bisa cek info role dengan ketik '/info werewolf'"
+        }
+      ],
+      "deathNote": "",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false,
+      "target": {
+        "index": "4",
+        "value": 1
+      },
+      "vampireBited": false,
+      "addonMessage": ""
+    },
+    {
+      "id": "Udc7d822d17050969fed6d4c96de3de9f",
+      "name": "tinzel corlijn",
+      "state": "active",
+      "groupId": "Ca1c37d4e6366b17d5edee454c4b7edbf",
+      "points": 1,
+      "villagerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "werewolfStats": {
+        "win": 0,
+        "lose": 1
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "werewolf",
+        "team": "werewolf",
+        "description": "🐺 Kamu adalah penjahat yang menyamar diantara werewolf. Kamu kebal dari serangan biasa. ",
+        "canKill": true,
+        "cmdText": "/skill"
+      },
+      "status": "death",
+      "message": "💡 Kamu tidak menggunakan skill mu\n\n",
+      "attacked": false,
+      "healed": false,
+      "targetIndex": -1,
+      "targetVoteIndex": -1,
+      "afkCounter": 2,
+      "visitors": [
+        {
+          "name": "peony",
+          "role": {
+            "name": "seer",
+            "team": "villager",
+            "description": "🔮 Kamu adalah warga yang bisa cek identitas sebenarnya dari suatu orang. Gantung Werewolf supaya kamu menang",
+            "canKill": false,
+            "cmdText": "/skill"
+          }
+        }
+      ],
+      "blocked": false,
+      "attackers": [],
+      "intercepted": false,
+      "journals": [
+        {
+          "nightCounter": 1,
+          "content": "💡 Kamu tidak menggunakan skill mu"
+        }
+      ],
+      "deathNote": "",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false,
+      "target": {
+        "index": -1,
+        "value": 1
+      },
+      "vampireBited": false,
+      "addonMessage": ""
+    }
+  ]
+}

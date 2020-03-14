@@ -1,0 +1,31 @@
+{
+  "id": "U7108cec9114cb0b1d14a62e2f2973c4a",
+  "name": "alinᵍᵐᵇˡ",
+  "state": "inactive",
+  "groupId": "",
+  "points": 7,
+  "villagerStats": {
+    "win": 1,
+    "lose": 2
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

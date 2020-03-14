@@ -1,0 +1,31 @@
+{
+  "id": "U5c0b3d43eb12b07b676c8a7c3fb89590",
+  "name": "Shaotian",
+  "state": "inactive",
+  "groupId": "C4857473fa2eb95e87602d1826a176dbf",
+  "points": 36,
+  "villagerStats": {
+    "win": 3,
+    "lose": 16
+  },
+  "werewolfStats": {
+    "win": 1,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

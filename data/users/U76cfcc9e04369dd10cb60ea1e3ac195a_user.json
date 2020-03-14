@@ -1,0 +1,31 @@
+{
+  "id": "U76cfcc9e04369dd10cb60ea1e3ac195a",
+  "name": "D A R A Ξ L",
+  "state": "inactive",
+  "groupId": "",
+  "points": 15,
+  "villagerStats": {
+    "win": 3,
+    "lose": 0
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

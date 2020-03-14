@@ -1,0 +1,31 @@
+{
+  "id": "Udd4a20ea0d99b86f1c81aa7d4bc6f01e",
+  "name": "Rozzy",
+  "state": "inactive",
+  "groupId": "",
+  "points": 6,
+  "villagerStats": {
+    "win": 0,
+    "lose": 1
+  },
+  "werewolfStats": {
+    "win": 1,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

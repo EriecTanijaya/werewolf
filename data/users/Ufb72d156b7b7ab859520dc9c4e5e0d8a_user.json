@@ -1,0 +1,31 @@
+{
+  "id": "Ufb72d156b7b7ab859520dc9c4e5e0d8a",
+  "name": "dista p",
+  "state": "inactive",
+  "groupId": "",
+  "points": 17,
+  "villagerStats": {
+    "win": 3,
+    "lose": 2
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

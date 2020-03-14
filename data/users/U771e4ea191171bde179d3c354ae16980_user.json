@@ -1,0 +1,31 @@
+{
+  "id": "U771e4ea191171bde179d3c354ae16980",
+  "name": "Pikochu",
+  "state": "inactive",
+  "groupId": "C1ca5797c53dbadb7cf9b28bd1bd4dca3",
+  "points": 2,
+  "villagerStats": {
+    "win": 0,
+    "lose": 2
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

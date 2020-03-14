@@ -1,0 +1,31 @@
+{
+  "id": "Uf4a22f7319c5c2e14ebf609d60f14cb1",
+  "name": "Wipel elite",
+  "state": "inactive",
+  "groupId": "Cd403dcfa95ce469bc43218455a00a81a",
+  "points": 2,
+  "villagerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 2
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

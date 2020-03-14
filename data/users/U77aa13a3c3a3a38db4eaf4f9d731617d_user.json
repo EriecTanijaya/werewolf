@@ -1,0 +1,31 @@
+{
+  "id": "U77aa13a3c3a3a38db4eaf4f9d731617d",
+  "name": "Nisaa",
+  "state": "inactive",
+  "groupId": "C6b6a0c4766b18fbaa3421348219f003e",
+  "points": 0,
+  "villagerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

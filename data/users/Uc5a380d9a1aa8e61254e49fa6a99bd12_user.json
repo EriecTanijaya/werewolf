@@ -1,0 +1,31 @@
+{
+  "id": "Uc5a380d9a1aa8e61254e49fa6a99bd12",
+  "name": "ᴶᵀ Agatha",
+  "state": "inactive",
+  "groupId": "Caca7bff4be7dfc65b9f614cd7687264e",
+  "points": 22,
+  "villagerStats": {
+    "win": 2,
+    "lose": 1
+  },
+  "werewolfStats": {
+    "win": 2,
+    "lose": 1
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

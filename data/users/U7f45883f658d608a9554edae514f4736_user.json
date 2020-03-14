@@ -1,0 +1,31 @@
+{
+  "id": "U7f45883f658d608a9554edae514f4736",
+  "name": "ajup 𝙙𝙖𝙜𝙪𝙞𝙨é",
+  "state": "inactive",
+  "groupId": "Ca1c37d4e6366b17d5edee454c4b7edbf",
+  "points": 75,
+  "villagerStats": {
+    "win": 15,
+    "lose": 0
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

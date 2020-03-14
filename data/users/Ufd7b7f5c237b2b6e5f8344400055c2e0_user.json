@@ -1,0 +1,31 @@
+{
+  "id": "Ufd7b7f5c237b2b6e5f8344400055c2e0",
+  "name": "Tama -",
+  "state": "inactive",
+  "groupId": "",
+  "points": 65,
+  "villagerStats": {
+    "win": 6,
+    "lose": 9
+  },
+  "werewolfStats": {
+    "win": 2,
+    "lose": 3
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 2
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 2,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 1
+  }
+}

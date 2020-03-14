@@ -1,0 +1,31 @@
+{
+  "id": "U73bfced1eff29df011b29181522ae235",
+  "name": "royan pdg",
+  "state": "inactive",
+  "groupId": "Ced254ccf4cca2b88d346a618a8f4b9ab",
+  "points": 35,
+  "villagerStats": {
+    "win": 3,
+    "lose": 2
+  },
+  "werewolfStats": {
+    "win": 3,
+    "lose": 1
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 1
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 1
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

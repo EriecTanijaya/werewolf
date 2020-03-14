@@ -1,0 +1,31 @@
+{
+  "id": "Udc2b94eb019dc8372806e32c144be0b0",
+  "name": "brian",
+  "state": "inactive",
+  "groupId": "C09883d3f09636ac674ef96b7cac28e1a",
+  "points": 14,
+  "villagerStats": {
+    "win": 1,
+    "lose": 9
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

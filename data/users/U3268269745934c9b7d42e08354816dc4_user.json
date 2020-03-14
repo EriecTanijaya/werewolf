@@ -1,0 +1,31 @@
+{
+  "id": "U3268269745934c9b7d42e08354816dc4",
+  "name": "pdm kim",
+  "state": "inactive",
+  "groupId": "",
+  "points": 31,
+  "villagerStats": {
+    "win": 6,
+    "lose": 1
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "id": "Uc770ad156060513ceef91121d1aaca9d",
+  "name": "waaa.",
+  "state": "inactive",
+  "groupId": "",
+  "points": 79,
+  "villagerStats": {
+    "win": 8,
+    "lose": 11
+  },
+  "werewolfStats": {
+    "win": 2,
+    "lose": 5
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 1
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 2
+  },
+  "arsonistStats": {
+    "win": 2,
+    "lose": 0
+  }
+}

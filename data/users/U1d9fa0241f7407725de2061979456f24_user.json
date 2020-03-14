@@ -1,0 +1,31 @@
+{
+  "id": "U1d9fa0241f7407725de2061979456f24",
+  "name": "Alexander",
+  "state": "inactive",
+  "groupId": "C9f3970d7c6f6b6cf13a2e3f91f3b66ed",
+  "points": 18,
+  "villagerStats": {
+    "win": 0,
+    "lose": 13
+  },
+  "werewolfStats": {
+    "win": 1,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

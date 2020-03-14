@@ -1,34 +1,76 @@
 // server.js
 // where your node app starts
 
-// we've started you off with Express (https://expressjs.com/)
-// but feel free to use whatever libraries or frameworks you'd like through `package.json`.
+// init project
+const line = require("@line/bot-sdk");
 const express = require("express");
 const app = express();
 
-// our default array of dreams
-const dreams = [
-  "Find and count some sheep",
-  "Climb a really tall mountain",
-  "Wash the dishes"
-];
+// line config
+const config = {
+  channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN,
+  channelSecret: process.env.CHANNEL_SECRET
+};
 
-// make all the files in 'public' available
-// https://expressjs.com/en/starter/static-files.html
-app.use(express.static("public"));
+app.use("/callback", line.middleware(config));
 
-// https://expressjs.com/en/starter/basic-routing.html
-app.get("/", (request, response) => {
-  response.sendFile(__dirname + "/views/index.html");
+app.get("/", (req, res) => res.sendStatus(200));
+
+const client = new line.Client(config);
+
+app.post("/callback", (req, res) => {
+  Promise.all(req.body.events.map(handleEvent))
+    .then(result => res.json(result))
+    .catch(err => {
+      console.error("error di app.post", err);
+    });
 });
 
-// send the default array of dreams to the webpage
-app.get("/dreams", (request, response) => {
-  // express helps us take JS objects and send them as JSON
-  response.json(dreams);
-});
+function handleEvent(event) {
+  //Note: should return! So Promise.all could catch the error
+  if (event.type === "postback") {
+    let rawArgs = event.postback.data;
+    const data = require("/app/src/data");
+    return data.receive(client, event, rawArgs);
+  }
+
+  if (event.type !== "message" || event.message.type !== "text") {
+    let otherEvents = ["join", "follow", "leave", "memberJoined", "memberLeft"];
+    if (otherEvents.includes(event.type)) {
+      const other = require("/app/src/other");
+      return other.receive(client, event);
+    }
+
+    return Promise.resolve(null);
+  }
+
+  //logging
+  if (event.source.type === "group") {
+    //logChat(event.source.groupId, event.source.userId);
+  }
+
+  let rawArgs = event.message.text;
+  const data = require("/app/src/data");
+  return data.receive(client, event, rawArgs);
+
+  /** logging func **/
+
+  function logChat(groupId, userId) {
+    client
+      .getGroupMemberProfile(groupId, userId)
+      .then(p => {
+        console.log(
+          groupId + " // " + p.displayName + " : " + event.message.text
+        );
+      })
+      .catch(() => {
+        console.log(groupId + " // " + "ga add : " + event.message.text);
+      });
+  }
+}
 
 // listen for requests :)
-const listener = app.listen(process.env.PORT, () => {
-  console.log("Your app is listening on port " + listener.address().port);
+const port = 3000;
+app.listen(port, () => {
+  console.log("Your app is listening on port " + port);
 });

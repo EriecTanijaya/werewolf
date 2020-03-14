@@ -1,0 +1,31 @@
+{
+  "id": "Uff34c7a6feea09292bd308050a87a183",
+  "name": "Andra",
+  "state": "inactive",
+  "groupId": "",
+  "points": 19,
+  "villagerStats": {
+    "win": 2,
+    "lose": 3
+  },
+  "werewolfStats": {
+    "win": 1,
+    "lose": 1
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

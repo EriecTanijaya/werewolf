@@ -1,0 +1,31 @@
+{
+  "id": "Ucdc64dd8fb616df7a469cc880a2db018",
+  "name": "MINHYUN",
+  "state": "inactive",
+  "groupId": "C022f299eb00068027689b0f2576bdf1d",
+  "points": 76,
+  "villagerStats": {
+    "win": 1,
+    "lose": 0
+  },
+  "werewolfStats": {
+    "win": 14,
+    "lose": 1
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

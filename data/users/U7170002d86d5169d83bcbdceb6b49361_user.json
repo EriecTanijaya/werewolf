@@ -1,0 +1,31 @@
+{
+  "id": "U7170002d86d5169d83bcbdceb6b49361",
+  "name": "voxey esel fufufu",
+  "state": "inactive",
+  "groupId": "",
+  "points": 6,
+  "villagerStats": {
+    "win": 1,
+    "lose": 1
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

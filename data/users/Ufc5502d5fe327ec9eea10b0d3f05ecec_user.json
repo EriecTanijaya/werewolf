@@ -1,0 +1,31 @@
+{
+  "id": "Ufc5502d5fe327ec9eea10b0d3f05ecec",
+  "name": "yji",
+  "state": "inactive",
+  "groupId": "C288bf8ec56e295b22e388d29ca5908b5",
+  "points": 0,
+  "villagerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

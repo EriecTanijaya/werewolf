@@ -1,0 +1,31 @@
+{
+  "id": "U5ec978c1c5598353e57670061c5bcd9d",
+  "name": "Edic, pdg",
+  "state": "inactive",
+  "groupId": "",
+  "points": 4,
+  "villagerStats": {
+    "win": 0,
+    "lose": 4
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

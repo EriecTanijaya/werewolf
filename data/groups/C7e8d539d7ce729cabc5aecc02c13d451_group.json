@@ -1,0 +1,257 @@
+{
+  "groupId": "C7e8d539d7ce729cabc5aecc02c13d451",
+  "state": "idle",
+  "status": "active",
+  "players": [
+    {
+      "id": "U869ada90f0724f7c46dca315cdc11b2f",
+      "name": "helmi",
+      "state": "active",
+      "groupId": "C7e8d539d7ce729cabc5aecc02c13d451",
+      "points": 0,
+      "villagerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "werewolfStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "villager"
+      },
+      "status": "alive",
+      "message": "",
+      "attacked": false,
+      "healed": false,
+      "targetIndex": -1,
+      "targetVoteIndex": -1,
+      "afkCounter": 0,
+      "visitors": [],
+      "blocked": false,
+      "attackers": [],
+      "intercepted": false,
+      "journals": [],
+      "deathNote": "",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false
+    },
+    {
+      "id": "U1e0812513bc64bf64b493d1851cbb3ba",
+      "name": "byan.",
+      "state": "active",
+      "groupId": "C7e8d539d7ce729cabc5aecc02c13d451",
+      "points": 0,
+      "villagerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "werewolfStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "villager"
+      },
+      "status": "alive",
+      "message": "",
+      "attacked": false,
+      "healed": false,
+      "targetIndex": -1,
+      "targetVoteIndex": -1,
+      "afkCounter": 0,
+      "visitors": [],
+      "blocked": false,
+      "attackers": [],
+      "intercepted": false,
+      "journals": [],
+      "deathNote": "",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false
+    },
+    {
+      "id": "Udcbafeb9537f51d3a822d0b065a975e8",
+      "name": "fal",
+      "state": "active",
+      "groupId": "C7e8d539d7ce729cabc5aecc02c13d451",
+      "points": 0,
+      "villagerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "werewolfStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "villager"
+      },
+      "status": "alive",
+      "message": "",
+      "attacked": false,
+      "healed": false,
+      "targetIndex": -1,
+      "targetVoteIndex": -1,
+      "afkCounter": 0,
+      "visitors": [],
+      "blocked": false,
+      "attackers": [],
+      "intercepted": false,
+      "journals": [],
+      "deathNote": "",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false
+    },
+    {
+      "id": "Ua85b262a5e28b831752a107e284d063b",
+      "name": "Danil.",
+      "state": "active",
+      "groupId": "C7e8d539d7ce729cabc5aecc02c13d451",
+      "points": 0,
+      "villagerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "werewolfStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "villager"
+      },
+      "status": "alive",
+      "message": "",
+      "attacked": false,
+      "healed": false,
+      "targetIndex": -1,
+      "targetVoteIndex": -1,
+      "afkCounter": 0,
+      "visitors": [],
+      "blocked": false,
+      "attackers": [],
+      "intercepted": false,
+      "journals": [],
+      "deathNote": "",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false
+    },
+    {
+      "id": "Uef7aa977f4a30c57a1b68e59d127c81a",
+      "name": "Ayay",
+      "state": "active",
+      "groupId": "C7e8d539d7ce729cabc5aecc02c13d451",
+      "points": 0,
+      "villagerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "werewolfStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "villager"
+      },
+      "status": "alive",
+      "message": "",
+      "attacked": false,
+      "healed": false,
+      "targetIndex": -1,
+      "targetVoteIndex": -1,
+      "afkCounter": 0,
+      "visitors": [],
+      "blocked": false,
+      "attackers": [],
+      "intercepted": false,
+      "journals": [],
+      "deathNote": "",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "id": "Ubf13d03f98dacf6836969740b52ab2bc",
+  "name": "Alesha",
+  "state": "inactive",
+  "groupId": "Cede5fc215776e13301c26f4346b4cee2",
+  "points": 56,
+  "villagerStats": {
+    "win": 11,
+    "lose": 1
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

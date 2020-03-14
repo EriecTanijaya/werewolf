@@ -1,0 +1,31 @@
+{
+  "id": "U9f9c6a9e16ec253dd73c88d199165540",
+  "name": "Lian.",
+  "state": "inactive",
+  "groupId": "C5ed639d24855dccf32b8563547017615",
+  "points": 6,
+  "villagerStats": {
+    "win": 1,
+    "lose": 1
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

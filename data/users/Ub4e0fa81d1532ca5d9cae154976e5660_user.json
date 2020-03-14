@@ -1,0 +1,31 @@
+{
+  "id": "Ub4e0fa81d1532ca5d9cae154976e5660",
+  "name": "ts) JIHAN .honne",
+  "state": "inactive",
+  "groupId": "C335485977cc784cc58f59f78cf3189e4",
+  "points": 102,
+  "villagerStats": {
+    "win": 2,
+    "lose": 5
+  },
+  "werewolfStats": {
+    "win": 4,
+    "lose": 1
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 13,
+    "lose": 1
+  }
+}

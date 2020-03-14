@@ -1,0 +1,31 @@
+{
+  "id": "U7f8845f6365b6f100e5bb5d2c90782c3",
+  "name": "chelsya🐄",
+  "state": "inactive",
+  "groupId": "C0e619778d4fe98e50d50223e917c7f6a",
+  "points": 6,
+  "villagerStats": {
+    "win": 1,
+    "lose": 1
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

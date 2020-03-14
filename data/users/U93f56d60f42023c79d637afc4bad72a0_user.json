@@ -1,0 +1,31 @@
+{
+  "id": "U93f56d60f42023c79d637afc4bad72a0",
+  "name": "ghina4",
+  "state": "inactive",
+  "groupId": "",
+  "points": 9,
+  "villagerStats": {
+    "win": 1,
+    "lose": 4
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

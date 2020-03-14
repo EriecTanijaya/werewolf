@@ -1,0 +1,31 @@
+{
+  "id": "U06cfd1379a23dd3422afba39d11c10e0",
+  "name": "⅌A l e a",
+  "state": "inactive",
+  "groupId": "",
+  "points": 7,
+  "villagerStats": {
+    "win": 0,
+    "lose": 2
+  },
+  "werewolfStats": {
+    "win": 1,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "id": "Uda618baa07030ca4a78ab23cc02c332a",
+  "name": "GRABPUD #UDimension",
+  "state": "inactive",
+  "groupId": "C382e5001920bbd2be0cd8283f324fc89",
+  "points": 29,
+  "villagerStats": {
+    "win": 0,
+    "lose": 24
+  },
+  "werewolfStats": {
+    "win": 1,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

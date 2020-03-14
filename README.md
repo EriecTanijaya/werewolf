@@ -1,30 +1,33 @@
-# hello-express
+# werewolf
 
-A server that serves a webpage, its resources, and some data
+<p style="text-align: center;">
+  <img alt="last commit" src="https://img.shields.io/github/last-commit/EriecTanijaya/werewolf.svg?style=for-the-badge" />
+  <img alt="version" src="https://img.shields.io/badge/dynamic/json?color=blue&label=version&style=for-the-badge&query=version&url=https%3A%2F%2Fraw.githubusercontent.com%2FEriecTanijaya%2Fwerewolf%2Fmaster%2Fpackage.json" />
+  
+  <a href="  https://github.com/EriecTanijaya/werewolf/blob/master/LICENSE" title="license">
+    <img alt="license" src="https://img.shields.io/github/license/EriecTanijaya/werewolf?style=for-the-badge" />
+  </a>
+</p>
 
+A simple LINE Messenger bot made with NodeJS
 
-## Your Project
+## Getting Started
 
-On the front-end,
+### Install
 
-- Edit `views/index.html` to change the content of the webpage
-- `public/client.js` is the javacript that runs when you load the webpage
-- `public/style.css` is the styles for `views/index.html`
-- Drag in `assets`, like images or music, to add them to your project
+Install LINE official sdk for nodeJS using [npm](https://www.npmjs.com/):
 
-On the back-end,
+``` bash
+$ npm install express
+$ npm install @line/bot-sdk
+```
 
-- your app starts at `server.js`
-- add frameworks and packages in `package.json`
-- safely store app secrets in `.env` (nobody can see this but you and people you invite)
+### Documentation
 
-Click `Show` in the header to see your app live. Updates to your code will instantly deploy.
+See LINE official sdk [documentation](https://line.github.io/line-bot-sdk-nodejs/).
 
+## How To Use
 
-## Made by [Glitch](https://glitch.com/)
+Make the .env according to .env.example
 
-**Glitch** is the friendly community where you'll build the app of your dreams. Glitch lets you instantly create, remix, edit, and host an app, bot or site, and you can invite collaborators or helpers to simultaneously edit code with you.
-
-Find out more [about Glitch](https://glitch.com/about).
-
-( ᵔ ᴥ ᵔ )
+* fill channel access token and channel secret according to line developer page

@@ -1,0 +1,31 @@
+{
+  "id": "U13024b410f708a309fc9274c8d146307",
+  "name": "ᴶᵀGretha tylr",
+  "state": "inactive",
+  "groupId": "C114b42af15857734e1112e3a263c0f17",
+  "points": 9,
+  "villagerStats": {
+    "win": 0,
+    "lose": 1
+  },
+  "werewolfStats": {
+    "win": 1,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 3
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

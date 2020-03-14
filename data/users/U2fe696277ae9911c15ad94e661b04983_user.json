@@ -1,0 +1,31 @@
+{
+  "id": "U2fe696277ae9911c15ad94e661b04983",
+  "name": "Rani,",
+  "state": "inactive",
+  "groupId": "R11e054a645e5d7d9d6380063f80536d6",
+  "points": 1,
+  "villagerStats": {
+    "win": 0,
+    "lose": 1
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

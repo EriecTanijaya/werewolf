@@ -1,0 +1,31 @@
+{
+  "id": "Uccad2f026475fe1bd0bf9da60a1a12e6",
+  "name": "Vanessa.",
+  "state": "inactive",
+  "groupId": "C8f7245241938b28d27d7d99e77795060",
+  "points": 7,
+  "villagerStats": {
+    "win": 1,
+    "lose": 1
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 1
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

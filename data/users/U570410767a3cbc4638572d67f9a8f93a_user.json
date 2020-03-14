@@ -1,0 +1,31 @@
+{
+  "id": "U570410767a3cbc4638572d67f9a8f93a",
+  "name": "Camor, mst V2",
+  "state": "inactive",
+  "groupId": "Caec32dde7187312f34bf763f1f8d55db",
+  "points": 79,
+  "villagerStats": {
+    "win": 13,
+    "lose": 0
+  },
+  "werewolfStats": {
+    "win": 2,
+    "lose": 4
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

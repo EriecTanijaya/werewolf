@@ -1,0 +1,31 @@
+{
+  "id": "Ua315334119f07235124793fdc3906aa7",
+  "name": "Yifan",
+  "state": "inactive",
+  "groupId": "Cb945e63cb6dbd48c8ab84e97238f051e",
+  "points": 5,
+  "villagerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "werewolfStats": {
+    "win": 1,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

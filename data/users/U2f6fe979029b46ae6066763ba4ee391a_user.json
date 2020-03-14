@@ -1,0 +1,31 @@
+{
+  "id": "U2f6fe979029b46ae6066763ba4ee391a",
+  "name": "mas gevan",
+  "state": "inactive",
+  "groupId": "C335485977cc784cc58f59f78cf3189e4",
+  "points": 15,
+  "villagerStats": {
+    "win": 0,
+    "lose": 15
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

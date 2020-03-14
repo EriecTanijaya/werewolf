@@ -1,0 +1,31 @@
+{
+  "id": "U2120fd5a1ebed335b0a5f04007bd43f1",
+  "name": "Riel #CO-CEO",
+  "state": "inactive",
+  "groupId": "C87be1266e7bba6667653053ceae6a112",
+  "points": 11,
+  "villagerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 11
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

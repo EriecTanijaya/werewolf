@@ -1,0 +1,31 @@
+{
+  "id": "U0c0994bbcd39fc3e2fb1bd542a6a9578",
+  "name": "Epakh",
+  "state": "inactive",
+  "groupId": "C7e1c227b0c6ecfaf79d33671b5707fe8",
+  "points": 5,
+  "villagerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "werewolfStats": {
+    "win": 1,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

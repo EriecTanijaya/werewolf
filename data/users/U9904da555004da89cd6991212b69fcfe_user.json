@@ -1,0 +1,31 @@
+{
+  "id": "U9904da555004da89cd6991212b69fcfe",
+  "name": "`f̶̶s̶ Viola ᥍✰ཽᵐⁿ",
+  "state": "inactive",
+  "groupId": "Cd0e5eee96dbdc10cbb01a21e1e76a498",
+  "points": 6,
+  "villagerStats": {
+    "win": 1,
+    "lose": 1
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

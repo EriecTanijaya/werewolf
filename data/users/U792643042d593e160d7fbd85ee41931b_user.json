@@ -1,0 +1,31 @@
+{
+  "id": "U792643042d593e160d7fbd85ee41931b",
+  "name": "Enggar",
+  "state": "inactive",
+  "groupId": "C85ea09ea038a7e9a147691bd2285ba83",
+  "points": 66,
+  "villagerStats": {
+    "win": 13,
+    "lose": 0
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 1
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

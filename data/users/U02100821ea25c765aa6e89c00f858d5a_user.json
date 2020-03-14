@@ -1,0 +1,31 @@
+{
+  "id": "U02100821ea25c765aa6e89c00f858d5a",
+  "name": "jefa walson.",
+  "state": "inactive",
+  "groupId": "Ce3745a05c3fb72232fafffcece7542ff",
+  "points": 22,
+  "villagerStats": {
+    "win": 3,
+    "lose": 2
+  },
+  "werewolfStats": {
+    "win": 1,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "id": "Uc23e7ef5398fd0ec9df4af55ffc3548a",
+  "name": "kwanson, 김",
+  "state": "inactive",
+  "groupId": "C9f3970d7c6f6b6cf13a2e3f91f3b66ed",
+  "points": 31,
+  "villagerStats": {
+    "win": 3,
+    "lose": 16
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

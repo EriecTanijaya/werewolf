@@ -1,0 +1,31 @@
+{
+  "id": "Udf3b89757b81737cdcf8f438a8669377",
+  "name": "Fawwaz Wafiy",
+  "state": "inactive",
+  "groupId": "",
+  "points": 84,
+  "villagerStats": {
+    "win": 13,
+    "lose": 4
+  },
+  "werewolfStats": {
+    "win": 2,
+    "lose": 4
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 1
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "id": "U1f66d6825fdcbf60e438c85bf45a650f",
+  "name": "Hikmal",
+  "state": "inactive",
+  "groupId": "",
+  "points": 2,
+  "villagerStats": {
+    "win": 0,
+    "lose": 2
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "id": "U7da88a5edf6c546087fb980fc855e51a",
+  "name": "dek kenjul rdm,mst",
+  "state": "inactive",
+  "groupId": "Caec32dde7187312f34bf763f1f8d55db",
+  "points": 50,
+  "villagerStats": {
+    "win": 10,
+    "lose": 0
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

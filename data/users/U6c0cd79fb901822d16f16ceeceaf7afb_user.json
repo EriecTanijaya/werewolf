@@ -1,0 +1,31 @@
+{
+  "id": "U6c0cd79fb901822d16f16ceeceaf7afb",
+  "name": "Fannn",
+  "state": "inactive",
+  "groupId": "C1ca5797c53dbadb7cf9b28bd1bd4dca3",
+  "points": 2,
+  "villagerStats": {
+    "win": 0,
+    "lose": 2
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "id": "U9b2e3944571d29e2ec9a75c44432cb6f",
+  "name": "TEN #RIRI_ADISA_DAY",
+  "state": "inactive",
+  "groupId": "",
+  "points": 8,
+  "villagerStats": {
+    "win": 1,
+    "lose": 3
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

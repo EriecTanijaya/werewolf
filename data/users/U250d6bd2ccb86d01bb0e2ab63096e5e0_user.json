@@ -1,0 +1,31 @@
+{
+  "id": "U250d6bd2ccb86d01bb0e2ab63096e5e0",
+  "name": "OJIYEON .ts",
+  "state": "inactive",
+  "groupId": "",
+  "points": 53,
+  "villagerStats": {
+    "win": 7,
+    "lose": 6
+  },
+  "werewolfStats": {
+    "win": 1,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 1,
+    "lose": 2
+  }
+}

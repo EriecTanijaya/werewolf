@@ -1,0 +1,31 @@
+{
+  "id": "Ub82704f1d26ab0e8b1d8d9a0699c09e7",
+  "name": "` Kiran",
+  "state": "inactive",
+  "groupId": "",
+  "points": 8,
+  "villagerStats": {
+    "win": 0,
+    "lose": 2
+  },
+  "werewolfStats": {
+    "win": 1,
+    "lose": 1
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

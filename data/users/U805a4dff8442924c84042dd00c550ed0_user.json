@@ -1,0 +1,31 @@
+{
+  "id": "U805a4dff8442924c84042dd00c550ed0",
+  "name": "ᵇᵏʳLachelleᴮ₵ᴼᶠᵐ",
+  "state": "inactive",
+  "groupId": "",
+  "points": 11,
+  "villagerStats": {
+    "win": 1,
+    "lose": 1
+  },
+  "werewolfStats": {
+    "win": 1,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

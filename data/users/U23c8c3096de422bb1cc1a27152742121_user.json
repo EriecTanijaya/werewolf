@@ -1,0 +1,31 @@
+{
+  "id": "U23c8c3096de422bb1cc1a27152742121",
+  "name": "ega vibis",
+  "state": "inactive",
+  "groupId": "",
+  "points": 538,
+  "villagerStats": {
+    "win": 72,
+    "lose": 45
+  },
+  "werewolfStats": {
+    "win": 14,
+    "lose": 22
+  },
+  "vampireStats": {
+    "win": 3,
+    "lose": 3
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 1
+  },
+  "serialKillerStats": {
+    "win": 2,
+    "lose": 5
+  },
+  "arsonistStats": {
+    "win": 1,
+    "lose": 2
+  }
+}

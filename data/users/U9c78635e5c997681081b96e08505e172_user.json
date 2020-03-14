@@ -1,0 +1,31 @@
+{
+  "id": "U9c78635e5c997681081b96e08505e172",
+  "name": "salma/hiat",
+  "state": "inactive",
+  "groupId": "Cc36215ba445434709a738b92608e813c",
+  "points": 56,
+  "villagerStats": {
+    "win": 11,
+    "lose": 1
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

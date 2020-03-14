@@ -1,0 +1,31 @@
+{
+  "id": "Uf751fbd56f3fe4b34384e7d647c15e62",
+  "name": "dheaa",
+  "state": "inactive",
+  "groupId": "",
+  "points": 37,
+  "villagerStats": {
+    "win": 5,
+    "lose": 7
+  },
+  "werewolfStats": {
+    "win": 1,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

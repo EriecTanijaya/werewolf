@@ -1,0 +1,31 @@
+{
+  "id": "U6d2e8067ea53c6c028df0af2e054f7b8",
+  "name": "Clary",
+  "state": "inactive",
+  "groupId": "C90e853a9b36916ee2da82942ccc9a01e",
+  "points": 8,
+  "villagerStats": {
+    "win": 0,
+    "lose": 8
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

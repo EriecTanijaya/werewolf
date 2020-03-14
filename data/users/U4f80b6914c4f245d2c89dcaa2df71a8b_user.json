@@ -1,0 +1,31 @@
+{
+  "id": "U4f80b6914c4f245d2c89dcaa2df71a8b",
+  "name": "Zoey",
+  "state": "inactive",
+  "groupId": "C92bac8247721e6a6c3ee6e6bd63cf866",
+  "points": 11,
+  "villagerStats": {
+    "win": 0,
+    "lose": 5
+  },
+  "werewolfStats": {
+    "win": 1,
+    "lose": 1
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

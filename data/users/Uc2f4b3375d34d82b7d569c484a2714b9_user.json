@@ -1,0 +1,31 @@
+{
+  "id": "Uc2f4b3375d34d82b7d569c484a2714b9",
+  "name": "Ph)Fang☬",
+  "state": "inactive",
+  "groupId": "",
+  "points": 24,
+  "villagerStats": {
+    "win": 2,
+    "lose": 4
+  },
+  "werewolfStats": {
+    "win": 2,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

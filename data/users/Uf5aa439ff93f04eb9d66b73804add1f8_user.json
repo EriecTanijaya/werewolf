@@ -1,0 +1,31 @@
+{
+  "id": "Uf5aa439ff93f04eb9d66b73804add1f8",
+  "name": "Alᴸᴳᴺᴰꎇⷯⷯ𖤝Atlánna`f̶̶s̶",
+  "state": "inactive",
+  "groupId": "Cc36215ba445434709a738b92608e813c",
+  "points": 72,
+  "villagerStats": {
+    "win": 12,
+    "lose": 1
+  },
+  "werewolfStats": {
+    "win": 2,
+    "lose": 1
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

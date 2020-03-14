@@ -1,0 +1,31 @@
+{
+  "id": "U5a612df99a031c10c7c0c52a29668d15",
+  "name": "LUIZ ガ",
+  "state": "inactive",
+  "groupId": "",
+  "points": 21,
+  "villagerStats": {
+    "win": 3,
+    "lose": 6
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

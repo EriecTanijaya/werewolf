@@ -1,0 +1,166 @@
+{
+  "groupId": "Cb0483404dd4ea7b62ef3de64569f4d3e",
+  "state": "idle",
+  "status": "active",
+  "players": [
+    {
+      "id": "Uf6b34fdb0f816f2d92a84b15da3bfdc2",
+      "name": "yusriantoni",
+      "state": "active",
+      "groupId": "Cb0483404dd4ea7b62ef3de64569f4d3e",
+      "points": 0,
+      "villagerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "werewolfStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "villager",
+        "description": "🧑‍🌾 Kamu berada di pihak warga. Kamu suka curigaan",
+        "team": "",
+        "canKill": false
+      },
+      "status": "alive",
+      "message": "",
+      "attacked": false,
+      "healed": false,
+      "targetIndex": -1,
+      "targetVoteIndex": -1,
+      "afkCounter": 0,
+      "visitors": [],
+      "blocked": false,
+      "attackers": [],
+      "intercepted": false,
+      "journals": [],
+      "deathNote": "",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false
+    },
+    {
+      "id": "Uad2c3d085eaa87862df5baa7a867971d",
+      "name": "Aurell",
+      "state": "active",
+      "groupId": "Cb0483404dd4ea7b62ef3de64569f4d3e",
+      "points": 0,
+      "villagerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "werewolfStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "villager",
+        "description": "🧑‍🌾 Kamu berada di pihak warga. Kamu suka curigaan",
+        "team": "",
+        "canKill": false
+      },
+      "status": "alive",
+      "message": "",
+      "attacked": false,
+      "healed": false,
+      "targetIndex": -1,
+      "targetVoteIndex": -1,
+      "afkCounter": 0,
+      "visitors": [],
+      "blocked": false,
+      "attackers": [],
+      "intercepted": false,
+      "journals": [],
+      "deathNote": "",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false
+    },
+    {
+      "id": "U9c5fb41e79032b3c4f627f72f87726f7",
+      "name": "ridho mahmuzinida",
+      "state": "active",
+      "groupId": "Cb0483404dd4ea7b62ef3de64569f4d3e",
+      "points": 0,
+      "villagerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "werewolfStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "villager",
+        "description": "🧑‍🌾 Kamu berada di pihak warga. Kamu suka curigaan",
+        "team": "",
+        "canKill": false
+      },
+      "status": "alive",
+      "message": "",
+      "attacked": false,
+      "healed": false,
+      "targetIndex": -1,
+      "targetVoteIndex": -1,
+      "afkCounter": 0,
+      "visitors": [],
+      "blocked": false,
+      "attackers": [],
+      "intercepted": false,
+      "journals": [],
+      "deathNote": "",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false
+    }
+  ]
+}

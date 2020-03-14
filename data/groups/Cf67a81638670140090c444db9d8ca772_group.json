@@ -1,0 +1,499 @@
+{
+  "groupId": "Cf67a81638670140090c444db9d8ca772",
+  "state": "idle",
+  "status": "inactive",
+  "players": [
+    {
+      "id": "U6b81b438451aeb23c53b86cc184d9052",
+      "name": "Angkasa",
+      "state": "active",
+      "groupId": "Cf67a81638670140090c444db9d8ca772",
+      "points": 5,
+      "villagerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "werewolfStats": {
+        "win": 1,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "werewolf",
+        "team": "werewolf",
+        "description": "🐺 Kamu adalah penjahat yang menyamar diantara werewolf. Kamu kebal dari serangan biasa. ",
+        "canKill": true,
+        "cmdText": "/skill"
+      },
+      "status": "alive",
+      "message": "👣 Kamu ke rumah mas okis\n\n💡 Kamu menyerang mas okis\n\n🐺 Target Werewolf adalah : mas okis\n\n👣 Angkasa mengunjungi rumah mas okis\n\n",
+      "attacked": false,
+      "healed": false,
+      "targetIndex": -1,
+      "targetVoteIndex": -1,
+      "afkCounter": 0,
+      "visitors": [],
+      "blocked": false,
+      "attackers": [],
+      "intercepted": false,
+      "journals": [
+        {
+          "nightCounter": 1,
+          "content": "🐺 Target Werewolf adalah : del\n\n👣 cogan nasution mengunjungi rumah del"
+        },
+        {
+          "nightCounter": 2,
+          "content": "👣 Kamu ke rumah baran\n\n💡 Kamu menyerang baran\n\n🐺 Target Werewolf adalah : baran\n\n👣 Angkasa mengunjungi rumah baran"
+        },
+        {
+          "nightCounter": 3,
+          "content": "👣 Kamu ke rumah mas okis\n\n💡 Kamu menyerang mas okis\n\n🐺 Target Werewolf adalah : mas okis\n\n👣 Angkasa mengunjungi rumah mas okis"
+        }
+      ],
+      "deathNote": "hah",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false,
+      "target": {
+        "index": "3",
+        "value": 2
+      },
+      "vampireBited": false,
+      "addonMessage": ""
+    },
+    {
+      "id": "Uccb4f346132e4fd2bcda575bdfb99876",
+      "name": "cogan nasution",
+      "state": "active",
+      "groupId": "Cf67a81638670140090c444db9d8ca772",
+      "points": 5,
+      "villagerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "werewolfStats": {
+        "win": 1,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "werewolf-cub",
+        "team": "werewolf",
+        "description": "🐕 Kamu dipihak werewolf, dan kamu suruhan Werewolf untuk membunuh orang lain. ",
+        "canKill": true,
+        "cmdText": "/skill"
+      },
+      "status": "death",
+      "message": "🐺 Target Werewolf adalah : baran\n\n👣 Angkasa mengunjungi rumah baran\n\n",
+      "attacked": false,
+      "healed": false,
+      "targetIndex": -1,
+      "targetVoteIndex": "4",
+      "afkCounter": 1,
+      "visitors": [
+        {
+          "name": "DAKSA",
+          "role": {
+            "name": "escort",
+            "team": "villager",
+            "description": "💋 Kamu adalah warga yang bisa block skill pemain lain, sehingga targetmu tidak dapat menggunakan skill malamnya. Hati hati, kamu bisa block skill sesama warga",
+            "canKill": false,
+            "cmdText": "/skill"
+          }
+        }
+      ],
+      "blocked": true,
+      "attackers": [],
+      "intercepted": false,
+      "journals": [
+        {
+          "nightCounter": 1,
+          "content": "👣 Kamu disuruh ke rumah del\n\n💡 Kamu menyerang del\n\n🐺 Target Werewolf adalah : del\n\n👣 cogan nasution mengunjungi rumah del"
+        },
+        {
+          "nightCounter": 2,
+          "content": "🐺 Target Werewolf adalah : baran\n\n👣 Angkasa mengunjungi rumah baran"
+        }
+      ],
+      "deathNote": "",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false,
+      "addonMessage": "",
+      "target": {
+        "index": "5",
+        "value": 1
+      },
+      "vampireBited": false
+    },
+    {
+      "id": "U1b70b652a6eb4d98a79665a41de4f59c",
+      "name": "del",
+      "state": "active",
+      "groupId": "Cf67a81638670140090c444db9d8ca772",
+      "points": 1,
+      "villagerStats": {
+        "win": 0,
+        "lose": 1
+      },
+      "werewolfStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "lookout",
+        "team": "villager",
+        "description": "👀 Kamu adalah warga yang bisa memantau rumah seseorang pas malam, sehingga bisa mengetahui siapa pendatangnya",
+        "canKill": false,
+        "cmdText": "/skill"
+      },
+      "status": "death",
+      "message": "🐺 Kamu diserang werewolf!\n\n",
+      "attacked": true,
+      "healed": false,
+      "targetIndex": -1,
+      "targetVoteIndex": -1,
+      "afkCounter": 1,
+      "visitors": [
+        {
+          "name": "cogan nasution",
+          "role": {
+            "name": "werewolf-cub",
+            "team": "werewolf",
+            "description": "🐕 Kamu dipihak werewolf, dan kamu suruhan Werewolf untuk membunuh orang lain. ",
+            "canKill": true,
+            "cmdText": "/skill"
+          }
+        }
+      ],
+      "blocked": false,
+      "attackers": [
+        {
+          "index": 1,
+          "name": "cogan nasution",
+          "role": {
+            "name": "werewolf-cub",
+            "team": "werewolf",
+            "description": "🐕 Kamu dipihak werewolf, dan kamu suruhan Werewolf untuk membunuh orang lain. ",
+            "canKill": true,
+            "cmdText": "/skill"
+          },
+          "deathNote": ""
+        }
+      ],
+      "intercepted": false,
+      "journals": [],
+      "deathNote": "",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false,
+      "target": {
+        "index": -1,
+        "value": 1
+      },
+      "vampireBited": false,
+      "addonMessage": ""
+    },
+    {
+      "id": "U39e801811363645666f5c5216365f269",
+      "name": "mas okis",
+      "state": "active",
+      "groupId": "Cf67a81638670140090c444db9d8ca772",
+      "points": 1,
+      "villagerStats": {
+        "win": 0,
+        "lose": 1
+      },
+      "werewolfStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "vigilante",
+        "team": "villager",
+        "description": "🔫 Kamu adalah warga yang bisa memilih siapa yang ingin dibunuh pas malam. Jika kamu bunuh sesama warga, kamu akan bunuh diri keesokan harinya",
+        "canKill": true,
+        "cmdText": "/skill"
+      },
+      "status": "death",
+      "message": "💡 Kamu tidak menggunakan skill mu\n\n🐺 Kamu diserang werewolf!\n\n",
+      "attacked": true,
+      "healed": false,
+      "targetIndex": -1,
+      "targetVoteIndex": -1,
+      "afkCounter": 2,
+      "visitors": [
+        {
+          "name": "Angkasa",
+          "role": {
+            "name": "werewolf",
+            "team": "werewolf",
+            "description": "🐺 Kamu adalah penjahat yang menyamar diantara werewolf. Kamu kebal dari serangan biasa. ",
+            "canKill": true,
+            "cmdText": "/skill"
+          }
+        }
+      ],
+      "blocked": false,
+      "attackers": [
+        {
+          "index": 0,
+          "name": "Angkasa",
+          "role": {
+            "name": "werewolf",
+            "team": "werewolf",
+            "description": "🐺 Kamu adalah penjahat yang menyamar diantara werewolf. Kamu kebal dari serangan biasa. ",
+            "canKill": true,
+            "cmdText": "/skill"
+          },
+          "deathNote": "hah"
+        }
+      ],
+      "intercepted": false,
+      "journals": [
+        {
+          "nightCounter": 1,
+          "content": "💡 Kamu tidak menggunakan skill mu"
+        },
+        {
+          "nightCounter": 2,
+          "content": "💡 Kamu tidak menggunakan skill mu"
+        }
+      ],
+      "deathNote": "",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false,
+      "target": {
+        "index": -1,
+        "value": 1
+      },
+      "vampireBited": false,
+      "addonMessage": ""
+    },
+    {
+      "id": "U4e96ca5faea2cc497a7f324a73cef067",
+      "name": "DAKSA",
+      "state": "active",
+      "groupId": "Cf67a81638670140090c444db9d8ca772",
+      "points": 1,
+      "villagerStats": {
+        "win": 0,
+        "lose": 1
+      },
+      "werewolfStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "escort",
+        "team": "villager",
+        "description": "💋 Kamu adalah warga yang bisa block skill pemain lain, sehingga targetmu tidak dapat menggunakan skill malamnya. Hati hati, kamu bisa block skill sesama warga",
+        "canKill": false,
+        "cmdText": "/skill"
+      },
+      "status": "alive",
+      "message": "💡 Kamu tidak menggunakan skill mu\n\n",
+      "attacked": false,
+      "healed": false,
+      "targetIndex": -1,
+      "targetVoteIndex": -1,
+      "afkCounter": 1,
+      "visitors": [],
+      "blocked": false,
+      "attackers": [],
+      "intercepted": false,
+      "journals": [
+        {
+          "nightCounter": 1,
+          "content": "👣 Kamu ke rumah mas okis"
+        },
+        {
+          "nightCounter": 2,
+          "content": "👣 Kamu ke rumah cogan nasution"
+        },
+        {
+          "nightCounter": 3,
+          "content": "💡 Kamu tidak menggunakan skill mu"
+        }
+      ],
+      "deathNote": "",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false,
+      "target": {
+        "index": -1,
+        "value": 1
+      },
+      "vampireBited": false,
+      "addonMessage": ""
+    },
+    {
+      "id": "Uc4e79744850a2cdc1879756a66708d1c",
+      "name": "baran",
+      "state": "active",
+      "groupId": "Cf67a81638670140090c444db9d8ca772",
+      "points": 1,
+      "villagerStats": {
+        "win": 0,
+        "lose": 1
+      },
+      "werewolfStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "seer",
+        "team": "villager",
+        "description": "🔮 Kamu adalah warga yang bisa cek identitas sebenarnya dari suatu orang. Gantung Werewolf supaya kamu menang",
+        "canKill": false,
+        "cmdText": "/skill"
+      },
+      "status": "death",
+      "message": "🐺 Kamu diserang werewolf!\n\n",
+      "attacked": true,
+      "healed": false,
+      "targetIndex": -1,
+      "targetVoteIndex": -1,
+      "afkCounter": 0,
+      "visitors": [
+        {
+          "name": "Angkasa",
+          "role": {
+            "name": "werewolf",
+            "team": "werewolf",
+            "description": "🐺 Kamu adalah penjahat yang menyamar diantara werewolf. Kamu kebal dari serangan biasa. ",
+            "canKill": true,
+            "cmdText": "/skill"
+          }
+        }
+      ],
+      "blocked": false,
+      "attackers": [
+        {
+          "index": 0,
+          "name": "Angkasa",
+          "role": {
+            "name": "werewolf",
+            "team": "werewolf",
+            "description": "🐺 Kamu adalah penjahat yang menyamar diantara werewolf. Kamu kebal dari serangan biasa. ",
+            "canKill": true,
+            "cmdText": "/skill"
+          },
+          "deathNote": "hah"
+        }
+      ],
+      "intercepted": false,
+      "journals": [
+        {
+          "nightCounter": 1,
+          "content": "👣 Kamu ke rumah Angkasa\n\n🔮 Role Angkasa adalah werewolf\n\nKamu bisa cek info role dengan ketik '/info werewolf'"
+        }
+      ],
+      "deathNote": "",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false,
+      "target": {
+        "index": "4",
+        "value": 1
+      },
+      "vampireBited": false,
+      "addonMessage": ""
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "id": "U6680c5d0f201f126189bef1b360c2a9e",
+  "name": "! ZIE",
+  "state": "inactive",
+  "groupId": "",
+  "points": 1,
+  "villagerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 1
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

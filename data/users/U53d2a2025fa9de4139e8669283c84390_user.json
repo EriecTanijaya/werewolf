@@ -1,0 +1,31 @@
+{
+  "id": "U53d2a2025fa9de4139e8669283c84390",
+  "name": "๖ۣۣۜDifan ͜͡ℭ👽ᵍˣʲⁱⁿᵍ",
+  "state": "inactive",
+  "groupId": "C85ea09ea038a7e9a147691bd2285ba83",
+  "points": 41,
+  "villagerStats": {
+    "win": 5,
+    "lose": 3
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 10
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 3
+  }
+}

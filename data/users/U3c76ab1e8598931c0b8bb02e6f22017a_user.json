@@ -1,0 +1,31 @@
+{
+  "id": "U3c76ab1e8598931c0b8bb02e6f22017a",
+  "name": "ᵂᴸᵀ×Mbul×",
+  "state": "inactive",
+  "groupId": "",
+  "points": 17,
+  "villagerStats": {
+    "win": 1,
+    "lose": 1
+  },
+  "werewolfStats": {
+    "win": 2,
+    "lose": 1
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

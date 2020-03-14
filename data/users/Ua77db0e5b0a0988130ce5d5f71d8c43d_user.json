@@ -1,0 +1,31 @@
+{
+  "id": "Ua77db0e5b0a0988130ce5d5f71d8c43d",
+  "name": "Mr. Naska",
+  "state": "inactive",
+  "groupId": "Cba09feb8e05febfa25b23516af7e49c5",
+  "points": 55,
+  "villagerStats": {
+    "win": 11,
+    "lose": 0
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

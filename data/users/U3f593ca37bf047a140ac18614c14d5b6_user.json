@@ -1,0 +1,31 @@
+{
+  "id": "U3f593ca37bf047a140ac18614c14d5b6",
+  "name": "Lian softgurl",
+  "state": "inactive",
+  "groupId": "",
+  "points": 11,
+  "villagerStats": {
+    "win": 1,
+    "lose": 1
+  },
+  "werewolfStats": {
+    "win": 1,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

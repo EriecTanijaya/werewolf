@@ -1,0 +1,31 @@
+{
+  "id": "Uee894643699e6aba294e4bf6b067c091",
+  "name": ".Gazet🍑",
+  "state": "inactive",
+  "groupId": "C90e853a9b36916ee2da82942ccc9a01e",
+  "points": 40,
+  "villagerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "werewolfStats": {
+    "win": 8,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

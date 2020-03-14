@@ -1,0 +1,31 @@
+{
+  "id": "Udd32f89538767abafdde03a562659397",
+  "name": "ashilla",
+  "state": "inactive",
+  "groupId": "Cda1bf6a737b39487a45042da44830ee9",
+  "points": 0,
+  "villagerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "id": "Ub7c4093340b338526be67411aafd67f1",
+  "name": "Mrs. Ìyen Wac💮",
+  "state": "inactive",
+  "groupId": "",
+  "points": 179,
+  "villagerStats": {
+    "win": 23,
+    "lose": 16
+  },
+  "werewolfStats": {
+    "win": 6,
+    "lose": 3
+  },
+  "vampireStats": {
+    "win": 1,
+    "lose": 2
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 1
+  },
+  "serialKillerStats": {
+    "win": 1,
+    "lose": 2
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

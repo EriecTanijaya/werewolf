@@ -1,0 +1,31 @@
+{
+  "id": "Uc88bc82962848f4b3302fd3b67d8f814",
+  "name": "rio vegaz",
+  "state": "inactive",
+  "groupId": "Caec32dde7187312f34bf763f1f8d55db",
+  "points": 906,
+  "villagerStats": {
+    "win": 114,
+    "lose": 75
+  },
+  "werewolfStats": {
+    "win": 31,
+    "lose": 45
+  },
+  "vampireStats": {
+    "win": 2,
+    "lose": 11
+  },
+  "tannerStats": {
+    "win": 3,
+    "lose": 9
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 5
+  },
+  "arsonistStats": {
+    "win": 1,
+    "lose": 6
+  }
+}

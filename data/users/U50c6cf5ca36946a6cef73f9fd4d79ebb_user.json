@@ -1,0 +1,31 @@
+{
+  "id": "U50c6cf5ca36946a6cef73f9fd4d79ebb",
+  "name": "Gataf topul",
+  "state": "inactive",
+  "groupId": "C52204ea93cff514887cb0c3108273ba3",
+  "points": 40,
+  "villagerStats": {
+    "win": 8,
+    "lose": 0
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

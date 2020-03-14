@@ -1,0 +1,31 @@
+{
+  "id": "Uc8a3552d824f092190675e43c3279a19",
+  "name": "O̷LX /sick/slr",
+  "state": "inactive",
+  "groupId": "Cf8d4d13b5ad139757065e7637b9c99ca",
+  "points": 0,
+  "villagerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

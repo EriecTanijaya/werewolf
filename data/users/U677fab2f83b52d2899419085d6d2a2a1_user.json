@@ -1,0 +1,31 @@
+{
+  "id": "U677fab2f83b52d2899419085d6d2a2a1",
+  "name": "☤Anara♠",
+  "state": "inactive",
+  "groupId": "C09883d3f09636ac674ef96b7cac28e1a",
+  "points": 50,
+  "villagerStats": {
+    "win": 1,
+    "lose": 0
+  },
+  "werewolfStats": {
+    "win": 9,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

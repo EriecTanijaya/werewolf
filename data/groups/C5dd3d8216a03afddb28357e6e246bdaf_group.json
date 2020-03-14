@@ -1,0 +1,166 @@
+{
+  "groupId": "C5dd3d8216a03afddb28357e6e246bdaf",
+  "state": "idle",
+  "status": "inactive",
+  "players": [
+    {
+      "id": "Ub758788af93038abc5b0aaf686848349",
+      "name": "ཧᜰ꙰ꦿ➢ʏɛʀɨռ༒",
+      "state": "active",
+      "groupId": "C5dd3d8216a03afddb28357e6e246bdaf",
+      "points": 0,
+      "villagerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "werewolfStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "villager",
+        "description": "🧑‍🌾 Kamu berada di pihak warga. Kamu suka curigaan",
+        "team": "",
+        "canKill": false
+      },
+      "status": "alive",
+      "message": "",
+      "attacked": false,
+      "healed": false,
+      "targetIndex": -1,
+      "targetVoteIndex": -1,
+      "afkCounter": 0,
+      "visitors": [],
+      "blocked": false,
+      "attackers": [],
+      "intercepted": false,
+      "journals": [],
+      "deathNote": "",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false
+    },
+    {
+      "id": "U12f460f19e036a5607ea0cca593bb12b",
+      "name": "ᵂᴬᵂ𝑵𝑨𝑹𝑨☤ᴸᴳᴺᴰ",
+      "state": "active",
+      "groupId": "C5dd3d8216a03afddb28357e6e246bdaf",
+      "points": 0,
+      "villagerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "werewolfStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "villager",
+        "description": "🧑‍🌾 Kamu berada di pihak warga. Kamu suka curigaan",
+        "team": "",
+        "canKill": false
+      },
+      "status": "alive",
+      "message": "",
+      "attacked": false,
+      "healed": false,
+      "targetIndex": -1,
+      "targetVoteIndex": -1,
+      "afkCounter": 0,
+      "visitors": [],
+      "blocked": false,
+      "attackers": [],
+      "intercepted": false,
+      "journals": [],
+      "deathNote": "",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false
+    },
+    {
+      "id": "U9dcd841ee180ad4d7a65b103c6f02e37",
+      "name": "ts) ᴿ⍣Rheaa V Ryver",
+      "state": "active",
+      "groupId": "C5dd3d8216a03afddb28357e6e246bdaf",
+      "points": 0,
+      "villagerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "werewolfStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "villager",
+        "description": "🧑‍🌾 Kamu berada di pihak warga. Kamu suka curigaan",
+        "team": "",
+        "canKill": false
+      },
+      "status": "alive",
+      "message": "",
+      "attacked": false,
+      "healed": false,
+      "targetIndex": -1,
+      "targetVoteIndex": -1,
+      "afkCounter": 0,
+      "visitors": [],
+      "blocked": false,
+      "attackers": [],
+      "intercepted": false,
+      "journals": [],
+      "deathNote": "",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false
+    }
+  ]
+}

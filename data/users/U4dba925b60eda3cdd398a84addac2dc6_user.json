@@ -1,0 +1,31 @@
+{
+  "id": "U4dba925b60eda3cdd398a84addac2dc6",
+  "name": "𝓥𝓪𝓵𝓮𝓷𝓽",
+  "state": "inactive",
+  "groupId": "",
+  "points": 39,
+  "villagerStats": {
+    "win": 7,
+    "lose": 3
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 1
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

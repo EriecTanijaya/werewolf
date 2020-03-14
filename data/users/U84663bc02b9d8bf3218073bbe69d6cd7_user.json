@@ -1,0 +1,31 @@
+{
+  "id": "U84663bc02b9d8bf3218073bbe69d6cd7",
+  "name": "Malin",
+  "state": "inactive",
+  "groupId": "Cba09feb8e05febfa25b23516af7e49c5",
+  "points": 11,
+  "villagerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 11
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

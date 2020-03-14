@@ -1,0 +1,31 @@
+{
+  "id": "U9dcd841ee180ad4d7a65b103c6f02e37",
+  "name": "ts) ᴿ⍣Rheaa V Ryver",
+  "state": "inactive",
+  "groupId": "C5dd3d8216a03afddb28357e6e246bdaf",
+  "points": 11,
+  "villagerStats": {
+    "win": 2,
+    "lose": 1
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

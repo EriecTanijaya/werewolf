@@ -1,0 +1,31 @@
+{
+  "id": "U584388e13ecba12b761472beaa4b169b",
+  "name": "LOAD CHAT YAA. SABAR",
+  "state": "inactive",
+  "groupId": "Cba800f3c339508c45a06bc1b060926e5",
+  "points": 44,
+  "villagerStats": {
+    "win": 8,
+    "lose": 2
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 2
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

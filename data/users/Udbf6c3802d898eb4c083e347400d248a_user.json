@@ -1,0 +1,31 @@
+{
+  "id": "Udbf6c3802d898eb4c083e347400d248a",
+  "name": "ᴶᵀ𝑹𝒆𝒚°༄",
+  "state": "inactive",
+  "groupId": "",
+  "points": 0,
+  "villagerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

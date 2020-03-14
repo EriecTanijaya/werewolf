@@ -1,0 +1,31 @@
+{
+  "id": "Ue59672910d4c5cb473579abb1e1a3f63",
+  "name": "Edward",
+  "state": "inactive",
+  "groupId": "",
+  "points": 185,
+  "villagerStats": {
+    "win": 21,
+    "lose": 28
+  },
+  "werewolfStats": {
+    "win": 5,
+    "lose": 9
+  },
+  "vampireStats": {
+    "win": 1,
+    "lose": 2
+  },
+  "tannerStats": {
+    "win": 1,
+    "lose": 2
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 4
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

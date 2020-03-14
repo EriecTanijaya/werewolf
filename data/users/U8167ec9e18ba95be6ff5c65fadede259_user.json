@@ -1,0 +1,31 @@
+{
+  "id": "U8167ec9e18ba95be6ff5c65fadede259",
+  "name": "+62 852-1608-6572",
+  "state": "inactive",
+  "groupId": "",
+  "points": 62,
+  "villagerStats": {
+    "win": 8,
+    "lose": 2
+  },
+  "werewolfStats": {
+    "win": 2,
+    "lose": 4
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 1
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 1,
+    "lose": 0
+  }
+}

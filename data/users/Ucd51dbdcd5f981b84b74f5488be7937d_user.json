@@ -1,0 +1,31 @@
+{
+  "id": "Ucd51dbdcd5f981b84b74f5488be7937d",
+  "name": "Serra Alzelvin//off",
+  "state": "inactive",
+  "groupId": "Cd0e5eee96dbdc10cbb01a21e1e76a498",
+  "points": 10,
+  "villagerStats": {
+    "win": 1,
+    "lose": 0
+  },
+  "werewolfStats": {
+    "win": 1,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

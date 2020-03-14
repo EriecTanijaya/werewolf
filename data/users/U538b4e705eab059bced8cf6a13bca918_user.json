@@ -1,0 +1,31 @@
+{
+  "id": "U538b4e705eab059bced8cf6a13bca918",
+  "name": "Silver Pen🌀",
+  "state": "inactive",
+  "groupId": "Cc2f22590e9c056a80f05773ed839000d",
+  "points": 9,
+  "villagerStats": {
+    "win": 0,
+    "lose": 9
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

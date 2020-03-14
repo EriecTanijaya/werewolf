@@ -1,0 +1,166 @@
+{
+  "groupId": "C37f5de01128f9e5fd4c9d5d0ff36bd2e",
+  "state": "idle",
+  "status": "inactive",
+  "players": [
+    {
+      "id": "Ub5b5e37a12426d76e6da1c500cefc255",
+      "name": "f̶̶s̶࿄Airen.k",
+      "state": "active",
+      "groupId": "C37f5de01128f9e5fd4c9d5d0ff36bd2e",
+      "points": 0,
+      "villagerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "werewolfStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "villager",
+        "description": "🧑‍🌾 Kamu berada di pihak warga. Kamu suka curigaan",
+        "team": "",
+        "canKill": false
+      },
+      "status": "alive",
+      "message": "",
+      "attacked": false,
+      "healed": false,
+      "targetIndex": -1,
+      "targetVoteIndex": -1,
+      "afkCounter": 0,
+      "visitors": [],
+      "blocked": false,
+      "attackers": [],
+      "intercepted": false,
+      "journals": [],
+      "deathNote": "",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false
+    },
+    {
+      "id": "U59c24606b3f1972c2403c3bf9668bde6",
+      "name": "ᴮᴸᶻAlanaaˢ㍍ ᴴᴰ",
+      "state": "active",
+      "groupId": "C37f5de01128f9e5fd4c9d5d0ff36bd2e",
+      "points": 0,
+      "villagerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "werewolfStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "villager",
+        "description": "🧑‍🌾 Kamu berada di pihak warga. Kamu suka curigaan",
+        "team": "",
+        "canKill": false
+      },
+      "status": "alive",
+      "message": "",
+      "attacked": false,
+      "healed": false,
+      "targetIndex": -1,
+      "targetVoteIndex": -1,
+      "afkCounter": 0,
+      "visitors": [],
+      "blocked": false,
+      "attackers": [],
+      "intercepted": false,
+      "journals": [],
+      "deathNote": "",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false
+    },
+    {
+      "id": "Ubba81a4b4c2bb6cfc42141463ad1f3f2",
+      "name": "🍒KEYLAˢ㍍",
+      "state": "active",
+      "groupId": "C37f5de01128f9e5fd4c9d5d0ff36bd2e",
+      "points": 0,
+      "villagerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "werewolfStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "villager",
+        "description": "🧑‍🌾 Kamu berada di pihak warga. Kamu suka curigaan",
+        "team": "",
+        "canKill": false
+      },
+      "status": "alive",
+      "message": "",
+      "attacked": false,
+      "healed": false,
+      "targetIndex": -1,
+      "targetVoteIndex": -1,
+      "afkCounter": 0,
+      "visitors": [],
+      "blocked": false,
+      "attackers": [],
+      "intercepted": false,
+      "journals": [],
+      "deathNote": "",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false
+    }
+  ]
+}

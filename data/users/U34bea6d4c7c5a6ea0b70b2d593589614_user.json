@@ -1,0 +1,31 @@
+{
+  "id": "U34bea6d4c7c5a6ea0b70b2d593589614",
+  "name": "abram",
+  "state": "inactive",
+  "groupId": "C3ac8d2e430d5dfea429ecf106ba8fd33",
+  "points": 31,
+  "villagerStats": {
+    "win": 6,
+    "lose": 1
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

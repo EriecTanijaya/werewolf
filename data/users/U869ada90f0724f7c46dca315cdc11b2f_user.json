@@ -1,0 +1,31 @@
+{
+  "id": "U869ada90f0724f7c46dca315cdc11b2f",
+  "name": "helmi",
+  "state": "inactive",
+  "groupId": "C7e8d539d7ce729cabc5aecc02c13d451",
+  "points": 12,
+  "villagerStats": {
+    "win": 2,
+    "lose": 2
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

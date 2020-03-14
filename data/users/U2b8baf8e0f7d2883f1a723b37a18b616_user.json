@@ -1,0 +1,31 @@
+{
+  "id": "U2b8baf8e0f7d2883f1a723b37a18b616",
+  "name": "Trevor",
+  "state": "inactive",
+  "groupId": "C85ea09ea038a7e9a147691bd2285ba83",
+  "points": 55,
+  "villagerStats": {
+    "win": 11,
+    "lose": 0
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

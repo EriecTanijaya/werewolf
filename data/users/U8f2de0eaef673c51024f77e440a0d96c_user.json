@@ -1,0 +1,31 @@
+{
+  "id": "U8f2de0eaef673c51024f77e440a0d96c",
+  "name": "myt",
+  "state": "inactive",
+  "groupId": "Cf982f9df1d019b305b35c475d06385a0",
+  "points": 631,
+  "villagerStats": {
+    "win": 87,
+    "lose": 69
+  },
+  "werewolfStats": {
+    "win": 14,
+    "lose": 24
+  },
+  "vampireStats": {
+    "win": 1,
+    "lose": 6
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 6
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 4
+  },
+  "arsonistStats": {
+    "win": 1,
+    "lose": 7
+  }
+}

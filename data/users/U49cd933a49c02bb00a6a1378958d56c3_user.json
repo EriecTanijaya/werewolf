@@ -1,0 +1,31 @@
+{
+  "id": "U49cd933a49c02bb00a6a1378958d56c3",
+  "name": "claudia",
+  "state": "inactive",
+  "groupId": "",
+  "points": 15,
+  "villagerStats": {
+    "win": 2,
+    "lose": 2
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 3
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

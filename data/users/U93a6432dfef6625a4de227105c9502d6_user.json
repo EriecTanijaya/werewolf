@@ -1,0 +1,31 @@
+{
+  "id": "U93a6432dfef6625a4de227105c9502d6",
+  "name": "𝑨𝒏𝒈𝒆𝒍₰",
+  "state": "inactive",
+  "groupId": "",
+  "points": 11,
+  "villagerStats": {
+    "win": 2,
+    "lose": 1
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

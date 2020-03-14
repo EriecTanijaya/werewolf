@@ -1,0 +1,31 @@
+{
+  "id": "Uf239c95f599836f0bb50a4017a579043",
+  "name": "Den",
+  "state": "inactive",
+  "groupId": "C93ae07e8f813ef708fb56184827b0938",
+  "points": 21,
+  "villagerStats": {
+    "win": 3,
+    "lose": 1
+  },
+  "werewolfStats": {
+    "win": 1,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

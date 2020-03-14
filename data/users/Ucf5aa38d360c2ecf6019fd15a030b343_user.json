@@ -1,0 +1,31 @@
+{
+  "id": "Ucf5aa38d360c2ecf6019fd15a030b343",
+  "name": "Aldebaran",
+  "state": "inactive",
+  "groupId": "C3d1065e55893de51e3bd1bba7a4bcdcd",
+  "points": 49,
+  "villagerStats": {
+    "win": 6,
+    "lose": 13
+  },
+  "werewolfStats": {
+    "win": 1,
+    "lose": 1
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

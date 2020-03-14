@@ -1,0 +1,31 @@
+{
+  "id": "Uea4070f67b8336670c14b49be46c239c",
+  "name": "Andina",
+  "state": "inactive",
+  "groupId": "C0bf3c22ea797bdaa57eef6215f74fe4e",
+  "points": 47,
+  "villagerStats": {
+    "win": 9,
+    "lose": 1
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 1
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

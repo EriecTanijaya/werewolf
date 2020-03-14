@@ -1,0 +1,31 @@
+{
+  "id": "U429ee97acfc93c336f86aeafb53a275d",
+  "name": "Lia Elvina",
+  "state": "inactive",
+  "groupId": "Cb954c8d52f9885af9561dafda6e5a006",
+  "points": 16,
+  "villagerStats": {
+    "win": 3,
+    "lose": 1
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

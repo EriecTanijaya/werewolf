@@ -1,0 +1,31 @@
+{
+  "id": "U0cf2b1dfbf78b96f645df5629ec3ee0e",
+  "name": "Yvonne",
+  "state": "inactive",
+  "groupId": "C8f7245241938b28d27d7d99e77795060",
+  "points": 15,
+  "villagerStats": {
+    "win": 2,
+    "lose": 0
+  },
+  "werewolfStats": {
+    "win": 1,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

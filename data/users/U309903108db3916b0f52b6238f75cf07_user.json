@@ -1,0 +1,31 @@
+{
+  "id": "U309903108db3916b0f52b6238f75cf07",
+  "name": "Shadowtaker",
+  "state": "inactive",
+  "groupId": "",
+  "points": 8,
+  "villagerStats": {
+    "win": 0,
+    "lose": 2
+  },
+  "werewolfStats": {
+    "win": 1,
+    "lose": 1
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

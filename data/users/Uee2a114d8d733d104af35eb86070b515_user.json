@@ -1,0 +1,31 @@
+{
+  "id": "Uee2a114d8d733d104af35eb86070b515",
+  "name": "Geisya",
+  "state": "inactive",
+  "groupId": "C0bf3c22ea797bdaa57eef6215f74fe4e",
+  "points": 47,
+  "villagerStats": {
+    "win": 8,
+    "lose": 1
+  },
+  "werewolfStats": {
+    "win": 1,
+    "lose": 1
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

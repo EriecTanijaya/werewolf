@@ -1,0 +1,31 @@
+{
+  "id": "U8cccb170bae418d5fab06783ac90c571",
+  "name": "Lokiガ",
+  "state": "inactive",
+  "groupId": "",
+  "points": 47,
+  "villagerStats": {
+    "win": 4,
+    "lose": 6
+  },
+  "werewolfStats": {
+    "win": 3,
+    "lose": 1
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 1,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

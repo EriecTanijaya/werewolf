@@ -1,0 +1,31 @@
+{
+  "id": "U20fff468c043bac2216d832ba44376e3",
+  "name": "♞rizky_9997■Φ ⓔ{45}™",
+  "state": "inactive",
+  "groupId": "C334b2c6d0dfe07d9066651b090fbfae5",
+  "points": 0,
+  "villagerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

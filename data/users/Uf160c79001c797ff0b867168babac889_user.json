@@ -1,0 +1,31 @@
+{
+  "id": "Uf160c79001c797ff0b867168babac889",
+  "name": "Pedigree pdg pucek",
+  "state": "inactive",
+  "groupId": "Cb17aed8493cef262bca0ec94d20366d3",
+  "points": 7,
+  "villagerStats": {
+    "win": 1,
+    "lose": 1
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 1
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "id": "U3d47c9bfaf79d665ecabf9aad384e826",
+  "name": "Yohn Liandra",
+  "state": "inactive",
+  "groupId": "C38313483d0ebe93878e5e839424c334b",
+  "points": 15,
+  "villagerStats": {
+    "win": 2,
+    "lose": 5
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

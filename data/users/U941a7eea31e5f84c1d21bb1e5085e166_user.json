@@ -1,0 +1,31 @@
+{
+  "id": "U941a7eea31e5f84c1d21bb1e5085e166",
+  "name": "MEMEK SLAYER",
+  "state": "inactive",
+  "groupId": "C08bc4f62aa56963b3d37059e0196f77e",
+  "points": 1,
+  "villagerStats": {
+    "win": 0,
+    "lose": 1
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

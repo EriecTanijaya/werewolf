@@ -1,0 +1,31 @@
+{
+  "id": "Uc4e79744850a2cdc1879756a66708d1c",
+  "name": "baran",
+  "state": "inactive",
+  "groupId": "Cf67a81638670140090c444db9d8ca772",
+  "points": 14,
+  "villagerStats": {
+    "win": 0,
+    "lose": 14
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

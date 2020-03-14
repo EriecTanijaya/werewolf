@@ -1,0 +1,389 @@
+{
+  "groupId": "C9bedf4527deae4698dd5ebbaa06f4df7",
+  "state": "idle",
+  "status": "inactive",
+  "players": [
+    {
+      "id": "U7bb21d4cad7bfe27e3d5a29ef7a21dd7",
+      "name": "YORIKO /rbio",
+      "state": "active",
+      "groupId": "C9bedf4527deae4698dd5ebbaa06f4df7",
+      "points": 1,
+      "villagerStats": {
+        "win": 0,
+        "lose": 1
+      },
+      "werewolfStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "vigilante",
+        "team": "villager",
+        "description": "🔫 Kamu adalah warga yang bisa memilih siapa yang ingin dibunuh pas malam. Jika kamu bunuh sesama warga, kamu akan bunuh diri keesokan harinya",
+        "canKill": true,
+        "cmdText": "/skill"
+      },
+      "status": "alive",
+      "voting": "done",
+      "skill": "pending",
+      "message": "⚰️ Kamu berhasil dibangkitkan Retributionist!\n\n💡 Kamu tidak menggunakan skill mu\n\n",
+      "attacked": false,
+      "healed": false,
+      "targetIndex": -1,
+      "targetVoteName": "eran hyung",
+      "afkCounter": 1,
+      "visitors": [],
+      "blocked": false,
+      "attackers": [],
+      "intercepted": false,
+      "journals": [
+        {
+          "nightCounter": 1,
+          "content": "👣 Kamu ke rumah Narendra\n\n💡 Target kamu immune dari serangan!"
+        },
+        {
+          "nightCounter": 2,
+          "content": "⚰️ Kamu berhasil dibangkitkan Retributionist!\n\n💡 Kamu tidak menggunakan skill mu"
+        }
+      ],
+      "deathNote": "",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false,
+      "vampireBited": false,
+      "addonMessage": ""
+    },
+    {
+      "id": "Ud8672c4e8d3b96b06470178b9eb79940",
+      "name": "Narendra",
+      "state": "active",
+      "groupId": "C9bedf4527deae4698dd5ebbaa06f4df7",
+      "points": 5,
+      "villagerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "werewolfStats": {
+        "win": 1,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "werewolf",
+        "team": "werewolf",
+        "description": "🐺 Kamu adalah penjahat yang menyamar diantara werewolf. Kamu kebal dari serangan biasa. ",
+        "canKill": true,
+        "cmdText": "/skill"
+      },
+      "status": "alive",
+      "voting": "done",
+      "skill": "used",
+      "message": "👣 Kamu ke rumah Am i a good boy?\n\n💡 Kamu menyerang Am i a good boy?\n\n🐺 Target Werewolf adalah : Am i a good boy?\n\n👣 Narendra mengunjungi rumah Am i a good boy?\n\n",
+      "attacked": false,
+      "healed": false,
+      "targetIndex": 2,
+      "targetVoteName": "eran hyung",
+      "afkCounter": 0,
+      "visitors": [],
+      "blocked": false,
+      "attackers": [],
+      "intercepted": false,
+      "journals": [
+        {
+          "nightCounter": 1,
+          "content": "💡 Ada yang menyerang kamu tapi kamu immune dari serangan!\n\n👣 Kamu ke rumah Jiesung\n\n💡 Kamu menyerang Jiesung\n\n🐺 Target Werewolf adalah : Jiesung\n\n👣 Narendra mengunjungi rumah Jiesung"
+        },
+        {
+          "nightCounter": 2,
+          "content": "👣 Kamu ke rumah Am i a good boy?\n\n💡 Kamu menyerang Am i a good boy?\n\n🐺 Target Werewolf adalah : Am i a good boy?\n\n👣 Narendra mengunjungi rumah Am i a good boy?"
+        }
+      ],
+      "deathNote": "well done",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false,
+      "vampireBited": false,
+      "addonMessage": ""
+    },
+    {
+      "id": "U0ad6ede6aa1bcab443af8f0292503181",
+      "name": "Am i a good boy?",
+      "state": "active",
+      "groupId": "C9bedf4527deae4698dd5ebbaa06f4df7",
+      "points": 1,
+      "villagerStats": {
+        "win": 0,
+        "lose": 1
+      },
+      "werewolfStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "seer",
+        "team": "villager",
+        "description": "🔮 Kamu adalah warga yang bisa cek identitas sebenarnya dari suatu orang. Gantung Werewolf supaya kamu menang",
+        "canKill": false,
+        "cmdText": "/skill"
+      },
+      "status": "death",
+      "voting": "pending",
+      "skill": "used",
+      "message": "👣 Kamu ke rumah eran hyung\n\n🔮 Role eran hyung adalah retributionist\n\nKamu bisa cek info role dengan ketik '/info retributionist'\n\n🐺 Kamu diserang werewolf!\n\n",
+      "attacked": true,
+      "healed": false,
+      "targetIndex": "4",
+      "targetVoteName": "-",
+      "afkCounter": 0,
+      "visitors": [
+        {
+          "name": "Narendra",
+          "role": {
+            "name": "werewolf",
+            "team": "werewolf",
+            "description": "🐺 Kamu adalah penjahat yang menyamar diantara werewolf. Kamu kebal dari serangan biasa. ",
+            "canKill": true,
+            "cmdText": "/skill"
+          }
+        }
+      ],
+      "blocked": false,
+      "attackers": [
+        {
+          "index": 1,
+          "name": "Narendra",
+          "role": {
+            "name": "werewolf",
+            "team": "werewolf",
+            "description": "🐺 Kamu adalah penjahat yang menyamar diantara werewolf. Kamu kebal dari serangan biasa. ",
+            "canKill": true,
+            "cmdText": "/skill"
+          },
+          "deathNote": "well done"
+        }
+      ],
+      "intercepted": false,
+      "journals": [
+        {
+          "nightCounter": 1,
+          "content": "💡 Kamu tidak menggunakan skill mu"
+        }
+      ],
+      "deathNote": "",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false,
+      "vampireBited": false,
+      "addonMessage": ""
+    },
+    {
+      "id": "U769f5a7aec55bd32c01f78c14d7a17cf",
+      "name": "Jiesung",
+      "state": "active",
+      "groupId": "C9bedf4527deae4698dd5ebbaa06f4df7",
+      "points": 1,
+      "villagerStats": {
+        "win": 0,
+        "lose": 1
+      },
+      "werewolfStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "escort",
+        "team": "villager",
+        "description": "💋 Kamu adalah warga yang bisa block skill pemain lain, sehingga targetmu tidak dapat menggunakan skill malamnya. Hati hati, kamu bisa block skill sesama warga",
+        "canKill": false,
+        "cmdText": "/skill"
+      },
+      "status": "death",
+      "voting": "pending",
+      "skill": "pending",
+      "message": "💡 Kamu tidak menggunakan skill mu\n\n🐺 Kamu diserang werewolf!\n\n",
+      "attacked": true,
+      "healed": false,
+      "targetIndex": -1,
+      "targetVoteName": "-",
+      "afkCounter": 0,
+      "visitors": [
+        {
+          "name": "Narendra",
+          "role": {
+            "name": "werewolf",
+            "team": "werewolf",
+            "description": "🐺 Kamu adalah penjahat yang menyamar diantara werewolf. Kamu kebal dari serangan biasa. ",
+            "canKill": true,
+            "cmdText": "/skill"
+          }
+        }
+      ],
+      "blocked": false,
+      "attackers": [
+        {
+          "index": 1,
+          "name": "Narendra",
+          "role": {
+            "name": "werewolf",
+            "team": "werewolf",
+            "description": "🐺 Kamu adalah penjahat yang menyamar diantara werewolf. Kamu kebal dari serangan biasa. ",
+            "canKill": true,
+            "cmdText": "/skill"
+          },
+          "deathNote": "selamat kawan"
+        }
+      ],
+      "intercepted": false,
+      "journals": [],
+      "deathNote": "",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false,
+      "vampireBited": false,
+      "addonMessage": ""
+    },
+    {
+      "id": "U6a457399276df4bd498cfbfa4cf39ec7",
+      "name": "eran hyung",
+      "state": "active",
+      "groupId": "C9bedf4527deae4698dd5ebbaa06f4df7",
+      "points": 1,
+      "villagerStats": {
+        "win": 0,
+        "lose": 1
+      },
+      "werewolfStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "vampireStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "tannerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "serialKillerStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "arsonistStats": {
+        "win": 0,
+        "lose": 0
+      },
+      "role": {
+        "name": "retributionist",
+        "team": "villager",
+        "description": "⚰️ Kamu adalah warga yang bisa membangkitkan orang yang telah mati. ",
+        "canKill": false,
+        "cmdText": "/skill",
+        "revive": 0
+      },
+      "status": "death",
+      "voting": "done",
+      "skill": "used",
+      "message": "👣 Kamu ke rumah YORIKO /rbio\n\n⚰️ Kamu berhasil membangkitkan YORIKO /rbio (vigilante)\n\n",
+      "attacked": false,
+      "healed": false,
+      "targetIndex": "0",
+      "targetVoteName": "Narendra",
+      "afkCounter": 0,
+      "visitors": [
+        {
+          "name": "Am i a good boy?",
+          "role": {
+            "name": "seer",
+            "team": "villager",
+            "description": "🔮 Kamu adalah warga yang bisa cek identitas sebenarnya dari suatu orang. Gantung Werewolf supaya kamu menang",
+            "canKill": false,
+            "cmdText": "/skill"
+          }
+        }
+      ],
+      "blocked": false,
+      "attackers": [],
+      "intercepted": false,
+      "journals": [
+        {
+          "nightCounter": 1,
+          "content": "💡 Kamu tidak menggunakan skill mu"
+        },
+        {
+          "nightCounter": 2,
+          "content": "👣 Kamu ke rumah YORIKO /rbio\n\n⚰️ Kamu berhasil membangkitkan YORIKO /rbio (vigilante)"
+        }
+      ],
+      "deathNote": "",
+      "willSuicide": false,
+      "doused": false,
+      "burned": false,
+      "vampireBited": false,
+      "addonMessage": ""
+    }
+  ]
+}

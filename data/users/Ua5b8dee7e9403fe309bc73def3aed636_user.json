@@ -1,0 +1,31 @@
+{
+  "id": "Ua5b8dee7e9403fe309bc73def3aed636",
+  "name": "j u n g u w u✨",
+  "state": "inactive",
+  "groupId": "C7dcba45ed5730d35d5374b7c1596fd30",
+  "points": 35,
+  "villagerStats": {
+    "win": 5,
+    "lose": 0
+  },
+  "werewolfStats": {
+    "win": 2,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}
