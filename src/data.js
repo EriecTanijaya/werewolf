@@ -1,8 +1,8 @@
 const fs = require("fs");
 
 // game storage
-const group_sessions = {};
-const user_sessions = {};
+var group_sessions = {};
+var user_sessions = {};
 
 //Thanks to
 //https://stackoverflow.com/questions/36629604/node-js-socket-io-multiple-timer-for-rooms
@@ -128,11 +128,11 @@ module.exports = {
       if (user_session.id !== process.env.DEV_ID) {
         
         // semua grup ga bisa
-        //return this.maintenanceRespond();
+        return this.maintenanceRespond();
         
         // buat khusus test grup aja
         if (groupId !== process.env.TEST_GROUP) {
-          return this.maintenanceRespond();
+          //return this.maintenanceRespond();
         }
       }
     }
@@ -257,7 +257,6 @@ module.exports = {
     if (user_session.state === "inactive") {
       user_sessions[user_session.id] = null;
     }
-    
   },
 
   saveGroupData: function(group_session) {
