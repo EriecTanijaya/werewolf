@@ -174,7 +174,7 @@ module.exports = {
     let text = "Bot semi automatic yang ada campuran elemen dari ";
     text += "Town Of Salem. ";
     text +=
-      "Thanks buat grup Avalon City, LOW, Where Wolf(?), Random dan semua adders!" +
+      "Thanks buat grup Avalon City, LOW, Where Wolf(?), Random, RND Twins dan semua adders!" +
       "\n";
     text += "- Eriec (creator)";
     let flex_text = {
