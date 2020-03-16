@@ -128,11 +128,11 @@ module.exports = {
       if (user_session.id !== process.env.DEV_ID) {
         
         // semua grup ga bisa
-        return this.maintenanceRespond();
+        //return this.maintenanceRespond();
         
         // buat khusus test grup aja
         if (groupId !== process.env.TEST_GROUP) {
-          //return this.maintenanceRespond();
+          return this.maintenanceRespond();
         }
       }
     }
@@ -253,7 +253,7 @@ module.exports = {
     let path = "/app/.data/users/" + user_session.id + "_user.json";
     let data = JSON.stringify(user_session, null, 2);
     fs.writeFileSync(path, data);
-    
+    console.log(user_session);
     if (user_session.state === "inactive") {
       user_sessions[user_session.id] = null;
     }
