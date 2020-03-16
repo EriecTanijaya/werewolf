@@ -3,8 +3,8 @@
   terang gelapnya harus beda
 */
 let color = {
-  main: "#2a7886",
-  secondary: "#2a7886",
+  main: "#D48166",
+  secondary: "#D48166",
   background: "#ffffff",
   text: "#263646"
 }
