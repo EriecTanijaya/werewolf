@@ -253,6 +253,11 @@ module.exports = {
     let path = "/app/.data/users/" + user_session.id + "_user.json";
     let data = JSON.stringify(user_session, null, 2);
     fs.writeFileSync(path, data);
+    
+    if (user_session.state === "inactive") {
+      user_sessions[user_session.id] = null;
+    }
+    
   },
 
   saveGroupData: function(group_session) {

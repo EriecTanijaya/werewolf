@@ -39,7 +39,6 @@ module.exports = {
   },
 
   resetAllCommand: function() {
-    console.log("asda");
     if (this.event.source.userId !== process.env.DEV_ID) {
       return Promise.resolve(null);
     }
@@ -75,7 +74,6 @@ module.exports = {
         this.saveGroupData(rawGroup);
       }
     });
-    return this.replyText("users and group data reseted");
   },
 
   meCommand: function(user_session) {
