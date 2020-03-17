@@ -30,17 +30,8 @@ module.exports = {
 
   memberLeftResponse: function() {
     let userId = this.event.left.members[0].userId;
-    let path = baseUserPath + userId + "_user.json";
-
-    try {
-      let data = fs.readFileSync(path);
-      this.user_session = JSON.parse(data);
-      this.user_session.state = "inactive";
-      this.user_session.groupId = "";
-      this.saveUserData();
-    } catch (err) {
-      console.log("memberLeftResponse err");
-    }
+    const data = require("/app/data");
+    data.resetUser(userId);
   },
 
   followResponse: function() {

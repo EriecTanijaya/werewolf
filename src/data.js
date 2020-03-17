@@ -128,7 +128,7 @@ module.exports = {
       if (user_session.id !== process.env.DEV_ID) {
         
         // semua grup ga bisa
-        //return this.maintenanceRespond();
+        return this.maintenanceRespond();
         
         // buat khusus test grup aja
         if (groupId !== process.env.TEST_GROUP) {
@@ -143,7 +143,6 @@ module.exports = {
         state: "idle",
         time_default: 0,
         time: 0,
-        status: "active",
         players: []
       };
       group_sessions[groupId] = newGroup;
@@ -332,5 +331,10 @@ module.exports = {
 
   resetRoom: function(groupId) {
     group_sessions[groupId] = null;
-  }
+  },
+  
+  resetUser: function(userId) {
+    user_sessions[userId] = null;
+  },
+  
 };
