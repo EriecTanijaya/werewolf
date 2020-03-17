@@ -7,14 +7,9 @@ TODO
     - id
     - nama
     - stats
-    - keknya points gak kepake ya? (dipake pas sistem mode game rank)
-  
-- buat mode game ranking
-  - yang ranking ini pake prop baru
-    - user_session.rank
-      - win
-      - lose
-      -
+    - keknya points gak kepake ya? buang aja
+    
+- group_session yg json keknya ga dibutuhkan wkwkwkw
 
 - buat database beneran, data user store di mongodb / sql. freakin' hard tho
 
