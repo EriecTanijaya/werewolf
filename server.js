@@ -46,7 +46,7 @@ function handleEvent(event) {
 
   //logging
   if (event.source.type === "group") {
-    logChat(event.source.groupId, event.source.userId);
+    //logChat(event.source.groupId, event.source.userId);
   }
 
   let rawArgs = event.message.text;

@@ -218,6 +218,8 @@ module.exports = {
     } else if (this.event.source.type === "room") {
       groupId = this.event.source.roomId;
     }
+    
+    let text = "💡 Untuk info lebih lanjut bisa cek di http://bit.ly/openchatww";
 
     this.client
       .getGroupMemberProfile(groupId, this.event.source.userId)
@@ -225,16 +227,12 @@ module.exports = {
         return this.client.replyMessage(this.event.replyToken, {
           type: "text",
           text:
-            "👋 Sorry " + profile.displayName + ", botnya sedang maintenance."
+            "👋 Sorry " + profile.displayName + ", botnya sedang maintenance. " + text
         });
       })
       .catch(err => {
         // error handling
-        console.log("ada error di maintenanceRespond func");
-        return this.client.replyMessage(this.event.replyToken, {
-          type: "text",
-          text: "👋 Sorry, botnya sedang maintenance."
-        });
+        console.log("ada error di maintenanceRespond func", err);
       });
   },
 
