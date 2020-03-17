@@ -188,7 +188,7 @@ module.exports = {
         return this.replyText("💡 Targetmu masih hidup");
       }
     }
-    
+
     if (roleName === "vigilante") {
       if (players[index].role.bullet === 0) {
         return this.replyText(
@@ -213,11 +213,13 @@ module.exports = {
           );
         }
       }
-      
+
       /// role yg limited to self target
       if (roleName === "doctor") {
         if (!players[index].role.selfHeal) {
-          return this.replyText("💡 Kamu sudah tidak bisa melindungi diri sendiri");
+          return this.replyText(
+            "💡 Kamu sudah tidak bisa melindungi diri sendiri"
+          );
         }
       }
 
@@ -383,7 +385,7 @@ module.exports = {
       if (noNightSkill.includes(roleName)) {
         return this.replyFlex(flex_text, text);
       }
-      
+
       // morphed role message
       if (players[index].addonMessage) {
         text += players[index].addonMessage + "\n";
@@ -408,10 +410,11 @@ module.exports = {
           return this.replyFlex(flex_text, text);
         }
       }
-      
+
       // special role private role prop reminder
       if (roleName === "doctor") {
-        text += "💉 Kamu memiliki " + players[index].role.selfHeal + " self heal";
+        text +=
+          "💉 Kamu memiliki " + players[index].role.selfHeal + " self heal";
       } else if (roleName === "vigilante") {
         text += "🔫 Kamu memiliki " + players[index].role.bullet + " peluru";
       }

@@ -505,8 +505,6 @@ module.exports = {
 
     this.resetAllPlayers();
 
-    this.resetRoom();
-
     let text = "💡 Game telah di stop " + this.user_session.name;
     return this.replyText(text);
   },
@@ -2630,8 +2628,6 @@ module.exports = {
 
     this.resetAllPlayers();
 
-    this.resetRoom();
-
     return this.replyFlex(flex_texts, null, newFlex_text);
   },
 
@@ -3511,19 +3507,9 @@ module.exports = {
 
   /** save data func **/
 
-  resetRoom: function() {
-    const data = require("/app/src/data");
-    data.resetRoom(this.group_session.groupId);
-  },
-
   resetUser: function() {
     const data = require("/app/src/data");
     data.resetUser(this.user_session.id);
-  },
-
-  updateUserData: function(oldUserData) {
-    const data = require("/app/src/data");
-    data.saveUserData(oldUserData);
   },
 
   resetAllPlayers: function() {

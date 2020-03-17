@@ -316,5 +316,6 @@ module.exports = {
     group_sessions[groupId].players.forEach(item => {
       this.resetUser(item.id);
     });
+    this.resetRoom(groupId);
   }
 };

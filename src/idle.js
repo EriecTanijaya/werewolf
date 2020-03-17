@@ -152,35 +152,5 @@ module.exports = {
       this.event.replyToken,
       texts.map(text => ({ type: "text", text }))
     );
-  },
-
-  /** save data func **/
-
-  saveGroupData: function() {
-    const data = require("/app/src/data");
-    data.saveGroupData(this.group_session);
-  },
-
-  saveUserData: function() {
-    const fs = require("fs");
-    const baseUserPath = "/app/.data/users/";
-    let userPath = baseUserPath + this.user_session.id + "_user.json";
-    var user_session = {};
-    fs.readFile(userPath, "utf8", (err, data) => {
-      if (err) {
-        user_session = this.user_session;
-      } else {
-        user_session = JSON.parse(data);
-      }
-      this.updateUserData(user_session, this.user_session);
-    });
-  },
-
-  updateUserData: function(oldUserData, newUserData) {
-    // specify what necessary changes
-    oldUserData.name = newUserData.name;
-
-    const data = require("/app/src/data");
-    data.saveUserData(oldUserData);
   }
 };
