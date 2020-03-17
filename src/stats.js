@@ -1,7 +1,6 @@
 const fs = require("fs");
 
 const baseUserPath = "/app/.data/users/";
-const baseGroupPath = "/app/.data/groups/";
 
 // const datas = require("/app/src/data");
 
@@ -11,23 +10,18 @@ module.exports = {
     this.event = event;
     this.args = args;
 
-    let user_session = {};
-
-    let userPath = baseUserPath + this.event.source.userId + "_user.json";
-
-    fs.readFile(userPath, "utf8", (err, data) => {
-      if (err) return this.replyText("💡 Belum ada data usernya");
-      user_session = JSON.parse(data);
-      this.commandHandler(user_session);
-    });
-  },
-
-  commandHandler: function(user_session) {
     switch (this.args[0]) {
       case "/me":
       case "/stats":
       case "/stat":
-        return this.meCommand(user_session);
+        let user_session = {};
+        let userPath = baseUserPath + this.event.source.userId + "_user.json";
+        fs.readFile(userPath, "utf8", (err, data) => {
+          if (err) return this.replyText("💡 Belum ada data usernya");
+          user_session = JSON.parse(data);
+          return this.meCommand(user_session);
+        });
+        break;
       case "/rank":
         return this.rankCommand();
       case "/status":
@@ -36,44 +30,6 @@ module.exports = {
       case "/reset":
         return this.resetAllCommand();
     }
-  },
-
-  resetAllCommand: function() {
-    if (this.event.source.userId !== process.env.DEV_ID) {
-      return Promise.resolve(null);
-    }
-    this.resetUserCommand();
-  },
-
-  resetUserCommand: function() {
-    fs.readdirSync(baseUserPath).forEach(item => {
-      if (item.includes("user")) {
-        let data = fs.readFileSync(baseUserPath + item);
-        let rawUser = JSON.parse(data);
-
-        rawUser.state = "inactive";
-        rawUser.groupId = "";
-
-        this.saveUserData(rawUser);
-      }
-    });
-    this.resetGroupCommand();
-  },
-
-  resetGroupCommand: function() {
-    fs.readdirSync(baseGroupPath).forEach(item => {
-      if (item.includes("group")) {
-        let data = fs.readFileSync(baseGroupPath + item);
-        let rawGroup = JSON.parse(data);
-
-        rawGroup.state = "idle";
-        rawGroup.time = 0;
-
-        this.resetAllPlayers(rawGroup.players);
-
-        this.saveGroupData(rawGroup);
-      }
-    });
   },
 
   meCommand: function(user_session) {
@@ -208,30 +164,9 @@ module.exports = {
   },
 
   statusCommand: function() {
-    let usersOnlineCount = 0;
-    let groupsOnlineCount = 0;
-
-    fs.readdirSync(baseUserPath).forEach(item => {
-      if (item.includes("user")) {
-        let data = fs.readFileSync(baseUserPath + item);
-        let rawUser = JSON.parse(data);
-
-        if (rawUser.state === "active") {
-          usersOnlineCount++;
-        }
-      }
-    });
-
-    fs.readdirSync(baseGroupPath).forEach(item => {
-      if (item.includes("group")) {
-        let data = fs.readFileSync(baseGroupPath + item);
-        let rawGroup = JSON.parse(data);
-
-        if (rawGroup.state !== "idle") {
-          groupsOnlineCount++;
-        }
-      }
-    });
+    const data = require("/app/src/data");
+    let usersOnlineCount = data.getOnlineUsers();
+    let groupsOnlineCount = data.getOnlineGroups();
 
     let statusText = "";
 
@@ -395,47 +330,6 @@ module.exports = {
     });
 
     return flex_text;
-  },
-
-  /* Data Func */
-
-  resetAllPlayers: function(players) {
-    const data = require("/app/src/data");
-    data.resetAllPlayers(players);
-  },
-
-  saveGroupData: function(group_session) {
-    let groupData = {
-      groupId: group_session.groupId,
-      state: group_session.state,
-      status: group_session.status,
-      players: group_session.players
-    };
-
-    const data = require("/app/src/data");
-    data.saveGroupData(groupData);
-  },
-
-  saveUserData: function(raw_user_session) {
-    const baseUserPath = "/app/.data/users/";
-    let userPath = baseUserPath + raw_user_session.id + "_user.json";
-    let user_session = {};
-    fs.readFile(userPath, "utf8", (err, data) => {
-      if (err) {
-        user_session = raw_user_session;
-      } else {
-        user_session = JSON.parse(data);
-      }
-      this.updateUserData(user_session, raw_user_session);
-    });
-  },
-
-  updateUserData: function(oldUserData, newUserData) {
-    oldUserData.state = newUserData.state;
-    oldUserData.groupId = newUserData.groupId;
-
-    const data = require("/app/src/data");
-    data.saveUserData(oldUserData);
   },
 
   /* Message Func */

@@ -313,9 +313,36 @@ module.exports = {
   },
 
   resetAllUsers: function(groupId) {
-    group_sessions[groupId].players.forEach(item => {
-      this.resetUser(item.id);
+    if (group_sessions[groupId]) {
+      group_sessions[groupId].players.forEach(item => {
+        this.resetUser(item.id);
+      });
+      this.resetRoom(groupId);
+    }
+  },
+
+  /** helper func **/
+
+  getOnlineUsers: function() {
+    let onlineUsersCount = 0;
+    Object.keys(user_sessions).forEach(key => {
+      let user = user_sessions[key];
+      if (user.state === "active") {
+        onlineUsersCount++;
+      }
     });
-    this.resetRoom(groupId);
-  }
+    return onlineUsersCount;
+  },
+  
+  getOnlineGroups: function() {
+    let onlineGroupsCount = 0;
+    Object.keys(group_sessions).forEach(key => {
+      let group = group_sessions[key];
+      if (group.state !== "idle") {
+        onlineGroupsCount++;
+      }
+    });
+    return onlineGroupsCount;
+  },
+  
 };

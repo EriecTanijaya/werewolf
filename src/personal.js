@@ -41,7 +41,7 @@ module.exports = {
       case "/rank":
       case "/me":
       case "/stat":
-      case "/rank":
+      case "/status":
         return this.statCommand();
       case "/dnote":
       case "/dn":
