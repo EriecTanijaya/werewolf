@@ -280,15 +280,9 @@ module.exports = {
 
       let newPlayer = this.createNewPlayer(this.user_session);
       this.addPlayer(newPlayer);
-
-      this.saveUserData();
-      this.saveGroupData();
-
       let text = "💡 " + this.user_session.name + " berhasil bergabung!";
       return this.replyFlex(flex_text, text);
     } else {
-      this.saveGroupData();
-
       return this.replyFlex(flex_text);
     }
   },
@@ -332,10 +326,6 @@ module.exports = {
     let newPlayer = this.createNewPlayer(this.user_session);
 
     this.addPlayer(newPlayer);
-
-    this.saveUserData();
-
-    this.saveGroupData();
 
     let text = "💡 " + this.user_session.name + " berhasil bergabung!";
 
@@ -517,7 +507,7 @@ module.exports = {
 
     this.resetAllPlayers();
 
-    this.saveGroupData();
+    this.resetRoom();
 
     let text = "💡 Game telah di stop " + this.user_session.name;
     return this.replyText(text);
@@ -2642,7 +2632,7 @@ module.exports = {
 
     this.resetAllPlayers();
 
-    this.saveGroupData();
+    this.resetRoom();
 
     return this.replyFlex(flex_texts, null, newFlex_text);
   },
@@ -3526,16 +3516,9 @@ module.exports = {
 
   /** save data func **/
 
-  saveGroupData: function() {
-    let groupData = {
-      groupId: this.group_session.groupId,
-      state: this.group_session.state,
-      status: this.group_session.status,
-      players: this.group_session.players
-    };
-
+  resetRoom: function() {
     const data = require("/app/src/data");
-    data.saveGroupData(groupData);
+    data.resetRoom(this.group_session.groupId);
   },
 
   saveUserData: function() {
@@ -3548,16 +3531,11 @@ module.exports = {
       } else {
         user_session = JSON.parse(data);
       }
-      this.updateUserData(user_session, this.user_session);
+      this.updateUserData(user_session);
     });
   },
 
-  updateUserData: function(oldUserData, newUserData) {
-    // specify what necessary changes
-    oldUserData.name = newUserData.name;
-    oldUserData.state = newUserData.state;
-    oldUserData.groupId = newUserData.groupId;
-
+  updateUserData: function(oldUserData) {
     const data = require("/app/src/data");
     data.saveUserData(oldUserData);
   },

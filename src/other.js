@@ -1,7 +1,3 @@
-const fs = require("fs");
-const baseUserPath = "/app/.data/users/";
-const baseGroupPath = "/app/.data/groups/";
-
 module.exports = {
   receive: function(client, event) {
     this.client = client;
@@ -114,5 +110,5 @@ module.exports = {
       this.event.replyToken,
       texts.map(text => ({ type: "text", text }))
     );
-  },
+  }
 };
