@@ -1,5 +1,21 @@
 TODO
 
+- rework yang sistem untuk cek online / engga dari variable di data.js aja
+  - itung pake for (let key in group_sessions atau user_sessions)
+  - dan yang untuk di simpen di json itu ga perlu ada state nya
+  - yang dibutuhkan di data json
+    - id
+    - nama
+    - stats
+    - keknya points gak kepake ya? (dipake pas sistem mode game rank)
+  
+- buat mode game ranking
+  - yang ranking ini pake prop baru
+    - user_session.rank
+      - win
+      - lose
+      -
+
 - buat database beneran, data user store di mongodb / sql. freakin' hard tho
 
 - role tracker(tau target visit siapa), trapper, spy, survivor, jailor
