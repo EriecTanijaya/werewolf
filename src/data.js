@@ -259,8 +259,11 @@ module.exports = {
     let userPath = baseUserPath + id + "_user.json";
     let user_session = {};
     fs.readFile(userPath, "utf8", (err, data) => {
-      if (err) return this.replyText("💡 Belum ada data usernya");
-      user_session = JSON.parse(data);
+      if (err) {
+        user_session = newUserData;
+      } else {
+        user_session = JSON.parse(data);
+      }
       this.updateUserData(user_session, newUserData);
     });
   },
