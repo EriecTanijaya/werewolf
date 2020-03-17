@@ -327,22 +327,21 @@ module.exports = {
     let onlineUsersCount = 0;
     Object.keys(user_sessions).forEach(key => {
       let user = user_sessions[key];
-      if (user.state === "active") {
+      if (user && user.state === "active") {
         onlineUsersCount++;
       }
     });
     return onlineUsersCount;
   },
-  
+
   getOnlineGroups: function() {
     let onlineGroupsCount = 0;
     Object.keys(group_sessions).forEach(key => {
       let group = group_sessions[key];
-      if (group.state !== "idle") {
+      if (group && group.state !== "idle") {
         onlineGroupsCount++;
       }
     });
     return onlineGroupsCount;
-  },
-  
+  }
 };
