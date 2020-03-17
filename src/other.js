@@ -59,6 +59,7 @@ module.exports = {
   leaveResponse: function(groupId) {
     const data = require("/app/src/data");
     data.resetAllUsers(groupId);
+    data.resetRoom(groupId);
   },
 
   memberJoinedResponse: function(groupId) {

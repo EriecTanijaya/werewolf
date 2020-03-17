@@ -457,8 +457,6 @@ module.exports = {
 
     let text = "💡 " + this.user_session.name + " telah meninggalkan game. ";
 
-    this.user_session.state = "inactive";
-
     if (this.group_session.players.length === 0) {
       this.group_session.state = "idle";
       text += "\n" + "💡 Game di stop karena tidak ada pemain";
@@ -474,7 +472,7 @@ module.exports = {
       }
     }
 
-    this.saveUserData();
+    this.resetUser();
 
     return this.replyText(text);
   },
@@ -2715,9 +2713,6 @@ module.exports = {
     let newPlayer = {
       id: user_session.id,
       name: user_session.name,
-      state: user_session.state,
-      groupId: user_session.groupId,
-      points: user_session.points,
       villagerStats: user_session.villagerStats,
       werewolfStats: user_session.werewolfStats,
       vampireStats: user_session.vampireStats,
@@ -3521,18 +3516,9 @@ module.exports = {
     data.resetRoom(this.group_session.groupId);
   },
 
-  saveUserData: function() {
-    const baseUserPath = "/app/.data/users/";
-    let userPath = baseUserPath + this.user_session.id + "_user.json";
-    let user_session = {};
-    fs.readFile(userPath, "utf8", (err, data) => {
-      if (err) {
-        user_session = this.user_session;
-      } else {
-        user_session = JSON.parse(data);
-      }
-      this.updateUserData(user_session);
-    });
+  resetUser: function() {
+    const data = require("/app/src/data");
+    data.resetUser(this.user_session.id);
   },
 
   updateUserData: function(oldUserData) {

@@ -50,7 +50,6 @@ module.exports = {
         name: "",
         state: "inactive",
         groupId: "",
-        points: 0,
         villagerStats: {
           win: 0,
           lose: 0
@@ -249,22 +248,10 @@ module.exports = {
   /** save data func **/
 
   saveUserData: function(user_session) {
-    // console.log("saved user_session", user_session.state);
     let path = "/app/.data/users/" + user_session.id + "_user.json";
     let data = JSON.stringify(user_session, null, 2);
     fs.writeFileSync(path, data);
-    user_sessions[user_session.id] = null;
-  },
-
-  saveGroupData: function(group_session) {
-    // console.log("saved group_session", group_session.players);
-    let path = "/app/.data/groups/" + group_session.groupId + "_group.json";
-    let data = JSON.stringify(group_session, null, 2);
-    fs.writeFileSync(path, data);
-
-    if (group_session.state === "idle") {
-      this.resetRoom(group_session.groupId);
-    }
+    this.resetUser(user_session.id);
   },
 
   getUserData: function(id, newUserData) {
@@ -279,14 +266,6 @@ module.exports = {
   },
 
   updateUserData: function(oldUserData, newUserData) {
-    oldUserData.state = newUserData.state;
-    oldUserData.groupId = newUserData.groupId;
-
-    oldUserData.points += newUserData.points;
-    if (oldUserData.points < 0) {
-      oldUserData.points = 0;
-    }
-
     oldUserData.villagerStats.win += newUserData.villagerStats.win;
     oldUserData.villagerStats.lose += newUserData.villagerStats.lose;
 
@@ -313,10 +292,6 @@ module.exports = {
       let reset_player = {
         id: item.id,
         name: item.name,
-        state: "inactive",
-        groupId: item.groupId,
-        points: item.points,
-        //dibawah ntr tmbahin team team yang ada
         villagerStats: item.villagerStats,
         werewolfStats: item.werewolfStats,
         vampireStats: item.vampireStats,
