@@ -10,6 +10,7 @@ TODO
     - keknya points gak kepake ya? buang aja
     
 - group_session yg json keknya ga dibutuhkan wkwkwkw
+- untuk err klasih tau juga di func mana errornya
 
 - buat database beneran, data user store di mongodb / sql. freakin' hard tho
 

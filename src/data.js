@@ -126,10 +126,9 @@ module.exports = {
       // logging
       console.log(this.args);
       if (user_session.id !== process.env.DEV_ID) {
-        
         // semua grup ga bisa
         return this.maintenanceRespond();
-        
+
         // buat khusus test grup aja
         if (groupId !== process.env.TEST_GROUP) {
           //return this.maintenanceRespond();
@@ -217,8 +216,9 @@ module.exports = {
     } else if (this.event.source.type === "room") {
       groupId = this.event.source.roomId;
     }
-    
-    let text = "💡 Untuk info lebih lanjut bisa cek di http://bit.ly/openchatww";
+
+    let text =
+      "💡 Untuk info lebih lanjut bisa cek di http://bit.ly/openchatww";
 
     this.client
       .getGroupMemberProfile(groupId, this.event.source.userId)
@@ -226,7 +226,10 @@ module.exports = {
         return this.client.replyMessage(this.event.replyToken, {
           type: "text",
           text:
-            "👋 Sorry " + profile.displayName + ", botnya sedang maintenance. " + text
+            "👋 Sorry " +
+            profile.displayName +
+            ", botnya sedang maintenance. " +
+            text
         });
       })
       .catch(err => {
@@ -250,7 +253,7 @@ module.exports = {
     let path = "/app/.data/users/" + user_session.id + "_user.json";
     let data = JSON.stringify(user_session, null, 2);
     fs.writeFileSync(path, data);
-    
+
     if (user_session.state === "inactive") {
       user_sessions[user_session.id] = null;
     }
@@ -332,9 +335,14 @@ module.exports = {
   resetRoom: function(groupId) {
     group_sessions[groupId] = null;
   },
-  
+
   resetUser: function(userId) {
     user_sessions[userId] = null;
   },
-  
+
+  resetAllUsers: function(groupId) {
+    group_sessions[groupId].players.forEach(item => {
+      this.resetUser(item.id);
+    });
+  }
 };

@@ -30,7 +30,7 @@ module.exports = {
 
   memberLeftResponse: function() {
     let userId = this.event.left.members[0].userId;
-    const data = require("/app/data");
+    const data = require("/app/src/data");
     data.resetUser(userId);
   },
 
@@ -48,19 +48,6 @@ module.exports = {
   },
 
   joinResponse: function(groupId) {
-    let groupPath = baseGroupPath + groupId + "_group.json";
-
-    try {
-      let data = fs.readFileSync(groupPath);
-      this.group_session = JSON.parse(data);
-
-      this.group_session.status = "active";
-
-      this.saveGroupData();
-    } catch (err) {
-      console.log("bot join err");
-    }
-
     let flex_text = {
       header: {
         text: "👋 Hai semuaa"
@@ -74,21 +61,8 @@ module.exports = {
   },
 
   leaveResponse: function(groupId) {
-    let groupPath = baseGroupPath + groupId + "_group.json";
-    try {
-      let data = fs.readFileSync(groupPath);
-      this.group_session = JSON.parse(data);
-
-      this.group_session.state = "idle";
-      this.group_session.status = "inactive";
-      this.group_session.time = 0;
-
-      this.resetAllPlayers();
-
-      this.saveGroupData();
-    } catch (err) {
-      console.log("bot leaveResponse err");
-    }
+    const data = require("/app/src/data");
+    data.resetAllUsers(groupId);
   },
 
   memberJoinedResponse: function(groupId) {
@@ -103,8 +77,7 @@ module.exports = {
           return this.replyText(text);
         })
         .catch(err => {
-          text = "👋 Selamat datang! Maen Werewolf yok";
-          return this.replyText(text);
+          console.log("err di memberJoined (group)", err);
         });
     } else if (this.event.source.type === "room") {
       this.client
@@ -115,8 +88,7 @@ module.exports = {
           return this.replyText(text);
         })
         .catch(err => {
-          text = "👋 Selamat datang! Maen Werewolf yok";
-          return this.replyText(text);
+          console.log("err di memberJoined (room)", err);
         });
     }
   },
@@ -143,19 +115,4 @@ module.exports = {
       texts.map(text => ({ type: "text", text }))
     );
   },
-
-  saveUserData: function() {
-    const data = require("/app/src/data");
-    data.saveUserData(this.user_session);
-  },
-
-  saveGroupData: function() {
-    const data = require("/app/src/data");
-    data.saveGroupData(this.group_session);
-  },
-
-  resetAllPlayers: function() {
-    const data = require("/app/src/data");
-    data.resetAllPlayers(this.group_session.players);
-  }
 };
