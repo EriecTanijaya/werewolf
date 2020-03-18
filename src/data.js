@@ -9,16 +9,19 @@ var user_sessions = {};
 setInterval(() => {
   for (let key in group_sessions) {
     if (group_sessions[key]) {
+      if (group_sessions[key].state === "idle") {
+        group_sessions[key] = null;
+        continue;
+      }
+
       if (group_sessions[key].time > 0) {
         group_sessions[key].time--;
       } else {
-        if (group_sessions[key].state === "new") {
+        let state = group_sessions[key].state;
+        let playersLength = group_sessions[key].players.length;
+        if (playersLength < 5 && state === "new") {
           group_sessions[key] = null;
         }
-      }
-
-      if (group_sessions[key].state === "idle") {
-        group_sessions[key] = null;
       }
     }
   }
@@ -137,7 +140,7 @@ module.exports = {
       console.log(this.args);
       if (user_session.id !== process.env.DEV_ID) {
         // semua grup ga bisa
-        //return this.maintenanceRespond();
+        return this.maintenanceRespond();
 
         // buat khusus test grup aja
         if (groupId !== process.env.TEST_GROUP) {
