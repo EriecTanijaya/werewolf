@@ -16,7 +16,7 @@ module.exports = {
     if (!this.rawArgs.startsWith("/")) {
       let time = this.group_session.time;
       let state = this.group_session.state;
-      
+
       if (state !== "idle") {
         if (state !== "new") {
           if (time < 15 && time > 5) {
@@ -32,25 +32,24 @@ module.exports = {
           }
         } else {
           let playersLength = this.group_session.players.length;
-          
+
           if (playersLength < 5) {
-            if (time === 30) {
+            if (time === 0) {
+              this.group_session.state = "idle";
+            } else if (time < 5) {
               let reminder =
                 "💡 Waktu tersisa " +
                 time +
                 " detik lagi. Jika tidak ada yang join, game akan dihentikan";
-            } else if (time === 0) {
-              this.group_session.state = "idle";
+              return this.replyText(reminder);
             }
           } else {
-            if (time < 5) {
+            if (time === 0 && this.indexOfPlayer() !== -1) {
+              return this.startCommand();
+            } else if (time < 5) {
               let reminder =
                 "💡 Game akan dimulai pada " + time + " detik lagi";
               return this.replyText(reminder);
-            } else if (time === 0) {
-              if (this.indexOfPlayer() !== -1) {
-                return this.startCommand();
-              }
             }
           }
         }
@@ -283,7 +282,7 @@ module.exports = {
     this.group_session.players.length = 0;
     this.group_session.nightCounter = 0;
     this.group_session.roomHostId = "";
-    this.group_session.time = 300;
+    this.group_session.time = 7;
 
     let flex_text = {
       header: {
