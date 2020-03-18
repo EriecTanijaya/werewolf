@@ -1,18 +1,6 @@
-/*
-  warna background sama text ga boleh sama,
-  terang gelapnya harus beda
-*/
+const helper = require("/app/helper");
 
-let color = {
-  main: "#D48166",
-  secondary: "#D48166",
-  background: "#ffffff",
-  text: "#263646"
-};
-
-
-
-setFlexColor(color);
+let color = helper.getFlexColor();
 
 module.exports = {
   receive: function(client, event, flex_texts, opt_texts, newFlex_texts, stat) {

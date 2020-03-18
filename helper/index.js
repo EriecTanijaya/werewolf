@@ -1,6 +1,65 @@
 module.exports = {
-  
-  
+  getFlexColor: function() {
+    let color = {};
+    let today = new Date().getTime();
+    let timestamp = {
+      dawn: {
+        from: 1584464400000,
+        to: 1584478799000,
+        color: {
+          main: "#D48166",
+          secondary: "#D48166",
+          background: "#ffffff",
+          text: "#263646"
+        }
+      },
+      morning: {
+        from: 1584478800000,
+        to: 1584496799000
+      },
+      noon: {
+        from: 1584496800000,
+        to: 1584518399000,
+        // color: { //uda ok
+        //   main: "#f8aa27",
+        //   secondary: "#f8aa27",
+        //   background: "#ffffff",
+        //   text: "#263646"
+        // }
+        color: {
+          main: "#f8aa27",
+          secondary: "#f8aa27",
+          background: "#ffffff",
+          text: "#263646"
+        }
+      },
+      evening: {
+        from: 1584518400000,
+        to: 1584530999000,
+        color: {
+          main: "#D48166", //udah ok
+          secondary: "#D48166",
+          background: "#ffffff",
+          text: "#263646"
+        }
+      },
+      night: {
+        from: 1584531000000,
+        to: 1584550799000
+      }
+    };
+
+    let times = Object.keys(timestamp);
+
+    for (let i = 0; i < times.length; i++) {
+      let time = timestamp[times[i]];
+      if (today >= time.from && today <= time.to) {
+        color = time.color;
+        return color;
+      }
+    }
+  },
+
   getRandomInt: function(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
