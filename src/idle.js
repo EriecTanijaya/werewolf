@@ -58,7 +58,7 @@ module.exports = {
     text += "- Eriec (creator)";
     let flex_text = {
       header: {
-        text: "🐺 Werewolf 🧑‍🌾"
+        text: "🐺 Werewolf 👨‍🌾"
       },
       body: {
         text: text
