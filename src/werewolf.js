@@ -282,7 +282,7 @@ module.exports = {
     this.group_session.players.length = 0;
     this.group_session.nightCounter = 0;
     this.group_session.roomHostId = "";
-    this.group_session.time = 7;
+    this.group_session.time = 300;
 
     let flex_text = {
       header: {
@@ -313,6 +313,7 @@ module.exports = {
 
       let newPlayer = this.createNewPlayer(this.user_session);
       this.addPlayer(newPlayer);
+
       let text = "💡 " + this.user_session.name + " berhasil bergabung!";
       return this.replyFlex(flex_text, [text, remindText]);
     } else {

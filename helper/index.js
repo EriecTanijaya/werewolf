@@ -39,7 +39,7 @@ module.exports = {
         color: {
           main: "#f46a4e",
           secondary: "#f46a4e",
-          background: "#ebedef",
+          background: "#ffffff",
           text: "#000000"
         }
       },
