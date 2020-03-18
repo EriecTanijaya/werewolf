@@ -358,6 +358,10 @@ module.exports = {
 
         //iterate data
         table_body.forEach(t => {
+          t.contents.forEach(txt => {
+            txt.color = color.text;
+          });
+
           //push to contents
           bubble[index].body.contents.push(t);
         });
