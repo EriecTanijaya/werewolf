@@ -81,6 +81,7 @@ module.exports = {
         color = time.color;
         return color;
       }
+      return color = time.color; //hax
     }
   },
 
