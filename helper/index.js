@@ -15,29 +15,35 @@ module.exports = {
       },
       morning: {
         from: 1584478800000,
-        to: 1584496799000
+        to: 1584496799000,
+        color: {
+          main: "#505c68",
+          secondary: "#505c68",
+          background: "#ebedef",
+          text: "#000000"
+        }
       },
       noon: {
         from: 1584496800000,
         to: 1584518399000,
-        // color: { //uda ok
+        // color: {
         //   main: "#f8aa27",
         //   secondary: "#f8aa27",
         //   background: "#ffffff",
         //   text: "#263646"
         // }
         color: {
-          main: "#507260",
-          secondary: "#507260",
-          background: "#000000",
-          text: "#ffffff"
+          main: "#f06553",
+          secondary: "#f06553",
+          background: "#ffffff",
+          text: "#263646"
         }
       },
       evening: {
         from: 1584518400000,
         to: 1584530999000,
         color: {
-          main: "#D48166", //udah ok
+          main: "#D48166",
           secondary: "#D48166",
           background: "#ffffff",
           text: "#263646"
@@ -45,7 +51,13 @@ module.exports = {
       },
       night: {
         from: 1584531000000,
-        to: 1584550799000
+        to: 1584550799000,
+        color: {
+          main: "#004751",
+          secondary: "#004751",
+          background: "#121212",
+          text: "#ffffff"
+        }
       }
     };
 
