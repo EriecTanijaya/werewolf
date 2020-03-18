@@ -8,19 +8,14 @@ let color = {
   secondary: "#D48166",
   background: "#ffffff",
   text: "#263646"
-}
+};
 
 
+
+setFlexColor(color);
 
 module.exports = {
-  receive: function(
-    client,
-    event,
-    flex_texts,
-    opt_texts,
-    newFlex_texts,
-    stat
-  ) {
+  receive: function(client, event, flex_texts, opt_texts, newFlex_texts, stat) {
     this.client = client;
     this.event = event;
 
@@ -145,9 +140,9 @@ module.exports = {
             }
           ]
         };
-        
+
         if (stat) {
-          table_header.contents[2].text = "Points"
+          table_header.contents[2].text = "Points";
         }
 
         if (item.table.header.addon !== "") {
@@ -163,7 +158,7 @@ module.exports = {
 
         let separator = {
           type: "separator",
-          color:color.secondary,
+          color: color.secondary,
           margin: "sm"
         };
 
@@ -173,11 +168,10 @@ module.exports = {
 
         //iterate data
         table_body.forEach(t => {
-          
           t.contents.forEach(txt => {
             txt.color = color.text;
           });
-          
+
           //push to contents
           bubble[index].body.contents.push(t);
         });
@@ -243,26 +237,24 @@ module.exports = {
 
       flex_msg.contents.contents.push(bubble[index]);
     });
-    
+
     let msg = [flex_msg];
-    
-    if (opt_texts.length > 0){
+
+    if (opt_texts.length > 0) {
       msg = msg.concat(opt_texts);
     }
-    
-    if (newFlex_texts){
+
+    if (newFlex_texts) {
       msg.push(this.addNewFlexMsg(newFlex_texts));
     }
-    
+
     //console.log(msg);
 
-    return this.client
-      .replyMessage(this.event.replyToken, msg)
-      .catch(err => {
-        console.log(JSON.stringify(flex_msg.contents, null, 2));
-      });
+    return this.client.replyMessage(this.event.replyToken, msg).catch(err => {
+      console.log(JSON.stringify(flex_msg.contents, null, 2));
+    });
   },
-  
+
   addNewFlexMsg: function(newFlex_texts) {
     let flex_msg = {
       type: "flex",
@@ -443,7 +435,7 @@ module.exports = {
 
       flex_msg.contents.contents.push(bubble[index]);
     });
-    
+
     return flex_msg;
-  },
+  }
 };

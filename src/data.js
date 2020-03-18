@@ -100,7 +100,10 @@ module.exports = {
           if (!this.rawArgs.startsWith("/")) {
             return Promise.resolve(null);
           }
-          console.log("err di searchUser func di data.js", err);
+          console.log(
+            "err di searchUser func di data.js",
+            err.originalError.response.data
+          );
           return this.notAddError(userData.id);
         });
     } else {
@@ -241,7 +244,10 @@ module.exports = {
       })
       .catch(err => {
         // error handling
-        console.log("ada error di maintenanceRespond func", err);
+        console.log(
+          "ada error di maintenanceRespond func",
+          err.originalError.response.data
+        );
       });
   },
 
