@@ -17,8 +17,8 @@ module.exports = {
         from: 1584478800000,
         to: 1584496799000,
         color: {
-          main: "#505c68",
-          secondary: "#505c68",
+          main: "#565a9f",
+          secondary: "#565a9f",
           background: "#ebedef",
           text: "#000000"
         }
@@ -32,17 +32,11 @@ module.exports = {
         //   background: "#ffffff",
         //   text: "#263646"
         // }
-        // color: {
-        //   main: "#565a9f",
-        //   secondary: "#565a9f",
-        //   background: "#272727",
-        //   text: "#ffffff"
-        // }
         color: {
-          main: "#505c68",
-          secondary: "#505c68",
-          background: "#ebedef",
-          text: "#000000"
+          main: "#565a9f",
+          secondary: "#565a9f",
+          background: "#272727",
+          text: "#ffffff"
         }
       },
       evening: {
