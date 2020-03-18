@@ -16,7 +16,7 @@ module.exports = {
     if (!this.rawArgs.startsWith("/")) {
       let time = this.group_session.time;
       let state = this.group_session.state;
-      //cpreturn this.startCommand();
+      
       if (state !== "idle") {
         if (state !== "new") {
           if (time < 15 && time > 5) {
@@ -31,15 +31,26 @@ module.exports = {
             }
           }
         } else {
-          if (time < 5) {
-            let reminder =
-              "💡 Waktu tersisa " +
-              time +
-              " detik lagi, nanti ketik '/check' untuk lanjutkan proses";
-            return this.replyText(reminder);
-          } else if (time === 0) {
-            if (this.indexOfPlayer() !== -1) {
-              return this.checkCommand();
+          let playersLength = this.group_session.players.length;
+          
+          if (playersLength < 5) {
+            if (time === 30) {
+              let reminder =
+                "💡 Waktu tersisa " +
+                time +
+                " detik lagi. Jika tidak ada yang join, game akan dihentikan";
+            } else if (time === 0) {
+              this.group_session.state = "idle";
+            }
+          } else {
+            if (time < 5) {
+              let reminder =
+                "💡 Game akan dimulai pada " + time + " detik lagi";
+              return this.replyText(reminder);
+            } else if (time === 0) {
+              if (this.indexOfPlayer() !== -1) {
+                return this.startCommand();
+              }
             }
           }
         }
