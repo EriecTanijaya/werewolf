@@ -59,7 +59,7 @@ module.exports = {
             {
               type: "text",
               text: item.header.text,
-              color: color.background,
+              color: "#ffffff",
               size: "xl",
               weight: "bold",
               style: "normal",
@@ -265,7 +265,7 @@ module.exports = {
             {
               type: "text",
               text: item.header.text,
-              color: color.background,
+              color: "#ffffff",
               size: "xl",
               weight: "bold",
               style: "normal",

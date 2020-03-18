@@ -7,10 +7,10 @@ module.exports = {
         from: 1584464400000,
         to: 1584478799000,
         color: {
-          main: "#D48166",
-          secondary: "#D48166",
-          background: "#ffffff",
-          text: "#263646"
+          main: "#507260",
+          secondary: "#507260",
+          background: "#000000",
+          text: "#ffffff"
         }
       },
       morning: {
@@ -27,10 +27,10 @@ module.exports = {
         //   text: "#263646"
         // }
         color: {
-          main: "#f8aa27",
-          secondary: "#f8aa27",
-          background: "#ffffff",
-          text: "#263646"
+          main: "#507260",
+          secondary: "#507260",
+          background: "#000000",
+          text: "#ffffff"
         }
       },
       evening: {
