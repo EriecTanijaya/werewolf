@@ -9,7 +9,7 @@ module.exports = {
         color: {
           main: "#202b58",
           secondary: "#202b58",
-          background: "#000000",
+          background: "#121212",
           text: "#ffffff"
         }
       },
@@ -19,7 +19,7 @@ module.exports = {
         color: {
           main: "#5aa2e0",
           secondary: "#5aa2e0",
-          background: "#ebedef",
+          background: "#ffffff",
           text: "#000000"
         }
       },
@@ -31,20 +31,14 @@ module.exports = {
           secondary: "#f8aa27",
           background: "#ffffff",
           text: "#263646"
-        },
-        // color: {
-        //   main: "#004751",
-        //   secondary: "#004751",
-        //   background: "#272727",
-        //   text: "#ffffff"
-        // }
+        }
       },
       evening: {
         from: 1584518400000,
         to: 1584530999000,
         color: {
-          main: "#465387",
-          secondary: "#465387",
+          main: "#f46a4e",
+          secondary: "#f46a4e",
           background: "#ebedef",
           text: "#000000"
         }
