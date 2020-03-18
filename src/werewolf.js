@@ -2314,6 +2314,12 @@ module.exports = {
             this.user_session.name +
             ", belum ada game yang dibuat, ketik '/new'"
         );
+      } else {
+        return this.replyText(
+          "💡 " +
+            this.user_session.name +
+            ", belum saatnya voting"
+        );
       }
     }
 
