@@ -1,4 +1,5 @@
 const fs = require("fs");
+const helper = require("/app/helper");
 
 // game storage
 var group_sessions = {};
@@ -10,7 +11,11 @@ setInterval(() => {
   for (let key in group_sessions) {
     if (group_sessions[key]) {
       if (group_sessions[key].state === "idle") {
-        this.reset
+        helper.resetAllUsers(
+          group_sessions,
+          user_sessions,
+          group_sessions[key].groupId
+        );
         continue;
       }
 
@@ -20,7 +25,11 @@ setInterval(() => {
         let state = group_sessions[key].state;
         let playersLength = group_sessions[key].players.length;
         if (playersLength < 5 && state === "new") {
-          group_sessions[key] = null;
+          helper.resetAllUsers(
+            group_sessions,
+            user_sessions,
+            group_sessions[key].groupId
+          );
         }
       }
     }
@@ -140,7 +149,7 @@ module.exports = {
       console.log(this.args);
       if (user_session.id !== process.env.DEV_ID) {
         // semua grup ga bisa
-        return this.maintenanceRespond();
+        //return this.maintenanceRespond();
 
         // buat khusus test grup aja
         if (groupId !== process.env.TEST_GROUP) {

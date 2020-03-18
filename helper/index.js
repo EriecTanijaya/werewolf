@@ -1,4 +1,21 @@
 module.exports = {
+  resetRoom: function(group_sessions, groupId) {
+    group_sessions[groupId] = null;
+  },
+
+  resetUser: function(user_sessions, userId) {
+    user_sessions[userId] = null;
+  },
+
+  resetAllUsers: function(group_sessions, user_sessions, groupId) {
+    if (group_sessions[groupId]) {
+      group_sessions[groupId].players.forEach(item => {
+        this.resetUser(user_sessions, item.id);
+      });
+      this.resetRoom(group_sessions, groupId);
+    }
+  },
+  
   getFlexColor: function() {
     let color = {};
     let today = new Date().getTime();
