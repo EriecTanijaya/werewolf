@@ -16,13 +16,31 @@ module.exports = {
     if (!this.rawArgs.startsWith("/")) {
       let time = this.group_session.time;
       let state = this.group_session.state;
-
-      if (state !== "idle" && state !== "new") {
-        if (time < 15 && time > 5) {
-          return this.replyText();
-        } else if (time === 0) {
-          if (this.indexOfPlayer() !== -1) {
-            return this.checkCommand();
+      //cpreturn this.startCommand();
+      if (state !== "idle") {
+        if (state !== "new") {
+          if (time < 15 && time > 5) {
+            let reminder =
+              "💡 Waktu tersisa " +
+              time +
+              " detik lagi, nanti ketik '/check' untuk lanjutkan proses";
+            return this.replyText(reminder);
+          } else if (time === 0) {
+            if (this.indexOfPlayer() !== -1) {
+              return this.checkCommand();
+            }
+          }
+        } else {
+          if (time < 5) {
+            let reminder =
+              "💡 Waktu tersisa " +
+              time +
+              " detik lagi, nanti ketik '/check' untuk lanjutkan proses";
+            return this.replyText(reminder);
+          } else if (time === 0) {
+            if (this.indexOfPlayer() !== -1) {
+              return this.checkCommand();
+            }
           }
         }
       }
@@ -273,7 +291,10 @@ module.exports = {
         ]
       }
     };
-    
+
+    let remindText =
+      "⏳ Jika jumlah pemain kurang dari 5 dalam 5 menit, game akan diberhentikan";
+
     /// nambah user auto
     if (this.user_session.state === "inactive") {
       this.group_session.roomHostId = this.user_session.id;
@@ -283,9 +304,9 @@ module.exports = {
       let newPlayer = this.createNewPlayer(this.user_session);
       this.addPlayer(newPlayer);
       let text = "💡 " + this.user_session.name + " berhasil bergabung!";
-      return this.replyFlex(flex_text, text);
+      return this.replyFlex(flex_text, [text, remindText]);
     } else {
-      return this.replyFlex(flex_text);
+      return this.replyFlex(flex_text, remindText);
     }
   },
 
@@ -336,7 +357,7 @@ module.exports = {
     }
 
     this.group_session.time = 300;
-    
+
     return this.replyText(text);
   },
 
@@ -2320,9 +2341,7 @@ module.exports = {
         );
       } else {
         return this.replyText(
-          "💡 " +
-            this.user_session.name +
-            ", belum saatnya voting"
+          "💡 " + this.user_session.name + ", belum saatnya voting"
         );
       }
     }
@@ -3474,24 +3493,6 @@ module.exports = {
     let state = this.group_session.state;
     let time = this.group_session.time;
     texts = Array.isArray(texts) ? texts : [texts];
-
-    if (state !== "idle" && state !== "new") {
-      if (time < 15) {
-        let reminder = "💡 ";
-
-        if (time < 1) {
-          reminder +=
-            "Waktu sudah habis, ketik '/check' untuk lanjutkan proses";
-        } else {
-          reminder +=
-            "Waktu tersisa " +
-            time +
-            " detik lagi, nanti ketik '/check' untuk lanjutkan proses";
-        }
-
-        texts.push(reminder);
-      }
-    }
 
     return this.client
       .replyMessage(
