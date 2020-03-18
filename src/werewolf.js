@@ -34,9 +34,7 @@ module.exports = {
           let playersLength = this.group_session.players.length;
 
           if (playersLength < 5) {
-            if (time === 0) {
-              this.group_session.state = "idle";
-            } else if (time < 5) {
+            if (time < 5) {
               let reminder =
                 "💡 Waktu tersisa " +
                 time +
