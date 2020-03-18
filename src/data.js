@@ -11,6 +11,11 @@ setInterval(() => {
     if (group_sessions[key]) {
       if (group_sessions[key].time > 0) {
         group_sessions[key].time--;
+      } else {
+        let state = group_sessions[key].state;
+        if (state === "new" || state === "idle") {
+          group_sessions[key] = null;
+        }
       }
     }
   }

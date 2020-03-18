@@ -254,6 +254,7 @@ module.exports = {
     this.group_session.players.length = 0;
     this.group_session.nightCounter = 0;
     this.group_session.roomHostId = "";
+    this.group_session.time = 300;
 
     let flex_text = {
       header: {
@@ -274,7 +275,7 @@ module.exports = {
     };
     
     // reminder
-    let remindText = "⏳ Room game akan di stop jika jumlah pemain tidak mencukupi dalam 5 menit";
+    let remindText = "⏳ Room game akan di stop jika jumlah pemain kura dalam 5 menit";
     
     /// nambah user auto
     if (this.user_session.state === "inactive") {
