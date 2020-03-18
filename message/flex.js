@@ -2,12 +2,15 @@
   warna background sama text ga boleh sama,
   terang gelapnya harus beda
 */
+
 let color = {
   main: "#D48166",
   secondary: "#D48166",
   background: "#ffffff",
   text: "#263646"
 }
+
+
 
 module.exports = {
   receive: function(
