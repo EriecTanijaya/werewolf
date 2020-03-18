@@ -76,6 +76,7 @@ module.exports = {
 
     for (let i = 0; i < times.length; i++) {
       let time = timestamp[times[i]];
+      console.log(time);
       if (today >= time.from && today <= time.to) {
         color = time.color;
         return color;
