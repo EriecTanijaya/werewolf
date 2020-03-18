@@ -274,9 +274,6 @@ module.exports = {
       }
     };
     
-    // reminder
-    let remindText = "⏳ Room game akan di stop jika jumlah pemain kura dalam 5 menit";
-    
     /// nambah user auto
     if (this.user_session.state === "inactive") {
       this.group_session.roomHostId = this.user_session.id;
@@ -286,9 +283,9 @@ module.exports = {
       let newPlayer = this.createNewPlayer(this.user_session);
       this.addPlayer(newPlayer);
       let text = "💡 " + this.user_session.name + " berhasil bergabung!";
-      return this.replyFlex(flex_text, [text, remindText]);
+      return this.replyFlex(flex_text, text);
     } else {
-      return this.replyFlex(flex_text, remindText);
+      return this.replyFlex(flex_text);
     }
   },
 

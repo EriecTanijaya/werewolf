@@ -13,9 +13,13 @@ setInterval(() => {
         group_sessions[key].time--;
       } else {
         let state = group_sessions[key].state;
-        if (state === "new" || state === "idle") {
+        if (state === "new") {
           group_sessions[key] = null;
         }
+      }
+      
+      if (group_sessions[key].state === "idle") {
+        group_sessions[key] = null;
       }
     }
   }
