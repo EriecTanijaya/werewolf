@@ -335,6 +335,8 @@ module.exports = {
       text += "\n" + "📣 Sudah cukup pemain, game bisa dimulai";
     }
 
+    this.group_session.time = 300;
+    
     return this.replyText(text);
   },
 
