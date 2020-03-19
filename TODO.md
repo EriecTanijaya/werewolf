@@ -4,7 +4,7 @@ TODO
 
 - remove auto gas feature
 - ubah time ke 10 menit untuk awal create room
-
+- helper : getFlexColor only check time not including date
 
 ###################
 

@@ -18,7 +18,7 @@ module.exports = {
   
   getFlexColor: function() {
     let color = {};
-    let today = new Date().getTime();
+    let today = new Date().toLocaleTimeString("en-GB");
     let timestamp = {
       dawn: {
         from: "00:00:00",
@@ -41,8 +41,8 @@ module.exports = {
         }
       },
       noon: {
-        from: 1584496800000,
-        to: 1584518399000,
+        from: "09:00:00",
+        to: "14:59:59",
         color: {
           main: "#f8aa27",
           secondary: "#f8aa27",
@@ -51,8 +51,8 @@ module.exports = {
         }
       },
       evening: {
-        from: 1584518400000,
-        to: 1584530999000,
+        from: "15:00:00",
+        to: "18:29:59",
         color: {
           main: "#f46a4e",
           secondary: "#f46a4e",
@@ -61,8 +61,8 @@ module.exports = {
         }
       },
       night: {
-        from: 1584531000000,
-        to: 1584550799000,
+        from: "18:30:00",
+        to: "23:59:59",
         color: {
           main: "#004751",
           secondary: "#004751",
@@ -76,7 +76,6 @@ module.exports = {
 
     for (let i = 0; i < times.length; i++) {
       let time = timestamp[times[i]];
-      console.log(time);
       if (today >= time.from && today <= time.to) {
         color = time.color;
         return color;
