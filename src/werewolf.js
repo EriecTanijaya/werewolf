@@ -2365,10 +2365,12 @@ module.exports = {
             this.user_session.name +
             ", belum ada game yang dibuat, ketik '/new'"
         );
-      } else {
-        return this.replyText(
-          "💡 " + this.user_session.name + ", belum saatnya voting"
-        );
+      } else if (this.group_session.state === "night") {
+        let remindText =
+          "💡 " + this.user_session.name + ", masih malam, pergi tidur sana. ";
+        remindText +=
+          "⏳ Sisa waktu " + time + " detik lagi untuk menyambut mentari";
+        return this.replyText(remindText);
       }
     }
 
