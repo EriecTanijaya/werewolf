@@ -7,6 +7,7 @@ TODO
 - joinCommand : sekarang gak reset timer lagi, tapi kasih tau sisa berapa waktu
 - new command, /extend : for adding 1 minute when state is new
 - fix not show vote flex when voting state
+- helper : resetAllUser : refactor func 'n friend
 
 ###################
 

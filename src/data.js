@@ -11,11 +11,7 @@ setInterval(() => {
   for (let key in group_sessions) {
     if (group_sessions[key]) {
       if (group_sessions[key].state === "idle") {
-        helper.resetAllUsers(
-          group_sessions,
-          user_sessions,
-          group_sessions[key].groupId
-        );
+        helper.resetAllUsers(group_sessions[key], user_sessions);
         continue;
       }
 
@@ -25,11 +21,7 @@ setInterval(() => {
         let state = group_sessions[key].state;
         let playersLength = group_sessions[key].players.length;
         if (playersLength < 5 && state === "new") {
-          helper.resetAllUsers(
-            group_sessions,
-            user_sessions,
-            group_sessions[key].groupId
-          );
+          helper.resetAllUsers(group_sessions[key], user_sessions);
         }
       }
     }

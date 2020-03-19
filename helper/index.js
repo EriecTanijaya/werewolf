@@ -1,24 +1,25 @@
 module.exports = {
-  resetRoom: function(group_sessions, groupId) {
-    group_sessions[groupId] = null;
+  resetRoom: function(group_session) {
+    group_session = null;
   },
 
-  resetUser: function(user_sessions, userId) {
-    user_sessions[userId] = null;
+  resetUser: function(user_session) {
+    user_session = null;
   },
 
-  resetAllUsers: function(group_sessions, user_sessions, groupId) {
-    if (group_sessions[groupId]) {
-      group_sessions[groupId].players.forEach(item => {
-        this.resetUser(user_sessions, item.id);
-      });
-      this.resetRoom(group_sessions, groupId);
-    }
+  resetAllUsers: function(group_session, user_sessions) {
+    group_session.players.forEach(item => {
+      this.resetUser(user_sessions[item.id]);
+    });
+    this.resetRoom(group_session);
   },
 
   getFlexColor: function() {
     let color = {};
-    let today = new Date().toLocaleTimeString("id-ID", { timeZone:'Asia/Bangkok', hour12: false });
+    let today = new Date().toLocaleTimeString("id-ID", {
+      timeZone: "Asia/Bangkok",
+      hour12: false
+    });
     let timestamp = {
       dawn: {
         from: "00:00:00",
