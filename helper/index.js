@@ -21,8 +21,8 @@ module.exports = {
     let today = new Date().getTime();
     let timestamp = {
       dawn: {
-        from: 1584464400000,
-        to: 1584478799000,
+        from: "00:00:00",
+        to: "03:59:59",
         color: {
           main: "#202b58",
           secondary: "#202b58",
@@ -31,8 +31,8 @@ module.exports = {
         }
       },
       morning: {
-        from: 1584478800000,
-        to: 1584496799000,
+        from: "04:00:00",
+        to: "08:59:59",
         color: {
           main: "#5aa2e0",
           secondary: "#5aa2e0",
@@ -81,7 +81,6 @@ module.exports = {
         color = time.color;
         return color;
       }
-      return color = time.color; //hax
     }
   },
 

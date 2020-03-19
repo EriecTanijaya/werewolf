@@ -1,16 +1,12 @@
 TODO
 
-- rework yang sistem untuk cek online / engga dari variable di data.js aja
-  - itung pake for (let key in group_sessions atau user_sessions)
-  - dan yang untuk di simpen di json itu ga perlu ada state nya
-  - yang dibutuhkan di data json
-    - id
-    - nama
-    - stats
-    - keknya points gak kepake ya? buang aja
-    
-- group_session yg json keknya ga dibutuhkan wkwkwkw
-- untuk err klasih tau juga di func mana errornya
+# Note buat commit msg
+
+- remove auto gas feature
+- ubah time ke 10 menit untuk awal create room
+
+
+###################
 
 - buat database beneran, data user store di mongodb / sql. freakin' hard tho
 

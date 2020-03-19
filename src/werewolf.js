@@ -272,7 +272,7 @@ module.exports = {
     this.group_session.players.length = 0;
     this.group_session.nightCounter = 0;
     this.group_session.roomHostId = "";
-    this.group_session.time = 300;
+    this.group_session.time = 600;
 
     let flex_text = {
       header: {
@@ -357,7 +357,7 @@ module.exports = {
       text += "\n" + "📣 Sudah cukup pemain, game bisa dimulai";
     }
 
-    this.group_session.time = 300;
+    this.group_session.time = 600;
 
     return this.replyText(text);
   },
