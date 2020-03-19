@@ -15,10 +15,12 @@ module.exports = {
       this.resetRoom(group_sessions, groupId);
     }
   },
-  
+
   getFlexColor: function() {
     let color = {};
-    let today = new Date().toLocaleTimeString();
+    let today = new Date().toLocaleTimeString("id-ID", { hour12: false });
+    var offset = new Date().getTimezoneOffset();
+    console.log(offset);
     let timestamp = {
       dawn: {
         from: "00:00:00",
@@ -77,7 +79,7 @@ module.exports = {
     for (let i = 0; i < times.length; i++) {
       let time = timestamp[times[i]];
       if (today >= time.from && today <= time.to) {
-        console.log(today)
+        console.log(today);
         color = time.color;
         return color;
       }
