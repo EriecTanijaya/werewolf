@@ -293,7 +293,7 @@ module.exports = {
     };
 
     let remindText =
-      "⏳ Jika jumlah pemain kurang dari 5 dalam 5 menit, game akan diberhentikan";
+      "⏳ Jika jumlah pemain kurang dari 5 dalam 10 menit, game akan diberhentikan";
 
     /// nambah user auto
     if (this.user_session.state === "inactive") {
@@ -303,7 +303,7 @@ module.exports = {
 
       let newPlayer = this.createNewPlayer(this.user_session);
       this.addPlayer(newPlayer);
-
+      
       let text = "💡 " + this.user_session.name + " berhasil bergabung!";
       return this.replyFlex(flex_text, [text, remindText]);
     } else {
