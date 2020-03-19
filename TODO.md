@@ -1,10 +1,9 @@
 TODO
 
 # Note buat commit msg
-
 - remove auto gas feature
 - ubah time ke 10 menit untuk awal create room
-- helper : getFlexColor only check time not including date
+- helper : getFlexColor : rework on how check times
 
 ###################
 
