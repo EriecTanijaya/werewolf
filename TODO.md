@@ -4,6 +4,8 @@ TODO
 - remove auto gas feature
 - ubah time ke 10 menit untuk awal create room
 - helper : getFlexColor : rework on how check times
+- joinCommand : sekarang gak reset timer lagi, tapi kasih tau sisa berapa waktu
+- new command, /extend : for adding 1 minute when state is new
 
 ###################
 

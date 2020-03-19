@@ -106,14 +106,39 @@ module.exports = {
           this.group_session.time = 0;
           this.checkCommand();
         } else {
-          return this.replyText("ngapain si " + this.user_session.name + "?");
+          return this.replyText(
+            "mo ngapain lu " + this.user_session.name + "?"
+          );
         }
         break;
       case "/revoke":
         return this.revokeCommand();
+      case "/extend":
+        return this.extendCommand();
       default:
         return this.invalidCommand();
     }
+  },
+
+  extendCommand: function() {
+    if (this.group_session.state !== "new") {
+      if (this.group_session.state === "idle") {
+        return this.replyText(
+          "💡 Belum ada game yang dibuat, ketik '/new' untuk buat"
+        );
+      } else {
+        return this.replyText(
+          "💡 Waktu gak bisa ditambahkan saat game sudah berjalan"
+        );
+      }
+    }
+
+    this.group_session.time += 60;
+    return this.replyText(
+      "⏳ Waktu berhasil ditambah 1 menit. Sisa " +
+        this.group_session.time +
+        " detik lagi"
+    );
   },
 
   roleListCommand: function() {
@@ -303,7 +328,7 @@ module.exports = {
 
       let newPlayer = this.createNewPlayer(this.user_session);
       this.addPlayer(newPlayer);
-      
+
       let text = "💡 " + this.user_session.name + " berhasil bergabung!";
       return this.replyFlex(flex_text, [text, remindText]);
     } else {
@@ -351,13 +376,13 @@ module.exports = {
 
     this.addPlayer(newPlayer);
 
-    let text = "💡 " + this.user_session.name + " berhasil bergabung!";
+    let reminder = "⏳ Sisa waktu " + this.group_session.time + " detik lagi";
+    let text =
+      "💡 " + this.user_session.name + " berhasil bergabung!" + "\n" + reminder;
 
     if (this.group_session.players.length >= 5) {
       text += "\n" + "📣 Sudah cukup pemain, game bisa dimulai";
     }
-
-    this.group_session.time = 600;
 
     return this.replyText(text);
   },
@@ -2677,7 +2702,8 @@ module.exports = {
       "/rank : cek rank",
       "/info : tampilin list role",
       "/about : tentang bot",
-      "/revoke: untuk batal voting"
+      "/revoke : untuk batal voting",
+      "/extend : untuk menambah 1 menit saat baru membuat room game"
     ];
 
     cmds.forEach((item, index) => {
