@@ -18,7 +18,7 @@ module.exports = {
   
   getFlexColor: function() {
     let color = {};
-    let today = new Date().toLocaleTimeString("en-GB");
+    let today = new Date().toLocaleTimeString();
     let timestamp = {
       dawn: {
         from: "00:00:00",
@@ -77,6 +77,7 @@ module.exports = {
     for (let i = 0; i < times.length; i++) {
       let time = timestamp[times[i]];
       if (today >= time.from && today <= time.to) {
+        console.log(today)
         color = time.color;
         return color;
       }
