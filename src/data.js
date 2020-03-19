@@ -212,7 +212,7 @@ module.exports = {
           return this.replyText(
             "💡 " +
               u.displayName +
-              " gagal bergabung kedalam game, add dulu botnya\nline://ti/p/@218mdfal"
+              " gagal bergabung kedalam game, add dulu botnya\nline://ti/p/@954nujbd"
           );
         })
         .catch(err => {
@@ -224,7 +224,7 @@ module.exports = {
         return this.replyText(
           "💡 " +
             u.displayName +
-            " gagal bergabung kedalam game, add dulu botnya\nline://ti/p/@218mdfal"
+            " gagal bergabung kedalam game, add dulu botnya\nline://ti/p/@954nujbd"
         );
       });
     }

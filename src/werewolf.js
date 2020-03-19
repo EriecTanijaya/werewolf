@@ -41,14 +41,6 @@ module.exports = {
                 " detik lagi. Jika tidak ada yang join, game akan dihentikan";
               return this.replyText(reminder);
             }
-          } else {
-            if (time === 0 && this.indexOfPlayer() !== -1) {
-              return this.startCommand();
-            } else if (time < 5) {
-              let reminder =
-                "💡 Game akan dimulai pada " + time + " detik lagi";
-              return this.replyText(reminder);
-            }
           }
         }
       }
@@ -2323,7 +2315,7 @@ module.exports = {
           {
             action: "uri",
             label: "✉️ News",
-            data: "line://oaMessage/@218mdfal/?/news"
+            data: "line://oaMessage/@954nujbd/?/news"
           },
           {
             action: "postback",
@@ -3033,7 +3025,7 @@ module.exports = {
           {
             action: "uri",
             label: "💡 Role",
-            data: "line://oaMessage/@218mdfal/?/role"
+            data: "line://oaMessage/@954nujbd/?/role"
           },
           {
             action: "postback",
@@ -3064,7 +3056,7 @@ module.exports = {
           {
             action: "uri",
             label: "✉️ Cek berita",
-            data: "line://oaMessage/@218mdfal/?/news"
+            data: "line://oaMessage/@954nujbd/?/news"
           },
           {
             action: "postback",
