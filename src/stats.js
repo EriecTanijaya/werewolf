@@ -58,32 +58,29 @@ module.exports = {
       whatStat = " " + team.toUpperCase() + " Stat";
     }
 
-    let whatRank = 0;
-    let winRate = 0;
-    let totalGame = 0;
-
     database.getAllUser(users => {
       users = this.rank_sort(users);
 
       for (let i = 0; i < users.length; i++) {
         if (users[i].id === user_session.id) {
-          whatRank = i + 1;
-          totalGame = users[i].totalGame;
-          winRate = users[i].winRate;
-          break;
+          console.log(users[i]);
+          let whatRank = i + 1;
+          let totalGame = users[i].totalGame;
+          let winRate = users[i].winRate;
+
+          let text = "⭐ Points : " + user_session.points + " ";
+          text += "📊 WR : " + winRate + "%" + "\n";
+          text += "🎮 Game : " + totalGame + " ";
+          text += "🏆 Rank : " + whatRank;
+
+          flex_text.header.text += "\n" + whatStat;
+          flex_text.body.text += text;
+
+          return this.replyFlex(flex_text);
         }
       }
+      
     });
-
-    let text = "⭐ Points : " + user_session.points + " ";
-    text += "📊 WR : " + winRate + "%" + "\n";
-    text += "🎮 Game : " + totalGame + " ";
-    text += "🏆 Rank : " + whatRank;
-
-    flex_text.header.text += "\n" + whatStat;
-    flex_text.body.text += text;
-
-    return this.replyFlex(flex_text);
   },
 
   rankCommand: function() {
