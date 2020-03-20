@@ -68,7 +68,8 @@ module.exports = {
       winRate = 0;
     }
 
-    let text = "📊 WR : " + winRate + "%" + "\n";
+    let text = "📊 WR : " + winRate + "%" + " ";
+    text += "" + "\n";
     text += "⭐ Points : " + user_session.points + "\n";
     text += "🎮 Game : " + totalGame;
 
