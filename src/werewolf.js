@@ -333,10 +333,8 @@ module.exports = {
       this.user_session.state = "active";
       this.user_session.groupId = this.group_session.groupId;
       
-      for 
       let newPlayer = this.createNewPlayer(this.user_session);
       this.addPlayer(newPlayer);
-      
 
       let text = "💡 " + this.user_session.name + " berhasil bergabung!";
       return this.replyFlex(flex_text, [text, remindText]);
