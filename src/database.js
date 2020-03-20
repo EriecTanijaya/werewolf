@@ -1,9 +1,8 @@
 const baseUserPath = "/app/.data/users/";
 const fs = require("fs");
 
-const users = [];
-
 function getAllUserData(cb) {
+  const users = [];
   let pending = 0;
   fs.readdir(baseUserPath, (err, list) => {
     if (err) throw err;

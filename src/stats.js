@@ -55,12 +55,18 @@ module.exports = {
 
     let whatStat = " Summary Stat";
     if (team) {
+      let availableTeam = [
+        "werewolf",
+        "villager",
+        "vampire",
+        "tanner",
+        "serial-killer",
+        "arsonist"
+      ];
       whatStat = " " + team.toUpperCase() + " Stat";
     }
 
     database.getAllUser(users => {
-      users = this.rank_sort(users);
-
       for (let i = 0; i < users.length; i++) {
         if (users[i].id === user_session.id) {
           let whatRank = i + 1;
@@ -108,8 +114,6 @@ module.exports = {
     headerText += whatStat;
 
     database.getAllUser(users => {
-      users = this.rank_sort(users);
-
       if (users.length === 0) {
         return this.replyText("💡 Belum ada data usernya");
       }
