@@ -13,20 +13,14 @@ function getAllUserData() {
 function getUserPath(list) {
   list.map((item, index) => {
     if (item.includes("user")) {
-      getUserData(baseUserPath + item);
-      
-      if (users.length === index - 1) {
-        console.log(users);
-        return users;
-      }
+      getUserData(baseUserPath + item, index);
     }
   });
 }
 
-function getUserData(path) {
+function getUserData(path, index) {
   fs.readFile(path, (err, data) => {
     let user = JSON.parse(data);
-    users.push(user);
   });
 }
 
