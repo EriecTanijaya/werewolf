@@ -46,7 +46,7 @@ module.exports = {
 
     let flex_text = {
       header: {
-        text: "🏆 " + user_session.name
+        text: "📜 " + user_session.name
       },
       body: {
         text: ""
@@ -63,13 +63,12 @@ module.exports = {
 
       for (let i = 0; i < users.length; i++) {
         if (users[i].id === user_session.id) {
-          console.log(users[i]);
           let whatRank = i + 1;
           let totalGame = users[i].totalGame;
           let winRate = users[i].winRate;
 
           let text = "⭐ Points : " + user_session.points + " ";
-          text += "📊 WR : " + winRate + "%" + "\n";
+          text += "📊 WR : " + winRate + "\n";
           text += "🎮 Game : " + totalGame + " ";
           text += "🏆 Rank : " + whatRank;
 
@@ -79,7 +78,6 @@ module.exports = {
           return this.replyFlex(flex_text);
         }
       }
-      
     });
   },
 

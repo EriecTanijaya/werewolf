@@ -25,6 +25,9 @@ function getAllUserData(cb) {
           let result = calculateWinLose(null, stats);
           let totalGame = result.win + result.lose;
           let winRate = Math.floor((result.win / totalGame) * 100);
+          if (rawUser.id === process.env.DEV_ID) {
+            console.log(result.win);
+          }
           if (isNaN(winRate)) {
             winRate = 0;
           }
