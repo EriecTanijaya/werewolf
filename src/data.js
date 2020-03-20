@@ -119,7 +119,7 @@ module.exports = {
       console.log(this.args);
       if (user_session.id !== process.env.DEV_ID) {
         // semua grup ga bisa
-        //return this.maintenanceRespond();
+        return this.maintenanceRespond();
 
         // buat khusus test grup aja
         if (groupId !== process.env.TEST_GROUP) {
@@ -267,6 +267,9 @@ module.exports = {
 
   updateUserData: function(oldUserData, newUserData) {
     oldUserData.points += newUserData.points;
+    if (oldUserData.points < 0) {
+      oldUserData.points = 0;
+    }
     
     oldUserData.villagerStats.win += newUserData.villagerStats.win;
     oldUserData.villagerStats.lose += newUserData.villagerStats.lose;

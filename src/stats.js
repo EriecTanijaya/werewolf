@@ -68,10 +68,15 @@ module.exports = {
       winRate = 0;
     }
 
-    let text = "📊 WR : " + winRate + "%" + " ";
-    text += "" + "\n";
-    text += "⭐ Points : " + user_session.points + "\n";
-    text += "🎮 Game : " + totalGame;
+    // let text = "📊 WR : " + winRate + "%" + " ";
+    // text += "" + "\n";
+    // text += "⭐ Points : " + user_session.points + "\n";
+    // text += "🎮 Game : " + totalGame;
+    
+    let text = "⭐ Points : " + user_session.points + " ";
+    text += "📊 WR : " + winRate + "%" + "\n";
+    text += "🎮 Game : " + totalGame + " ";
+    text += "";
 
     flex_text.header.text += "\n" + whatStat;
     flex_text.body.text += text;
