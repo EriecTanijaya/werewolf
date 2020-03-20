@@ -10,7 +10,7 @@ const updateSessionJob = new CronJob("* * * * * *", function() {
   for (let key in group_sessions) {
     if (group_sessions[key]) {
       if (group_sessions[key].state === "idle") {
-        helper.resetAllUsers(group_sessions[key], user_sessions);
+        helper.resetAllUsers(group_sessions, user_sessions, key);
         continue;
       }
 
@@ -21,7 +21,7 @@ const updateSessionJob = new CronJob("* * * * * *", function() {
         let playersLength = group_sessions[key].players.length;
         console.log("di sessions.js", group_sessions[key]);
         if (playersLength < 5 && state === "new") {
-          helper.resetAllUsers(group_sessions[key], user_sessions);
+          helper.resetAllUsers(group_sessions, user_sessions, key);
         }
       }
     }

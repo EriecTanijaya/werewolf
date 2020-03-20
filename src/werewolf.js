@@ -304,7 +304,7 @@ module.exports = {
     this.group_session.players.length = 0;
     this.group_session.nightCounter = 0;
     this.group_session.roomHostId = "";
-    this.group_session.time = 600;
+    this.group_session.time = 5;
 
     let flex_text = {
       header: {

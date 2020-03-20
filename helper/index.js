@@ -1,18 +1,18 @@
 module.exports = {
-  resetRoom: function(group_session) {
-    group_session = null;
+  resetRoom: function(group_sessions, key) {
+    group_sessions[key] = null;
   },
 
   resetUser: function(user_session) {
     user_session = null;
   },
 
-  resetAllUsers: function(group_session, user_sessions) {
-    console.log("didalam helper", group_session);
-    group_session.players.forEach(item => {
+  resetAllUsers: function(group_sessions, user_sessions, key) {
+    console.log("didalam helper", group_sessions[key]);
+    group_sessions[key].players.forEach(item => {
       this.resetUser(user_sessions[item.id]);
     });
-    this.resetRoom(group_session);
+    this.resetRoom(group_sessions, key);
   },
 
   getFlexColor: function() {
