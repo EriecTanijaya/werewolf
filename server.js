@@ -15,11 +15,11 @@ const config = {
 
 // for update rank every week
 // but we testing, so update every hour
-// const updateRankJob = new CronJob("* * * * */4", function() { //ini setiap hari kamis
+// const updateRankJob = new CronJob("0 0 * * */4", function() { //ini setiap hari kamis
   
 // });
 
-const updateRankJob = new CronJob("00 59 * * * *", function() {
+const updateRankJob = new CronJob("07 * * * *", function() {
   console.log("Hourly ", new Date());
   const resetUsersPoints = require("/app/src/ranks")();
 });
