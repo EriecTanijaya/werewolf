@@ -72,6 +72,7 @@ module.exports = {
     let whatRank = 0;
     database.getAllUser((users) => {
       users = this.rank_sort(users);
+      
       for (let i = 0; i < users.length; i++) {
         if (users[i].id === user_session) {
           whatRank = i + 1;
@@ -79,10 +80,6 @@ module.exports = {
         }
       }
     })
-    // let text = "📊 WR : " + winRate + "%" + " ";
-    // text += "" + "\n";
-    // text += "⭐ Points : " + user_session.points + "\n";
-    // text += "🎮 Game : " + totalGame;
     
     let text = "⭐ Points : " + user_session.points + " ";
     text += "📊 WR : " + winRate + "%" + "\n";
@@ -146,9 +143,6 @@ module.exports = {
         };
 
         let result = this.calculateWinLose(team, stats);
-
-        // rawUser.points = result.points;
-        // datas.saveUserData(rawUser);
 
         totalGame = result.win + result.lose;
         winRate = Math.floor((result.win / totalGame) * 100);
