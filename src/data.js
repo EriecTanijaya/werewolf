@@ -2,31 +2,8 @@ const fs = require("fs");
 const helper = require("/app/helper");
 
 // game storage
-var group_sessions = {};
-var user_sessions = {};
-
-//Thanks to
-//https://stackoverflow.com/questions/36629604/node-js-socket-io-multiple-timer-for-rooms
-setInterval(() => {
-  for (let key in group_sessions) {
-    if (group_sessions[key]) {
-      if (group_sessions[key].state === "idle") {
-        helper.resetAllUsers(group_sessions[key], user_sessions);
-        continue;
-      }
-
-      if (group_sessions[key].time > 0) {
-        group_sessions[key].time--;
-      } else {
-        let state = group_sessions[key].state;
-        let playersLength = group_sessions[key].players.length;
-        if (playersLength < 5 && state === "new") {
-          helper.resetAllUsers(group_sessions[key], user_sessions);
-        }
-      }
-    }
-  }
-}, 1000);
+const group_sessions = require("/app/src/sessions").group_sessions;
+const user_sessions = require("/app/src/sessions").user_sessions;
 
 module.exports = {
   receive: function(client, event, rawArgs) {
