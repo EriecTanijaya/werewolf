@@ -53,34 +53,28 @@ module.exports = {
       }
     };
 
-    let totalGame = 0;
-    let winRate = 0;
-
-    let result = this.calculateWinLose(team, stats);
-
     let whatStat = " Summary Stat";
     if (team) {
       whatStat = " " + team.toUpperCase() + " Stat";
     }
 
-    totalGame = result.win + result.lose;
-    winRate = Math.floor((result.win / totalGame) * 100);
-    if (isNaN(winRate)) {
-      winRate = 0;
-    }
-
     let whatRank = 0;
-    database.getAllUser((users) => {
+    let winRate = 0;
+    let totalGame = 0;
+
+    database.getAllUser(users => {
       users = this.rank_sort(users);
-      
+
       for (let i = 0; i < users.length; i++) {
-        if (users[i].id === user_session) {
+        if (users[i].id === user_session.id) {
           whatRank = i + 1;
+          totalGame = users[i].totalGame;
+          winRate = users[i].winRate;
           break;
         }
       }
-    })
-    
+    });
+
     let text = "⭐ Points : " + user_session.points + " ";
     text += "📊 WR : " + winRate + "%" + "\n";
     text += "🎮 Game : " + totalGame + " ";
@@ -118,59 +112,19 @@ module.exports = {
     }
     headerText += whatStat;
 
-    let users = fs
-      .readdirSync(baseUserPath)
-      .filter(u => {
-        if (!u.includes("user")) {
-          return false;
-        }
-        return true;
-      })
-      .map((item, index) => {
-        let data = fs.readFileSync(baseUserPath + item);
-        let rawUser = JSON.parse(data);
+    database.getAllUser(users => {
+      users = this.rank_sort(users);
 
-        let totalGame = 0;
-        let winRate = 0;
+      if (users.length === 0) {
+        return this.replyText("💡 Belum ada data usernya");
+      }
 
-        let stats = {
-          villager: rawUser.villagerStats,
-          werewolf: rawUser.werewolfStats,
-          vampire: rawUser.vampireStats,
-          tanner: rawUser.tannerStats,
-          serialKiller: rawUser.serialKillerStats,
-          arsonist: rawUser.arsonistStats
-        };
+      users = this.rank_sort(users);
+      users.length = 10;
 
-        let result = this.calculateWinLose(team, stats);
-
-        totalGame = result.win + result.lose;
-        winRate = Math.floor((result.win / totalGame) * 100);
-        if (isNaN(winRate)) {
-          winRate = 0;
-        }
-
-        let user = {
-          name: rawUser.name,
-          points: rawUser.points,
-          totalGame: totalGame,
-          winRate: winRate + "%"
-        };
-
-        return user;
-      });
-
-    if (users.length === 0) {
-      return this.replyText("💡 Belum ada data usernya");
-    }
-
-    users = this.rank_sort(users);
-
-    users.length = 10;
-
-    let flex_text = this.getTableFlex(users, headerText, team);
-
-    return this.replyFlex(flex_text);
+      let flex_text = this.getTableFlex(users, headerText, team);
+      return this.replyFlex(flex_text);
+    });
   },
 
   statusCommand: function() {
@@ -225,57 +179,6 @@ module.exports = {
         person2.points - person1.points || person2_winRate - person1_winRate
       );
     });
-  },
-
-  calculateWinLose: function(team, stats) {
-    let win = 0;
-    let lose = 0;
-    switch (team) {
-      case "villager":
-        win = stats.villager.win;
-        lose = stats.villager.lose;
-        break;
-
-      case "werewolf":
-        win = stats.werewolf.win;
-        lose = stats.werewolf.lose;
-        break;
-
-      case "tanner":
-        win = stats.tanner.win;
-        lose = stats.tanner.lose;
-        break;
-
-      case "vampire":
-        win = stats.vampire.win;
-        lose = stats.vampire.lose;
-        break;
-
-      case "serial-killer":
-        win = stats.serialKiller.win;
-        lose = stats.serialKiller.lose;
-        break;
-
-      case "arsonist":
-        win = stats.arsonist.win;
-        lose = stats.arsonist.lose;
-        break;
-
-      default:
-        /// calculate total all game play,
-        // calculate all win & lose from each team
-        Object.keys(stats).forEach(key => {
-          let stat = stats[key];
-          win += stat.win;
-          lose += stat.lose;
-        });
-    }
-
-    let result = {
-      win: win,
-      lose: lose
-    };
-    return result;
   },
 
   getTableFlex: function(users, headerText, team) {
