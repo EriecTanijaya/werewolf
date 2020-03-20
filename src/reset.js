@@ -29,6 +29,7 @@ function getUserData(path) {
 function updateUserData(path, editedUser) {
   fs.writeFile(path, editedUser, err => {
     if (err) throw err;
+    console.log("Update successfully");
   });
 }
 

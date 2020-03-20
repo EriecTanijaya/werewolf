@@ -6,15 +6,15 @@ module.exports = {
     invalidText = invalidText.substring(1);
 
     const response = [
-      "Kamu kira aku bakal ngerti '" + invalidText + "'? ",
-      "Apa sih. ",
-      "Gak ngerti aku cmd '" + invalidText + "'. ",
-      "Maksudnya " + invalidText + " apaan? ",
-      "Au ah gelap. Gak ngerti aku cmd '" + invalidText + "'. ",
-      "Tolong ya, aku gak ngerti '" + invalidText + "' artinya apaan. ",
-      "I don't what is " + invalidText + " means. ",
-      "Aku ga ngerti " + invalidText + ", mungkin yang lain tau. ",
-      "Gak paham. "
+      "kamu kira aku bakal ngerti '" + invalidText + "'? ",
+      "apa sih. ",
+      "aku gak ngerti cmd '" + invalidText + "'. ",
+      "maksudnya " + invalidText + " apaan? ",
+      "au ah gelap. Gak ngerti aku cmd '" + invalidText + "'. ",
+      "tolong ya, aku gak ngerti '" + invalidText + "' artinya apaan. ",
+      "i don't what is '" + invalidText + "' means. ",
+      "aku ga ngerti '" + invalidText + "', mungkin yang lain tau. ",
+      "gak paham. "
     ];
     
     let text = helper.random(response);
