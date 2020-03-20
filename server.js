@@ -16,7 +16,8 @@ const config = {
 // for update rank once a week, on thursday
 // Thanks https://crontab.guru/examples.html
 const updateRankJob = new CronJob("0 0 * * */4", function() {
-  const resetUsersPoints = require("/app/src/ranks")();
+  const reset = require("/app/src/reset");
+  reset.usersPoint();
 });
 
 updateRankJob.start();

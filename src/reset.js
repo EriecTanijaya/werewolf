@@ -1,8 +1,8 @@
 const baseUserPath = "/app/.data/users/";
 const fs = require("fs");
 
-// Update Ranking
-function updateRank() {
+// Reset User Points
+function resetUsersPoint() {
   fs.readdir(baseUserPath, (err, data) => {
     if (err) throw err;
     getUserPath(data);
@@ -32,4 +32,6 @@ function updateUserData(path, editedUser) {
   });
 }
 
-module.exports = updateRank;
+module.exports = {
+  usersPoint: resetUsersPoint
+};
