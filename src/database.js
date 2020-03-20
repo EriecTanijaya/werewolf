@@ -4,12 +4,13 @@ const fs = require("fs");
 const users = [];
 
 function getAllUserData() {
-  getAllData((user) => {
-    
+  getData((userData) => {
+    users.push(userData);
+    console.log(users.length);
   });
 }
 
-function getAllData(cb) {
+function getData(cb) {
   fs.readdir(baseUserPath, (err, data) => {
     if (err) throw err;
     getUserPath(data);
@@ -26,7 +27,7 @@ function getAllData(cb) {
   function getUserData(path) {
     fs.readFile(path, (err, data) => {
       let user = JSON.parse(data);
-      //cb(user);
+      cb(user);
     });
   }
 }
