@@ -1,28 +1,28 @@
-const CronJob = require("cron").CronJob;
-const helper = require("/app/helper");
+const baseUserPath = "/app/.data/users/";
+const fs = require("fs");
 
 // Update Ranking
-const updateRankJob = new CronJob("* * * * * *", function() {
-  for (let key in group_sessions) {
-    if (group_sessions[key]) {
-      if (group_sessions[key].state === "idle") {
-        helper.resetAllUsers(group_sessions[key], user_sessions);
-        continue;
-      }
+function updateRank() {
+  
+}
 
-      if (group_sessions[key].time > 0) {
-        group_sessions[key].time--;
-      } else {
-        let state = group_sessions[key].state;
-        let playersLength = group_sessions[key].players.length;
-        if (playersLength < 5 && state === "new") {
-          helper.resetAllUsers(group_sessions[key], user_sessions);
-        }
-      }
+let users = fs
+  .readdirSync(baseUserPath)
+  .filter(u => {
+    if (!u.includes("user")) {
+      return false;
     }
-  }
-});
+    return true;
+  })
+  .map((item, index) => {
+    let data = fs.readFileSync(baseUserPath + item);
+    let rawUser = JSON.parse(data);
+  });
 
-updateRanJob.start();
+// const updateRankJob = new CronJob("* * * * * *", function() {
+  
+// });
 
-module.exports = updateRankJob;
+updateRank.start();
+
+module.exports = updateRank;

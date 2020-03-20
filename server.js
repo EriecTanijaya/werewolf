@@ -5,12 +5,23 @@
 const line = require("@line/bot-sdk");
 const express = require("express");
 const app = express();
+const CronJob = require("cron").CronJob;
 
 // line config
 const config = {
   channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN,
   channelSecret: process.env.CHANNEL_SECRET
 };
+
+// for update rank every week
+// but we testing, so update every hour
+// const updateRankJob = new CronJob("* * * * */4", function() { //ini setiap hari kamis
+  
+// });
+
+const updateRankJob = new CronJob("00 59 * * * *", function() {
+  console.log("Hourly ", new Date());
+});
 
 app.use("/callback", line.middleware(config));
 
