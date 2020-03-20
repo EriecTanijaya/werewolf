@@ -4,22 +4,21 @@ const fs = require("fs");
 const users = [];
 
 function getAllUserData() {
-  getData((userData) => {
-    users.push(userData);
-    console.log(users.length);
-  });
+  
 }
 
 function getData(cb) {
+  let pending = 0;
   fs.readdir(baseUserPath, (err, data) => {
     if (err) throw err;
+    pending =  data.length;
     getUserPath(data);
   });
 
   function getUserPath(list) {
     list.forEach((item, index) => {
       if (item.includes("user")) {
-        getUserData(baseUserPath + item);
+        g
       }
     });
   }
@@ -27,7 +26,6 @@ function getData(cb) {
   function getUserData(path) {
     fs.readFile(path, (err, data) => {
       let user = JSON.parse(data);
-      cb(user);
     });
   }
 }
