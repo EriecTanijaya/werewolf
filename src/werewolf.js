@@ -1926,25 +1926,24 @@ module.exports = {
             this.group_session.players[doctorIndex].message +=
               "💡 " + players[i].name + " diserang semalam!" + "\n\n";
 
-            if (attackerLength > 1) {
+            if (attackerLength > 1 || isBurned) {
               this.group_session.players[i].message +=
-                "💡 Kamu diserang " +
-                attackerLength +
-                " orang. Nyawamu tidak ter selamatkan" +
-                "\n\n";
-            }
-
-            // purge from vampire bite
-            if (isVampireBited) {
-              this.group_session.players[i].vampireBited = false;
-            }
-
-            if (attackerLength === 1 && !isBurned) {
+                "💡 Tetapi nyawa kamu tidak berhasi diselamatkan!" + "\n\n";
+            } else {
+              this.group_session.players[i].message +=
+                "🤕 Nyawa kamu berhasil diselamatkan!" + "\n\n";
+              
               allAnnouncement +=
                 "💉 Dokter semalam berhasil melindungi seseorang!" + "\n\n";
               continue;
             }
-          }
+          } 
+          
+          
+            // purge from vampire bite
+            // if (isVampireBited) {
+            //   this.group_session.players[i].vampireBited = false;
+            // }
 
           if (!isAttacked) continue;
 
