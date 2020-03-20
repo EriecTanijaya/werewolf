@@ -904,7 +904,7 @@ module.exports = {
 
     if (vampireExists) {
       players.forEach((item, index) => {
-        if (item.role.team === "vampire") {
+        if (item.role.team === "vampire" && item.status === "alive") {
           let vampire = {
             index: index,
             age: item.role.age
