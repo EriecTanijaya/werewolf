@@ -1,16 +1,11 @@
 TODO
 
-# Note buat commit msg
+- setelah sistem points reset perminggu dah aman, data user yg di .data werewolf-glitch ini akan di hapus,
+lalu barulah import changes dari github yg udah update dari werewolf-glitch-test
 
-- remove auto gas feature
-- ubah time ke 10 menit untuk awal create room
-- helper : getFlexColor : rework on how check times
-- joinCommand : sekarang gak reset timer lagi, tapi kasih tau sisa berapa waktu
-- new command, /extend : for adding 1 minute when state is new
-- fix not show vote flex when voting state
-- helper : resetAllUser : refactor func 'n friend
+  -  `cd /app/.data/users`
 
-###################
+  -  `rm -rf *`
 
 - buat database beneran, data user store di mongodb / sql. freakin' hard tho
 
