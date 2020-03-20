@@ -5,12 +5,22 @@
 const line = require("@line/bot-sdk");
 const express = require("express");
 const app = express();
+const CronJob = require("cron").CronJob;
 
 // line config
 const config = {
   channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN,
   channelSecret: process.env.CHANNEL_SECRET
 };
+
+// cron job
+console.log('Before job instantiation');
+const job = new CronJob('* * * * * *', function() {
+	const d = new Date();
+	console.log('Every second:', d);
+});
+console.log('After job instantiation');
+job.start();
 
 app.use("/callback", line.middleware(config));
 
