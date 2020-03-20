@@ -1,12 +1,8 @@
 const CronJob = require("cron").CronJob;
 const helper = require("/app/helper");
 
-// game storage
-const group_sessions = {};
-const user_sessions = {};
-
-// Update session
-const updateSessionJob = new CronJob("* * * * * *", function() {
+// Update Ranking
+const updateRankJob = new CronJob("* * * * * *", function() {
   for (let key in group_sessions) {
     if (group_sessions[key]) {
       if (group_sessions[key].state === "idle") {
@@ -27,9 +23,6 @@ const updateSessionJob = new CronJob("* * * * * *", function() {
   }
 });
 
-updateSessionJob.start();
+updateRanJob.start();
 
-module.exports = {
-  group_sessions: group_sessions,
-  user_sessions: user_sessions
-};
+module.exports = updateRankJob;
