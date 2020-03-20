@@ -1,5 +1,6 @@
 const fs = require("fs");
 const baseUserPath = "/app/.data/users/";
+const database = require("/app/src/database");
 
 // const datas = require("/app/src/data");
 
@@ -68,6 +69,7 @@ module.exports = {
       winRate = 0;
     }
 
+    return console.log(database.getAllUser());
     // let text = "📊 WR : " + winRate + "%" + " ";
     // text += "" + "\n";
     // text += "⭐ Points : " + user_session.points + "\n";
@@ -76,7 +78,7 @@ module.exports = {
     let text = "⭐ Points : " + user_session.points + " ";
     text += "📊 WR : " + winRate + "%" + "\n";
     text += "🎮 Game : " + totalGame + " ";
-    text += "";
+    text += "🏆 Rank : " + rank;
 
     flex_text.header.text += "\n" + whatStat;
     flex_text.body.text += text;
