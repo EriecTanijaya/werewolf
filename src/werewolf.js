@@ -134,11 +134,18 @@ module.exports = {
     }
 
     this.group_session.time += 60;
-    return this.replyText(
-      "⏳ Waktu berhasil ditambah 1 menit. Sisa " +
-        this.group_session.time +
-        " detik lagi"
-    );
+
+    let remind = "⏳ Waktu berhasil di tambah 1 menit. ";
+    remind += "Sisa waktu ";
+
+    if (this.group_session.time > 90) {
+      let minute = this.group_session.time / 60;
+      remind += minute + " menit lagi";
+    } else {
+      remind += this.group_session.time + " detik lagi";
+    }
+
+    return this.replyText(remind);
   },
 
   roleListCommand: function() {
@@ -376,7 +383,15 @@ module.exports = {
 
     this.addPlayer(newPlayer);
 
-    let reminder = "⏳ Sisa waktu " + this.group_session.time + " detik lagi";
+    let reminder = "⏳ Sisa waktu ";
+
+    if (this.group_session.time > 90) {
+      let minute = this.group_session.time / 60;
+      reminder += minute + " menit lagi";
+    } else {
+      reminder += this.group_session.time + " detik lagi";
+    }
+
     let text =
       "💡 " + this.user_session.name + " berhasil bergabung!" + "\n" + reminder;
 
@@ -3053,7 +3068,7 @@ module.exports = {
           {
             action: "uri",
             label: "💡 Role",
-            data: "line://oaMessage/@954nujbd/?/role"
+            data: "line://oaMessage/" + process.env.BOT_ID + "/?/role"
           },
           {
             action: "postback",
@@ -3084,7 +3099,7 @@ module.exports = {
           {
             action: "uri",
             label: "✉️ Cek berita",
-            data: "line://oaMessage/@954nujbd/?/news"
+            data: "line://oaMessage/" + process.env.BOT_ID + "/?/news"
           },
           {
             action: "postback",

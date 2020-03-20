@@ -204,7 +204,7 @@ module.exports = {
           return this.replyText(
             "💡 " +
               u.displayName +
-              " gagal bergabung kedalam game, add dulu botnya\nline://ti/p/@954nujbd"
+              " gagal bergabung kedalam game, add dulu botnya\nline://ti/p/" + process.env.BOT_ID
           );
         })
         .catch(err => {
@@ -216,7 +216,7 @@ module.exports = {
         return this.replyText(
           "💡 " +
             u.displayName +
-            " gagal bergabung kedalam game, add dulu botnya\nline://ti/p/@954nujbd"
+            " gagal bergabung kedalam game, add dulu botnya\nline://ti/p/" + process.env.BOT_ID
         );
       });
     }
