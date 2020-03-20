@@ -19,8 +19,6 @@ const updateRankJob = new CronJob("0 0 * * */4", function() {
   const resetUsersPoints = require("/app/src/ranks")();
 });
 
-const resetUsersPoints = require("/app/src/ranks")();
-
 updateRankJob.start();
 
 app.use("/callback", line.middleware(config));
