@@ -101,9 +101,8 @@ module.exports = {
   },
 
   invalidCommand: function() {
-    let text =
-      "💡 Perintah yang digunakan salah, ketik '/cmd' untuk list perintah";
-    return this.replyText(text);
+    const invalid = require("/app/message/invalid");
+    return this.replyText(invalid.getResponse(this.args));
   },
 
   helpCommand: function() {

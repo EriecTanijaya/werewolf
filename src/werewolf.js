@@ -2738,8 +2738,7 @@ module.exports = {
 
   invalidCommand: function() {
     const invalid = require("/app/message/invalid");
-    let response = invalid(invalid);
-    return this.replyText(response.text);
+    return this.replyText(invalid.getResponse(this.args));
   },
 
   /** helper func **/
