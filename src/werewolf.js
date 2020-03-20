@@ -2887,6 +2887,7 @@ module.exports = {
         this.group_session.players[index].arsonistStats.win++;
         break;
     }
+    this.group_session.players[index].points += 5;
   },
 
   decreaseWinRate: function(index, roleTeam) {
@@ -2910,6 +2911,7 @@ module.exports = {
         this.group_session.players[index].arsonistStats.lose++;
         break;
     }
+    this.group_session.players[index].points += 1;
   },
 
   getRandomRoleSet: function(playersLength) {

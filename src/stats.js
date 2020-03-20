@@ -70,7 +70,7 @@ module.exports = {
     }
 
     let text = "📊 WR : " + winRate + "%" + "\n";
-    text += "⭐ Points : " + result.points + "\n";
+    text += "⭐ Points : " + user_session.points + "\n";
     text += "🎮 Game : " + totalGame;
 
     flex_text.header.text += "\n" + whatStat;
@@ -142,7 +142,7 @@ module.exports = {
 
         let user = {
           name: rawUser.name,
-          points: result.points,
+          points: rawUser.points,
           totalGame: totalGame,
           winRate: winRate + "%"
         };
@@ -261,12 +261,9 @@ module.exports = {
         });
     }
 
-    let points = win * 5 + lose * 1;
-
     let result = {
       win: win,
-      lose: lose,
-      points: points
+      lose: lose
     };
     return result;
   },

@@ -266,8 +266,9 @@ module.exports = {
 
   updateUserData: function(oldUserData, newUserData) {
     oldUserData.points += newUserData.points;
-    
-    
+    if (oldUserData.points < 0) {
+      oldUserData.points = 0;
+    }
     
     oldUserData.villagerStats.win += newUserData.villagerStats.win;
     oldUserData.villagerStats.lose += newUserData.villagerStats.lose;
