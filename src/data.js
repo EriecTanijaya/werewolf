@@ -39,6 +39,7 @@ module.exports = {
         name: "",
         state: "inactive",
         groupId: "",
+        points: 0,
         villagerStats: {
           win: 0,
           lose: 0
@@ -118,7 +119,7 @@ module.exports = {
       console.log(this.args);
       if (user_session.id !== process.env.DEV_ID) {
         // semua grup ga bisa
-        //return this.maintenanceRespond();
+        return this.maintenanceRespond();
 
         // buat khusus test grup aja
         if (groupId !== process.env.TEST_GROUP) {
@@ -290,6 +291,7 @@ module.exports = {
       let reset_player = {
         id: item.id,
         name: item.name,
+        points: item.points,
         villagerStats: item.villagerStats,
         werewolfStats: item.werewolfStats,
         vampireStats: item.vampireStats,
