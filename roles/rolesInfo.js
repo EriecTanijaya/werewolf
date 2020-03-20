@@ -14,9 +14,9 @@ module.exports = {
     };
 
     if (!this.args[1]) {
-      let roles = require("/app/roles/rolesData").map((role) => {
+      let roles = require("/app/roles/rolesData").map(role => {
         return role.name;
-      })
+      });
 
       flex_text.header.text = "🐺 Role List 🔮";
       flex_text.body.text = roles.join(", ");
@@ -25,10 +25,17 @@ module.exports = {
         "Cth: '/info vampire-hunter' untuk mengetahui detail role Vampire-Hunter";
       return this.replyFlex(flex_text);
     }
-    
+
     let roleName = this.args[1].toLowerCase();
-    
+
     switch (roleName) {
+      case "villager":
+      case "warga":
+        flex_text.header.text = "👨‍🌾 Villager";
+        flex_text.body.text =
+          "Warga biasa yang tidak punya skill special. Kalau malam hari ";
+        return this.replyFlex(flex_text);
+
       case "seer":
         flex_text.header.text = "🔮 Seer";
         flex_text.body.text =
@@ -38,14 +45,16 @@ module.exports = {
       case "doctor":
         flex_text.header.text = "💉 Doctor";
         flex_text.body.text =
-          "Warga yang bisa memilih siapa yang ingin dilindungi. Dapat melindungi dari serangan biasa atau digigit vampire. ";
+          "Warga yang bisa memilih siapa yang ingin dilindungi. Dapat melindungi dari serangan biasa atau gigitan vampire. ";
         return this.replyFlex(flex_text);
 
       case "werewolf":
+      case "ww":
         flex_text.header.text = "🐺 Werewolf";
         flex_text.body.text =
           "Penjahat yang menyerupai manusia pada siang hari. Yang memberi perintah siapa yang akan dibunuh. ";
-        flex_text.body.text = "Jika ada Werewolf Cub, maka yang membunuh adalah Werewolf-Cub. ";
+        flex_text.body.text =
+          "Jika ada Werewolf Cub, maka yang membunuh adalah Werewolf-Cub. ";
         return this.replyFlex(flex_text);
 
       case "vampire":
@@ -60,7 +69,8 @@ module.exports = {
         flex_text.header.text = "🗡️ Vampire-Hunter";
         flex_text.body.text =
           "Warga yang berani melawan Vampire, disaat Vampire ke rumahnya, Vampire itu pasti mati. ";
-        flex_text.body.text += "Mampu mendengar percakapan Vampire saat malam. ";
+        flex_text.body.text +=
+          "Mampu mendengar percakapan Vampire saat malam. ";
         return this.replyFlex(flex_text);
 
       case "werewolf-cub":
@@ -68,78 +78,88 @@ module.exports = {
         flex_text.body.text =
           "Di Pihak werewolf, melakukan pembunuhan atas suruhan Werewolf. Akan menjadi Werewolf jika Werewolf mati. ";
         return this.replyFlex(flex_text);
-        
+
       case "sorcerer":
         flex_text.header.text = "🧙 Sorcerer";
         flex_text.body.text =
           "Di Pihak werewolf, bisa menerawang suatu pemain untuk mengetahui rolenya. ";
         return this.replyFlex(flex_text);
-        
+
       case "consort":
         flex_text.header.text = "🚷 Consort";
         flex_text.body.text =
-          "Di Pihak werewolf, bisa memilih siapa pemain yang ingin di block skillnya. ";
+          "Di Pihak werewolf, bisa memilih siapa pemain yang ingin di block skillnya. Consort immune dari role block. ";
+        flex_text.body.text +=
+          "Jika role block Serial-Killer, maka Serial-Killer itu akan ganti target ke orang yang role block";
         return this.replyFlex(flex_text);
-        
+
       case "vigilante":
         flex_text.header.text = "🔫 Vigilante";
         flex_text.body.text =
           "Warga yang bisa memilih siapa yang ingin dibunuh pas malam. ";
-        flex_text.body.text += "Tetapi jika dia membunuh sesama warga, dia akan bunuh diri keesokan harinya";
+        flex_text.body.text +=
+          "Tetapi jika dia membunuh sesama warga, dia akan bunuh diri keesokan harinya";
         return this.replyFlex(flex_text);
-        
+
       case "tanner":
         flex_text.header.text = "🃏 Tanner";
-        flex_text.body.text = "Tidak memihak kesiapa siapa, Tanner menang jika di gantung";
+        flex_text.body.text =
+          "Tidak memihak kesiapa siapa, Tanner menang jika di gantung";
         return this.replyFlex(flex_text);
-        
+
       case "lookout":
         flex_text.header.text = "👀 Lookout";
         flex_text.body.text =
           "Warga yang bisa memilih rumah siapa yang ingin dipantau pas malam. ";
-        flex_text.body.text += "Dia bahkan bisa mengetahui siapa yang mengunjungi dirinya pas malam. ";
+        flex_text.body.text +=
+          "Dia bahkan bisa mengetahui siapa yang mengunjungi dirinya pas malam. ";
         return this.replyFlex(flex_text);
-        
+
       case "escort":
         flex_text.header.text = "💋 Escort";
         flex_text.body.text =
           "Warga yang bisa ganggu konsentrasi orang lain, sehingga targetnya bisa tidak menggunakan skillnya. ";
-        flex_text.body.text += "Namun jika ke rumah Serial Killer, Escort ini bisa dibunuhnya. Escort kebal dari blocknya Consort";
+        flex_text.body.text +=
+          "Namun jika ke rumah Serial Killer, Escort ini bisa dibunuhnya. Escort immune dari role block";
         return this.replyFlex(flex_text);
-        
+
       case "serial-killer":
         flex_text.header.text = "🔪 Serial Killer";
         flex_text.body.text =
           "Psikopat yang kebal dari serangan biasa. Hidup hanya untuk membunuh orang lain. ";
-        flex_text.body.text += "Kebal dari serangan biasa. Jika di role block, kamu akan bunuh yang ngerole block dan ";
-        flex_text.body.text += "mengabaikan target awalmu. "
+        flex_text.body.text +=
+          "Kebal dari serangan biasa. Jika di role block, kamu akan bunuh yang ngerole block dan ";
+        flex_text.body.text += "mengabaikan target awalmu. ";
         return this.replyFlex(flex_text);
-        
+
       case "retributionist":
         flex_text.header.text = "⚰️ Retributionist";
         flex_text.body.text =
-          "Warga yang bisa membangkitkan orang mati. ";
+          "Warga yang bisa membangkitkan orang mati. Hanya 1 kali saja";
         return this.replyFlex(flex_text);
-        
+
       case "veteran":
         flex_text.header.text = "🎖️ Veteran";
         flex_text.body.text =
           "Warga yang merupakan Veteran perang yang paranoia. ";
-        flex_text.body.text += "Mudah terkejut sehingga jika dalam keadaan 'alert', bisa membunuh siapa saja yang kerumahnya. ";
+        flex_text.body.text +=
+          "Mudah terkejut sehingga jika dalam keadaan 'alert', bisa membunuh siapa saja yang kerumahnya. ";
         return this.replyFlex(flex_text);
-        
+
       case "sheriff":
         flex_text.header.text = "👮 Sheriff";
         flex_text.body.text =
           "Warga yang bisa cek suatu pemain mencurigakan atau tidak. ";
-        flex_text.body.text += "Setiap warga akan tampil tidak mencurigakan. Namun role Werewolf, Arsonist, Vampire akan tampil tidak mencurigakan juga. ";
+        flex_text.body.text +=
+          "Setiap warga akan tampil tidak mencurigakan. Namun role Werewolf, Arsonist, Vampire akan tampil tidak mencurigakan juga. ";
         return this.replyFlex(flex_text);
-        
+
       case "arsonist":
         flex_text.header.text = "🔥 Arsonist";
         flex_text.body.text =
           "Maniak api yang hanya ingin semua orang terbakar. ";
-        flex_text.body.text += "Arsonist kebal dari serangan biasa saat malam. Pilih diri sendiri jika ingin membakar rumah target yang telah di sirami bensin. ";
+        flex_text.body.text +=
+          "Arsonist kebal dari serangan biasa saat malam. Pilih diri sendiri jika ingin membakar rumah target yang telah di sirami bensin. ";
         return this.replyFlex(flex_text);
 
       default:
@@ -178,11 +198,6 @@ module.exports = {
     }
 
     const flex = require("/app/message/flex");
-    return flex.receive(
-      this.client,
-      this.event,
-      flex_texts,
-      opt_texts
-    );
-  },
+    return flex.receive(this.client, this.event, flex_texts, opt_texts);
+  }
 };
