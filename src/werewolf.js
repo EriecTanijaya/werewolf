@@ -2355,7 +2355,7 @@ module.exports = {
           {
             action: "uri",
             label: "✉️ News",
-            data: "line://oaMessage/@954nujbd/?/news"
+            data: "line://oaMessage/" + process.env.BOT_ID + "/?/news"
           },
           {
             action: "postback",
