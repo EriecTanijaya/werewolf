@@ -3,31 +3,23 @@ const fs = require("fs");
 
 const users = [];
 
-function getAllUserData() {
-  
-}
-
-function getData(cb) {
+function getAllUserData(cb) {
   let pending = 0;
-  fs.readdir(baseUserPath, (err, data) => {
+  fs.readdir(baseUserPath, (err, list) => {
     if (err) throw err;
-    pending =  data.length;
-    getUserPath(data);
-  });
-
-  function getUserPath(list) {
+    pending = list.length;
     list.forEach((item, index) => {
       if (item.includes("user")) {
-        g
+        fs.readFile(baseUserPath + item, (err, data) => {
+          let user = JSON.parse(data);
+          users.push(user);
+          if (pending === index + 1) {
+            cb(users);
+          }
+        });
       }
     });
-  }
-
-  function getUserData(path) {
-    fs.readFile(path, (err, data) => {
-      let user = JSON.parse(data);
-    });
-  }
+  });
 }
 
 module.exports = {

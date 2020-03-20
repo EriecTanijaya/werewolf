@@ -69,7 +69,16 @@ module.exports = {
       winRate = 0;
     }
 
-    return console.log(database.getAllUser());
+    let whatRank = 0;
+    database.getAllUser((users) => {
+      users = this.rank_sort(users);
+      for (let i = 0; i < users.length; i++) {
+        if (users[i].id === user_session) {
+          whatRank = i + 1;
+          break;
+        }
+      }
+    })
     // let text = "📊 WR : " + winRate + "%" + " ";
     // text += "" + "\n";
     // text += "⭐ Points : " + user_session.points + "\n";
@@ -78,7 +87,7 @@ module.exports = {
     let text = "⭐ Points : " + user_session.points + " ";
     text += "📊 WR : " + winRate + "%" + "\n";
     text += "🎮 Game : " + totalGame + " ";
-    text += "🏆 Rank : " + rank;
+    text += "🏆 Rank : " + whatRank;
 
     flex_text.header.text += "\n" + whatStat;
     flex_text.body.text += text;
