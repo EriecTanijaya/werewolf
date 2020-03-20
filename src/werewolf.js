@@ -139,7 +139,7 @@ module.exports = {
     remind += "Sisa waktu ";
 
     if (this.group_session.time > 90) {
-      let minute = this.group_session.time / 60;
+      let minute = Math.round(this.group_session.time / 60);
       remind += minute + " menit lagi";
     } else {
       remind += this.group_session.time + " detik lagi";
@@ -386,7 +386,7 @@ module.exports = {
     let reminder = "⏳ Sisa waktu ";
 
     if (this.group_session.time > 90) {
-      let minute = this.group_session.time / 60;
+      let minute = Math.round(this.group_session.time / 60);
       reminder += minute + " menit lagi";
     } else {
       reminder += this.group_session.time + " detik lagi";
