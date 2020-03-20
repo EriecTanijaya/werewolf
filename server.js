@@ -13,16 +13,13 @@ const config = {
   channelSecret: process.env.CHANNEL_SECRET
 };
 
-// for update rank every week
-// but we testing, so update every hour
-// const updateRankJob = new CronJob("0 0 * * */4", function() { //ini setiap hari kamis
-  
-// });
-
-const updateRankJob = new CronJob("07 * * * *", function() {
-  console.log("Hourly ", new Date());
+// for update rank once a week, on thursday
+// Thanks https://crontab.guru/examples.html
+const updateRankJob = new CronJob("0 0 * * */4", function() {
   const resetUsersPoints = require("/app/src/ranks")();
 });
+
+updateRankJob.start();
 
 app.use("/callback", line.middleware(config));
 

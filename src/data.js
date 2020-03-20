@@ -256,11 +256,12 @@ module.exports = {
     let user_session = {};
     fs.readFile(userPath, "utf8", (err, data) => {
       if (err) {
-        user_session = newUserData;
+        // use the apa adanya user_session
+        this.saveUserData(newUserData);
       } else {
         user_session = JSON.parse(data);
+        this.updateUserData(user_session, newUserData);
       }
-      this.updateUserData(user_session, newUserData);
     });
   },
 
