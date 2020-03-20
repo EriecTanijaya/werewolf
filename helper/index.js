@@ -8,6 +8,7 @@ module.exports = {
   },
 
   resetAllUsers: function(group_session, user_sessions) {
+    console.log("didalam helper", group_session);
     group_session.players.forEach(item => {
       this.resetUser(user_sessions[item.id]);
     });

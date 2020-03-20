@@ -19,6 +19,7 @@ const updateSessionJob = new CronJob("* * * * * *", function() {
       } else {
         let state = group_sessions[key].state;
         let playersLength = group_sessions[key].players.length;
+        console.log("di sessions.js", group_sessions[key]);
         if (playersLength < 5 && state === "new") {
           helper.resetAllUsers(group_sessions[key], user_sessions);
         }
