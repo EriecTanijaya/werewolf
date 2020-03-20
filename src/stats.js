@@ -63,6 +63,11 @@ module.exports = {
         "serial-killer",
         "arsonist"
       ];
+      if (!availableTeam.includes(team)) {
+        let text = "💡 Tidak ada ditemukan team '" + team + "', ";
+        text += "team yang ada : " + availableTeam.join(", ");
+        return this.replyText(text);
+      };
       whatStat = " " + team.toUpperCase() + " Stat";
     }
 
