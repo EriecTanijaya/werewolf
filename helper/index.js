@@ -1,6 +1,6 @@
 module.exports = {
-  resetRoom: function(group_sessions, key) {
-    group_sessions[key] = null;
+  resetRoom: function(group_session, key) {
+    group_session = null;
   },
 
   resetUser: function(user_session) {
@@ -12,7 +12,7 @@ module.exports = {
     group_sessions[key].players.forEach(item => {
       this.resetUser(user_sessions[item.id]);
     });
-    this.resetRoom(group_sessions, key);
+    this.resetRoom(group_sessions[key], key);
   },
 
   getFlexColor: function() {
