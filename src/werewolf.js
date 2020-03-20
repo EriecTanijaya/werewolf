@@ -332,7 +332,7 @@ module.exports = {
       this.group_session.roomHostId = this.user_session.id;
       this.user_session.state = "active";
       this.user_session.groupId = this.group_session.groupId;
-      
+
       let newPlayer = this.createNewPlayer(this.user_session);
       this.addPlayer(newPlayer);
 
@@ -1932,18 +1932,17 @@ module.exports = {
             } else {
               this.group_session.players[i].message +=
                 "🤕 Nyawa kamu berhasil diselamatkan!" + "\n\n";
-              
+
+              // purge from vampire bite
+              if (isVampireBited) {
+                this.group_session.players[i].vampireBited = false;
+              }
+
               allAnnouncement +=
                 "💉 Dokter semalam berhasil melindungi seseorang!" + "\n\n";
               continue;
             }
-          } 
-          
-          
-            // purge from vampire bite
-            // if (isVampireBited) {
-            //   this.group_session.players[i].vampireBited = false;
-            // }
+          }
 
           if (!isAttacked) continue;
 
