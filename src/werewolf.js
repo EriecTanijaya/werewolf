@@ -926,8 +926,8 @@ module.exports = {
       let vampireCandidates = [];
       players.forEach(item => {
         if (
-          item.status === "alive" &&
           item.role.name === "vampire" &&
+          item.status === "alive" &&
           item.target.index !== -1
         ) {
           vampireCandidates.push(item.target.index);
