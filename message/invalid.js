@@ -1,22 +1,15 @@
-const invalid = [
-  {
-    text: "💡 Perintah yang dimasukkan salah, cek daftar perintah di '/cmd'",
-  },
-  {
-    text: "💡 Jangan ngasal, cek daftar perintah di '/cmd'",
-  },
-  {
-    text: "💡 Command apa itu saya ga ngerti, cek daftar perintah yang bener di '/cmd'",
-  },
-  {
-    text: "💡 Baca dulu daftar perintah di '/cmd', baru gunakan perintahnya ya",
-  },
-  {
-    text: "💡 Saya gak tau itu command apa, daftar commands yang bener ada di '/cmd'",
-  },
-  {
-    text: "💡 Command not found, check commands list using '/cmd' command",
-  },
-];
+const helper = require("/app/helper");
+function respond(input) {
+  const response = [
+    ""
+  ]
+}
 
-module.exports = invalid;
+module.exports = {
+  getResponse: function(args) {
+    let text = "";
+    let invalidText = args.join(" ");
+    invalidText = invalidText.substring(1);
+    
+  }
+};

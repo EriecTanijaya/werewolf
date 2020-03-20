@@ -33,7 +33,8 @@ module.exports = {
       case "warga":
         flex_text.header.text = "👨‍🌾 Villager";
         flex_text.body.text =
-          "Warga biasa yang tidak punya skill special. Kalau malam hari ";
+          "Warga biasa yang punya skill sepisial, tak perlu susah payah menggunakan skill pas malam. ";
+        flex_text.body.text += "Tapi gak tau kenapa pada kesal dapat role ini. Padahal OP loh";
         return this.replyFlex(flex_text);
 
       case "seer":
