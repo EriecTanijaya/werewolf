@@ -19,6 +19,8 @@ const config = {
   
 // });
 
+const test = require("/app/src/ranks")();
+
 const updateRankJob = new CronJob("00 59 * * * *", function() {
   console.log("Hourly ", new Date());
 });

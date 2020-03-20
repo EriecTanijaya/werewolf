@@ -332,9 +332,11 @@ module.exports = {
       this.group_session.roomHostId = this.user_session.id;
       this.user_session.state = "active";
       this.user_session.groupId = this.group_session.groupId;
-
+      
+      for 
       let newPlayer = this.createNewPlayer(this.user_session);
       this.addPlayer(newPlayer);
+      
 
       let text = "💡 " + this.user_session.name + " berhasil bergabung!";
       return this.replyFlex(flex_text, [text, remindText]);
@@ -2782,6 +2784,7 @@ module.exports = {
     let newPlayer = {
       id: user_session.id,
       name: user_session.name,
+      points: user_session.points,
       villagerStats: user_session.villagerStats,
       werewolfStats: user_session.werewolfStats,
       vampireStats: user_session.vampireStats,

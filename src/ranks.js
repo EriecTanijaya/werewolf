@@ -3,26 +3,17 @@ const fs = require("fs");
 
 // Update Ranking
 function updateRank() {
-  
-}
-
-let users = fs
-  .readdirSync(baseUserPath)
-  .filter(u => {
-    if (!u.includes("user")) {
-      return false;
-    }
-    return true;
-  })
-  .map((item, index) => {
-    let data = fs.readFileSync(baseUserPath + item);
-    let rawUser = JSON.parse(data);
+  fs.readdir(baseUserPath, (err, data) => {
+    if (err) throw err;
+    data.map((item, index) => {
+      if (item.includes("user")) {
+        fs.readFile(baseUserPath + item, (err, data) => {
+          let user = JSON.parse(data);
+          console.log(user);
+        });
+      }
+    });
   });
-
-// const updateRankJob = new CronJob("* * * * * *", function() {
-  
-// });
-
-updateRank.start();
+}
 
 module.exports = updateRank;
