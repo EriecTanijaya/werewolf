@@ -1235,7 +1235,7 @@ module.exports = {
             let target = players[targetIndex];
             
             // hax for check if the target was veteran
-            if (targetRoleName === "veteran" && target.target.index !== -1) {
+            if (target.role.name === "veteran" && target.target.index !== -1) {
               break;
             }
 
