@@ -1211,6 +1211,107 @@ module.exports = {
         }
       }
     }
+    
+    /// Vampire Action
+    for (let i = 0; i < players.length; i++) {
+      if (vampireDoerIndex === i) {
+        let doer = players[i];
+        let roleName = doer.role.name;
+        let status = doer.status;
+        let targetIndex = doer.target.index;
+
+        if (
+          roleName === "vampire" &&
+          status === "alive" &&
+          targetIndex !== -1
+        ) {
+          if (doer.blocked === true) {
+            this.group_session.players[i].message +=
+              "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." +
+              "\n\n";
+
+            break;
+          } else if (!doer.attacked) {
+            let target = players[targetIndex];
+            
+            // hax for check if the target was veteran
+            if (targetRoleName === "veteran" && target.target.index !== -1) {
+              break;
+            }
+
+            let visitor = {
+              name: doer.name,
+              role: doer.role
+            };
+            this.group_session.players[targetIndex].visitors.push(visitor);
+
+            vampireAnnouncement +=
+              "🧛 Target Vampire adalah : " + target.name + "\n\n";
+
+            // hax for vampire if it only one vampire
+            if (vampires.length === 1) {
+              this.group_session.players[i].message +=
+                "👣 Kamu ke rumah " + target.name + "\n\n";
+            } else {
+              this.group_session.players[i].message +=
+                "👣 Kamu disuruh ke rumah " + target.name + "\n\n";
+            }
+
+            vampireAnnouncement +=
+              "👣 " + doer.name + " mengunjungi rumah " + target.name + "\n\n";
+
+            this.group_session.players[targetIndex].message +=
+              "🧛 Kamu didatangi Vampire!" + "\n\n";
+
+            let targetRoleName = target.role.name;
+            let targetRoleTeam = target.role.team;
+
+            let immuneToVampireBite = [
+              "werewolf",
+              "vampire-hunter",
+              "serial-killer",
+              "arsonist"
+            ];
+
+            let canAttacked = ["werewolf-cub", "sorcerer", "consort"];
+
+            if (canAttacked.includes(targetRoleName)) {
+              this.group_session.players[i].message +=
+                "💡 Kamu menyerang " + target.name + "\n\n";
+
+              this.group_session.players[targetIndex].message +=
+                "🧛 Kamu diserang " + doer.role.name + "!" + "\n\n";
+
+              this.group_session.players[targetIndex].attacked = true;
+
+              let attacker = {
+                index: i,
+                name: doer.name,
+                role: doer.role,
+                deathNote: doer.deathNote
+              };
+
+              this.group_session.players[targetIndex].attackers.push(attacker);
+            } else if (immuneToVampireBite.includes(targetRoleName)) {
+              this.group_session.players[i].message +=
+                "💡 Target kamu kebal dari gigitan!" + "\n\n";
+
+              if (targetRoleName === "vampire-hunter") {
+                this.group_session.players[targetIndex].intercepted = true;
+
+                this.group_session.players[targetIndex].target.index = i;
+              }
+            } else {
+              this.group_session.players[i].message +=
+                "💡 Kamu gigit " + target.name + "\n\n";
+              this.group_session.players[targetIndex].vampireBited = true;
+            }
+
+            break;
+          }
+        }
+      }
+    }
 
     /// Veteran Visitor fetch
     for (let i = 0; i < players.length; i++) {
@@ -1463,102 +1564,6 @@ module.exports = {
           }
 
           break;
-        }
-      }
-    }
-
-    /// Vampire Action
-    for (let i = 0; i < players.length; i++) {
-      if (vampireDoerIndex === i) {
-        let doer = players[i];
-        let roleName = doer.role.name;
-        let status = doer.status;
-        let targetIndex = doer.target.index;
-
-        if (
-          roleName === "vampire" &&
-          status === "alive" &&
-          targetIndex !== -1
-        ) {
-          if (doer.blocked === true) {
-            this.group_session.players[i].message +=
-              "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." +
-              "\n\n";
-
-            break;
-          } else if (!doer.attacked) {
-            let target = players[targetIndex];
-
-            let visitor = {
-              name: doer.name,
-              role: doer.role
-            };
-            this.group_session.players[targetIndex].visitors.push(visitor);
-
-            vampireAnnouncement +=
-              "🧛 Target Vampire adalah : " + target.name + "\n\n";
-
-            // hax for vampire if it only one vampire
-            if (vampires.length === 1) {
-              this.group_session.players[i].message +=
-                "👣 Kamu ke rumah " + target.name + "\n\n";
-            } else {
-              this.group_session.players[i].message +=
-                "👣 Kamu disuruh ke rumah " + target.name + "\n\n";
-            }
-
-            vampireAnnouncement +=
-              "👣 " + doer.name + " mengunjungi rumah " + target.name + "\n\n";
-
-            this.group_session.players[targetIndex].message +=
-              "🧛 Kamu didatangi Vampire!" + "\n\n";
-
-            let targetRoleName = target.role.name;
-            let targetRoleTeam = target.role.team;
-
-            let immuneToVampireBite = [
-              "werewolf",
-              "vampire-hunter",
-              "serial-killer",
-              "arsonist"
-            ];
-
-            let canAttacked = ["werewolf-cub", "sorcerer", "consort"];
-
-            if (canAttacked.includes(targetRoleName)) {
-              this.group_session.players[i].message +=
-                "💡 Kamu menyerang " + target.name + "\n\n";
-
-              this.group_session.players[targetIndex].message +=
-                "🧛 Kamu diserang " + doer.role.name + "!" + "\n\n";
-
-              this.group_session.players[targetIndex].attacked = true;
-
-              let attacker = {
-                index: i,
-                name: doer.name,
-                role: doer.role,
-                deathNote: doer.deathNote
-              };
-
-              this.group_session.players[targetIndex].attackers.push(attacker);
-            } else if (immuneToVampireBite.includes(targetRoleName)) {
-              this.group_session.players[i].message +=
-                "💡 Target kamu kebal dari gigitan!" + "\n\n";
-
-              if (targetRoleName === "vampire-hunter") {
-                this.group_session.players[targetIndex].intercepted = true;
-
-                this.group_session.players[targetIndex].target.index = i;
-              }
-            } else {
-              this.group_session.players[i].message +=
-                "💡 Kamu gigit " + target.name + "\n\n";
-              this.group_session.players[targetIndex].vampireBited = true;
-            }
-
-            break;
-          }
         }
       }
     }
