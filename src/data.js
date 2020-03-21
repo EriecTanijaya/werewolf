@@ -1,9 +1,34 @@
 const fs = require("fs");
 const helper = require("/app/helper");
+const CronJob = require("cron").CronJob;
 
 // game storage
-const group_sessions = require("/app/src/sessions").group_sessions;
-const user_sessions = require("/app/src/sessions").user_sessions;
+const group_sessions = {};
+const user_sessions = {};
+
+// Update session
+const updateSessionJob = new CronJob("* * * * * *", function() {
+  for (let key in group_sessions) {
+    if (group_sessions[key]) {
+      if (group_sessions[key].state === "idle") {
+        helper.resetAllUsers(group_sessions, user_sessions, key);
+        continue;
+      }
+
+      if (group_sessions[key].time > 0) {
+        group_sessions[key].time--;
+      } else {
+        let state = group_sessions[key].state;
+        let playersLength = group_sessions[key].players.length;
+        if (playersLength < 5 && state === "new") {
+          helper.resetAllUsers(group_sessions, user_sessions, key);
+        }
+      }
+    }
+  }
+});
+
+updateSessionJob.start();
 
 module.exports = {
   receive: function(client, event, rawArgs) {
@@ -182,7 +207,8 @@ module.exports = {
           return this.replyText(
             "💡 " +
               u.displayName +
-              " gagal bergabung kedalam game, add dulu botnya\nline://ti/p/" + process.env.BOT_ID
+              " gagal bergabung kedalam game, add dulu botnya\nline://ti/p/" +
+              process.env.BOT_ID
           );
         })
         .catch(err => {
@@ -194,7 +220,8 @@ module.exports = {
         return this.replyText(
           "💡 " +
             u.displayName +
-            " gagal bergabung kedalam game, add dulu botnya\nline://ti/p/" + process.env.BOT_ID
+            " gagal bergabung kedalam game, add dulu botnya\nline://ti/p/" +
+            process.env.BOT_ID
         );
       });
     }
@@ -267,12 +294,12 @@ module.exports = {
 
   updateUserData: function(oldUserData, newUserData) {
     oldUserData.name = newUserData.name;
-    
+
     oldUserData.points += newUserData.points;
     if (oldUserData.points < 0) {
       oldUserData.points = 0;
     }
-    
+
     oldUserData.villagerStats.win += newUserData.villagerStats.win;
     oldUserData.villagerStats.lose += newUserData.villagerStats.lose;
 
