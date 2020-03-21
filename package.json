@@ -1,0 +1,29 @@
+{
+  "name": "Werewolf-Basic",
+  "version": "0.9.5",
+  "description": "Bot Werewolf untuk line messenger",
+  "main": "server.js",
+  "scripts": {
+    "/// redis mode-on": "ini kalau mau pake redis",
+    "// start": "/app/bin/redis-server /app/redis.conf & node server.js",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "@line/bot-sdk": "^6.8.4",
+    "express": "^4.17.1",
+    "cron": "^1.8.2"
+  },
+  "engines": {
+    "node": "12.x"
+  },
+  "repository": {
+    "url": "https://github.com/EriecTanijaya/werewolf/"
+  },
+  "license": "MIT",
+  "keywords": [
+    "werewolf",
+    "line",
+    "chatbot",
+    "messenger"
+  ]
+}
