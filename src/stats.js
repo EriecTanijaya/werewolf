@@ -72,6 +72,7 @@ module.exports = {
     }
 
     database.getAllUser(users => {
+      users = this.rank_sort(users);
       for (let i = 0; i < users.length; i++) {
         if (users[i].id === user_session.id) {
           let whatRank = i + 1;
