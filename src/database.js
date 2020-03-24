@@ -1,7 +1,7 @@
 const baseUserPath = "/app/.data/users/";
 const fs = require("fs");
 
-function getAllUserData(cb) {
+function getAllUserData(team, cb) {
   const users = [];
   let pending = 0;
   fs.readdir(baseUserPath, (err, list) => {
@@ -21,7 +21,7 @@ function getAllUserData(cb) {
             arsonist: rawUser.arsonistStats
           };
 
-          let result = calculateWinLose(null, stats);
+          let result = calculateWinLose(team, stats);
           let totalGame = result.win + result.lose;
           let winRate = Math.floor((result.win / totalGame) * 100);
           if (isNaN(winRate)) {
@@ -35,6 +35,11 @@ function getAllUserData(cb) {
             totalGame: totalGame,
             winRate: winRate + "%"
           };
+          
+          if (team) {
+            let points = (result.win * 5) + result.lose;
+            user.points = points;
+          }
 
           users.push(user);
           if (pending === index + 1) {
@@ -94,6 +99,7 @@ function calculateWinLose(team, stats) {
     win: win,
     lose: lose
   };
+  
   return result;
 }
 

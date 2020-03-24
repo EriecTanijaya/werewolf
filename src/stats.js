@@ -14,14 +14,7 @@ module.exports = {
       case "/me":
       case "/stats":
       case "/stat":
-        let user_session = {};
-        let userPath = baseUserPath + this.event.source.userId + "_user.json";
-        fs.readFile(userPath, "utf8", (err, data) => {
-          if (err) return this.replyText("💡 Belum ada data usernya");
-          user_session = JSON.parse(data);
-          return this.meCommand(user_session);
-        });
-        break;
+        return this.meCommand();
       case "/rank":
         return this.rankCommand();
       case "/status":
@@ -32,21 +25,12 @@ module.exports = {
     }
   },
 
-  meCommand: function(user_session) {
+  meCommand: function() {
     let team = this.args[1];
-
-    let stats = {
-      villager: user_session.villagerStats,
-      werewolf: user_session.werewolfStats,
-      vampire: user_session.vampireStats,
-      tanner: user_session.tannerStats,
-      serialKiller: user_session.serialKillerStats,
-      arsonist: user_session.arsonistStats
-    };
 
     let flex_text = {
       header: {
-        text: "📜 " + user_session.name
+        text: "📜 "
       },
       body: {
         text: ""
@@ -67,23 +51,24 @@ module.exports = {
         let text = "💡 Tidak ada ditemukan team '" + team + "', ";
         text += "team yang ada : " + availableTeam.join(", ");
         return this.replyText(text);
-      };
+      }
       whatStat = " " + team.toUpperCase() + " Stat";
     }
 
-    database.getAllUser(users => {
+    database.getAllUser(team, users => {
       users = this.rank_sort(users);
       for (let i = 0; i < users.length; i++) {
-        if (users[i].id === user_session.id) {
+        if (users[i].id === this.event.source.userId) {
           let whatRank = i + 1;
           let totalGame = users[i].totalGame;
           let winRate = users[i].winRate;
 
-          let text = "⭐ Points : " + user_session.points + " ";
+          let text = "⭐ Points : " + users[i].points + " ";
           text += "📊 WR : " + winRate + "\n";
           text += "🎮 Game : " + totalGame + " ";
           text += "🏆 Rank : " + whatRank;
 
+          flex_text.header.text += users[i].name;
           flex_text.header.text += "\n" + whatStat;
           flex_text.body.text += text;
 
@@ -119,7 +104,7 @@ module.exports = {
     }
     headerText += whatStat;
 
-    database.getAllUser(users => {
+    database.getAllUser(team, users => {
       if (users.length === 0) {
         return this.replyText("💡 Belum ada data usernya");
       }
