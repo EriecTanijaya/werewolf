@@ -27,7 +27,7 @@ module.exports = {
   memberLeftResponse: function() {
     let userId = this.event.left.members[0].userId;
     const data = require("/app/src/data");
-    data.resetUser(userId);
+    data.handleLeftUser(userId);
   },
 
   followResponse: function() {
