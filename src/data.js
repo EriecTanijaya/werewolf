@@ -207,7 +207,8 @@ module.exports = {
           return this.replyText(
             "💡 " +
               u.displayName +
-              " gagal bergabung kedalam game, add dulu botnya\nline://ti/p/" +
+              " gagal bergabung kedalam game, add dulu botnya" + "\n" +
+              "https://line.me/ti/p/" +
               process.env.BOT_ID
           );
         })
@@ -220,7 +221,8 @@ module.exports = {
         return this.replyText(
           "💡 " +
             u.displayName +
-            " gagal bergabung kedalam game, add dulu botnya\nline://ti/p/" +
+            " gagal bergabung kedalam game, add dulu botnya" + "\n" +
+            "https://line.me/ti/p/" +
             process.env.BOT_ID
         );
       });
