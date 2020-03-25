@@ -115,8 +115,19 @@ module.exports = {
         return this.revokeCommand();
       case "/extend":
         return this.extendCommand();
+      case "/kick":
+        return this.kickCommand();
       default:
         return this.invalidCommand();
+    }
+  },
+  
+  kickCommand: function() {
+    const data = require("/app/src/data");
+    if (this.group_session.state !== "idle") {
+      
+    } else {
+      
     }
   },
 
