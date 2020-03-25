@@ -207,7 +207,8 @@ module.exports = {
           return this.replyText(
             "💡 " +
               u.displayName +
-              " gagal bergabung kedalam game, add dulu botnya" + "\n" +
+              " gagal bergabung kedalam game, add dulu botnya" +
+              "\n" +
               "https://line.me/ti/p/" +
               process.env.BOT_ID
           );
@@ -221,7 +222,8 @@ module.exports = {
         return this.replyText(
           "💡 " +
             u.displayName +
-            " gagal bergabung kedalam game, add dulu botnya" + "\n" +
+            " gagal bergabung kedalam game, add dulu botnya" +
+            "\n" +
             "https://line.me/ti/p/" +
             process.env.BOT_ID
         );
@@ -357,12 +359,12 @@ module.exports = {
       this.resetRoom(groupId);
     }
   },
-  
-  removeFromRoom: function(groupId, userId) {
-    for (let i = 0; i < group_sessions[groupId].players
-  },
 
   /** helper func **/
+  
+  handleLeftUser: function(userId) {
+    
+  },
 
   getOnlineUsers: function() {
     let onlineUsersCount = 0;
