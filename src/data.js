@@ -357,6 +357,10 @@ module.exports = {
       this.resetRoom(groupId);
     }
   },
+  
+  removeFromRoom: function(groupId, userId) {
+    for (let i = 0; i < group_sessions[groupId].players
+  },
 
   /** helper func **/
 
