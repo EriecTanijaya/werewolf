@@ -121,7 +121,7 @@ module.exports = {
         return this.invalidCommand();
     }
   },
-  
+
   kickCommand: function() {
     let groupId = this.group_session.groupId;
     let text = "👋 Selamat tinggal!";
@@ -1224,7 +1224,7 @@ module.exports = {
         }
       }
     }
-    
+
     /// Vampire Action
     for (let i = 0; i < players.length; i++) {
       if (vampireDoerIndex === i) {
@@ -1246,7 +1246,7 @@ module.exports = {
             break;
           } else if (!doer.attacked) {
             let target = players[targetIndex];
-            
+
             // hax for check if the target was veteran
             if (target.role.name === "veteran" && target.target.index !== -1) {
               break;
