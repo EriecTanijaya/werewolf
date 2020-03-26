@@ -123,11 +123,13 @@ module.exports = {
   },
   
   kickCommand: function() {
-    const data = require("/app/src/data");
-    if (this.group_session.state !== "idle") {
-      
+    let groupId = this.group_session.groupId;
+    let text = "👋 Selamat tinggal!";
+    this.replyText(text);
+    if (this.event.source.type === "group") {
+      this.client.leaveGroup(groupId);
     } else {
-      
+      this.client.leaveRoom(groupId);
     }
   },
 
@@ -2734,7 +2736,8 @@ module.exports = {
       "/info : tampilin list role",
       "/about : tentang bot",
       "/revoke : untuk batal voting",
-      "/extend : untuk menambah 1 menit saat baru membuat room game"
+      "/extend : untuk menambah 1 menit saat baru membuat room game",
+      "/kick : untuk mengeluarkan bot dari group/room chat"
     ];
 
     cmds.forEach((item, index) => {
