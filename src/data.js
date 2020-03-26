@@ -363,7 +363,7 @@ module.exports = {
   /** helper func **/
   
   handleLeftUser: function(userId) {
-    if (user_sessions[userId].state === "inactive") {
+    if (user_sessions[userId] && user_sessions[userId].state === "inactive") {
       this.resetUser(userId);
     }
   },
