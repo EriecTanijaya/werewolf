@@ -75,7 +75,9 @@ module.exports = {
           return this.replyFlex(flex_text);
         }
       }
-      return this.replyText("💡 Belum ada data user nya, minimal main 1 game dulu");
+      return this.replyText(
+        "💡 Belum ada data user nya, minimal main 1 game dulu"
+      );
     });
   },
 
