@@ -3055,7 +3055,7 @@ module.exports = {
         time += 0.9;
         temp--;
       }
-      time = Math.round(time);
+      time = Math.round(time) * 10;
     }
 
     return time;
