@@ -56,7 +56,7 @@ async function handleEvent(event) {
 
   //logging
   if (event.source.type === "group") {
-    logChat(event.source.groupId, event.source.userId);
+    //logChat(event.source.groupId, event.source.userId);
   }
 
   let rawArgs = event.message.text;
@@ -66,11 +66,14 @@ async function handleEvent(event) {
   /** logging func **/
 
   async function logChat(groupId, userId) {
-    let profile = client.getGroupMemberProfile(groupId, userId);
-    let user = groupId + " // " + profile.displayName;
-    if (profile) {
-      console.log(user + " : " + event.message.text);
+    let user = groupId + " // ";
+    try {
+      let profile = await client.getGroupMemberProfile(groupId, userId);
+      user += profile.displayName;
+    } catch(err) {
+      user += "ga add";
     }
+    console.log(user + " : " + event.message.text);
   }
 }
 

@@ -46,18 +46,11 @@ module.exports = {
       }
     }
 
-    let groupId = "";
-    if (this.event.source.type === "group") {
-      groupId = this.event.source.groupId;
-    } else if (this.event.source.type === "room") {
-      groupId = this.event.source.roomId;
-    }
-
     this.args = this.rawArgs.split(" ");
     this.searchUser(this.event.source.userId);
   },
 
-  searchUser: function(id) {
+  searchUser: async function(id) {
     if (!user_sessions[id]) {
       let newUser = {
         id: id,
@@ -96,23 +89,16 @@ module.exports = {
     let userData = user_sessions[id];
 
     if (userData.name === "") {
-      this.client
-        .getProfile(userData.id)
-        .then(profile => {
-          userData.name = profile.displayName;
-          return this.searchUserCallback(userData);
-        })
-        .catch(err => {
-          let event = this.event;
-          if (!this.rawArgs.startsWith("/")) {
-            return Promise.resolve(null);
-          }
-          console.log(
-            "err di searchUser func di data.js",
-            err.originalError.response.data
-          );
-          return this.notAddError(userData.id);
-        });
+      try {
+        let profile = await this.client.getProfile(userData.id);
+        userData.name = profile.displayName;
+        return this.searchUserCallback(userData);
+      } catch (err) {
+        if (!this.rawArgs.startsWith("/")) {
+          return Promise.resolve(null);
+        }
+        return this.notAddError(userData.id);
+      }
     } else {
       return this.searchUserCallback(user_sessions[id]);
     }
@@ -197,10 +183,14 @@ module.exports = {
 
   /** message func **/
 
-  notAddError: function(userId) {
+  notAddError: async function(userId) {
     let groupId = "";
     if (this.event.source.type === "group") {
       groupId = this.event.source.groupId;
+      let profile = await this.client.getGroupMemberProfile(groupId, userId);
+          
+          
+          
       this.client
         .getGroupMemberProfile(groupId, userId)
         .then(u => {
