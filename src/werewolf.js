@@ -115,8 +115,21 @@ module.exports = {
         return this.revokeCommand();
       case "/extend":
         return this.extendCommand();
+      case "/kick":
+        return this.kickCommand();
       default:
         return this.invalidCommand();
+    }
+  },
+  
+  kickCommand: function() {
+    let groupId = this.group_session.groupId;
+    let text = "👋 Selamat tinggal!";
+    this.replyText(text);
+    if (this.event.source.type === "group") {
+      this.client.leaveGroup(groupId);
+    } else {
+      this.client.leaveRoom(groupId);
     }
   },
 
@@ -2713,9 +2726,6 @@ module.exports = {
       "/cancel : keluar game",
       "/join : join game",
       "/players : cek list pemain",
-      "/check : cek pemain pending, dan lanjutkan proses game jika ada yang afk",
-      "/voting : untuk lanjut ke proses voting",
-      "/roles : untuk cek ada role apa aja yang ada di game",
       "/stop : stop game",
       "/start : start game",
       "/stats : cek statistik user",
@@ -2723,7 +2733,8 @@ module.exports = {
       "/info : tampilin list role",
       "/about : tentang bot",
       "/revoke : untuk batal voting",
-      "/extend : untuk menambah 1 menit saat baru membuat room game"
+      "/extend : untuk menambah 1 menit saat baru membuat room game",
+      "/kick : untuk mengeluarkan bot dari group/room chat"
     ];
 
     cmds.forEach((item, index) => {
