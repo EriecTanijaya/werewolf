@@ -3052,19 +3052,19 @@ module.exports = {
             time = 100;
           } else {
             /// players.length = 9 - 10
-            time = 100;
+            time = 90;
           }
         } else {
           /// players.length = 6 - 8
-          time = 85;
+          time = 75;
         }
       } else {
         //players.length = 4-5;
-        time = 70;
+        time = 60;
       }
     } else {
       // players.length = 1-3
-      time = 50;
+      time = 40;
     }
 
     return time;
