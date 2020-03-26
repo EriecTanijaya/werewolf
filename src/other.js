@@ -61,32 +61,26 @@ module.exports = {
     data.resetAllUsers(groupId);
   },
 
-  memberJoinedResponse: function(groupId) {
+  memberJoinedResponse: async function(groupId) {
     let newMemberId = this.event.joined.members[0].userId;
-    let text = "";
+    let text = "👋 Selamat datang ";
+
     if (this.event.source.type === "group") {
-      this.client
-        .getGroupMemberProfile(groupId, newMemberId)
-        .then(profile => {
-          text =
-            "👋 Selamat datang " + profile.displayName + ", maen Werewolf yok";
-          return this.replyText(text);
-        })
-        .catch(err => {
-          console.log("err di memberJoined (group)", err);
-        });
+      let profile = await this.client.getGroupMemberProfile(
+        groupId,
+        newMemberId
+      );
+      text += profile.displayName;
     } else if (this.event.source.type === "room") {
-      this.client
-        .getRoomMemberProfile(groupId, newMemberId)
-        .then(profile => {
-          text =
-            "👋 Selamat datang " + profile.displayName + ", maen Werewolf yok";
-          return this.replyText(text);
-        })
-        .catch(err => {
-          console.log("err di memberJoined (room)", err);
-        });
+      let profile = await this.client.getRoomMemberProfile(
+        groupId,
+        newMemberId
+      );
+      text += profile.displayName;
     }
+    text += ", maen Werewolf yok";
+
+    return this.replyText(text);
   },
 
   /** message func **/
