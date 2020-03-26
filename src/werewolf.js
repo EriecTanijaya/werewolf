@@ -3044,27 +3044,18 @@ module.exports = {
   getTimeDefault: function(playersLength) {
     let time = 0;
 
-    if (playersLength > 3) {
-      if (playersLength > 5) {
-        if (playersLength > 8) {
-          if (playersLength > 10) {
-            /// kasih time 100 anw
-            time = 100;
-          } else {
-            /// players.length = 9 - 10
-            time = 100;
-          }
-        } else {
-          /// players.length = 6 - 8
-          time = 85;
-        }
-      } else {
-        //players.length = 4-5;
-        time = 70;
-      }
+    if (playersLength === 3){
+      time = 40;
+    } else if (playersLength > 10) {
+      time = 100;
     } else {
-      // players.length = 1-3
-      time = 50;
+      // 4 - 9 players logic
+      let temp = playersLength;
+      while(temp) {
+        time += 0.9;
+        temp--;
+      }
+      time = Math.round(time) * 10;
     }
 
     return time;
