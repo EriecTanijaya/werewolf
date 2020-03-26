@@ -36,7 +36,7 @@ app.post("/callback", (req, res) => {
     });
 });
 
-function handleEvent(event) {
+async function handleEvent(event) {
   //Note: should return! So Promise.all could catch the error
   if (event.type === "postback") {
     let rawArgs = event.postback.data;
@@ -56,7 +56,7 @@ function handleEvent(event) {
 
   //logging
   if (event.source.type === "group") {
-    //logChat(event.source.groupId, event.source.userId);
+    logChat(event.source.groupId, event.source.userId);
   }
 
   let rawArgs = event.message.text;
@@ -65,17 +65,12 @@ function handleEvent(event) {
 
   /** logging func **/
 
-  function logChat(groupId, userId) {
-    client
-      .getGroupMemberProfile(groupId, userId)
-      .then(p => {
-        console.log(
-          groupId + " // " + p.displayName + " : " + event.message.text
-        );
-      })
-      .catch(() => {
-        console.log(groupId + " // " + "ga add : " + event.message.text);
-      });
+  async function logChat(groupId, userId) {
+    let profile = client.getGroupMemberProfile(groupId, userId);
+    let user = groupId + " // " + profile.displayName;
+    if (profile) {
+      console.log(user + " : " + event.message.text);
+    }
   }
 }
 

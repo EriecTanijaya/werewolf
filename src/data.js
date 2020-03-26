@@ -277,8 +277,10 @@ module.exports = {
   saveUserData: function(user_session) {
     let path = "/app/.data/users/" + user_session.id + "_user.json";
     let data = JSON.stringify(user_session, null, 2);
-    fs.writeFileSync(path, data);
-    this.resetUser(user_session.id);
+    fs.writeFile(path, data, err => {
+      if (err) throw err;
+      this.resetUser(user_session.id);
+    });
   },
 
   getUserData: function(id, newUserData) {
@@ -361,7 +363,7 @@ module.exports = {
   },
 
   /** helper func **/
-  
+
   handleLeftUser: function(userId) {
     if (user_sessions[userId].state === "inactive") {
       this.resetUser(userId);
