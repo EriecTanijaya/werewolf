@@ -64,16 +64,22 @@ module.exports = {
   memberJoinedResponse: async function(groupId) {
     let newMemberId = this.event.joined.members[0].userId;
     let text = "👋 Selamat datang ";
-    
+
     if (this.event.source.type === "group") {
-      let profile = await this.client.getGroupMemberProfile(groupId, newMemberId);
+      let profile = await this.client.getGroupMemberProfile(
+        groupId,
+        newMemberId
+      );
       text += profile.displayName;
     } else if (this.event.source.type === "room") {
-      let profile = await this.client.getRoomMemberProfile(groupId, newMemberId);
+      let profile = await this.client.getRoomMemberProfile(
+        groupId,
+        newMemberId
+      );
       text += profile.displayName;
     }
     text += ", maen Werewolf yok";
-    
+
     return this.replyText(text);
   },
 

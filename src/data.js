@@ -194,7 +194,6 @@ module.exports = {
       let profile = await this.client.getRoomMemberProfile(groupId, userId);
       text += "💡 " + profile.displayName;
     }
-
     text +=
       " gagal bergabung kedalam game, add dulu botnya" +
       "\n" +
