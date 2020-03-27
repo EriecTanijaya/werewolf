@@ -29,10 +29,6 @@ app.get("/", (req, res) => res.sendStatus(200));
 const client = new line.Client(config);
 
 app.post("/callback", (req, res) => {
-  if (res.statusCode === "429") {
-    return console.log(res.headers);
-  }
-  
   Promise.all(req.body.events.map(handleEvent))
     .then(result => res.json(result))
     .catch(err => {
@@ -74,7 +70,7 @@ async function handleEvent(event) {
     try {
       let profile = await client.getGroupMemberProfile(groupId, userId);
       user += profile.displayName;
-    } catch(err) {
+    } catch (err) {
       user += "ga add";
     }
     console.log(user + " : " + event.message.text);
