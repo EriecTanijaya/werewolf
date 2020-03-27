@@ -2,10 +2,17 @@ const helper = require("/app/helper");
 
 module.exports = {
   getResponse: function(args, name) {
+    let addonText = "cek daftar perintah yang benar di '/cmd'";
     let invalidText = args.join(" ");
     invalidText = invalidText.substring(1);
-    invalidText = "'" + invalidText + "'";
 
+    if (!invalidText) {
+      let text = "ngetik apaan. ";
+      text += addonText;
+      return text;
+    }
+
+    invalidText = "'" + invalidText + "'";
     const response = [
       "kamu kira aku bakal ngerti " + invalidText + "? ",
       "apa sih. ",
@@ -20,11 +27,11 @@ module.exports = {
       name + " itu ngetik apaan sih?",
       "bro/sis " + name + ", ini text " + invalidText + " typo ya?. ",
       "typo tuh, aku gak ngerti " + invalidText + " apaan. ",
-      "ketik yang bener dong, " + name + " aku tak ngerti. "
+      "ketik yang bener dong, " + name + ". aku tak ngerti. "
     ];
 
     let text = helper.random(response);
-    text += "Cek daftar perintah yang benar di '/cmd'";
+    text += addonText;
     return text;
   }
 };
