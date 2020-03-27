@@ -29,6 +29,7 @@ app.get("/", (req, res) => res.sendStatus(200));
 const client = new line.Client(config);
 
 app.post("/callback", (req, res) => {
+  console.log(res.headers);
   Promise.all(req.body.events.map(handleEvent))
     .then(result => res.json(result))
     .catch(err => {
