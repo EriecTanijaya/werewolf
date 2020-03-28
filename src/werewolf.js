@@ -19,7 +19,12 @@ module.exports = {
 
       if (state !== "idle") {
         if (state !== "new") {
-          if (time < 20 && time > 10) {
+          if (time <= 10) {
+            if (this.group_session.deadlineCheckChance === 0) {
+              return Promise.resolve(null);
+            } else {
+              this.group_session.deadlineCheckChance--;
+            }
             let reminder =
               "💡 Waktu tersisa " +
               time +
@@ -31,10 +36,15 @@ module.exports = {
             }
           }
         } else {
+          if (this.group_session.deadlineCheckChance === 0) {
+            return Promise.resolve(null);
+          }
+          
           let playersLength = this.group_session.players.length;
 
           if (playersLength < 5) {
-            if (time < 20 && time > 10) {
+            if (time <= 40) {
+              this.group_session.deadlineCheckChance--;
               let reminder =
                 "💡 Waktu tersisa " +
                 time +
@@ -81,8 +91,6 @@ module.exports = {
       case "/cek":
       case "/c":
         return this.checkCommand();
-      case "/voting":
-        return this.votingCommand();
       case "/vote":
         return this.voteCommand();
       case "/about":
@@ -305,6 +313,7 @@ module.exports = {
     this.group_session.nightCounter = 0;
     this.group_session.roomHostId = "";
     this.group_session.time = 600;
+    this.group_session.deadlineCheckChance = 1;
 
     let flex_text = {
       header: {
@@ -593,6 +602,8 @@ module.exports = {
 
     this.group_session.punishment = helper.random(punishment);
 
+    this.resetCheckChance();
+
     this.randomRoles();
   },
 
@@ -747,6 +758,14 @@ module.exports = {
     let time = this.group_session.time;
     let name = this.user_session.name;
 
+    if (state !== "idle") {
+      if (this.group_session.checkChance === 0) {
+        return Promise.resolve(null);
+      } else {
+        this.group_session.checkChance--;
+      }
+    }
+
     console.log("state sebelumnya : " + state);
 
     switch (state) {
@@ -756,9 +775,9 @@ module.exports = {
           return this.replyText(text);
         } else {
           if (time > 0) {
-            let remindText = "💡 " + name + ", masih malam, pergi tidur sana. ";
-            remindText +=
-              "⏳ Sisa waktu " + time + " detik lagi untuk menyambut mentari";
+            let remindText =
+              "⏳ Sisa waktu " + time + " detik lagi untuk menyambut mentari. ";
+            remindText += "💡 Kesempatan check : " + this.group_session.checkChance;
             return this.replyText(remindText);
           } else {
             return this.day();
@@ -2342,7 +2361,7 @@ module.exports = {
           {
             action: "postback",
             label: "📣 Voting!",
-            data: "/voting"
+            data: "/check"
           }
         ]
       };
@@ -2355,20 +2374,6 @@ module.exports = {
   },
 
   votingCommand: function() {
-    if (this.group_session.state !== "day") {
-      if (this.group_session.state === "idle") {
-        let text = "💡 " + this.user_session.name;
-        text += ", belum ada game yang dibuat, ketik '/new'";
-        return this.replyText(text);
-      } else if (this.group_session.state === "night") {
-        let remindText =
-          "💡 " + this.user_session.name + ", masih malam, pergi tidur sana. ";
-        remindText +=
-          "⏳ Sisa waktu " + time + " detik lagi untuk menyambut mentari";
-        return this.replyText(remindText);
-      }
-    }
-
     let index = this.indexOfPlayer();
     let players = this.group_session.players;
 
@@ -2382,8 +2387,7 @@ module.exports = {
           "💡 " + this.user_session.name + ", belum saatnya voting" + "\n";
         remindText +=
           "⏳ Sisa waktu " + time + " detik lagi untuk voting" + "\n";
-        remindText +=
-          "Ketik '/voting' untuk lanjutkan proses voting setelah waktu habis";
+        remindText += "💡 Kesempatan check : " + this.group_session.checkChance;
         return this.replyText(remindText);
       } else {
         // ini pertama kali votingCommand dipakai
@@ -2702,6 +2706,11 @@ module.exports = {
   },
 
   /** helper func **/
+  
+  resetCheckChance: function() {
+    this.group_session.checkChance = 2;
+    this.group_session.deadlineCheckChance = 1;
+  },
 
   getVoteCandidates: function() {
     let candidates = [];
@@ -3054,7 +3063,7 @@ module.exports = {
           {
             action: "postback",
             label: "📣 Voting!",
-            data: "/voting"
+            data: "/check"
           }
         ]
       }
