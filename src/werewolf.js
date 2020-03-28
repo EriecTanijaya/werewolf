@@ -255,52 +255,49 @@ module.exports = {
       } else {
         text = "💡 " + this.user_session.name + ", belum saatnya voting";
       }
+      return this.replyText(text);
     }
 
     let index = this.indexOfPlayer();
 
     if (index === -1) {
-      return this.replyText(
-        "💡 " + this.user_session.name + ", kamu belum join kedalam game"
-      );
+      let text = "💡 " + this.user_session.name;
+      text += ", kamu belum join kedalam game";
+      return this.replyText(text);
     }
 
     let players = this.group_session.players;
 
     if (players[index].status !== "alive") {
-      return this.replyText(
-        "💡 " + this.user_session.name + ", kamu sudah mati"
-      );
+      let text = "💡 " + this.user_session.name + ", kamu sudah mati";
+      return this.replyText(text);
     }
 
     if (players[index].targetVoteIndex === -1) {
-      return this.replyText(
-        "💡 " + this.user_session.name + ", kamu belum vote siapa - siapa"
-      );
+      let text = "💡 " + this.user_session.name;
+      text += ", kamu belum vote siapa - siapa";
+      return this.replyText(text);
     }
 
     let pastTargetVoteName = players[players[index].targetVoteIndex].name;
 
     this.group_session.players[index].targetVoteIndex = -1;
 
-    return this.replyText(
-      "💡 " + this.user_session.name + " batal vote " + pastTargetVoteName
-    );
+    let text = "💡 " + this.user_session.name;
+    text += " batal vote " + pastTargetVoteName;
+    return this.replyText(text);
   },
 
   newCommand: function() {
     if (this.group_session.state !== "idle") {
+      let text = "";
       if (this.group_session.state === "new") {
-        return this.replyText(
-          "💡 " +
-            this.user_session.name +
-            ", sudah ada game yang dibuat di grup ini"
-        );
+        text += "💡 " + this.user_session.name;
+        text += ", sudah ada game yang dibuat di grup ini";
       } else {
-        return this.replyText(
-          "💡 " + this.user_session.name + ", game sedang berjalan"
-        );
+        text += "💡 " + this.user_session.name + ", game sedang berjalan";
       }
+      return this.replyText(text);
     }
 
     this.group_session.state = "new";
@@ -327,8 +324,8 @@ module.exports = {
       }
     };
 
-    let remindText =
-      "⏳ Jika jumlah pemain kurang dari 5 dalam 10 menit, game akan diberhentikan";
+    let remindText = "⏳ Jika jumlah pemain kurang dari 5 dalam 10 menit, ";
+    remindText += "game akan diberhentikan";
 
     /// nambah user auto
     if (this.user_session.state === "inactive") {
@@ -348,31 +345,25 @@ module.exports = {
 
   joinCommand: function() {
     if (this.group_session.state !== "new") {
+      let text = "";
       if (this.group_session.state === "idle") {
-        return this.replyText(
-          "💡 " +
-            this.user_session.name +
-            ", belum ada game yang dibuat, ketik '/new'"
-        );
+        text += "💡 " + this.user_session.name;
+        text += ", belum ada game yang dibuat, ketik '/new'";
       } else {
-        return this.replyText(
-          "💡 " + this.user_session.name + ", game sedang berjalan"
-        );
+        text += "💡 " + this.user_session.name + ", game sedang berjalan";
       }
+      return this.replyText(text);
     }
 
     if (this.user_session.state === "active") {
       if (this.user_session.groupId === this.group_session.groupId) {
-        return this.replyText(
-          "💡 " + this.user_session.name + ", kamu sudah bergabung kedalam game"
-        );
+        text += "💡 " + this.user_session.name;
+        text += ", kamu sudah bergabung kedalam game";
       } else {
-        return this.replyText(
-          "💡 " +
-            this.user_session.name +
-            ", kamu masih berada didalam game grup lain"
-        );
+        text += "💡 " + this.user_session.name;
+        text += ", kamu masih berada didalam game grup lain";
       }
+      return this.replyText(text);
     }
 
     if (this.group_session.players.length === 0) {
@@ -505,21 +496,21 @@ module.exports = {
 
   cancelCommand: function() {
     if (this.group_session.state !== "new") {
+      let text = "";
       if (this.group_session.state === "idle") {
-        return this.replyText("💡 Belum ada game yang dibuat, ketik '/new'");
+        text += "💡 Belum ada game yang dibuat, ketik '/new'";
       } else {
-        return this.replyText(
-          "💡 " + this.user_session.name + ", game sedang berjalan. "
-        );
+        text += "💡 " + this.user_session.name + ", game sedang berjalan. ";
       }
+      return this.replyText(text);
     }
 
     let index = this.indexOfPlayer();
 
     if (index === -1) {
-      return this.replyText(
-        "💡 " + this.user_session.name + ", kamu belum join kedalam game"
-      );
+      let text = "💡 " + this.user_session.name;
+      text += ", kamu belum join kedalam game";
+      return this.replyText(text);
     }
 
     this.cutFromArray(this.group_session.players, index);
@@ -533,11 +524,8 @@ module.exports = {
       if (this.group_session.roomHostId === this.user_session.id) {
         let randomPlayer = helper.random(this.group_session.players);
         this.group_session.roomHostId = randomPlayer.id;
-        text +=
-          "\n" +
-          "👑 " +
-          randomPlayer.name +
-          " menjadi host baru dalam room ini. ";
+        text += "\n" + "👑 " + randomPlayer.name;
+        text += " menjadi host baru dalam room ini. ";
       }
     }
 
@@ -554,19 +542,18 @@ module.exports = {
     let index = this.indexOfPlayer();
 
     if (index === -1) {
-      return this.replyText(
-        "💡 " + this.user_session.name + ", kamu belum join kedalam game"
-      );
+      let text = "💡 " + this.user_session.name;
+      text += ", kamu belum join kedalam game";
+      return this.replyText(text);
     }
 
     if (this.user_session.id !== this.group_session.roomHostId) {
-      let roomHostIndex = this.getPlayerIndexById(
-        this.group_session.roomHostId
-      );
-      return this.replyText(
-        "💡 Yang bisa stop game hanya Host Room saja. 👑 Host Room : " +
-          this.group_session.players[roomHostIndex].name
-      );
+      let currentRoomHostId = this.group_session.roomHostId;
+      let roomHostIndex = this.getPlayerIndexById(currentRoomHostId);
+      let players = this.group_session.players;
+      let text = "💡 Yang bisa stop game hanya Host Room saja. ";
+      text += "👑 Host Room : " + players[roomHostIndex].name;
+      return this.replyText(text);
     }
 
     this.group_session.state = "idle";
@@ -580,28 +567,27 @@ module.exports = {
 
   startCommand: function() {
     if (this.group_session.state !== "new") {
+      let text = "";
       if (this.group_session.state === "idle") {
-        return this.replyText("💡 Belum ada game yang dibuat, ketik '/new'");
+        text += "💡 Belum ada game yang dibuat, ketik '/new'";
       } else {
-        return this.replyText(
-          "💡 " + this.user_session.name + ", game sudah berjalan"
-        );
+        text += "💡 " + this.user_session.name + ", game sudah berjalan";
       }
+      return this.replyText(text);
     }
 
     let index = this.indexOfPlayer();
     let players = this.group_session.players;
 
     if (index === -1) {
-      return this.replyText(
-        "💡 " + this.user_session.name + ", kamu belum join kedalam game"
-      );
+      let text = "💡 " + this.user_session.name;
+      text += ", kamu belum join kedalam game";
+      return this.replyText(text);
     }
 
     if (players.length < 5) {
-      return this.replyText(
-        "💡 Game belum bisa dimulai, minimal memiliki 5 pemain"
-      );
+      let text = "💡 Game belum bisa dimulai, minimal memiliki 5 pemain";
+      return this.replyText(text);
     }
 
     this.group_session.punishment = helper.random(punishment);
