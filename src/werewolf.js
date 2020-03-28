@@ -313,7 +313,7 @@ module.exports = {
     this.group_session.time = 600;
     this.group_session.deadlineCheckChance = 1;
     this.group_session.checkChance = 1;
-    this.group_session.lynchedName = "";
+    this.group_session.lynched = null;
 
     let flex_text = {
       header: {
@@ -802,7 +802,7 @@ module.exports = {
 
       case "lynch":
         if (time === 0) {
-          return this.postLynch(this.group_session.lynchedName);
+          return this.postLynch();
         }
         break;
 
@@ -2403,6 +2403,7 @@ module.exports = {
       } else {
         // ini pertama kali votingCommand dipakai
         this.group_session.state = "vote";
+        this.group_session.lynched = null;
 
         this.runTimer();
 
@@ -2445,11 +2446,8 @@ module.exports = {
     });
     flex_texts.push(flex_text);
 
-    let playerListFlex = this.getTableFlex(
-      this.getAlivePlayers(),
-      null,
-      "📣 Voting"
-    );
+    let alivePlayers = this.getAlivePlayers();
+    let playerListFlex = this.getTableFlex(alivePlayers, null, "📣 Voting");
     flex_texts.push(playerListFlex);
 
     return this.replyFlex(flex_texts);
@@ -2560,9 +2558,12 @@ module.exports = {
     } else {
       flex_texts[0].body.text += "\n\n" + announcement;
     }
-    
+
+    this.group_session.lynched = players[lynchTarget.index];
+
     return this.replyFlex(flex_texts);
 
+    /// kang this
     // Tanner victory
     if (roleName === "tanner") {
       return this.endGame(flex_texts, "tanner");
@@ -2579,8 +2580,14 @@ module.exports = {
   },
 
   postLynch: function() {
-    let lynchedName = this.group_session.lynchedName;
-    
+    let lynched = this.group_session.lynched;
+    if (!lynched) {
+      // ini ga ada yg tervote, jadi langsung kennight
+      // kang dari autoVote func aj
+      
+    } else {
+      if (lynched.role.name === "tanner
+    }
   },
 
   endGame: function(flex_texts, whoWin) {
