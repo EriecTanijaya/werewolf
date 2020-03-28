@@ -19,7 +19,12 @@ module.exports = {
 
       if (state !== "idle") {
         if (state !== "new") {
-          if (time < 25 && time > 15) {
+          if (time <= 10) {
+            if (this.group_session.deadlineCheckChance === 0) {
+              return Promise.resolve(null);
+            } else {
+              this.group_session.deadlineCheckChance--;
+            }
             let reminder =
               "💡 Waktu tersisa " +
               time +
@@ -31,10 +36,15 @@ module.exports = {
             }
           }
         } else {
+          if (this.group_session.deadlineCheckChance === 0) {
+            return Promise.resolve(null);
+          }
+          
           let playersLength = this.group_session.players.length;
 
           if (playersLength < 5) {
-            if (time < 25 && time > 15) {
+            if (time <= 40) {
+              this.group_session.deadlineCheckChance--;
               let reminder =
                 "💡 Waktu tersisa " +
                 time +
@@ -303,6 +313,7 @@ module.exports = {
     this.group_session.nightCounter = 0;
     this.group_session.roomHostId = "";
     this.group_session.time = 600;
+    this.group_session.deadlineCheckChance = 1;
 
     let flex_text = {
       header: {
@@ -766,7 +777,7 @@ module.exports = {
           if (time > 0) {
             let remindText =
               "⏳ Sisa waktu " + time + " detik lagi untuk menyambut mentari. ";
-            remindText += "💡 Sisa check " + this.group_session.checkChance;
+            remindText += "💡 Kesempatan check : " + this.group_session.checkChance;
             return this.replyText(remindText);
           } else {
             return this.day();
@@ -2376,8 +2387,7 @@ module.exports = {
           "💡 " + this.user_session.name + ", belum saatnya voting" + "\n";
         remindText +=
           "⏳ Sisa waktu " + time + " detik lagi untuk voting" + "\n";
-        remindText +=
-          "Ketik '/voting' untuk lanjutkan proses voting setelah waktu habis";
+        remindText += "💡 Kesempatan check : " + this.group_session.checkChance;
         return this.replyText(remindText);
       } else {
         // ini pertama kali votingCommand dipakai
@@ -2696,9 +2706,10 @@ module.exports = {
   },
 
   /** helper func **/
-
+  
   resetCheckChance: function() {
     this.group_session.checkChance = 2;
+    this.group_session.deadlineCheckChance = 1;
   },
 
   getVoteCandidates: function() {
