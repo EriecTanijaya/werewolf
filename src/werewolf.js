@@ -2534,7 +2534,7 @@ module.exports = {
     let roleName = players[lynchTarget.index].role.name;
 
     this.group_session.players[lynchTarget.index].status = "death";
-//cp
+
     let lynchedName = players[lynchTarget.index].name;
     let announcement =
       "💀 Warga memutuskan untuk " + this.group_session.punishment + " ";
