@@ -741,6 +741,7 @@ module.exports = {
     if (this.group_session.nightCounter === 1) {
       // todo
       // module narasi awal game random
+      const firstDayNaration = require("/app/message/firstDay");
       announcement +=
         "para kampret kampret terjebak di pulau tumien. dan ada penjahat diantaranya" +
         "\n\n";
@@ -867,7 +868,7 @@ module.exports = {
 
     if (!this.proceedVote(voteNeeded)) {
       this.group_session.state = "lynch";
-      this.group_session.time = 5;
+      this.group_session.time = 8;
       this.resetCheckChance();
 
       flex_text.header.text = headerText;
@@ -2575,7 +2576,7 @@ module.exports = {
 
     this.group_session.state = "lynch";
     this.group_session.lynched = players[lynchTarget.index];
-    this.group_session.time = 5;
+    this.group_session.time = 8;
     this.resetCheckChance();
 
     return this.replyFlex(flex_texts);
