@@ -25,10 +25,9 @@ module.exports = {
             } else {
               this.group_session.deadlineCheckChance--;
             }
-            let reminder =
-              "💡 Waktu tersisa " +
-              time +
-              " detik lagi, nanti ketik '/cek' untuk lanjutkan proses";
+            let reminder = "💡 Waktu tersisa " + time;
+            reminder += " detik lagi, nanti ketik '/cek' ";
+            reminder += "saat waktu sudah habis untuk lanjutkan proses";
             return this.replyText(reminder);
           } else if (time === 0) {
             if (this.indexOfPlayer() !== -1) {
@@ -39,15 +38,14 @@ module.exports = {
           if (this.group_session.deadlineCheckChance === 0) {
             return Promise.resolve(null);
           }
-          
+
           let playersLength = this.group_session.players.length;
 
           if (playersLength < 5) {
             if (time <= 40) {
               this.group_session.deadlineCheckChance--;
-              let reminder =
-                "💡 Waktu tersisa " +
-                time +
+              let reminder = "💡 Waktu tersisa " + time;
+              reminder +=
                 " detik lagi. Jika tidak ada yang join, game akan dihentikan";
               return this.replyText(reminder);
             }
@@ -314,6 +312,7 @@ module.exports = {
     this.group_session.roomHostId = "";
     this.group_session.time = 600;
     this.group_session.deadlineCheckChance = 1;
+    this.group_session.checkChance = 1;
 
     let flex_text = {
       header: {
@@ -777,7 +776,8 @@ module.exports = {
           if (time > 0) {
             let remindText =
               "⏳ Sisa waktu " + time + " detik lagi untuk menyambut mentari. ";
-            remindText += "💡 Kesempatan check : " + this.group_session.checkChance;
+            remindText +=
+              "💡 Kesempatan check : " + this.group_session.checkChance;
             return this.replyText(remindText);
           } else {
             return this.day();
@@ -2446,14 +2446,7 @@ module.exports = {
 
   voteCommand: function() {
     if (this.group_session.state !== "vote") {
-      let text = "";
-      if (this.group_session.state === "idle") {
-        text += "💡 " + this.user_session.name;
-        text += ", belum ada game yang dibuat, ketik '/new'";
-      } else {
-        text += "💡 " + this.user_session.name + ", belum saatnya voting";
-      }
-      return this.replyText(text);
+      return Promise.resolve(null);
     }
 
     let index = this.indexOfPlayer();
@@ -2706,7 +2699,7 @@ module.exports = {
   },
 
   /** helper func **/
-  
+
   resetCheckChance: function() {
     this.group_session.checkChance = 2;
     this.group_session.deadlineCheckChance = 1;
