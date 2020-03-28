@@ -135,15 +135,13 @@ module.exports = {
 
   extendCommand: function() {
     if (this.group_session.state !== "new") {
+      let text = "";
       if (this.group_session.state === "idle") {
-        return this.replyText(
-          "💡 Belum ada game yang dibuat, ketik '/new' untuk buat"
-        );
+        text = "💡 Belum ada game yang dibuat, ketik '/new' untuk buat";
       } else {
-        return this.replyText(
-          "💡 Waktu gak bisa ditambahkan saat game sudah berjalan"
-        );
+        text = "💡 Waktu gak bisa ditambahkan saat game sudah berjalan";
       }
+      return this.replyText(text);
     }
 
     this.group_session.time += 60;
@@ -191,12 +189,8 @@ module.exports = {
   },
 
   personalCommand: function() {
-    let text =
-      "💡 " +
-      this.user_session.name +
-      ", perintah " +
-      this.args[0] +
-      " harusnya digunakan di personal chat bot";
+    let text = "💡 " + this.user_session.name + ", perintah ";
+    text += this.args[0] + " harusnya digunakan di personal chat bot";
     return this.replyText(text);
   },
 
@@ -224,9 +218,9 @@ module.exports = {
 
   statCommand: function() {
     if (this.group_session.state !== "idle") {
-      return this.replyText(
-        "💡 Cek stat bisa dilakukan di pc bot atau disaat sedang tidak ada room game yang aktif"
-      );
+      let text = "💡 Cek stat bisa dilakukan di pc bot atau ";
+      text += "disaat sedang tidak ada room game yang aktif";
+      return this.replyText(text);
     }
 
     const stats = require("/app/src/stats");
@@ -254,16 +248,12 @@ module.exports = {
   revokeCommand: function() {
     let state = this.group_session.state;
     if (state !== "vote") {
+      let text = "";
       if (state === "idle") {
-        return this.replyText(
-          "💡 " +
-            this.user_session.name +
-            ", belum ada game yang dibuat, ketik '/new'"
-        );
+        text = "💡 " + this.user_session.name;
+        text += ", belum ada game yang dibuat, ketik '/new'";
       } else {
-        return this.replyText(
-          "💡 " + this.user_session.name + ", belum saatnya voting"
-        );
+        text = "💡 " + this.user_session.name + ", belum saatnya voting";
       }
     }
 
@@ -2946,7 +2936,7 @@ module.exports = {
     // yaitu index 0, sama index 1
     let neutralIndex = 0;
     let werewolfIndex = 0;
-    
+
     // jumlah ww dibatasin 75% dari badNeedCount Quota
     let werewolfNeedCount = Math.round((75 / 100) * badNeedCount);
     let neutralNeedCount = badNeedCount - werewolfNeedCount;
@@ -3021,7 +3011,7 @@ module.exports = {
         }
         neutralIndex++;
       }
-      
+
       neutralNeedCount--;
     }
 
