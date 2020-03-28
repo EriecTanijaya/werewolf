@@ -2946,6 +2946,8 @@ module.exports = {
     // yaitu index 0, sama index 1
     let neutralIndex = 0;
     let werewolfIndex = 0;
+    
+    // jumlah ww dibatasin 75% dari badNeedCount Quota
     let werewolfNeedCount = Math.round((75 / 100) * badNeedCount);
     let neutralNeedCount = badNeedCount - werewolfNeedCount;
     let needSheriff = false;
@@ -2970,9 +2972,9 @@ module.exports = {
     werewolfNeedCount--;
 
     /// bad guy generator
-    while (werewolfNeedCount) {
-      // ww team
 
+    // ww team
+    while (werewolfNeedCount) {
       // check apakah ww role sudah habis ato engga
       // kalau habis, randomkan saja
       if (werewolfIndex > werewolfTeam.length - 1) {
@@ -2991,41 +2993,36 @@ module.exports = {
         }
         werewolfIndex++;
       }
+
+      werewolfNeedCount--;
     }
 
-    while (badNeedCount) {
-      /// trueOrFalse untuk buat mau isi neutral / engga
-      if (helper.trueOrFalse()) {
-        // neutral
-
-        // check apakah neutral role sudah habis ato engga
-        // kalau habis, randomkan saja
-        if (neutralIndex > neutralTeam.length - 1) {
-          let randomNeutralIndex = helper.getRandomInt(
-            0,
-            neutralTeam.length - 1
-          );
-          roles.push(neutralTeam[randomNeutralIndex]);
-        } else {
-          roles.push(neutralTeam[neutralIndex]);
-          if (neutralTeam[neutralIndex] === "vampire") {
-            if (!roles.includes("vampire-hunter")) {
-              roles.push("vampire-hunter");
-              townNeedCount--;
-            }
-          } else if (neutralTeam[neutralIndex] === "serial-killer") {
-            needSheriff = true;
-          } else if (neutralTeam[neutralIndex] === "tanner") {
-            if (!roles.includes("vigilante")) {
-              roles.push("vigilante");
-              townNeedCount--;
-            }
+    // neutral team
+    while (neutralNeedCount) {
+      // check apakah neutral role sudah habis ato engga
+      // kalau habis, randomkan saja
+      if (neutralIndex > neutralTeam.length - 1) {
+        let randomNeutralIndex = helper.getRandomInt(0, neutralTeam.length - 1);
+        roles.push(neutralTeam[randomNeutralIndex]);
+      } else {
+        roles.push(neutralTeam[neutralIndex]);
+        if (neutralTeam[neutralIndex] === "vampire") {
+          if (!roles.includes("vampire-hunter")) {
+            roles.push("vampire-hunter");
+            townNeedCount--;
           }
-          neutralIndex++;
+        } else if (neutralTeam[neutralIndex] === "serial-killer") {
+          needSheriff = true;
+        } else if (neutralTeam[neutralIndex] === "tanner") {
+          if (!roles.includes("vigilante")) {
+            roles.push("vigilante");
+            townNeedCount--;
+          }
         }
+        neutralIndex++;
       }
-
-      badNeedCount--;
+      
+      neutralNeedCount--;
     }
 
     if (needSheriff && !roles.includes("sheriff")) {
