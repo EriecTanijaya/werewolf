@@ -19,7 +19,7 @@ module.exports = {
 
       if (state !== "idle") {
         if (state !== "new") {
-          if (time <= 10) {
+          if (time <= 10 && time > 0) {
             if (this.group_session.deadlineCheckChance === 0) {
               return Promise.resolve(null);
             } else {
@@ -740,7 +740,9 @@ module.exports = {
     if (this.group_session.nightCounter === 1) {
       // todo
       // module narasi awal game random
-      announcement += "para kampret kampret terjebak di pulau tumien. dan ada penjahat diantaranya" + "\n\n";
+      announcement +=
+        "para kampret kampret terjebak di pulau tumien. dan ada penjahat diantaranya" +
+        "\n\n";
     } else {
       announcement +=
         "🏘️ 🛏️ Setiap warga kembali kerumah masing-masing" + "\n\n";
@@ -2589,14 +2591,14 @@ module.exports = {
 
       let someoneWin = this.checkVictory();
       if (someoneWin) {
-        return this.endGame(someoneWin);
+        return this.endGame(null, someoneWin);
       } else {
         return this.night(null);
       }
     }
   },
 
-  endGame: function(whoWin) {
+  endGame: function(flex_texts, whoWin) {
     console.log("whoWin: " + whoWin);
     let players = this.group_session.players;
 
@@ -2687,7 +2689,11 @@ module.exports = {
 
     this.resetAllPlayers();
 
-    return this.replyFlex(newFlex_text);
+    if (!flex_texts) {
+      return this.replyFlex(newFlex_text);
+    } else {
+      return this.replyFlex(flex_texts, null, newFlex_text);
+    }
   },
 
   commandCommand: function() {
