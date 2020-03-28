@@ -313,6 +313,7 @@ module.exports = {
     this.group_session.time = 600;
     this.group_session.deadlineCheckChance = 1;
     this.group_session.checkChance = 1;
+    this.group_session.lynchedName = "";
 
     let flex_text = {
       header: {
@@ -757,7 +758,12 @@ module.exports = {
     let time = this.group_session.time;
     let name = this.user_session.name;
 
-    if (state !== "idle") {
+    if (state !== "idle" && state !== "new") {
+      if (this.indexOfPlayer() === -1) {
+        let text = "💡 " + name + ", kamu belum join kedalam game";
+        return this.replyText(text);
+      }
+
       if (time > 0) {
         if (this.group_session.checkChance === 0) {
           return Promise.resolve(null);
@@ -771,19 +777,14 @@ module.exports = {
 
     switch (state) {
       case "night":
-        if (this.indexOfPlayer() === -1) {
-          let text = "💡 " + name + ", kamu belum join kedalam game";
-          return this.replyText(text);
+        if (time > 0) {
+          let remindText =
+            "⏳ Sisa waktu " + time + " detik lagi untuk menyambut mentari. ";
+          remindText +=
+            "💡 Kesempatan check : " + this.group_session.checkChance;
+          return this.replyText(remindText);
         } else {
-          if (time > 0) {
-            let remindText =
-              "⏳ Sisa waktu " + time + " detik lagi untuk menyambut mentari. ";
-            remindText +=
-              "💡 Kesempatan check : " + this.group_session.checkChance;
-            return this.replyText(remindText);
-          } else {
-            return this.day();
-          }
+          return this.day();
         }
         break;
 
@@ -796,6 +797,12 @@ module.exports = {
           return this.votingCommand();
         } else {
           return this.autoVote();
+        }
+        break;
+
+      case "lynch":
+        if (time === 0) {
+          return this.postLynch(this.group_session.lynchedName);
         }
         break;
 
@@ -2553,6 +2560,8 @@ module.exports = {
     } else {
       flex_texts[0].body.text += "\n\n" + announcement;
     }
+    
+    return this.replyFlex(flex_texts);
 
     // Tanner victory
     if (roleName === "tanner") {
@@ -2569,7 +2578,10 @@ module.exports = {
     }
   },
 
-  postLynch: function() {},
+  postLynch: function() {
+    let lynchedName = this.group_session.lynchedName;
+    
+  },
 
   endGame: function(flex_texts, whoWin) {
     console.log("whoWin: " + whoWin);
