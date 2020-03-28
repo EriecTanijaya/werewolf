@@ -81,8 +81,6 @@ module.exports = {
       case "/cek":
       case "/c":
         return this.checkCommand();
-      case "/voting":
-        return this.votingCommand();
       case "/vote":
         return this.voteCommand();
       case "/about":
@@ -749,8 +747,12 @@ module.exports = {
     let time = this.group_session.time;
     let name = this.user_session.name;
 
-    if (state !== "idle" && state !== "new") {
-      return Promise.resolve(null);
+    if (state !== "idle") {
+      if (this.group_session.checkChance === 0) {
+        return Promise.resolve(null);
+      } else {
+        this.group_session.checkChance--;
+      }
     }
 
     console.log("state sebelumnya : " + state);
@@ -762,9 +764,9 @@ module.exports = {
           return this.replyText(text);
         } else {
           if (time > 0) {
-            let remindText = "💡 " + name + ", masih malam, pergi tidur sana. ";
-            remindText +=
-              "⏳ Sisa waktu " + time + " detik lagi untuk menyambut mentari";
+            let remindText =
+              "⏳ Sisa waktu " + time + " detik lagi untuk menyambut mentari. ";
+            remindText += "💡 Sisa check " + this.group_session.checkChance;
             return this.replyText(remindText);
           } else {
             return this.day();
@@ -2348,7 +2350,7 @@ module.exports = {
           {
             action: "postback",
             label: "📣 Voting!",
-            data: "/voting"
+            data: "/check"
           }
         ]
       };
@@ -2361,20 +2363,6 @@ module.exports = {
   },
 
   votingCommand: function() {
-    if (this.group_session.state !== "day") {
-      if (this.group_session.state === "idle") {
-        let text = "💡 " + this.user_session.name;
-        text += ", belum ada game yang dibuat, ketik '/new'";
-        return this.replyText(text);
-      } else if (this.group_session.state === "night") {
-        let remindText =
-          "💡 " + this.user_session.name + ", masih malam, pergi tidur sana. ";
-        remindText +=
-          "⏳ Sisa waktu " + time + " detik lagi untuk menyambut mentari";
-        return this.replyText(remindText);
-      }
-    }
-
     let index = this.indexOfPlayer();
     let players = this.group_session.players;
 
@@ -3064,7 +3052,7 @@ module.exports = {
           {
             action: "postback",
             label: "📣 Voting!",
-            data: "/voting"
+            data: "/check"
           }
         ]
       }
