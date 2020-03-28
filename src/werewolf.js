@@ -312,6 +312,7 @@ module.exports = {
     this.group_session.roomHostId = "";
     this.group_session.time = 600;
     this.group_session.deadlineCheckChance = 1;
+    this.group_session.checkChance = 1;
 
     let flex_text = {
       header: {
