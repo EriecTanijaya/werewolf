@@ -1,4 +1,6 @@
 const skillText = require("/app/message/skill");
+const helper = require("/app/helper");
+
 module.exports = {
   receive: function(client, event, args, rawArgs, user_session, group_session) {
     this.client = client;
@@ -58,6 +60,38 @@ module.exports = {
       default:
         return this.invalidCommand();
     }
+  },
+
+  cancelCommand: function() {
+    if (this.group_session.state !== "new") {
+      return this.replyText("💡 Game sedang berjalan. ");
+    }
+
+    let index = this.indexOfPlayer();
+
+    this.cutFromArray(this.group_session.players, index);
+
+    let text = "💡 Kamu telah meninggalkan game. ";
+
+    if (this.group_session.players.length === 0) {
+      this.group_session.state = "idle";
+      text += "\n" + "💡 Game di stop karena tidak ada pemain";
+    } else {
+      if (this.group_session.roomHostId === this.user_session.id) {
+        let randomPlayer = helper.random(this.group_session.players);
+        this.group_session.roomHostId = randomPlayer.id;
+        text +=
+          "\n" +
+          "👑 " +
+          randomPlayer.name +
+          " menjadi host baru dalam room ini. ";
+      }
+    }
+
+    const data = require("/app/src/data");
+    data.resetUser(this.user_session.id);
+
+    return this.replyText(text);
   },
 
   statCommand: function() {
