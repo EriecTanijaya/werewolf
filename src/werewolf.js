@@ -758,10 +758,12 @@ module.exports = {
     let name = this.user_session.name;
 
     if (state !== "idle") {
-      if (this.group_session.checkChance === 0) {
-        return Promise.resolve(null);
-      } else {
-        this.group_session.checkChance--;
+      if (time > 0) {
+        if (this.group_session.checkChance === 0) {
+          return Promise.resolve(null);
+        } else {
+          this.group_session.checkChance--;
+        }
       }
     }
 
@@ -798,7 +800,9 @@ module.exports = {
         break;
 
       case "new":
-        return this.replyText("💡 " + name + ", game belum dimulai");
+        let text = "⏳ " + name + ", sisa waktu " + time + " detik lagi ";
+        text += "untuk memulai game";
+        return this.replyText(text);
 
       default:
         return this.replyText(
@@ -2564,10 +2568,8 @@ module.exports = {
       return this.night(flex_texts);
     }
   },
-  
-  postLynch: function() {
-    
-  },
+
+  postLynch: function() {},
 
   endGame: function(flex_texts, whoWin) {
     console.log("whoWin: " + whoWin);
