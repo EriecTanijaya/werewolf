@@ -2946,6 +2946,10 @@ module.exports = {
     // yaitu index 0, sama index 1
     let neutralIndex = 0;
     let werewolfIndex = 0;
+    
+    // jumlah ww dibatasin 75% dari badNeedCount Quota
+    let werewolfNeedCount = Math.round((75 / 100) * badNeedCount);
+    let neutralNeedCount = badNeedCount - werewolfNeedCount;
     let needSheriff = false;
     let roles = [];
     let townTeam = [
@@ -2965,65 +2969,60 @@ module.exports = {
 
     roles.push("werewolf");
 
-    badNeedCount--;
+    werewolfNeedCount--;
 
     /// bad guy generator
-    while (badNeedCount) {
-      /// trueOrFalse untuk buat mau isi neutral / engga
-      if (helper.trueOrFalse()) {
-        // neutral
 
-        // check apakah neutral role sudah habis ato engga
-        // kalau habis, randomkan saja
-        if (neutralIndex > neutralTeam.length - 1) {
-          let randomNeutralIndex = helper.getRandomInt(
-            0,
-            neutralTeam.length - 1
-          );
-          roles.push(neutralTeam[randomNeutralIndex]);
-        } else {
-          roles.push(neutralTeam[neutralIndex]);
-          if (neutralTeam[neutralIndex] === "vampire") {
-            if (!roles.includes("vampire-hunter")) {
-              roles.push("vampire-hunter");
-              townNeedCount--;
-            }
-          } else if (neutralTeam[neutralIndex] === "serial-killer") {
-            needSheriff = true;
-          } else if (neutralTeam[neutralIndex] === "tanner") {
-            if (!roles.includes("vigilante")) {
-              roles.push("vigilante");
-              townNeedCount--;
-            }
-          }
-          neutralIndex++;
-        }
+    // ww team
+    while (werewolfNeedCount) {
+      // check apakah ww role sudah habis ato engga
+      // kalau habis, randomkan saja
+      if (werewolfIndex > werewolfTeam.length - 1) {
+        let maxIndex = werewolfTeam.length - 1;
+        let randomWerewolfIndex = helper.getRandomInt(0, maxIndex);
+        roles.push(neutralTeam[randomWerewolfIndex]);
       } else {
-        // ww team
-
-        // check apakah neutral role sudah habis ato engga
-        // kalau habis, randomkan saja
-        if (werewolfIndex > werewolfTeam.length - 1) {
-          let randomWerewolfIndex = helper.getRandomInt(
-            0,
-            werewolfTeam.length - 1
-          );
-          roles.push(neutralTeam[randomWerewolfIndex]);
+        roles.push(werewolfTeam[werewolfIndex]);
+        if (helper.trueOrFalse()) {
+          needSheriff = true;
         } else {
-          roles.push(werewolfTeam[werewolfIndex]);
-          if (helper.trueOrFalse()) {
-            needSheriff = true;
-          } else {
-            if (!roles.includes("vigilante")) {
-              roles.push("vigilante");
-              townNeedCount--;
-            }
+          if (!roles.includes("vigilante")) {
+            roles.push("vigilante");
+            townNeedCount--;
           }
-          werewolfIndex++;
         }
+        werewolfIndex++;
       }
 
-      badNeedCount--;
+      werewolfNeedCount--;
+    }
+
+    // neutral team
+    while (neutralNeedCount) {
+      // check apakah neutral role sudah habis ato engga
+      // kalau habis, randomkan saja
+      if (neutralIndex > neutralTeam.length - 1) {
+        let randomNeutralIndex = helper.getRandomInt(0, neutralTeam.length - 1);
+        roles.push(neutralTeam[randomNeutralIndex]);
+      } else {
+        roles.push(neutralTeam[neutralIndex]);
+        if (neutralTeam[neutralIndex] === "vampire") {
+          if (!roles.includes("vampire-hunter")) {
+            roles.push("vampire-hunter");
+            townNeedCount--;
+          }
+        } else if (neutralTeam[neutralIndex] === "serial-killer") {
+          needSheriff = true;
+        } else if (neutralTeam[neutralIndex] === "tanner") {
+          if (!roles.includes("vigilante")) {
+            roles.push("vigilante");
+            townNeedCount--;
+          }
+        }
+        neutralIndex++;
+      }
+      
+      neutralNeedCount--;
     }
 
     if (needSheriff && !roles.includes("sheriff")) {
@@ -3045,14 +3044,14 @@ module.exports = {
   getTimeDefault: function(playersLength) {
     let time = 0;
 
-    if (playersLength === 3){
+    if (playersLength === 3) {
       time = 40;
     } else if (playersLength > 10) {
       time = 100;
     } else {
       // 4 - 9 players logic
       let temp = playersLength;
-      while(temp) {
+      while (temp) {
         time += 0.9;
         temp--;
       }
