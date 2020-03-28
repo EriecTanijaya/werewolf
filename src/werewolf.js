@@ -2564,6 +2564,10 @@ module.exports = {
       return this.night(flex_texts);
     }
   },
+  
+  postLynch: function() {
+    
+  },
 
   endGame: function(flex_texts, whoWin) {
     console.log("whoWin: " + whoWin);
