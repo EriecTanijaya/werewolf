@@ -356,6 +356,7 @@ module.exports = {
     }
 
     if (this.user_session.state === "active") {
+      let text = "";
       if (this.user_session.groupId === this.group_session.groupId) {
         text += "💡 " + this.user_session.name;
         text += ", kamu sudah bergabung kedalam game";
