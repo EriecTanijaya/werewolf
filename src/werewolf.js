@@ -726,8 +726,7 @@ module.exports = {
 
     announcement +=
       "💡 Jangan lupa ketik '/role' di pc bot untuk menggunakan skill" + "\n\n";
-
-    "🏘️ 🛏️ Setiap warga kembali kerumah masing-masing" + "\n\n";
+    announcement += "🏘️ 🛏️ Setiap warga kembali kerumah masing-masing" + "\n\n";
     announcement +=
       "⏳ Waktu yang diberikan " + this.group_session.time_default + " detik";
 
@@ -745,21 +744,18 @@ module.exports = {
   checkCommand: function() {
     let state = this.group_session.state;
     let time = this.group_session.time;
+    let name = this.user_session.name;
 
     console.log("state sebelumnya : " + state);
 
     switch (state) {
       case "night":
         if (this.indexOfPlayer() === -1) {
-          return this.replyText(
-            "💡 " + this.user_session.name + ", kamu belum join kedalam game"
-          );
+          let text = "💡 " + name + ", kamu belum join kedalam game";
+          return this.replyText(text);
         } else {
           if (time > 0) {
-            let remindText =
-              "💡 " +
-              this.user_session.name +
-              ", masih malam, pergi tidur sana. ";
+            let remindText = "💡 " + name + ", masih malam, pergi tidur sana. ";
             remindText +=
               "⏳ Sisa waktu " + time + " detik lagi untuk menyambut mentari";
             return this.replyText(remindText);
@@ -782,15 +778,11 @@ module.exports = {
         break;
 
       case "new":
-        return this.replyText(
-          "💡 " + this.user_session.name + ", game belum dimulai"
-        );
+        return this.replyText("💡 " + name + ", game belum dimulai");
 
       default:
         return this.replyText(
-          "💡 " +
-            this.user_session.name +
-            ", belum ada game yang dibuat, ketik '/new'"
+          "💡 " + name + ", belum ada game yang dibuat, ketik '/new'"
         );
     }
   },
@@ -829,11 +821,8 @@ module.exports = {
       headerText = "📣 Voting";
     }
 
-    let playerListFlex = this.getTableFlex(
-      this.getAlivePlayers(),
-      null,
-      headerText
-    );
+    let alivePlayers = this.getAlivePlayers();
+    let playerListFlex = this.getTableFlex(alivePlayers, null, headerText);
 
     if (!this.proceedVote(voteNeeded)) {
       flex_text.header.text = headerText;
@@ -2367,11 +2356,9 @@ module.exports = {
   votingCommand: function() {
     if (this.group_session.state !== "day") {
       if (this.group_session.state === "idle") {
-        return this.replyText(
-          "💡 " +
-            this.user_session.name +
-            ", belum ada game yang dibuat, ketik '/new'"
-        );
+        let text = "💡 " + this.user_session.name;
+        text += ", belum ada game yang dibuat, ketik '/new'";
+        return this.replyText(text);
       } else if (this.group_session.state === "night") {
         let remindText =
           "💡 " + this.user_session.name + ", masih malam, pergi tidur sana. ";
@@ -2403,36 +2390,25 @@ module.exports = {
 
         this.runTimer();
 
-        text +=
-          "⏳ Waktu yang diberikan " +
-          this.group_session.time_default +
-          " detik" +
-          "\n";
+        let default_time = this.group_session.time_default;
+        text += "⏳ Waktu yang diberikan " + default_time + " detik" + "\n";
       }
     }
 
     let voteNeeded = Math.round(this.getAlivePlayersCount() / 2);
-    let voteNeededText =
-      "\n" +
-      "💡 Dibutuhkan " +
-      voteNeeded +
-      " vote untuk " +
-      this.group_session.punishment +
-      " orang";
+    let voteNeededText = "\n" + "💡 Dibutuhkan " + voteNeeded;
+    voteNeededText += " vote untuk " + this.group_session.punishment + " orang";
 
+    let flexBodyText =
+      "💀 Pilih siapa yang mau di" + this.group_session.punishment + "\n";
+    flexBodyText += text + pendingMemberText + voteNeededText;
     let flex_texts = [];
     let flex_text = {
       header: {
         text: "📣 Voting"
       },
       body: {
-        text:
-          "💀 Pilih siapa yang mau di" +
-          this.group_session.punishment +
-          "\n" +
-          text +
-          pendingMemberText +
-          voteNeededText
+        text: flexBodyText
       },
       footer: {
         buttons: []
@@ -2465,32 +2441,28 @@ module.exports = {
 
   voteCommand: function() {
     if (this.group_session.state !== "vote") {
+      let text = "";
       if (this.group_session.state === "idle") {
-        return this.replyText(
-          "💡 " +
-            this.user_session.name +
-            ", belum ada game yang dibuat, ketik '/new'"
-        );
+        text += "💡 " + this.user_session.name;
+        text += ", belum ada game yang dibuat, ketik '/new'";
       } else {
-        return this.replyText(
-          "💡 " + this.user_session.name + ", belum saatnya voting"
-        );
+        text += "💡 " + this.user_session.name + ", belum saatnya voting";
       }
+      return this.replyText(text);
     }
 
     let index = this.indexOfPlayer();
     let players = this.group_session.players;
 
     if (index === -1) {
-      return this.replyText(
-        "💡 " + this.user_session.name + ", kamu belum join kedalam game"
-      );
+      let text =
+        "💡 " + this.user_session.name + ", kamu belum join kedalam game";
+      return this.replyText(text);
     }
 
     if (players[index].status !== "alive") {
-      return this.replyText(
-        "💡 " + this.user_session.name + ", kamu sudah mati"
-      );
+      let text = "💡 " + this.user_session.name + ", kamu sudah mati";
+      return this.replyText(text);
     }
 
     if (!this.args[1]) {
@@ -2500,9 +2472,9 @@ module.exports = {
     let targetIndex = this.args[1];
 
     if (parseInt(targetIndex) === parseInt(index)) {
-      return this.replyText(
-        "💡 " + this.user_session.name + ", gak bisa vote diri sendiri"
-      );
+      let text =
+        "💡 " + this.user_session.name + ", gak bisa vote diri sendiri";
+      return this.replyText(text);
     }
 
     if (!players[targetIndex]) {
@@ -2548,11 +2520,8 @@ module.exports = {
         }
       };
 
-      let playerListFlex = this.getTableFlex(
-        this.getAlivePlayers(),
-        null,
-        headerText
-      );
+      let alivePlayers = this.getAlivePlayers();
+      let playerListFlex = this.getTableFlex(alivePlayers, null, headerText);
       return this.lynch([flex_text, playerListFlex]);
     }
   },
@@ -2565,15 +2534,12 @@ module.exports = {
     let roleName = players[lynchTarget.index].role.name;
 
     this.group_session.players[lynchTarget.index].status = "death";
-
+//cp
+    let lynchedName = players[lynchTarget.index].name;
     let announcement =
-      "💀 Warga memutuskan untuk " +
-      this.group_session.punishment +
-      " " +
-      players[lynchTarget.index].name +
-      " dengan jumlah " +
-      lynchTarget.count +
-      " vote";
+      "💀 Warga memutuskan untuk " + this.group_session.punishment + " ";
+    announcement +=
+      lynchedName + " dengan jumlah " + lynchTarget.count + " vote";
 
     announcement +=
       "\n\n" + "✉️ Role nya adalah " + players[lynchTarget.index].role.name;
