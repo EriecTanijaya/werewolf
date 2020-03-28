@@ -19,11 +19,11 @@ module.exports = {
 
       if (state !== "idle") {
         if (state !== "new") {
-          if (time < 15 && time > 5) {
+          if (time < 20 && time > 10) {
             let reminder =
               "💡 Waktu tersisa " +
               time +
-              " detik lagi, nanti ketik '/check' untuk lanjutkan proses";
+              " detik lagi, nanti ketik '/cek' untuk lanjutkan proses";
             return this.replyText(reminder);
           } else if (time === 0) {
             if (this.indexOfPlayer() !== -1) {
@@ -34,7 +34,7 @@ module.exports = {
           let playersLength = this.group_session.players.length;
 
           if (playersLength < 5) {
-            if (time < 5) {
+            if (time < 20 && time > 10) {
               let reminder =
                 "💡 Waktu tersisa " +
                 time +
