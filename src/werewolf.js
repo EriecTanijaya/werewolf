@@ -602,8 +602,6 @@ module.exports = {
 
     this.group_session.punishment = helper.random(punishment);
 
-    this.resetCheckChance();
-
     this.randomRoles();
   },
 
@@ -738,7 +736,16 @@ module.exports = {
 
     announcement +=
       "💡 Jangan lupa ketik '/role' di pc bot untuk menggunakan skill" + "\n\n";
-    announcement += "🏘️ 🛏️ Setiap warga kembali kerumah masing-masing" + "\n\n";
+
+    if (this.group_session.nightCounter === 1) {
+      // todo
+      // module narasi awal game random
+      announcement += "para kampret kampret terjebak di pulau tumien. dan ada penjahat diantaranya" + "\n\n";
+    } else {
+      announcement +=
+        "🏘️ 🛏️ Setiap warga kembali kerumah masing-masing" + "\n\n";
+    }
+
     announcement +=
       "⏳ Waktu yang diberikan " + this.group_session.time_default + " detik";
 
@@ -859,7 +866,7 @@ module.exports = {
       this.group_session.state = "lynch";
       this.group_session.time = 5;
       this.resetCheckChance();
-      
+
       flex_text.header.text = headerText;
       flex_text.body.text = text;
       return this.replyFlex([flex_text, playerListFlex]);
@@ -2574,14 +2581,12 @@ module.exports = {
   postLynch: function() {
     let lynched = this.group_session.lynched;
     if (!lynched) {
-      // ini ga ada yg tervote, jadi langsung kennight
-      // kang dari autoVote func aj
-      
+      return this.night(null);
     } else {
       if (lynched.role.name === "tanner") {
         return this.endGame("tanner");
       }
-      
+
       let someoneWin = this.checkVictory();
       if (someoneWin) {
         return this.endGame(someoneWin);
@@ -3432,6 +3437,8 @@ module.exports = {
     /// set time default
     this.group_session.time = this.group_session.time_default;
     //this.group_session.time = 20;
+
+    this.resetCheckChance();
   },
 
   getRoleTeamEmoji: function(team) {
