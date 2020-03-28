@@ -2946,6 +2946,8 @@ module.exports = {
     // yaitu index 0, sama index 1
     let neutralIndex = 0;
     let werewolfIndex = 0;
+    let werewolfNeedCount = Math.round((75 / 100) * badNeedCount);
+    let neutralNeedCount = badNeedCount - werewolfNeedCount;
     let needSheriff = false;
     let roles = [];
     let townTeam = [
@@ -2965,9 +2967,32 @@ module.exports = {
 
     roles.push("werewolf");
 
-    badNeedCount--;
+    werewolfNeedCount--;
 
     /// bad guy generator
+    while (werewolfNeedCount) {
+      // ww team
+
+      // check apakah ww role sudah habis ato engga
+      // kalau habis, randomkan saja
+      if (werewolfIndex > werewolfTeam.length - 1) {
+        let maxIndex = werewolfTeam.length - 1;
+        let randomWerewolfIndex = helper.getRandomInt(0, maxIndex);
+        roles.push(neutralTeam[randomWerewolfIndex]);
+      } else {
+        roles.push(werewolfTeam[werewolfIndex]);
+        if (helper.trueOrFalse()) {
+          needSheriff = true;
+        } else {
+          if (!roles.includes("vigilante")) {
+            roles.push("vigilante");
+            townNeedCount--;
+          }
+        }
+        werewolfIndex++;
+      }
+    }
+
     while (badNeedCount) {
       /// trueOrFalse untuk buat mau isi neutral / engga
       if (helper.trueOrFalse()) {
@@ -2998,29 +3023,6 @@ module.exports = {
           }
           neutralIndex++;
         }
-      } else {
-        // ww team
-
-        // check apakah neutral role sudah habis ato engga
-        // kalau habis, randomkan saja
-        if (werewolfIndex > werewolfTeam.length - 1) {
-          let randomWerewolfIndex = helper.getRandomInt(
-            0,
-            werewolfTeam.length - 1
-          );
-          roles.push(neutralTeam[randomWerewolfIndex]);
-        } else {
-          roles.push(werewolfTeam[werewolfIndex]);
-          if (helper.trueOrFalse()) {
-            needSheriff = true;
-          } else {
-            if (!roles.includes("vigilante")) {
-              roles.push("vigilante");
-              townNeedCount--;
-            }
-          }
-          werewolfIndex++;
-        }
       }
 
       badNeedCount--;
@@ -3045,14 +3047,14 @@ module.exports = {
   getTimeDefault: function(playersLength) {
     let time = 0;
 
-    if (playersLength === 3){
+    if (playersLength === 3) {
       time = 40;
     } else if (playersLength > 10) {
       time = 100;
     } else {
       // 4 - 9 players logic
       let temp = playersLength;
-      while(temp) {
+      while (temp) {
         time += 0.9;
         temp--;
       }
