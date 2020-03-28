@@ -2446,14 +2446,7 @@ module.exports = {
 
   voteCommand: function() {
     if (this.group_session.state !== "vote") {
-      let text = "";
-      if (this.group_session.state === "idle") {
-        text += "💡 " + this.user_session.name;
-        text += ", belum ada game yang dibuat, ketik '/new'";
-      } else {
-        text += "💡 " + this.user_session.name + ", belum saatnya voting";
-      }
-      return this.replyText(text);
+      return Promise.resolve(null);
     }
 
     let index = this.indexOfPlayer();
