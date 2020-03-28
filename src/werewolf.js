@@ -19,7 +19,7 @@ module.exports = {
 
       if (state !== "idle") {
         if (state !== "new") {
-          if (time < 20 && time > 10) {
+          if (time < 25 && time > 15) {
             let reminder =
               "💡 Waktu tersisa " +
               time +
@@ -34,7 +34,7 @@ module.exports = {
           let playersLength = this.group_session.players.length;
 
           if (playersLength < 5) {
-            if (time < 20 && time > 10) {
+            if (time < 25 && time > 15) {
               let reminder =
                 "💡 Waktu tersisa " +
                 time +
