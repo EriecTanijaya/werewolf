@@ -856,9 +856,13 @@ module.exports = {
     let playerListFlex = this.getTableFlex(alivePlayers, null, headerText);
 
     if (!this.proceedVote(voteNeeded)) {
+      this.group_session.state = "lynch";
+      this.group_session.time = 5;
+      this.resetCheckChance();
+      
       flex_text.header.text = headerText;
       flex_text.body.text = text;
-      return this.night([flex_text, playerListFlex]);
+      return this.replyFlex([flex_text, playerListFlex]);
     } else {
       flex_text.header.text = headerText;
       return this.lynch([flex_text, playerListFlex]);
@@ -2559,24 +2563,12 @@ module.exports = {
       flex_texts[0].body.text += "\n\n" + announcement;
     }
 
+    this.group_session.state = "lynch";
     this.group_session.lynched = players[lynchTarget.index];
+    this.group_session.time = 5;
+    this.resetCheckChance();
 
     return this.replyFlex(flex_texts);
-
-    /// kang this
-    // Tanner victory
-    if (roleName === "tanner") {
-      return this.endGame(flex_texts, "tanner");
-    }
-
-    ///check victory
-    let someoneWin = this.checkVictory();
-
-    if (someoneWin) {
-      return this.endGame(flex_texts, someoneWin);
-    } else {
-      return this.night(flex_texts);
-    }
   },
 
   postLynch: function() {
@@ -2586,11 +2578,20 @@ module.exports = {
       // kang dari autoVote func aj
       
     } else {
-      if (lynched.role.name === "tanner
+      if (lynched.role.name === "tanner") {
+        return this.endGame("tanner");
+      }
+      
+      let someoneWin = this.checkVictory();
+      if (someoneWin) {
+        return this.endGame(someoneWin);
+      } else {
+        return this.night(null);
+      }
     }
   },
 
-  endGame: function(flex_texts, whoWin) {
+  endGame: function(whoWin) {
     console.log("whoWin: " + whoWin);
     let players = this.group_session.players;
 
@@ -2681,7 +2682,7 @@ module.exports = {
 
     this.resetAllPlayers();
 
-    return this.replyFlex(flex_texts, null, newFlex_text);
+    return this.replyFlex(newFlex_text);
   },
 
   commandCommand: function() {
