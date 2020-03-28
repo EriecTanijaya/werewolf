@@ -739,8 +739,6 @@ module.exports = {
       "💡 Jangan lupa ketik '/role' di pc bot untuk menggunakan skill" + "\n\n";
 
     if (this.group_session.nightCounter === 1) {
-      // todo
-      // module narasi awal game random
       const firstDayNaration = require("/app/message/firstDay");
       announcement += firstDayNaration + "\n\n";
     } else {
