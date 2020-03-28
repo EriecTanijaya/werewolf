@@ -70,7 +70,7 @@ async function handleEvent(event) {
     try {
       let profile = await client.getGroupMemberProfile(groupId, userId);
       user += profile.displayName;
-    } catch(err) {
+    } catch (err) {
       user += "ga add";
     }
     console.log(user + " : " + event.message.text);
