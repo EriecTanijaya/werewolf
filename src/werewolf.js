@@ -42,7 +42,7 @@ module.exports = {
           let playersLength = this.group_session.players.length;
 
           if (playersLength < 5) {
-            if (time <= 40) {
+            if (time <= 40 && time > 0) {
               this.group_session.deadlineCheckChance--;
               let reminder = "💡 Waktu tersisa " + time;
               reminder +=
@@ -88,6 +88,7 @@ module.exports = {
       case "/check":
       case "/cek":
       case "/c":
+      case "/cok":
         return this.checkCommand();
       case "/vote":
         return this.voteCommand();
