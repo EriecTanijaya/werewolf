@@ -593,6 +593,8 @@ module.exports = {
 
     this.group_session.punishment = helper.random(punishment);
 
+    this.resetCheckChance();
+
     this.randomRoles();
   },
 
@@ -746,6 +748,10 @@ module.exports = {
     let state = this.group_session.state;
     let time = this.group_session.time;
     let name = this.user_session.name;
+
+    if (state !== "idle" && state !== "new") {
+      return Promise.resolve(null);
+    }
 
     console.log("state sebelumnya : " + state);
 
@@ -2702,6 +2708,10 @@ module.exports = {
   },
 
   /** helper func **/
+
+  resetCheckChance: function() {
+    this.group_session.checkChance = 2;
+  },
 
   getVoteCandidates: function() {
     let candidates = [];
