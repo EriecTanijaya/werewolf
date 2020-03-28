@@ -742,9 +742,7 @@ module.exports = {
       // todo
       // module narasi awal game random
       const firstDayNaration = require("/app/message/firstDay");
-      announcement +=
-        "para kampret kampret terjebak di pulau tumien. dan ada penjahat diantaranya" +
-        "\n\n";
+      announcement += firstDayNaration + "\n\n";
     } else {
       announcement +=
         "🏘️ 🛏️ Setiap warga kembali kerumah masing-masing" + "\n\n";
