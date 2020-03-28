@@ -57,6 +57,8 @@ module.exports = {
       case "/c":
       case "/chat":
         return this.chatCommand();
+      case "/cancel":
+        return this.cancelCommand();
       default:
         return this.invalidCommand();
     }
