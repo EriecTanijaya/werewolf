@@ -19,11 +19,15 @@ module.exports = {
 
       if (state !== "idle") {
         if (state !== "new") {
-          if (time < 15 && time > 5) {
-            let reminder =
-              "💡 Waktu tersisa " +
-              time +
-              " detik lagi, nanti ketik '/check' untuk lanjutkan proses";
+          if (time <= 10 && time > 0) {
+            if (this.group_session.deadlineCheckChance === 0) {
+              return Promise.resolve(null);
+            } else {
+              this.group_session.deadlineCheckChance--;
+            }
+            let reminder = "💡 Waktu tersisa " + time;
+            reminder += " detik lagi, nanti ketik '/cek' ";
+            reminder += "saat waktu sudah habis untuk lanjutkan proses";
             return this.replyText(reminder);
           } else if (time === 0) {
             if (this.indexOfPlayer() !== -1) {
@@ -31,13 +35,17 @@ module.exports = {
             }
           }
         } else {
+          if (this.group_session.deadlineCheckChance === 0) {
+            return Promise.resolve(null);
+          }
+
           let playersLength = this.group_session.players.length;
 
           if (playersLength < 5) {
-            if (time < 5) {
-              let reminder =
-                "💡 Waktu tersisa " +
-                time +
+            if (time <= 40 && time > 0) {
+              this.group_session.deadlineCheckChance--;
+              let reminder = "💡 Waktu tersisa " + time;
+              reminder +=
                 " detik lagi. Jika tidak ada yang join, game akan dihentikan";
               return this.replyText(reminder);
             }
@@ -80,9 +88,8 @@ module.exports = {
       case "/check":
       case "/cek":
       case "/c":
+      case "/cok":
         return this.checkCommand();
-      case "/voting":
-        return this.votingCommand();
       case "/vote":
         return this.voteCommand();
       case "/about":
@@ -305,6 +312,9 @@ module.exports = {
     this.group_session.nightCounter = 0;
     this.group_session.roomHostId = "";
     this.group_session.time = 600;
+    this.group_session.deadlineCheckChance = 1;
+    this.group_session.checkChance = 1;
+    this.group_session.lynched = null;
 
     let flex_text = {
       header: {
@@ -356,6 +366,7 @@ module.exports = {
     }
 
     if (this.user_session.state === "active") {
+      let text = "";
       if (this.user_session.groupId === this.group_session.groupId) {
         text += "💡 " + this.user_session.name;
         text += ", kamu sudah bergabung kedalam game";
@@ -726,7 +737,15 @@ module.exports = {
 
     announcement +=
       "💡 Jangan lupa ketik '/role' di pc bot untuk menggunakan skill" + "\n\n";
-    announcement += "🏘️ 🛏️ Setiap warga kembali kerumah masing-masing" + "\n\n";
+
+    if (this.group_session.nightCounter === 1) {
+      const firstDayNaration = require("/app/message/firstDay");
+      announcement += firstDayNaration + "\n\n";
+    } else {
+      announcement +=
+        "🏘️ 🛏️ Setiap warga kembali kerumah masing-masing" + "\n\n";
+    }
+
     announcement +=
       "⏳ Waktu yang diberikan " + this.group_session.time_default + " detik";
 
@@ -746,22 +765,33 @@ module.exports = {
     let time = this.group_session.time;
     let name = this.user_session.name;
 
+    if (state !== "idle" && state !== "new") {
+      if (this.indexOfPlayer() === -1) {
+        let text = "💡 " + name + ", kamu belum join kedalam game";
+        return this.replyText(text);
+      }
+
+      if (time > 0) {
+        if (this.group_session.checkChance === 0) {
+          return Promise.resolve(null);
+        } else {
+          this.group_session.checkChance--;
+        }
+      }
+    }
+
     console.log("state sebelumnya : " + state);
 
     switch (state) {
       case "night":
-        if (this.indexOfPlayer() === -1) {
-          let text = "💡 " + name + ", kamu belum join kedalam game";
-          return this.replyText(text);
+        if (time > 0) {
+          let remindText =
+            "⏳ Sisa waktu " + time + " detik lagi untuk menyambut mentari. ";
+          remindText +=
+            "💡 Kesempatan check : " + this.group_session.checkChance;
+          return this.replyText(remindText);
         } else {
-          if (time > 0) {
-            let remindText = "💡 " + name + ", masih malam, pergi tidur sana. ";
-            remindText +=
-              "⏳ Sisa waktu " + time + " detik lagi untuk menyambut mentari";
-            return this.replyText(remindText);
-          } else {
-            return this.day();
-          }
+          return this.day();
         }
         break;
 
@@ -777,8 +807,16 @@ module.exports = {
         }
         break;
 
+      case "lynch":
+        if (time === 0) {
+          return this.postLynch();
+        }
+        break;
+
       case "new":
-        return this.replyText("💡 " + name + ", game belum dimulai");
+        let text = "⏳ " + name + ", sisa waktu " + time + " detik lagi ";
+        text += "untuk memulai game";
+        return this.replyText(text);
 
       default:
         return this.replyText(
@@ -825,9 +863,13 @@ module.exports = {
     let playerListFlex = this.getTableFlex(alivePlayers, null, headerText);
 
     if (!this.proceedVote(voteNeeded)) {
+      this.group_session.state = "lynch";
+      this.group_session.time = 8;
+      this.resetCheckChance();
+
       flex_text.header.text = headerText;
       flex_text.body.text = text;
-      return this.night([flex_text, playerListFlex]);
+      return this.replyFlex([flex_text, playerListFlex]);
     } else {
       flex_text.header.text = headerText;
       return this.lynch([flex_text, playerListFlex]);
@@ -2341,7 +2383,7 @@ module.exports = {
           {
             action: "postback",
             label: "📣 Voting!",
-            data: "/voting"
+            data: "/check"
           }
         ]
       };
@@ -2354,20 +2396,6 @@ module.exports = {
   },
 
   votingCommand: function() {
-    if (this.group_session.state !== "day") {
-      if (this.group_session.state === "idle") {
-        let text = "💡 " + this.user_session.name;
-        text += ", belum ada game yang dibuat, ketik '/new'";
-        return this.replyText(text);
-      } else if (this.group_session.state === "night") {
-        let remindText =
-          "💡 " + this.user_session.name + ", masih malam, pergi tidur sana. ";
-        remindText +=
-          "⏳ Sisa waktu " + time + " detik lagi untuk menyambut mentari";
-        return this.replyText(remindText);
-      }
-    }
-
     let index = this.indexOfPlayer();
     let players = this.group_session.players;
 
@@ -2381,12 +2409,12 @@ module.exports = {
           "💡 " + this.user_session.name + ", belum saatnya voting" + "\n";
         remindText +=
           "⏳ Sisa waktu " + time + " detik lagi untuk voting" + "\n";
-        remindText +=
-          "Ketik '/voting' untuk lanjutkan proses voting setelah waktu habis";
+        remindText += "💡 Kesempatan check : " + this.group_session.checkChance;
         return this.replyText(remindText);
       } else {
         // ini pertama kali votingCommand dipakai
         this.group_session.state = "vote";
+        this.group_session.lynched = null;
 
         this.runTimer();
 
@@ -2429,11 +2457,8 @@ module.exports = {
     });
     flex_texts.push(flex_text);
 
-    let playerListFlex = this.getTableFlex(
-      this.getAlivePlayers(),
-      null,
-      "📣 Voting"
-    );
+    let alivePlayers = this.getAlivePlayers();
+    let playerListFlex = this.getTableFlex(alivePlayers, null, "📣 Voting");
     flex_texts.push(playerListFlex);
 
     return this.replyFlex(flex_texts);
@@ -2441,14 +2466,7 @@ module.exports = {
 
   voteCommand: function() {
     if (this.group_session.state !== "vote") {
-      let text = "";
-      if (this.group_session.state === "idle") {
-        text += "💡 " + this.user_session.name;
-        text += ", belum ada game yang dibuat, ketik '/new'";
-      } else {
-        text += "💡 " + this.user_session.name + ", belum saatnya voting";
-      }
-      return this.replyText(text);
+      return Promise.resolve(null);
     }
 
     let index = this.indexOfPlayer();
@@ -2552,18 +2570,29 @@ module.exports = {
       flex_texts[0].body.text += "\n\n" + announcement;
     }
 
-    // Tanner victory
-    if (roleName === "tanner") {
-      return this.endGame(flex_texts, "tanner");
-    }
+    this.group_session.state = "lynch";
+    this.group_session.lynched = players[lynchTarget.index];
+    this.group_session.time = 8;
+    this.resetCheckChance();
 
-    ///check victory
-    let someoneWin = this.checkVictory();
+    return this.replyFlex(flex_texts);
+  },
 
-    if (someoneWin) {
-      return this.endGame(flex_texts, someoneWin);
+  postLynch: function() {
+    let lynched = this.group_session.lynched;
+    if (!lynched) {
+      return this.night(null);
     } else {
-      return this.night(flex_texts);
+      if (lynched.role.name === "tanner") {
+        return this.endGame("tanner");
+      }
+
+      let someoneWin = this.checkVictory();
+      if (someoneWin) {
+        return this.endGame(null, someoneWin);
+      } else {
+        return this.night(null);
+      }
     }
   },
 
@@ -2658,7 +2687,11 @@ module.exports = {
 
     this.resetAllPlayers();
 
-    return this.replyFlex(flex_texts, null, newFlex_text);
+    if (!flex_texts) {
+      return this.replyFlex(newFlex_text);
+    } else {
+      return this.replyFlex(flex_texts, null, newFlex_text);
+    }
   },
 
   commandCommand: function() {
@@ -2701,6 +2734,11 @@ module.exports = {
   },
 
   /** helper func **/
+
+  resetCheckChance: function() {
+    this.group_session.checkChance = 2;
+    this.group_session.deadlineCheckChance = 1;
+  },
 
   getVoteCandidates: function() {
     let candidates = [];
@@ -3053,7 +3091,7 @@ module.exports = {
           {
             action: "postback",
             label: "📣 Voting!",
-            data: "/voting"
+            data: "/check"
           }
         ]
       }
@@ -3403,6 +3441,8 @@ module.exports = {
     /// set time default
     this.group_session.time = this.group_session.time_default;
     //this.group_session.time = 20;
+
+    this.resetCheckChance();
   },
 
   getRoleTeamEmoji: function(team) {
