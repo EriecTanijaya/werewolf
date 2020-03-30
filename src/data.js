@@ -199,7 +199,7 @@ module.exports = {
       text += "https://line.me/ti/p/" + process.env.BOT_ID;
       return this.replyText(text);
     } catch (err) {
-      // dont do anything about this
+      console.log("notAddError error", err.originalError.response.data);
     }
   },
 
@@ -222,7 +222,7 @@ module.exports = {
       text += ", botnya sedang maintenance. " + addonText;
       return this.replyText(text);
     } catch (err) {
-      // dont do anything about this
+      console.log("maintenanceRespond error", err.originalError.response.data);
     }
   },
 
