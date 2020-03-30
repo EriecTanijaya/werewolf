@@ -2584,7 +2584,7 @@ module.exports = {
       return this.night(null);
     } else {
       if (lynched.role.name === "tanner") {
-        return this.endGame("tanner");
+        return this.endGame(null, "tanner");
       }
 
       let someoneWin = this.checkVictory();
