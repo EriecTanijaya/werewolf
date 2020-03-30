@@ -344,8 +344,8 @@ module.exports = {
       this.user_session.groupId = this.group_session.groupId;
 
       for (let i = 0; i < 8; i++) {
-      let newPlayer = this.createNewPlayer(this.user_session);
-      this.addPlayer(newPlayer);
+        let newPlayer = this.createNewPlayer(this.user_session);
+        this.addPlayer(newPlayer);
       }
 
       let text = "💡 " + this.user_session.name + " berhasil bergabung!";
@@ -3548,6 +3548,9 @@ module.exports = {
 
   resetAllPlayers: function() {
     const data = require("/app/src/data");
-    data.resetAllPlayers(this.group_session.players);
+    data.resetAllPlayers(
+      this.group_session.players,
+      this.group_session.groupId
+    );
   }
 };

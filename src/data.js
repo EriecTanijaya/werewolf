@@ -151,7 +151,7 @@ module.exports = {
     if (group_sessions[groupId].state === "inactive") {
       let text = "👋 Sistem mendeteksi tidak ada permainan dalam 5 menit. ";
       text += "Undang kembali jika mau main ya!";
-      this.client.replyMessage()
+      this.replyText(text);
       if (this.event.source.type === "group") {
         this.client.leaveGroup(groupId);
       } else {
@@ -298,7 +298,7 @@ module.exports = {
     this.saveUserData(oldUserData);
   },
 
-  resetAllPlayers: function(players) {
+  resetAllPlayers: function(players, groupId) {
     players.forEach(item => {
       let reset_player = {
         id: item.id,
