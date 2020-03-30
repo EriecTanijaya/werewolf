@@ -16,7 +16,6 @@ const config = {
 let requestsQuota = 66; // in 1 minute
 app.use((req, res, next) => {
   requestsQuota--;
-  console.log(requestsQuota);
   next();
 });
 
