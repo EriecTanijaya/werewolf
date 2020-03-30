@@ -22,6 +22,8 @@ const updateSessionJob = new CronJob("* * * * * *", function() {
         let playersLength = group_sessions[key].players.length;
         if (playersLength < 5 && state === "new") {
           helper.resetAllUsers(group_sessions, user_sessions, key);
+        } else if (state === "idle") {
+          group_sessions[key].state = "inactive";
         }
       }
     }
@@ -144,11 +146,13 @@ module.exports = {
         groupId: groupId,
         state: "idle",
         time_default: 0,
-        time: 0,
+        time: 300,
         players: []
       };
       group_sessions[groupId] = newGroup;
     }
+    
+    if (group_sessions[groupId].state  )
 
     this.searchGroupCallback(user_session, group_sessions[groupId]);
   },
