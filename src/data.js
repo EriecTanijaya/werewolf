@@ -10,11 +10,7 @@ const user_sessions = {};
 const updateSessionJob = new CronJob("* * * * * *", function() {
   for (let key in group_sessions) {
     if (group_sessions[key]) {
-      if (group_sessions[key].state === "idle") {
-        helper.resetAllUsers(group_sessions, user_sessions, key);
-        continue;
-      }
-
+      console.log(group_sessions[key]);
       if (group_sessions[key].time > 0) {
         group_sessions[key].time--;
       } else {
@@ -22,6 +18,8 @@ const updateSessionJob = new CronJob("* * * * * *", function() {
         let playersLength = group_sessions[key].players.length;
         if (playersLength < 5 && state === "new") {
           helper.resetAllUsers(group_sessions, user_sessions, key);
+        } else if (state === "idle") {
+          group_sessions[key].state = "inactive";
         }
       }
     }
@@ -127,7 +125,7 @@ module.exports = {
     /// for maintenance
     if (this.rawArgs.startsWith("/")) {
       // logging
-      console.log(this.args);
+      //console.log(this.args);
       if (user_session.id !== process.env.DEV_ID) {
         // semua grup ga bisa
         //return this.maintenanceRespond();
@@ -144,13 +142,24 @@ module.exports = {
         groupId: groupId,
         state: "idle",
         time_default: 0,
-        time: 0,
+        time: 300,
         players: []
       };
       group_sessions[groupId] = newGroup;
     }
 
-    this.searchGroupCallback(user_session, group_sessions[groupId]);
+    if (group_sessions[groupId].state === "inactive") {
+      let text = "👋 Sistem mendeteksi tidak ada permainan dalam 5 menit. ";
+      text += "Undang kembali jika mau main ya!";
+      this.replyText(text);
+      if (this.event.source.type === "group") {
+        this.client.leaveGroup(groupId);
+      } else {
+        this.client.leaveRoom(groupId);
+      }
+    } else {
+      this.searchGroupCallback(user_session, group_sessions[groupId]);
+    }
   },
 
   searchGroupCallback: function(user_session, group_session) {
@@ -289,7 +298,7 @@ module.exports = {
     this.saveUserData(oldUserData);
   },
 
-  resetAllPlayers: function(players) {
+  resetAllPlayers: function(players, groupId) {
     players.forEach(item => {
       let reset_player = {
         id: item.id,
@@ -305,6 +314,8 @@ module.exports = {
 
       this.getUserData(item.id, reset_player);
     });
+    
+    this.resetRoom(groupId);
   },
 
   resetRoom: function(groupId) {
