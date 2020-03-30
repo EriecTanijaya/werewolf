@@ -343,10 +343,10 @@ module.exports = {
       this.user_session.state = "active";
       this.user_session.groupId = this.group_session.groupId;
 
-      for (let i = 0; i < 8; i++) {
-        let newPlayer = this.createNewPlayer(this.user_session);
-        this.addPlayer(newPlayer);
-      }
+      //for (let i = 0; i < 8; i++) {
+      let newPlayer = this.createNewPlayer(this.user_session);
+      this.addPlayer(newPlayer);
+      //}
 
       let text = "💡 " + this.user_session.name + " berhasil bergabung!";
       return this.replyFlex(flex_text, [text, remindText]);
@@ -570,7 +570,7 @@ module.exports = {
     }
 
     this.group_session.state = "idle";
-    this.group_session.time = 0;
+    this.group_session.time = 300; // reset to initial time
 
     this.resetAllPlayers();
 
@@ -2685,6 +2685,7 @@ module.exports = {
       }
     });
 
+    this.group_session.time = 300; // reset to init time
     this.group_session.state = "idle";
 
     this.resetAllPlayers();
