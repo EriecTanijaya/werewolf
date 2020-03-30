@@ -10,11 +10,7 @@ const user_sessions = {};
 const updateSessionJob = new CronJob("* * * * * *", function() {
   for (let key in group_sessions) {
     if (group_sessions[key]) {
-      if (group_sessions[key].state === "idle") {
-        helper.resetAllUsers(group_sessions, user_sessions, key);
-        continue;
-      }
-
+      console.log(group_sessions[key]);
       if (group_sessions[key].time > 0) {
         group_sessions[key].time--;
       } else {
@@ -146,15 +142,24 @@ module.exports = {
         groupId: groupId,
         state: "idle",
         time_default: 0,
-        time: 300,
+        time: 10,
         players: []
       };
       group_sessions[groupId] = newGroup;
     }
-    
-    if (group_sessions[groupId].state  )
 
-    this.searchGroupCallback(user_session, group_sessions[groupId]);
+    if (group_sessions[groupId].state === "inactive") {
+      let text = "👋 Sistem mendeteksi tidak ada permainan dalam 5 menit. ";
+      text += "Undang kembali jika mau main ya!";
+      this.client.replyMessage()
+      if (this.event.source.type === "group") {
+        this.client.leaveGroup(groupId);
+      } else {
+        this.client.leaveRoom(groupId);
+      }
+    } else {
+      this.searchGroupCallback(user_session, group_sessions[groupId]);
+    }
   },
 
   searchGroupCallback: function(user_session, group_session) {
