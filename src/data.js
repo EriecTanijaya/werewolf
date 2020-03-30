@@ -10,7 +10,6 @@ const user_sessions = {};
 const updateSessionJob = new CronJob("* * * * * *", function() {
   for (let key in group_sessions) {
     if (group_sessions[key]) {
-      console.log(group_sessions[key]);
       if (group_sessions[key].time > 0) {
         group_sessions[key].time--;
       } else {
@@ -125,7 +124,7 @@ module.exports = {
     /// for maintenance
     if (this.rawArgs.startsWith("/")) {
       // logging
-      //console.log(this.args);
+      console.log(this.args);
       if (user_session.id !== process.env.DEV_ID) {
         // semua grup ga bisa
         //return this.maintenanceRespond();
@@ -151,12 +150,18 @@ module.exports = {
     if (group_sessions[groupId].state === "inactive") {
       let text = "👋 Sistem mendeteksi tidak ada permainan dalam 5 menit. ";
       text += "Undang kembali jika mau main ya!";
-      this.replyText(text);
-      if (this.event.source.type === "group") {
-        this.client.leaveGroup(groupId);
-      } else {
-        this.client.leaveRoom(groupId);
-      }
+      this.client
+        .replyMessage(this.event.replyToken, {
+          type: "text",
+          text: text
+        })
+        .then(() => {
+          if (this.event.source.type === "group") {
+            this.client.leaveGroup(groupId);
+          } else {
+            this.client.leaveRoom(groupId);
+          }
+        });
     } else {
       this.searchGroupCallback(user_session, group_sessions[groupId]);
     }
@@ -314,7 +319,7 @@ module.exports = {
 
       this.getUserData(item.id, reset_player);
     });
-    
+
     this.resetRoom(groupId);
   },
 
