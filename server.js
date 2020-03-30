@@ -13,33 +13,10 @@ const config = {
   channelSecret: process.env.CHANNEL_SECRET
 };
 
-let requests = [];
-let requestTrimThreshold = 3950;
-let requestTrimSize = 3500;
+let requestsQuota = 66 // in 1 minute
 app.use((req, res, next) => {
-  requests.push(Date.now());
-
-  // now keep requests array from growing forever
-  if (requests.length > requestTrimThreshold) {
-    requests = requests.slice(0, requests.length - requestTrimSize);
-  }
+  requestsQuota--;
   next();
-});
-
-app.get("/requests/minute", function(req, res) {
-  let now = Date.now();
-  let aMinuteAgo = now - 1000 * 60;
-  let cnt = 0;
-  // since recent requests are at the end of the array, search the array
-  // from back to front
-  for (let i = requests.length - 1; i >= 0; i--) {
-    if (requests[i] >= aMinuteAgo) {
-      ++cnt;
-    } else {
-      break;
-    }
-  }
-  res.json({ requestsLastMinute: cnt });
 });
 
 // for update rank once a week, on thursday
@@ -66,6 +43,13 @@ app.post("/callback", (req, res) => {
 });
 
 async function handleEvent(event) {
+  if (requestsQuota <= 0) {
+    return client.replyMessage(event.replyToken, {
+      type: "text",
+      text: text
+    })
+  }
+  
   //Note: should return! So Promise.all could catch the error
   if (event.type === "postback") {
     let rawArgs = event.postback.data;
