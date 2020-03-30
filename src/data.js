@@ -185,22 +185,26 @@ module.exports = {
 
   notAddError: async function(userId) {
     let text = "";
-    if (this.event.source.type === "group") {
-      let groupId = this.event.source.groupId;
-      let profile = await this.client.getGroupMemberProfile(groupId, userId);
-      text += "💡 " + profile.displayName;
-    } else if (this.event.source.type === "room") {
-      let groupId = this.event.source.roomId;
-      let profile = await this.client.getRoomMemberProfile(groupId, userId);
-      text += "💡 " + profile.displayName;
-    }
-    text +=
-      " gagal bergabung kedalam game, add dulu botnya" +
-      "\n" +
-      "https://line.me/ti/p/" +
-      process.env.BOT_ID;
+    try {
+      if (this.event.source.type === "group") {
+        let groupId = this.event.source.groupId;
+        let profile = await this.client.getGroupMemberProfile(groupId, userId);
+        text += "💡 " + profile.displayName;
+      } else if (this.event.source.type === "room") {
+        let groupId = this.event.source.roomId;
+        let profile = await this.client.getRoomMemberProfile(groupId, userId);
+        text += "💡 " + profile.displayName;
+      }
+      text +=
+        " gagal bergabung kedalam game, add dulu botnya" +
+        "\n" +
+        "https://line.me/ti/p/" +
+        process.env.BOT_ID;
 
-    return this.replyText(text);
+      return this.replyText(text);
+    } catch (err) {
+      console.log(err);
+    }
   },
 
   maintenanceRespond: async function() {
