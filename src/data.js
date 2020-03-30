@@ -127,7 +127,7 @@ module.exports = {
     /// for maintenance
     if (this.rawArgs.startsWith("/")) {
       // logging
-      console.log(this.args);
+      //console.log(this.args);
       if (user_session.id !== process.env.DEV_ID) {
         // semua grup ga bisa
         //return this.maintenanceRespond();
