@@ -13,11 +13,16 @@ const config = {
   channelSecret: process.env.CHANNEL_SECRET
 };
 
-let requestsQuota = 66 // in 1 minute
+let requestsQuota = 66; // in 1 minute
 app.use((req, res, next) => {
   requestsQuota--;
   next();
 });
+
+const resetRequestQuota = new CronJob("* * * * *", function() {
+  requestsQuota = 66;
+});
+resetRequestQuota.start();
 
 // for update rank once a week, on thursday
 // Thanks https://crontab.guru/examples.html
@@ -25,7 +30,6 @@ const updateRankJob = new CronJob("0 0 * * */4", function() {
   const reset = require("/app/src/reset");
   reset.usersPoint();
 });
-
 updateRankJob.start();
 
 app.use("/callback", line.middleware(config));
@@ -42,16 +46,24 @@ app.post("/callback", (req, res) => {
     });
 });
 
+function sendLimitResponse(event) {
+  let date = new Date();
+  let remainingSeconds = 60 - date.getSeconds();
+  let text = "💡 Maaf, server sedang macet. Mohon tunggu ";
+  text += remainingSeconds + " detik lagi";
+  return client.replyMessage(event.replyToken, {
+    type: "text",
+    text: text
+  });
+}
+
 async function handleEvent(event) {
-  if (requestsQuota <= 0) {
-    return client.replyMessage(event.replyToken, {
-      type: "text",
-      text: text
-    })
-  }
-  
   //Note: should return! So Promise.all could catch the error
   if (event.type === "postback") {
+    if (requestsQuota <= 0) {
+      return sendLimitResponse(event);
+    }
+
     let rawArgs = event.postback.data;
     const data = require("/app/src/data");
     return data.receive(client, event, rawArgs);
@@ -67,27 +79,13 @@ async function handleEvent(event) {
     return Promise.resolve(null);
   }
 
-  //logging
-  if (event.source.type === "group") {
-    //logChat(event.source.groupId, event.source.userId);
+  let rawArgs = event.message.text;
+  if (requestsQuota <= 0 && rawArgs.startsWith("/")) {
+    return sendLimitResponse(event);
   }
 
-  let rawArgs = event.message.text;
   const data = require("/app/src/data");
   return data.receive(client, event, rawArgs);
-
-  /** logging func **/
-
-  async function logChat(groupId, userId) {
-    let user = groupId + " // ";
-    try {
-      let profile = await client.getGroupMemberProfile(groupId, userId);
-      user += profile.displayName;
-    } catch (err) {
-      user += "ga add";
-    }
-    console.log(user + " : " + event.message.text);
-  }
 }
 
 // listen for requests :)
