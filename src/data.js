@@ -195,39 +195,35 @@ module.exports = {
         let profile = await this.client.getRoomMemberProfile(groupId, userId);
         text += "💡 " + profile.displayName;
       }
-      text +=
-        " gagal bergabung kedalam game, add dulu botnya" +
-        "\n" +
-        "https://line.me/ti/p/" +
-        process.env.BOT_ID;
-
+      text += " gagal bergabung kedalam game, add dulu botnya" + "\n";
+      text += "https://line.me/ti/p/" + process.env.BOT_ID;
       return this.replyText(text);
     } catch (err) {
-      console.log(err);
+      // dont do anything about this
     }
   },
 
   maintenanceRespond: async function() {
     let groupId = "";
     let userId = this.event.source.userId;
-
-    if (this.event.source.type === "group") {
-      groupId = this.event.source.groupId;
-    } else if (this.event.source.type === "room") {
-      groupId = this.event.source.roomId;
-    }
-
+    let text = "👋 Sorry ";
     let addonText =
       "💡 Untuk info lebih lanjut bisa cek di http://bit.ly/openchatww";
-
-    let profile = await this.client.getGroupMemberProfile(groupId, userId);
-    let text =
-      "👋 Sorry " +
-      profile.displayName +
-      ", botnya sedang maintenance. " +
-      addonText;
-
-    return this.replyText(text);
+    try {
+      if (this.event.source.type === "group") {
+        let groupId = this.event.source.groupId;
+        let profile = await this.client.getGroupMemberProfile(groupId, userId);
+        text += profile.displayName;
+      } else if (this.event.source.type === "room") {
+        let groupId = this.event.source.roomId;
+        let profile = await this.client.getRoomMemberProfile(groupId, userId);
+        text += profile.displayName;
+      }
+      text += ", botnya sedang maintenance. " + addonText;
+      return this.replyText(text);
+    } catch (err) {
+      // dont do anything about this
+    }
   },
 
   replyText: function(texts) {
