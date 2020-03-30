@@ -13,6 +13,35 @@ const config = {
   channelSecret: process.env.CHANNEL_SECRET
 };
 
+let requests = [];
+let requestTrimThreshold = 3950;
+let requestTrimSize = 3500;
+app.use((req, res, next) => {
+  requests.push(Date.now());
+
+  // now keep requests array from growing forever
+  if (requests.length > requestTrimThreshold) {
+    requests = requests.slice(0, requests.length - requestTrimSize);
+  }
+  next();
+});
+
+app.get("/requests/minute", function(req, res) {
+  let now = Date.now();
+  let aMinuteAgo = now - 1000 * 60;
+  let cnt = 0;
+  // since recent requests are at the end of the array, search the array
+  // from back to front
+  for (let i = requests.length - 1; i >= 0; i--) {
+    if (requests[i] >= aMinuteAgo) {
+      ++cnt;
+    } else {
+      break;
+    }
+  }
+  res.json({ requestsLastMinute: cnt });
+});
+
 // for update rank once a week, on thursday
 // Thanks https://crontab.guru/examples.html
 const updateRankJob = new CronJob("0 0 * * */4", function() {
