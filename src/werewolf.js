@@ -1961,7 +1961,7 @@ module.exports = {
 
             if (attackerLength > 1 || isBurned) {
               this.group_session.players[i].message +=
-                "💡 Tetapi nyawa kamu tidak berhasi diselamatkan!" + "\n\n";
+                "💡 Tetapi nyawa kamu tidak berhasil diselamatkan!" + "\n\n";
             } else {
               this.group_session.players[i].message +=
                 "🤕 Nyawa kamu berhasil diselamatkan!" + "\n\n";
