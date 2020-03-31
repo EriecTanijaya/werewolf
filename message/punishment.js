@@ -5,14 +5,16 @@ const punishment = [
   "gelitik 🐙",
   "bakar 🔥",
   "jual 💰",
-  "pacung",
-  "gebuk",
-  "infeksi corona",
-  "suntik mati",
-  "kubur hiduphidup",
-  "tenggelamkan",
-  "tampol",
-  "cubit 🤏"
+  "pacung 🤕",
+  "gebuk 👊",
+  "infeksi corona 🦠",
+  "suntik mati 💉",
+  "kubur hiduphidup ⚰️",
+  "tenggelamkan 🌊",
+  "tampol ✋",
+  "cubit 🤏",
+  "panah 🏹",
+  "apa apain 🤔"
 ];
 
 module.exports = punishment;
