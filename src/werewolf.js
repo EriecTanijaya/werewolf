@@ -816,7 +816,13 @@ module.exports = {
         break;
 
       case "new":
-        let text = "⏳ " + name + ", sisa waktu " + time + " detik lagi ";
+        let text = "⏳ " + name + ", sisa waktu ";
+        if (time > 90) {
+          let minute = Math.round(time / 60);
+          text += minute + " menit lagi";
+        } else {
+          text += time + " detik lagi";
+        }
         text += "untuk memulai game";
         return this.replyText(text);
 
