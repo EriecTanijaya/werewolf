@@ -1,0 +1,29 @@
+{
+  "id": "Uf9f5d3bb81796df39cc5a8c40c25ba05",
+  "name": "তᴾʳᵒᶠghivanka gomay.",
+  "points": 3,
+  "villagerStats": {
+    "win": 0,
+    "lose": 3
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

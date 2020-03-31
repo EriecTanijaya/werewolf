@@ -1,0 +1,29 @@
+{
+  "id": "Ub6e99c0a86d390923c2aca3e9d8c0422",
+  "name": "UMI ZEENA",
+  "points": 10,
+  "villagerStats": {
+    "win": 2,
+    "lose": 0
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

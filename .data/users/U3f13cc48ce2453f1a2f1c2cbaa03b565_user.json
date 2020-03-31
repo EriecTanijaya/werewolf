@@ -1,0 +1,29 @@
+{
+  "id": "U3f13cc48ce2453f1a2f1c2cbaa03b565",
+  "name": "Arya",
+  "points": 0,
+  "villagerStats": {
+    "win": 13,
+    "lose": 10
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 5
+  },
+  "vampireStats": {
+    "win": 1,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 1
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "id": "U25741279dde4301b2fce1ef4c1434c89",
+  "name": "༈ᶜᶜᴮKOMANDANᴿᶠᵗᵂᴬᵂ.",
+  "points": 21,
+  "villagerStats": {
+    "win": 2,
+    "lose": 4
+  },
+  "werewolfStats": {
+    "win": 1,
+    "lose": 2
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

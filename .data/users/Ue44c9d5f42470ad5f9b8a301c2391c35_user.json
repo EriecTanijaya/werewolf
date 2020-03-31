@@ -1,0 +1,29 @@
+{
+  "id": "Ue44c9d5f42470ad5f9b8a301c2391c35",
+  "name": "fira",
+  "points": 38,
+  "villagerStats": {
+    "win": 5,
+    "lose": 2
+  },
+  "werewolfStats": {
+    "win": 2,
+    "lose": 1
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

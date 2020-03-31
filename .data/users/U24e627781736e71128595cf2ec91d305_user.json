@@ -1,0 +1,29 @@
+{
+  "id": "U24e627781736e71128595cf2ec91d305",
+  "name": "𝘴𝘩𝘢𝘧𝘪𝘳𝘢 𝘴",
+  "points": 8,
+  "villagerStats": {
+    "win": 1,
+    "lose": 3
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

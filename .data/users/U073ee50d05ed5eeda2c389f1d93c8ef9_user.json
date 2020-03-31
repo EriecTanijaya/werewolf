@@ -1,0 +1,29 @@
+{
+  "id": "U073ee50d05ed5eeda2c389f1d93c8ef9",
+  "name": "KOKO",
+  "points": 12,
+  "villagerStats": {
+    "win": 1,
+    "lose": 2
+  },
+  "werewolfStats": {
+    "win": 1,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

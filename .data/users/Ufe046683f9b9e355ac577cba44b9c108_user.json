@@ -1,0 +1,29 @@
+{
+  "id": "Ufe046683f9b9e355ac577cba44b9c108",
+  "name": "Och",
+  "points": 0,
+  "villagerStats": {
+    "win": 1,
+    "lose": 2
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "id": "U28d74750ac6f93d5ec9bfcd1ae8c3051",
+  "name": "F5",
+  "points": 8,
+  "villagerStats": {
+    "win": 1,
+    "lose": 4
+  },
+  "werewolfStats": {
+    "win": 1,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 1
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

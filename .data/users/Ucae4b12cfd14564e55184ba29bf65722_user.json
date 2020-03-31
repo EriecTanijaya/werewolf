@@ -1,0 +1,29 @@
+{
+  "id": "Ucae4b12cfd14564e55184ba29bf65722",
+  "name": "tian",
+  "points": 12,
+  "villagerStats": {
+    "win": 13,
+    "lose": 5
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 3
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 1
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 1
+  },
+  "arsonistStats": {
+    "win": 1,
+    "lose": 0
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "id": "U12f6f5ec0bac1fdba6f097ac4ca93575",
+  "name": "walking like zombie",
+  "points": 0,
+  "villagerStats": {
+    "win": 2,
+    "lose": 0
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

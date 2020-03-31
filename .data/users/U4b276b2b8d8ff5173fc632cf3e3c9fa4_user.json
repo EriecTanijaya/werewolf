@@ -1,0 +1,29 @@
+{
+  "id": "U4b276b2b8d8ff5173fc632cf3e3c9fa4",
+  "name": "ii",
+  "points": 0,
+  "villagerStats": {
+    "win": 17,
+    "lose": 9
+  },
+  "werewolfStats": {
+    "win": 3,
+    "lose": 4
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 2
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 1
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 1
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

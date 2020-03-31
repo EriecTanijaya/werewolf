@@ -1,0 +1,29 @@
+{
+  "id": "U17da6a78eef5bc247f02c20d234583c6",
+  "name": "Regal Evan",
+  "points": 13,
+  "villagerStats": {
+    "win": 2,
+    "lose": 3
+  },
+  "werewolfStats": {
+    "win": 2,
+    "lose": 1
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "id": "Ue0085b4a4b5b5e68962cd6eefbe9b26d",
+  "name": "willy assegaf",
+  "points": 14,
+  "villagerStats": {
+    "win": 4,
+    "lose": 4
+  },
+  "werewolfStats": {
+    "win": 2,
+    "lose": 4
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

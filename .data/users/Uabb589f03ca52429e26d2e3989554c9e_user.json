@@ -1,0 +1,29 @@
+{
+  "id": "Uabb589f03ca52429e26d2e3989554c9e",
+  "name": "Cyntia/renjun_day",
+  "points": 0,
+  "villagerStats": {
+    "win": 1,
+    "lose": 1
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 1
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

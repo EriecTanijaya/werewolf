@@ -1,0 +1,29 @@
+{
+  "id": "U10135fbf84c2979a125050635041c0a7",
+  "name": ". Suci Mhr",
+  "points": 17,
+  "villagerStats": {
+    "win": 2,
+    "lose": 5
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 2
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

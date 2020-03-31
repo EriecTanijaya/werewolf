@@ -1,0 +1,29 @@
+{
+  "id": "Uf0e639ca6a0d3059950e501646ec9cea",
+  "name": "𝐵-𝒷𝒶𝒷𝓎 𝐵𝓌𝓊𝓃𝓃𝒶 🎀🐰",
+  "points": 8,
+  "villagerStats": {
+    "win": 1,
+    "lose": 8
+  },
+  "werewolfStats": {
+    "win": 1,
+    "lose": 2
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

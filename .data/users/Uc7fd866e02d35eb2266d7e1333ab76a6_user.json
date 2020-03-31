@@ -1,0 +1,29 @@
+{
+  "id": "Uc7fd866e02d35eb2266d7e1333ab76a6",
+  "name": "Lentera",
+  "points": 9,
+  "villagerStats": {
+    "win": 3,
+    "lose": 3
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 1
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

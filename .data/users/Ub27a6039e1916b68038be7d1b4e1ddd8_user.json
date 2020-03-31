@@ -1,0 +1,29 @@
+{
+  "id": "Ub27a6039e1916b68038be7d1b4e1ddd8",
+  "name": "Mas ʀᴀꜱᴇɴ ᴇʟɪᴏꜱਊ",
+  "points": 1,
+  "villagerStats": {
+    "win": 1,
+    "lose": 1
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

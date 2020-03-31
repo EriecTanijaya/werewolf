@@ -1,0 +1,29 @@
+{
+  "id": "Uc5581321f3d94d70228aebbce56c8de3",
+  "name": "Rashad.",
+  "points": 1,
+  "villagerStats": {
+    "win": 1,
+    "lose": 3
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

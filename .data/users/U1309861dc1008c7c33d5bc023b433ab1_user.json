@@ -1,0 +1,29 @@
+{
+  "id": "U1309861dc1008c7c33d5bc023b433ab1",
+  "name": "amanda",
+  "points": 5,
+  "villagerStats": {
+    "win": 2,
+    "lose": 2
+  },
+  "werewolfStats": {
+    "win": 1,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

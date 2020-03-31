@@ -1,0 +1,29 @@
+{
+  "id": "Ub1ac8a47d7dc4e746868457d9c75edcd",
+  "name": "Mountea",
+  "points": 0,
+  "villagerStats": {
+    "win": 1,
+    "lose": 5
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

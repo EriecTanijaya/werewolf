@@ -1,0 +1,29 @@
+{
+  "id": "U7c121655f14af679e629e1ac7e9c5305",
+  "name": "Lidia",
+  "points": 11,
+  "villagerStats": {
+    "win": 7,
+    "lose": 1
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 2
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

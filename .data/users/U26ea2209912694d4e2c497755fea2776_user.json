@@ -1,0 +1,29 @@
+{
+  "id": "U26ea2209912694d4e2c497755fea2776",
+  "name": "dorkib ayangnim",
+  "points": 7,
+  "villagerStats": {
+    "win": 2,
+    "lose": 2
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

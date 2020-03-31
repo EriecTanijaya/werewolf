@@ -1,0 +1,29 @@
+{
+  "id": "Ue99fc998a5dcf33d800f0a57fa71af32",
+  "name": "Rifdah Nanda",
+  "points": 0,
+  "villagerStats": {
+    "win": 0,
+    "lose": 3
+  },
+  "werewolfStats": {
+    "win": 2,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 1,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

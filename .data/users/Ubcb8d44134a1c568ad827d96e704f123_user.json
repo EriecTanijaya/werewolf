@@ -1,0 +1,29 @@
+{
+  "id": "Ubcb8d44134a1c568ad827d96e704f123",
+  "name": "Alma",
+  "points": 13,
+  "villagerStats": {
+    "win": 2,
+    "lose": 3
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

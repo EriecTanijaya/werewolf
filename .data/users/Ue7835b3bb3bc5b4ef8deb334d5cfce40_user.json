@@ -1,0 +1,29 @@
+{
+  "id": "Ue7835b3bb3bc5b4ef8deb334d5cfce40",
+  "name": "اঔ༒⠀ ༒⚜️ا",
+  "points": 8,
+  "villagerStats": {
+    "win": 11,
+    "lose": 11
+  },
+  "werewolfStats": {
+    "win": 1,
+    "lose": 4
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 1
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 1
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

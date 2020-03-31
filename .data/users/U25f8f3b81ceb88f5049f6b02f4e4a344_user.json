@@ -1,0 +1,29 @@
+{
+  "id": "U25f8f3b81ceb88f5049f6b02f4e4a344",
+  "name": "Oscar",
+  "points": 11,
+  "villagerStats": {
+    "win": 1,
+    "lose": 6
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

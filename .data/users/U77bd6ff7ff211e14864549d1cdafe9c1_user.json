@@ -1,0 +1,29 @@
+{
+  "id": "U77bd6ff7ff211e14864549d1cdafe9c1",
+  "name": "Sita Hilmi",
+  "points": 16,
+  "villagerStats": {
+    "win": 3,
+    "lose": 1
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

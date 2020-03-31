@@ -1,0 +1,29 @@
+{
+  "id": "U0b2c346e808b16d528b9c174c21f0854",
+  "name": "devan,",
+  "points": 23,
+  "villagerStats": {
+    "win": 3,
+    "lose": 3
+  },
+  "werewolfStats": {
+    "win": 1,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

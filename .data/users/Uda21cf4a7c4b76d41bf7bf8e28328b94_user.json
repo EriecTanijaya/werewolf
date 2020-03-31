@@ -1,0 +1,29 @@
+{
+  "id": "Uda21cf4a7c4b76d41bf7bf8e28328b94",
+  "name": "Thessa.",
+  "points": 4,
+  "villagerStats": {
+    "win": 0,
+    "lose": 3
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 1
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

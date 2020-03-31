@@ -1,0 +1,29 @@
+{
+  "id": "U3f193eeaa2d88128646e1b3fed05f4f4",
+  "name": "Daru",
+  "points": 14,
+  "villagerStats": {
+    "win": 3,
+    "lose": 2
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 2
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

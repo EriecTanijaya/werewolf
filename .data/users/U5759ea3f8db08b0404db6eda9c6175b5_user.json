@@ -1,0 +1,29 @@
+{
+  "id": "U5759ea3f8db08b0404db6eda9c6175b5",
+  "name": "Riho' ᴰᴮᴸᴴ ✨",
+  "points": 3,
+  "villagerStats": {
+    "win": 3,
+    "lose": 7
+  },
+  "werewolfStats": {
+    "win": 1,
+    "lose": 1
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 1
+  }
+}

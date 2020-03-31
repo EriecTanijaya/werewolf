@@ -1,0 +1,29 @@
+{
+  "id": "Uc69e31d8fb6b7e072101dce9dcc4c60b",
+  "name": "PRSDN BRAM",
+  "points": 26,
+  "villagerStats": {
+    "win": 1,
+    "lose": 6
+  },
+  "werewolfStats": {
+    "win": 3,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

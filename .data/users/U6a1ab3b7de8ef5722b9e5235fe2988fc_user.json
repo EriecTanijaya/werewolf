@@ -1,0 +1,29 @@
+{
+  "id": "U6a1ab3b7de8ef5722b9e5235fe2988fc",
+  "name": "Lutvian Mahardika",
+  "points": 25,
+  "villagerStats": {
+    "win": 6,
+    "lose": 8
+  },
+  "werewolfStats": {
+    "win": 4,
+    "lose": 2
+  },
+  "vampireStats": {
+    "win": 2,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 1,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 1,
+    "lose": 0
+  }
+}

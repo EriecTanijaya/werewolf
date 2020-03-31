@@ -1,0 +1,29 @@
+{
+  "id": "U456f7d98fc961f23b1180130c7814d8d",
+  "name": "hyunjeano",
+  "points": 0,
+  "villagerStats": {
+    "win": 0,
+    "lose": 4
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 1
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 1
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 1,
+    "lose": 0
+  }
+}

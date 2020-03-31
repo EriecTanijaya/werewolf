@@ -1,0 +1,29 @@
+{
+  "id": "U97f91676976818a9dbb2a01f04f19edd",
+  "name": "adilah",
+  "points": 16,
+  "villagerStats": {
+    "win": 8,
+    "lose": 6
+  },
+  "werewolfStats": {
+    "win": 3,
+    "lose": 3
+  },
+  "vampireStats": {
+    "win": 1,
+    "lose": 1
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 2
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 2
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

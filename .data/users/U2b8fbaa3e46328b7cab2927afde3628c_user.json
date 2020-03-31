@@ -1,0 +1,29 @@
+{
+  "id": "U2b8fbaa3e46328b7cab2927afde3628c",
+  "name": "biawaknafas.",
+  "points": 1,
+  "villagerStats": {
+    "win": 2,
+    "lose": 5
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

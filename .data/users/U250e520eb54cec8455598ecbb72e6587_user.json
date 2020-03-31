@@ -1,0 +1,29 @@
+{
+  "id": "U250e520eb54cec8455598ecbb72e6587",
+  "name": "ajeng",
+  "points": 6,
+  "villagerStats": {
+    "win": 0,
+    "lose": 4
+  },
+  "werewolfStats": {
+    "win": 2,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

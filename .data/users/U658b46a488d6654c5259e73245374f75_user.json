@@ -1,0 +1,29 @@
+{
+  "id": "U658b46a488d6654c5259e73245374f75",
+  "name": "Nirwana Aprilia N",
+  "points": 21,
+  "villagerStats": {
+    "win": 3,
+    "lose": 0
+  },
+  "werewolfStats": {
+    "win": 1,
+    "lose": 1
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "id": "U536f3b42544231a0aadbfcb8e724330f",
+  "name": "Jessica_syj",
+  "points": 16,
+  "villagerStats": {
+    "win": 6,
+    "lose": 5
+  },
+  "werewolfStats": {
+    "win": 3,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 1,
+    "lose": 1
+  }
+}

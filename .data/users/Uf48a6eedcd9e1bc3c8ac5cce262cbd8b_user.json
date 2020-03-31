@@ -1,0 +1,29 @@
+{
+  "id": "Uf48a6eedcd9e1bc3c8ac5cce262cbd8b",
+  "name": "christine",
+  "points": 2,
+  "villagerStats": {
+    "win": 1,
+    "lose": 4
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 1
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

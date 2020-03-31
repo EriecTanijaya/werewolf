@@ -1,0 +1,29 @@
+{
+  "id": "Uffb15665a7f2d882b05b9604fa8933fc",
+  "name": "Arsyil D. Wulandari",
+  "points": 34,
+  "villagerStats": {
+    "win": 4,
+    "lose": 4
+  },
+  "werewolfStats": {
+    "win": 2,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "id": "Ua828cf0a25295e68a37d66f889deb445",
+  "name": "faradiba",
+  "points": 32,
+  "villagerStats": {
+    "win": 6,
+    "lose": 0
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 2
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

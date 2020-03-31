@@ -1,0 +1,29 @@
+{
+  "id": "U050350a55403917ef5df71fb4062dc7a",
+  "name": "Fauzan Hamzah",
+  "points": 12,
+  "villagerStats": {
+    "win": 11,
+    "lose": 5
+  },
+  "werewolfStats": {
+    "win": 2,
+    "lose": 7
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 2
+  },
+  "tannerStats": {
+    "win": 1,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

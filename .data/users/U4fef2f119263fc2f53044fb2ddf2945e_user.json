@@ -1,0 +1,29 @@
+{
+  "id": "U4fef2f119263fc2f53044fb2ddf2945e",
+  "name": "Hasmy",
+  "points": 13,
+  "villagerStats": {
+    "win": 22,
+    "lose": 16
+  },
+  "werewolfStats": {
+    "win": 7,
+    "lose": 12
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 2
+  },
+  "tannerStats": {
+    "win": 1,
+    "lose": 1
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 1,
+    "lose": 0
+  }
+}

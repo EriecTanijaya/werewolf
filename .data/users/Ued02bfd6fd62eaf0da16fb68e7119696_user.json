@@ -1,0 +1,29 @@
+{
+  "id": "Ued02bfd6fd62eaf0da16fb68e7119696",
+  "name": "guling psk lb",
+  "points": 25,
+  "villagerStats": {
+    "win": 2,
+    "lose": 4
+  },
+  "werewolfStats": {
+    "win": 2,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 1
+  }
+}

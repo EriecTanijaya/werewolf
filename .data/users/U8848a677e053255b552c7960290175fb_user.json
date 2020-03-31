@@ -1,0 +1,29 @@
+{
+  "id": "U8848a677e053255b552c7960290175fb",
+  "name": "Reyin",
+  "points": 83,
+  "villagerStats": {
+    "win": 9,
+    "lose": 6
+  },
+  "werewolfStats": {
+    "win": 6,
+    "lose": 2
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "id": "U06bfb7816d66e16e4e0fc72102950f66",
+  "name": "aazizah",
+  "points": 0,
+  "villagerStats": {
+    "win": 0,
+    "lose": 7
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

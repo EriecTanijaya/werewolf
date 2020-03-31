@@ -1,0 +1,29 @@
+{
+  "id": "U8b56c777b04aaaddd3811b8fa6cb82d2",
+  "name": "Fynnnnnn",
+  "points": 0,
+  "villagerStats": {
+    "win": 3,
+    "lose": 0
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

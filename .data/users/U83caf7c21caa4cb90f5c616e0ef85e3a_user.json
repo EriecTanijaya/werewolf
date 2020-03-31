@@ -1,0 +1,29 @@
+{
+  "id": "U83caf7c21caa4cb90f5c616e0ef85e3a",
+  "name": "Eriec Tan",
+  "points": 17,
+  "villagerStats": {
+    "win": 6,
+    "lose": 11
+  },
+  "werewolfStats": {
+    "win": 5,
+    "lose": 4
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 1
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 1,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

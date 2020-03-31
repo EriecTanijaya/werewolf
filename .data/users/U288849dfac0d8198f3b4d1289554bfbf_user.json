@@ -1,0 +1,29 @@
+{
+  "id": "U288849dfac0d8198f3b4d1289554bfbf",
+  "name": "Mitsuzawa Madara",
+  "points": 13,
+  "villagerStats": {
+    "win": 2,
+    "lose": 3
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

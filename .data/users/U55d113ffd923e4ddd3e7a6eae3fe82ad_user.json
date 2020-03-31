@@ -1,0 +1,29 @@
+{
+  "id": "U55d113ffd923e4ddd3e7a6eae3fe82ad",
+  "name": "Rafii",
+  "points": 28,
+  "villagerStats": {
+    "win": 4,
+    "lose": 1
+  },
+  "werewolfStats": {
+    "win": 1,
+    "lose": 2
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

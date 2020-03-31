@@ -1,0 +1,29 @@
+{
+  "id": "U5eb8fc0064034a51f8d954d653412187",
+  "name": "Yerin Baek🌼",
+  "points": 35,
+  "villagerStats": {
+    "win": 5,
+    "lose": 3
+  },
+  "werewolfStats": {
+    "win": 1,
+    "lose": 2
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

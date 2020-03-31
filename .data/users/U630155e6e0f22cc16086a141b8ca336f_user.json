@@ -1,0 +1,29 @@
+{
+  "id": "U630155e6e0f22cc16086a141b8ca336f",
+  "name": "Black Kitty",
+  "points": 17,
+  "villagerStats": {
+    "win": 2,
+    "lose": 3
+  },
+  "werewolfStats": {
+    "win": 1,
+    "lose": 2
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

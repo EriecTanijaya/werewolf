@@ -1,0 +1,29 @@
+{
+  "id": "U8236e5704480eb8eddaadd7432a3f1fa",
+  "name": "David",
+  "points": 9,
+  "villagerStats": {
+    "win": 1,
+    "lose": 4
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

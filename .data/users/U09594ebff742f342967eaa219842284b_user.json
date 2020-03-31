@@ -1,0 +1,29 @@
+{
+  "id": "U09594ebff742f342967eaa219842284b",
+  "name": "Andi Wahyu KM",
+  "points": 3,
+  "villagerStats": {
+    "win": 2,
+    "lose": 4
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 2
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

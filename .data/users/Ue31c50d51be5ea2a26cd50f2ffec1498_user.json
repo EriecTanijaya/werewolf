@@ -1,0 +1,29 @@
+{
+  "id": "Ue31c50d51be5ea2a26cd50f2ffec1498",
+  "name": "Gracela Felicia",
+  "points": 0,
+  "villagerStats": {
+    "win": 2,
+    "lose": 0
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

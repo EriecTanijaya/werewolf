@@ -1,0 +1,29 @@
+{
+  "id": "U088ecc6c9cf09d58e2c5ad69eb4ba09b",
+  "name": "Imel",
+  "points": 53,
+  "villagerStats": {
+    "win": 8,
+    "lose": 10
+  },
+  "werewolfStats": {
+    "win": 7,
+    "lose": 5
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 1
+  },
+  "tannerStats": {
+    "win": 1,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

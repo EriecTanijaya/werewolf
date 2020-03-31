@@ -1,0 +1,29 @@
+{
+  "id": "U5e916510c6efb957ee7d19db5b2181f4",
+  "name": "𝙏𝙚𝘼 '-𝘝𝘰𝘥𝘬𝘢'-bejo",
+  "points": 0,
+  "villagerStats": {
+    "win": 1,
+    "lose": 0
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 1
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

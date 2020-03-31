@@ -1,0 +1,29 @@
+{
+  "id": "U2eff836ef83b1dfccbd57db718e7765e",
+  "name": "Angel.A",
+  "points": 15,
+  "villagerStats": {
+    "win": 17,
+    "lose": 5
+  },
+  "werewolfStats": {
+    "win": 2,
+    "lose": 3
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

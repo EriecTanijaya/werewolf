@@ -1,0 +1,29 @@
+{
+  "id": "Ub61cd8d70fda79c8eb53f91cc9d13004",
+  "name": "Dynda safitri",
+  "points": 0,
+  "villagerStats": {
+    "win": 2,
+    "lose": 0
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

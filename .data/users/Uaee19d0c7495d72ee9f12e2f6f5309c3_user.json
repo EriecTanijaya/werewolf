@@ -1,0 +1,29 @@
+{
+  "id": "Uaee19d0c7495d72ee9f12e2f6f5309c3",
+  "name": "Arabella",
+  "points": 56,
+  "villagerStats": {
+    "win": 10,
+    "lose": 7
+  },
+  "werewolfStats": {
+    "win": 4,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "id": "Uc75855836ea3c6aa18f00dcc2770b440",
+  "name": "Athallah",
+  "points": 6,
+  "villagerStats": {
+    "win": 6,
+    "lose": 8
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 4
+  },
+  "vampireStats": {
+    "win": 1,
+    "lose": 2
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 1,
+    "lose": 2
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

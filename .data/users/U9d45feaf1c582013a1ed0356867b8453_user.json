@@ -1,0 +1,29 @@
+{
+  "id": "U9d45feaf1c582013a1ed0356867b8453",
+  "name": "jasmine",
+  "points": 34,
+  "villagerStats": {
+    "win": 6,
+    "lose": 4
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "id": "Udd6ad4c0cd2bfcdb4960e80abda64c25",
+  "name": "Ranibws",
+  "points": 16,
+  "villagerStats": {
+    "win": 3,
+    "lose": 1
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

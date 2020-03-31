@@ -1,0 +1,29 @@
+{
+  "id": "U2846cff9a996f7881d4642cb0fa44dd9",
+  "name": "Muhammad Hanafi",
+  "points": 25,
+  "villagerStats": {
+    "win": 4,
+    "lose": 5
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "id": "U939f2ef0a84318d82f19fc5fe00d5c3d",
+  "name": "Shiina",
+  "points": 25,
+  "villagerStats": {
+    "win": 4,
+    "lose": 6
+  },
+  "werewolfStats": {
+    "win": 4,
+    "lose": 1
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

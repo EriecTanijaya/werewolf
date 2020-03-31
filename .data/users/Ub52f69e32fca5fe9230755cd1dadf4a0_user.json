@@ -1,0 +1,29 @@
+{
+  "id": "Ub52f69e32fca5fe9230755cd1dadf4a0",
+  "name": "✮Zuyiᶠʳˡ",
+  "points": 15,
+  "villagerStats": {
+    "win": 3,
+    "lose": 0
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

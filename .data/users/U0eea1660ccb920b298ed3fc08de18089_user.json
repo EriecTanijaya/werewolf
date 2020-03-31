@@ -1,0 +1,29 @@
+{
+  "id": "U0eea1660ccb920b298ed3fc08de18089",
+  "name": "joan",
+  "points": 13,
+  "villagerStats": {
+    "win": 1,
+    "lose": 5
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 3
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

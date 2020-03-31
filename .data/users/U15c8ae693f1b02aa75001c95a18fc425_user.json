@@ -1,0 +1,29 @@
+{
+  "id": "U15c8ae693f1b02aa75001c95a18fc425",
+  "name": "Chevron",
+  "points": 17,
+  "villagerStats": {
+    "win": 3,
+    "lose": 2
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

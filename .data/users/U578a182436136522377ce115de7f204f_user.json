@@ -1,0 +1,29 @@
+{
+  "id": "U578a182436136522377ce115de7f204f",
+  "name": "hihajakii",
+  "points": 1,
+  "villagerStats": {
+    "win": 3,
+    "lose": 8
+  },
+  "werewolfStats": {
+    "win": 1,
+    "lose": 3
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 1
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

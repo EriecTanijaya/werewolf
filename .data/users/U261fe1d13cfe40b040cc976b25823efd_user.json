@@ -1,0 +1,29 @@
+{
+  "id": "U261fe1d13cfe40b040cc976b25823efd",
+  "name": "ᶳᵟᣗ᪰ᵉᵗ Dinda'adp",
+  "points": 0,
+  "villagerStats": {
+    "win": 1,
+    "lose": 2
+  },
+  "werewolfStats": {
+    "win": 1,
+    "lose": 1
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "id": "U7cec980dddb91b580bf7c56b56868c3a",
+  "name": "Pres Dito for stella",
+  "points": 34,
+  "villagerStats": {
+    "win": 2,
+    "lose": 4
+  },
+  "werewolfStats": {
+    "win": 4,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

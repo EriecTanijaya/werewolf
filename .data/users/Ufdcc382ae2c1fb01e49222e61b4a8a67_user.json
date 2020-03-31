@@ -1,0 +1,29 @@
+{
+  "id": "Ufdcc382ae2c1fb01e49222e61b4a8a67",
+  "name": "𝐘 𝐔 𝐃 𝐇 𝐀🤘👌🤟",
+  "points": 2,
+  "villagerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 2
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

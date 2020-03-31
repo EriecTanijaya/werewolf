@@ -1,0 +1,29 @@
+{
+  "id": "Ue5c39de03b1f90eb909f4309e9adc709",
+  "name": "muhammad azhraf",
+  "points": 15,
+  "villagerStats": {
+    "win": 0,
+    "lose": 3
+  },
+  "werewolfStats": {
+    "win": 2,
+    "lose": 2
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

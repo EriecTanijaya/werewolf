@@ -1,0 +1,29 @@
+{
+  "id": "Uee4b7e103e5cb9d9ec6d123afd7bc15c",
+  "name": "Dek Airrr`Pres Jukaf",
+  "points": 20,
+  "villagerStats": {
+    "win": 1,
+    "lose": 3
+  },
+  "werewolfStats": {
+    "win": 1,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 1,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 2
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

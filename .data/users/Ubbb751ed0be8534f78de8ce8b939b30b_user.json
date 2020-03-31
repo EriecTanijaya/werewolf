@@ -1,0 +1,29 @@
+{
+  "id": "Ubbb751ed0be8534f78de8ce8b939b30b",
+  "name": "belva",
+  "points": 11,
+  "villagerStats": {
+    "win": 11,
+    "lose": 3
+  },
+  "werewolfStats": {
+    "win": 2,
+    "lose": 3
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

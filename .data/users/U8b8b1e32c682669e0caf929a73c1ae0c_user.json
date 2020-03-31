@@ -1,0 +1,29 @@
+{
+  "id": "U8b8b1e32c682669e0caf929a73c1ae0c",
+  "name": "Capt.rź❤️❤️❤️❤️❤️",
+  "points": 3,
+  "villagerStats": {
+    "win": 0,
+    "lose": 3
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

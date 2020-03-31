@@ -1,0 +1,29 @@
+{
+  "id": "U27bb1bfb4b1e0c3cc38ab240411c4c12",
+  "name": "dandi",
+  "points": 37,
+  "villagerStats": {
+    "win": 8,
+    "lose": 2
+  },
+  "werewolfStats": {
+    "win": 2,
+    "lose": 0
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 1
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 1
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

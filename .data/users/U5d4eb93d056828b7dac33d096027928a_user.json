@@ -1,0 +1,29 @@
+{
+  "id": "U5d4eb93d056828b7dac33d096027928a",
+  "name": "jo",
+  "points": 16,
+  "villagerStats": {
+    "win": 1,
+    "lose": 3
+  },
+  "werewolfStats": {
+    "win": 1,
+    "lose": 1
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 1
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 1
+  }
+}

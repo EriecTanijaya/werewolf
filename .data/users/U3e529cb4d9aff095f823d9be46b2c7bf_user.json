@@ -1,0 +1,29 @@
+{
+  "id": "U3e529cb4d9aff095f823d9be46b2c7bf",
+  "name": "aulia",
+  "points": 0,
+  "villagerStats": {
+    "win": 11,
+    "lose": 7
+  },
+  "werewolfStats": {
+    "win": 2,
+    "lose": 5
+  },
+  "vampireStats": {
+    "win": 1,
+    "lose": 1
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 1
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 1
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}

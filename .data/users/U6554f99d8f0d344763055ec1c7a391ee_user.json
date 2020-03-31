@@ -1,0 +1,29 @@
+{
+  "id": "U6554f99d8f0d344763055ec1c7a391ee",
+  "name": "rae",
+  "points": 11,
+  "villagerStats": {
+    "win": 12,
+    "lose": 5
+  },
+  "werewolfStats": {
+    "win": 0,
+    "lose": 3
+  },
+  "vampireStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "tannerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "serialKillerStats": {
+    "win": 0,
+    "lose": 0
+  },
+  "arsonistStats": {
+    "win": 0,
+    "lose": 0
+  }
+}
