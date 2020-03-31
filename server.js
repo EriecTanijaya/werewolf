@@ -12,7 +12,6 @@ const config = {
   channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN,
   channelSecret: process.env.CHANNEL_SECRET
 };
-const client = new line.Client(config);
 
 let requestsQuota = 75; // in 1 minute
 app.use((req, res, next) => {
@@ -21,7 +20,7 @@ app.use((req, res, next) => {
 });
 
 const resetRequestQuota = new CronJob("* * * * *", function() {
-  requestsQuota = 66;
+  requestsQuota = 75;
 });
 resetRequestQuota.start();
 
@@ -36,6 +35,8 @@ updateRankJob.start();
 app.use("/callback", line.middleware(config));
 
 app.get("/", (req, res) => res.sendStatus(200));
+
+const client = new line.Client(config);
 
 app.post("/callback", (req, res) => {
   Promise.all(req.body.events.map(handleEvent))
@@ -74,6 +75,7 @@ async function handleEvent(event) {
       const other = require("/app/src/other");
       return other.receive(client, event);
     }
+
     return Promise.resolve(null);
   }
 
