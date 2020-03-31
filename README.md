@@ -1,4 +1,4 @@
-# werewolf
+# Werewolf
 
 <p style="text-align: center;">
   <img alt="last commit" src="https://img.shields.io/github/last-commit/EriecTanijaya/werewolf.svg?style=for-the-badge" />
