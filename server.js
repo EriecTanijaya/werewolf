@@ -13,7 +13,7 @@ const config = {
   channelSecret: process.env.CHANNEL_SECRET
 };
 
-let requestsQuota = 66; // in 1 minute
+let requestsQuota = 75; // in 1 minute
 app.use((req, res, next) => {
   requestsQuota--;
   next();
