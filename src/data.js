@@ -363,7 +363,7 @@ module.exports = {
     let onlineGroupsCount = 0;
     Object.keys(group_sessions).forEach(key => {
       let group = group_sessions[key];
-      if (group && group.state !== "idle") {
+      if (group && group.state !== "idle" && group.state !== "inactive") {
         onlineGroupsCount++;
       }
     });
