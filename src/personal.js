@@ -183,6 +183,10 @@ module.exports = {
   },
 
   targetCommand: function() {
+    if (this.group_session.state === "new") {
+      return this.replyText("💡 Game belum dimulai");
+    }
+    
     let index = this.indexOfPlayer();
     let players = this.group_session.players;
     let state = this.group_session.state;
@@ -211,6 +215,10 @@ module.exports = {
     }
 
     let targetIndex = this.args[1];
+    
+    if (targetIndex === undefined) {
+      return this.roleCommand();
+    }
 
     /// special role with private prop
     if (roleName === "retributionist") {
