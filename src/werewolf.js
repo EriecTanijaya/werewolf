@@ -343,10 +343,10 @@ module.exports = {
       this.user_session.state = "active";
       this.user_session.groupId = this.group_session.groupId;
 
-      //for (let i = 0; i < 8; i++) {
+      for (let i = 0; i < 5; i++) {
       let newPlayer = this.createNewPlayer(this.user_session);
       this.addPlayer(newPlayer);
-      //}
+      }
 
       let text = "💡 " + this.user_session.name + " berhasil bergabung!";
       return this.replyFlex(flex_text, [text, remindText]);
@@ -2922,7 +2922,7 @@ module.exports = {
     let roles = [];
     let townNeedCount = Math.round(playersLength / 2) + 1;
     let badNeedCount = playersLength - townNeedCount;
-    
+
     let teams = helper.getRandomTeams();
     let townTeam = teams.town;
 
@@ -2934,7 +2934,7 @@ module.exports = {
       townTeam.forEach(item => {
         roles.push(item);
       });
-      let badRole = helper.random(["werewolf", "serial-killer"])
+      let badRole = helper.random(["werewolf", "serial-killer"]);
       roles.push(badRole, "tanner");
     }
 
@@ -2951,7 +2951,7 @@ module.exports = {
     let roles = [];
     let neutralIndex = 0;
     let werewolfIndex = 0;
-    
+
     let teams = helper.getRandomTeams();
     let townTeam = teams.town;
     let werewolfTeam = teams.werewolf;
