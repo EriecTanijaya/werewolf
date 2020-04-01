@@ -2922,39 +2922,45 @@ module.exports = {
     let roles = [];
     let townNeedCount = Math.round(playersLength / 2) + 1;
     let badNeedCount = playersLength - townNeedCount;
-    roles = this.getRoleSet(townNeedCount, badNeedCount);
+    
+    let teams = helper.getRandomTeams();
+    let townTeam = teams.town;
+
+    if (playersLength !== 6) {
+      roles = this.getRoleSet(townNeedCount, badNeedCount);
+    } else {
+      // bad practice, but who cares?
+      townTeam.length = townNeedCount;
+      townTeam.forEach(item => {
+        roles.push(item);
+      });
+      let badRole = helper.random(["werewolf", "serial-killer"])
+      roles.push(badRole, "tanner");
+    }
+
     roles = helper.shuffleArray(roles);
     return roles;
   },
 
   getRoleSet: function(townNeedCount, badNeedCount) {
-    // "vigilante", "vampire-hunter", "sheriff"
-
-    // bisa juga untuk tandain berapa jumlah role yg sudah ditambahkan
-    // kalau index nya 2, berarti uda 2 role dideploy
-    // yaitu index 0, sama index 1
+    /* 
+      bisa juga untuk tandain berapa jumlah role yg sudah ditambahkan
+      kalau index nya 2, berarti uda 2 role dideploy
+      yaitu index 0, sama index 1 
+    */
+    let roles = [];
     let neutralIndex = 0;
     let werewolfIndex = 0;
+    
+    let teams = helper.getRandomTeams();
+    let townTeam = teams.town;
+    let werewolfTeam = teams.werewolf;
+    let neutralTeam = teams.neutral;
 
     // jumlah ww dibatasin 75% dari badNeedCount Quota
     let werewolfNeedCount = Math.round((75 / 100) * badNeedCount);
     let neutralNeedCount = badNeedCount - werewolfNeedCount;
     let needSheriff = false;
-    let roles = [];
-    let townTeam = [
-      "seer",
-      "doctor",
-      "escort",
-      "veteran",
-      "lookout",
-      "retributionist"
-    ];
-    let werewolfTeam = ["werewolf-cub", "sorcerer", "consort"];
-    let neutralTeam = ["serial-killer", "arsonist", "tanner", "vampire"];
-
-    helper.shuffleArray(townTeam);
-    helper.shuffleArray(werewolfTeam);
-    helper.shuffleArray(neutralTeam);
 
     roles.push("werewolf");
 
@@ -3020,7 +3026,6 @@ module.exports = {
     }
 
     townTeam.length = townNeedCount;
-
     townTeam.forEach(item => {
       roles.push(item);
     });
