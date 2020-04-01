@@ -13,6 +13,28 @@ module.exports = {
     });
     this.resetRoom(group_sessions, key);
   },
+  
+  getRandomTeams: function() {
+    let teams = {
+      town: [],
+      werewolf: [],
+      neutral: []
+    }
+    let townTeam = [
+      "seer",
+      "doctor",
+      "escort",
+      "veteran",
+      "lookout",
+      "retributionist"
+    ];
+    let werewolfTeam = ["werewolf-cub", "sorcerer", "consort"];
+    let neutralTeam = ["serial-killer", "arsonist", "tanner", "vampire"];
+    teams.town = this.shuffleArray(townTeam);
+    teams.werewolf = this.shuffleArray(werewolfTeam);
+    teams.neutral = this.shuffleArray(neutralTeam);
+    return teams;
+  },
 
   getFlexColor: function() {
     let color = {};
