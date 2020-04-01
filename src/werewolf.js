@@ -3034,14 +3034,14 @@ module.exports = {
     let time = 0;
 
     if (playersLength === 3) {
-      time = 40;
+      time = 45;
     } else if (playersLength > 10) {
       time = 100;
     } else {
       // 4 - 9 players logic
       let temp = playersLength;
       while (temp) {
-        time += 0.9;
+        time += 0.95;
         temp--;
       }
       time = Math.round(time) * 10;
