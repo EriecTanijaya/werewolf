@@ -2925,14 +2925,17 @@ module.exports = {
     
     let teams = helper.getRandomTeams();
     let townTeam = teams.town;
-    let werewolfTeam = teams.werewolf;
-    let neutralTeam = teams.neutral;
 
     if (playersLength !== 6) {
       roles = this.getRoleSet(townNeedCount, badNeedCount);
     } else {
       // bad practice, but who cares?
-      
+      townTeam.length = townNeedCount;
+      townTeam.forEach(item => {
+        roles.push(item);
+      });
+      let badRole = helper.random(["werewolf", "serial-killer"])
+      roles.push(badRole, "tanner");
     }
 
     roles = helper.shuffleArray(roles);
@@ -2948,6 +2951,11 @@ module.exports = {
     let roles = [];
     let neutralIndex = 0;
     let werewolfIndex = 0;
+    
+    let teams = helper.getRandomTeams();
+    let townTeam = teams.town;
+    let werewolfTeam = teams.werewolf;
+    let neutralTeam = teams.neutral;
 
     // jumlah ww dibatasin 75% dari badNeedCount Quota
     let werewolfNeedCount = Math.round((75 / 100) * badNeedCount);
@@ -3018,7 +3026,6 @@ module.exports = {
     }
 
     townTeam.length = townNeedCount;
-
     townTeam.forEach(item => {
       roles.push(item);
     });
