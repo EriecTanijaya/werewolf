@@ -20,7 +20,7 @@ app.use((req, res, next) => {
 });
 
 const resetRequestQuota = new CronJob("* * * * *", function() {
-  requestsQuota = 66;
+  requestsQuota = 75;
 });
 resetRequestQuota.start();
 
