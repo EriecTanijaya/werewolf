@@ -18,7 +18,9 @@ const updateSessionJob = new CronJob("* * * * * *", function() {
         if (playersLength < 5 && state === "new") {
           helper.resetAllUsers(group_sessions, user_sessions, key);
         } else if (state === "idle") {
-          group_sessions[key].state = "inactive";
+          if (group_sessions[key].groupId !== process.env.TEST_GROUP) {
+            group_sessions[key].state = "inactive";
+          }
         }
       }
     }
