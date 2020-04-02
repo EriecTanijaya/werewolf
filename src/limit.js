@@ -1,3 +1,3 @@
 module.exports = { 
-  requestsQuota: 75
+  requestsQuota: 7
 }

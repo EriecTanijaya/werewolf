@@ -14,14 +14,15 @@ const config = {
 };
 const client = new line.Client(config);
 
-let requestsQuota = require(; // in 1 minute
+let { requestsQuota } = require("/app/src/limit"); // in 1 minute
 app.use((req, res, next) => {
   requestsQuota--;
   next();
 });
 
 const resetRequestQuota = new CronJob("* * * * *", function() {
-  requestsQuota = 75;
+  console.log(`reset quota`);
+  requestsQuota = 7;
 });
 resetRequestQuota.start();
 
