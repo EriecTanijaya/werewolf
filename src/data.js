@@ -6,19 +6,11 @@ const CronJob = require("cron").CronJob;
 const group_sessions = {};
 const user_sessions = {};
 
-const { requestsQuota } = require("/app/src/limit");
-
 // Update session
 const updateSessionJob = new CronJob("* * * * * *", function() {
   for (let key in group_sessions) {
     if (group_sessions[key]) {
       if (group_sessions[key].time > 0) {
-        console.log(`requestsQuota: ${requestsQuota}`)
-        console.log(`${key} time: ${group_sessions[key].time}`);
-        if (requestsQuota <= 0) {
-          console.log(`${key} tidak dikurangi timernya, soalnya limit`);
-          continue;
-        }
         group_sessions[key].time--;
       } else {
         let state = group_sessions[key].state;
