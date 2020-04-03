@@ -6,11 +6,10 @@ const CronJob = require("cron").CronJob;
 const group_sessions = {};
 const user_sessions = {};
 
+let isSpam = false;
+
 // Update session
 const updateSessionJob = new CronJob("* * * * * *", function() {
-  let d = new Date();
-  let s = d.getSeconds();
-  console.log(s);
   for (let key in group_sessions) {
     if (group_sessions[key]) {
       if (group_sessions[key].time > 0) {
@@ -263,13 +262,20 @@ module.exports = {
   },
 
   replyText: function(texts) {
+    if (isSpam) r
+    
     texts = Array.isArray(texts) ? texts : [texts];
-    let replyToken = this.event.replyToken;
-    console.log(replyToken);
     return this.client
-      .replyMessage(replyToken, texts.map(text => ({ type: "text", text })))
+      .replyMessage(
+        this.event.replyToken,
+        texts.map(text => ({ type: "text", text }))
+      )
       .catch(err => {
-        console.log(err.originalError.response.data);
+        let msg = err.originalError.response.data
+        if (msg === "Invalid reply token") {
+          isSpam = true;
+          console.log("its spam!");
+        }
       });
   },
 
@@ -379,7 +385,6 @@ module.exports = {
         return this.limitResponse();
       }
     }
-    console.log(eventId);
     this.pauseTime(eventId.groupId);
     this.limitResponse();
   },
