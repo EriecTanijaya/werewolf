@@ -56,6 +56,17 @@ function sendLimitResponse(event) {
   });
 }
 
+function checkGroupSession(event) {
+  const data = require("/app/src/data");
+  let eventType = event.source.type;
+
+  if (eventType === "group" || eventType === "room") {
+    let groupId =
+      eventType === "group" ? event.source.groupId : event.source.roomId;
+    data.pauseTime(groupId);
+  }
+}
+
 async function handleEvent(event) {
   //Note: should return! So Promise.all could catch the error
   if (event.type === "postback") {
