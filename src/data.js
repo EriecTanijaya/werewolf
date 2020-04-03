@@ -8,6 +8,8 @@ const user_sessions = {};
 
 // Update session
 const updateSessionJob = new CronJob("* * * * * *", function() {
+  let d = new Date();
+  let s = d.getSeconds();
   console.log(s);
   for (let key in group_sessions) {
     if (group_sessions[key]) {
