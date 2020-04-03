@@ -10,12 +10,8 @@ const user_sessions = {};
 const updateSessionJob = new CronJob("* * * * * *", function() {
   for (let key in group_sessions) {
     if (group_sessions[key]) {
-      console.log(`${key} : ${group_sessions[key].time}`);
-      console.log(`is pause : ${group_sessions[key].isPause}`);
       if (group_sessions[key].time > 0) {
-        if (!group_sessions[key].isPause) {
-          group_sessions[key].time--;
-        }
+        group_sessions[key].time--;
       } else {
         let state = group_sessions[key].state;
         let playersLength = group_sessions[key].players.length;
@@ -148,7 +144,6 @@ module.exports = {
         state: "idle",
         time_default: 0,
         time: 300,
-        isPause: false,
         players: []
       };
       group_sessions[groupId] = newGroup;
@@ -175,12 +170,6 @@ module.exports = {
   },
 
   searchGroupCallback: function(user_session, group_session) {
-    // kalau sudah tidak limit, bisa sampai sini dong
-    // jadi set ke false lagi isPause nya kalau sebelumnya di pause
-    if (group_session.isPause) {
-      group_session.isPause = false;
-    }
-
     return this.forwardProcess(user_session, group_session);
   },
 
@@ -209,14 +198,6 @@ module.exports = {
   },
 
   /** message func **/
-
-  limitResponse: async function() {
-    let date = new Date();
-    let remainingSeconds = 60 - date.getSeconds();
-    let text = "💡 Maaf, server sedang macet. Mohon tunggu ";
-    text += remainingSeconds + " detik lagi";
-    return this.replyText(text);
-  },
 
   notAddError: async function(userId) {
     let text = "";
@@ -362,29 +343,6 @@ module.exports = {
   },
 
   /** helper func **/
-
-  checkSession: function(eventId) {
-    if (!eventId.groupId) {
-      // kemungkinan di pc bot,
-      // cek group_session active atau engga
-      let user_session = user_sessions[eventId.userId];
-      if (user_session && user_session.state === "active") {
-        eventId.groupId = user_session.groupId;
-      } else {
-        // ini kalau ga ada user_session / karna user gak active
-        return this.limitResponse();
-      }
-    }
-
-    this.pauseTime(eventId.groupId);
-    this.limitResponse();
-  },
-
-  pauseTime: function(groupId) {
-    if (group_sessions[groupId]) {
-      group_sessions[groupId].isPause = true;
-    }
-  },
 
   handleLeftUser: function(userId) {
     if (user_sessions[userId] && user_sessions[userId].state === "inactive") {
