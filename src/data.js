@@ -10,8 +10,17 @@ let isSpam = false;
 
 // Update session
 const updateSessionJob = new CronJob("* * * * * *", function() {
+  let d = new Date();
+  let s = d.getSeconds();
+  if (s === 59) isSpam = false;
+  
   for (let key in group_sessions) {
     if (group_sessions[key]) {
+      let time = group_sessions[key].time;
+      let isPause = group_sessions[key].isPause;
+      console.log(`groupId: ${key}
+      time: ${time}
+      isPause: ${isPause}`);
       if (group_sessions[key].time > 0) {
         if (!group_sessions[key].isPause) {
           group_sessions[key].time--;
@@ -262,7 +271,7 @@ module.exports = {
   },
 
   replyText: function(texts) {
-    if (isSpam) r
+    if (isSpam) return Promise.resolve(null);
     
     texts = Array.isArray(texts) ? texts : [texts];
     return this.client
@@ -271,7 +280,8 @@ module.exports = {
         texts.map(text => ({ type: "text", text }))
       )
       .catch(err => {
-        let msg = err.originalError.response.data
+        let msg = err.originalError.response.data.message;
+        console.log(msg);
         if (msg === "Invalid reply token") {
           isSpam = true;
           console.log("its spam!");
