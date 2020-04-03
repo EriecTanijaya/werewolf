@@ -260,9 +260,20 @@ module.exports = {
   },
 
   replyText: function(texts) {
+    let isReplied = false;
     texts = Array.isArray(texts) ? texts : [texts];
     let replyToken = this.event.replyToken;
     console.log(replyToken);
+    const timerId = setTimeout(() => {
+      return this.client
+      .replyMessage(replyToken, texts.map(text => ({ type: "text", text })))
+      .catch(err => {
+        console.log(err.originalError.response.data);
+      });
+    }, 5000);
+    
+    
+    // send it
     return this.client
       .replyMessage(replyToken, texts.map(text => ({ type: "text", text })))
       .catch(err => {
