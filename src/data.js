@@ -207,6 +207,17 @@ module.exports = {
   },
 
   /** message func **/
+  
+  limitResponse: async function() {
+    let date = new Date();
+    let remainingSeconds = 60 - date.getSeconds();
+    let text = "💡 Maaf, server sedang macet. Mohon tunggu ";
+    text += remainingSeconds + " detik lagi";
+    return this.client.replyMessage(event.replyToken, {
+      type: "text",
+      text: text
+    });
+  },
 
   notAddError: async function(userId) {
     let text = "";
