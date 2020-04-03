@@ -6,6 +6,8 @@ const CronJob = require("cron").CronJob;
 const group_sessions = {};
 const user_sessions = {};
 
+let attempt = 0;
+
 // Update session
 const updateSessionJob = new CronJob("* * * * * *", function() {
   for (let key in group_sessions) {
@@ -260,20 +262,14 @@ module.exports = {
   },
 
   replyText: function(texts) {
-    let isReplied = false;
     texts = Array.isArray(texts) ? texts : [texts];
     let replyToken = this.event.replyToken;
-    console.log(replyToken);
-    const timerId = setTimeout(() => {
-      return this.client
-      .replyMessage(replyToken, texts.map(text => ({ type: "text", text })))
-      .catch(err => {
-        console.log(err.originalError.response.data);
-      });
-    }, 5000);
-    
-    
-    // send it
+    let d = new Date();
+    let s = d.getSeconds();
+    console.log(`attempt : ${attempt}
+      replyToken : ${replyToken}
+      seconds : ${s}
+    `);
     return this.client
       .replyMessage(replyToken, texts.map(text => ({ type: "text", text })))
       .catch(err => {
