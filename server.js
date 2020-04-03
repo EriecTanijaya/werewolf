@@ -48,10 +48,6 @@ app.post("/callback", (req, res) => {
 async function handleEvent(event) {
   //Note: should return! So Promise.all could catch the error
   if (event.type === "postback") {
-    if (requestsQuota <= 0) {
-      return sendLimitResponse(event);
-    }
-
     let rawArgs = event.postback.data;
     const data = require("/app/src/data");
     return data.receive(client, event, rawArgs);
@@ -67,9 +63,6 @@ async function handleEvent(event) {
   }
 
   let rawArgs = event.message.text;
-  if (requestsQuota <= 0 && rawArgs.startsWith("/")) {
-    return sendLimitResponse(event);
-  }
 
   const data = require("/app/src/data");
   return data.receive(client, event, rawArgs);
