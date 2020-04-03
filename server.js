@@ -45,17 +45,6 @@ app.post("/callback", (req, res) => {
     });
 });
 
-function sendLimitResponse(event) {
-  let date = new Date();
-  let remainingSeconds = 60 - date.getSeconds();
-  let text = "💡 Maaf, server sedang macet. Mohon tunggu ";
-  text += remainingSeconds + " detik lagi";
-  return client.replyMessage(event.replyToken, {
-    type: "text",
-    text: text
-  });
-}
-
 async function handleEvent(event) {
   //Note: should return! So Promise.all could catch the error
   if (event.type === "postback") {
