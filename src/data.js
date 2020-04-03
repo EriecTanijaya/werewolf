@@ -6,10 +6,9 @@ const CronJob = require("cron").CronJob;
 const group_sessions = {};
 const user_sessions = {};
 
-let attempt = 0;
-
 // Update session
 const updateSessionJob = new CronJob("* * * * * *", function() {
+  console.log(s);
   for (let key in group_sessions) {
     if (group_sessions[key]) {
       if (group_sessions[key].time > 0) {
@@ -264,12 +263,7 @@ module.exports = {
   replyText: function(texts) {
     texts = Array.isArray(texts) ? texts : [texts];
     let replyToken = this.event.replyToken;
-    let d = new Date();
-    let s = d.getSeconds();
-    console.log(`attempt : ${attempt}
-      replyToken : ${replyToken}
-      seconds : ${s}
-    `);
+    console.log(replyToken);
     return this.client
       .replyMessage(replyToken, texts.map(text => ({ type: "text", text })))
       .catch(err => {
