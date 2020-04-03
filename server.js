@@ -14,17 +14,6 @@ const config = {
 };
 const client = new line.Client(config);
 
-let requestsQuota = 75; // in 1 minute
-app.use((req, res, next) => {
-  requestsQuota--;
-  next();
-});
-
-const resetRequestQuota = new CronJob("* * * * *", function() {
-  requestsQuota = 75;
-});
-resetRequestQuota.start();
-
 // for update rank once a week, on thursday
 // Thanks https://crontab.guru/examples.html
 const updateRankJob = new CronJob("0 0 * * */4", function() {
@@ -45,24 +34,9 @@ app.post("/callback", (req, res) => {
     });
 });
 
-function sendLimitResponse(event) {
-  let date = new Date();
-  let remainingSeconds = 60 - date.getSeconds();
-  let text = "💡 Maaf, server sedang macet. Mohon tunggu ";
-  text += remainingSeconds + " detik lagi";
-  return client.replyMessage(event.replyToken, {
-    type: "text",
-    text: text
-  });
-}
-
 async function handleEvent(event) {
   //Note: should return! So Promise.all could catch the error
   if (event.type === "postback") {
-    if (requestsQuota <= 0) {
-      return sendLimitResponse(event);
-    }
-
     let rawArgs = event.postback.data;
     const data = require("/app/src/data");
     return data.receive(client, event, rawArgs);
@@ -78,10 +52,6 @@ async function handleEvent(event) {
   }
 
   let rawArgs = event.message.text;
-  if (requestsQuota <= 0 && rawArgs.startsWith("/")) {
-    return sendLimitResponse(event);
-  }
-
   const data = require("/app/src/data");
   return data.receive(client, event, rawArgs);
 }
