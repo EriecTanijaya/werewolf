@@ -532,7 +532,6 @@ module.exports = {
 
     if (this.group_session.players.length === 0) {
       this.group_session.state = "idle";
-      this.group_session.time = 300; // reset to initial time
       text += "\n" + "💡 Game di stop karena tidak ada pemain";
     } else {
       if (this.group_session.roomHostId === this.user_session.id) {
