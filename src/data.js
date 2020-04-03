@@ -210,7 +210,7 @@ module.exports = {
 
   /** message func **/
 
-  limitResponse: async function() {
+  limitResponse: function() {
     let date = new Date();
     let remainingSeconds = 60 - date.getSeconds();
     let text = "💡 Maaf, server sedang macet. Mohon tunggu ";
@@ -375,13 +375,13 @@ module.exports = {
         return this.limitResponse();
       }
     }
-
+    console.log(eventId);
     this.pauseTime(eventId.groupId);
     this.limitResponse();
   },
 
   pauseTime: function(groupId) {
-    if (group_sessions[groupId]) {
+    if (group_sessions[groupId] && !group_sessions[groupId].isPause) {
       group_sessions[groupId].isPause = true;
     }
   },
