@@ -263,10 +263,14 @@ module.exports = {
 
   replyText: function(texts) {
     texts = Array.isArray(texts) ? texts : [texts];
-    return this.client.replyMessage(
-      this.event.replyToken,
-      texts.map(text => ({ type: "text", text }))
-    );
+    return this.client
+      .replyMessage(
+        this.event.replyToken,
+        texts.map(text => ({ type: "text", text }))
+      )
+      .catch(err => {
+      console.log(err.originalError.response.data);
+    });
   },
 
   /** save data func **/
