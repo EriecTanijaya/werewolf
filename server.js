@@ -14,17 +14,6 @@ const config = {
 };
 const client = new line.Client(config);
 
-let requestsQuota = 75; // in 1 minute
-app.use((req, res, next) => {
-  requestsQuota--;
-  next();
-});
-
-const resetRequestQuota = new CronJob("* * * * *", function() {
-  requestsQuota = 75;
-});
-resetRequestQuota.start();
-
 // for update rank once a week, on thursday
 // Thanks https://crontab.guru/examples.html
 const updateRankJob = new CronJob("0 0 * * */4", function() {
@@ -63,7 +52,6 @@ async function handleEvent(event) {
   }
 
   let rawArgs = event.message.text;
-
   const data = require("/app/src/data");
   return data.receive(client, event, rawArgs);
 }
