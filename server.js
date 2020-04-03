@@ -14,14 +14,14 @@ const config = {
 };
 const client = new line.Client(config);
 
-let requestsQuota = 75; // in 1 minute
+let requestsQuota = process.env.REQUEST_LIMIT; // in 1 minute
 app.use((req, res, next) => {
   requestsQuota--;
   next();
 });
 
 const resetRequestQuota = new CronJob("* * * * *", function() {
-  requestsQuota = 75;
+  requestsQuota = process.env.REQUEST_LIMIT;
 });
 resetRequestQuota.start();
 
