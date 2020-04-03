@@ -176,9 +176,9 @@ module.exports = {
     // kalau sudah tidak limit, bisa sampai sini dong
     // jadi set ke false lagi isPause nya kalau sebelumnya di pause
     if (group_session.isPause) {
-      group_session.isPause = false;  
+      group_session.isPause = false;
     }
-    
+
     return this.forwardProcess(user_session, group_session);
   },
 
@@ -207,16 +207,13 @@ module.exports = {
   },
 
   /** message func **/
-  
+
   limitResponse: async function() {
     let date = new Date();
     let remainingSeconds = 60 - date.getSeconds();
     let text = "💡 Maaf, server sedang macet. Mohon tunggu ";
     text += remainingSeconds + " detik lagi";
-    return this.client.replyMessage(event.replyToken, {
-      type: "text",
-      text: text
-    });
+    return this.replyText(text);
   },
 
   notAddError: async function(userId) {
@@ -363,7 +360,24 @@ module.exports = {
   },
 
   /** helper func **/
-  
+
+  checkSession: function(eventId) {
+    if (!eventId.groupId) {
+      // kemungkinan di pc bot,
+      // cek group_session active atau engga
+      let user_session = user_sessions[eventId.userId];
+      if (user_session && user_session.state === "active") {
+        eventId.groupId = user_session.groupId;
+      } else {
+        // ini kalau ga ada user_session / karna user gak active
+        return this.limitResponse();
+      }
+    }
+
+    this.pauseTime(eventId.groupId);
+    this.limitResponse();
+  },
+
   pauseTime: function(groupId) {
     if (group_sessions[groupId]) {
       group_sessions[groupId].isPause = true;

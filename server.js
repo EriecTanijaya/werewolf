@@ -46,6 +46,7 @@ app.post("/callback", (req, res) => {
 });
 
 function checkGroupSession(event) {
+  const data = require("/app/src/data");
   let eventId = {
     userId: event.source.userId,
     groupId: ""
@@ -55,7 +56,7 @@ function checkGroupSession(event) {
   } else if (event.source.type === "room") {
     eventId.groupId = event.source.roomId;
   }
-  return eventId;
+  return data.checkSession(eventId);
 }
 
 async function handleEvent(event) {
