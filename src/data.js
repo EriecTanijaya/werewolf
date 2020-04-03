@@ -10,8 +10,6 @@ const user_sessions = {};
 const updateSessionJob = new CronJob("* * * * * *", function() {
   for (let key in group_sessions) {
     if (group_sessions[key]) {
-      console.log(`${key} : ${group_sessions[key].time}`);
-      console.log(`is pause : ${group_sessions[key].isPause}`);
       if (group_sessions[key].time > 0) {
         if (!group_sessions[key].isPause) {
           group_sessions[key].time--;
@@ -263,14 +261,13 @@ module.exports = {
 
   replyText: function(texts) {
     texts = Array.isArray(texts) ? texts : [texts];
+    let replyToken = this.event.replyToken;
+    console.log(replyToken);
     return this.client
-      .replyMessage(
-        this.event.replyToken,
-        texts.map(text => ({ type: "text", text }))
-      )
+      .replyMessage(replyToken, texts.map(text => ({ type: "text", text })))
       .catch(err => {
-      console.log(err.originalError.response.data);
-    });
+        console.log(err.originalError.response.data);
+      });
   },
 
   /** save data func **/
