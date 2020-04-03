@@ -45,22 +45,25 @@ app.post("/callback", (req, res) => {
     });
 });
 
-function sendLimitResponse(event) {
-  let date = new Date();
-  let remainingSeconds = 60 - date.getSeconds();
-  let text = "💡 Maaf, server sedang macet. Mohon tunggu ";
-  text += remainingSeconds + " detik lagi";
-  return client.replyMessage(event.replyToken, {
-    type: "text",
-    text: text
-  });
+function checkGroupSession(event) {
+  const data = require("/app/src/data");
+  let eventId = {
+    userId: event.source.userId,
+    groupId: ""
+  };
+  if (event.source.type === "group") {
+    eventId.groupId = event.source.groupId;
+  } else if (event.source.type === "room") {
+    eventId.groupId = event.source.roomId;
+  }
+  return data.checkSession(eventId);
 }
 
 async function handleEvent(event) {
   //Note: should return! So Promise.all could catch the error
   if (event.type === "postback") {
     if (requestsQuota <= 0) {
-      return sendLimitResponse(event);
+      return checkGroupSession(event);
     }
 
     let rawArgs = event.postback.data;
@@ -79,7 +82,7 @@ async function handleEvent(event) {
 
   let rawArgs = event.message.text;
   if (requestsQuota <= 0 && rawArgs.startsWith("/")) {
-    return sendLimitResponse(event);
+    return checkGroupSession(event);
   }
 
   const data = require("/app/src/data");
