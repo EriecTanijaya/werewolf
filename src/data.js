@@ -126,7 +126,10 @@ module.exports = {
     /// for maintenance
     if (this.rawArgs.startsWith("/")) {
       // logging
-      console.log(this.args);
+      let logText = user_session.name + " // ";
+      logText += groupId + " : ";
+      logText += this.args;
+      console.log(logText);
       if (user_session.id !== process.env.DEV_ID) {
         // semua grup ga bisa
         //return this.maintenanceRespond();
@@ -244,12 +247,14 @@ module.exports = {
 
   replyText: function(texts) {
     texts = Array.isArray(texts) ? texts : [texts];
-    return this.client.replyMessage(
-      this.event.replyToken,
-      texts.map(text => ({ type: "text", text }))
-    ).catch(err => {
-      console.log(err.originalError.response.data);
-    })
+    return this.client
+      .replyMessage(
+        this.event.replyToken,
+        texts.map(text => ({ type: "text", text }))
+      )
+      .catch(err => {
+        console.log(err.originalError.response.data);
+      });
   },
 
   /** save data func **/
