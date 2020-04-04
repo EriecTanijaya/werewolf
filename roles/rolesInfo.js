@@ -113,7 +113,7 @@ module.exports = {
         flex_text.body.text =
           "Warga yang bisa memilih rumah siapa yang ingin dipantau pas malam. ";
         flex_text.body.text +=
-          "Dia hanya mengetahui siapa nama pendatang targetnya. ";
+          "Dia bahkan bisa mengetahui siapa yang mengunjungi dirinya pas malam. ";
         return this.replyFlex(flex_text);
 
       case "escort":
