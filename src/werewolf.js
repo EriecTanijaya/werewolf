@@ -3389,12 +3389,10 @@ module.exports = {
   },
 
   checkExistsRole: function(roleName) {
+    let players = this.group_session.players;
     let found = false;
-    for (let i = 0; i < this.group_session.players.length; i++) {
-      if (
-        this.group_session.players[i].role.name === roleName &&
-        this.group_session.players[i].status === "alive"
-      ) {
+    for (let i = 0; i < players.length; i++) {
+      if (players[i].role.name === roleName && players[i].status === "alive") {
         found = true;
         return found;
       }
