@@ -17,9 +17,21 @@ TODO
   - sekarang neutral dh bisa multiple, tapi mereka ga tau siapa sesama mereka
   
 - executioner, kalau berhasil bunuh yang di targetkan, dia pas endGame, di cek
-  if role.name executioner, check (private prop), isTargetLynched
-  - berarti pas lynch func, itu check, exists gak role executioner, kalau exists
-    c
+  
+
+  - if role.name executioner, check (private prop), isTargetLynched
+    - berarti pas lynch func, itu check, exists gak role executioner, kalau exists
+      store index of playernya, lalu (private prop) exe itu ada index targetnya, kalau
+      index di private prop exe sama dengan index lynched player, maka set 
+      private prop exe isTargetLynched true
+  - pas endGame nya jadi kalau isTargetLynched true, yo dia menang (ini buat di logic endgame)
+  
+  - pas day func sama lynch func, kalau target nya executioner itu mati
+    - check lagi exists atau engga role exe, kalo exists
+    - get index dari role si executioner, store kan ke suatu obj
+    - get targetIndexnya exe, kalau sama dengan yang udah mati (ini di death action ceknya)
+    - maka exe itu di ganti rolenya ke tanner aja
+    - utk flow diatas ini, bisa buat di dedicated func, biar bisa buat di call lagi
 
 - sekarang udah bisa custom, jadi di getRandomRoleSet bnyak tugas nih
 
