@@ -782,7 +782,7 @@ module.exports = {
       }
     }
 
-    console.log("state sebelumnya : " + state);
+    // console.log("state sebelumnya : " + state);
 
     switch (state) {
       case "night":
@@ -2605,7 +2605,7 @@ module.exports = {
   },
 
   endGame: function(flex_texts, whoWin) {
-    console.log("whoWin: " + whoWin);
+    // console.log("whoWin: " + whoWin);
     let players = this.group_session.players;
 
     let emoji = this.getRoleTeamEmoji(whoWin) + " ";
@@ -2940,7 +2940,7 @@ module.exports = {
 
     roles = helper.shuffleArray(roles);
 
-    console.log(`roles di room ${this.group_session.groupId} : ${roles}`);
+    // console.log(`roles di room ${this.group_session.groupId} : ${roles}`);
 
     return roles;
   },
