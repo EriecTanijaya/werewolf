@@ -1,13 +1,6 @@
 TODO
 
-- setelah sistem points reset perminggu dah aman, data user yg di .data werewolf-glitch ini akan di hapus,
-lalu barulah import changes dari github yg udah update dari werewolf-glitch-test
-
-  -  `cd /app/.data/users`
-
-  -  `rm -rf *`
-
-- buat database beneran, data user store di mongodb / sql. freakin' hard tho
+- buat database beneran, data user store di mongodb freakin' hard tho
 
 - role tracker(tau target visit siapa), trapper, spy, survivor, jailor
   - tracker : dari target.index nya kita bisa tau dia visit siapa KALAU tidak di roleblock dan TIDAK di attack
@@ -16,15 +9,27 @@ lalu barulah import changes dari github yg udah update dari werewolf-glitch-test
   - spy, dia bisa tau werewolf kemana aja, dan kalau dia dia bisa bug suatu target, untuk tau org itu terkena apa aja, di heal, di attack, di roleblock dll
   - survivor menang kalau dia gak mati
 - kalau role udah bsa multi gitu,
-
   - doctor : ada private prop ke target, yg di healed, pasti harus ada prop healed by who gitu
     - doctor sementara ga bisa multi dulu, ntr lah
   - bisa ada role executioner, ini buat system baru lagi, dimana dia targetnya harus warga
     - ah nanti baru pikir kek mna bagusnya
   - bisa ada role amnesiac
   - sekarang neutral dh bisa multiple, tapi mereka ga tau siapa sesama mereka
+  
+- executioner, kalau berhasil bunuh yang di targetkan, dia pas endGame, di cek
+  if role.name executioner, check (private prop), isTargetLynched
+  - berarti pas lynch func, itu check, exists gak role executioner, kalau exists
+    c
 
 - sekarang udah bisa custom, jadi di getRandomRoleSet bnyak tugas nih
+
+- ROLE YANG BELUM BISA DUPLICATE
+  - DOKTOR
+  
+- ROLE YG JANGAN DUPLICATE
+  - VETERAN, vampire hunter, team ww(consort, wwcub, sorcerer jangan ada dupe)
+  - Arsonist, survivor
+  - executioner
 
 - buat module sendiri, untuk flex message, biar gampang dipake di bot lain
   - ini flexMessage table nya gampang di kostumisasi
