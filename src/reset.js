@@ -15,7 +15,8 @@ function getUserPath(list) {
       getUserData(baseUserPath + item);
     }
   });
-  console.log(`Done reset data on ${}`);
+  let date = new Date();
+  console.log(`Done reset data on ${date}`);
 }
 
 function getUserData(path) {
