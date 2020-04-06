@@ -26,7 +26,6 @@ const updateSessionJob = new CronJob("* * * * * *", function() {
     }
   }
 });
-
 updateSessionJob.start();
 
 module.exports = {
@@ -126,10 +125,10 @@ module.exports = {
     /// for maintenance
     if (this.rawArgs.startsWith("/")) {
       // logging
-      let logText = user_session.name + " // ";
-      logText += groupId + " : ";
-      logText += this.args;
-      console.log(logText);
+      // let logText = user_session.name + " // ";
+      // logText += groupId + " : ";
+      // logText += this.args;
+      // console.log(logText);
       if (user_session.id !== process.env.DEV_ID) {
         // semua grup ga bisa
         //return this.maintenanceRespond();

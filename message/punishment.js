@@ -14,7 +14,9 @@ const punishment = [
   "tampol ✋",
   "cubit 🤏",
   "panah 🏹",
-  "apa apain 🤔"
+  "apa apain 🤔",
+  "gulai 🍛",
+  "friendzone 👍"
 ];
 
 module.exports = punishment;
