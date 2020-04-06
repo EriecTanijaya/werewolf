@@ -7,7 +7,7 @@ const group_sessions = {};
 const user_sessions = {};
 
 // Update session
-setInterval(() => {
+const updateSessionJob = new CronJob("* * * * * *", function() {
   for (let key in group_sessions) {
     if (group_sessions[key]) {
       if (group_sessions[key].time > 0) {
@@ -25,7 +25,8 @@ setInterval(() => {
       }
     }
   }
-}, 1000);
+});
+updateSessionJob.start();
 
 module.exports = {
   receive: function(client, event, rawArgs) {
@@ -124,10 +125,10 @@ module.exports = {
     /// for maintenance
     if (this.rawArgs.startsWith("/")) {
       // logging
-      let logText = user_session.name + " // ";
-      logText += groupId + " : ";
-      logText += this.args;
-      console.log(logText);
+      // let logText = user_session.name + " // ";
+      // logText += groupId + " : ";
+      // logText += this.args;
+      // console.log(logText);
       if (user_session.id !== process.env.DEV_ID) {
         // semua grup ga bisa
         //return this.maintenanceRespond();
