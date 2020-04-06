@@ -17,7 +17,8 @@ TODO
   - sekarang neutral dh bisa multiple, tapi mereka ga tau siapa sesama mereka
   
 - executioner, kalau berhasil bunuh yang di targetkan, dia pas endGame, di cek
-  
+   init executioner, langsung ada private prop targetLynch, isinya index player, sama bool isLynched
+   kalau ada role ini, data user musti kenak reset lagi, dan... ada new prop buat stats, team exe, role exe wkwkwk
 
   - if role.name executioner, check (private prop), isTargetLynched
     - berarti pas lynch func, itu check, exists gak role executioner, kalau exists
@@ -30,10 +31,13 @@ TODO
     - check lagi exists atau engga role exe, kalo exists
     - get index dari role si executioner, store kan ke suatu obj
     - get targetIndexnya exe, kalau sama dengan yang udah mati (ini di death action ceknya)
-    - maka exe itu di ganti rolenya ke tanner aja
+    - maka exe itu di ganti rolenya ke tanner aja, lalu private prop targetLynch di null kan aj
     - utk flow diatas ini, bisa buat di dedicated func, biar bisa buat di call lagi
 
 - sekarang udah bisa custom, jadi di getRandomRoleSet bnyak tugas nih
+- kalau pemain dah rame, adain role investigator, dimana dia miripin aj sama investigator di TOS
+- buat juga sistem random role yang bisa di duplicate, buat istilah town protector, town killing, dll
+  jadi pas di .roles, itu bisa agak catchy
 
 - ROLE YANG BELUM BISA DUPLICATE
   - DOKTOR
