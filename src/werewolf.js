@@ -1355,7 +1355,9 @@ module.exports = {
         if (parseInt(doer.target.index) !== parseInt(i)) {
           let targetIndex = doer.target.index;
           let target = players[targetIndex];
-
+          
+          if (doer)
+          
           if (doer.blocked) {
             continue;
           }
