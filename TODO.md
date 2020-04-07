@@ -1,5 +1,7 @@
 TODO
 
+- RESET DATAAAA
+
 - buat checkWinCondition untuk role special / buat function checkWinCondition
   ini cek team yang ada aja, tiap team punya config masing-masing,
 

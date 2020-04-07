@@ -68,7 +68,7 @@ module.exports = {
           win: 0,
           lose: 0
         },
-        tannerStats: {
+        jesterStats: {
           win: 0,
           lose: 0
         },
@@ -299,8 +299,8 @@ module.exports = {
     oldUserData.vampireStats.win += newUserData.vampireStats.win;
     oldUserData.vampireStats.lose += newUserData.vampireStats.lose;
 
-    oldUserData.tannerStats.win += newUserData.tannerStats.win;
-    oldUserData.tannerStats.lose += newUserData.tannerStats.lose;
+    oldUserData.jesterStats.win += newUserData.jesterStats.win;
+    oldUserData.jesterStats.lose += newUserData.jesterStats.lose;
 
     oldUserData.serialKillerStats.win += newUserData.serialKillerStats.win;
     oldUserData.serialKillerStats.lose += newUserData.serialKillerStats.lose;
@@ -320,7 +320,7 @@ module.exports = {
         villagerStats: item.villagerStats,
         werewolfStats: item.werewolfStats,
         vampireStats: item.vampireStats,
-        tannerStats: item.tannerStats,
+        jesterStats: item.jesterStats,
         serialKillerStats: item.serialKillerStats,
         arsonistStats: item.arsonistStats
       };

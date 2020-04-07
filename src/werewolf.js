@@ -647,6 +647,11 @@ module.exports = {
           item.role.bullet = 3;
           item.role.isLoadBullet = true;
           break;
+          
+        case "jester":
+          item.role.isLynched = false;
+          item.role.revengeChance = 1;
+          break;
       }
 
       // disini bagi role pake pushMessage
@@ -732,9 +737,7 @@ module.exports = {
     //tell available role
     let announcement = "";
     if (this.group_session.players.length > 6) {
-      let roles = this.group_session.roles;
-      announcement += "📣 Role yang ada di game ini : ";
-      announcement += roles.join(", ") + "\n\n";
+      announcement += "📣 Role yang ada di game ini bisa cek di '/roles' ";
     }
 
     announcement +=
@@ -898,7 +901,7 @@ module.exports = {
         }
 
         // check afk
-        let noSkillRoles = ["villager", "tanner"];
+        let noSkillRoles = ["villager", "jester"];
         if (!noSkillRoles.includes(item.role.name)) {
           if (item.target.index === -1) {
             item.afkCounter++;
@@ -922,6 +925,14 @@ module.exports = {
 
     /// vigilante check existences
     let vigilanteExists = this.checkExistsRole("vigilante");
+    
+    /// check jester exists or not
+    let jesterExists = this.checkExistsRole("jester");
+    
+    /// Jester Action if hasLynched
+    if (jesterExists) {
+      
+    }
 
     /// Vampire Action
     // search the vampire that responsible to bite
@@ -2591,9 +2602,6 @@ module.exports = {
     if (!lynched) {
       return this.night(null);
     } else {
-      if (lynched.role.name === "tanner") {
-        return this.endGame(null, "tanner");
-      }
 
       let someoneWin = this.checkVictory();
       if (someoneWin) {
@@ -2789,7 +2797,7 @@ module.exports = {
       villagerStats: user_session.villagerStats,
       werewolfStats: user_session.werewolfStats,
       vampireStats: user_session.vampireStats,
-      tannerStats: user_session.tannerStats,
+      jesterStats: user_session.jesterStats,
       serialKillerStats: user_session.serialKillerStats,
       arsonistStats: user_session.arsonistStats,
       role: {
@@ -2878,8 +2886,8 @@ module.exports = {
       case "werewolf":
         this.group_session.players[index].werewolfStats.win++;
         break;
-      case "tanner":
-        this.group_session.players[index].tannerStats.win++;
+      case "jester":
+        this.group_session.players[index].jesterStats.win++;
         break;
       case "vampire":
         this.group_session.players[index].vampireStats.win++;
@@ -2902,8 +2910,8 @@ module.exports = {
       case "werewolf":
         this.group_session.players[index].werewolfStats.lose++;
         break;
-      case "tanner":
-        this.group_session.players[index].tannerStats.lose++;
+      case "jester":
+        this.group_session.players[index].jesterStats.lose++;
         break;
       case "vampire":
         this.group_session.players[index].vampireStats.lose++;
@@ -2935,7 +2943,7 @@ module.exports = {
         roles.push(item);
       });
       let badRole = helper.random(["werewolf", "serial-killer"]);
-      roles.push(badRole, "tanner");
+      roles.push(badRole, "jester");
     }
 
     roles = helper.shuffleArray(roles);
@@ -3011,7 +3019,7 @@ module.exports = {
           }
         } else if (neutralTeam[neutralIndex] === "serial-killer") {
           needSheriff = true;
-        } else if (neutralTeam[neutralIndex] === "tanner") {
+        } else if (neutralTeam[neutralIndex] === "jester") {
           if (!roles.includes("vigilante")) {
             roles.push("vigilante");
             townNeedCount--;

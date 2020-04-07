@@ -87,7 +87,7 @@ module.exports = {
     let availableTeam = [
       "villager",
       "werewolf",
-      "tanner",
+      "jester",
       "serial-killer",
       "arsonist",
       "vampire"
