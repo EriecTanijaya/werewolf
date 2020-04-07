@@ -14,8 +14,6 @@ TODO
 - kalau role udah bsa multi gitu,
   - doctor : ada private prop ke target, yg di healed, pasti harus ada prop healed by who gitu
     - doctor sementara ga bisa multi dulu, ntr lah
-  - bisa ada role executioner, ini buat system baru lagi, dimana dia targetnya harus warga
-    - ah nanti baru pikir kek mna bagusnya
   - bisa ada role amnesiac
   - sekarang neutral dh bisa multiple, tapi mereka ga tau siapa sesama mereka
   
