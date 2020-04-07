@@ -1,12 +1,15 @@
 TODO
 
 - buat checkWinCondition untuk role special / buat function checkWinCondition
-  ini cek team yang ada aja, tiap team punya config masing-masing
+  ini cek team yang ada aja, tiap team punya config masing-masing,
 
 - buat database beneran, data user store di mongodb freakin' hard tho
 
+- role survivor
+  gampang, pas nanti di func checkWinCondition, check doi idup atau engga aja
+
 - role tracker(tau target visit siapa), trapper, spy, survivor, jailor
-  - tracker : dari target.index nya kita bisa tau dia visit siapa KALAU tidak di roleblock dan TIDAK di attack
+  - tracker : dari target.index nya kita bisa tau dia visit siapa KALAU tidak di roleblock dan TIDAK di attack dan tidak di intercept
     kecuali yg attack itu veteran, baru tau dia kemana
   - trapper : sama keknya mekanisme seperti bodyguard, cuman ini ribet sih
   - spy, dia bisa tau werewolf kemana aja, dan kalau dia dia bisa bug suatu target, untuk tau org itu terkena apa aja, di heal, di attack, di roleblock dll
