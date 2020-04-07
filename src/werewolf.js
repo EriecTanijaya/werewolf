@@ -650,7 +650,7 @@ module.exports = {
           
         case "jester":
           item.role.isLynched = false;
-          item.role.revengeChance = 1;
+          item.role.hasRevenged = false;
           break;
       }
 
@@ -1356,7 +1356,9 @@ module.exports = {
           let targetIndex = doer.target.index;
           let target = players[targetIndex];
           
-          if (doer)
+          if (doer.role.name === "jester") {
+            continue;
+          }
           
           if (doer.blocked) {
             continue;
@@ -1437,6 +1439,79 @@ module.exports = {
           }
 
           break;
+        }
+      }
+    }
+    
+    /// Jester Haunt Action
+    for (let i = 0; i < players.length; i++) {
+      let doer = players[i];
+
+      if (doer.role.name === "jester") {
+        
+        if (doer.isLynched && !doer.hasRevenged) {
+          if (doer.target.index === -1) {
+            // random kill
+            this.group_session.players[i].message +=
+              "💡 Karena kamu tidak pilih target, kamu akan sembarangan menghantui orang";
+          } else {
+            
+          }
+        }
+        
+        
+        if (doer.target.index === -1) {
+          this.group_session.players[i].message +=
+            "💡 Kamu tidak menggunakan skill mu" + "\n\n";
+
+          continue;
+        } else {
+          if (doer.blocked === true) {
+            this.group_session.players[i].message +=
+              "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." +
+              "\n\n";
+
+            continue;
+          } else if (!doer.attacked) {
+            let targetIndex = doer.target.index;
+            let target = players[targetIndex];
+
+            if (doer.intercepted) {
+              this.group_session.players[i].message +=
+                "💡 Kamu tercegat oleh " + target.role.name + "\n\n";
+            } else {
+              this.group_session.players[i].message +=
+                "👣 Kamu ke rumah " + target.name + "\n\n";
+
+              let visitor = {
+                name: doer.name,
+                role: doer.role
+              };
+              this.group_session.players[targetIndex].visitors.push(visitor);
+            }
+
+            if (target.role.team === "vampire") {
+              this.group_session.players[i].message +=
+                "🗡️ " + target.name + " adalah seorang Vampire!" + "\n\n";
+
+              this.group_session.players[targetIndex].message +=
+                "🗡️ Kamu diserang " + doer.role.name + "!" + "\n\n";
+
+              this.group_session.players[targetIndex].attacked = true;
+
+              let attacker = {
+                index: i,
+                name: doer.name,
+                role: doer.role,
+                deathNote: doer.deathNote
+              };
+
+              this.group_session.players[targetIndex].attackers.push(attacker);
+            } else {
+              this.group_session.players[i].message +=
+                "💡 " + target.name + " bukan seorang Vampire" + "\n\n";
+            }
+          }
         }
       }
     }
