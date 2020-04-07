@@ -47,8 +47,8 @@ TODO
 
 - sekarang udah bisa custom, jadi di getRandomRoleSet bnyak tugas nih
 - kalau pemain dah rame, adain role investigator, dimana dia miripin aj sama investigator di TOS
-- buat juga sistem random role yang bisa di duplicate, buat istilah town protector, town killing, dll
-  jadi pas di .roles, itu bisa agak catchy
+- buat juga sistem random role yang bisa di duplicate, barengan dengan buat istilah town protector, town killing, dll
+  jadi pas di /roles, itu bisa agak catchy
 
 - ROLE YANG BELUM BISA DUPLICATE
   - DOKTOR

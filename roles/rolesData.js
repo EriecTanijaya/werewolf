@@ -98,9 +98,9 @@ const roles = [
     emoji: "👨‍🌾"
   },
   {
-    name: "tanner",
+    name: "jester",
     description:
-      "🃏 Kamu tidak memihak siapa siapa, tetapi kamu menang jika di vote warga sampai digantung",
+      "🃏 Kamu menang jika berhasil digantung. Dan bisa bunuh ",
     team: "tanner",
     canKill: false,
     emoji: "🃏"
