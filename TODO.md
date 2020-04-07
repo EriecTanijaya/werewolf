@@ -1,5 +1,8 @@
 TODO
 
+- buat checkWinCondition untuk role special / buat function checkWinCondition
+  ini cek team yang ada aja, tiap team punya config masing-masing
+
 - buat database beneran, data user store di mongodb freakin' hard tho
 
 - role tracker(tau target visit siapa), trapper, spy, survivor, jailor
