@@ -198,13 +198,14 @@ module.exports = {
     let roleName = players[index].role.name;
     let roleTeam = players[index].role.team;
 
-    // pas tanner jadi jester, ini ilang
+    // pas tanner jadi jester, ini ilangin
     let prohibited = ["villager", "tanner", "veteran"];
 
     if (prohibited.includes(roleName)) {
       return this.replyText("💡 Jangan pernah kau coba untuk");
     }
 
+    // buat if role.name === jester & isLynched true
     if (players[index].status === "death") {
       return this.replyText("💡 Kamu sudah mati");
     }
@@ -437,6 +438,8 @@ module.exports = {
       }
 
       /// special role skill
+      // tambahin jester kalo pas tanner udah di rework, if isLynched false
+      // replyFlex aja
       if (roleName === "retributionist") {
         if (player.role.revive > 0 && this.isSomeoneDeath()) {
           return this.retributionistSkill(flex_text);
@@ -830,7 +833,8 @@ module.exports = {
       "serial-killer",
       "retributionist",
       "lookout",
-      "sheriff"
+      "sheriff",
+      "jester"
     ];
 
     if (cantTargetItSelf.includes(roleName)) {
