@@ -186,7 +186,7 @@ module.exports = {
     if (this.group_session.state === "new") {
       return this.replyText("💡 Game belum dimulai");
     }
-    
+
     let index = this.indexOfPlayer();
     let players = this.group_session.players;
     let state = this.group_session.state;
@@ -217,7 +217,7 @@ module.exports = {
     }
 
     let targetIndex = this.args[1];
-    
+
     if (targetIndex === undefined) {
       return this.roleCommand();
     }
@@ -232,6 +232,10 @@ module.exports = {
 
       if (players[targetIndex].status === "alive") {
         return this.replyText("💡 Targetmu masih hidup");
+      }
+    } else {
+      if (players[targetIndex].status === "death") {
+        return this.replyText("💡 Targetmu itu dah mati. Mau di apain?");
       }
     }
 

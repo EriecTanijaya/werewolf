@@ -928,11 +928,6 @@ module.exports = {
     
     /// check jester exists or not
     let jesterExists = this.checkExistsRole("jester");
-    
-    /// Jester Action if hasLynched
-    if (jesterExists) {
-      
-    }
 
     /// Vampire Action
     // search the vampire that responsible to bite
