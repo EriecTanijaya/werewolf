@@ -1450,12 +1450,15 @@ module.exports = {
       if (doer.role.name === "jester") {
         
         if (doer.isLynched && !doer.hasRevenged) {
+          let targetIndex = -1;
+          
           if (doer.target.index === -1) {
             // random kill
             this.group_session.players[i].message +=
-              "💡 Karena kamu tidak pilih target, kamu akan sembarangan menghantui orang";
-          } else {
+              "💡 Karena kamu tidak pilih target, kamu akan sembarangan menghantui orang" + "\n\n";
             
+          } else {
+            targetIndex = doer.target.index;
           }
         }
         
