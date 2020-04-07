@@ -43,7 +43,7 @@ module.exports = {
         "werewolf",
         "villager",
         "vampire",
-        "tanner",
+        "jester",
         "serial-killer",
         "arsonist"
       ];

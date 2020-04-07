@@ -13,7 +13,6 @@ TODO
     kecuali yg attack itu veteran, baru tau dia kemana
   - trapper : sama keknya mekanisme seperti bodyguard, cuman ini ribet sih
   - spy, dia bisa tau werewolf kemana aja, dan kalau dia dia bisa bug suatu target, untuk tau org itu terkena apa aja, di heal, di attack, di roleblock dll
-  - survivor menang kalau dia gak mati
 - kalau role udah bsa multi gitu,
   - doctor : ada private prop ke target, yg di healed, pasti harus ada prop healed by who gitu
     - doctor sementara ga bisa multi dulu, ntr lah

@@ -100,8 +100,9 @@ const roles = [
   {
     name: "jester",
     description:
-      "🃏 Kamu menang jika berhasil digantung. Dan bisa bunuh ",
-    team: "tanner",
+      "🃏 Kamu menang jika berhasil digantung. Dan bisa bunuh siapa saja disaat sudah mati",
+    team: "jester",
+    cmdText: "/skill",
     canKill: false,
     emoji: "🃏"
   },
