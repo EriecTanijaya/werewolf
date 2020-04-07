@@ -35,8 +35,13 @@ TODO
     - check lagi exists atau engga role exe, kalo exists
     - get index dari role si executioner, store kan ke suatu obj
     - get targetIndexnya exe, kalau sama dengan yang udah mati (ini di death action ceknya)
-    - maka exe itu di ganti rolenya ke tanner aja, lalu private prop targetLynch di null kan aj
+    - maka exe itu di ganti rolenya ke jester, lalu private prop targetLynch di null kan aj
     - utk flow diatas ini, bisa buat di dedicated func, biar bisa buat di call lagi
+    
+- role jester, ini gantiin tanner. jadi tanner -> jester
+  jester kalau mati di vote, bisa pake skill utk kill. orang yang terkena efek ini gak akan bisa selamat
+  - buat checker pas lynch (pola hampir mirip sama exe), kalau role.name nya jester,
+  set prop player ke canKill = true, 
 
 - sekarang udah bisa custom, jadi di getRandomRoleSet bnyak tugas nih
 - kalau pemain dah rame, adain role investigator, dimana dia miripin aj sama investigator di TOS

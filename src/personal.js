@@ -198,6 +198,7 @@ module.exports = {
     let roleName = players[index].role.name;
     let roleTeam = players[index].role.team;
 
+    // pas tanner jadi jester, ini ilang
     let prohibited = ["villager", "tanner", "veteran"];
 
     if (prohibited.includes(roleName)) {
