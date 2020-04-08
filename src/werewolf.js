@@ -2112,15 +2112,6 @@ module.exports = {
 
           this.group_session.players[i].status = "death";
 
-          /// special check for some role
-          if (this.checkExistsRole("executioner")) {
-            exeIndex = this.getPlayerIndexByRole("executioner");
-            let exeLynchTargetIndex = players[exeIndex].role.targetLynchIndex;
-            if (i === exeLynchTargetIndex) {
-              isExecutionerTargetDie = true;
-            }
-          }
-
           let attackersRole = players[i].attackers.map(atkr => {
             return atkr.role.name;
           });
