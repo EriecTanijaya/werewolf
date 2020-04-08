@@ -1,21 +1,23 @@
 TODO
 
+- RESET DATAAAA
+
 - buat checkWinCondition untuk role special / buat function checkWinCondition
-  ini cek team yang ada aja, tiap team punya config masing-masing
+  ini cek team yang ada aja, tiap team punya config masing-masing,
 
 - buat database beneran, data user store di mongodb freakin' hard tho
 
+- role survivor
+  gampang, pas nanti di func checkWinCondition, check doi idup atau engga aja
+
 - role tracker(tau target visit siapa), trapper, spy, survivor, jailor
-  - tracker : dari target.index nya kita bisa tau dia visit siapa KALAU tidak di roleblock dan TIDAK di attack
+  - tracker : dari target.index nya kita bisa tau dia visit siapa KALAU tidak di roleblock dan TIDAK di attack dan tidak di intercept
     kecuali yg attack itu veteran, baru tau dia kemana
   - trapper : sama keknya mekanisme seperti bodyguard, cuman ini ribet sih
   - spy, dia bisa tau werewolf kemana aja, dan kalau dia dia bisa bug suatu target, untuk tau org itu terkena apa aja, di heal, di attack, di roleblock dll
-  - survivor menang kalau dia gak mati
 - kalau role udah bsa multi gitu,
   - doctor : ada private prop ke target, yg di healed, pasti harus ada prop healed by who gitu
     - doctor sementara ga bisa multi dulu, ntr lah
-  - bisa ada role executioner, ini buat system baru lagi, dimana dia targetnya harus warga
-    - ah nanti baru pikir kek mna bagusnya
   - bisa ada role amnesiac
   - sekarang neutral dh bisa multiple, tapi mereka ga tau siapa sesama mereka
   
@@ -34,13 +36,20 @@ TODO
     - check lagi exists atau engga role exe, kalo exists
     - get index dari role si executioner, store kan ke suatu obj
     - get targetIndexnya exe, kalau sama dengan yang udah mati (ini di death action ceknya)
-    - maka exe itu di ganti rolenya ke tanner aja, lalu private prop targetLynch di null kan aj
+    - maka exe itu di ganti rolenya ke jester, lalu private prop targetLynch di null kan aj
     - utk flow diatas ini, bisa buat di dedicated func, biar bisa buat di call lagi
+    
+- role jester, ini gantiin tanner. jadi tanner -> jester
+  jester kalau mati di vote, bisa pake skill utk kill. orang yang terkena efek ini gak akan bisa selamat
+  - buat checker pas lynch (pola hampir mirip sama exe), kalau role.name nya jester,
+  set prop player ke canKill = true, 
+  private prop = isLynched = false, hasRevenge (utk jatah pakai skill) = 1 aja;
+  heavy rework di personal.js!
 
 - sekarang udah bisa custom, jadi di getRandomRoleSet bnyak tugas nih
 - kalau pemain dah rame, adain role investigator, dimana dia miripin aj sama investigator di TOS
-- buat juga sistem random role yang bisa di duplicate, buat istilah town protector, town killing, dll
-  jadi pas di .roles, itu bisa agak catchy
+- buat juga sistem random role yang bisa di duplicate, barengan dengan buat istilah town protector, town killing, dll
+  jadi pas di /roles, itu bisa agak catchy
 
 - ROLE YANG BELUM BISA DUPLICATE
   - DOKTOR

@@ -51,6 +51,9 @@ module.exports = {
         case "vampire":
           text += "🧛 Dia sebelumnya digigit vampire. ";
           break;
+        case "jester":
+          text += "👻 Dia sebelumnya dihantui jester. ";
+          break;
       }
     });
 

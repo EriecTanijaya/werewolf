@@ -178,6 +178,19 @@ module.exports = {
             "👮 Kamu memutuskan untuk interogasi " + targetName + " malam ini";
         }
         break;
+        
+      case "jester":
+        if (isChangeTarget) {
+          text +=
+            "👻 Kamu berubah pikiran dan memutuskan untuk menghantui " +
+            targetName +
+            " saja malam ini";
+        } else {
+          text +=
+            "👻 Kamu memutuskan untuk menghantui " + targetName + " malam ini";
+        }
+        break;
+        
     }
     
     return text;

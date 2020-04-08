@@ -102,10 +102,12 @@ module.exports = {
           "Tetapi jika dia membunuh sesama warga, dia akan bunuh diri keesokan harinya";
         return this.replyFlex(flex_text);
 
-      case "tanner":
-        flex_text.header.text = "🃏 Tanner";
+      case "jester":
+        flex_text.header.text = "🃏 Jester";
         flex_text.body.text =
-          "Tidak memihak kesiapa siapa, Tanner menang jika di gantung";
+          "Tidak memihak kesiapa siapa, Jester menang jika di gantung. ";
+        flex_text.body.text += "Jika berhasil digantung, dia bisa membalas kematiannya ";
+        flex_text.body.text += "dengan menghantui orang lain";
         return this.replyFlex(flex_text);
 
       case "lookout":
