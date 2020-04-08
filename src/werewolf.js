@@ -3229,8 +3229,8 @@ module.exports = {
 
     while (true) {
       let targetIndex = helper.getRandomInt(0, maxIndex);
-      let targetId = players[targetIndex];
-      if (targetId !== jesterId) {
+      let targetId = players[targetIndex].id;
+      if (targetId !== jesterId && ) {
         return targetIndex;
       }
     }
