@@ -3224,7 +3224,7 @@ module.exports = {
     }
 
     // neutral team
-    while (neutralNeedCount) {
+    while (neutralNeedCount > 1) {
       // check apakah neutral role sudah habis ato engga
       // kalau habis, randomkan saja
       if (neutralIndex > neutralTeam.length - 1) {
