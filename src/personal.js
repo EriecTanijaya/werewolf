@@ -40,6 +40,8 @@ module.exports = {
         return this.revokeCommand();
       case "/alert":
         return this.alertCommand();
+      case "/vest":
+        return this.vestCommand();
       case "/rank":
       case "/me":
       case "/stat":
@@ -198,7 +200,7 @@ module.exports = {
     let roleName = players[index].role.name;
     let roleTeam = players[index].role.team;
 
-    let prohibited = ["villager", "veteran"];
+    let prohibited = ["villager", "veteran", "survivor", "executioner"];
 
     if (prohibited.includes(roleName)) {
       return this.replyText("💡 Jangan pernah kau coba untuk");
@@ -207,7 +209,7 @@ module.exports = {
     // buat if role.name === jester & isLynched true
     if (players[index].status === "death") {
       /// special role yg bisa skill pas mati
-      if (roleName !== "jester" && !players[index].isLynched) {
+      if (roleName !== "jester" && !players[index].role.isLynched) {
         return this.replyText("💡 Kamu sudah mati");
       }
     }
@@ -465,11 +467,17 @@ module.exports = {
           return this.replyFlex(flex_text, text);
         }
       } else if (roleName === "jester") {
-        if (!player.isLynched) {
+        if (!player.role.isLynched) {
           return this.replyFlex(flex_text);
         } else {
           text += "👻 Kamu pilih siapa saja yang ingin kamu hantui. ";
           text += "Jika tidak besok kamu akan sembarang menghantui orang";
+        }
+      } else if (roleName === "survivor"){
+        if (player.role.vest > 0) {
+          return this.survivorSkill(flex_text);
+        } else {
+          return this.replyFlex(flex_text);
         }
       }
 
@@ -537,6 +545,29 @@ module.exports = {
 
     return this.replyFlex(flex_text);
   },
+  
+  survivorSkill: function(flex_text) {
+    let skillText = this.getRoleSkillText("survivor");
+    let players = this.group_session.players;
+    let cmdText = this.getRoleCmdText("survivor");
+    let index = this.indexOfPlayer();
+
+    flex_text.body.text += "\n\n" + skillText + "\n\n";
+
+    flex_text.body.text += "Vest mu sisa " + players[index].role.vest;
+
+    flex_text.footer = {
+      buttons: [
+        {
+          action: "postback",
+          label: "use vest",
+          data: cmdText
+        }
+      ]
+    };
+
+    return this.replyFlex(flex_text);
+  },
 
   alertCommand: function() {
     let index = this.indexOfPlayer();
@@ -580,6 +611,40 @@ module.exports = {
         "💡 Kamu belum buat death note, ketik '/dnote' <isi note kamu>";
       msg.push(dnoteText);
     }
+
+    return this.replyText(msg);
+  },
+  
+  vestCommand: function() {
+    let index = this.indexOfPlayer();
+    let players = this.group_session.players;
+    let state = this.group_session.state;
+
+    if (state === "day") {
+      return this.replyText("💡 Bukan saatnya menggunakan skill");
+    }
+
+    let roleName = players[index].role.name;
+
+    if (roleName !== "survivor") {
+      return this.replyText("💡 Role mu bukan Veteran");
+    }
+
+    if (players[index].status === "death") {
+      return this.replyText("💡 Kamu sudah mati");
+    }
+
+    if (players[index].role.vest === 0) {
+      return this.replyText("💡 Kamu sudah tidak memiliki Vest yang tersisa");
+    }
+
+    this.group_session.players[index].target.index = index;
+
+    let text = "";
+    let msg = [];
+
+    text = skillText.response(roleName, null, null, true);
+    msg = [text];
 
     return this.replyText(msg);
   },

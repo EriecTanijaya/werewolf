@@ -176,6 +176,16 @@ const roles = [
     team: "villager",
     canKill: false,
     emoji: "👨‍🌾"
+  },
+  {
+    name: "survivor",
+    description:
+      "🏳️ Kamu bisa berpihak dengan siapa saja, asalkan kamu tidak mati. Jika kamu hidup hingga akhir game, kamu menang",
+    skillText: "🦺 Survivor, apakah kamu akan gunakan vest malam ini?",
+    cmdText: "/vest",
+    team: "survivor",
+    canKill: false,
+    emoji: "🏳️"
   }
 ];
 
