@@ -749,7 +749,7 @@ module.exports = {
     //tell available role
     let announcement = "";
     if (this.group_session.players.length > 6) {
-      announcement += "📣 Role yang ada di game ini bisa cek di '/roles' ";
+      announcement += "📣 Role yang ada di game ini bisa cek di '/roles'. ";
     }
 
     announcement +=
