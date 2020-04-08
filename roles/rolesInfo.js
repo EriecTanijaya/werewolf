@@ -164,6 +164,11 @@ module.exports = {
         flex_text.body.text +=
           "Arsonist kebal dari serangan biasa saat malam. Pilih diri sendiri jika ingin membakar rumah target yang telah di sirami bensin. ";
         return this.replyFlex(flex_text);
+        
+      case "survivor":
+        flex_text.header.text = "🏳️ Survivor";
+        flex_text.body.text = "Orang yang bisa menang dengan siapa saja, asalkan dia tidak mati hingga akhir game. ";
+        return this.replyFlex(flex_text);
 
       default:
         let text =
