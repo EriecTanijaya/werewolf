@@ -437,9 +437,16 @@ module.exports = {
           "💡 Kamu bisa dengar vampire chat-an, gunakan cmd '/r' secara berkala";
       }
 
-      let noNightSkill = ["villager"];
+      let noNightSkill = ["villager", "executioner"];
 
       if (noNightSkill.includes(roleName)) {
+        //special role exe
+        if (roleName === "executioner") {
+          let exeTarget = players[players[index].targetLynchIndex];
+          text += "🪓 Target kamu adalah " + exeTarget.name + ". Kamu harus bisa ";
+          text += "menghasut warga untuk gantung dia";
+        }
+        
         return this.replyFlex(flex_text, text);
       }
 
