@@ -2728,14 +2728,33 @@ module.exports = {
     });
 
     //give point
-    players.forEach((item, index) => {
-      let roleTeam = item.role.team;
+    for (let i = 0; i < players.length; i++) {
+      let roleTeam = players[i].role.team;
       if (roleTeam === whoWin) {
-        this.increaseWinRate(index, roleTeam);
+        this.increaseWinRate(i, roleTeam);
       } else {
-        this.decreaseWinRate(index, roleTeam);
+        /// check the win condition of some role
+        switch(players[i].role.name) {
+          case "jester":
+            if (players[i].isLynched) {
+              this.increaseWinRate(i, roleTeam);
+              continue;
+            }
+            break;
+            
+          case "survivor":
+            
+            break;
+            
+          case "executioner":
+            
+            break;
+            
+        }
+        
+        this.decreaseWinRate(i, roleTeam);
       }
-    });
+    };
 
     this.group_session.time = 300; // reset to init time
     this.group_session.state = "idle";
