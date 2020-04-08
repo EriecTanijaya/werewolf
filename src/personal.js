@@ -920,7 +920,9 @@ module.exports = {
       "retributionist",
       "lookout",
       "sheriff",
-      "jester"
+      "jester",
+      "spy",
+      "tracker"
     ];
 
     if (cantTargetItSelf.includes(roleName)) {

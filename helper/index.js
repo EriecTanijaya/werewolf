@@ -26,7 +26,9 @@ module.exports = {
       "escort",
       "veteran",
       "lookout",
-      "retributionist"
+      "retributionist",
+      "spy",
+      "tracker"
     ];
     let werewolfTeam = ["werewolf-cub", "sorcerer", "consort"];
     let neutralTeam = ["serial-killer", "arsonist", "jester", "vampire", "survivor"];

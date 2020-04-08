@@ -194,7 +194,27 @@ const roles = [
     team: "executioner",
     canKill: false,
     emoji: "🪓"
-  }
+  },
+  {
+    name: "spy",
+    description:
+      "🔍 Kamu adalah warga yang bisa mengetahui siapa saja yang dikunjungi Werewolf saat malam dan menyadap suatu orang",
+    skillText: "🔍 Spy, pilih siapa yang mau kamu sadap",
+    cmdText: "/skill",
+    team: "villager",
+    canKill: false,
+    emoji: "👨‍🌾"
+  },
+  {
+    name: "tracker",
+    description:
+      "👣 Kamu adalah warga yang bisa melacak Targetmu kemana saja saat malam. ",
+    skillText: "👣 Tracker, pilih siapa yang mau kamu lacak",
+    cmdText: "/skill",
+    team: "villager",
+    canKill: false,
+    emoji: "👨‍🌾"
+  },
 ];
 
 module.exports = roles;

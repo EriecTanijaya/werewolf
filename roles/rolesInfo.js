@@ -175,6 +175,17 @@ module.exports = {
         flex_text.body.text = "Pendendam yang ingin targetnya mati di gantung. Jika targetmu mati di serang saat malam, ";
         flex_text.body.text += "maka dia akan menjadi Jester. Targetmu akan selalu di pihak warga dan kamu bisa immune dari serangan biasa";
         break;
+        
+      case "spy":
+        flex_text.header.text = "🔍 Spy";
+        flex_text.body.text = "Warga yang bisa menyadap suatu pemain saat malam. Spy bisa tahu apa yang terjadi pada Targetnya. ";
+        flex_text.body.text += "Spy juga bisa tahu Werewolf ke rumah siapa saja saat malam. ";
+        break;
+        
+      case "tracker":
+        flex_text.header.text = "👣 Tracker";
+        flex_text.body.text = "Warga yang bisa melacak suatu pemain untuk diketahui kemana aja Targetnya. ";
+        break;
 
       default:
         let text =
