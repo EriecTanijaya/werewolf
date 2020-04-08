@@ -7,9 +7,6 @@ TODO
 
 - buat database beneran, data user store di mongodb freakin' hard tho
 
-- role survivor
-  gampang, pas nanti di func checkWinCondition, check doi idup atau engga aja
-
 - role tracker(tau target visit siapa), trapper, spy, survivor, jailor
   - tracker : dari target.index nya kita bisa tau dia visit siapa KALAU tidak di roleblock dan TIDAK di attack dan tidak di intercept
     kecuali yg attack itu veteran, baru tau dia kemana
@@ -45,7 +42,7 @@ TODO
   ini list ada di wiki fandom
 
 - sekarang udah bisa custom, jadi di getRandomRoleSet bnyak tugas nih
-- kalau pemain dah rame, adain role investigator, dimana dia miripin aj sama investigator di TOS
+- kalau pemain dah rame, adain **role investigator**, dimana dia miripin aj sama investigator di TOS
 - buat juga sistem random role yang bisa di duplicate, barengan dengan buat istilah town protector, town killing, dll
   jadi pas di /roles, itu bisa agak catchy
 
