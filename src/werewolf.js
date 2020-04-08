@@ -1536,6 +1536,8 @@ module.exports = {
         if (doer.role.isLynched && !doer.role.hasRevenged) {
           let targetIndex = -1;
 
+          console.log(`target index jester ${doer.target.index}`);
+          
           if (doer.target.index === -1) {
             // random kill
             this.group_session.players[i].message +=
