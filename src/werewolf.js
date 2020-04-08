@@ -3230,7 +3230,7 @@ module.exports = {
     while (true) {
       let targetIndex = helper.getRandomInt(0, maxIndex);
       let targetId = players[targetIndex].id;
-      if (targetId !== jesterId && ) {
+      if (targetId !== jesterId && players[targetIndex].status === "alive") {
         return targetIndex;
       }
     }
