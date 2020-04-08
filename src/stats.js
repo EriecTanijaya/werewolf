@@ -120,7 +120,7 @@ module.exports = {
       let flex_text = this.getTableFlex(users, headerText, team);
       return this.replyFlex(flex_text);
     });
-    return this.replyText("💡 HAH? KOSONG?!!");
+    //return this.replyText("💡 HAH? KOSONG?!!");
   },
 
   statusCommand: function() {

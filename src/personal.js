@@ -424,6 +424,16 @@ module.exports = {
       }
     }
 
+    // special role exe
+    if (roleName === "executioner") {
+      let exeTarget = players[players[index].role.targetLynchIndex];
+      let text =
+        "🪓 Target kamu adalah " + exeTarget.name + ". Kamu harus bisa ";
+      text += "menghasut warga untuk gantung dia";
+
+      return this.replyFlex(flex_text, text);
+    }
+
     if (state !== "day" && state !== "vote") {
       let text = "";
       /// Special Role Personal chat reminder
@@ -440,13 +450,6 @@ module.exports = {
       let noNightSkill = ["villager", "executioner"];
 
       if (noNightSkill.includes(roleName)) {
-        //special role exe
-        if (roleName === "executioner") {
-          let exeTarget = players[players[index].role.targetLynchIndex];
-          text += "🪓 Target kamu adalah " + exeTarget.name + ". Kamu harus bisa ";
-          text += "menghasut warga untuk gantung dia";
-        }
-        
         return this.replyFlex(flex_text, text);
       }
 
@@ -480,7 +483,7 @@ module.exports = {
           text += "👻 Kamu pilih siapa saja yang ingin kamu hantui. ";
           text += "Jika tidak besok kamu akan sembarang menghantui orang";
         }
-      } else if (roleName === "survivor"){
+      } else if (roleName === "survivor") {
         if (player.role.vest > 0) {
           return this.survivorSkill(flex_text);
         } else {
@@ -552,7 +555,7 @@ module.exports = {
 
     return this.replyFlex(flex_text);
   },
-  
+
   survivorSkill: function(flex_text) {
     let skillText = this.getRoleSkillText("survivor");
     let players = this.group_session.players;
@@ -621,7 +624,7 @@ module.exports = {
 
     return this.replyText(msg);
   },
-  
+
   vestCommand: function() {
     let index = this.indexOfPlayer();
     let players = this.group_session.players;
