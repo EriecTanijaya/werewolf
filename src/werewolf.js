@@ -1451,6 +1451,7 @@ module.exports = {
     /// Jester Haunt Action
     for (let i = 0; i < players.length; i++) {
       let doer = players[i];
+      let roleName = doer.role.name;
 
       if (doer.role.name === "jester") {
         if (doer.role.isLynched && !doer.role.hasRevenged) {
@@ -1466,6 +1467,9 @@ module.exports = {
           } else {
             targetIndex = doer.target.index;
           }
+          
+          this.group_session.players[targetIndex].message +=
+              "👻 SURPRISEEE!! Kamu didatangi 🃏 Jester yang mati itu" + "\n\n";
 
           this.group_session.players[targetIndex].attacked = true;
           this.group_session.players[targetIndex].isHaunted = true;
