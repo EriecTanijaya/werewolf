@@ -344,8 +344,8 @@ module.exports = {
       this.user_session.groupId = this.group_session.groupId;
       //cp
       for (let i = 0; i < 6; i++) {
-      let newPlayer = this.createNewPlayer(this.user_session);
-      this.addPlayer(newPlayer);
+        let newPlayer = this.createNewPlayer(this.user_session);
+        this.addPlayer(newPlayer);
       }
 
       let text = "💡 " + this.user_session.name + " berhasil bergabung!";
@@ -617,7 +617,7 @@ module.exports = {
     let playersLength = players.length;
     //let roles = this.getRandomRoleSet(playersLength); //cp
     let roles = ["executioner", "jester", "survivor", "werewolf", "seer"];
-    
+
     /// Special unique role
     let exeIndex = -1;
 
@@ -663,7 +663,9 @@ module.exports = {
 
         case "executioner":
           exeIndex = index;
-          item.role.targetLynchIndex = this.getExecutionerTargetIndex(players[exeIndex].id);
+          item.role.targetLynchIndex = this.getExecutionerTargetIndex(
+            players[exeIndex].id
+          );
           item.role.isTargetLynched = false;
           break;
       }
@@ -1797,7 +1799,12 @@ module.exports = {
             };
             this.group_session.players[targetIndex].visitors.push(visitor);
 
-            let immuneToBasicAttack = ["serial-killer", "arsonist", "werewolf", "executioner"];
+            let immuneToBasicAttack = [
+              "serial-killer",
+              "arsonist",
+              "werewolf",
+              "executioner"
+            ];
 
             if (immuneToBasicAttack.includes(target.role.name)) {
               this.group_session.players[i].message +=
@@ -1857,7 +1864,12 @@ module.exports = {
               this.group_session.players[targetIndex].visitors.push(visitor);
             }
 
-            let immuneToBasicAttack = ["serial-killer", "arsonist", "werewolf", "executioner"];
+            let immuneToBasicAttack = [
+              "serial-killer",
+              "arsonist",
+              "werewolf",
+              "executioner"
+            ];
 
             if (immuneToBasicAttack.includes(target.role.name)) {
               this.group_session.players[i].message +=
@@ -2010,7 +2022,11 @@ module.exports = {
                 target.name +
                 "\n\n";
 
-              let immuneToBasicAttack = ["serial-killer", "arsonist", "executioner"];
+              let immuneToBasicAttack = [
+                "serial-killer",
+                "arsonist",
+                "executioner"
+              ];
 
               if (immuneToBasicAttack.includes(target.role.name)) {
                 this.group_session.players[i].message +=
@@ -2917,40 +2933,28 @@ module.exports = {
   getExecutionerTargetIndex: function(exeId) {
     let players = this.group_session.players;
     let maxIndex = players.length - 1;
-    let targetIndex = helper.getRandomInt(0, maxIndex);
-    let targetId = "players[targetIndex].id";
-    let isTownie = false;
 
-    if (players[targetIndex].role.team === "villager") {
-      isTownie = true;
-    }
-
-    while (targetId === exeId || !isTownie) {
+    while (true) {
       let targetIndex = helper.getRandomInt(0, maxIndex);
-      targetId = players[targetIndex].id;
-      isTownie = false;
+      let targetId = players[targetIndex].id;
+      let isTownie = false;
       if (players[targetIndex].role.team === "villager") {
         isTownie = true;
       }
       
-      if (targetId !== exeId && isTownie) {
-        break;
+      if (targetId !== exeId & isTownie) {
+        return targetIndex;
       }
-      
     }
-
-    return targetIndex;
   },
 
   getJesterTargetIndex: function(jesterId) {
     let players = this.group_session.players;
     let maxIndex = players.length - 1;
-    let targetIndex = helper.getRandomInt(0, maxIndex);
-    let targetId = players[targetIndex];
 
     while (true) {
-      targetIndex = helper.getRandomInt(0, maxIndex);
-      targetId = players[targetIndex];
+      let targetIndex = helper.getRandomInt(0, maxIndex);
+      let targetId = players[targetIndex];
       if (targetId !== jesterId) {
         return targetIndex;
       }
@@ -3006,7 +3010,8 @@ module.exports = {
       serialKillerStats: user_session.serialKillerStats,
       arsonistStats: user_session.arsonistStats,
       role: {
-        name: "villager"
+        name: "villager",
+        team: "villager"
       },
       status: "alive",
       message: "",
@@ -3181,7 +3186,7 @@ module.exports = {
     /// Always role
     roles.push("werewolf");
     werewolfNeedCount--;
-    
+
     /// Unique role utk sekarang si exe
     roles.push("executioner");
     neutralNeedCount--;
