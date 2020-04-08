@@ -945,6 +945,7 @@ module.exports = {
     /// Spy global var
     let spyIndex = this.getPlayerIndexByRole("spy");
     let spyWerewolfVisitInfo = "";
+    let spyBuggedInfo = "";
     
     /// Spy lock target action
     if (spyIndex !== -1) {
@@ -1150,7 +1151,7 @@ module.exports = {
               role: doer.role
             };
             this.group_session.players[targetIndex].visitors.push(visitor);
-
+            
             if (target.role.name === "serial-killer") {
               this.group_session.players[i].message +=
                 "💡 Target kamu immune!" + "\n\n";
@@ -1161,6 +1162,11 @@ module.exports = {
               this.group_session.players[targetIndex].intercepted = true;
 
               this.group_session.players[targetIndex].target.index = i;
+              
+              if (players[targetIndex].bugged) {
+                spyBuggedInfo += "🔍 Ada yang mencoba roleblock Target kamu, hingga Targetmu menyerang nya!" + "\n\n";    
+              }
+              
             } else if (
               target.role.name === "consort" ||
               target.role.name === "veteran"
@@ -1170,9 +1176,18 @@ module.exports = {
 
               this.group_session.players[targetIndex].message +=
                 "💡 Ada yang berusaha role block kamu!" + "\n\n";
+              
+              if (players[targetIndex].bugged) {
+                spyBuggedInfo += "🔍 Ada yang mencoba roleblock Target kamu tapi targetmu immune dari roleblock!" + "\n\n";    
+              }
+              
             } else {
               this.group_session.players[targetIndex].blocked = true;
 
+              if (players[targetIndex].bugged) {
+                spyBuggedInfo += "🔍 Target kamu di roleblock sehingga dia diam dirumah saja!" + "\n\n";    
+              }
+              
               /// langsung kasih pesannya aja
               if (targetIndex === werewolfDoerIndex) {
                 if (isBackupWerewolfUseSkill) {
@@ -1227,6 +1242,11 @@ module.exports = {
               this.group_session.players[targetIndex].intercepted = true;
 
               this.group_session.players[targetIndex].target.index = i;
+              
+              if (players[targetIndex].bugged) {
+                spyBuggedInfo += "🔍 Ada yang mencoba roleblock Target kamu, hingga Targetmu menyerang nya!" + "\n\n";    
+              }
+              
             } else if (
               target.role.name === "escort" ||
               target.role.name === "veteran"
@@ -1236,11 +1256,20 @@ module.exports = {
 
               this.group_session.players[targetIndex].message +=
                 "💡 Ada yang berusaha role block kamu!" + "\n\n";
+              
+              if (players[targetIndex].bugged) {
+                spyBuggedInfo += "🔍 Ada yang mencoba roleblock Target kamu tapi targetmu immune dari roleblock!" + "\n\n";    
+              }
+              
             } else {
               this.group_session.players[targetIndex].blocked = true;
 
               spyWerewolfVisitInfo +=
                 "🐺 " + target.name + " dikunjungi Werewolf" + "\n\n";
+              
+              if (players[targetIndex].bugged) {
+                spyBuggedInfo += "🔍 Target kamu di roleblock sehingga dia diam dirumah saja!" + "\n\n";    
+              }
 
               /// langsung kasih pesannya aja
               if (targetIndex === werewolfDoerIndex) {
@@ -1342,6 +1371,10 @@ module.exports = {
 
               this.group_session.players[targetIndex].message +=
                 "🧛 Kamu diserang " + doer.role.name + "!" + "\n\n";
+              
+              if (players[targetIndex].bugged) {
+                spyBuggedInfo += "🔍 Target kamu di serang Vampire!" + "\n\n";    
+              }
 
               this.group_session.players[targetIndex].attacked = true;
 
@@ -1356,6 +1389,10 @@ module.exports = {
             } else if (immuneToVampireBite.includes(targetRoleName)) {
               this.group_session.players[i].message +=
                 "💡 Target kamu kebal dari gigitan!" + "\n\n";
+              
+              if (players[targetIndex].bugged) {
+                spyBuggedInfo += "🔍 Target kamu immune dari gigitan Vampire!" + "\n\n";    
+              }
 
               if (targetRoleName === "vampire-hunter") {
                 this.group_session.players[targetIndex].intercepted = true;
@@ -1365,6 +1402,11 @@ module.exports = {
             } else {
               this.group_session.players[i].message +=
                 "💡 Kamu gigit " + target.name + "\n\n";
+              
+              if (players[targetIndex].bugged) {
+                spyBuggedInfo += "🔍 Target kamu digigit Vampire!" + "\n\n";    
+              }
+              
               this.group_session.players[targetIndex].vampireBited = true;
             }
 
@@ -1735,6 +1777,11 @@ module.exports = {
             if (doer.intercepted) {
               this.group_session.players[i].message +=
                 "💡 Kamu tercegat oleh " + target.role.name + "\n\n";
+              
+              if (players[targetIndex].bugged) {
+                spyBuggedInfo += "🔍 Target kamu di serang Vampire Hunter yang dia kunjungi!" + "\n\n";    
+              }
+              
             } else {
               this.group_session.players[i].message +=
                 "👣 Kamu ke rumah " + target.name + "\n\n";
