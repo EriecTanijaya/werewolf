@@ -2067,7 +2067,20 @@ module.exports = {
         let isBurned = players[i].burned;
         let isHaunted = players[i].isHaunted;
 
-        if (isAttacked || isVampireBited) {
+        if (players[i].willSuicide) {
+          this.group_session.players[i].status = "death";
+
+          let attackedAnnouncement = attackedMsg.getAttackResponse(
+            [],
+            players[i].name,
+            true
+          );
+
+          allAnnouncement += attackedAnnouncement + "\n";
+
+          allAnnouncement +=
+            "✉️ Role nya adalah " + players[i].role.name + "\n\n";
+        } else if (isAttacked || isVampireBited) {
           if (isHealed) {
             this.group_session.players[i].message +=
               "💉 Ada yang datang berusaha menyelamatkanmu!" + "\n\n";
@@ -2111,15 +2124,6 @@ module.exports = {
           if (!isAttacked) continue;
 
           this.group_session.players[i].status = "death";
-
-          /// special check for some role
-          if (this.checkExistsRole("executioner")) {
-            exeIndex = this.getPlayerIndexByRole("executioner");
-            let exeLynchTargetIndex = players[exeIndex].role.targetLynchIndex;
-            if (i === exeLynchTargetIndex) {
-              isExecutionerTargetDie = true;
-            }
-          }
 
           let attackersRole = players[i].attackers.map(atkr => {
             return atkr.role.name;
@@ -2186,19 +2190,18 @@ module.exports = {
 
           allAnnouncement +=
             "✉️ Role nya adalah " + players[i].role.name + "\n\n";
-        } else if (players[i].willSuicide) {
-          this.group_session.players[i].status = "death";
+        }
 
-          let attackedAnnouncement = attackedMsg.getAttackResponse(
-            [],
-            players[i].name,
-            true
-          );
-
-          allAnnouncement += attackedAnnouncement + "\n";
-
-          allAnnouncement +=
-            "✉️ Role nya adalah " + players[i].role.name + "\n\n";
+        ///yang baru mati
+        if (this.group_session.players[i].status === "death") {
+          /// special check for some role
+          if (this.checkExistsRole("executioner")) {
+            exeIndex = this.getPlayerIndexByRole("executioner");
+            let exeLynchTargetIndex = players[exeIndex].role.targetLynchIndex;
+            if (i === exeLynchTargetIndex) {
+              isExecutionerTargetDie = true;
+            }
+          }
         }
       }
     }
@@ -3224,7 +3227,7 @@ module.exports = {
     }
 
     // neutral team
-    while (neutralNeedCount) {
+    while (neutralNeedCount > 1) {
       // check apakah neutral role sudah habis ato engga
       // kalau habis, randomkan saja
       if (neutralIndex > neutralTeam.length - 1) {
