@@ -1457,9 +1457,15 @@ module.exports = {
             this.group_session.players[i].message +=
               "💡 Karena kamu tidak pilih target, kamu akan sembarangan menghantui orang" + "\n\n";
             
+            targetIndex = ""
+            
           } else {
             targetIndex = doer.target.index;
           }
+          
+          
+          
+          
         }
         
         
@@ -2826,6 +2832,16 @@ module.exports = {
   },
 
   /** helper func **/
+    
+  getJesterTargetIndex: function(jesterId) {
+    let players = helper.shufleArray(this.group_session.players);
+    let index = -1;
+    for (let i = 0; i < players.length; i++) {
+      if (players[i].id !== jesterId && players[i]) {
+        
+      }
+    }
+  },
 
   resetCheckChance: function() {
     this.group_session.checkChance = 2;
