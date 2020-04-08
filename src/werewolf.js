@@ -2920,7 +2920,7 @@ module.exports = {
       isTownie = true;
     }
 
-    while (targetId === exeId || isTownie) {
+    while (targetId === exeId || !isTownie) {
       let targetIndex = helper.getRandomInt(0, maxIndex);
       let targetId = players[targetIndex].id;
       let isTownie = false;
@@ -2934,13 +2934,15 @@ module.exports = {
 
   getJesterTargetIndex: function(jesterId) {
     let players = this.group_session.players;
-    let targetId = helper.random(players).id;
+    let maxIndex = players.length - 1;
+    let targetIndex = helper.getRandomInt(0, maxIndex);
+    let targetId = players[targetIndex];
 
     while (targetId === jesterId) {
-      targetId = helper.random(players).id;
+      let targetIndex = helper.getRandomInt(0, maxIndex);
+      let targetId = players[targetIndex];
     }
-
-    let targetIndex = this.getPlayerIndexById(targetId);
+    
     return targetIndex;
   },
 
