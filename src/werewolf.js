@@ -1315,7 +1315,8 @@ module.exports = {
               "werewolf",
               "vampire-hunter",
               "serial-killer",
-              "arsonist"
+              "arsonist",
+              "executioner"
             ];
 
             let canAttacked = ["werewolf-cub", "sorcerer", "consort"];
@@ -1579,6 +1580,7 @@ module.exports = {
             this.group_session.players[targetIndex].vampireBited = false;
             this.group_session.players[targetIndex].message = "";
             this.group_session.players[targetIndex].healed = false;
+            this.group_session.players[targetIndex].vested = false;
             this.group_session.players[targetIndex].visitors = [];
             this.group_session.players[targetIndex].blocked = false;
             this.group_session.players[targetIndex].targetVoteIndex = -1;
@@ -1790,7 +1792,7 @@ module.exports = {
             };
             this.group_session.players[targetIndex].visitors.push(visitor);
 
-            let immuneToBasicAttack = ["serial-killer", "arsonist", "werewolf"];
+            let immuneToBasicAttack = ["serial-killer", "arsonist", "werewolf", "executioner"];
 
             if (immuneToBasicAttack.includes(target.role.name)) {
               this.group_session.players[i].message +=
@@ -1850,7 +1852,7 @@ module.exports = {
               this.group_session.players[targetIndex].visitors.push(visitor);
             }
 
-            let immuneToBasicAttack = ["serial-killer", "arsonist", "werewolf"];
+            let immuneToBasicAttack = ["serial-killer", "arsonist", "werewolf", "executioner"];
 
             if (immuneToBasicAttack.includes(target.role.name)) {
               this.group_session.players[i].message +=
@@ -2003,7 +2005,7 @@ module.exports = {
                 target.name +
                 "\n\n";
 
-              let immuneToBasicAttack = ["serial-killer", "arsonist"];
+              let immuneToBasicAttack = ["serial-killer", "arsonist", "executioner"];
 
               if (immuneToBasicAttack.includes(target.role.name)) {
                 this.group_session.players[i].message +=
@@ -2840,6 +2842,11 @@ module.exports = {
           }
         } else if (roleName === "survivor") {
           if (players[i].status === "alive") {
+            this.increaseWinRate(i, roleTeam);
+            continue;
+          }
+        } else if (roleName === "executioner") {
+          if (players[i].role.isTargetLynched) {
             this.increaseWinRate(i, roleTeam);
             continue;
           }
