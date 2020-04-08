@@ -77,11 +77,8 @@ module.exports = {
           return this.replyFlex(flex_text);
         }
       }
+      return this.replyText("💡Belum ada data usernya, main 1 game dlu");
     });
-
-    return this.replyText(
-      "💡 Belum ada data user nya, minimal main 1 game dulu"
-    );
   },
 
   rankCommand: function() {
