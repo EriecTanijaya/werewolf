@@ -936,8 +936,9 @@ module.exports = {
     /// vigilante check existences
     let vigilanteExists = this.checkExistsRole("vigilante");
 
-    /// check jester exists or not
-    let jesterExists = this.checkExistsRole("jester");
+    /// Executioner global var
+    let exeIndex = -1;
+    let isExecutionerTargetDie = false;
 
     /// Vampire Action
     // search the vampire that responsible to bite
@@ -2094,6 +2095,15 @@ module.exports = {
 
           this.group_session.players[i].status = "death";
 
+          /// special check for some role
+          if (this.checkExistsRole("executioner")) {
+            exeIndex = this.getPlayerIndexByRole("executioner");
+            let exeLynchTargetIndex = players[exeIndex].role.targetLynchIndex;
+            if (i === exeLynchTargetIndex) {
+              isExecutionerTargetDie = true;
+            }
+          }
+
           let attackersRole = players[i].attackers.map(atkr => {
             return atkr.role.name;
           });
@@ -2433,6 +2443,16 @@ module.exports = {
       }
     }
 
+    if (isExecutionerTargetDie) {
+      this.group_session.players[exeIndex].message +=
+        "💡 Targetmu mati pas malam dibunuh. Kamu menjadi role Jester";
+
+      let roleData = this.getRoleData("jester");
+      this.group_session.players[exeIndex].role = roleData;
+      this.group_session.players[exeIndex].role.isLynched = false;
+      this.group_session.players[exeIndex].role.hasRevenged = false;
+    }
+
     /// untuk announcement certain role
     this.group_session.players.forEach((item, index) => {
       /// Vampire Announcement
@@ -2689,14 +2709,13 @@ module.exports = {
       this.group_session.players[lynchTarget.index].role.canKill = true;
       announcement += "\n\n" + "👻 Jester akan membalas dendam dari kuburan!";
     }
-    
-    //cp call func utk cek exe exists atau engga,
-    // ambil lynch target dari private prop exe
-    // return funcnya index dari exenya, lynchTargetIndex exenya,
+
     if (this.checkExistsRole("executioner")) {
       let exeIndex = this.getPlayerIndexByRole("executioner");
       let exeLynchTargetIndex = players[exeIndex].role.targetLynchIndex;
-      if ()
+      if (lynchTarget.index === exeLynchTargetIndex) {
+        this.group_session.players[exeIndex].role.isTargetLynched = true;
+      }
     }
 
     if (!flex_texts[0].body) {
@@ -2882,8 +2901,6 @@ module.exports = {
   },
 
   /** helper func **/
-  
-  //cp
 
   getExecutionerTargetIndex: function(exeId) {
     let players = this.group_session.players;
