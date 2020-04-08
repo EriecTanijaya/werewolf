@@ -3286,6 +3286,8 @@ module.exports = {
       jesterStats: user_session.jesterStats,
       serialKillerStats: user_session.serialKillerStats,
       arsonistStats: user_session.arsonistStats,
+      executionerStats: user_session.executionerStats,
+      survivorStats: user_session.survivorStats,
       role: {
         name: "villager",
         team: "villager"
