@@ -342,11 +342,11 @@ module.exports = {
       this.group_session.roomHostId = this.user_session.id;
       this.user_session.state = "active";
       this.user_session.groupId = this.group_session.groupId;
-
-      // for (let i = 0; i < 6; i++) {
+      //cp
+      for (let i = 0; i < 6; i++) {
       let newPlayer = this.createNewPlayer(this.user_session);
       this.addPlayer(newPlayer);
-      // }
+      }
 
       let text = "💡 " + this.user_session.name + " berhasil bergabung!";
       return this.replyFlex(flex_text, [text, remindText]);
@@ -2924,7 +2924,7 @@ module.exports = {
     let players = this.group_session.players;
     let maxIndex = players.length - 1;
     let targetIndex = helper.getRandomInt(0, maxIndex);
-    let targetId = players[targetIndex].id;
+    let targetId = "players[targetIndex].id";
     let isTownie = false;
 
     if (players[targetIndex].role.team === "villager") {
@@ -2933,11 +2933,14 @@ module.exports = {
 
     while (targetId === exeId || !isTownie) {
       let targetIndex = helper.getRandomInt(0, maxIndex);
-      let targetId = players[targetIndex].id;
-      let isTownie = false;
+      targetId = players[targetIndex].id;
+      isTownie = false;
       if (players[targetIndex].role.team === "villager") {
         isTownie = true;
       }
+      console.log(`targetId ${targetId}, targetIndex ${targetIndex}, isTownie ${isTownie}
+role ${players[targetIndex].role.name}
+`);
     }
 
     return targetIndex;
@@ -2950,8 +2953,8 @@ module.exports = {
     let targetId = players[targetIndex];
 
     while (targetId === jesterId) {
-      let targetIndex = helper.getRandomInt(0, maxIndex);
-      let targetId = players[targetIndex];
+      targetIndex = helper.getRandomInt(0, maxIndex);
+      targetId = players[targetIndex];
       console.log(`Jester target index ${targetIndex}`);
     }
     
