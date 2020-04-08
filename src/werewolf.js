@@ -615,8 +615,11 @@ module.exports = {
     );
     let players = this.group_session.players;
     let playersLength = players.length;
-    //let roles = this.getRandomRoleSet(playersLength);
+    //let roles = this.getRandomRoleSet(playersLength); //cp
     let roles = ["executioner", "jester", "survivor", "werewolf", "seer"];
+    
+    /// Special unique role
+    let exeIndex = -1;
 
     this.group_session.players.forEach((item, index) => {
       if (index <= roles.length - 1) {
@@ -659,7 +662,8 @@ module.exports = {
           break;
 
         case "executioner":
-          item.role.targetLynchIndex = this.getExecutionerTargetIndex(item.id);
+          exeIndex = index;
+          item.role.targetLynchIndex = -1;
           item.role.isTargetLynched = false;
           break;
       }
@@ -669,6 +673,12 @@ module.exports = {
       //   // this.client.pushMessage();
       // }
     });
+    
+    /// hax memory problem
+    if (exeIndex !== -1) {
+      let exeTargetIndex = this.getExecutionerTargetIndex(players[exeIndex].id);
+      this.group_session.players[exeIndex].role.targetLynchIndex = exeTargetIndex;
+    }
 
     this.group_session.players = helper.shuffleArray(
       this.group_session.players
@@ -2942,6 +2952,7 @@ module.exports = {
     while (targetId === jesterId) {
       let targetIndex = helper.getRandomInt(0, maxIndex);
       let targetId = players[targetIndex];
+      console.log(`Jester target index ${targetIndex}`);
     }
     
     return targetIndex;
