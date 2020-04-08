@@ -708,6 +708,7 @@ module.exports = {
         item.attackers = [];
         item.intercepted = false;
         item.addonMessage = "";
+        item.vested = false;
 
         //special role (vampire)
         if (item.role.team === "vampire") {
@@ -1676,7 +1677,7 @@ module.exports = {
             "💡 Kamu tidak menggunakan skill mu" + "\n\n";
         } else {
           this.group_session.players[i].role.vest--;
-          this.group_session.players[i].vested;
+          this.group_session.players[i].vested = true;
         }
         continue;
       }
@@ -2063,21 +2064,19 @@ module.exports = {
                 "💉 Dokter semalam berhasil melindungi seseorang!" + "\n\n";
               continue;
             }
-          } else if (isVested) {            
+          } else if (isVested) {
             if (attackerLength > 1 || isBurned || isHaunted) {
               this.group_session.players[i].message +=
-                "💡 Tetapi nyawa kamu tidak berhasil diselamatkan!" + "\n\n";
+                "🦺 Vest kamu tidak bisa menolongmu" + "\n\n";
             } else {
               this.group_session.players[i].message +=
-                "🤕 Nyawa kamu berhasil diselamatkan!" + "\n\n";
+                "🤕 Kamu selamat berkat 🦺 Vest yang kamu gunakan!" + "\n\n";
 
               // purge from vampire bite
               if (isVampireBited) {
                 this.group_session.players[i].vampireBited = false;
               }
 
-              allAnnouncement +=
-                "💉 Dokter semalam berhasil melindungi seseorang!" + "\n\n";
               continue;
             }
           }
@@ -2799,6 +2798,11 @@ module.exports = {
         /// check the win condition of some role
         if (roleName === "jester") {
           if (players[i].role.isLynched) {
+            this.increaseWinRate(i, roleTeam);
+            continue;
+          }
+        } else if (roleName === "survivor") {
+          if (players[i].status === "alive") {
             this.increaseWinRate(i, roleTeam);
             continue;
           }
