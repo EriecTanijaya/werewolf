@@ -656,6 +656,11 @@ module.exports = {
         case "survivor":
           item.role.vest = 4;
           break;
+
+        case "executioner":
+          item.role.targetLynchIndex = this.getExecutionerTargetIndex(item.id);
+          item.role.isTargetLynched = false;
+          break;
       }
 
       // disini bagi role pake pushMessage
@@ -931,8 +936,9 @@ module.exports = {
     /// vigilante check existences
     let vigilanteExists = this.checkExistsRole("vigilante");
 
-    /// check jester exists or not
-    let jesterExists = this.checkExistsRole("jester");
+    /// Executioner global var
+    let exeIndex = -1;
+    let isExecutionerTargetDie = false;
 
     /// Vampire Action
     // search the vampire that responsible to bite
@@ -1309,7 +1315,8 @@ module.exports = {
               "werewolf",
               "vampire-hunter",
               "serial-killer",
-              "arsonist"
+              "arsonist",
+              "executioner"
             ];
 
             let canAttacked = ["werewolf-cub", "sorcerer", "consort"];
@@ -1463,13 +1470,13 @@ module.exports = {
               "💡 Karena kamu tidak pilih target, kamu akan sembarangan menghantui orang" +
               "\n\n";
 
-            targetIndex = this.getJesterTargetIndex();
+            targetIndex = this.getJesterTargetIndex(doer.id);
           } else {
             targetIndex = doer.target.index;
           }
-          
+
           this.group_session.players[targetIndex].message +=
-              "👻 SURPRISEEE!! Kamu didatangi 🃏 Jester yang mati itu" + "\n\n";
+            "👻 SURPRISEEE!! Kamu didatangi 🃏 Jester yang mati itu" + "\n\n";
 
           this.group_session.players[targetIndex].attacked = true;
           this.group_session.players[targetIndex].isHaunted = true;
@@ -1573,6 +1580,7 @@ module.exports = {
             this.group_session.players[targetIndex].vampireBited = false;
             this.group_session.players[targetIndex].message = "";
             this.group_session.players[targetIndex].healed = false;
+            this.group_session.players[targetIndex].vested = false;
             this.group_session.players[targetIndex].visitors = [];
             this.group_session.players[targetIndex].blocked = false;
             this.group_session.players[targetIndex].targetVoteIndex = -1;
@@ -1784,7 +1792,7 @@ module.exports = {
             };
             this.group_session.players[targetIndex].visitors.push(visitor);
 
-            let immuneToBasicAttack = ["serial-killer", "arsonist", "werewolf"];
+            let immuneToBasicAttack = ["serial-killer", "arsonist", "werewolf", "executioner"];
 
             if (immuneToBasicAttack.includes(target.role.name)) {
               this.group_session.players[i].message +=
@@ -1844,7 +1852,7 @@ module.exports = {
               this.group_session.players[targetIndex].visitors.push(visitor);
             }
 
-            let immuneToBasicAttack = ["serial-killer", "arsonist", "werewolf"];
+            let immuneToBasicAttack = ["serial-killer", "arsonist", "werewolf", "executioner"];
 
             if (immuneToBasicAttack.includes(target.role.name)) {
               this.group_session.players[i].message +=
@@ -1997,7 +2005,7 @@ module.exports = {
                 target.name +
                 "\n\n";
 
-              let immuneToBasicAttack = ["serial-killer", "arsonist"];
+              let immuneToBasicAttack = ["serial-killer", "arsonist", "executioner"];
 
               if (immuneToBasicAttack.includes(target.role.name)) {
                 this.group_session.players[i].message +=
@@ -2088,6 +2096,15 @@ module.exports = {
           if (!isAttacked) continue;
 
           this.group_session.players[i].status = "death";
+
+          /// special check for some role
+          if (this.checkExistsRole("executioner")) {
+            exeIndex = this.getPlayerIndexByRole("executioner");
+            let exeLynchTargetIndex = players[exeIndex].role.targetLynchIndex;
+            if (i === exeLynchTargetIndex) {
+              isExecutionerTargetDie = true;
+            }
+          }
 
           let attackersRole = players[i].attackers.map(atkr => {
             return atkr.role.name;
@@ -2428,6 +2445,16 @@ module.exports = {
       }
     }
 
+    if (isExecutionerTargetDie) {
+      this.group_session.players[exeIndex].message +=
+        "💡 Targetmu mati pas malam dibunuh. Kamu menjadi role Jester";
+
+      let roleData = this.getRoleData("jester");
+      this.group_session.players[exeIndex].role = roleData;
+      this.group_session.players[exeIndex].role.isLynched = false;
+      this.group_session.players[exeIndex].role.hasRevenged = false;
+    }
+
     /// untuk announcement certain role
     this.group_session.players.forEach((item, index) => {
       /// Vampire Announcement
@@ -2685,6 +2712,14 @@ module.exports = {
       announcement += "\n\n" + "👻 Jester akan membalas dendam dari kuburan!";
     }
 
+    if (this.checkExistsRole("executioner")) {
+      let exeIndex = this.getPlayerIndexByRole("executioner");
+      let exeLynchTargetIndex = players[exeIndex].role.targetLynchIndex;
+      if (lynchTarget.index === exeLynchTargetIndex) {
+        this.group_session.players[exeIndex].role.isTargetLynched = true;
+      }
+    }
+
     if (!flex_texts[0].body) {
       flex_texts[0].body = {
         text: announcement
@@ -2810,6 +2845,11 @@ module.exports = {
             this.increaseWinRate(i, roleTeam);
             continue;
           }
+        } else if (roleName === "executioner") {
+          if (players[i].role.isTargetLynched) {
+            this.increaseWinRate(i, roleTeam);
+            continue;
+          }
         }
 
         this.decreaseWinRate(i, roleTeam);
@@ -2868,6 +2908,29 @@ module.exports = {
   },
 
   /** helper func **/
+
+  getExecutionerTargetIndex: function(exeId) {
+    let players = this.group_session.players;
+    let targetId = helper.random(players).id;
+    let targetIndex = this.getPlayerIndexById(targetId);
+    let isTownie = false;
+
+    if (players[targetIndex].role.team === "villager") {
+      isTownie = true;
+    }
+
+    while (targetId === exeId || isTownie) {
+      targetId = helper.random(players).id;
+      let targetIndex = this.getPlayerIndexById(targetId);
+      let isTownie = false;
+
+      if (players[targetIndex].role.team === "villager") {
+        isTownie = true;
+      }
+    }
+
+    return targetIndex;
+  },
 
   getJesterTargetIndex: function(jesterId) {
     let players = this.group_session.players;
