@@ -652,6 +652,10 @@ module.exports = {
           item.role.isLynched = false;
           item.role.hasRevenged = false;
           break;
+          
+        case "survivor":
+          item.role.vest = 2;
+          break;
       }
 
       // disini bagi role pake pushMessage
@@ -1448,7 +1452,7 @@ module.exports = {
       let doer = players[i];
 
       if (doer.role.name === "jester") {
-        if (doer.isLynched && !doer.hasRevenged) {
+        if (doer.role.isLynched && !doer.role.hasRevenged) {
           let targetIndex = -1;
 
           if (doer.target.index === -1) {
@@ -1474,7 +1478,7 @@ module.exports = {
 
           this.group_session.players[targetIndex].attackers.push(attacker);
 
-          this.group_session.players[i].hasRevenged = true;
+          this.group_session.players[i].role.hasRevenged = true;
           
           this.group_session.players[i].message +=
             "👻 Kamu menghantui " + players[targetIndex].name + " sampai dia mati ketakutan" + "\n\n";
@@ -2623,8 +2627,8 @@ module.exports = {
     /// Set special role trigger when lynch
     // khususnya jester dan executioner
     if (roleName === "jester") {
-      this.group_session.players[lynchTarget.index].isLynched = true;
-      this.group_session.players[lynchTarget.index].canKill = true;
+      this.group_session.players[lynchTarget.index].role.isLynched = true;
+      this.group_session.players[lynchTarget.index].role.canKill = true;
       announcement += "\n\n" + "👻 Jester akan membalas dendam dari kuburan!";
     }
 
@@ -2744,7 +2748,7 @@ module.exports = {
       } else {
         /// check the win condition of some role
         if (roleName === "jester") {
-          if (players[i].isLynched) {
+          if (players[i].role.isLynched) {
             this.increaseWinRate(i, roleTeam);
             continue;
           }

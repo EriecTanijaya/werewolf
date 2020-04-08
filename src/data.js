@@ -79,6 +79,10 @@ module.exports = {
         arsonistStats: {
           win: 0,
           lose: 0
+        },
+        survivorStats: {
+          win: 0,
+          lose: 0
         }
       };
       user_sessions[id] = newUser;
@@ -307,6 +311,9 @@ module.exports = {
 
     oldUserData.arsonistStats.win += newUserData.arsonistStats.win;
     oldUserData.arsonistStats.lose += newUserData.arsonistStats.lose;
+    
+    oldUserData.survivorStats.win += newUserData.survivorStats.win;
+    oldUserData.survivorStats.lose += newUserData.survivorStats.lose;
 
     this.saveUserData(oldUserData);
   },
@@ -322,7 +329,8 @@ module.exports = {
         vampireStats: item.vampireStats,
         jesterStats: item.jesterStats,
         serialKillerStats: item.serialKillerStats,
-        arsonistStats: item.arsonistStats
+        arsonistStats: item.arsonistStats,
+        survivorStats: item.survivorStats
       };
 
       this.getUserData(item.id, reset_player);
