@@ -2911,19 +2911,19 @@ module.exports = {
 
   getExecutionerTargetIndex: function(exeId) {
     let players = this.group_session.players;
-    let targetId = helper.random(players).id;
-    let targetIndex = this.getPlayerIndexById(targetId);
+    let maxIndex = players.length - 1;
+    let targetIndex = helper.getRandomInt(0, maxIndex);
+    let targetId = players[targetIndex].id;
     let isTownie = false;
 
     if (players[targetIndex].role.team === "villager") {
       isTownie = true;
     }
 
-    while (targetId === exeId || isTownie) {
-      targetId = helper.random(players).id;
-      let targetIndex = this.getPlayerIndexById(targetId);
+    while (targetId === exeId || !isTownie) {
+      let targetIndex = helper.getRandomInt(0, maxIndex);
+      let targetId = players[targetIndex].id;
       let isTownie = false;
-
       if (players[targetIndex].role.team === "villager") {
         isTownie = true;
       }
@@ -2934,13 +2934,15 @@ module.exports = {
 
   getJesterTargetIndex: function(jesterId) {
     let players = this.group_session.players;
-    let targetId = helper.random(players).id;
+    let maxIndex = players.length - 1;
+    let targetIndex = helper.getRandomInt(0, maxIndex);
+    let targetId = players[targetIndex];
 
     while (targetId === jesterId) {
-      targetId = helper.random(players).id;
+      let targetIndex = helper.getRandomInt(0, maxIndex);
+      let targetId = players[targetIndex];
     }
-
-    let targetIndex = this.getPlayerIndexById(targetId);
+    
     return targetIndex;
   },
 
@@ -3165,9 +3167,13 @@ module.exports = {
     let neutralNeedCount = badNeedCount - werewolfNeedCount;
     let needSheriff = false;
 
+    /// Always role
     roles.push("werewolf");
-
     werewolfNeedCount--;
+    
+    /// Unique role utk sekarang si exe
+    roles.push("executioner");
+    neutralNeedCount--;
 
     /// bad guy generator
 
