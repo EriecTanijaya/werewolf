@@ -2212,6 +2212,10 @@ module.exports = {
             this.group_session.players[doctorIndex].message +=
               "💡 " + players[i].name + " diserang semalam!" + "\n\n";
 
+            if (players[doctorIndex].bugged) {
+              spyBuggedInfo += "🔍 Target dari Target kamu diserang!" + "\n\n";
+            }
+            
             if (attackerLength > 1 || isBurned || isHaunted) {
               this.group_session.players[i].message +=
                 "💡 Tetapi nyawa kamu tidak berhasil diselamatkan!" + "\n\n";
@@ -2224,8 +2228,11 @@ module.exports = {
                 this.group_session.players[i].vampireBited = false;
               }
               
+              if (players[i].bugged) {
+                spyBuggedInfo += "🔍 Target kamu selamat karena di sembuhkan Doctor!" + "\n\n";
+              }
               
-
+              // reconsider this deleted, maybe setelah ad role guardian
               allAnnouncement +=
                 "💉 Dokter semalam berhasil melindungi seseorang!" + "\n\n";
               continue;
@@ -2241,6 +2248,10 @@ module.exports = {
               // purge from vampire bite
               if (isVampireBited) {
                 this.group_session.players[i].vampireBited = false;
+              }
+              
+              if (players[i].bugged) {
+                spyBuggedInfo += "🔍 Target kamu selamat dari serangan berkat Vest yang digunakannya!" + "\n\n";
               }
 
               continue;
@@ -2513,7 +2524,7 @@ module.exports = {
             this.group_session.players[i].message +=
               "👣 Kamu ke rumah " + target.name + "\n\n";
             
-            
+            this.group_session.players[i].message += spy
             
           }
         }
