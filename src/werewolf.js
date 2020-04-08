@@ -647,7 +647,7 @@ module.exports = {
           item.role.bullet = 3;
           item.role.isLoadBullet = true;
           break;
-          
+
         case "jester":
           item.role.isLynched = false;
           item.role.hasRevenged = false;
@@ -925,7 +925,7 @@ module.exports = {
 
     /// vigilante check existences
     let vigilanteExists = this.checkExistsRole("vigilante");
-    
+
     /// check jester exists or not
     let jesterExists = this.checkExistsRole("jester");
 
@@ -1355,11 +1355,11 @@ module.exports = {
         if (parseInt(doer.target.index) !== parseInt(i)) {
           let targetIndex = doer.target.index;
           let target = players[targetIndex];
-          
+
           if (doer.role.name === "jester") {
             continue;
           }
-          
+
           if (doer.blocked) {
             continue;
           }
@@ -1442,85 +1442,42 @@ module.exports = {
         }
       }
     }
-    
+
     /// Jester Haunt Action
     for (let i = 0; i < players.length; i++) {
       let doer = players[i];
 
       if (doer.role.name === "jester") {
-        
         if (doer.isLynched && !doer.hasRevenged) {
           let targetIndex = -1;
-          
+
           if (doer.target.index === -1) {
             // random kill
             this.group_session.players[i].message +=
-              "💡 Karena kamu tidak pilih target, kamu akan sembarangan menghantui orang" + "\n\n";
-            
-            targetIndex = ""
-            
+              "💡 Karena kamu tidak pilih target, kamu akan sembarangan menghantui orang" +
+              "\n\n";
+
+            targetIndex = this.getJesterTargetIndex();
           } else {
             targetIndex = doer.target.index;
           }
+
+          this.group_session.players[targetIndex].attacked = true;
+          this.group_session.players[targetIndex].isHaunted = true;
+
+          let attacker = {
+            index: i,
+            name: doer.name,
+            role: doer.role,
+            deathNote: doer.deathNote
+          };
+
+          this.group_session.players[targetIndex].attackers.push(attacker);
+
+          this.group_session.players[i].hasRevenged = true;
           
-          
-          
-          
-        }
-        
-        
-        if (doer.target.index === -1) {
           this.group_session.players[i].message +=
-            "💡 Kamu tidak menggunakan skill mu" + "\n\n";
-
-          continue;
-        } else {
-          if (doer.blocked === true) {
-            this.group_session.players[i].message +=
-              "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." +
-              "\n\n";
-
-            continue;
-          } else if (!doer.attacked) {
-            let targetIndex = doer.target.index;
-            let target = players[targetIndex];
-
-            if (doer.intercepted) {
-              this.group_session.players[i].message +=
-                "💡 Kamu tercegat oleh " + target.role.name + "\n\n";
-            } else {
-              this.group_session.players[i].message +=
-                "👣 Kamu ke rumah " + target.name + "\n\n";
-
-              let visitor = {
-                name: doer.name,
-                role: doer.role
-              };
-              this.group_session.players[targetIndex].visitors.push(visitor);
-            }
-
-            if (target.role.team === "vampire") {
-              this.group_session.players[i].message +=
-                "🗡️ " + target.name + " adalah seorang Vampire!" + "\n\n";
-
-              this.group_session.players[targetIndex].message +=
-                "🗡️ Kamu diserang " + doer.role.name + "!" + "\n\n";
-
-              this.group_session.players[targetIndex].attacked = true;
-
-              let attacker = {
-                index: i,
-                name: doer.name,
-                role: doer.role,
-                deathNote: doer.deathNote
-              };
-
-              this.group_session.players[targetIndex].attackers.push(attacker);
-            } else {
-              this.group_session.players[i].message +=
-                "💡 " + target.name + " bukan seorang Vampire" + "\n\n";
-            }
-          }
+            "👻 Kamu menghantui " + players[targetIndex].name + " sampai dia mati ketakutan" + "\n\n";
         }
       }
     }
@@ -2042,6 +1999,7 @@ module.exports = {
         let isHealed = players[i].healed;
         let attackerLength = players[i].attackers.length;
         let isBurned = players[i].burned;
+        let isHaunted = players[i].isHaunted;
 
         if (isAttacked || isVampireBited) {
           if (isHealed) {
@@ -2051,7 +2009,7 @@ module.exports = {
             this.group_session.players[doctorIndex].message +=
               "💡 " + players[i].name + " diserang semalam!" + "\n\n";
 
-            if (attackerLength > 1 || isBurned) {
+            if (attackerLength > 1 || isBurned || isHaunted) {
               this.group_session.players[i].message +=
                 "💡 Tetapi nyawa kamu tidak berhasil diselamatkan!" + "\n\n";
             } else {
@@ -2683,7 +2641,6 @@ module.exports = {
     if (!lynched) {
       return this.night(null);
     } else {
-
       let someoneWin = this.checkVictory();
       if (someoneWin) {
         return this.endGame(null, someoneWin);
@@ -2832,15 +2789,17 @@ module.exports = {
   },
 
   /** helper func **/
-    
+
   getJesterTargetIndex: function(jesterId) {
-    let players = helper.shufleArray(this.group_session.players);
-    let index = -1;
-    for (let i = 0; i < players.length; i++) {
-      if (players[i].id !== jesterId && players[i]) {
-        
-      }
+    let players = this.group_session.players;
+    let targetId = helper.random(players).id;
+
+    while (targetId === jesterId) {
+      targetId = helper.random(players).id;
     }
+
+    let targetIndex = this.getPlayerIndexById(targetId);
+    return targetIndex;
   },
 
   resetCheckChance: function() {
