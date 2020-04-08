@@ -2618,7 +2618,14 @@ module.exports = {
       lynchedName + " dengan jumlah " + lynchTarget.count + " vote";
 
     announcement +=
-      "\n\n" + "✉️ Role nya adalah " + players[lynchTarget.index].role.name;
+      "\n\n" + "✉️ Role nya adalah " + roleName;
+    
+    /// Set special role trigger when lynch
+    // khususnya jester dan executioner
+    if (roleName === "jester") {
+      this.group_session.players[lynchTarget.index].isLynched = true;
+      announcement += "\n\n" + 
+    }
 
     if (!flex_texts[0].body) {
       flex_texts[0].body = {
@@ -2730,26 +2737,16 @@ module.exports = {
     //give point
     for (let i = 0; i < players.length; i++) {
       let roleTeam = players[i].role.team;
+      let roleName = players[i].role.name;
       if (roleTeam === whoWin) {
         this.increaseWinRate(i, roleTeam);
       } else {
         /// check the win condition of some role
-        switch(players[i].role.name) {
-          case "jester":
-            if (players[i].isLynched) {
-              this.increaseWinRate(i, roleTeam);
-              continue;
-            }
-            break;
-            
-          case "survivor":
-            
-            break;
-            
-          case "executioner":
-            
-            break;
-            
+        if (roleName === "jester") {
+          if (players[i].isLynched) {
+            this.increaseWinRate(i, roleTeam);
+            continue;
+          }
         }
         
         this.decreaseWinRate(i, roleTeam);
