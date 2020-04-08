@@ -2348,6 +2348,9 @@ module.exports = {
         }
       }
     }
+    
+    /// Spy Action
+    
 
     /// Lookout Action
     for (let i = 0; i < players.length; i++) {
@@ -3191,6 +3194,13 @@ module.exports = {
 
     // jumlah ww dibatasin 75% dari badNeedCount Quota
     let werewolfNeedCount = Math.round((75 / 100) * badNeedCount);
+    
+    let maxWerewolfCount = werewolfTeam.length + 1;
+    if (werewolfNeedCount > maxWerewolfCount) { //plus 1 reserve untuk werewolf
+      // ini kalau jumlah ww yang dibutuhkan lebih besar dari jumlah team ww yg ada
+      werewolfNeedCount = maxWerewolfCount;
+    }
+    
     let neutralNeedCount = badNeedCount - werewolfNeedCount;
     let needSheriff = false;
 
