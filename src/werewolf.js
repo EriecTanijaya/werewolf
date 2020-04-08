@@ -2911,8 +2911,9 @@ module.exports = {
 
   getExecutionerTargetIndex: function(exeId) {
     let players = this.group_session.players;
-    let targetId = helper.random(players).id;
-    let targetIndex = this.getPlayerIndexById(targetId);
+    let maxIndex = players.length - 1;
+    let targetIndex = helper.getRandomInt(0, maxIndex);
+    let targetId = players[targetIndex].id;
     let isTownie = false;
 
     if (players[targetIndex].role.team === "villager") {
@@ -2920,10 +2921,9 @@ module.exports = {
     }
 
     while (targetId === exeId || isTownie) {
-      targetId = helper.random(players).id;
-      let targetIndex = this.getPlayerIndexById(targetId);
+      let targetIndex = helper.getRandomInt(0, maxIndex);
+      let targetId = players[targetIndex].id;
       let isTownie = false;
-
       if (players[targetIndex].role.team === "villager") {
         isTownie = true;
       }
