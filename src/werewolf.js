@@ -1391,7 +1391,7 @@ module.exports = {
                 "💡 Target kamu kebal dari gigitan!" + "\n\n";
               
               if (players[targetIndex].bugged) {
-                spyBuggedInfo += "🔍 Target kamu immune dari gigitan Vampire!" + "\n\n";    
+                spyBuggedInfo += "🔍 Target kamu diserang tapi serangan tersebut tidak mempan!" + "\n\n";    
               }
 
               if (targetRoleName === "vampire-hunter") {
@@ -1959,6 +1959,11 @@ module.exports = {
               this.group_session.players[targetIndex].message +=
                 "💡 Ada yang menyerang kamu tapi kamu immune dari serangan!" +
                 "\n\n";
+              
+              if (players[targetIndex].bugged) {
+                spyBuggedInfo += "🔍 Target kamu diserang tapi serangan tersebut tidak mempan!" + "\n\n";
+              }
+              
             } else {
               this.group_session.players[i].message +=
                 "💡 Kamu menyerang " + target.name + "\n\n";
@@ -2182,6 +2187,11 @@ module.exports = {
         let isHaunted = players[i].isHaunted;
 
         if (players[i].willSuicide) {
+          
+          if (players[i].bugged) {
+            spyBuggedInfo += "🔍 Target kamu mati bunuh diri karena perasaan bersalah!" + "\n\n";
+          }
+          
           this.group_session.players[i].status = "death";
 
           let attackedAnnouncement = attackedMsg.getAttackResponse(
@@ -2213,6 +2223,8 @@ module.exports = {
               if (isVampireBited) {
                 this.group_session.players[i].vampireBited = false;
               }
+              
+              
 
               allAnnouncement +=
                 "💉 Dokter semalam berhasil melindungi seseorang!" + "\n\n";
