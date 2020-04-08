@@ -45,7 +45,9 @@ module.exports = {
         "vampire",
         "jester",
         "serial-killer",
-        "arsonist"
+        "arsonist",
+        "survivor",
+        "executioner"
       ];
       if (!availableTeam.includes(team)) {
         let text = "💡 Tidak ada ditemukan team '" + team + "', ";
@@ -90,7 +92,9 @@ module.exports = {
       "jester",
       "serial-killer",
       "arsonist",
-      "vampire"
+      "vampire",
+      "survivor",
+      "executioner"
     ];
     if (this.args[1] && !availableTeam.includes(team)) {
       let text =
