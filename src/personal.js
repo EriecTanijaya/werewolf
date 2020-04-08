@@ -207,10 +207,9 @@ module.exports = {
     // buat if role.name === jester & isLynched true
     if (players[index].status === "death") {
       /// special role yg bisa skill pas mati
-      if (roleName === "jester") {
-        
+      if (roleName !== "jester" && !players[index].isLynched) {
+        return this.replyText("💡 Kamu sudah mati");
       }
-      return this.replyText("💡 Kamu sudah mati");
     }
 
     if (players[index].willSuicide) {
