@@ -18,23 +18,6 @@ TODO
   - bisa ada role amnesiac
   - sekarang neutral dh bisa multiple, tapi mereka ga tau siapa sesama mereka
   
-- executioner, kalau berhasil bunuh yang di targetkan, dia pas endGame, di cek
-   init executioner, langsung ada private prop targetLynch, isinya index player, sama bool isLynched
-   kalau ada role ini, data user musti kenak reset lagi, dan... ada new prop buat stats, team exe, role exe wkwkwk
-
-  - if role.name executioner, check (private prop), isTargetLynched
-    - berarti pas lynch func, itu check, exists gak role executioner, kalau exists
-      store index of playernya, lalu (private prop) exe itu ada index targetnya, kalau
-      index di private prop exe sama dengan index lynched player, maka set 
-      private prop exe isTargetLynched true
-  - pas endGame nya jadi kalau isTargetLynched true, yo dia menang (ini buat di logic endgame)
-  
-  - pas day func sama lynch func, kalau target nya executioner itu mati
-    - check lagi exists atau engga role exe, kalo exists
-    - get index dari role si executioner, store kan ke suatu obj
-    - get targetIndexnya exe, kalau sama dengan yang udah mati (ini di death action ceknya)
-    - maka exe itu di ganti rolenya ke jester, lalu private prop targetLynch di null kan aj
-    - utk flow diatas ini, bisa buat di dedicated func, biar bisa buat di call lagi
 
 - spy
   bisa tau werewolf visit
@@ -48,6 +31,7 @@ TODO
 
 - ROLE YANG BELUM BISA DUPLICATE
   - DOKTOR
+  - SPY
   
 - ROLE YG JANGAN DUPLICATE
   - VETERAN, vampire hunter, team ww(consort, wwcub, sorcerer jangan ada dupe)

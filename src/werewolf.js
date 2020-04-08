@@ -940,6 +940,10 @@ module.exports = {
     /// Executioner global var
     let exeIndex = -1;
     let isExecutionerTargetDie = false;
+    
+    /// Spy global var
+    let spyIndex = this.getPlayerIndexByRole("spy");
+    let spyWerewolfVisitInfo = "";
 
     /// Vampire Action
     // search the vampire that responsible to bite
@@ -1227,6 +1231,8 @@ module.exports = {
                 "💡 Ada yang berusaha role block kamu!" + "\n\n";
             } else {
               this.group_session.players[targetIndex].blocked = true;
+              
+              spyWerewolfVisitInfo += "🐺 " + target.name + " dikunjungi Werewolf" + "\n\n";
 
               /// langsung kasih pesannya aja
               if (targetIndex === werewolfDoerIndex) {
@@ -2036,6 +2042,8 @@ module.exports = {
                   "🐺 Kamu diserang " + doer.role.team + "!" + "\n\n";
 
                 this.group_session.players[targetIndex].attacked = true;
+                
+                spyWerewolfVisitInfo += "🐺 " + target.name + " dikunjungi Werewolf" + "\n\n";
 
                 let attacker = {
                   index: i,
@@ -2336,6 +2344,8 @@ module.exports = {
 
             this.group_session.players[i].message +=
               "🧙 Role " + target.name + " adalah " + target.role.name + "\n\n";
+            
+            spyWerewolfVisitInfo += "🐺 " + target.name + " dikunjungi Werewolf" + "\n\n";
 
             // info role kasih tau ke ww announcement atau engga?
 
@@ -2350,7 +2360,42 @@ module.exports = {
     }
     
     /// Spy Action
-    
+    for (let i = 0; i < players.length; i++) {
+      let doer = players[i];
+
+      if (doer.role.name === "spy" && doer.status === "alive") {
+        if (doer.target.index === -1) {
+          this.group_session.players[i].message +=
+            "💡 Kamu tidak menggunakan skill mu" + "\n\n";
+
+          continue;
+        } else {
+          if (doer.blocked === true) {
+            this.group_session.players[i].message +=
+              "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." +
+              "\n\n";
+
+            continue;
+          } else {
+            let targetIndex = doer.target.index;
+            let target = players[targetIndex];
+
+            let visitor = {
+              name: doer.name,
+              role: doer.role
+            };
+
+            this.group_session.players[targetIndex].visitors.push(visitor);
+
+            this.group_session.players[i].message +=
+              "👣 Kamu ke rumah " + target.name + "\n\n";
+
+            
+            
+          }
+        }
+      }
+    }
 
     /// Lookout Action
     for (let i = 0; i < players.length; i++) {
