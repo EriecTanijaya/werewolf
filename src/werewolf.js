@@ -2978,7 +2978,9 @@ module.exports = {
       return player.role.name;
     });
     helper.shuffleArray(roles);
-    return roles;
+    // Thanks to https://stackoverflow.com/questions/9229645/remove-duplicate-values-from-js-array
+    let uniq = [...new Set(roles)];
+    return uniq;
   },
 
   parseToText: function(arr) {

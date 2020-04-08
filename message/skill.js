@@ -195,6 +195,30 @@ module.exports = {
         }
         break;
         
+      case "spy":
+        if (isChangeTarget) {
+          text +=
+            "🔍 Kamu berubah pikiran dan memutuskan untuk menyadap " +
+            targetName +
+            " saja malam ini";
+        } else {
+          text +=
+            "🔍 Kamu memutuskan untuk menyadap " + targetName + " malam ini";
+        }
+        break;
+        
+      case "tracker":
+        if (isChangeTarget) {
+          text +=
+            "👣 Kamu berubah pikiran dan memutuskan untuk melacak " +
+            targetName +
+            " saja malam ini";
+        } else {
+          text +=
+            "👣 Kamu memutuskan untuk melacak " + targetName + " malam ini";
+        }
+        break;
+        
     }
     
     return text;
