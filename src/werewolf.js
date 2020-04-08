@@ -1491,6 +1491,10 @@ module.exports = {
                 this.group_session.players[i].visitors.push(visitor);
               }
             }
+            
+            if (players[targetIndex].bugged) {
+              spyBuggedInfo += "🔍 Target kamu di serang Veteran yang dia kunjungi!" + "\n\n";    
+            }
 
             this.group_session.players[targetIndex].message +=
               "💥 Kamu diserang " + roleName + " yang kamu kunjungi!" + "\n\n";
@@ -1534,6 +1538,10 @@ module.exports = {
 
           this.group_session.players[targetIndex].message +=
             "👻 SURPRISEEE!! Kamu didatangi 🃏 Jester yang mati itu" + "\n\n";
+          
+          if (players[targetIndex].bugged) {
+            spyBuggedInfo += "🔍 Target kamu di hantui Jester!" + "\n\n";    
+          }
 
           this.group_session.players[targetIndex].attacked = true;
           this.group_session.players[targetIndex].isHaunted = true;
@@ -1582,6 +1590,10 @@ module.exports = {
             let target = players[targetIndex];
 
             this.group_session.players[targetIndex].doused = true;
+            
+            if (players[targetIndex].bugged) {
+              spyBuggedInfo += "🔍 Target kamu disiram bensin oleh Arsonist!" + "\n\n";    
+            }
 
             this.group_session.players[i].message +=
               "👣 Kamu ke rumah " + target.name + "\n\n";
@@ -1593,7 +1605,7 @@ module.exports = {
             this.group_session.players[targetIndex].visitors.push(visitor);
 
             this.group_session.players[i].message +=
-              "⛽ Kamu diam diam menyiram gas ke rumah " + target.name + "\n\n";
+              "⛽ Kamu diam diam menyiram bensin ke rumah " + target.name + "\n\n";
           }
         }
       }
@@ -1777,11 +1789,6 @@ module.exports = {
             if (doer.intercepted) {
               this.group_session.players[i].message +=
                 "💡 Kamu tercegat oleh " + target.role.name + "\n\n";
-              
-              if (players[targetIndex].bugged) {
-                spyBuggedInfo += "🔍 Target kamu di serang Vampire Hunter yang dia kunjungi!" + "\n\n";    
-              }
-              
             } else {
               this.group_session.players[i].message +=
                 "👣 Kamu ke rumah " + target.name + "\n\n";
@@ -1799,6 +1806,16 @@ module.exports = {
 
               this.group_session.players[targetIndex].message +=
                 "🗡️ Kamu diserang " + doer.role.name + "!" + "\n\n";
+              
+              if (doer.intercepted) {
+                if (players[targetIndex].bugged) {
+                  spyBuggedInfo += "🔍 Target kamu di serang Vampire Hunter yang dia kunjungi!" + "\n\n";    
+                }
+              } else {
+                if (players[targetIndex].bugged) {
+                  spyBuggedInfo += "🔍 Target kamu di serang Vampire Hunter!" + "\n\n";    
+                }
+              }
 
               this.group_session.players[targetIndex].attacked = true;
 
@@ -1868,12 +1885,21 @@ module.exports = {
               this.group_session.players[targetIndex].message +=
                 "💡 Ada yang menyerang kamu tapi kamu immune dari serangan!" +
                 "\n\n";
+              
+              if (players[targetIndex].bugged) {
+                spyBuggedInfo += "🔍 Target kamu di serang tapi serangan tersebut tidak mempan!" + "\n\n";    
+              }
+              
             } else {
               this.group_session.players[i].message +=
                 "💡 Kamu menyerang " + target.name + "\n\n";
 
               this.group_session.players[targetIndex].message +=
                 "🔫 Kamu diserang " + doer.role.name + "!" + "\n\n";
+              
+              if (players[targetIndex].bugged) {
+                spyBuggedInfo += "🔍 Target kamu di serang Vigilante!" + "\n\n";    
+              }
 
               this.group_session.players[targetIndex].attacked = true;
 
@@ -1943,9 +1969,19 @@ module.exports = {
                   doer.role.name +
                   " yang kamu kunjungi!" +
                   "\n\n";
+                
+                if (players[targetIndex].bugged) {
+                  spyBuggedInfo += "🔍 Target kamu di serang Serial Killer yang dia kunjungi!" + "\n\n";    
+                }
+                
               } else {
                 this.group_session.players[targetIndex].message +=
                   "🔪 Kamu diserang " + doer.role.name + "!" + "\n\n";
+                
+                if (players[targetIndex].bugged) {
+                  spyBuggedInfo += "🔍 Target kamu di serang Serial Killer!" + "\n\n";    
+                }
+                
               }
 
               this.group_session.players[targetIndex].attacked = true;
@@ -2005,6 +2041,10 @@ module.exports = {
 
               this.group_session.players[targetIndex].message +=
                 "🔥 Rumah kamu dibakar " + doer.role.name + "!" + "\n\n";
+              
+              if (players[targetIndex].bugged) {
+                spyBuggedInfo += "🔍 Target kamu di bakar Arsonist!" + "\n\n";    
+              }
 
               this.group_session.players[targetIndex].burned = true;
 
@@ -2090,6 +2130,11 @@ module.exports = {
                 this.group_session.players[targetIndex].message +=
                   "💡 Ada yang menyerang kamu tapi kamu immune dari serangan!" +
                   "\n\n";
+                
+                if (players[targetIndex].bugged) {
+                  spyBuggedInfo += "🔍 Target kamu di serang tapi serangan tersebut tidak mempan!" + "\n\n";    
+                }
+                
               } else {
                 this.group_session.players[i].message +=
                   "💡 Kamu menyerang " + target.name + "\n\n";
@@ -2101,6 +2146,10 @@ module.exports = {
 
                 spyWerewolfVisitInfo +=
                   "🐺 " + target.name + " dikunjungi Werewolf" + "\n\n";
+                
+                if (players[targetIndex].bugged) {
+                  spyBuggedInfo += "🔍 Target kamu di serang Werewolf!" + "\n\n";    
+                }
 
                 let attacker = {
                   index: i,
