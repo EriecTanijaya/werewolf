@@ -343,10 +343,10 @@ module.exports = {
       this.user_session.state = "active";
       this.user_session.groupId = this.group_session.groupId;
       //cp
-      for (let i = 0; i < 6; i++) {
-        let newPlayer = this.createNewPlayer(this.user_session);
-        this.addPlayer(newPlayer);
-      }
+      //for (let i = 0; i < 6; i++) {
+      let newPlayer = this.createNewPlayer(this.user_session);
+      this.addPlayer(newPlayer);
+      //}
 
       let text = "💡 " + this.user_session.name + " berhasil bergabung!";
       return this.replyFlex(flex_text, [text, remindText]);
@@ -618,9 +618,6 @@ module.exports = {
     //let roles = this.getRandomRoleSet(playersLength); //cp
     let roles = ["executioner", "jester", "survivor", "werewolf", "seer"];
 
-    /// Special unique role
-    let exeIndex = -1;
-
     this.group_session.players.forEach((item, index) => {
       if (index <= roles.length - 1) {
         item.role.name = roles[index];
@@ -662,10 +659,7 @@ module.exports = {
           break;
 
         case "executioner":
-          exeIndex = index;
-          item.role.targetLynchIndex = this.getExecutionerTargetIndex(
-            players[exeIndex].id
-          );
+          item.role.targetLynchIndex = this.getExecutionerTargetIndex(item.id);
           item.role.isTargetLynched = false;
           break;
       }
@@ -2941,8 +2935,8 @@ module.exports = {
       if (players[targetIndex].role.team === "villager") {
         isTownie = true;
       }
-      
-      if (targetId !== exeId & isTownie) {
+
+      if ((targetId !== exeId) & isTownie) {
         return targetIndex;
       }
     }
