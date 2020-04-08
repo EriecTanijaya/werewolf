@@ -198,8 +198,7 @@ module.exports = {
     let roleName = players[index].role.name;
     let roleTeam = players[index].role.team;
 
-    // pas tanner jadi jester, ini ilangin
-    let prohibited = ["villager", "tanner", "veteran"];
+    let prohibited = ["villager", "veteran"];
 
     if (prohibited.includes(roleName)) {
       return this.replyText("💡 Jangan pernah kau coba untuk");
@@ -207,6 +206,10 @@ module.exports = {
 
     // buat if role.name === jester & isLynched true
     if (players[index].status === "death") {
+      /// special role yg bisa skill pas mati
+      if (roleName === "jester") {
+        
+      }
       return this.replyText("💡 Kamu sudah mati");
     }
 
@@ -414,7 +417,10 @@ module.exports = {
     }
 
     if (player.status === "death" || player.willSuicide) {
-      return this.replyFlex(flex_text);
+      /// sejauh ini hanya jester yg bisa pake skill pas mati
+      if (roleName !== "jester") {
+        return this.replyFlex(flex_text);
+      }
     }
 
     if (state !== "day" && state !== "vote") {
@@ -430,7 +436,7 @@ module.exports = {
           "💡 Kamu bisa dengar vampire chat-an, gunakan cmd '/r' secara berkala";
       }
 
-      let noNightSkill = ["villager", "tanner"];
+      let noNightSkill = ["villager"];
 
       if (noNightSkill.includes(roleName)) {
         return this.replyFlex(flex_text, text);
@@ -442,8 +448,6 @@ module.exports = {
       }
 
       /// special role skill
-      // tambahin jester kalo pas tanner udah di rework, if isLynched false
-      // replyFlex aja
       if (roleName === "retributionist") {
         if (player.role.revive > 0 && this.isSomeoneDeath()) {
           return this.retributionistSkill(flex_text);
@@ -460,6 +464,13 @@ module.exports = {
         if (player.role.isLoadBullet) {
           text += "🧳 Kamu masih menyiapkan senjata mu";
           return this.replyFlex(flex_text, text);
+        }
+      } else if (roleName === "jester") {
+        if (!player.isLynched) {
+          return this.replyFlex(flex_text);
+        } else {
+          text += "👻 Kamu pilih siapa saja yang ingin kamu hantui. ";
+          text += "Jika tidak besok kamu akan sembarang menghantui orang";
         }
       }
 

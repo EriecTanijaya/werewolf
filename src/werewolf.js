@@ -2624,7 +2624,8 @@ module.exports = {
     // khususnya jester dan executioner
     if (roleName === "jester") {
       this.group_session.players[lynchTarget.index].isLynched = true;
-      announcement += "\n\n" + 
+      this.group_session.players[lynchTarget.index].canKill = true;
+      announcement += "\n\n" + "👻 Jester akan membalas dendam dari kuburan!";
     }
 
     if (!flex_texts[0].body) {
