@@ -3165,9 +3165,13 @@ module.exports = {
     let neutralNeedCount = badNeedCount - werewolfNeedCount;
     let needSheriff = false;
 
+    /// Always role
     roles.push("werewolf");
-
     werewolfNeedCount--;
+    
+    /// Unique role utk sekarang si exe
+    roles.push("executioner");
+    neutralNeedCount--;
 
     /// bad guy generator
 
