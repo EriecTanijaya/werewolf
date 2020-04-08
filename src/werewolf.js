@@ -656,6 +656,11 @@ module.exports = {
         case "survivor":
           item.role.vest = 4;
           break;
+          
+        case "executioner":
+          item.role.targetLynchIndex = -1; //cp make func
+          item.role.isTargetLynched = false;
+          break;
       }
 
       // disini bagi role pake pushMessage
@@ -1463,7 +1468,7 @@ module.exports = {
               "💡 Karena kamu tidak pilih target, kamu akan sembarangan menghantui orang" +
               "\n\n";
 
-            targetIndex = this.getJesterTargetIndex();
+            targetIndex = this.getJesterTargetIndex(doer.id);
           } else {
             targetIndex = doer.target.index;
           }
@@ -2868,6 +2873,10 @@ module.exports = {
   },
 
   /** helper func **/
+  
+  getExecutionerTargetIndex: function(exeId) {
+    //cp
+  },
 
   getJesterTargetIndex: function(jesterId) {
     let players = this.group_session.players;

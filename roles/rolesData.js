@@ -186,6 +186,14 @@ const roles = [
     team: "survivor",
     canKill: false,
     emoji: "🏳️"
+  },
+  {
+    name: "executioner",
+    description:
+      "🪓 Kamu adalah pendendam mengerikan dan kamu menang jika targetmu itu mati digantung oleh warga",
+    team: "executioner",
+    canKill: false,
+    emoji: "🪓"
   }
 ];
 

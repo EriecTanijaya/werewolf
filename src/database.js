@@ -19,7 +19,8 @@ function getAllUserData(team, cb) {
             jester: rawUser.jesterStats,
             serialKiller: rawUser.serialKillerStats,
             arsonist: rawUser.arsonistStats,
-            survivor: rawUser.survivorStats
+            survivor: rawUser.survivorStats,
+            executioner: rawUser.executionerStats
           };
 
           let result = calculateWinLose(team, stats);
@@ -89,6 +90,11 @@ function calculateWinLose(team, stats) {
     case "survivor":
       win = stats.survivor.win;
       lose = stats.survivor.lose;
+      break;
+      
+    case "executioner":
+      win = stats.executioner.win;
+      lose = stats.executioner.lose;
       break;
 
     default:

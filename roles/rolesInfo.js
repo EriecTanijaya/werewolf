@@ -169,6 +169,12 @@ module.exports = {
         flex_text.header.text = "🏳️ Survivor";
         flex_text.body.text = "Orang yang bisa menang dengan siapa saja, asalkan dia tidak mati hingga akhir game. ";
         break;
+        
+      case "executioner":
+        flex_text.header.text = "🪓 Executioner";
+        flex_text.body.text = "Pendendam yang ingin targetnya mati di gantung. Jika targetmu mati di serang saat malam, ";
+        flex_text.body.text += "maka dia akan menjadi Jester";
+        break;
 
       default:
         let text =
