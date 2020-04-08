@@ -2531,6 +2531,42 @@ module.exports = {
         }
       }
     }
+    
+    /// Tracker visit action
+    // for lookout data
+    for (let i = 0; i < players.length; i++) {
+      let doer = players[i];
+
+      if (doer.role.name === "tracker" && doer.status === "alive") {
+        if (doer.target.index === -1) {
+          this.group_session.players[i].message +=
+            "💡 Kamu tidak menggunakan skill mu" + "\n\n";
+
+          continue;
+        } else {
+          if (doer.blocked === true) {
+            this.group_session.players[i].message +=
+              "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." +
+              "\n\n";
+
+            continue;
+          } else {
+            let targetIndex = doer.target.index;
+            let target = players[targetIndex];
+
+            let visitor = {
+              name: doer.name,
+              role: doer.role
+            };
+
+            this.group_session.players[targetIndex].visitors.push(visitor);
+
+            this.group_session.players[i].message +=
+              "👣 Kamu ke rumah " + target.name + "\n\n";
+          }
+        }
+      }
+    }
 
     /// Lookout Action
     for (let i = 0; i < players.length; i++) {
@@ -2592,6 +2628,35 @@ module.exports = {
                 " tidak didatangi siapa siapa" +
                 "\n\n";
             }
+          }
+        }
+      }
+    }
+    
+    /// Tracker action
+    for (let i = 0; i < players.length; i++) {
+      let doer = players[i];
+
+      if (doer.role.name === "tracker" && doer.status === "alive") {
+        if (doer.target.index === -1) {
+          continue;
+        } else {
+          if (doer.blocked === true) {
+            continue;
+          } else {
+            let targetIndex = doer.target.index;
+            let target = players[targetIndex];
+
+            let result = "";
+            if (target.intercepted || target.blocked || target.target.index === -1 || target.target.index === target.target.index) {
+              result += "👣 Targetmu diam dirumah saja" + "\n\n";
+            } else {
+              let targetTargetName = players[target.target.index].name;
+              result += "👣 Target mu ke rumah " + targetTargetName + "\n\n";
+            }
+            
+            this.group_session.players[i].message += result;
+              
           }
         }
       }
