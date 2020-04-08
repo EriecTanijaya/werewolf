@@ -663,7 +663,7 @@ module.exports = {
 
         case "executioner":
           exeIndex = index;
-          item.role.targetLynchIndex = -1;
+          item.role.targetLynchIndex = this.getExecutionerTargetIndex(players[exeIndex].id);
           item.role.isTargetLynched = false;
           break;
       }
@@ -673,12 +673,6 @@ module.exports = {
       //   // this.client.pushMessage();
       // }
     });
-    
-    /// hax memory problem
-    if (exeIndex !== -1) {
-      let exeTargetIndex = this.getExecutionerTargetIndex(players[exeIndex].id);
-      this.group_session.players[exeIndex].role.targetLynchIndex = exeTargetIndex;
-    }
 
     this.group_session.players = helper.shuffleArray(
       this.group_session.players
@@ -2938,9 +2932,11 @@ module.exports = {
       if (players[targetIndex].role.team === "villager") {
         isTownie = true;
       }
-      console.log(`targetId ${targetId}, targetIndex ${targetIndex}, isTownie ${isTownie}
-role ${players[targetIndex].role.name}
-`);
+      
+      if (targetId !== exeId && isTownie) {
+        break;
+      }
+      
     }
 
     return targetIndex;
@@ -2952,13 +2948,13 @@ role ${players[targetIndex].role.name}
     let targetIndex = helper.getRandomInt(0, maxIndex);
     let targetId = players[targetIndex];
 
-    while (targetId === jesterId) {
+    while (true) {
       targetIndex = helper.getRandomInt(0, maxIndex);
       targetId = players[targetIndex];
-      console.log(`Jester target index ${targetIndex}`);
+      if (targetId !== jesterId) {
+        return targetIndex;
+      }
     }
-    
-    return targetIndex;
   },
 
   resetCheckChance: function() {
