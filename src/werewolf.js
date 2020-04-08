@@ -615,7 +615,8 @@ module.exports = {
     );
     let players = this.group_session.players;
     let playersLength = players.length;
-    let roles = this.getRandomRoleSet(playersLength);
+    //let roles = this.getRandomRoleSet(playersLength);
+    let roles = ["executioner", "jester", "survivor", "werewolf", "seer"];
 
     this.group_session.players.forEach((item, index) => {
       if (index <= roles.length - 1) {
