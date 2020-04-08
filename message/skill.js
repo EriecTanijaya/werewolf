@@ -207,6 +207,18 @@ module.exports = {
         }
         break;
         
+      case "tracker":
+        if (isChangeTarget) {
+          text +=
+            "👣 Kamu berubah pikiran dan memutuskan untuk melacak " +
+            targetName +
+            " saja malam ini";
+        } else {
+          text +=
+            "👣 Kamu memutuskan untuk melacak " + targetName + " malam ini";
+        }
+        break;
+        
     }
     
     return text;
