@@ -442,7 +442,7 @@ module.exports = {
       if (noNightSkill.includes(roleName)) {
         //special role exe
         if (roleName === "executioner") {
-          let exeTarget = players[players[index].targetLynchIndex];
+          let exeTarget = players[players[index].role.targetLynchIndex];
           text += "🪓 Target kamu adalah " + exeTarget.name + ". Kamu harus bisa ";
           text += "menghasut warga untuk gantung dia";
         }
