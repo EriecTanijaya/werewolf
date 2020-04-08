@@ -77,10 +77,11 @@ module.exports = {
           return this.replyFlex(flex_text);
         }
       }
-      return this.replyText(
-        "💡 Belum ada data user nya, minimal main 1 game dulu"
-      );
     });
+
+    return this.replyText(
+      "💡 Belum ada data user nya, minimal main 1 game dulu"
+    );
   },
 
   rankCommand: function() {
@@ -122,6 +123,7 @@ module.exports = {
       let flex_text = this.getTableFlex(users, headerText, team);
       return this.replyFlex(flex_text);
     });
+    return this.replyText("💡 HAH? KOSONG?!!");
   },
 
   statusCommand: function() {
