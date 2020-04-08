@@ -615,8 +615,8 @@ module.exports = {
     );
     let players = this.group_session.players;
     let playersLength = players.length;
-    //let roles = this.getRandomRoleSet(playersLength); //cp
-    let roles = ["executioner", "jester", "survivor", "werewolf", "seer"];
+    let roles = this.getRandomRoleSet(playersLength); //cp
+    //let roles = ["executioner", "jester", "survivor", "werewolf", "seer"];
 
     this.group_session.players.forEach((item, index) => {
       if (index <= roles.length - 1) {
@@ -3102,6 +3102,12 @@ module.exports = {
       case "arsonist":
         this.group_session.players[index].arsonistStats.win++;
         break;
+      case "survivor":
+        this.group_session.players[index].survivorStats.win++;
+        break;
+      case "executioner":
+        this.group_session.players[index].executionerStats.win++;
+        break;
     }
     this.group_session.players[index].points += 5;
   },
@@ -3125,6 +3131,12 @@ module.exports = {
         break;
       case "arsonist":
         this.group_session.players[index].arsonistStats.lose++;
+        break;
+      case "survivor":
+        this.group_session.players[index].survivorStats.lose++;
+        break;
+      case "executioner":
+        this.group_session.players[index].executionerStats.lose++;
         break;
     }
     this.group_session.players[index].points += 1;
