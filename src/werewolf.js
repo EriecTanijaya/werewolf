@@ -656,9 +656,9 @@ module.exports = {
         case "survivor":
           item.role.vest = 4;
           break;
-          
+
         case "executioner":
-          item.role.targetLynchIndex = -1; //cp make func
+          item.role.targetLynchIndex = this.getExecutionerTargetIndex(item.id);
           item.role.isTargetLynched = false;
           break;
       }
@@ -1472,9 +1472,9 @@ module.exports = {
           } else {
             targetIndex = doer.target.index;
           }
-          
+
           this.group_session.players[targetIndex].message +=
-              "👻 SURPRISEEE!! Kamu didatangi 🃏 Jester yang mati itu" + "\n\n";
+            "👻 SURPRISEEE!! Kamu didatangi 🃏 Jester yang mati itu" + "\n\n";
 
           this.group_session.players[targetIndex].attacked = true;
           this.group_session.players[targetIndex].isHaunted = true;
@@ -2689,6 +2689,15 @@ module.exports = {
       this.group_session.players[lynchTarget.index].role.canKill = true;
       announcement += "\n\n" + "👻 Jester akan membalas dendam dari kuburan!";
     }
+    
+    //cp call func utk cek exe exists atau engga,
+    // ambil lynch target dari private prop exe
+    // return funcnya index dari exenya, lynchTargetIndex exenya,
+    if (this.checkExistsRole("executioner")) {
+      let exeIndex = this.getPlayerIndexByRole("executioner");
+      let exeLynchTargetIndex = players[exeIndex].role.targetLynchIndex;
+      if ()
+    }
 
     if (!flex_texts[0].body) {
       flex_texts[0].body = {
@@ -2874,8 +2883,29 @@ module.exports = {
 
   /** helper func **/
   
+  //cp
+
   getExecutionerTargetIndex: function(exeId) {
-    //cp
+    let players = this.group_session.players;
+    let targetId = helper.random(players).id;
+    let targetIndex = this.getPlayerIndexById(targetId);
+    let isTownie = false;
+
+    if (players[targetIndex].role.team === "villager") {
+      isTownie = true;
+    }
+
+    while (targetId === exeId || isTownie) {
+      targetId = helper.random(players).id;
+      let targetIndex = this.getPlayerIndexById(targetId);
+      let isTownie = false;
+
+      if (players[targetIndex].role.team === "villager") {
+        isTownie = true;
+      }
+    }
+
+    return targetIndex;
   },
 
   getJesterTargetIndex: function(jesterId) {

@@ -173,7 +173,7 @@ module.exports = {
       case "executioner":
         flex_text.header.text = "🪓 Executioner";
         flex_text.body.text = "Pendendam yang ingin targetnya mati di gantung. Jika targetmu mati di serang saat malam, ";
-        flex_text.body.text += "maka dia akan menjadi Jester";
+        flex_text.body.text += "maka dia akan menjadi Jester. Targetmu akan selalu di pihak warga";
         break;
 
       default:
