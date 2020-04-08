@@ -2524,7 +2524,8 @@ module.exports = {
             this.group_session.players[i].message +=
               "👣 Kamu ke rumah " + target.name + "\n\n";
             
-            this.group_session.players[i].message += spy
+            this.group_session.players[i].message += spyWerewolfVisitInfo + "\n";
+            this.group_session.players[i].message += spyBuggedInfo;
             
           }
         }
