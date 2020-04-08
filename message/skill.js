@@ -55,6 +55,10 @@ module.exports = {
       case "veteran":
         text += "💥 Kamu memutuskan untuk berjaga-jaga di rumah mu";
         break;
+        
+      case "survivor":
+        text += "🦺 Kamu memutuskan untuk memakai Vest mu";
+        break;
 
       case "serial-killer":
         if (isChangeTarget) {

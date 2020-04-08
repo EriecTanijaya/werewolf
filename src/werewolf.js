@@ -652,9 +652,9 @@ module.exports = {
           item.role.isLynched = false;
           item.role.hasRevenged = false;
           break;
-          
+
         case "survivor":
-          item.role.vest = 2;
+          item.role.vest = 4;
           break;
       }
 
@@ -1479,9 +1479,12 @@ module.exports = {
           this.group_session.players[targetIndex].attackers.push(attacker);
 
           this.group_session.players[i].role.hasRevenged = true;
-          
+
           this.group_session.players[i].message +=
-            "👻 Kamu menghantui " + players[targetIndex].name + " sampai dia mati ketakutan" + "\n\n";
+            "👻 Kamu menghantui " +
+            players[targetIndex].name +
+            " sampai dia mati ketakutan" +
+            "\n\n";
         }
       }
     }
@@ -1646,6 +1649,36 @@ module.exports = {
 
           break;
         }
+      }
+    }
+
+    /// Survivor Action
+    for (let i = 0; i < players.length; i++) {
+      let doer = players[i];
+      let roleName = doer.role.name;
+      let status = doer.status;
+      let isUseSkill = false;
+      if (doer.target.index !== -1) {
+        isUseSkill = true;
+      }
+
+      if (roleName === "survivor" && status === "alive") {
+        if (doer.blocked === true) {
+          this.group_session.players[i].message +=
+            "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." +
+            "\n\n";
+
+          continue;
+        }
+
+        if (!isUseSkill) {
+          this.group_session.players[i].message +=
+            "💡 Kamu tidak menggunakan skill mu" + "\n\n";
+        } else {
+          this.group_session.players[i].role.vest--;
+          this.group_session.players[i].vested;
+        }
+        continue;
       }
     }
 
@@ -2001,6 +2034,7 @@ module.exports = {
         let isAttacked = players[i].attacked;
         let isVampireBited = players[i].vampireBited;
         let isHealed = players[i].healed;
+        let isVested = players[i].vested;
         let attackerLength = players[i].attackers.length;
         let isBurned = players[i].burned;
         let isHaunted = players[i].isHaunted;
@@ -2013,6 +2047,23 @@ module.exports = {
             this.group_session.players[doctorIndex].message +=
               "💡 " + players[i].name + " diserang semalam!" + "\n\n";
 
+            if (attackerLength > 1 || isBurned || isHaunted) {
+              this.group_session.players[i].message +=
+                "💡 Tetapi nyawa kamu tidak berhasil diselamatkan!" + "\n\n";
+            } else {
+              this.group_session.players[i].message +=
+                "🤕 Nyawa kamu berhasil diselamatkan!" + "\n\n";
+
+              // purge from vampire bite
+              if (isVampireBited) {
+                this.group_session.players[i].vampireBited = false;
+              }
+
+              allAnnouncement +=
+                "💉 Dokter semalam berhasil melindungi seseorang!" + "\n\n";
+              continue;
+            }
+          } else if (isVested) {            
             if (attackerLength > 1 || isBurned || isHaunted) {
               this.group_session.players[i].message +=
                 "💡 Tetapi nyawa kamu tidak berhasil diselamatkan!" + "\n\n";
@@ -2621,9 +2672,8 @@ module.exports = {
     announcement +=
       lynchedName + " dengan jumlah " + lynchTarget.count + " vote";
 
-    announcement +=
-      "\n\n" + "✉️ Role nya adalah " + roleName;
-    
+    announcement += "\n\n" + "✉️ Role nya adalah " + roleName;
+
     /// Set special role trigger when lynch
     // khususnya jester dan executioner
     if (roleName === "jester") {
@@ -2753,10 +2803,10 @@ module.exports = {
             continue;
           }
         }
-        
+
         this.decreaseWinRate(i, roleTeam);
       }
-    };
+    }
 
     this.group_session.time = 300; // reset to init time
     this.group_session.state = "idle";

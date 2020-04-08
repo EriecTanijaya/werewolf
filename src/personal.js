@@ -40,6 +40,8 @@ module.exports = {
         return this.revokeCommand();
       case "/alert":
         return this.alertCommand();
+      case "/vest":
+        return this.vestCommand();
       case "/rank":
       case "/me":
       case "/stat":
@@ -609,6 +611,40 @@ module.exports = {
         "💡 Kamu belum buat death note, ketik '/dnote' <isi note kamu>";
       msg.push(dnoteText);
     }
+
+    return this.replyText(msg);
+  },
+  
+  vestCommand: function() {
+    let index = this.indexOfPlayer();
+    let players = this.group_session.players;
+    let state = this.group_session.state;
+
+    if (state === "day") {
+      return this.replyText("💡 Bukan saatnya menggunakan skill");
+    }
+
+    let roleName = players[index].role.name;
+
+    if (roleName !== "survivor") {
+      return this.replyText("💡 Role mu bukan Veteran");
+    }
+
+    if (players[index].status === "death") {
+      return this.replyText("💡 Kamu sudah mati");
+    }
+
+    if (players[index].role.vest === 0) {
+      return this.replyText("💡 Kamu sudah tidak memiliki Vest yang tersisa");
+    }
+
+    this.group_session.players[index].target.index = index;
+
+    let text = "";
+    let msg = [];
+
+    text = skillText.response(roleName, null, null, true);
+    msg = [text];
 
     return this.replyText(msg);
   },
