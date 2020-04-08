@@ -2678,7 +2678,7 @@ module.exports = {
               target.intercepted ||
               target.blocked ||
               target.target.index === -1 ||
-              target.target.index === target.target.index
+              target.target.index === targetIndex
             ) {
               result += "👣 Targetmu diam dirumah saja" + "\n\n";
             } else {
