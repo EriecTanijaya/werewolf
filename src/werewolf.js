@@ -3221,19 +3221,19 @@ module.exports = {
     }
   },
 
-  getExecutionerTargetIndex: function(exeId) {
+  getExecutionerTargetIndex: function(exeIndex) {
     let players = this.group_session.players;
     let maxIndex = players.length - 1;
 
     while (true) {
       let targetIndex = helper.getRandomInt(0, maxIndex);
-      let targetId = players[targetIndex].id;
+      //let targetId = players[targetIndex].id;
       let isTownie = false;
       if (players[targetIndex].role.team === "villager") {
         isTownie = true;
       }
-
-      if (targetId !== exeId && isTownie) {
+      console.log(`exe ${players[exeIndex].name}, exeIndex ${exeIndex}`);
+      if (targetIndex !== exeIndex && isTownie) {
         return targetIndex;
       }
     }
