@@ -623,8 +623,6 @@ module.exports = {
       switch (item.role.name) {
         case "executioner":
           exeIndex = index;
-          //item.role.targetLynchIndex = this.getExecutionerTargetIndex(item.id);
-          //item.role.isTargetLynched = false;
           break;
       }
 
@@ -639,10 +637,6 @@ module.exports = {
       this.group_session.players[exeIndex].role.targetLynchIndex = this.getExecutionerTargetIndex(exeIndex);
       this.group_session.players[exeIndex].role.isTargetLynched = false;
     }
-
-    this.group_session.players = helper.shuffleArray(
-      this.group_session.players
-    );
 
     /// untuk role yang berubah-berubah
 
@@ -3227,12 +3221,10 @@ module.exports = {
 
     while (true) {
       let targetIndex = helper.getRandomInt(0, maxIndex);
-      //let targetId = players[targetIndex].id;
       let isTownie = false;
       if (players[targetIndex].role.team === "villager") {
         isTownie = true;
       }
-      console.log(`exe ${players[exeIndex].name}, exeIndex ${exeIndex}`);
       if (targetIndex !== exeIndex && isTownie) {
         return targetIndex;
       }
