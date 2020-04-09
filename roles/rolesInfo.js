@@ -16,8 +16,7 @@ module.exports = {
     /// TODO buat command juga buat /info utk kasih tau /info type, /info team
     // "untuk info type = list ada type apa saja di game", /info <nama-type> buat langsung jelasin type apa, dan siapa aja
     // /info team = ada team apa aja di game, /info <nama-team> buat kasih tau siapa aja yang ada di list (ini bentrok sama /info villager)
-    
-    
+
     if (!this.args[1]) {
       let roles = require("/app/roles/rolesData").map(role => {
         return role.name;
@@ -40,7 +39,8 @@ module.exports = {
         flex_text.body.text += "Type: Town" + "\n\n";
         flex_text.body.text +=
           "Warga biasa yang punya skill sepisial, tak perlu susah payah menggunakan skill pas malam. ";
-        flex_text.body.text += "Tapi gak tau kenapa pada kesal dapat role ini. Padahal OP loh";
+        flex_text.body.text +=
+          "Tapi gak tau kenapa pada kesal dapat role ini. Padahal OP loh";
         break;
 
       case "seer":
@@ -122,7 +122,8 @@ module.exports = {
         flex_text.body.text += "Type: Neutral" + "\n\n";
         flex_text.body.text +=
           "Tidak memihak kesiapa siapa, Jester menang jika di gantung. ";
-        flex_text.body.text += "Jika berhasil digantung, dia bisa membalas kematiannya ";
+        flex_text.body.text +=
+          "Jika berhasil digantung, dia bisa membalas kematiannya ";
         flex_text.body.text += "dengan menghantui orang lain";
         break;
 
@@ -187,31 +188,37 @@ module.exports = {
         flex_text.body.text +=
           "Arsonist kebal dari serangan biasa saat malam. Pilih diri sendiri jika ingin membakar rumah target yang telah di sirami bensin. ";
         break;
-        
+
       case "survivor":
         flex_text.header.text = "🏳️ Survivor";
         flex_text.body.text += "Type: Neutral" + "\n\n";
-        flex_text.body.text += "Orang yang bisa menang dengan siapa saja, asalkan dia tidak mati hingga akhir game. ";
+        flex_text.body.text +=
+          "Orang yang bisa menang dengan siapa saja, asalkan dia tidak mati hingga akhir game. ";
         break;
-        
+
       case "executioner":
         flex_text.header.text = "🪓 Executioner";
         flex_text.body.text += "Type: Neutral Chaos" + "\n\n";
-        flex_text.body.text += "Pendendam yang ingin targetnya mati di gantung. Jika targetmu mati di serang saat malam, ";
-        flex_text.body.text += "maka dia akan menjadi Jester. Targetmu akan selalu di pihak warga dan kamu bisa immune dari serangan biasa";
+        flex_text.body.text +=
+          "Pendendam yang ingin targetnya mati di gantung. Jika targetmu mati di serang saat malam, ";
+        flex_text.body.text +=
+          "maka dia akan menjadi Jester. Targetmu akan selalu di pihak warga dan kamu bisa immune dari serangan biasa";
         break;
-        
+
       case "spy":
         flex_text.header.text = "🔍 Spy";
         flex_text.body.text += "Type: Town Investigate" + "\n\n";
-        flex_text.body.text += "Warga yang bisa menyadap suatu pemain saat malam. Spy bisa tahu apa yang terjadi pada Targetnya. ";
-        flex_text.body.text += "Spy juga bisa tahu Werewolf ke rumah siapa saja saat malam. ";
+        flex_text.body.text +=
+          "Warga yang bisa menyadap suatu pemain saat malam. Spy bisa tahu apa yang terjadi pada Targetnya. ";
+        flex_text.body.text +=
+          "Spy juga bisa tahu Werewolf ke rumah siapa saja saat malam. ";
         break;
-        
+
       case "tracker":
         flex_text.header.text = "👣 Tracker";
         flex_text.body.text += "Type: Town Investigate" + "\n\n";
-        flex_text.body.text += "Warga yang bisa melacak suatu pemain untuk diketahui kemana aja Targetnya. ";
+        flex_text.body.text +=
+          "Warga yang bisa melacak suatu pemain untuk diketahui kemana aja Targetnya. ";
         break;
 
       default:
@@ -220,7 +227,49 @@ module.exports = {
         text += "Cek daftar role yang ada dengan cmd '/info'";
         return this.replyText(text);
     }
-    
+
+    return this.replyFlex(flex_text);
+  },
+
+  /** Command func **/
+
+  commandCommand: function() {
+    let text = "";
+    let cmds = [
+      "/info :  tampilin list command info",
+      "/info team : list team yang ada",
+      "/info role : list role yang ada",
+      "/info type : list type yang ada",
+      "/info <nama-role> : deskripsi role tersebut",
+      "/info <nama-team> : deskripsi role tersebut",
+      "/info <nama-type> : deskripsi role tersebut"
+    ];
+
+    cmds.forEach((item, index) => {
+      text += "- " + item + "\n";
+    });
+
+    let flex_text = {
+      header: {
+        text: "📚 Daftar Perintah Info"
+      },
+      body: {
+        text: text
+      }
+    };
+    return this.replyFlex(flex_text);
+  },
+
+  teamListCommand: function() {
+    let roles = require("/app/roles/rolesData").map(role => {
+      return role.name;
+    });
+
+    flex_text.header.text = "🐺 Role List 🔮";
+    flex_text.body.text = roles.join(", ");
+    flex_text.body.text +=
+      "\n\n" +
+      "Cth: '/info vampire-hunter' untuk mengetahui detail role Vampire-Hunter";
     return this.replyFlex(flex_text);
   },
 
