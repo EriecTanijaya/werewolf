@@ -608,6 +608,9 @@ module.exports = {
     let roles = this.getRandomRoleSet(playersLength); //cp
     //let roles = ["executioner", "jester", "survivor", "werewolf", "seer"];
 
+    /// hax for exe
+    let exeIndex = -1;
+    
     this.group_session.players.forEach((item, index) => {
       if (index <= roles.length - 1) {
         item.role.name = roles[index];
@@ -619,8 +622,9 @@ module.exports = {
 
       switch (item.role.name) {
         case "executioner":
-          item.role.targetLynchIndex = this.getExecutionerTargetIndex(item.id);
-          item.role.isTargetLynched = false;
+          exeIndex = index;
+          //item.role.targetLynchIndex = this.getExecutionerTargetIndex(item.id);
+          //item.role.isTargetLynched = false;
           break;
       }
 
@@ -629,6 +633,12 @@ module.exports = {
       //   // this.client.pushMessage();
       // }
     });
+    
+    /// special exe hax
+    if (exeIndex !== -1) {
+      this.group_session.players[exeIndex].role.targetLynchIndex = this.getExecutionerTargetIndex(exeIndex);
+      this.group_session.players[exeIndex].role.isTargetLynched = false;
+    }
 
     this.group_session.players = helper.shuffleArray(
       this.group_session.players
