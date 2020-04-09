@@ -3020,7 +3020,7 @@ module.exports = {
     /// for draw situation
     // check for remaining neutral role
     let surviveTeam = [];
-    
+
     let players = this.group_session.players;
     let headerText = "";
     let newFlex_text = {
@@ -3097,11 +3097,11 @@ module.exports = {
       } else {
         /// check the win condition of some role
         if (roleName === "jester") {
-          this.handleJesterWinCondition(i, table_body[i].contents[2], surviveTeam);
+          this.handleJesterWin(i, table_body[i].contents[2], surviveTeam);
         } else if (roleName === "survivor") {
-          this.handleSurvivorWinCondition(i, table_body[i].contents[2], surviveTeam);
+          this.handleSurvivorWin(i, table_body[i].contents[2], surviveTeam);
         } else if (roleName === "executioner") {
-          this.handleExecutionerWinCondition(i, table_body[i].contents[2], surviveTeam);
+          this.handleExecutionerWin(i, table_body[i].contents[2], surviveTeam);
         } else if (whoWin === "draw") {
           table_body[i].contents[2].text = "draw";
         } else {
@@ -3109,27 +3109,26 @@ module.exports = {
           this.decreaseWinRate(i, roleTeam);
         }
       }
-      
+
       let teamEmoji = this.getRoleTeamEmoji(roleTeam);
       table_body[i].contents[3].text += roleName + " " + teamEmoji;
       num++;
 
       newFlex_text.table.body.push(table_body[i]);
     }
-    
+
     if (whoWin !== "draw") {
       let emoji = this.getRoleTeamEmoji(whoWin) + " ";
-      headerText = "🎉 " + emoji + whoWin.toUpperCase() + " win! 🎉"
-    } else if (surviveTeam.length > 0){
-      let emoji = this.getRoleTeamEmoji(whoWin) + " ";
+      headerText = "🎉 " + emoji + whoWin.toUpperCase() + " win! 🎉";
+    } else if (surviveTeam.length > 0) {
       let surviveTeamList = surviveTeam.join(", ");
-      headerText = "🎉 " + emoji + surviveTeamList.toUpperCase() + " win! 🎉";
+      headerText = "🎉 " + surviveTeamList.toUpperCase() + " win! 🎉";
     } else {
       headerText = "😶 Draw Game 😶";
     }
-    
+
     newFlex_text.header.text = headerText;
-    
+
     this.group_session.time = 300; // reset to init time
     this.group_session.state = "idle";
 
@@ -3183,36 +3182,36 @@ module.exports = {
 
   /** helper func **/
 
-  handleJesterWinCondition: function(jesterIndex, tableColumn, surviveTeam) {
-    if (this.group_session.players[jesterIndex].role.isLynched) {
+  handleJesterWin: function(index, tableColumn, surviveTeam) {
+    if (this.group_session.players[index].role.isLynched) {
       tableColumn.text = "win";
-      this.increaseWinRate(jesterIndex, "jester");
-      surviveTeam.push("jester 🃏")
+      this.increaseWinRate(index, "jester");
+      surviveTeam.push("jester 🃏");
     } else {
       tableColumn.text = "lose";
-      this.decreaseWinRate(jesterIndex, "jester");
+      this.decreaseWinRate(index, "jester");
     }
   },
 
-  handleSurvivorWinCondition: function(survivorIndex, tableColumn, surviveTeam) {
-    if (this.group_session.players[survivorIndex].status === "alive") {
+  handleSurvivorWin: function(index, tableColumn, surviveTeam) {
+    if (this.group_session.players[index].status === "alive") {
       tableColumn.text = "win";
-      this.increaseWinRate(survivorIndex, "survivor");
+      this.increaseWinRate(index, "survivor");
       surviveTeam.push("survivor 🏳️");
     } else {
       tableColumn.text = "lose";
-      this.decreaseWinRate(survivorIndex, "survivor");
+      this.decreaseWinRate(index, "survivor");
     }
   },
 
-  handleExecutionerWinCondition: function(exeIndex, tableColumn, surviveTeam) {
-    if (this.group_session.players[exeIndex].role.isTargetLynched) {
+  handleExecutionerWin: function(index, tableColumn, surviveTeam) {
+    if (this.group_session.players[index].role.isTargetLynched) {
       tableColumn.text = "win";
-      this.increaseWinRate(exeIndex, "executioner");
+      this.increaseWinRate(index, "executioner");
       surviveTeam.push("executioner 🪓");
     } else {
       tableColumn.text = "lose";
-      this.decreaseWinRate(exeIndex, "executioner");
+      this.decreaseWinRate(index, "executioner");
     }
   },
 
@@ -3744,7 +3743,7 @@ module.exports = {
         this.group_session.players[index].role = roleData;
 
         /// special role morphing
-        
+
         // from vampire-hunter to vigilante
         if (this.group_session.players[index].role.name === "vigilante") {
           this.group_session.players[index].role.bullet = 1;
