@@ -194,7 +194,8 @@ const roles = [
     cmdText: "/vest",
     team: "survivor",
     canKill: false,
-    emoji: "🏳️"
+    emoji: "🏳️",
+    vest: 4
   },
   {
     name: "executioner",
