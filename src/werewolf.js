@@ -3017,13 +3017,15 @@ module.exports = {
 
   endGame: function(flex_texts, whoWin) {
     // console.log("whoWin: " + whoWin);
+    /// for draw situation
+    // check for remaining neutral role
+    let surviveTeam = [];
+    
     let players = this.group_session.players;
-
-    let emoji = this.getRoleTeamEmoji(whoWin) + " ";
-
+    let headerText = "";
     let newFlex_text = {
       header: {
-        text: "🎉 " + emoji + whoWin.toUpperCase() + " win! 🎉"
+        text: ""
       },
       footer: {
         buttons: [
@@ -3089,30 +3091,45 @@ module.exports = {
         table_body[i].contents[1].text += " (😃)";
       }
 
-      // table_body[index].contents[2].text = buat win or not
       if (roleTeam === whoWin) {
         table_body[i].contents[2].text = "win";
         this.increaseWinRate(i, roleTeam);
       } else {
         /// check the win condition of some role
         if (roleName === "jester") {
-          this.handleJesterWinCondition(i, table_body[i].contents[2]);
+          this.handleJesterWinCondition(i, table_body[i].contents[2], surviveTeam);
         } else if (roleName === "survivor") {
-          this.handleSurvivorWinCondition(i, table_body[i].contents[2]);
+          this.handleSurvivorWinCondition(i, table_body[i].contents[2], surviveTeam);
         } else if (roleName === "executioner") {
-          this.handleExecutionerWinCondition(i, table_body[i].contents[2]);
+          this.handleExecutionerWinCondition(i, table_body[i].contents[2], surviveTeam);
+        } else if (whoWin === "draw") {
+          table_body[i].contents[2].text = "draw";
         } else {
           table_body[i].contents[2].text = "lose";
           this.decreaseWinRate(i, roleTeam);
         }
       }
-
-      table_body[i].contents[3].text += roleName;
+      
+      let teamEmoji = this.getRoleTeamEmoji(roleTeam);
+      table_body[i].contents[3].text += roleName + " " + teamEmoji;
       num++;
 
       newFlex_text.table.body.push(table_body[i]);
     }
-
+    
+    if (whoWin !== "draw") {
+      let emoji = this.getRoleTeamEmoji(whoWin) + " ";
+      headerText = "🎉 " + emoji + whoWin.toUpperCase() + " win! 🎉"
+    } else if (surviveTeam.length > 0){
+      let emoji = this.getRoleTeamEmoji(whoWin) + " ";
+      let surviveTeamList = surviveTeam.join(", ");
+      headerText = "🎉 " + emoji + surviveTeamList.toUpperCase() + " win! 🎉";
+    } else {
+      headerText = "😶 Draw Game 😶";
+    }
+    
+    newFlex_text.header.text = headerText;
+    
     this.group_session.time = 300; // reset to init time
     this.group_session.state = "idle";
 
@@ -3166,30 +3183,33 @@ module.exports = {
 
   /** helper func **/
 
-  handleJesterWinCondition: function(jesterIndex, tableColumn) {
+  handleJesterWinCondition: function(jesterIndex, tableColumn, surviveTeam) {
     if (this.group_session.players[jesterIndex].role.isLynched) {
       tableColumn.text = "win";
       this.increaseWinRate(jesterIndex, "jester");
+      surviveTeam.push("jester 🃏")
     } else {
       tableColumn.text = "lose";
       this.decreaseWinRate(jesterIndex, "jester");
     }
   },
 
-  handleSurvivorWinCondition: function(survivorIndex, tableColumn) {
+  handleSurvivorWinCondition: function(survivorIndex, tableColumn, surviveTeam) {
     if (this.group_session.players[survivorIndex].status === "alive") {
       tableColumn.text = "win";
       this.increaseWinRate(survivorIndex, "survivor");
+      surviveTeam.push("survivor 🏳️");
     } else {
       tableColumn.text = "lose";
       this.decreaseWinRate(survivorIndex, "survivor");
     }
   },
 
-  handleExecutionerWinCondition: function(exeIndex, tableColumn) {
+  handleExecutionerWinCondition: function(exeIndex, tableColumn, surviveTeam) {
     if (this.group_session.players[exeIndex].role.isTargetLynched) {
       tableColumn.text = "win";
       this.increaseWinRate(exeIndex, "executioner");
+      surviveTeam.push("executioner 🪓");
     } else {
       tableColumn.text = "lose";
       this.decreaseWinRate(exeIndex, "executioner");
@@ -3634,10 +3654,10 @@ module.exports = {
       }
     });
 
-    // TODO draw condition
-    // no plus or minus point
+    // draw
+    // TODO how to make the total games still counted?
     if (alivePeople === 0) {
-      someoneWin = "villager";
+      someoneWin = "draw";
     }
 
     /// werewolf win
