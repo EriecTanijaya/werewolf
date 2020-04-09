@@ -32,7 +32,8 @@ module.exports = {
       case "villager":
       case "warga":
         flex_text.header.text = "👨‍🌾 Villager";
-        flex_text.body.text =
+        flex_text.body.text += "Type: Town" + "\n\n";
+        flex_text.body.text +=
           "Warga biasa yang punya skill sepisial, tak perlu susah payah menggunakan skill pas malam. ";
         flex_text.body.text += "Tapi gak tau kenapa pada kesal dapat role ini. Padahal OP loh";
         break;
