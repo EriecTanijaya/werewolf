@@ -7,7 +7,8 @@ const roles = [
     cmdText: "/skill",
     team: "werewolf",
     canKill: true,
-    emoji: "🐺"
+    emoji: "🐺",
+    type: "Werewolf Killing"
   },
   {
     name: "sorcerer",
@@ -17,7 +18,8 @@ const roles = [
     cmdText: "/skill",
     team: "werewolf",
     canKill: false,
-    emoji: "🐺"
+    emoji: "🐺",
+    type: "Werewolf Support"
   },
   {
     name: "consort",
@@ -27,7 +29,8 @@ const roles = [
     cmdText: "/skill",
     team: "werewolf",
     canKill: false,
-    emoji: "🐺"
+    emoji: "🐺",
+    type: "Werewolf Support"
   },
   {
     name: "seer",
@@ -37,7 +40,8 @@ const roles = [
     team: "villager",
     cmdText: "/skill",
     canKill: false,
-    emoji: " 👨‍🌾"
+    emoji: " 👨‍🌾",
+    type: "Town Investigate"
   },
   {
     name: "doctor",
@@ -48,7 +52,8 @@ const roles = [
     cmdText: "/skill",
     canKill: false,
     emoji: "👨‍🌾",
-    selfHeal: 1
+    selfHeal: 1,
+    type: "Town Protector"
   },
   {
     name: "villager",
@@ -56,7 +61,8 @@ const roles = [
       "👨‍🌾 Kamu adalah warga (luar)biasa, tugasmu itu cari tau siapa werewolf, dan gantungkan werewolfnya",
     team: "villager",
     canKill: false,
-    emoji: "👨‍🌾"
+    emoji: "👨‍🌾",
+    type: "Town"
   },
   {
     name: "vampire",
@@ -67,7 +73,8 @@ const roles = [
     cmdText: "/skill",
     canKill: true,
     emoji: "🧛",
-    age: 0
+    age: 0,
+    type: "Neutral Chaos"
   },
   {
     name: "vampire-hunter",
@@ -77,7 +84,8 @@ const roles = [
     cmdText: "/skill",
     team: "villager",
     canKill: true,
-    emoji: "👨‍🌾"
+    emoji: "👨‍🌾",
+    type: "Town Killing"
   },
   {
     name: "werewolf-cub",
@@ -87,7 +95,8 @@ const roles = [
     team: "werewolf",
     cmdText: "/skill",
     canKill: true,
-    emoji: "🐺"
+    emoji: "🐺",
+    type: "Werewolf Killing"
   },
   {
     name: "vigilante",
@@ -99,7 +108,8 @@ const roles = [
     canKill: true,
     emoji: "👨‍🌾",
     isLoadBullet: true,
-    bullet: 3
+    bullet: 3,
+    type: "Town Killing"
   },
   {
     name: "jester",
@@ -111,7 +121,8 @@ const roles = [
     canKill: false,
     emoji: "🃏",
     isLynched: false,
-    hasRevenged: false
+    hasRevenged: false,
+    type: "Neutral"
   },
   {
     name: "lookout",
@@ -121,7 +132,8 @@ const roles = [
     cmdText: "/skill",
     team: "villager",
     canKill: false,
-    emoji: "👨‍🌾"
+    emoji: "👨‍🌾",
+    type: "Town Investigate"
   },
   {
     name: "escort",
@@ -131,7 +143,8 @@ const roles = [
     cmdText: "/skill",
     team: "villager",
     canKill: false,
-    emoji: "👨‍🌾"
+    emoji: "👨‍🌾",
+    type: "Town Support"
   },
   {
     name: "serial-killer",
@@ -141,7 +154,8 @@ const roles = [
     cmdText: "/skill",
     team: "serial-killer",
     canKill: true,
-    emoji: "🔪"
+    emoji: "🔪",
+    type: "Neutral Killing"
   },
   {
     name: "retributionist",
@@ -152,7 +166,8 @@ const roles = [
     team: "villager",
     canKill: false,
     emoji: "👨‍🌾",
-    revive: 1
+    revive: 1,
+    type: "Town Support"
   },
   {
     name: "veteran",
@@ -163,7 +178,8 @@ const roles = [
     team: "villager",
     canKill: true,
     emoji: "👨‍🌾",
-    alert: 3
+    alert: 3,
+    type: "Town Killing"
   },
   {
     name: "arsonist",
@@ -174,7 +190,8 @@ const roles = [
     cmdText: "/skill",
     team: "arsonist",
     canKill: true,
-    emoji: "🔥"
+    emoji: "🔥",
+    type: "Neutral Killing"
   },
   {
     name: "sheriff",
@@ -184,7 +201,8 @@ const roles = [
     cmdText: "/skill",
     team: "villager",
     canKill: false,
-    emoji: "👨‍🌾"
+    emoji: "👨‍🌾",
+    type: "Town Investigate"
   },
   {
     name: "survivor",
@@ -195,7 +213,8 @@ const roles = [
     team: "survivor",
     canKill: false,
     emoji: "🏳️",
-    vest: 4
+    vest: 4,
+    type: "Neutral"
   },
   {
     name: "executioner",
@@ -203,7 +222,8 @@ const roles = [
       "🪓 Kamu adalah pendendam mengerikan dan kamu menang jika targetmu itu mati digantung oleh warga",
     team: "executioner",
     canKill: false,
-    emoji: "🪓"
+    emoji: "🪓",
+    type: "Neutral Chaos"
   },
   {
     name: "spy",
@@ -213,7 +233,8 @@ const roles = [
     cmdText: "/skill",
     team: "villager",
     canKill: false,
-    emoji: "👨‍🌾"
+    emoji: "👨‍🌾",
+    type: "Town Investigate"
   },
   {
     name: "tracker",
@@ -223,7 +244,8 @@ const roles = [
     cmdText: "/skill",
     team: "villager",
     canKill: false,
-    emoji: "👨‍🌾"
+    emoji: "👨‍🌾",
+    type: "Town Investigate"
   },
 ];
 
