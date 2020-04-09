@@ -2512,7 +2512,13 @@ module.exports = {
 
             this.group_session.players[i].message +=
               spyWerewolfVisitInfo + "\n";
-            this.group_session.players[i].message += spyBuggedInfo;
+
+            if (spyBuggedInfo) {
+              this.group_session.players[i].message += spyBuggedInfo;
+            } else {
+              this.group_session.players[i].message +=
+                target.name + " tidak terkena apa apa" + "\n\n";
+            }
           }
         }
       }
