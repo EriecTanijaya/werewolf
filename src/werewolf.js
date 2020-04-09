@@ -2986,6 +2986,7 @@ module.exports = {
     if (this.checkExistsRole("executioner")) {
       let exeIndex = this.getPlayerIndexByRole("executioner");
       let exeLynchTargetIndex = players[exeIndex].role.targetLynchIndex;
+      console.log(`target exe ${players[exeLynchTargetIndex].name}, yg di lynch ${players[lynchTarget.index].name}`);
       if (lynchTarget.index === exeLynchTargetIndex) {
         this.group_session.players[exeIndex].role.isTargetLynched = true;
       }
