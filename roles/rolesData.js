@@ -7,7 +7,8 @@ const roles = [
     cmdText: "/skill",
     team: "werewolf",
     canKill: true,
-    emoji: "🐺"
+    emoji: "🐺",
+    type: ""
   },
   {
     name: "sorcerer",

@@ -174,14 +174,7 @@ module.exports = {
     }
 
     let playersCount = this.group_session.players.length;
-
-    if (playersCount < 7) {
-      let text =
-        "💡 Roles yang ada tidak di beritahu pada room dengan jumlah " +
-        playersCount +
-        " pemain";
-      return this.replyText(text);
-    }
+    //cp
 
     let roles = this.group_session.roles;
     let flex_text = {
@@ -718,10 +711,8 @@ module.exports = {
 
     //tell available role
     let announcement = "";
-    if (this.group_session.players.length > 6) {
-      announcement += "📣 Role yang ada di game ini bisa cek di '/roles'. ";
-    }
-
+    announcement += "📣 Role yang ada di game ini bisa cek di '/roles'. ";
+    
     announcement +=
       "💡 Jangan lupa ketik '/role' di pc bot untuk menggunakan skill" + "\n\n";
 
@@ -3263,7 +3254,7 @@ module.exports = {
 
   getRoleList: function() {
     let roles = this.group_session.players.map(player => {
-      return player.role.name;
+      return player.role.type;
     });
     helper.shuffleArray(roles);
     // Thanks to https://stackoverflow.com/questions/9229645/remove-duplicate-values-from-js-array
