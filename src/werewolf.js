@@ -628,36 +628,6 @@ module.exports = {
       /// init private prop special role
 
       switch (item.role.name) {
-        case "vampire":
-          item.role.age = 0;
-          break;
-
-        case "retributionist":
-          item.role.revive = 1;
-          break;
-
-        case "veteran":
-          item.role.alert = 3;
-          break;
-
-        case "doctor":
-          item.role.selfHeal = 1;
-          break;
-
-        case "vigilante":
-          item.role.bullet = 3;
-          item.role.isLoadBullet = true;
-          break;
-
-        case "jester":
-          item.role.isLynched = false;
-          item.role.hasRevenged = false;
-          break;
-
-        case "survivor":
-          item.role.vest = 4;
-          break;
-
         case "executioner":
           item.role.targetLynchIndex = this.getExecutionerTargetIndex(item.id);
           item.role.isTargetLynched = false;
@@ -2701,7 +2671,6 @@ module.exports = {
           let roleData = this.getRoleData("vampire");
 
           this.group_session.players[i].role = roleData;
-          this.group_session.players[i].role.age = 0;
 
           this.group_session.players[i].message +=
             "🧛 " + "Kamu berhasil diubah menjadi Vampire" + "\n\n";
@@ -2749,8 +2718,6 @@ module.exports = {
 
       let roleData = this.getRoleData("jester");
       this.group_session.players[exeIndex].role = roleData;
-      this.group_session.players[exeIndex].role.isLynched = false;
-      this.group_session.players[exeIndex].role.hasRevenged = false;
     }
 
     /// untuk announcement certain role
@@ -3756,7 +3723,9 @@ module.exports = {
 
         this.group_session.players[index].role = roleData;
 
-        // special role morphing
+        /// special role morphing
+        
+        // from vampire-hunter to vigilante
         if (this.group_session.players[index].role.name === "vigilante") {
           this.group_session.players[index].role.bullet = 1;
         }
