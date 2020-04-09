@@ -13,11 +13,6 @@ module.exports = {
       }
     };
 
-    /// TODO buat command juga buat /info utk kasih tau /info type, /info team
-    // "untuk info type = list ada type apa saja di game", /info <nama-type> buat langsung jelasin type apa, dan siapa aja
-    // /info team = ada team apa aja di game, /info <nama-team> buat kasih tau siapa aja yang ada di list (ini bentrok sama /info villager)
-    // /info werewolf juga bentrok
-
     if (!this.args[1]) {
       return this.commandCommand();
     }

@@ -334,8 +334,8 @@ module.exports = {
       this.user_session.groupId = this.group_session.groupId;
       //cp
       //for (let i = 0; i < 6; i++) {
-        let newPlayer = this.createNewPlayer(this.user_session);
-        this.addPlayer(newPlayer);
+      let newPlayer = this.createNewPlayer(this.user_session);
+      this.addPlayer(newPlayer);
       //}
 
       let text = "💡 " + this.user_session.name + " berhasil bergabung!";
@@ -3081,11 +3081,11 @@ module.exports = {
       table_body[i].contents[0].text += num + ".";
       table_body[i].contents[1].text += players[i].name;
 
-      if (players[i].status === "death") {
-        table_body[i].contents[1].text += " (💀)";
-      } else {
-        table_body[i].contents[1].text += " (😃)";
-      }
+      // if (players[i].status === "death") {
+      //   table_body[i].contents[1].text += " (💀)";
+      // } else {
+      //   table_body[i].contents[1].text += " (😃)";
+      // }
 
       if (roleTeam === whoWin) {
         table_body[i].contents[2].text = "win";
@@ -3106,8 +3106,8 @@ module.exports = {
         }
       }
 
-      let teamEmoji = this.getRoleTeamEmoji(roleTeam);
-      table_body[i].contents[3].text += roleName + " " + teamEmoji;
+      // let teamEmoji = this.getRoleTeamEmoji(roleTeam);
+      table_body[i].contents[3].text += roleName;
       num++;
 
       newFlex_text.table.body.push(table_body[i]);
@@ -3223,7 +3223,7 @@ module.exports = {
         isTownie = true;
       }
 
-      if ((targetId !== exeId) & isTownie) {
+      if (targetId !== exeId && isTownie) {
         return targetIndex;
       }
     }
@@ -3261,21 +3261,21 @@ module.exports = {
     let roles = this.group_session.players.map(player => {
       return player.role.type;
     });
-    
+
     // Thanks to https://stackoverflow.com/questions/5667888/counting-the-occurrences-frequency-of-array-elements
     let counts = {};
     for (let i = 0; i < roles.length; i++) {
       let num = roles[i];
       counts[num] = counts[num] ? counts[num] + 1 : 1;
     }
-    
+
     let list = [];
     let filtered = Object.keys(counts);
     for (let i = 0; i < filtered.length; i++) {
       let role = filtered[i];
       let cnt = counts[role];
       if (cnt > 1) {
-        list.push(role + " (" + cnt +")")
+        list.push(role + " (" + cnt + ")");
       } else {
         list.push(role);
       }
@@ -3785,7 +3785,8 @@ module.exports = {
     const roles = require("/app/roles/rolesData");
     for (let i = 0; i < roles.length; i++) {
       if (roleName === roles[i].name) {
-        return roles[i];
+        let roleData = JSON.parse(JSON.stringify(roles[i]));
+        return roleData;
       }
     }
   },
