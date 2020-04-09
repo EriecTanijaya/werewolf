@@ -26,10 +26,12 @@ module.exports = {
       "escort",
       "veteran",
       "lookout",
-      "retributionist"
+      "retributionist",
+      "spy",
+      "tracker"
     ];
     let werewolfTeam = ["werewolf-cub", "sorcerer", "consort"];
-    let neutralTeam = ["serial-killer", "arsonist", "tanner", "vampire"];
+    let neutralTeam = ["serial-killer", "arsonist", "jester", "vampire", "survivor"];
     teams.town = this.shuffleArray(townTeam);
     teams.werewolf = this.shuffleArray(werewolfTeam);
     teams.neutral = this.shuffleArray(neutralTeam);

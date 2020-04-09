@@ -16,9 +16,11 @@ function getAllUserData(team, cb) {
             villager: rawUser.villagerStats,
             werewolf: rawUser.werewolfStats,
             vampire: rawUser.vampireStats,
-            tanner: rawUser.tannerStats,
+            jester: rawUser.jesterStats,
             serialKiller: rawUser.serialKillerStats,
-            arsonist: rawUser.arsonistStats
+            arsonist: rawUser.arsonistStats,
+            survivor: rawUser.survivorStats,
+            executioner: rawUser.executionerStats
           };
 
           let result = calculateWinLose(team, stats);
@@ -65,9 +67,9 @@ function calculateWinLose(team, stats) {
       lose = stats.werewolf.lose;
       break;
 
-    case "tanner":
-      win = stats.tanner.win;
-      lose = stats.tanner.lose;
+    case "jester":
+      win = stats.jester.win;
+      lose = stats.jester.lose;
       break;
 
     case "vampire":
@@ -83,6 +85,16 @@ function calculateWinLose(team, stats) {
     case "arsonist":
       win = stats.arsonist.win;
       lose = stats.arsonist.lose;
+      break;
+      
+    case "survivor":
+      win = stats.survivor.win;
+      lose = stats.survivor.lose;
+      break;
+      
+    case "executioner":
+      win = stats.executioner.win;
+      lose = stats.executioner.lose;
       break;
 
     default:

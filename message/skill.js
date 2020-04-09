@@ -55,6 +55,10 @@ module.exports = {
       case "veteran":
         text += "💥 Kamu memutuskan untuk berjaga-jaga di rumah mu";
         break;
+        
+      case "survivor":
+        text += "🦺 Kamu memutuskan untuk memakai Vest mu";
+        break;
 
       case "serial-killer":
         if (isChangeTarget) {
@@ -178,6 +182,43 @@ module.exports = {
             "👮 Kamu memutuskan untuk interogasi " + targetName + " malam ini";
         }
         break;
+        
+      case "jester":
+        if (isChangeTarget) {
+          text +=
+            "👻 Kamu berubah pikiran dan memutuskan untuk menghantui " +
+            targetName +
+            " saja malam ini";
+        } else {
+          text +=
+            "👻 Kamu memutuskan untuk menghantui " + targetName + " malam ini";
+        }
+        break;
+        
+      case "spy":
+        if (isChangeTarget) {
+          text +=
+            "🔍 Kamu berubah pikiran dan memutuskan untuk menyadap " +
+            targetName +
+            " saja malam ini";
+        } else {
+          text +=
+            "🔍 Kamu memutuskan untuk menyadap " + targetName + " malam ini";
+        }
+        break;
+        
+      case "tracker":
+        if (isChangeTarget) {
+          text +=
+            "👣 Kamu berubah pikiran dan memutuskan untuk melacak " +
+            targetName +
+            " saja malam ini";
+        } else {
+          text +=
+            "👣 Kamu memutuskan untuk melacak " + targetName + " malam ini";
+        }
+        break;
+        
     }
     
     return text;

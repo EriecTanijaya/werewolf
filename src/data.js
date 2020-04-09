@@ -68,7 +68,7 @@ module.exports = {
           win: 0,
           lose: 0
         },
-        tannerStats: {
+        jesterStats: {
           win: 0,
           lose: 0
         },
@@ -77,6 +77,14 @@ module.exports = {
           lose: 0
         },
         arsonistStats: {
+          win: 0,
+          lose: 0
+        },
+        survivorStats: {
+          win: 0,
+          lose: 0
+        },
+        executionerStats: {
           win: 0,
           lose: 0
         }
@@ -299,14 +307,20 @@ module.exports = {
     oldUserData.vampireStats.win += newUserData.vampireStats.win;
     oldUserData.vampireStats.lose += newUserData.vampireStats.lose;
 
-    oldUserData.tannerStats.win += newUserData.tannerStats.win;
-    oldUserData.tannerStats.lose += newUserData.tannerStats.lose;
+    oldUserData.jesterStats.win += newUserData.jesterStats.win;
+    oldUserData.jesterStats.lose += newUserData.jesterStats.lose;
 
     oldUserData.serialKillerStats.win += newUserData.serialKillerStats.win;
     oldUserData.serialKillerStats.lose += newUserData.serialKillerStats.lose;
 
     oldUserData.arsonistStats.win += newUserData.arsonistStats.win;
     oldUserData.arsonistStats.lose += newUserData.arsonistStats.lose;
+    
+    oldUserData.survivorStats.win += newUserData.survivorStats.win;
+    oldUserData.survivorStats.lose += newUserData.survivorStats.lose;
+    
+    oldUserData.executionerStats.win += newUserData.executionerStats.win;
+    oldUserData.executionerStats.lose += newUserData.executionerStats.lose;
 
     this.saveUserData(oldUserData);
   },
@@ -320,9 +334,11 @@ module.exports = {
         villagerStats: item.villagerStats,
         werewolfStats: item.werewolfStats,
         vampireStats: item.vampireStats,
-        tannerStats: item.tannerStats,
+        jesterStats: item.jesterStats,
         serialKillerStats: item.serialKillerStats,
-        arsonistStats: item.arsonistStats
+        arsonistStats: item.arsonistStats,
+        survivorStats: item.survivorStats,
+        executionerStats: item.executionerStats
       };
 
       this.getUserData(item.id, reset_player);

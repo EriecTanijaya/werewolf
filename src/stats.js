@@ -43,9 +43,11 @@ module.exports = {
         "werewolf",
         "villager",
         "vampire",
-        "tanner",
+        "jester",
         "serial-killer",
-        "arsonist"
+        "arsonist",
+        "survivor",
+        "executioner"
       ];
       if (!availableTeam.includes(team)) {
         let text = "💡 Tidak ada ditemukan team '" + team + "', ";
@@ -75,9 +77,7 @@ module.exports = {
           return this.replyFlex(flex_text);
         }
       }
-      return this.replyText(
-        "💡 Belum ada data user nya, minimal main 1 game dulu"
-      );
+      return this.replyText("💡Belum ada data usernya, main 1 game dlu");
     });
   },
 
@@ -87,10 +87,12 @@ module.exports = {
     let availableTeam = [
       "villager",
       "werewolf",
-      "tanner",
+      "jester",
       "serial-killer",
       "arsonist",
-      "vampire"
+      "vampire",
+      "survivor",
+      "executioner"
     ];
     if (this.args[1] && !availableTeam.includes(team)) {
       let text =
@@ -118,6 +120,7 @@ module.exports = {
       let flex_text = this.getTableFlex(users, headerText, team);
       return this.replyFlex(flex_text);
     });
+    //return this.replyText("💡 HAH? KOSONG?!!");
   },
 
   statusCommand: function() {
