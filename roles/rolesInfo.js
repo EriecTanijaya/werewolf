@@ -28,7 +28,16 @@ module.exports = {
     } else if (cmd === "type") {
       return this.roleTypeCommand();
     } else {
+      let input = this.args[1].toLowerCase();
+      // let type = role.type.replace(/\s/g, "-").toLowerCase();
+      let rolesData = require("/app/roles/rolesData");
       
+      for (let i = 0; i < rolesData.length; i++) {
+        let roleType = rolesData[i].type.replace(/\s/g, "-").toLowerCase();
+        if (roleType === input) {
+          
+        }
+      }
     }
 
     let roleName = this.args[1].toLowerCase();
@@ -305,6 +314,14 @@ module.exports = {
     return this.replyFlex(flex_text);
   },
 
+  /** Helper Func **/
+  getListOfType: function(typeName) {
+    let rolesData = require("/app/roles/rolesData");
+    let selectedType = rolesData.map(role => {
+      
+    });
+  },
+  
   /** message func **/
 
   replyText: function(texts) {
