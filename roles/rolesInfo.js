@@ -36,13 +36,12 @@ module.exports = {
         let roleType = rolesData[i].type.replace(/\s/g, "-").toLowerCase();
         if (roleType === input) {
           let listType = this.getListOfType(rolesData[i].type);
-          //console.log(listType);
           let flex_text = {
             header: {
               text: "🐺 Type " + rolesData[i].type + " 🔮"
             },
             body: {
-              text: listType.join(", ")
+              text: listType
             }
           };
           return this.replyFlex(flex_text);
@@ -328,11 +327,14 @@ module.exports = {
   /** Helper Func **/
   getListOfType: function(typeName) {
     let rolesData = require("/app/roles/rolesData");
-    let selectedType = rolesData.filter(role => {
-      let text = role.type.toLowerCase();
-      console.log(text, typeName);
-      return typeName === role.type;
-    });
+    let selectedType = rolesData
+      .filter(role => {
+        return typeName === role.type;
+      })
+      .map(item => {
+        return item.name;
+      });
+    return selectedType.join(", ");
   },
 
   /** message func **/
