@@ -3654,8 +3654,8 @@ module.exports = {
       }
     });
 
-    // TODO draw condition
-    // no plus or minus point
+    // draw
+    // TODO how to make the total games still counted?
     if (alivePeople === 0) {
       someoneWin = "draw";
     }
