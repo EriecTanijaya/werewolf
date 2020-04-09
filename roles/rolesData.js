@@ -47,7 +47,8 @@ const roles = [
     team: "villager",
     cmdText: "/skill",
     canKill: false,
-    emoji: "👨‍🌾"
+    emoji: "👨‍🌾",
+    selfHeal: 1
   },
   {
     name: "villager",
@@ -65,7 +66,8 @@ const roles = [
     team: "vampire",
     cmdText: "/skill",
     canKill: true,
-    emoji: "🧛"
+    emoji: "🧛",
+    age: 0
   },
   {
     name: "vampire-hunter",
@@ -95,7 +97,9 @@ const roles = [
     cmdText: "/skill",
     team: "villager",
     canKill: true,
-    emoji: "👨‍🌾"
+    emoji: "👨‍🌾",
+    isLoadBullet: true,
+    bullet: 3
   },
   {
     name: "jester",
@@ -105,7 +109,9 @@ const roles = [
     skillText: "👻 Jester, pilih siapa yang ingin dihantui",
     cmdText: "/skill",
     canKill: false,
-    emoji: "🃏"
+    emoji: "🃏",
+    isLynched: false,
+    hasRevenged: false
   },
   {
     name: "lookout",
@@ -145,7 +151,8 @@ const roles = [
     cmdText: "/skill",
     team: "villager",
     canKill: false,
-    emoji: "👨‍🌾"
+    emoji: "👨‍🌾",
+    revive: 1
   },
   {
     name: "veteran",
@@ -155,7 +162,8 @@ const roles = [
     cmdText: "/alert",
     team: "villager",
     canKill: true,
-    emoji: "👨‍🌾"
+    emoji: "👨‍🌾",
+    alert: 3
   },
   {
     name: "arsonist",

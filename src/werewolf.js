@@ -628,31 +628,6 @@ module.exports = {
       /// init private prop special role
 
       switch (item.role.name) {
-        case "vampire":
-          item.role.age = 0;
-          break;
-
-        case "retributionist":
-          item.role.revive = 1;
-          break;
-
-        case "veteran":
-          item.role.alert = 3;
-          break;
-
-        case "doctor":
-          item.role.selfHeal = 1;
-          break;
-
-        case "vigilante":
-          item.role.bullet = 3;
-          item.role.isLoadBullet = true;
-          break;
-
-        case "jester":
-          item.role.isLynched = false;
-          item.role.hasRevenged = false;
-          break;
 
         case "survivor":
           item.role.vest = 4;
