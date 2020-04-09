@@ -3081,11 +3081,11 @@ module.exports = {
       table_body[i].contents[0].text += num + ".";
       table_body[i].contents[1].text += players[i].name;
 
-      if (players[i].status === "death") {
-        table_body[i].contents[1].text += " (💀)";
-      } else {
-        table_body[i].contents[1].text += " (😃)";
-      }
+      // if (players[i].status === "death") {
+      //   table_body[i].contents[1].text += " (💀)";
+      // } else {
+      //   table_body[i].contents[1].text += " (😃)";
+      // }
 
       if (roleTeam === whoWin) {
         table_body[i].contents[2].text = "win";
@@ -3106,8 +3106,8 @@ module.exports = {
         }
       }
 
-      let teamEmoji = this.getRoleTeamEmoji(roleTeam);
-      table_body[i].contents[3].text += roleName + " " + teamEmoji;
+      // let teamEmoji = this.getRoleTeamEmoji(roleTeam);
+      table_body[i].contents[3].text += roleName;
       num++;
 
       newFlex_text.table.body.push(table_body[i]);
