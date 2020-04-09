@@ -908,7 +908,9 @@ module.exports = {
     /// Spy lock target action
     if (spyIndex !== -1) {
       let targetIndex = players[spyIndex].target.index;
-      this.group_session.players[targetIndex].bugged = true;
+      if (targetIndex !== -1) {
+        this.group_session.players[targetIndex].bugged = true;
+      }
     }
 
     /// Vampire Action
