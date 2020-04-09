@@ -3120,10 +3120,12 @@ module.exports = {
     if (whoWin !== "draw") {
       let emoji = this.getRoleTeamEmoji(whoWin) + " ";
       headerText = "🎉 " + emoji + whoWin.toUpperCase() + " win! 🎉"
-    } else {
+    } else if (surviveTeam.length > 0){
       let emoji = this.getRoleTeamEmoji(whoWin) + " ";
       let surviveTeamList = surviveTeam.join(", ");
       headerText = "🎉 " + emoji + surviveTeamList.toUpperCase() + " win! 🎉";
+    } else {
+      headerText = "😶 Draw Game 😶";
     }
     
     newFlex_text.header.text = headerText;
@@ -3196,7 +3198,7 @@ module.exports = {
     if (this.group_session.players[survivorIndex].status === "alive") {
       tableColumn.text = "win";
       this.increaseWinRate(survivorIndex, "survivor");
-      surviveTeam.push("survivor");
+      surviveTeam.push("survivor 🏳️");
     } else {
       tableColumn.text = "lose";
       this.decreaseWinRate(survivorIndex, "survivor");
