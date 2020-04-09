@@ -8,7 +8,7 @@ const roles = [
     team: "werewolf",
     canKill: true,
     emoji: "🐺",
-    type: ""
+    type: "Werewolf Killing"
   },
   {
     name: "sorcerer",
@@ -18,7 +18,8 @@ const roles = [
     cmdText: "/skill",
     team: "werewolf",
     canKill: false,
-    emoji: "🐺"
+    emoji: "🐺",
+    type: "Werewolf Support"
   },
   {
     name: "consort",
@@ -28,7 +29,8 @@ const roles = [
     cmdText: "/skill",
     team: "werewolf",
     canKill: false,
-    emoji: "🐺"
+    emoji: "🐺",
+    type: "Werewolf Support"
   },
   {
     name: "seer",
