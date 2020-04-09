@@ -172,7 +172,7 @@ module.exports = {
     } else if (this.group_session.state === "new") {
       return this.replyText("💡 Game belum dimulai");
     }
-    
+
     let roles = this.group_session.roles;
     let flex_text = {
       header: {
@@ -334,8 +334,8 @@ module.exports = {
       this.user_session.groupId = this.group_session.groupId;
       //cp
       for (let i = 0; i < 6; i++) {
-      let newPlayer = this.createNewPlayer(this.user_session);
-      this.addPlayer(newPlayer);
+        let newPlayer = this.createNewPlayer(this.user_session);
+        this.addPlayer(newPlayer);
       }
 
       let text = "💡 " + this.user_session.name + " berhasil bergabung!";
@@ -614,7 +614,7 @@ module.exports = {
       }
 
       item.role = this.getRoleData(item.role.name);
-      
+
       /// init private prop special role
 
       switch (item.role.name) {
@@ -709,7 +709,7 @@ module.exports = {
     //tell available role
     let announcement = "";
     announcement += "📣 Role yang ada di game ini bisa cek di '/roles'. ";
-    
+
     announcement +=
       "💡 Jangan lupa ketik '/role' di pc bot untuk menggunakan skill" + "\n\n";
 
@@ -3760,15 +3760,6 @@ module.exports = {
     const roles = require("/app/roles/rolesData");
     for (let i = 0; i < roles.length; i++) {
       if (roleName === roles[i].name) {
-        // let roleData = {
-        //   name: roles[i].name,
-        //   team: roles[i].team,
-        //   description: roles[i].description,
-        //   skillText: roles[i].skillText,
-        //   canKill: roles[i].canKill,
-        //   cmdText: roles[i].cmdText
-        // };
-        // return roleData;
         return roles[i];
       }
     }
