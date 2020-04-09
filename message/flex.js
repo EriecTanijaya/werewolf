@@ -1,12 +1,11 @@
 const helper = require("/app/helper");
 
-let color = helper.getFlexColor();
-
 module.exports = {
   receive: function(client, event, flex_texts, opt_texts, newFlex_texts, stat) {
     this.client = client;
     this.event = event;
-
+    this.color = helper.getFlexColor();
+    
     this.checkFlex(flex_texts, opt_texts, newFlex_texts, stat);
   },
 
@@ -76,13 +75,13 @@ module.exports = {
         },
         styles: {
           header: {
-            backgroundColor: color.main
+            backgroundColor: this.color.main
           },
           body: {
-            backgroundColor: color.background
+            backgroundColor: this.color.background
           },
           footer: {
-            backgroundColor: color.background,
+            backgroundColor: this.color.background,
             separator: false
           }
         }
@@ -94,7 +93,7 @@ module.exports = {
           size: "lg",
           text: item.body.text.trim(),
           wrap: true,
-          color: color.text
+          color: this.color.text
         });
       }
 
@@ -108,7 +107,7 @@ module.exports = {
               type: "text",
               text: "No. ",
               weight: "bold",
-              color: color.text
+              color: this.color.text
             },
             {
               type: "text",
@@ -116,7 +115,7 @@ module.exports = {
               flex: 3,
               weight: "bold",
               wrap: true,
-              color: color.text
+              color: this.color.text
             },
             {
               type: "text",
@@ -124,7 +123,7 @@ module.exports = {
               flex: 2,
               weight: "bold",
               align: "center",
-              color: color.text
+              color: this.color.text
             }
           ]
         };
@@ -140,13 +139,13 @@ module.exports = {
             flex: 2,
             align: "center",
             weight: "bold",
-            color: color.text
+            color: this.color.text
           });
         }
 
         let separator = {
           type: "separator",
-          color: color.secondary,
+          color: this.color.secondary,
           margin: "sm"
         };
 
@@ -157,7 +156,7 @@ module.exports = {
         //iterate data
         table_body.forEach(t => {
           t.contents.forEach(txt => {
-            txt.color = color.text;
+            txt.color = this.color.text;
           });
 
           //push to contents
@@ -192,7 +191,7 @@ module.exports = {
             type: "button",
             action: {},
             style: "primary",
-            color: color.secondary
+            color: this.color.secondary
           };
 
           if (buttons[i].action === "postback") {
@@ -282,13 +281,13 @@ module.exports = {
         },
         styles: {
           header: {
-            backgroundColor: color.main
+            backgroundColor: this.color.main
           },
           body: {
-            backgroundColor: color.background
+            backgroundColor: this.color.background
           },
           footer: {
-            backgroundColor: color.background,
+            backgroundColor: this.color.background,
             separator: false
           }
         }
@@ -300,7 +299,7 @@ module.exports = {
           size: "lg",
           text: item.body.text.trim(),
           wrap: true,
-          color: color.text
+          color: this.color.text
         });
       }
 
@@ -314,7 +313,7 @@ module.exports = {
               type: "text",
               text: "No. ",
               weight: "bold",
-              color: color.text
+              color: this.color.text
             },
             {
               type: "text",
@@ -322,7 +321,7 @@ module.exports = {
               flex: 3,
               weight: "bold",
               wrap: true,
-              color: color.text
+              color: this.color.text
             },
             {
               type: "text",
@@ -330,7 +329,7 @@ module.exports = {
               flex: 2,
               weight: "bold",
               align: "center",
-              color: color.text
+              color: this.color.text
             }
           ]
         };
@@ -342,13 +341,13 @@ module.exports = {
             flex: 2,
             align: "center",
             weight: "bold",
-            color: color.text
+            color: this.color.text
           });
         }
 
         let separator = {
           type: "separator",
-          color: color.secondary,
+          color: this.color.secondary,
           margin: "sm"
         };
 
@@ -359,7 +358,7 @@ module.exports = {
         //iterate data
         table_body.forEach(t => {
           t.contents.forEach(txt => {
-            txt.color = color.text;
+            txt.color = this.color.text;
           });
 
           //push to contents
@@ -394,7 +393,7 @@ module.exports = {
             type: "button",
             action: {},
             style: "primary",
-            color: color.secondary
+            color: this.color.secondary
           };
 
           if (buttons[i].action === "postback") {

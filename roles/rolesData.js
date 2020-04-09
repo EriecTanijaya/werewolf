@@ -7,7 +7,8 @@ const roles = [
     cmdText: "/skill",
     team: "werewolf",
     canKill: true,
-    emoji: "🐺"
+    emoji: "🐺",
+    type: "Werewolf Killing"
   },
   {
     name: "sorcerer",
@@ -17,7 +18,8 @@ const roles = [
     cmdText: "/skill",
     team: "werewolf",
     canKill: false,
-    emoji: "🐺"
+    emoji: "🐺",
+    type: "Werewolf Support"
   },
   {
     name: "consort",
@@ -27,7 +29,8 @@ const roles = [
     cmdText: "/skill",
     team: "werewolf",
     canKill: false,
-    emoji: "🐺"
+    emoji: "🐺",
+    type: "Werewolf Support"
   },
   {
     name: "seer",
@@ -37,7 +40,8 @@ const roles = [
     team: "villager",
     cmdText: "/skill",
     canKill: false,
-    emoji: " 👨‍🌾"
+    emoji: " 👨‍🌾",
+    type: "Town Investigate"
   },
   {
     name: "doctor",
@@ -47,7 +51,9 @@ const roles = [
     team: "villager",
     cmdText: "/skill",
     canKill: false,
-    emoji: "👨‍🌾"
+    emoji: "👨‍🌾",
+    selfHeal: 1,
+    type: "Town Protector"
   },
   {
     name: "villager",
@@ -55,7 +61,8 @@ const roles = [
       "👨‍🌾 Kamu adalah warga (luar)biasa, tugasmu itu cari tau siapa werewolf, dan gantungkan werewolfnya",
     team: "villager",
     canKill: false,
-    emoji: "👨‍🌾"
+    emoji: "👨‍🌾",
+    type: "Town"
   },
   {
     name: "vampire",
@@ -65,7 +72,9 @@ const roles = [
     team: "vampire",
     cmdText: "/skill",
     canKill: true,
-    emoji: "🧛"
+    emoji: "🧛",
+    age: 0,
+    type: "Neutral Chaos"
   },
   {
     name: "vampire-hunter",
@@ -75,7 +84,8 @@ const roles = [
     cmdText: "/skill",
     team: "villager",
     canKill: true,
-    emoji: "👨‍🌾"
+    emoji: "👨‍🌾",
+    type: "Town Killing"
   },
   {
     name: "werewolf-cub",
@@ -85,7 +95,8 @@ const roles = [
     team: "werewolf",
     cmdText: "/skill",
     canKill: true,
-    emoji: "🐺"
+    emoji: "🐺",
+    type: "Werewolf Killing"
   },
   {
     name: "vigilante",
@@ -95,15 +106,23 @@ const roles = [
     cmdText: "/skill",
     team: "villager",
     canKill: true,
-    emoji: "👨‍🌾"
+    emoji: "👨‍🌾",
+    isLoadBullet: true,
+    bullet: 3,
+    type: "Town Killing"
   },
   {
-    name: "tanner",
+    name: "jester",
     description:
-      "🃏 Kamu tidak memihak siapa siapa, tetapi kamu menang jika di vote warga sampai digantung",
-    team: "tanner",
+      "🃏 Kamu menang jika berhasil digantung. Dan bisa bunuh siapa saja disaat sudah mati",
+    team: "jester",
+    skillText: "👻 Jester, pilih siapa yang ingin dihantui",
+    cmdText: "/skill",
     canKill: false,
-    emoji: "🃏"
+    emoji: "🃏",
+    isLynched: false,
+    hasRevenged: false,
+    type: "Neutral"
   },
   {
     name: "lookout",
@@ -113,7 +132,8 @@ const roles = [
     cmdText: "/skill",
     team: "villager",
     canKill: false,
-    emoji: "👨‍🌾"
+    emoji: "👨‍🌾",
+    type: "Town Investigate"
   },
   {
     name: "escort",
@@ -123,7 +143,8 @@ const roles = [
     cmdText: "/skill",
     team: "villager",
     canKill: false,
-    emoji: "👨‍🌾"
+    emoji: "👨‍🌾",
+    type: "Town Support"
   },
   {
     name: "serial-killer",
@@ -133,7 +154,8 @@ const roles = [
     cmdText: "/skill",
     team: "serial-killer",
     canKill: true,
-    emoji: "🔪"
+    emoji: "🔪",
+    type: "Neutral Killing"
   },
   {
     name: "retributionist",
@@ -143,7 +165,9 @@ const roles = [
     cmdText: "/skill",
     team: "villager",
     canKill: false,
-    emoji: "👨‍🌾"
+    emoji: "👨‍🌾",
+    revive: 1,
+    type: "Town Support"
   },
   {
     name: "veteran",
@@ -153,7 +177,9 @@ const roles = [
     cmdText: "/alert",
     team: "villager",
     canKill: true,
-    emoji: "👨‍🌾"
+    emoji: "👨‍🌾",
+    alert: 3,
+    type: "Town Killing"
   },
   {
     name: "arsonist",
@@ -164,7 +190,8 @@ const roles = [
     cmdText: "/skill",
     team: "arsonist",
     canKill: true,
-    emoji: "🔥"
+    emoji: "🔥",
+    type: "Neutral Killing"
   },
   {
     name: "sheriff",
@@ -174,8 +201,52 @@ const roles = [
     cmdText: "/skill",
     team: "villager",
     canKill: false,
-    emoji: "👨‍🌾"
-  }
+    emoji: "👨‍🌾",
+    type: "Town Investigate"
+  },
+  {
+    name: "survivor",
+    description:
+      "🏳️ Kamu bisa berpihak dengan siapa saja, asalkan kamu tidak mati. Jika kamu hidup hingga akhir game, kamu menang",
+    skillText: "🦺 Survivor, apakah kamu akan gunakan vest malam ini?",
+    cmdText: "/vest",
+    team: "survivor",
+    canKill: false,
+    emoji: "🏳️",
+    vest: 4,
+    type: "Neutral"
+  },
+  {
+    name: "executioner",
+    description:
+      "🪓 Kamu adalah pendendam mengerikan dan kamu menang jika targetmu itu mati digantung oleh warga",
+    team: "executioner",
+    canKill: false,
+    emoji: "🪓",
+    type: "Neutral Chaos"
+  },
+  {
+    name: "spy",
+    description:
+      "🔍 Kamu adalah warga yang bisa mengetahui siapa saja yang dikunjungi Werewolf saat malam dan menyadap suatu orang",
+    skillText: "🔍 Spy, pilih siapa yang mau kamu sadap",
+    cmdText: "/skill",
+    team: "villager",
+    canKill: false,
+    emoji: "👨‍🌾",
+    type: "Town Investigate"
+  },
+  {
+    name: "tracker",
+    description:
+      "👣 Kamu adalah warga yang bisa melacak Targetmu kemana saja saat malam. ",
+    skillText: "👣 Tracker, pilih siapa yang mau kamu lacak",
+    cmdText: "/skill",
+    team: "villager",
+    canKill: false,
+    emoji: "👨‍🌾",
+    type: "Town Investigate"
+  },
 ];
 
 module.exports = roles;
