@@ -3785,7 +3785,8 @@ module.exports = {
     const roles = require("/app/roles/rolesData");
     for (let i = 0; i < roles.length; i++) {
       if (roleName === roles[i].name) {
-        return roles[i];
+        let roleData = JSON.parse(JSON.stringify(roles[i]));
+        return roleData;
       }
     }
   },
