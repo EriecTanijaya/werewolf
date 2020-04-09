@@ -3791,6 +3791,7 @@ module.exports = {
           name: roles[i].name,
           team: roles[i].team,
           description: roles[i].description,
+          skillText: roles[i].skillText,
           canKill: roles[i].canKill,
           cmdText: roles[i].cmdText
         };

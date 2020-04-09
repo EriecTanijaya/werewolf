@@ -102,6 +102,7 @@ const roles = [
     description:
       "🃏 Kamu menang jika berhasil digantung. Dan bisa bunuh siapa saja disaat sudah mati",
     team: "jester",
+    skillText: "👻 Jester, pilih siapa yang ingin dihantui",
     cmdText: "/skill",
     canKill: false,
     emoji: "🃏"

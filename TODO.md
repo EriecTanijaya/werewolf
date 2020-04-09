@@ -1,8 +1,7 @@
 TODO
 
 - RESET DATAAAA
-- endGame, sekarang ga muncul whoWin, tapi End Result. 
-- Jadinya kolomnya, nama, Status Win Or Lose, Role apa + role team emoji
+- roles info kasih tau istilah town protect, town investigate, town proctector, town killing
 - buat database beneran, data user store di mongodb freakin' hard tho
 - kalau role udah bsa multi gitu,
   - doctor : ada private prop ke target, yg di healed, pasti harus ada prop healed by who gitu
