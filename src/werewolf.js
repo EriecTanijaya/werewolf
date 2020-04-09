@@ -605,8 +605,8 @@ module.exports = {
     );
     let players = this.group_session.players;
     let playersLength = players.length;
-    let roles = this.getRandomRoleSet(playersLength); //cp
-    //let roles = ["executioner", "jester", "survivor", "werewolf", "seer"];
+    //let roles = this.getRandomRoleSet(playersLength); //cp
+    let roles = ["executioner", "spy", "doctor", "werewolf", "seer"];
 
     /// hax for exe
     let exeIndex = -1;
@@ -2121,6 +2121,9 @@ module.exports = {
                 "executioner"
               ];
 
+              spyWerewolfVisitInfo +=
+                "🐺 " + target.name + " dikunjungi Werewolf" + "\n\n";
+              
               if (immuneToBasicAttack.includes(target.role.name)) {
                 this.group_session.players[i].message +=
                   "💡 Target kamu immune dari serangan!" + "\n\n";
@@ -2141,9 +2144,6 @@ module.exports = {
                   "🐺 Kamu diserang " + doer.role.team + "!" + "\n\n";
 
                 this.group_session.players[targetIndex].attacked = true;
-
-                spyWerewolfVisitInfo +=
-                  "🐺 " + target.name + " dikunjungi Werewolf" + "\n\n";
 
                 if (players[targetIndex].bugged) {
                   spyBuggedInfo +=
