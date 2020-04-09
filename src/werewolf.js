@@ -1536,6 +1536,8 @@ module.exports = {
         if (doer.role.isLynched && !doer.role.hasRevenged) {
           let targetIndex = -1;
 
+          console.log(`target index jester ${doer.target.index}`);
+
           if (doer.target.index === -1) {
             // random kill
             this.group_session.players[i].message +=
@@ -3076,8 +3078,8 @@ module.exports = {
     let table_body = {};
 
     let num = 1;
-    players.forEach((item, index) => {
-      table_body[index] = {
+    for (let i = 0; i < players.length; i++) {
+      table_body[i] = {
         type: "box",
         layout: "horizontal",
         contents: [
@@ -3108,48 +3110,40 @@ module.exports = {
         margin: "sm"
       };
 
-      table_body[index].contents[0].text += num + ".";
-      table_body[index].contents[1].text += item.name;
-
-      if (item.status === "death") {
-        table_body[index].contents[2].text += "💀";
-      } else {
-        table_body[index].contents[2].text += "😃";
-      }
-
-      table_body[index].contents[3].text += item.role.name;
-      num++;
-
-      newFlex_text.table.body.push(table_body[index]);
-    });
-
-    //give point
-    for (let i = 0; i < players.length; i++) {
       let roleTeam = players[i].role.team;
       let roleName = players[i].role.name;
+
+      table_body[i].contents[0].text += num + ".";
+      table_body[i].contents[1].text += players[i].name;
+
+      if (players[i].status === "death") {
+        table_body[i].contents[1].text += " (💀)";
+      } else {
+        table_body[i].contents[1].text += " (😃)";
+      }
+
+      // table_body[index].contents[2].text = buat win or not
       if (roleTeam === whoWin) {
+        table_body[i].contents[2].text = "win";
         this.increaseWinRate(i, roleTeam);
       } else {
         /// check the win condition of some role
         if (roleName === "jester") {
-          if (players[i].role.isLynched) {
-            this.increaseWinRate(i, roleTeam);
-            continue;
-          }
+          this.handleJesterWinCondition(i, table_body[i].contents[2]);
         } else if (roleName === "survivor") {
-          if (players[i].status === "alive") {
-            this.increaseWinRate(i, roleTeam);
-            continue;
-          }
+          this.handleSurvivorWinCondition(i, table_body[i].contents[2]);
         } else if (roleName === "executioner") {
-          if (players[i].role.isTargetLynched) {
-            this.increaseWinRate(i, roleTeam);
-            continue;
-          }
+          this.handleExecutionerWinCondition(i, table_body[i].contents[2]);
+        } else {
+          table_body[i].contents[2].text = "lose";
+          this.decreaseWinRate(i, roleTeam);
         }
-
-        this.decreaseWinRate(i, roleTeam);
       }
+
+      table_body[i].contents[3].text += roleName;
+      num++;
+
+      newFlex_text.table.body.push(table_body[i]);
     }
 
     this.group_session.time = 300; // reset to init time
@@ -3204,6 +3198,36 @@ module.exports = {
   },
 
   /** helper func **/
+
+  handleJesterWinCondition: function(jesterIndex, tableColumn) {
+    if (this.group_session.players[jesterIndex].role.isLynched) {
+      tableColumn.text = "win";
+      this.increaseWinRate(jesterIndex, "jester");
+    } else {
+      tableColumn.text = "lose";
+      this.decreaseWinRate(jesterIndex, "jester");
+    }
+  },
+
+  handleSurvivorWinCondition: function(survivorIndex, tableColumn) {
+    if (this.group_session.players[survivorIndex].status === "alive") {
+      tableColumn.text = "win";
+      this.increaseWinRate(survivorIndex, "survivor");
+    } else {
+      tableColumn.text = "lose";
+      this.decreaseWinRate(survivorIndex, "survivor");
+    }
+  },
+
+  handleExecutionerWinCondition: function(exeIndex, tableColumn) {
+    if (this.group_session.players[exeIndex].role.isTargetLynched) {
+      tableColumn.text = "win";
+      this.increaseWinRate(exeIndex, "executioner");
+    } else {
+      tableColumn.text = "lose";
+      this.decreaseWinRate(exeIndex, "executioner");
+    }
+  },
 
   getExecutionerTargetIndex: function(exeId) {
     let players = this.group_session.players;
