@@ -16,18 +16,19 @@ module.exports = {
     /// TODO buat command juga buat /info utk kasih tau /info type, /info team
     // "untuk info type = list ada type apa saja di game", /info <nama-type> buat langsung jelasin type apa, dan siapa aja
     // /info team = ada team apa aja di game, /info <nama-team> buat kasih tau siapa aja yang ada di list (ini bentrok sama /info villager)
+    // /info werewolf juga bentrok
 
     if (!this.args[1]) {
-      let roles = require("/app/roles/rolesData").map(role => {
-        return role.name;
-      });
-
-      flex_text.header.text = "🐺 Role List 🔮";
-      flex_text.body.text = roles.join(", ");
-      flex_text.body.text +=
-        "\n\n" +
-        "Cth: '/info vampire-hunter' untuk mengetahui detail role Vampire-Hunter";
-      return this.replyFlex(flex_text);
+      return this.commandCommand();
+    }
+    
+    let cmd = this.args[1].toLowerCase()
+    if (cmd === "role") {
+      return this.roleListCommand();
+    } else if (cmd === "type") {
+      return this.roleTypeCommand();
+    } else {
+      
     }
 
     let roleName = this.args[1].toLowerCase();
@@ -237,11 +238,9 @@ module.exports = {
     let text = "";
     let cmds = [
       "/info :  tampilin list command info",
-      "/info team : list team yang ada",
       "/info role : list role yang ada",
       "/info type : list type yang ada",
       "/info <nama-role> : deskripsi role tersebut",
-      "/info <nama-team> : deskripsi role tersebut",
       "/info <nama-type> : deskripsi role tersebut"
     ];
 
@@ -260,16 +259,49 @@ module.exports = {
     return this.replyFlex(flex_text);
   },
 
-  teamListCommand: function() {
-    let roles = require("/app/roles/rolesData").map(role => {
+  roleListCommand: function() {
+    let allRoleName = require("/app/roles/rolesData").map(role => {
       return role.name;
     });
+    
+    let flex_text = {
+      header: {
+        text: ""
+      },
+      body: {
+        text: ""
+      }
+    };
 
     flex_text.header.text = "🐺 Role List 🔮";
-    flex_text.body.text = roles.join(", ");
+    flex_text.body.text = allRoleName.join(", ");
     flex_text.body.text +=
       "\n\n" +
       "Cth: '/info vampire-hunter' untuk mengetahui detail role Vampire-Hunter";
+    return this.replyFlex(flex_text);
+  },
+  
+  roleTypeCommand: function() {
+    let allRoleType = require("/app/roles/rolesData").map(role => {
+      return role.type;
+    });
+    
+    let flex_text = {
+      header: {
+        text: ""
+      },
+      body: {
+        text: ""
+      }
+    };
+    
+    let uniq = [...new Set(allRoleType)];
+
+    flex_text.header.text = "🐺 Type List 🔮";
+    flex_text.body.text = uniq.join(", ");
+    flex_text.body.text +=
+      "\n\n" +
+      "Cth: '/info town-investigate' untuk mengetahui role apa saja yang memiliki type tersebut";
     return this.replyFlex(flex_text);
   },
 
