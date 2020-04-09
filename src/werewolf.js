@@ -3206,6 +3206,12 @@ module.exports = {
   },
 
   /** helper func **/
+  
+  checkJesterWinCondition: function(jesterIndex) {
+    if (this.group_session.players[jesterIndex].isLynched) {
+      return true;
+    }
+  },
 
   getExecutionerTargetIndex: function(exeId) {
     let players = this.group_session.players;
