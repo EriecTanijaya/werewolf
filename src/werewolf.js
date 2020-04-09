@@ -3051,7 +3051,7 @@ module.exports = {
   endGame: function(flex_texts, whoWin) {
     // console.log("whoWin: " + whoWin);
     let players = this.group_session.players;
-    
+
     let emoji = this.getRoleTeamEmoji(whoWin) + " ";
 
     let newFlex_text = {
@@ -3109,7 +3109,7 @@ module.exports = {
         ],
         margin: "sm"
       };
-      
+
       let roleTeam = players[i].role.team;
       let roleName = players[i].role.name;
 
@@ -3124,48 +3124,26 @@ module.exports = {
 
       // table_body[index].contents[2].text = buat win or not
       if (roleTeam === whoWin) {
-        this.increaseWinRate(i, roleTeam);
-        
         table_body[i].contents[2].text = "win";
+        this.increaseWinRate(i, roleTeam);
       } else {
         /// check the win condition of some role
         if (roleName === "jester") {
-          if (this.checkJesterWinCondition(i)) {
-            this.increaseWinRate(i, roleTeam);
-            continue;
-          }
+          this.handleJesterWinCondition(i, table_body[i].contents[2]);
         } else if (roleName === "survivor") {
-          if (this.checkSurvivorWinCondition(i)) {
-            this.increaseWinRate(i, roleTeam);
-            continue;
-          }
+          this.handleSurvivorWinCondition(i, table_body[i].contents[2]);
         } else if (roleName === "executioner") {
-          if (this.checkExecutionerWinCondition(i)) {
-            this.increaseWinRate(i, roleTeam);
-            continue;
-          }
+          this.handleExecutionerWinCondition(i, table_body[i].contents[2]);
+        } else {
+          table_body[i].contents[2].text = "lose";
+          this.decreaseWinRate(i, roleTeam);
         }
-        
-        this.decreaseWinRate(i, roleTeam);
       }
-      
+
       table_body[i].contents[3].text += roleName;
       num++;
 
       newFlex_text.table.body.push(table_body[i]);
-    }
-
-    //give point
-    for (let i = 0; i < players.length; i++) {
-      let roleTeam = players[i].role.team;
-      let roleName = players[i].role.name;
-      if (roleTeam === whoWin) {
-        this.increaseWinRate(i, roleTeam);
-      } else {
-        
-
-        this.decreaseWinRate(i, roleTeam);
-      }
     }
 
     this.group_session.time = 300; // reset to init time
@@ -3221,27 +3199,33 @@ module.exports = {
 
   /** helper func **/
 
-  checkJesterWinCondition: function(jesterIndex) {
+  handleJesterWinCondition: function(jesterIndex, tableColumn) {
     if (this.group_session.players[jesterIndex].role.isLynched) {
-      return true;
+      tableColumn.text = "win";
+      this.increaseWinRate(jesterIndex, "jester");
     } else {
-      return false;
+      tableColumn.text = "lose";
+      this.decreaseWinRate(jesterIndex, "jester");
     }
   },
 
-  checkSurvivorWinCondition: function(survivorIndex) {
+  handleSurvivorWinCondition: function(survivorIndex, tableColumn) {
     if (this.group_session.players[survivorIndex].status === "alive") {
-      return true;
+      tableColumn.text = "win";
+      this.increaseWinRate(survivorIndex, "survivor");
     } else {
-      return false;
+      tableColumn.text = "lose";
+      this.decreaseWinRate(survivorIndex, "survivor");
     }
   },
-  
-  checkExecutionerWinCondition: function(exeIndex) {
+
+  handleExecutionerWinCondition: function(exeIndex, tableColumn) {
     if (this.group_session.players[exeIndex].role.isTargetLynched) {
-      return true;
+      tableColumn.text = "win";
+      this.increaseWinRate(exeIndex, "executioner");
     } else {
-      return false;
+      tableColumn.text = "lose";
+      this.decreaseWinRate(exeIndex, "executioner");
     }
   },
 
