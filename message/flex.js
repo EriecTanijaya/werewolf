@@ -59,7 +59,7 @@ module.exports = {
               type: "text",
               text: item.header.text,
               color: "#ffffff",
-              size: "xl",
+              size: "lg",
               weight: "bold",
               style: "normal",
               decoration: "none",
@@ -90,7 +90,7 @@ module.exports = {
       if (item.body) {
         bubble[index].body.contents.push({
           type: "text",
-          size: "lg",
+          size: "md",
           text: item.body.text.trim(),
           wrap: true,
           color: this.color.text
@@ -265,7 +265,7 @@ module.exports = {
               type: "text",
               text: item.header.text,
               color: "#ffffff",
-              size: "xl",
+              size: "lg",
               weight: "bold",
               style: "normal",
               decoration: "none",
@@ -296,7 +296,7 @@ module.exports = {
       if (item.body) {
         bubble[index].body.contents.push({
           type: "text",
-          size: "lg",
+          size: "md",
           text: item.body.text.trim(),
           wrap: true,
           color: this.color.text
