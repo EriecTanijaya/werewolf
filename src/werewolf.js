@@ -1537,7 +1537,7 @@ module.exports = {
           let targetIndex = -1;
 
           console.log(`target index jester ${doer.target.index}`);
-          
+
           if (doer.target.index === -1) {
             // random kill
             this.group_session.players[i].message +=
@@ -3051,7 +3051,7 @@ module.exports = {
   endGame: function(flex_texts, whoWin) {
     // console.log("whoWin: " + whoWin);
     let players = this.group_session.players;
-
+    
     let emoji = this.getRoleTeamEmoji(whoWin) + " ";
 
     let newFlex_text = {
@@ -3078,8 +3078,8 @@ module.exports = {
     let table_body = {};
 
     let num = 1;
-    players.forEach((item, index) => {
-      table_body[index] = {
+    for (let i = 0; i < players.length; i++) {
+      table_body[i] = {
         type: "box",
         layout: "horizontal",
         contents: [
@@ -3109,21 +3109,51 @@ module.exports = {
         ],
         margin: "sm"
       };
+      
+      let roleTeam = players[i].role.team;
+      let roleName = players[i].role.name;
 
-      table_body[index].contents[0].text += num + ".";
-      table_body[index].contents[1].text += item.name;
+      table_body[i].contents[0].text += num + ".";
+      table_body[i].contents[1].text += players[i].name;
 
-      if (item.status === "death") {
-        table_body[index].contents[2].text += "💀";
+      if (players[i].status === "death") {
+        table_body[i].contents[1].text += " (💀)";
       } else {
-        table_body[index].contents[2].text += "😃";
+        table_body[i].contents[1].text += " (😃)";
       }
 
-      table_body[index].contents[3].text += item.role.name;
+      // table_body[index].contents[2].text = buat win or not
+      if (roleTeam === whoWin) {
+        this.increaseWinRate(i, roleTeam);
+        
+        table_body[i].contents[2].text = "win";
+      } else {
+        /// check the win condition of some role
+        if (roleName === "jester") {
+          if (this.checkJesterWinCondition(i)) {
+            this.increaseWinRate(i, roleTeam);
+            continue;
+          }
+        } else if (roleName === "survivor") {
+          if (this.checkSurvivorWinCondition(i)) {
+            this.increaseWinRate(i, roleTeam);
+            continue;
+          }
+        } else if (roleName === "executioner") {
+          if (this.checkExecutionerWinCondition(i)) {
+            this.increaseWinRate(i, roleTeam);
+            continue;
+          }
+        }
+        
+        this.decreaseWinRate(i, roleTeam);
+      }
+      
+      table_body[i].contents[3].text += roleName;
       num++;
 
-      newFlex_text.table.body.push(table_body[index]);
-    });
+      newFlex_text.table.body.push(table_body[i]);
+    }
 
     //give point
     for (let i = 0; i < players.length; i++) {
@@ -3132,23 +3162,7 @@ module.exports = {
       if (roleTeam === whoWin) {
         this.increaseWinRate(i, roleTeam);
       } else {
-        /// check the win condition of some role
-        if (roleName === "jester") {
-          if (players[i].role.isLynched) {
-            this.increaseWinRate(i, roleTeam);
-            continue;
-          }
-        } else if (roleName === "survivor") {
-          if (players[i].status === "alive") {
-            this.increaseWinRate(i, roleTeam);
-            continue;
-          }
-        } else if (roleName === "executioner") {
-          if (players[i].role.isTargetLynched) {
-            this.increaseWinRate(i, roleTeam);
-            continue;
-          }
-        }
+        
 
         this.decreaseWinRate(i, roleTeam);
       }
@@ -3206,10 +3220,28 @@ module.exports = {
   },
 
   /** helper func **/
-  
+
   checkJesterWinCondition: function(jesterIndex) {
-    if (this.group_session.players[jesterIndex].isLynched) {
+    if (this.group_session.players[jesterIndex].role.isLynched) {
       return true;
+    } else {
+      return false;
+    }
+  },
+
+  checkSurvivorWinCondition: function(survivorIndex) {
+    if (this.group_session.players[survivorIndex].status === "alive") {
+      return true;
+    } else {
+      return false;
+    }
+  },
+  
+  checkExecutionerWinCondition: function(exeIndex) {
+    if (this.group_session.players[exeIndex].role.isTargetLynched) {
+      return true;
+    } else {
+      return false;
     }
   },
 
