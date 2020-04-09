@@ -172,10 +172,7 @@ module.exports = {
     } else if (this.group_session.state === "new") {
       return this.replyText("💡 Game belum dimulai");
     }
-
-    let playersCount = this.group_session.players.length;
-    //cp
-
+    
     let roles = this.group_session.roles;
     let flex_text = {
       header: {
@@ -336,10 +333,10 @@ module.exports = {
       this.user_session.state = "active";
       this.user_session.groupId = this.group_session.groupId;
       //cp
-      //for (let i = 0; i < 6; i++) {
+      for (let i = 0; i < 6; i++) {
       let newPlayer = this.createNewPlayer(this.user_session);
       this.addPlayer(newPlayer);
-      //}
+      }
 
       let text = "💡 " + this.user_session.name + " berhasil bergabung!";
       return this.replyFlex(flex_text, [text, remindText]);
@@ -617,7 +614,7 @@ module.exports = {
       }
 
       item.role = this.getRoleData(item.role.name);
-
+      
       /// init private prop special role
 
       switch (item.role.name) {
@@ -3761,20 +3758,18 @@ module.exports = {
 
   getRoleData: function(roleName) {
     const roles = require("/app/roles/rolesData");
-
-    let roleData = {};
-
     for (let i = 0; i < roles.length; i++) {
       if (roleName === roles[i].name) {
-        roleData = {
-          name: roles[i].name,
-          team: roles[i].team,
-          description: roles[i].description,
-          skillText: roles[i].skillText,
-          canKill: roles[i].canKill,
-          cmdText: roles[i].cmdText
-        };
-        return roleData;
+        // let roleData = {
+        //   name: roles[i].name,
+        //   team: roles[i].team,
+        //   description: roles[i].description,
+        //   skillText: roles[i].skillText,
+        //   canKill: roles[i].canKill,
+        //   cmdText: roles[i].cmdText
+        // };
+        // return roleData;
+        return roles[i];
       }
     }
   },
