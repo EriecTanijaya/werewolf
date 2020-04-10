@@ -611,7 +611,7 @@ module.exports = {
 
     /// hax for exe
     let exeIndex = -1;
-    
+
     this.group_session.players.forEach((item, index) => {
       if (index <= roles.length - 1) {
         item.role.name = roles[index];
@@ -632,10 +632,12 @@ module.exports = {
       //   // this.client.pushMessage();
       // }
     });
-    
+
     /// special exe hax
     if (exeIndex !== -1) {
-      this.group_session.players[exeIndex].role.targetLynchIndex = this.getExecutionerTargetIndex(exeIndex);
+      this.group_session.players[
+        exeIndex
+      ].role.targetLynchIndex = this.getExecutionerTargetIndex(exeIndex);
       this.group_session.players[exeIndex].role.isTargetLynched = false;
     }
 
@@ -2118,7 +2120,7 @@ module.exports = {
 
               spyWerewolfVisitInfo +=
                 "🐺 " + target.name + " dikunjungi Werewolf" + "\n\n";
-              
+
               if (immuneToBasicAttack.includes(target.role.name)) {
                 this.group_session.players[i].message +=
                   "💡 Target kamu immune dari serangan!" + "\n\n";
@@ -3492,8 +3494,10 @@ module.exports = {
     werewolfNeedCount--;
 
     /// Unique role utk sekarang si exe
-    roles.push("executioner");
-    neutralNeedCount--;
+    if (this.group_session.players.length > 5) {
+      roles.push("executioner");
+      neutralNeedCount--;
+    }
 
     /// bad guy generator
 
