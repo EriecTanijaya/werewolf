@@ -2490,7 +2490,7 @@ module.exports = {
 
       if (doer.role.name === "spy" && doer.status === "alive") {
         if (!doer.blocked) {
-          this.group_session.players[i].message += spyWerewolfVisitInfo;
+          this.group_session.players[i].message += spyWerewolfVisitInfo + "\n";
         }
 
         if (doer.target.index === -1) {
@@ -2519,14 +2519,11 @@ module.exports = {
             this.group_session.players[i].message +=
               "👣 Kamu ke rumah " + target.name + "\n\n";
 
-            this.group_session.players[i].message +=
-              spyWerewolfVisitInfo + "\n";
-
             if (spyBuggedInfo) {
               this.group_session.players[i].message += spyBuggedInfo;
             } else {
               this.group_session.players[i].message +=
-                target.name + " tidak terkena apa apa" + "\n\n";
+                "🔍 " + target.name + " tidak terkena apa apa" + "\n\n";
             }
           }
         }
