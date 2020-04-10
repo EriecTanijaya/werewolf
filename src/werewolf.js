@@ -517,7 +517,7 @@ module.exports = {
       return this.replyText(text);
     }
 
-    this.cutFromArray(this.group_session.players, index);
+    helper.cutFromArray(this.group_session.players, index);
 
     let text = "💡 " + this.user_session.name + " telah meninggalkan game. ";
 
@@ -3948,14 +3948,6 @@ module.exports = {
       }
     }
     return targetIndex;
-  },
-
-  cutFromArray: function(array, index) {
-    for (let i = index; i < array.length - 1; i++) {
-      array[i] = array[parseInt(i) + 1];
-    }
-    array.pop();
-    return array;
   },
 
   indexOfPlayer: function() {
