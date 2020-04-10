@@ -413,7 +413,15 @@ module.exports = {
     if (roleTeam === "werewolf" || roleTeam === "vampire") {
       let nightNews =
         "\n\n" + "📣 Yang berada di team " + roleTeam + " : " + "\n";
-      nightNews += this.getNamesByTeam(roleTeam) + "\n";
+      let teammates = "";
+      if (roleTeam === "werewolf") {
+        // untuk role team yg ada banyak role name
+        teammates = this.getNamesByTeam(roleTeam, true);
+      } else {
+        // untuk role team yg nama rolenya sama semua
+        teammates = this.getNamesByTeam(roleTeam, null);
+      }
+      nightNews += teammates + "\n";
       flex_text.body.text += nightNews;
     }
 
@@ -948,11 +956,19 @@ module.exports = {
     return found;
   },
 
-  getNamesByTeam: function(teamName) {
+  /*
+  teamName string nama team
+  withRoleName bool kasih roleName juga
+  */
+  getNamesByTeam: function(teamName, withRoleName) {
     let names = [];
     this.group_session.players.forEach((item, index) => {
       if (item.status === "alive" && item.role.team === teamName) {
-        names.push(item.name);
+        let name = item.name;
+        if (withRoleName) {
+          name += " (" + item.role.name + ")";
+        }
+        names.push(name);
       }
     });
     return names.join(", ");
