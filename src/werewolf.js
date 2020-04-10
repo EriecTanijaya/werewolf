@@ -605,8 +605,8 @@ module.exports = {
     );
     let players = this.group_session.players;
     let playersLength = players.length;
-    //let roles = this.getRandomRoleSet(playersLength); //cp
-    let roles = ["executioner", "spy", "doctor", "werewolf", "seer"];
+    let roles = this.getRandomRoleSet(playersLength); //cp
+    //let roles = ["executioner", "spy", "doctor", "werewolf", "seer"];
 
     /// hax for exe
     let exeIndex = -1;
