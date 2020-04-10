@@ -1084,7 +1084,7 @@ module.exports = {
           let doer = players[werewolfDoerIndex];
           let target = players[werewolfChosenTarget.index];
           werewolfAnnouncement +=
-            "🐺 Target Werewolf adalah : " + target.name + "\n\n";
+            "🐺 " + doer.name + " akan membunuh " + target.name + "\n\n";
         }
       }
     }
@@ -1196,6 +1196,9 @@ module.exports = {
 
             this.group_session.players[i].message +=
               "👣 Kamu ke rumah " + target.name + "\n\n";
+            
+            werewolfAnnouncement +=
+              "🚷 " + doer.name + " akan me roleblock " + target.name + "\n\n";
 
             let visitor = {
               name: doer.name,
@@ -2466,13 +2469,12 @@ module.exports = {
             this.group_session.players[i].message +=
               "👣 Kamu ke rumah " + target.name + "\n\n";
 
-            this.group_session.players[i].message +=
-              "🧙 Role " + target.name + " adalah " + target.role.name + "\n\n";
+            let skillResult = "🧙 Role " + target.name + " adalah " + target.role.name + "\n\n";
 
+            werewolfAnnouncement += skillResult;
+            
             spyWerewolfVisitInfo +=
               "🐺 " + target.name + " dikunjungi Werewolf" + "\n\n";
-
-            // info role kasih tau ke ww announcement atau engga?
 
             this.group_session.players[i].message +=
               "Kamu bisa cek info role dengan ketik '/info " +
