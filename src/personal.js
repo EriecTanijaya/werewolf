@@ -415,7 +415,11 @@ module.exports = {
         "\n\n" + "📣 Yang berada di team " + roleTeam + " : " + "\n";
       let teammates = "";
       if (roleTeam === "werewolf") {
+        // untuk role team yg ada banyak role name
         teammates = this.getNamesByTeam(roleTeam, true);
+      } else {
+        // untuk role team yg nama rolenya sama semua
+        teammates = this.getNamesByTeam(roleTeam, null);
       }
       nightNews += teammates + "\n";
       flex_text.body.text += nightNews;

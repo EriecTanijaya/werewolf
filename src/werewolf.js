@@ -1196,9 +1196,13 @@ module.exports = {
 
             this.group_session.players[i].message +=
               "👣 Kamu ke rumah " + target.name + "\n\n";
-            
+
             werewolfAnnouncement +=
-              "🚷 " + doer.name + " berencana me roleblock " + target.name + "\n\n";
+              "🚷 " +
+              doer.name +
+              " berencana me roleblock " +
+              target.name +
+              "\n\n";
 
             let visitor = {
               name: doer.name,
@@ -2449,7 +2453,6 @@ module.exports = {
 
           continue;
         } else {
-          
           if (doer.blocked === true) {
             this.group_session.players[i].message +=
               "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." +
@@ -2470,10 +2473,11 @@ module.exports = {
             this.group_session.players[i].message +=
               "👣 Kamu ke rumah " + target.name + "\n\n";
 
-            let skillResult = "🧙 Role " + target.name + " adalah " + target.role.name + "\n\n";
+            let skillResult =
+              "🧙 Role " + target.name + " adalah " + target.role.name + "\n\n";
 
             werewolfAnnouncement += skillResult;
-            
+
             spyWerewolfVisitInfo +=
               "🐺 " + target.name + " dikunjungi Werewolf" + "\n\n";
 
