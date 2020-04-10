@@ -1,4 +1,12 @@
 module.exports = {
+  cutFromArray: function(array, index) {
+    for (let i = index; i < array.length - 1; i++) {
+      array[i] = array[parseInt(i) + 1];
+    }
+    array.pop();
+    return array;
+  },
+
   resetRoom: function(group_sessions, key) {
     group_sessions[key] = null;
   },
@@ -13,13 +21,13 @@ module.exports = {
     });
     this.resetRoom(group_sessions, key);
   },
-  
+
   getRandomTeams: function() {
     let teams = {
       town: [],
       werewolf: [],
       neutral: []
-    }
+    };
     let townTeam = [
       "seer",
       "doctor",
@@ -31,7 +39,13 @@ module.exports = {
       "tracker"
     ];
     let werewolfTeam = ["werewolf-cub", "sorcerer", "consort"];
-    let neutralTeam = ["serial-killer", "arsonist", "jester", "vampire", "survivor"];
+    let neutralTeam = [
+      "serial-killer",
+      "arsonist",
+      "jester",
+      "vampire",
+      "survivor"
+    ];
     teams.town = this.shuffleArray(townTeam);
     teams.werewolf = this.shuffleArray(werewolfTeam);
     teams.neutral = this.shuffleArray(neutralTeam);
