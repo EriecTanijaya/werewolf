@@ -2980,7 +2980,7 @@ module.exports = {
     if (this.checkExistsRole("executioner")) {
       let exeIndex = this.getPlayerIndexByRole("executioner");
       let exeLynchTargetIndex = players[exeIndex].role.targetLynchIndex;
-      if (lynchTarget.index === exeLynchTargetIndex) {
+      if (lynchTarget.index == exeLynchTargetIndex) {
         this.group_session.players[exeIndex].role.isTargetLynched = true;
       }
     }
