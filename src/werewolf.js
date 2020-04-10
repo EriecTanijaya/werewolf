@@ -73,6 +73,7 @@ module.exports = {
       case "/start":
       case "/mulai":
       case "/gas":
+      case "/anjing":
         return this.startCommand();
       case "/stop":
         return this.stopCommand();
@@ -606,8 +607,11 @@ module.exports = {
     let players = this.group_session.players;
     let playersLength = players.length;
     let roles = this.getRandomRoleSet(playersLength); //cp
-    //let roles = ["executioner", "jester", "survivor", "werewolf", "seer"];
+    //let roles = ["executioner", "spy", "doctor", "werewolf", "seer"];
 
+    /// hax for exe
+    let exeIndex = -1;
+    
     this.group_session.players.forEach((item, index) => {
       if (index <= roles.length - 1) {
         item.role.name = roles[index];
@@ -619,8 +623,7 @@ module.exports = {
 
       switch (item.role.name) {
         case "executioner":
-          item.role.targetLynchIndex = this.getExecutionerTargetIndex(item.id);
-          item.role.isTargetLynched = false;
+          exeIndex = index;
           break;
       }
 
@@ -629,10 +632,12 @@ module.exports = {
       //   // this.client.pushMessage();
       // }
     });
-
-    this.group_session.players = helper.shuffleArray(
-      this.group_session.players
-    );
+    
+    /// special exe hax
+    if (exeIndex !== -1) {
+      this.group_session.players[exeIndex].role.targetLynchIndex = this.getExecutionerTargetIndex(exeIndex);
+      this.group_session.players[exeIndex].role.isTargetLynched = false;
+    }
 
     /// untuk role yang berubah-berubah
 
@@ -2111,6 +2116,9 @@ module.exports = {
                 "executioner"
               ];
 
+              spyWerewolfVisitInfo +=
+                "🐺 " + target.name + " dikunjungi Werewolf" + "\n\n";
+              
               if (immuneToBasicAttack.includes(target.role.name)) {
                 this.group_session.players[i].message +=
                   "💡 Target kamu immune dari serangan!" + "\n\n";
@@ -2131,9 +2139,6 @@ module.exports = {
                   "🐺 Kamu diserang " + doer.role.team + "!" + "\n\n";
 
                 this.group_session.players[targetIndex].attacked = true;
-
-                spyWerewolfVisitInfo +=
-                  "🐺 " + target.name + " dikunjungi Werewolf" + "\n\n";
 
                 if (players[targetIndex].bugged) {
                   spyBuggedInfo +=
@@ -2976,7 +2981,7 @@ module.exports = {
     if (this.checkExistsRole("executioner")) {
       let exeIndex = this.getPlayerIndexByRole("executioner");
       let exeLynchTargetIndex = players[exeIndex].role.targetLynchIndex;
-      if (lynchTarget.index === exeLynchTargetIndex) {
+      if (lynchTarget.index == exeLynchTargetIndex) {
         this.group_session.players[exeIndex].role.isTargetLynched = true;
       }
     }
@@ -3211,19 +3216,17 @@ module.exports = {
     }
   },
 
-  getExecutionerTargetIndex: function(exeId) {
+  getExecutionerTargetIndex: function(exeIndex) {
     let players = this.group_session.players;
     let maxIndex = players.length - 1;
 
     while (true) {
       let targetIndex = helper.getRandomInt(0, maxIndex);
-      let targetId = players[targetIndex].id;
       let isTownie = false;
       if (players[targetIndex].role.team === "villager") {
         isTownie = true;
       }
-
-      if (targetId !== exeId && isTownie) {
+      if (targetIndex !== exeIndex && isTownie) {
         return targetIndex;
       }
     }
