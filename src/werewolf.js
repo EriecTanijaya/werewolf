@@ -73,6 +73,7 @@ module.exports = {
       case "/start":
       case "/mulai":
       case "/gas":
+        case "/
         return this.startCommand();
       case "/stop":
         return this.stopCommand();
