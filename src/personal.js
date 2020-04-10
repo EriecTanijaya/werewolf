@@ -73,7 +73,7 @@ module.exports = {
 
     let index = this.indexOfPlayer();
 
-    this.cutFromArray(this.group_session.players, index);
+    helper.cutFromArray(this.group_session.players, index);
 
     let text = "💡 Kamu telah meninggalkan game. ";
 
