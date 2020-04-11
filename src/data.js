@@ -139,7 +139,7 @@ module.exports = {
       // console.log(logText);
       if (user_session.id !== process.env.DEV_ID) {
         // semua grup ga bisa
-        return this.maintenanceRespond();
+        //return this.maintenanceRespond();
 
         // buat khusus test grup aja
         if (groupId !== process.env.TEST_GROUP) {

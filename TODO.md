@@ -1,7 +1,5 @@
 TODO
 
-- RESET DATAAAA
-- roles info kasih tau istilah town protect, town investigate, town proctector, town killing
 - buat database beneran, data user store di mongodb freakin' hard tho
 - kalau role udah bsa multi gitu,
   - doctor : ada private prop ke target, yg di healed, pasti harus ada prop healed by who gitu
@@ -10,8 +8,6 @@ TODO
   - sekarang neutral dh bisa multiple, tapi mereka ga tau siapa sesama mereka
 - sekarang udah bisa custom, jadi di getRandomRoleSet bnyak tugas nih
 - kalau pemain dah rame, adain **role investigator**, dimana dia miripin aj sama investigator di TOS
-- buat juga sistem random role yang bisa di duplicate, barengan dengan buat istilah town protector, town killing, dll
-  jadi pas di /roles, itu bisa agak catchy
 
 - ROLE YANG BELUM BISA DUPLICATE
   - DOKTOR
