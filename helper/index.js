@@ -3,7 +3,16 @@ module.exports = {
     const roles = require("/app/roles/rolesData");
     for (let i = 0; i < roles.length; i++) {
       if (team === roles[i].team) {
-        return roles[i].emoji;
+        return roles[i].emoji.team;
+      }
+    }
+  },
+  
+  getRoleNameEmoji: function(roleName) {
+    const roles = require("/app/roles/rolesData");
+    for (let i = 0; i < roles.length; i++) {
+      if (roleName === roles[i].name) {
+        return roles[i].emoji.self;
       }
     }
   },

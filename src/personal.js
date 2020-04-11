@@ -549,7 +549,7 @@ module.exports = {
 
     flex_text.body.text += "\n\n" + skillText + "\n\n";
 
-    flex_text.body.text += "Alertmu sisa " + players[index].role.alert;
+    flex_text.body.text += "💥 Alertmu sisa " + players[index].role.alert;
 
     flex_text.footer = {
       buttons: [
