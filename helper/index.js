@@ -1,4 +1,22 @@
 module.exports = {
+  getRoleTeamEmoji: function(team) {
+    const roles = require("/app/roles/rolesData");
+    for (let i = 0; i < roles.length; i++) {
+      if (team === roles[i].team) {
+        return roles[i].emoji.team;
+      }
+    }
+  },
+  
+  getRoleNameEmoji: function(roleName) {
+    const roles = require("/app/roles/rolesData");
+    for (let i = 0; i < roles.length; i++) {
+      if (roleName === roles[i].name) {
+        return roles[i].emoji.self;
+      }
+    }
+  },
+
   cutFromArray: function(array, index) {
     for (let i = index; i < array.length - 1; i++) {
       array[i] = array[parseInt(i) + 1];

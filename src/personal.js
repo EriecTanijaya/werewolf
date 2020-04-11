@@ -400,10 +400,11 @@ module.exports = {
     let roleName = player.role.name;
     let roleTeam = player.role.team;
     let roleDesc = player.role.description;
+    let headerText = helper.getRoleNameEmoji(roleName) + roleName.toUpperCase();
 
     let flex_text = {
       header: {
-        text: roleName.toUpperCase()
+        text: headerText
       },
       body: {
         text: roleDesc
@@ -549,7 +550,7 @@ module.exports = {
 
     flex_text.body.text += "\n\n" + skillText + "\n\n";
 
-    flex_text.body.text += "Alertmu sisa " + players[index].role.alert;
+    flex_text.body.text += "💥 Alertmu sisa " + players[index].role.alert;
 
     flex_text.footer = {
       buttons: [
@@ -572,7 +573,7 @@ module.exports = {
 
     flex_text.body.text += "\n\n" + skillText + "\n\n";
 
-    flex_text.body.text += "Vest mu sisa " + players[index].role.vest;
+    flex_text.body.text += "🦺 Vest mu sisa " + players[index].role.vest;
 
     flex_text.footer = {
       buttons: [
