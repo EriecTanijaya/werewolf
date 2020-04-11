@@ -7,7 +7,7 @@ const group_sessions = {};
 const user_sessions = {};
 
 // Update session
-const updateSessionJob = new CronJob("* * * * * *", function() {
+setInterval(() => {
   for (let key in group_sessions) {
     if (group_sessions[key]) {
       if (group_sessions[key].time > 0) {
@@ -25,8 +25,7 @@ const updateSessionJob = new CronJob("* * * * * *", function() {
       }
     }
   }
-});
-updateSessionJob.start();
+}, 1000);
 
 module.exports = {
   receive: function(client, event, rawArgs) {
@@ -315,10 +314,10 @@ module.exports = {
 
     oldUserData.arsonistStats.win += newUserData.arsonistStats.win;
     oldUserData.arsonistStats.lose += newUserData.arsonistStats.lose;
-    
+
     oldUserData.survivorStats.win += newUserData.survivorStats.win;
     oldUserData.survivorStats.lose += newUserData.survivorStats.lose;
-    
+
     oldUserData.executionerStats.win += newUserData.executionerStats.win;
     oldUserData.executionerStats.lose += newUserData.executionerStats.lose;
 
