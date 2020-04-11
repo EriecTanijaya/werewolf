@@ -1510,8 +1510,6 @@ module.exports = {
         if (doer.role.isLynched && !doer.role.hasRevenged) {
           let targetIndex = -1;
 
-          console.log(`target index jester ${doer.target.index}`);
-
           if (doer.target.index === -1) {
             // random kill
             this.group_session.players[i].message +=
@@ -1519,6 +1517,7 @@ module.exports = {
               "\n\n";
 
             targetIndex = this.getJesterTargetIndex(doer.id);
+            console.log(`random target index jester ${targetIndex}`);
           } else {
             targetIndex = doer.target.index;
           }
@@ -3960,12 +3959,12 @@ module.exports = {
 
   indexOfPlayer: function() {
     let found = -1;
-    for (let i in this.group_session.players) {
+    for (let i = 0; i < this.group_session.players.length; i++) {
       if (this.group_session.players[i].id === this.user_session.id) {
         found = i;
+        return found;
       }
     }
-
     return found;
   },
 
