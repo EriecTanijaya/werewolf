@@ -3962,10 +3962,9 @@ module.exports = {
     for (let i = 0; i < this.group_session.players.length; i++) {
       if (this.group_session.players[i].id === this.user_session.id) {
         found = i;
-        return fo
+        return found;
       }
     }
-
     return found;
   },
 
