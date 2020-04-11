@@ -3117,7 +3117,7 @@ module.exports = {
         }
       }
 
-      // let teamEmoji = this.getRoleTeamEmoji(roleTeam);
+      // let teamEmoji = helper.getRoleTeamEmoji(roleTeam);
       table_body[i].contents[3].text += roleName;
       num++;
 
@@ -3125,7 +3125,7 @@ module.exports = {
     }
 
     if (whoWin !== "draw") {
-      let emoji = this.getRoleTeamEmoji(whoWin) + " ";
+      let emoji = helper.getRoleTeamEmoji(whoWin) + " ";
       headerText = "🎉 " + emoji + whoWin.toUpperCase() + " win! 🎉";
     } else if (surviveTeam.length > 0) {
       let surviveTeamList = surviveTeam.join(", ");
@@ -3975,15 +3975,6 @@ module.exports = {
     //this.group_session.time = 20;
 
     this.resetCheckChance();
-  },
-
-  getRoleTeamEmoji: function(team) {
-    const roles = require("/app/roles/rolesData");
-    for (let i = 0; i < roles.length; i++) {
-      if (team === roles[i].team) {
-        return roles[i].emoji;
-      }
-    }
   },
 
   /** message func **/
