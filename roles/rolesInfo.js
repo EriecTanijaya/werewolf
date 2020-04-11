@@ -28,12 +28,11 @@ module.exports = {
       let input = "";
       if (this.args[2]) {
         input = helper.parseToText(this.args);
-        input = input.toLowerCase();
       } else {
-        input = .replace(/\s/g, "-")
-        input = this.args[1].toLowerCase();
+        input = this.args[1].replace("-", " ");
       }
-      console.log(input)
+      input = input.toLowerCase();
+
       let rolesData = require("/app/roles/rolesData");
 
       /// check untuk type
