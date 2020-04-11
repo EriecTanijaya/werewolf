@@ -73,6 +73,7 @@ module.exports = {
       case "/start":
       case "/mulai":
       case "/gas":
+      case "/anjing":
         return this.startCommand();
       case "/stop":
         return this.stopCommand();
@@ -516,7 +517,7 @@ module.exports = {
       return this.replyText(text);
     }
 
-    this.cutFromArray(this.group_session.players, index);
+    helper.cutFromArray(this.group_session.players, index);
 
     let text = "💡 " + this.user_session.name + " telah meninggalkan game. ";
 
@@ -606,7 +607,10 @@ module.exports = {
     let players = this.group_session.players;
     let playersLength = players.length;
     let roles = this.getRandomRoleSet(playersLength); //cp
-    //let roles = ["executioner", "jester", "survivor", "werewolf", "seer"];
+    //let roles = ["executioner", "spy", "doctor", "werewolf", "seer"];
+
+    /// hax for exe
+    let exeIndex = -1;
 
     this.group_session.players.forEach((item, index) => {
       if (index <= roles.length - 1) {
@@ -619,8 +623,7 @@ module.exports = {
 
       switch (item.role.name) {
         case "executioner":
-          item.role.targetLynchIndex = this.getExecutionerTargetIndex(item.id);
-          item.role.isTargetLynched = false;
+          exeIndex = index;
           break;
       }
 
@@ -630,9 +633,13 @@ module.exports = {
       // }
     });
 
-    this.group_session.players = helper.shuffleArray(
-      this.group_session.players
-    );
+    /// special exe hax
+    if (exeIndex !== -1) {
+      this.group_session.players[
+        exeIndex
+      ].role.targetLynchIndex = this.getExecutionerTargetIndex(exeIndex);
+      this.group_session.players[exeIndex].role.isTargetLynched = false;
+    }
 
     /// untuk role yang berubah-berubah
 
@@ -1077,7 +1084,7 @@ module.exports = {
           let doer = players[werewolfDoerIndex];
           let target = players[werewolfChosenTarget.index];
           werewolfAnnouncement +=
-            "🐺 Target Werewolf adalah : " + target.name + "\n\n";
+            "🐺 " + doer.name + " akan membunuh " + target.name + "\n\n";
         }
       }
     }
@@ -1189,6 +1196,13 @@ module.exports = {
 
             this.group_session.players[i].message +=
               "👣 Kamu ke rumah " + target.name + "\n\n";
+
+            werewolfAnnouncement +=
+              "🚷 " +
+              doer.name +
+              " berencana me roleblock " +
+              target.name +
+              "\n\n";
 
             let visitor = {
               name: doer.name,
@@ -1496,8 +1510,6 @@ module.exports = {
         if (doer.role.isLynched && !doer.role.hasRevenged) {
           let targetIndex = -1;
 
-          console.log(`target index jester ${doer.target.index}`);
-
           if (doer.target.index === -1) {
             // random kill
             this.group_session.players[i].message +=
@@ -1505,6 +1517,7 @@ module.exports = {
               "\n\n";
 
             targetIndex = this.getJesterTargetIndex(doer.id);
+            console.log(`random target index jester ${targetIndex}`);
           } else {
             targetIndex = doer.target.index;
           }
@@ -2111,6 +2124,9 @@ module.exports = {
                 "executioner"
               ];
 
+              spyWerewolfVisitInfo +=
+                "🐺 " + target.name + " dikunjungi Werewolf" + "\n\n";
+
               if (immuneToBasicAttack.includes(target.role.name)) {
                 this.group_session.players[i].message +=
                   "💡 Target kamu immune dari serangan!" + "\n\n";
@@ -2131,9 +2147,6 @@ module.exports = {
                   "🐺 Kamu diserang " + doer.role.team + "!" + "\n\n";
 
                 this.group_session.players[targetIndex].attacked = true;
-
-                spyWerewolfVisitInfo +=
-                  "🐺 " + target.name + " dikunjungi Werewolf" + "\n\n";
 
                 if (players[targetIndex].bugged) {
                   spyBuggedInfo +=
@@ -2459,13 +2472,13 @@ module.exports = {
             this.group_session.players[i].message +=
               "👣 Kamu ke rumah " + target.name + "\n\n";
 
-            this.group_session.players[i].message +=
+            let skillResult =
               "🧙 Role " + target.name + " adalah " + target.role.name + "\n\n";
+
+            werewolfAnnouncement += skillResult;
 
             spyWerewolfVisitInfo +=
               "🐺 " + target.name + " dikunjungi Werewolf" + "\n\n";
-
-            // info role kasih tau ke ww announcement atau engga?
 
             this.group_session.players[i].message +=
               "Kamu bisa cek info role dengan ketik '/info " +
@@ -2483,7 +2496,7 @@ module.exports = {
 
       if (doer.role.name === "spy" && doer.status === "alive") {
         if (!doer.blocked) {
-          this.group_session.players[i].message += spyWerewolfVisitInfo;
+          this.group_session.players[i].message += spyWerewolfVisitInfo + "\n";
         }
 
         if (doer.target.index === -1) {
@@ -2512,14 +2525,11 @@ module.exports = {
             this.group_session.players[i].message +=
               "👣 Kamu ke rumah " + target.name + "\n\n";
 
-            this.group_session.players[i].message +=
-              spyWerewolfVisitInfo + "\n";
-
             if (spyBuggedInfo) {
               this.group_session.players[i].message += spyBuggedInfo;
             } else {
               this.group_session.players[i].message +=
-                target.name + " tidak terkena apa apa" + "\n\n";
+                "🔍 " + target.name + " tidak terkena apa apa" + "\n\n";
             }
           }
         }
@@ -2976,7 +2986,7 @@ module.exports = {
     if (this.checkExistsRole("executioner")) {
       let exeIndex = this.getPlayerIndexByRole("executioner");
       let exeLynchTargetIndex = players[exeIndex].role.targetLynchIndex;
-      if (lynchTarget.index === exeLynchTargetIndex) {
+      if (lynchTarget.index == exeLynchTargetIndex) {
         this.group_session.players[exeIndex].role.isTargetLynched = true;
       }
     }
@@ -3106,7 +3116,7 @@ module.exports = {
         }
       }
 
-      // let teamEmoji = this.getRoleTeamEmoji(roleTeam);
+      // let teamEmoji = helper.getRoleTeamEmoji(roleTeam);
       table_body[i].contents[3].text += roleName;
       num++;
 
@@ -3114,7 +3124,7 @@ module.exports = {
     }
 
     if (whoWin !== "draw") {
-      let emoji = this.getRoleTeamEmoji(whoWin) + " ";
+      let emoji = helper.getRoleTeamEmoji(whoWin) + " ";
       headerText = "🎉 " + emoji + whoWin.toUpperCase() + " win! 🎉";
     } else if (surviveTeam.length > 0) {
       let surviveTeamList = surviveTeam.join(", ");
@@ -3211,19 +3221,17 @@ module.exports = {
     }
   },
 
-  getExecutionerTargetIndex: function(exeId) {
+  getExecutionerTargetIndex: function(exeIndex) {
     let players = this.group_session.players;
     let maxIndex = players.length - 1;
 
     while (true) {
       let targetIndex = helper.getRandomInt(0, maxIndex);
-      let targetId = players[targetIndex].id;
       let isTownie = false;
       if (players[targetIndex].role.team === "villager") {
         isTownie = true;
       }
-
-      if (targetId !== exeId && isTownie) {
+      if (targetIndex !== exeIndex && isTownie) {
         return targetIndex;
       }
     }
@@ -3282,20 +3290,6 @@ module.exports = {
     }
     helper.shuffleArray(list);
     return list;
-  },
-
-  parseToText: function(arr) {
-    let text = "";
-    arr.forEach(function(item, index) {
-      if (index !== 0) {
-        //ini untuk tidak parse text command '/command'
-        if (index !== 1) {
-          text += " ";
-        }
-        text += item;
-      }
-    });
-    return text;
   },
 
   createNewPlayer: function(user_session) {
@@ -3489,8 +3483,10 @@ module.exports = {
     werewolfNeedCount--;
 
     /// Unique role utk sekarang si exe
-    roles.push("executioner");
-    neutralNeedCount--;
+    if (this.group_session.players.length > 5) {
+      roles.push("executioner");
+      neutralNeedCount--;
+    }
 
     /// bad guy generator
 
@@ -3947,22 +3943,14 @@ module.exports = {
     return targetIndex;
   },
 
-  cutFromArray: function(array, index) {
-    for (let i = index; i < array.length - 1; i++) {
-      array[i] = array[parseInt(i) + 1];
-    }
-    array.pop();
-    return array;
-  },
-
   indexOfPlayer: function() {
     let found = -1;
-    for (let i in this.group_session.players) {
+    for (let i = 0; i < this.group_session.players.length; i++) {
       if (this.group_session.players[i].id === this.user_session.id) {
         found = i;
+        return found;
       }
     }
-
     return found;
   },
 
@@ -3972,15 +3960,6 @@ module.exports = {
     //this.group_session.time = 20;
 
     this.resetCheckChance();
-  },
-
-  getRoleTeamEmoji: function(team) {
-    const roles = require("/app/roles/rolesData");
-    for (let i = 0; i < roles.length; i++) {
-      if (team === roles[i].team) {
-        return roles[i].emoji;
-      }
-    }
   },
 
   /** message func **/

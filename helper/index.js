@@ -1,4 +1,44 @@
 module.exports = {
+  parseToText: function(arr) {
+    let text = "";
+    arr.forEach(function(item, index) {
+      if (index !== 0) {
+        //ini untuk tidak parse text command '/command'
+        if (index !== 1) {
+          text += " ";
+        }
+        text += item;
+      }
+    });
+    return text;
+  },
+  
+  getRoleTeamEmoji: function(team) {
+    const roles = require("/app/roles/rolesData");
+    for (let i = 0; i < roles.length; i++) {
+      if (team === roles[i].team) {
+        return roles[i].emoji.team;
+      }
+    }
+  },
+  
+  getRoleNameEmoji: function(roleName) {
+    const roles = require("/app/roles/rolesData");
+    for (let i = 0; i < roles.length; i++) {
+      if (roleName === roles[i].name) {
+        return roles[i].emoji.self;
+      }
+    }
+  },
+
+  cutFromArray: function(array, index) {
+    for (let i = index; i < array.length - 1; i++) {
+      array[i] = array[parseInt(i) + 1];
+    }
+    array.pop();
+    return array;
+  },
+
   resetRoom: function(group_sessions, key) {
     group_sessions[key] = null;
   },
@@ -13,13 +53,13 @@ module.exports = {
     });
     this.resetRoom(group_sessions, key);
   },
-  
+
   getRandomTeams: function() {
     let teams = {
       town: [],
       werewolf: [],
       neutral: []
-    }
+    };
     let townTeam = [
       "seer",
       "doctor",
@@ -31,7 +71,13 @@ module.exports = {
       "tracker"
     ];
     let werewolfTeam = ["werewolf-cub", "sorcerer", "consort"];
-    let neutralTeam = ["serial-killer", "arsonist", "jester", "vampire", "survivor"];
+    let neutralTeam = [
+      "serial-killer",
+      "arsonist",
+      "jester",
+      "vampire",
+      "survivor"
+    ];
     teams.town = this.shuffleArray(townTeam);
     teams.werewolf = this.shuffleArray(werewolfTeam);
     teams.neutral = this.shuffleArray(neutralTeam);

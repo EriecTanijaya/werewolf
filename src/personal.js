@@ -73,7 +73,7 @@ module.exports = {
 
     let index = this.indexOfPlayer();
 
-    this.cutFromArray(this.group_session.players, index);
+    helper.cutFromArray(this.group_session.players, index);
 
     let text = "💡 Kamu telah meninggalkan game. ";
 
@@ -173,7 +173,7 @@ module.exports = {
       return this.replyText("💡 Death notenya kepanjangan! Max 60 kata");
     }
 
-    let deathNote = this.parseToText(this.args);
+    let deathNote = helper.parseToText(this.args);
     let text = "";
 
     this.group_session.players[index].deathNote = deathNote;
@@ -400,10 +400,12 @@ module.exports = {
     let roleName = player.role.name;
     let roleTeam = player.role.team;
     let roleDesc = player.role.description;
+    let headerText =
+      helper.getRoleNameEmoji(roleName) + " " + roleName.toUpperCase();
 
     let flex_text = {
       header: {
-        text: roleName.toUpperCase()
+        text: headerText
       },
       body: {
         text: roleDesc
@@ -413,7 +415,15 @@ module.exports = {
     if (roleTeam === "werewolf" || roleTeam === "vampire") {
       let nightNews =
         "\n\n" + "📣 Yang berada di team " + roleTeam + " : " + "\n";
-      nightNews += this.getNamesByTeam(roleTeam) + "\n";
+      let teammates = "";
+      if (roleTeam === "werewolf") {
+        // untuk role team yg ada banyak role name
+        teammates = this.getNamesByTeam(roleTeam, true);
+      } else {
+        // untuk role team yg nama rolenya sama semua
+        teammates = this.getNamesByTeam(roleTeam, null);
+      }
+      nightNews += teammates + "\n";
       flex_text.body.text += nightNews;
     }
 
@@ -541,7 +551,7 @@ module.exports = {
 
     flex_text.body.text += "\n\n" + skillText + "\n\n";
 
-    flex_text.body.text += "Alertmu sisa " + players[index].role.alert;
+    flex_text.body.text += "💥 Alertmu sisa " + players[index].role.alert;
 
     flex_text.footer = {
       buttons: [
@@ -564,7 +574,7 @@ module.exports = {
 
     flex_text.body.text += "\n\n" + skillText + "\n\n";
 
-    flex_text.body.text += "Vest mu sisa " + players[index].role.vest;
+    flex_text.body.text += "🦺 Vest mu sisa " + players[index].role.vest;
 
     flex_text.footer = {
       buttons: [
@@ -831,7 +841,7 @@ module.exports = {
 
     let message = {
       name: players[index].name,
-      text: this.parseToText(this.args)
+      text: helper.parseToText(this.args)
     };
 
     if (roleTeam === "werewolf") {
@@ -948,11 +958,19 @@ module.exports = {
     return found;
   },
 
-  getNamesByTeam: function(teamName) {
+  /*
+  teamName string nama team
+  withRoleName bool kasih roleName juga
+  */
+  getNamesByTeam: function(teamName, withRoleName) {
     let names = [];
     this.group_session.players.forEach((item, index) => {
       if (item.status === "alive" && item.role.team === teamName) {
-        names.push(item.name);
+        let name = item.name;
+        if (withRoleName) {
+          name += " (" + item.role.name + ")";
+        }
+        names.push(name);
       }
     });
     return names.join(", ");
@@ -960,12 +978,12 @@ module.exports = {
 
   indexOfPlayer: function() {
     let found = -1;
-    for (let i in this.group_session.players) {
+    for (let i = 0; i < this.group_session.players.length; i++) {
       if (this.group_session.players[i].id === this.user_session.id) {
         found = i;
+        return found;
       }
     }
-
     return found;
   },
 
@@ -985,20 +1003,6 @@ module.exports = {
         return roles[i].cmdText;
       }
     }
-  },
-
-  parseToText: function(arr) {
-    let text = "";
-    arr.forEach(function(item, index) {
-      if (index !== 0) {
-        //ini untuk tidak parse text command '/command'
-        if (index !== 1) {
-          text += " ";
-        }
-        text += item;
-      }
-    });
-    return text;
   },
 
   /** message func **/
