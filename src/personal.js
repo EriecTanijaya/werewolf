@@ -978,12 +978,12 @@ module.exports = {
 
   indexOfPlayer: function() {
     let found = -1;
-    for (let i in this.group_session.players) {
+    for (let i = 0; i < this.group_session.players.length; i++) {
       if (this.group_session.players[i].id === this.user_session.id) {
         found = i;
+        return found;
       }
     }
-
     return found;
   },
 
