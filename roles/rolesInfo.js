@@ -97,6 +97,7 @@ module.exports = {
             "Menang jika mengubah semua warga menjadi Vampire, atau menggantung penentangnya. ";
           break;
 
+        case "vh":
         case "vampire-hunter":
           flex_text.header.text = "🗡️ Vampire-Hunter";
           flex_text.body.text += "Type: Town Killing" + "\n\n";
@@ -129,6 +130,7 @@ module.exports = {
             "Jika role block Serial-Killer, maka Serial-Killer itu akan ganti target ke orang yang role block";
           break;
 
+        case "vigi":
         case "vigilante":
           flex_text.header.text = "🔫 Vigilante";
           flex_text.body.text += "Type: Town Killing" + "\n\n";
@@ -176,6 +178,7 @@ module.exports = {
           flex_text.body.text += "mengabaikan target awalmu. ";
           break;
 
+        case "retri":
         case "retributionist":
           flex_text.header.text = "⚰️ Retributionist";
           flex_text.body.text += "Type: Town Support" + "\n\n";
@@ -217,6 +220,7 @@ module.exports = {
             "Orang yang bisa menang dengan siapa saja, asalkan dia tidak mati hingga akhir game. ";
           break;
 
+        case "exe":
         case "executioner":
           flex_text.header.text = "🪓 Executioner";
           flex_text.body.text += "Type: Neutral Chaos" + "\n\n";
