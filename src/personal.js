@@ -573,7 +573,7 @@ module.exports = {
 
     flex_text.body.text += "\n\n" + skillText + "\n\n";
 
-    flex_text.body.text += "Vest mu sisa " + players[index].role.vest;
+    flex_text.body.text += "🦺 Vest mu sisa " + players[index].role.vest;
 
     flex_text.footer = {
       buttons: [
