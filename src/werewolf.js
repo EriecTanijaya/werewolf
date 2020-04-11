@@ -3292,20 +3292,6 @@ module.exports = {
     return list;
   },
 
-  parseToText: function(arr) {
-    let text = "";
-    arr.forEach(function(item, index) {
-      if (index !== 0) {
-        //ini untuk tidak parse text command '/command'
-        if (index !== 1) {
-          text += " ";
-        }
-        text += item;
-      }
-    });
-    return text;
-  },
-
   createNewPlayer: function(user_session) {
     let newPlayer = {
       id: user_session.id,
