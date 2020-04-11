@@ -1,4 +1,18 @@
 module.exports = {
+  parseToText: function(arr) {
+    let text = "";
+    arr.forEach(function(item, index) {
+      if (index !== 0) {
+        //ini untuk tidak parse text command '/command'
+        if (index !== 1) {
+          text += " ";
+        }
+        text += item;
+      }
+    });
+    return text;
+  },
+  
   getRoleTeamEmoji: function(team) {
     const roles = require("/app/roles/rolesData");
     for (let i = 0; i < roles.length; i++) {
