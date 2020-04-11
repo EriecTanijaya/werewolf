@@ -144,14 +144,14 @@ const roles = [
   {
     name: "jester",
     description:
-      "🃏 Kamu menang jika berhasil digantung. Dan bisa bunuh siapa saja disaat sudah mati",
+      "Kamu menang jika berhasil digantung. Dan bisa bunuh siapa saja disaat sudah mati",
     team: "jester",
-    skillText: "👻 Jester, pilih siapa yang ingin dihantui",
+    skillText: "Jester, pilih siapa yang ingin dihantui",
     cmdText: "/skill",
     canKill: false,
     emoji: {
-      team: "",
-      self: ""
+      team: "🃏",
+      self: "🃏"
     },
     isLynched: false,
     hasRevenged: false,
@@ -188,14 +188,14 @@ const roles = [
   {
     name: "serial-killer",
     description:
-      "🔪 Kamu adalah Psikopat yang hanya ingin semua orang mati. Kamu kebal dari serangan biasa, dan Menang jika semua yang menentangmu mati",
-    skillText: "🔪 Serial Killer, pilih siapa yang mau kamu siksa malam ini",
+      "Kamu adalah Psikopat yang hanya ingin semua orang mati. Kamu kebal dari serangan biasa, dan Menang jika semua yang menentangmu mati",
+    skillText: "Serial Killer, pilih siapa yang mau kamu siksa malam ini",
     cmdText: "/skill",
     team: "serial-killer",
     canKill: true,
     emoji: {
-      team: "",
-      self: ""
+      team: "🔪",
+      self: "🔪"
     },
     type: "Neutral Killing"
   },
@@ -232,15 +232,15 @@ const roles = [
   {
     name: "arsonist",
     description:
-      "🔥 Kamu adalah orang gila yang ingin semua orang mati dibakar. Untuk membakar rumah target, gunakan skill ke diri sendiri. Pastikan sudah menyiram bensin ke rumah target-target",
+      "Kamu adalah orang gila yang ingin semua orang mati dibakar. Untuk membakar rumah target, gunakan skill ke diri sendiri. Pastikan sudah menyiram bensin ke rumah target-target",
     skillText:
-      "🔥 Arsonist, pilih rumah siapa yang ingin kamu sirami dengan bensin.",
+      "Arsonist, pilih rumah siapa yang ingin kamu sirami dengan bensin.",
     cmdText: "/skill",
     team: "arsonist",
     canKill: true,
     emoji: {
-      team: "",
-      self: ""
+      team: "🔥",
+      self: "🔥"
     },
     type: "Neutral Killing"
   },
@@ -261,14 +261,14 @@ const roles = [
   {
     name: "survivor",
     description:
-      "🏳️ Kamu bisa berpihak dengan siapa saja, asalkan kamu tidak mati. Jika kamu hidup hingga akhir game, kamu menang",
-    skillText: "🦺 Survivor, apakah kamu akan gunakan vest malam ini?",
+      "Kamu bisa berpihak dengan siapa saja, asalkan kamu tidak mati. Jika kamu hidup hingga akhir game, kamu menang",
+    skillText: "Survivor, apakah kamu akan gunakan vest malam ini?",
     cmdText: "/vest",
     team: "survivor",
     canKill: false,
     emoji: {
-      team: "",
-      self: ""
+      team: "🏳️",
+      self: "🏳️"
     },
     vest: 4,
     type: "Neutral"
@@ -276,12 +276,12 @@ const roles = [
   {
     name: "executioner",
     description:
-      "🪓 Kamu adalah pendendam mengerikan dan kamu menang jika targetmu itu mati digantung oleh warga",
+      "Kamu adalah pendendam mengerikan dan kamu menang jika targetmu itu mati digantung oleh warga",
     team: "executioner",
     canKill: false,
     emoji: {
-      team: "",
-      self: ""
+      team: "🪓",
+      self: "🪓"
     },
     type: "Neutral Chaos"
   },
@@ -312,7 +312,7 @@ const roles = [
       self: "👣"
     },
     type: "Town Investigate"
-  },
+  }
 ];
 
 module.exports = roles;

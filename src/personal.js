@@ -400,10 +400,11 @@ module.exports = {
     let roleName = player.role.name;
     let roleTeam = player.role.team;
     let roleDesc = player.role.description;
+    let headerText = helper.getRoleNameEmoji(roleName) + roleName.toUpperCase();
 
     let flex_text = {
       header: {
-        text: roleName.toUpperCase()
+        text: headerText
       },
       body: {
         text: roleDesc
