@@ -173,7 +173,7 @@ module.exports = {
       return this.replyText("💡 Death notenya kepanjangan! Max 60 kata");
     }
 
-    let deathNote = this.parseToText(this.args);
+    let deathNote = helper.parseToText(this.args);
     let text = "";
 
     this.group_session.players[index].deathNote = deathNote;
@@ -841,7 +841,7 @@ module.exports = {
 
     let message = {
       name: players[index].name,
-      text: this.parseToText(this.args)
+      text: helper.parseToText(this.args)
     };
 
     if (roleTeam === "werewolf") {
@@ -1003,20 +1003,6 @@ module.exports = {
         return roles[i].cmdText;
       }
     }
-  },
-
-  parseToText: function(arr) {
-    let text = "";
-    arr.forEach(function(item, index) {
-      if (index !== 0) {
-        //ini untuk tidak parse text command '/command'
-        if (index !== 1) {
-          text += " ";
-        }
-        text += item;
-      }
-    });
-    return text;
   },
 
   /** message func **/

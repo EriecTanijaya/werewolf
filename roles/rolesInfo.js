@@ -1,3 +1,5 @@
+const helper = require("/app/helper");
+
 module.exports = {
   receive: function(client, event, args) {
     this.client = client;
@@ -23,12 +25,20 @@ module.exports = {
     } else if (cmd === "type") {
       return this.roleTypeCommand();
     } else {
-      let input = this.args[1].toLowerCase();
+      let input = "";
+      if (this.args[2]) {
+        input = helper.parseToText(this.args);
+        input = input.toLowerCase();
+      } else {
+        input = .replace(/\s/g, "-")
+        input = this.args[1].toLowerCase();
+      }
+      console.log(input)
       let rolesData = require("/app/roles/rolesData");
 
       /// check untuk type
       for (let i = 0; i < rolesData.length; i++) {
-        let roleType = rolesData[i].type.replace(/\s/g, "-").toLowerCase();
+        let roleType = rolesData[i].type.toLowerCase();
         if (roleType === input) {
           let listType = this.getListOfType(rolesData[i].type);
           let flex_text = {
