@@ -252,7 +252,9 @@ module.exports = {
           flex_text.body.text +=
             "Anggota Werewolf yang bisa membuat suatu pemain tampak bersalah. ";
           flex_text.body.text +=
-            "Jika Target Framer di cek Sheriff, maka akan tampak bersalah walaupun ia adalah warga"
+            "Jika Target Framer di cek Sheriff, maka akan tampak bersalah walaupun ia adalah warga. ";
+          flex_text.body.text +=
+            "Jika di cek Seer, akan muncul Werewolf, walaupun sebenarnya bukan";
           break;
           
         case "disguiser":

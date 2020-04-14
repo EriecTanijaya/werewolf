@@ -473,6 +473,10 @@ module.exports = {
 
         if (item.status === "death") {
           role.text = item.role.name;
+          
+          if (item.role.disguiseAs) {
+            role.text
+          }
         }
 
         table_body[index].contents.push(role);
@@ -2384,6 +2388,9 @@ module.exports = {
             this.group_session.players[i].message +=
               "🎞️ Kamu menjebak " + target.name + " agar terlihat bersalah" + "\n\n";
             
+            spyWerewolfVisitInfo +=
+              "🐺 " + target.name + " dikunjungi Werewolf" + "\n\n";
+            
             this.group_session.players[targetIndex].framed = true;
             
           }
@@ -2428,7 +2435,8 @@ module.exports = {
               "sorcerer",
               "consort",
               "serial-killer",
-              "framer"
+              "framer",
+              "disguiser"
             ];
             
             if (target.framed || suspiciousList.includes(target.role.name)) {
@@ -2478,6 +2486,10 @@ module.exports = {
             
             if (target.framed) {
               targetRoleName = "werewolf";
+            }
+            
+            if (target.role.disguiseAs) {
+              targetRoleName = target.role.disguiseAs;
             }
 
             this.group_session.players[i].message +=
@@ -3172,7 +3184,12 @@ module.exports = {
       }
 
       // let teamEmoji = helper.getRoleTeamEmoji(roleTeam);
-      table_body[i].contents[3].text += roleName;
+      if (players[i].role.disguiseAs) {
+        table_body[i].contents[3].text += "disguiser";
+      } else {
+        table_body[i].contents[3].text += roleName;
+      }
+      
       num++;
 
       newFlex_text.table.body.push(table_body[i]);
