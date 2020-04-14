@@ -475,7 +475,7 @@ module.exports = {
           role.text = item.role.name;
 
           if (item.role.disguiseAs) {
-            role.text = item.disguiseAs;
+            role.text = item.role.disguiseAs;
           }
         }
 
