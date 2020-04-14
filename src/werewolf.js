@@ -473,9 +473,9 @@ module.exports = {
 
         if (item.status === "death") {
           role.text = item.role.name;
-          
+
           if (item.role.disguiseAs) {
-            role.text
+            role.text = item.disguiseAs;
           }
         }
 
@@ -887,7 +887,7 @@ module.exports = {
         }
 
         // check afk
-        let noSkillRoles = ["villager", "jester"];
+        let noSkillRoles = ["villager", "jester", "executioner"];
         if (!noSkillRoles.includes(item.role.name)) {
           if (item.target.index === -1) {
             item.afkCounter++;
@@ -1354,7 +1354,13 @@ module.exports = {
               "executioner"
             ];
 
-            let canAttacked = ["werewolf-cub", "sorcerer", "consort", "framer", "disguiser"];
+            let canAttacked = [
+              "werewolf-cub",
+              "sorcerer",
+              "consort",
+              "framer",
+              "disguiser"
+            ];
 
             if (canAttacked.includes(targetRoleName)) {
               this.group_session.players[i].message +=
@@ -1660,11 +1666,17 @@ module.exports = {
             this.group_session.players[targetIndex].willSuicide = false;
             this.group_session.players[targetIndex].framed = false;
 
+            let targetRoleName = target.role.name;
+
+            if (target.role.disguiseAs) {
+              targetRoleName = target.role.disguiseAs;
+            }
+
             this.group_session.players[i].message +=
               "⚰️ Kamu berhasil membangkitkan " +
               target.name +
               " (" +
-              target.role.name +
+              targetRoleName +
               ")" +
               "\n\n";
 
@@ -1675,7 +1687,7 @@ module.exports = {
               "⚰️ " +
               target.name +
               " (" +
-              target.role.name +
+              targetRoleName +
               ") bangkit dari kematian!" +
               "\n\n";
           }
@@ -2192,6 +2204,11 @@ module.exports = {
         let attackerLength = players[i].attackers.length;
         let isBurned = players[i].burned;
         let isHaunted = players[i].isHaunted;
+        let roleName = players[i].role.name;
+        
+        if (players[i].role.disguiseAs) {
+          roleName = players[i].role.disguiseAs;
+        }
 
         if (players[i].willSuicide) {
           if (players[i].bugged) {
@@ -2211,7 +2228,7 @@ module.exports = {
           allAnnouncement += attackedAnnouncement + "\n";
 
           allAnnouncement +=
-            "✉️ Role nya adalah " + players[i].role.name + "\n\n";
+            "✉️ Role nya adalah " + roleName + "\n\n";
         } else if (isAttacked || isVampireBited) {
           if (isHealed) {
             this.group_session.players[i].message +=
@@ -2286,7 +2303,7 @@ module.exports = {
           allAnnouncement += attackedAnnouncement + "\n";
 
           allAnnouncement +=
-            "✉️ Role nya adalah " + players[i].role.name + "\n\n";
+            "✉️ Role nya adalah " + roleName + "\n\n";
 
           //Thanks to
           //https://stackoverflow.com/questions/24806772/how-to-skip-over-an-element-in-map/24806827
@@ -2353,7 +2370,7 @@ module.exports = {
         }
       }
     }
-    
+
     /// Framer Action
     for (let i = 0; i < players.length; i++) {
       let doer = players[i];
@@ -2384,20 +2401,21 @@ module.exports = {
 
             this.group_session.players[i].message +=
               "👣 Kamu ke rumah " + target.name + "\n\n";
-            
+
             this.group_session.players[i].message +=
-              "🎞️ Kamu menjebak " + target.name + " agar terlihat bersalah" + "\n\n";
-            
+              "🎞️ Kamu menjebak " +
+              target.name +
+              " agar terlihat bersalah" +
+              "\n\n";
+
             spyWerewolfVisitInfo +=
               "🐺 " + target.name + " dikunjungi Werewolf" + "\n\n";
-            
+
             this.group_session.players[targetIndex].framed = true;
-            
           }
         }
       }
     }
-    
 
     /// Sheriff Action
     for (let i = 0; i < players.length; i++) {
@@ -2438,7 +2456,7 @@ module.exports = {
               "framer",
               "disguiser"
             ];
-            
+
             if (target.framed || suspiciousList.includes(target.role.name)) {
               this.group_session.players[i].message +=
                 "👮 " + target.name + " mencurigakan" + "\n\n";
@@ -2481,13 +2499,13 @@ module.exports = {
             };
 
             this.group_session.players[targetIndex].visitors.push(visitor);
-            
+
             let targetRoleName = target.role.name;
-            
+
             if (target.framed) {
               targetRoleName = "werewolf";
             }
-            
+
             if (target.role.disguiseAs) {
               targetRoleName = target.role.disguiseAs;
             }
@@ -3189,7 +3207,7 @@ module.exports = {
       } else {
         table_body[i].contents[3].text += roleName;
       }
-      
+
       num++;
 
       newFlex_text.table.body.push(table_body[i]);
@@ -3502,7 +3520,7 @@ module.exports = {
 
     let teams = helper.getRandomTeams();
     let townTeam = teams.town;
-    
+
     if (townNeedCount > townTeam.length) {
       let addTownTeam = helper.getRandomTeams().town;
       let neededCount = townNeedCount - townTeam.length;

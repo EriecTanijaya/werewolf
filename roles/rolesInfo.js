@@ -263,7 +263,9 @@ module.exports = {
           flex_text.body.text +=
             "Anggota Werewolf yang bisa meniru nama role seorang warga. ";
           flex_text.body.text +=
-            "Jika Disguiser mati, maka nama role yang ada di daftar pemain adalah nama role warga yang dia imitasi.";
+            "Jika Disguiser mati, maka nama role yang ada di daftar pemain adalah nama role warga yang dia imitasi. ";
+          flex_text.body.text +=
+            "Hasil cek Sheriff akan tetap mencurigakan, sedangkan Seer hasil terawangnya adalah role yang di imitasi"
           break;
 
         default:
