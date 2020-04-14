@@ -323,9 +323,9 @@ const roles = [
     canKill: false,
     emoji: {
       team: "🐺",
-      self: ""
+      self: "🎞️"
     },
-    type: "Werewolf Killing"
+    type: "Werewolf Support"
   },
 ];
 
