@@ -312,7 +312,21 @@ const roles = [
       self: "👣"
     },
     type: "Town Investigate"
-  }
+  },
+  {
+    name: "framer",
+    description:
+      "Kamu adalah anggota Werewolf yang bisa menjebak seorang warga pada malam hari agar warga tersebut terlihat bersalah jika di cek",
+    skillText: "Framer, pilih siapa yang mau dijebak",
+    cmdText: "/skill",
+    team: "werewolf",
+    canKill: false,
+    emoji: {
+      team: "🐺",
+      self: ""
+    },
+    type: "Werewolf Killing"
+  },
 ];
 
 module.exports = roles;

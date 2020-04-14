@@ -70,7 +70,7 @@ module.exports = {
       "spy",
       "tracker"
     ];
-    let werewolfTeam = ["werewolf-cub", "sorcerer", "consort"];
+    let werewolfTeam = ["werewolf-cub", "sorcerer", "consort", "framer"];
     let neutralTeam = [
       "serial-killer",
       "arsonist",
