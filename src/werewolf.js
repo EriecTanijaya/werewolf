@@ -2379,7 +2379,8 @@ module.exports = {
               "werewolf-cub",
               "sorcerer",
               "consort",
-              "serial-killer"
+              "serial-killer",
+              "framer"
             ];
 
             if (suspiciousList.includes(target.role.name)) {
@@ -3430,6 +3431,14 @@ module.exports = {
 
     let teams = helper.getRandomTeams();
     let townTeam = teams.town;
+    
+    if (townNeedCount > townTeam.length) {
+      let addTownTeam = helper.getRandomTeams().town;
+      let neededCount = townNeedCount - townTeam.length;
+      for (let i = 0; i < neededCount; i++) {
+        townTeam.push(addTownTeam[i]);
+      }
+    }
 
     if (playersLength !== 6) {
       roles = this.getRoleSet(townNeedCount, badNeedCount);
@@ -3483,7 +3492,7 @@ module.exports = {
     werewolfNeedCount--;
 
     /// Unique role utk sekarang si exe
-    if (this.group_session.players.length > 5) {
+    if (this.group_session.players.length > 7) {
       roles.push("executioner");
       neutralNeedCount--;
     }
@@ -3515,7 +3524,7 @@ module.exports = {
     }
 
     // neutral team
-    while (neutralNeedCount > 1) {
+    while (neutralNeedCount) {
       // check apakah neutral role sudah habis ato engga
       // kalau habis, randomkan saja
       if (neutralIndex > neutralTeam.length - 1) {
