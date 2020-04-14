@@ -1292,6 +1292,48 @@ module.exports = {
       }
     }
 
+    /// Disguiser Action
+    for (let i = 0; i < players.length; i++) {
+      let doer = players[i];
+
+      if (doer.role.name === "disguiser" && doer.status === "alive") {
+        if (doer.target.index === -1) {
+          this.group_session.players[i].message +=
+            "💡 Kamu tidak menggunakan skill mu" + "\n\n";
+
+          continue;
+        } else {
+          if (doer.blocked === true) {
+            this.group_session.players[i].message +=
+              "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." +
+              "\n\n";
+
+            continue;
+          } else if (!doer.attacked) {
+            let targetIndex = doer.target.index;
+            let target = players[targetIndex];
+
+            this.group_session.players[i].message +=
+              "👣 Kamu ke rumah " + target.name + "\n\n";
+
+            werewolfAnnouncement +=
+              "🎭 " + doer.name + " mengimitasi role " + target.name + "\n\n";
+
+            let visitor = {
+              name: doer.name,
+              role: doer.role
+            };
+            this.group_session.players[targetIndex].visitors.push(visitor);
+
+            this.group_session.players[i].role.disguiseAs = target.role.name;
+
+            spyWerewolfVisitInfo +=
+              "🐺 " + target.name + " dikunjungi Werewolf" + "\n\n";
+          }
+        }
+      }
+    }
+
     /// Vampire Action
     for (let i = 0; i < players.length; i++) {
       if (vampireDoerIndex === i) {
@@ -2205,7 +2247,7 @@ module.exports = {
         let isBurned = players[i].burned;
         let isHaunted = players[i].isHaunted;
         let roleName = players[i].role.name;
-        
+
         if (players[i].role.disguiseAs) {
           roleName = players[i].role.disguiseAs;
         }
@@ -2227,8 +2269,7 @@ module.exports = {
 
           allAnnouncement += attackedAnnouncement + "\n";
 
-          allAnnouncement +=
-            "✉️ Role nya adalah " + roleName + "\n\n";
+          allAnnouncement += "✉️ Role nya adalah " + roleName + "\n\n";
         } else if (isAttacked || isVampireBited) {
           if (isHealed) {
             this.group_session.players[i].message +=
@@ -2302,8 +2343,7 @@ module.exports = {
 
           allAnnouncement += attackedAnnouncement + "\n";
 
-          allAnnouncement +=
-            "✉️ Role nya adalah " + roleName + "\n\n";
+          allAnnouncement += "✉️ Role nya adalah " + roleName + "\n\n";
 
           //Thanks to
           //https://stackoverflow.com/questions/24806772/how-to-skip-over-an-element-in-map/24806827
@@ -2407,6 +2447,9 @@ module.exports = {
               target.name +
               " agar terlihat bersalah" +
               "\n\n";
+
+            werewolfAnnouncement +=
+              "🎞️ " + doer.name + " menjebak " + target.name + "\n\n";
 
             spyWerewolfVisitInfo +=
               "🐺 " + target.name + " dikunjungi Werewolf" + "\n\n";
@@ -2557,10 +2600,8 @@ module.exports = {
             this.group_session.players[i].message +=
               "👣 Kamu ke rumah " + target.name + "\n\n";
 
-            let skillResult =
+            werewolfAnnouncement +=
               "🧙 Role " + target.name + " adalah " + target.role.name + "\n\n";
-
-            werewolfAnnouncement += skillResult;
 
             spyWerewolfVisitInfo +=
               "🐺 " + target.name + " dikunjungi Werewolf" + "\n\n";
