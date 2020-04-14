@@ -2379,7 +2379,8 @@ module.exports = {
               "werewolf-cub",
               "sorcerer",
               "consort",
-              "serial-killer"
+              "serial-killer",
+              "framer"
             ];
 
             if (suspiciousList.includes(target.role.name)) {
