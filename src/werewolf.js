@@ -1350,7 +1350,7 @@ module.exports = {
               "executioner"
             ];
 
-            let canAttacked = ["werewolf-cub", "sorcerer", "consort"];
+            let canAttacked = ["werewolf-cub", "sorcerer", "consort", "framer", "disguiser"];
 
             if (canAttacked.includes(targetRoleName)) {
               this.group_session.players[i].message +=
@@ -1654,6 +1654,7 @@ module.exports = {
               value: 1
             };
             this.group_session.players[targetIndex].willSuicide = false;
+            this.group_session.players[targetIndex].framed = false;
 
             this.group_session.players[i].message +=
               "⚰️ Kamu berhasil membangkitkan " +
@@ -2348,6 +2349,48 @@ module.exports = {
         }
       }
     }
+    
+    /// Framer Action
+    for (let i = 0; i < players.length; i++) {
+      let doer = players[i];
+
+      if (doer.role.name === "framer" && doer.status === "alive") {
+        if (doer.target.index === -1) {
+          this.group_session.players[i].message +=
+            "💡 Kamu tidak menggunakan skill mu" + "\n\n";
+
+          continue;
+        } else {
+          if (doer.blocked === true) {
+            this.group_session.players[i].message +=
+              "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." +
+              "\n\n";
+
+            continue;
+          } else {
+            let targetIndex = doer.target.index;
+            let target = players[targetIndex];
+
+            let visitor = {
+              name: doer.name,
+              role: doer.role
+            };
+
+            this.group_session.players[targetIndex].visitors.push(visitor);
+
+            this.group_session.players[i].message +=
+              "👣 Kamu ke rumah " + target.name + "\n\n";
+            
+            this.group_session.players[i].message +=
+              "🎞️ Kamu menjebak " + target.name + " agar terlihat bersalah" + "\n\n";
+            
+            this.group_session.players[targetIndex].framed = true;
+            
+          }
+        }
+      }
+    }
+    
 
     /// Sheriff Action
     for (let i = 0; i < players.length; i++) {
@@ -2387,8 +2430,8 @@ module.exports = {
               "serial-killer",
               "framer"
             ];
-
-            if (suspiciousList.includes(target.role.name)) {
+            
+            if (target.framed || suspiciousList.includes(target.role.name)) {
               this.group_session.players[i].message +=
                 "👮 " + target.name + " mencurigakan" + "\n\n";
             } else {
@@ -2430,12 +2473,18 @@ module.exports = {
             };
 
             this.group_session.players[targetIndex].visitors.push(visitor);
+            
+            let targetRoleName = target.role.name;
+            
+            if (target.framed) {
+              targetRoleName = "werewolf";
+            }
 
             this.group_session.players[i].message +=
               "👣 Kamu ke rumah " + target.name + "\n\n";
 
             this.group_session.players[i].message +=
-              "🔮 Role " + target.name + " adalah " + target.role.name + "\n\n";
+              "🔮 Role " + target.name + " adalah " + targetRoleName + "\n\n";
 
             this.group_session.players[i].message +=
               "Kamu bisa cek info role dengan ketik '/info " +
