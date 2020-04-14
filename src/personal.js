@@ -935,7 +935,9 @@ module.exports = {
       "sheriff",
       "jester",
       "spy",
-      "tracker"
+      "tracker",
+      "disguiser",
+      "framer"
     ];
 
     if (cantTargetItSelf.includes(roleName)) {

@@ -219,6 +219,30 @@ module.exports = {
         }
         break;
         
+      case "framer":
+        if (isChangeTarget) {
+          text +=
+            "🎞️ Kamu berubah pikiran dan memutuskan untuk menjebak " +
+            targetName +
+            " saja malam ini";
+        } else {
+          text +=
+            "🎞️ Kamu memutuskan untuk menjebak " + targetName + " malam ini";
+        }
+        break;
+        
+      case "disguiser":
+        if (isChangeTarget) {
+          text +=
+            "🎭 Kamu berubah pikiran dan memutuskan untuk mengimitasi " +
+            targetName +
+            " saja malam ini";
+        } else {
+          text +=
+            "🎭 Kamu memutuskan untuk mengimitasi " + targetName + " malam ini";
+        }
+        break;
+        
     }
     
     return text;

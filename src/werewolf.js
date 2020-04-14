@@ -473,6 +473,10 @@ module.exports = {
 
         if (item.status === "death") {
           role.text = item.role.name;
+
+          if (item.role.disguiseAs) {
+            role.text = item.disguiseAs;
+          }
         }
 
         table_body[index].contents.push(role);
@@ -646,6 +650,8 @@ module.exports = {
     // to werewolf cub
     this.checkMorphingRole("consort", "werewolf-cub", "werewolf-cub");
     this.checkMorphingRole("sorcerer", "werewolf-cub", "werewolf-cub");
+    this.checkMorphingRole("framer", "werewolf-cub", "werewolf-cub");
+    this.checkMorphingRole("disguiser", "werewolf-cub", "werewolf-cub");
 
     // vampire hunter to vigi
     this.checkMorphingRole("vampire-hunter", "vampire", "vigilante");
@@ -683,6 +689,7 @@ module.exports = {
         item.addonMessage = "";
         item.vested = false;
         item.bugged = false;
+        item.framed = false;
 
         //special role (vampire)
         if (item.role.team === "vampire") {
@@ -705,6 +712,8 @@ module.exports = {
     // to werewolf cub
     this.checkMorphingRole("consort", "werewolf-cub", "werewolf-cub");
     this.checkMorphingRole("sorcerer", "werewolf-cub", "werewolf-cub");
+    this.checkMorphingRole("framer", "werewolf-cub", "werewolf-cub");
+    this.checkMorphingRole("disguiser", "werewolf-cub", "werewolf-cub");
 
     // vampire hunter to vigi
     this.checkMorphingRole("vampire-hunter", "vampire", "vigilante");
@@ -878,7 +887,7 @@ module.exports = {
         }
 
         // check afk
-        let noSkillRoles = ["villager", "jester"];
+        let noSkillRoles = ["villager", "jester", "executioner"];
         if (!noSkillRoles.includes(item.role.name)) {
           if (item.target.index === -1) {
             item.afkCounter++;
@@ -1283,6 +1292,48 @@ module.exports = {
       }
     }
 
+    /// Disguiser Action
+    for (let i = 0; i < players.length; i++) {
+      let doer = players[i];
+
+      if (doer.role.name === "disguiser" && doer.status === "alive") {
+        if (doer.target.index === -1) {
+          this.group_session.players[i].message +=
+            "💡 Kamu tidak menggunakan skill mu" + "\n\n";
+
+          continue;
+        } else {
+          if (doer.blocked === true) {
+            this.group_session.players[i].message +=
+              "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." +
+              "\n\n";
+
+            continue;
+          } else if (!doer.attacked) {
+            let targetIndex = doer.target.index;
+            let target = players[targetIndex];
+
+            this.group_session.players[i].message +=
+              "👣 Kamu ke rumah " + target.name + "\n\n";
+
+            werewolfAnnouncement +=
+              "🎭 " + doer.name + " mengimitasi role " + target.name + "\n\n";
+
+            let visitor = {
+              name: doer.name,
+              role: doer.role
+            };
+            this.group_session.players[targetIndex].visitors.push(visitor);
+
+            this.group_session.players[i].role.disguiseAs = target.role.name;
+
+            spyWerewolfVisitInfo +=
+              "🐺 " + target.name + " dikunjungi Werewolf" + "\n\n";
+          }
+        }
+      }
+    }
+
     /// Vampire Action
     for (let i = 0; i < players.length; i++) {
       if (vampireDoerIndex === i) {
@@ -1345,7 +1396,13 @@ module.exports = {
               "executioner"
             ];
 
-            let canAttacked = ["werewolf-cub", "sorcerer", "consort"];
+            let canAttacked = [
+              "werewolf-cub",
+              "sorcerer",
+              "consort",
+              "framer",
+              "disguiser"
+            ];
 
             if (canAttacked.includes(targetRoleName)) {
               this.group_session.players[i].message +=
@@ -1649,12 +1706,19 @@ module.exports = {
               value: 1
             };
             this.group_session.players[targetIndex].willSuicide = false;
+            this.group_session.players[targetIndex].framed = false;
+
+            let targetRoleName = target.role.name;
+
+            if (target.role.disguiseAs) {
+              targetRoleName = target.role.disguiseAs;
+            }
 
             this.group_session.players[i].message +=
               "⚰️ Kamu berhasil membangkitkan " +
               target.name +
               " (" +
-              target.role.name +
+              targetRoleName +
               ")" +
               "\n\n";
 
@@ -1665,7 +1729,7 @@ module.exports = {
               "⚰️ " +
               target.name +
               " (" +
-              target.role.name +
+              targetRoleName +
               ") bangkit dari kematian!" +
               "\n\n";
           }
@@ -2182,6 +2246,11 @@ module.exports = {
         let attackerLength = players[i].attackers.length;
         let isBurned = players[i].burned;
         let isHaunted = players[i].isHaunted;
+        let roleName = players[i].role.name;
+
+        if (players[i].role.disguiseAs) {
+          roleName = players[i].role.disguiseAs;
+        }
 
         if (players[i].willSuicide) {
           if (players[i].bugged) {
@@ -2200,8 +2269,7 @@ module.exports = {
 
           allAnnouncement += attackedAnnouncement + "\n";
 
-          allAnnouncement +=
-            "✉️ Role nya adalah " + players[i].role.name + "\n\n";
+          allAnnouncement += "✉️ Role nya adalah " + roleName + "\n\n";
         } else if (isAttacked || isVampireBited) {
           if (isHealed) {
             this.group_session.players[i].message +=
@@ -2275,8 +2343,7 @@ module.exports = {
 
           allAnnouncement += attackedAnnouncement + "\n";
 
-          allAnnouncement +=
-            "✉️ Role nya adalah " + players[i].role.name + "\n\n";
+          allAnnouncement += "✉️ Role nya adalah " + roleName + "\n\n";
 
           //Thanks to
           //https://stackoverflow.com/questions/24806772/how-to-skip-over-an-element-in-map/24806827
@@ -2344,6 +2411,55 @@ module.exports = {
       }
     }
 
+    /// Framer Action
+    for (let i = 0; i < players.length; i++) {
+      let doer = players[i];
+
+      if (doer.role.name === "framer" && doer.status === "alive") {
+        if (doer.target.index === -1) {
+          this.group_session.players[i].message +=
+            "💡 Kamu tidak menggunakan skill mu" + "\n\n";
+
+          continue;
+        } else {
+          if (doer.blocked === true) {
+            this.group_session.players[i].message +=
+              "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." +
+              "\n\n";
+
+            continue;
+          } else {
+            let targetIndex = doer.target.index;
+            let target = players[targetIndex];
+
+            let visitor = {
+              name: doer.name,
+              role: doer.role
+            };
+
+            this.group_session.players[targetIndex].visitors.push(visitor);
+
+            this.group_session.players[i].message +=
+              "👣 Kamu ke rumah " + target.name + "\n\n";
+
+            this.group_session.players[i].message +=
+              "🎞️ Kamu menjebak " +
+              target.name +
+              " agar terlihat bersalah" +
+              "\n\n";
+
+            werewolfAnnouncement +=
+              "🎞️ " + doer.name + " menjebak " + target.name + "\n\n";
+
+            spyWerewolfVisitInfo +=
+              "🐺 " + target.name + " dikunjungi Werewolf" + "\n\n";
+
+            this.group_session.players[targetIndex].framed = true;
+          }
+        }
+      }
+    }
+
     /// Sheriff Action
     for (let i = 0; i < players.length; i++) {
       let doer = players[i];
@@ -2380,10 +2496,11 @@ module.exports = {
               "sorcerer",
               "consort",
               "serial-killer",
-              "framer"
+              "framer",
+              "disguiser"
             ];
 
-            if (suspiciousList.includes(target.role.name)) {
+            if (target.framed || suspiciousList.includes(target.role.name)) {
               this.group_session.players[i].message +=
                 "👮 " + target.name + " mencurigakan" + "\n\n";
             } else {
@@ -2426,11 +2543,21 @@ module.exports = {
 
             this.group_session.players[targetIndex].visitors.push(visitor);
 
+            let targetRoleName = target.role.name;
+
+            if (target.framed) {
+              targetRoleName = "werewolf";
+            }
+
+            if (target.role.disguiseAs) {
+              targetRoleName = target.role.disguiseAs;
+            }
+
             this.group_session.players[i].message +=
               "👣 Kamu ke rumah " + target.name + "\n\n";
 
             this.group_session.players[i].message +=
-              "🔮 Role " + target.name + " adalah " + target.role.name + "\n\n";
+              "🔮 Role " + target.name + " adalah " + targetRoleName + "\n\n";
 
             this.group_session.players[i].message +=
               "Kamu bisa cek info role dengan ketik '/info " +
@@ -2473,10 +2600,8 @@ module.exports = {
             this.group_session.players[i].message +=
               "👣 Kamu ke rumah " + target.name + "\n\n";
 
-            let skillResult =
+            werewolfAnnouncement +=
               "🧙 Role " + target.name + " adalah " + target.role.name + "\n\n";
-
-            werewolfAnnouncement += skillResult;
 
             spyWerewolfVisitInfo +=
               "🐺 " + target.name + " dikunjungi Werewolf" + "\n\n";
@@ -3118,7 +3243,12 @@ module.exports = {
       }
 
       // let teamEmoji = helper.getRoleTeamEmoji(roleTeam);
-      table_body[i].contents[3].text += roleName;
+      if (players[i].role.disguiseAs) {
+        table_body[i].contents[3].text += "disguiser";
+      } else {
+        table_body[i].contents[3].text += roleName;
+      }
+
       num++;
 
       newFlex_text.table.body.push(table_body[i]);
@@ -3431,7 +3561,7 @@ module.exports = {
 
     let teams = helper.getRandomTeams();
     let townTeam = teams.town;
-    
+
     if (townNeedCount > townTeam.length) {
       let addTownTeam = helper.getRandomTeams().town;
       let neededCount = townNeedCount - townTeam.length;

@@ -225,9 +225,9 @@ module.exports = {
           flex_text.header.text = "🪓 Executioner";
           flex_text.body.text += "Type: Neutral Chaos" + "\n\n";
           flex_text.body.text +=
-            "Pendendam yang ingin targetnya mati di gantung. Jika targetmu mati di serang saat malam, ";
+            "Pendendam yang ingin targetnya mati di gantung. Jika targetnya mati di serang saat malam, ";
           flex_text.body.text +=
-            "maka dia akan menjadi Jester. Targetmu akan selalu di pihak warga dan kamu bisa immune dari serangan biasa";
+            "maka dia akan menjadi Jester. Targetnya akan selalu di pihak warga dan dia bisa immune dari serangan biasa";
           break;
 
         case "spy":
@@ -244,6 +244,28 @@ module.exports = {
           flex_text.body.text += "Type: Town Investigate" + "\n\n";
           flex_text.body.text +=
             "Warga yang bisa melacak suatu pemain untuk diketahui kemana aja Targetnya. ";
+          break;
+          
+        case "framer":
+          flex_text.header.text = "🎞️ Framer";
+          flex_text.body.text += "Type: Werewolf Deception" + "\n\n";
+          flex_text.body.text +=
+            "Anggota Werewolf yang bisa membuat suatu pemain tampak bersalah. ";
+          flex_text.body.text +=
+            "Jika Target Framer di cek Sheriff, maka akan tampak bersalah walaupun ia adalah warga. ";
+          flex_text.body.text +=
+            "Jika di cek Seer, akan muncul Werewolf, walaupun sebenarnya bukan";
+          break;
+          
+        case "disguiser":
+          flex_text.header.text = "🎭 Disguiser";
+          flex_text.body.text += "Type: Werewolf Deception" + "\n\n";
+          flex_text.body.text +=
+            "Anggota Werewolf yang bisa meniru nama role seorang warga. ";
+          flex_text.body.text +=
+            "Jika Disguiser mati, maka nama role yang ada di daftar pemain adalah nama role warga yang dia imitasi. ";
+          flex_text.body.text +=
+            "Hasil cek Sheriff akan tetap mencurigakan, sedangkan Seer hasil terawangnya adalah role yang di imitasi"
           break;
 
         default:
