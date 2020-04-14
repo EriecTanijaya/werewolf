@@ -245,6 +245,24 @@ module.exports = {
           flex_text.body.text +=
             "Warga yang bisa melacak suatu pemain untuk diketahui kemana aja Targetnya. ";
           break;
+          
+        case "framer":
+          flex_text.header.text = "🎞️ Framer";
+          flex_text.body.text += "Type: Werewolf Deception" + "\n\n";
+          flex_text.body.text +=
+            "Anggota Werewolf yang bisa membuat suatu pemain tampak bersalah. ";
+          flex_text.body.text +=
+            "Jika Target Framer di cek Sheriff, maka akan tampak bersalah walaupun ia adalah warga"
+          break;
+          
+        case "disguiser":
+          flex_text.header.text = "🎭 Disguiser";
+          flex_text.body.text += "Type: Werewolf Deception" + "\n\n";
+          flex_text.body.text +=
+            "Anggota Werewolf yang bisa meniru nama role seorang warga. ";
+          flex_text.body.text +=
+            "Jika Disguiser mati, maka nama role yang ada di daftar pemain adalah nama role warga yang dia imitasi.";
+          break;
 
         default:
           let text =

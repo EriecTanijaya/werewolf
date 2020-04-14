@@ -339,7 +339,8 @@ const roles = [
       team: "🐺",
       self: "🎭"
     },
-    type: "Werewolf Deception"
+    type: "Werewolf Deception",
+    disguiseAs: ""
   },
 ];
 

@@ -646,6 +646,8 @@ module.exports = {
     // to werewolf cub
     this.checkMorphingRole("consort", "werewolf-cub", "werewolf-cub");
     this.checkMorphingRole("sorcerer", "werewolf-cub", "werewolf-cub");
+    this.checkMorphingRole("framer", "werewolf-cub", "werewolf-cub");
+    this.checkMorphingRole("disguiser", "werewolf-cub", "werewolf-cub");
 
     // vampire hunter to vigi
     this.checkMorphingRole("vampire-hunter", "vampire", "vigilante");
@@ -683,6 +685,7 @@ module.exports = {
         item.addonMessage = "";
         item.vested = false;
         item.bugged = false;
+        item.framed = false;
 
         //special role (vampire)
         if (item.role.team === "vampire") {
@@ -705,6 +708,8 @@ module.exports = {
     // to werewolf cub
     this.checkMorphingRole("consort", "werewolf-cub", "werewolf-cub");
     this.checkMorphingRole("sorcerer", "werewolf-cub", "werewolf-cub");
+    this.checkMorphingRole("framer", "werewolf-cub", "werewolf-cub");
+    this.checkMorphingRole("disguiser", "werewolf-cub", "werewolf-cub");
 
     // vampire hunter to vigi
     this.checkMorphingRole("vampire-hunter", "vampire", "vigilante");
