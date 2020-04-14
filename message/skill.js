@@ -231,6 +231,18 @@ module.exports = {
         }
         break;
         
+      case "disguiser":
+        if (isChangeTarget) {
+          text +=
+            "🎭 Kamu berubah pikiran dan memutuskan untuk mengimitasi " +
+            targetName +
+            " saja malam ini";
+        } else {
+          text +=
+            "🎭 Kamu memutuskan untuk mengimitasi " + targetName + " malam ini";
+        }
+        break;
+        
     }
     
     return text;

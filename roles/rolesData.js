@@ -325,7 +325,21 @@ const roles = [
       team: "🐺",
       self: "🎞️"
     },
-    type: "Werewolf Support"
+    type: "Werewolf Deception"
+  },
+  {
+    name: "disguiser",
+    description:
+      "Kamu adalah anggota Werewolf yang bisa mengimitasi nama role seorang warga, dan jika mati yang terlihat role mu adalah role yang kamu imitasi",
+    skillText: "Disguiser, pilih siapa yang mau imitasi",
+    cmdText: "/skill",
+    team: "werewolf",
+    canKill: false,
+    emoji: {
+      team: "🐺",
+      self: "🎭"
+    },
+    type: "Werewolf Deception"
   },
 ];
 

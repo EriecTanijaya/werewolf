@@ -225,9 +225,9 @@ module.exports = {
           flex_text.header.text = "🪓 Executioner";
           flex_text.body.text += "Type: Neutral Chaos" + "\n\n";
           flex_text.body.text +=
-            "Pendendam yang ingin targetnya mati di gantung. Jika targetmu mati di serang saat malam, ";
+            "Pendendam yang ingin targetnya mati di gantung. Jika targetnya mati di serang saat malam, ";
           flex_text.body.text +=
-            "maka dia akan menjadi Jester. Targetmu akan selalu di pihak warga dan kamu bisa immune dari serangan biasa";
+            "maka dia akan menjadi Jester. Targetnya akan selalu di pihak warga dan dia bisa immune dari serangan biasa";
           break;
 
         case "spy":
