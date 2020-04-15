@@ -56,22 +56,24 @@ module.exports = {
 
   getRandomTeams: function() {
     let teams = {
-      town: [],
-      townAddon: [],
-      werewolf: [],
-      neutral: []
+      town: {
+        investigate: ["seer", "lookout", "spy", "tracker"],
+        killing: ["veteran", "vigilante"],
+        support: ["retributionist", "escort"],
+        protector: ["doctor"],
+        addon: []
+      },
+      werewolf: {
+        killing: ["werewolf-cub"],
+        support: ["sorcerer", "consort"],
+        deception: ["framer", "disguiser"]
+      },
+      neutral: {
+        killing: ["arsonist", "serial-killer"],
+        chaos: ["vampire"],
+        benign: ["jester", "survivor", "executioner"]
+      }
     };
-
-    let townTeam = [
-      "seer",
-      "doctor",
-      "escort",
-      "veteran",
-      "lookout",
-      "retributionist",
-      "spy",
-      "tracker"
-    ];
 
     // hax, maybe temporary untill all town roles can duplicate
     let townAddon = [
@@ -83,26 +85,14 @@ module.exports = {
       "vigilante"
     ];
 
-    let werewolfTeam = [
-      "werewolf-cub",
-      "sorcerer",
-      "consort",
-      "framer",
-      "disguiser"
-    ];
-
-    let neutralTeam = [
-      "serial-killer",
-      "arsonist",
-      "jester",
-      "vampire",
-      "survivor"
-    ];
-
-    teams.town = this.shuffleArray(townTeam);
-    teams.werewolf = this.shuffleArray(werewolfTeam);
-    teams.neutral = this.shuffleArray(neutralTeam);
-    teams.townAddon = this.shuffleArray(townAddon);
+    teams.town.investigate = this.shuffleArray(teams.town.investigate);
+    teams.town.support = this.shuffleArray(teams.town.support);
+    teams.town.addon = this.shuffleArray(townAddon);
+    teams.werewolf.support = this.shuffleArray(teams.werewolf.support);
+    teams.werewolf.deception = this.shuffleArray(teams.werewolf.deception);
+    teams.neutral.killing = this.shuffleArray(teams.neutral.killing);
+    teams.neutral.benign = this.shuffleArray(teams.neutral.benign);
+    
     return teams;
   },
 

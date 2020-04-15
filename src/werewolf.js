@@ -373,7 +373,7 @@ module.exports = {
     if (this.group_session.players.length === 0) {
       this.group_session.roomHostId = this.user_session.id;
     }
-    
+
     if (this.group_session.players.length === 15) {
       let text = "💡 " + this.user_session.name;
       text += ", room sudah penuh";
@@ -615,9 +615,6 @@ module.exports = {
 
   randomRoles: function() {
     ///werewolf harus selalu ada
-    this.group_session.players = helper.shuffleArray(
-      this.group_session.players
-    );
     let players = this.group_session.players;
     let playersLength = players.length;
     let roles = this.getRandomRoleSet(playersLength); //cp
@@ -628,25 +625,33 @@ module.exports = {
     /// hax for exe
     let exeIndex = -1;
 
+    this.group_session.players = helper.shuffleArray(
+      this.group_session.players
+    );
+    
     this.group_session.players.forEach((item, index) => {
       if (index <= roles.length - 1) {
         item.role.name = roles[index];
       }
 
       item.role = this.getRoleData(item.role.name);
-
+      // disini bagi role pake pushMessage
+      // if (this.group_session.groupId === process.env.TEST_GROUP) {
+      //   // this.client.pushMessage();
+      // }
+    });
+    
+    this.group_session.players = helper.shuffleArray(
+      this.group_session.players
+    );
+    
+    this.group_session.players.forEach((item, index) => {
       /// init private prop special role
-
       switch (item.role.name) {
         case "executioner":
           exeIndex = index;
           break;
       }
-
-      // disini bagi role pake pushMessage
-      // if (this.group_session.groupId === process.env.TEST_GROUP) {
-      //   // this.client.pushMessage();
-      // }
     });
 
     /// special exe hax
@@ -672,6 +677,139 @@ module.exports = {
     this.group_session.roles = this.getRoleList();
 
     this.night(null);
+  },
+  
+  getRandomRoleSet: function(playersLength) {
+    // sementara random dulu mode nya, kedepan kalo ada setting
+    // bisa pilih mode
+    // cp
+    let mode = helper.random(["classic", "chaos"]);
+    let roles = [];
+
+    if (mode === "classic") {
+      roles = this.getClassicRoleSet(playersLength);
+    } else if (mode === "chaos") {
+      roles = this.getChaosRoleSet(playersLength);
+    }
+    
+    // console.log(`roles di room ${this.group_session.groupId} : ${roles}`);
+
+    return roles;
+  },
+  
+  getClassicRoleSet: function(playersLength) {
+    let roles = [
+      "werewolf",
+      "seer",
+      "doctor",
+      "lookout",
+      "veteran",
+      "jester",
+      "escort",
+      "werewolf-cub",
+      "sheriff",
+      "executioner",
+      "retributionist",
+      "", // 12 tambah ww 1
+      "", // 13 tambah 1 warga
+      "", // tamabah 1 neutral
+      "" // tambah 1 warga
+    ];
+    
+    let werewolfs = ["framer", "disguiser", "consort", "sorcerer"];
+    let werewolfAddon = helper.random(werewolfAddon);
+    roles.push(werewolfAddon);
+    
+    let towns = ["tracker", "spy", "vigilante"];
+    towns = helper.shuffleArray(towns);
+    roles.push(towns[0]);
+    
+    let neutrals = ["serial-killer", "arsonist"];
+    let neutralAddon = helper.random(neutralAddon);
+    roles.push(neutralAddon);
+    
+    roles.push(towns[1]);
+    
+    roles.length = playersLength;
+    
+    return roles;
+  },
+  // spy, tracker, vigilante, vampire-hunter
+  getChaosRoleSet: function(playersLength) {
+    let roles = [];
+    
+    let townNeedCount = Math.round(playersLength / 2);
+    let badNeedCount = playersLength - townNeedCount;
+    let werewolfNeedCount = Math.round((45 / 100) * badNeedCount);
+    
+    if (werewolfNeedCount > 4) {
+      werewolfNeedCount = 4;
+    }
+    
+    let neutralNeedCount = badNeedCount - werewolfNeedCount;
+    
+    let werewolfIndex = 0;
+    let neutralIndex = 0;
+    
+    let needSheriff = false;
+    let needVampireHunter = false;
+    let needVigilante = true;
+    
+    // always
+    roles.push("werewolf");
+    werewolfNeedCount--;
+    let werewolves = ["werewolf-cub", "framer", "consort", "disguiser", "sorcerer"];
+    werewolves = helper.shuffleArray(werewolves);
+    
+    let towns = ["seer", "doctor", "lookout", "veteran", "escort", "retributionist", "spy", "tracker"];
+    towns = helper.shuffleArray(towns);
+    
+    let neutrals = ["vampire", "serial-killer", "arsonist", "executioner", "jester", "survivor"];
+    neutrals = helper.shuffleArray(neutrals);
+    
+    while (werewolfNeedCount) {
+      roles.push(werewolves[werewolfIndex]);
+      needVigilante = true;
+      
+      werewolfIndex++;
+      werewolfNeedCount--;
+    }
+    
+    while (neutralNeedCount) {
+      roles.push(neutrals[neutralIndex]);
+      
+      if (neutrals[neutralIndex] === "vampire") {
+        needVampireHunter = true;
+      }
+      
+      if (neutrals[neutralIndex] === "serial-killer") {
+        needSheriff = true;
+      }
+      
+      neutralIndex++;
+      neutralNeedCount--;      
+    }
+    
+    if (needSheriff) {
+      roles.push("sheriff");
+      townNeedCount--;
+    }
+    
+    if (needVigilante) {
+      roles.push("vigilante");
+      townNeedCount--;
+    }
+    
+    if (needVampireHunter) {
+      roles.push("vampire-hunter");
+      townNeedCount--;
+    }
+    
+    for (let i = 0; i < townNeedCount; i++) {
+      roles.push(towns[i]);
+    }
+    
+    return roles;
   },
 
   night: function(flex_texts) {
@@ -3574,143 +3712,6 @@ module.exports = {
         break;
     }
     this.group_session.players[index].points += 1;
-  },
-
-  getRandomRoleSet: function(playersLength) {
-    let roles = [];
-    let townNeedCount = Math.round(playersLength / 2) + 1;
-    let badNeedCount = playersLength - townNeedCount;
-
-    let teams = helper.getRandomTeams();
-    let townTeam = teams.town;
-
-    if (playersLength !== 6) {
-      roles = this.getRoleSet(townNeedCount, badNeedCount);
-    } else {
-      // bad practice, but who cares?
-      townTeam.length = townNeedCount;
-      townTeam.forEach(item => {
-        roles.push(item);
-      });
-      let badRole = helper.random(["werewolf", "serial-killer"]);
-      roles.push(badRole, "jester");
-    }
-
-    roles = helper.shuffleArray(roles);
-
-    // console.log(`roles di room ${this.group_session.groupId} : ${roles}`);
-
-    return roles;
-  },
-
-  getRoleSet: function(townNeedCount, badNeedCount) {
-    /* 
-      bisa juga untuk tandain berapa jumlah role yg sudah ditambahkan
-      kalau index nya 2, berarti uda 2 role dideploy
-      yaitu index 0, sama index 1 
-    */
-    let roles = [];
-    let neutralIndex = 0;
-    let werewolfIndex = 0;
-
-    let teams = helper.getRandomTeams();
-    let townTeam = teams.town;
-    let werewolfTeam = teams.werewolf;
-    let neutralTeam = teams.neutral;
-
-    // jumlah ww dibatasin 75% dari badNeedCount Quota
-    let werewolfNeedCount = Math.round((75 / 100) * badNeedCount);
-
-    let maxWerewolfCount = 4;
-    if (werewolfNeedCount > maxWerewolfCount) {
-      werewolfNeedCount = maxWerewolfCount;
-    }
-
-    let neutralNeedCount = badNeedCount - werewolfNeedCount;
-    let needSheriff = false;
-
-    /// Always role
-    roles.push("werewolf");
-    werewolfNeedCount--;
-
-    /// Unique role utk sekarang si exe
-    if (this.group_session.players.length > 7) {
-      roles.push("executioner");
-      neutralNeedCount--;
-    }
-
-    /// bad guy generator
-
-    // ww team
-    while (werewolfNeedCount) {
-      roles.push(werewolfTeam[werewolfIndex]);
-      if (helper.trueOrFalse()) {
-        needSheriff = true;
-      } else {
-        if (!roles.includes("vigilante")) {
-          roles.push("vigilante");
-          townNeedCount--;
-        }
-      }
-      werewolfIndex++;
-
-      werewolfNeedCount--;
-    }
-
-    // neutral team
-    while (neutralNeedCount) {
-      // check apakah neutral role sudah habis ato engga
-      // kalau habis, randomkan saja
-      if (neutralIndex > neutralTeam.length - 1) {
-        let randomNeutralIndex = helper.getRandomInt(0, neutralTeam.length - 1);
-        roles.push(neutralTeam[randomNeutralIndex]);
-      } else {
-        roles.push(neutralTeam[neutralIndex]);
-        if (neutralTeam[neutralIndex] === "vampire") {
-          if (!roles.includes("vampire-hunter")) {
-            roles.push("vampire-hunter");
-            townNeedCount--;
-          }
-        } else if (neutralTeam[neutralIndex] === "serial-killer") {
-          needSheriff = true;
-        } else if (neutralTeam[neutralIndex] === "jester") {
-          if (!roles.includes("vigilante")) {
-            roles.push("vigilante");
-            townNeedCount--;
-          }
-        }
-        neutralIndex++;
-      }
-
-      neutralNeedCount--;
-    }
-
-    if (needSheriff && !roles.includes("sheriff")) {
-      roles.push("sheriff");
-      townNeedCount--;
-    }
-
-    // hax biar ga ada villager, tapi ada role warga yang duplikat
-    if (townNeedCount > townTeam.length) {
-      let addTownTeam = helper.getRandomTeams().townAddon;
-      let neededCount = townNeedCount - townTeam.length;
-      for (let i = 0; i < neededCount; i++) {
-        townTeam.push(addTownTeam[i]);
-      }
-    }
-
-    townTeam.length = townNeedCount;
-    townTeam.forEach(item => {
-      roles.push(item);
-    });
-
-    return roles;
-  },
-  
-  getClassicRoleSet: function() {
-    let maxWerewolfCount = 3; // include the werewolf
-    let maxNeutralCount = 3;
-    // cp
   },
 
   getTimeDefault: function(playersLength) {
