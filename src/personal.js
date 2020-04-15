@@ -293,34 +293,27 @@ module.exports = {
       }
     }
 
-    let text = "";
+    
     let msg = [];
 
     let targetName = players[targetIndex].name;
     let doer = {
       name: players[index].name,
       roleName: roleName,
-      broadcast: false,
       targetName: targetName,
       selfTarget: false,
       changeTarget: false
     }
 
-    if (players[index].target.index === -1) {
-      if (targetIndex === index) {
-        text = skillText.response(roleName, targetName, null, true);
-      } else {
-        text = skillText.response(roleName, targetName, null, null);
-      }
+    let playerTargetIndex = players[index].target.index;
+    if (playerTargetIndex === -1 && targetIndex === index) {
+        doer.selfTarget = true;
     } else {
+      doer.changeTarget = true;
       if (targetIndex === index) {
-        text = skillText.response(roleName, targetName, true, true);
-      } else {
-        text = skillText.response(roleName, targetName, true, null);
+        doer.selfTarget = true;
       }
     }
-    
-    
 
     this.group_session.players[index].target = {
       index: targetIndex,
