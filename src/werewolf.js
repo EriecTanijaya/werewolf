@@ -3579,9 +3579,15 @@ module.exports = {
   getRandomRoleSet: function(playersLength) {
     // sementara random dulu mode nya, kedepan kalo ada setting
     // bisa pilih mode
+    // cp
     let mode = helper.random(["classic", "chaos"]);
     let roles = [];
-    roles = this.getRoleSet(mode, playersLength);
+    
+    if (mode === "classic") {
+      roles = this.getClassicRoleSet(playersLength);
+    } else if (mode === "chaos") {
+      roles = this.getChaosRoleSet(playersLength);
+    }
 
     roles = helper.shuffleArray(roles);
 
@@ -3590,163 +3596,12 @@ module.exports = {
     return roles;
   },
 
-  getRoleSet: function(mode, playersLength) {
-    /* 
-      bisa juga untuk tandain berapa jumlah role yg sudah ditambahkan
-      kalau index nya 2, berarti uda 2 role dideploy
-      yaitu index 0, sama index 1 
-    */
+  getClassicRoleSet: function(playersLength) {
+    let roles = ["werewolf", "seer", "doctor", "lookout", "veteran", "jester", "escort", "werewolf-cub", ""]
     
-    /// INI COBA BUAT CLASSIC DULU
-    
-    let roles = [];
-    let teams = helper.getRandomTeams();
-    let maxWerewolfCount = 4;
-    
-    let townNeedCount = Math.round(playersLength / 2) + 1;
-    let badNeedCount = playersLength - townNeedCount;
-    let werewolfNeedCount = Math.round((50 / 100) * badNeedCount);
-    
-    if (werewolfNeedCount > maxWerewolfCount) {
-      werewolfNeedCount = maxWerewolfCount;
-    }
-    
-    let neutralNeedCount = badNeedCount - werewolfNeedCount;
-    
-    
-    let needSheriff = false;
-    let needVampireHunter = false;
-    
-    /// Always role
-    roles.push("werewolf");
-    werewolfNeedCount--;
-    
-    if (playersLength > 7) {
-      roles.push("werewolf-cub");
-      werewolfNeedCount--;
-      needSheriff = true;
-    }
-    
-    /// bad guy generator
-      
-    // ww team 
-    let werewolfTeam = [];
-    teams.werewolf.support.forEach(w => {
-      werewolfTeam.push(w);
-    });
-    teams.werewolf.deception.forEach(w => {
-      werewolfTeam.push(w);
-    });
-    werewolfTeam = helper.shuffleArray(werewolfTeam);
-    
-    let werewolfIndex = 0;
-    
-    while (werewolfNeedCount) {
-      roles.push(werewolfTeam[werewolfIndex]);
-      werewolfIndex++;
-      werewolfNeedCount--;
-    }
-
-    // neutral team
-    let neutralTeam = [];
-    let neutralIndex = 0;
-    if (playersLength > 5) {
-      if (mode === "classic") {
-        neutralTeam = ["executioner", "jester"];
-        let neutralKilling = helper.random(teams.neutral.killing);
-        neutralTeam.push(neutralKilling);
-      } else if (mode === "chaos") {
-        teams.neutral.killing.forEach(w => {
-          neutralTeam.push(w);
-        });
-        teams.neutral.benign.forEach(w => {
-          neutralTeam.push(w);
-        });
-        neutralTeam.push("vampire");
-        neutralTeam = helper.shuffleArray(neutralTeam);
-      }
-    }
-    
-    while (neutralNeedCount) {
-      if (neutralTeam[neutralIndex] === "vampire") {
-        needVampireHunter = true;
-      }
-      
-      roles.push(neutralTeam[neutralIndex]);
-      
-      neutralNeedCount--;
-    }
-
-    // town team
-    if (needSheriff) {
-      roles.push("sheriff");
-      townNeedCount--;
-    }
-    
-    if (needVampireHunter) {
-      roles.push("vampire-hunter");
-      townNeedCount--;
-    }
-    
-    if (playersLength > 7) {
-      let townKilling = helper.random(teams.town.killing);
-      roles.push(townKilling);
-      townNeedCount--;
-    }
-    
-    let townTeam = [];
-    
-    tea
-    
-    if (mode === "classic") {
-      
-    } else if (mode === "chaos") {
-      
-    }
-    
-    let townIndex = 0;
-    
-    while(townNeedCount) {
-      
-      
-      
-      townNeedCount--;
-    }
-
-    // hax biar ga ada villager, tapi ada role warga yang duplikat
-    if (townNeedCount > townTeam.length) {
-      let addTownTeam = helper.getRandomTeams().town.addon;
-      let neededCount = townNeedCount - townTeam.length;
-      for (let i = 0; i < neededCount; i++) {
-        townTeam.push(addTownTeam[i]);
-      }
-    }
-
-    townTeam.length = townNeedCount;
-    townTeam.forEach(item => {
-      roles.push(item);
-    });
-
     return roles;
   },
   
-  getClassicRoleSet: function() {
-    // cp
-    let maxWerewolfCount = 3; // include the werewolf
-    let maxNeutralCount = 3;
-    let roles = [];
-    let neutralIndex = 0;
-    let werewolfIndex = 0;
-    let teams = helper.getRandomTeams();
-    
-    /// Always role
-    roles.push("werewolf");
-    werewolfNeedCount--;
-    
-    
-    return roles;
-  },
-
   getTimeDefault: function(playersLength) {
     let time = 0;
 
