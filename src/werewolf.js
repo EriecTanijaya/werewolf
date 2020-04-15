@@ -716,8 +716,8 @@ module.exports = {
       "" // tambah 1 warga
     ];
     
-    let werewolfs = ["framer", "disguiser", "consort", "sorcerer"];
-    let werewolfAddon = helper.random(werewolfAddon);
+    let werewolves = ["framer", "disguiser", "consort", "sorcerer"];
+    let werewolfAddon = helper.random(werewolves);
     roles.push(werewolfAddon);
     
     let towns = ["tracker", "spy", "vigilante"];
