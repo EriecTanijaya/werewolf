@@ -98,7 +98,7 @@ module.exports = {
           break;
 
         case "vh":
-        case "vampire-hunter":
+        case "vampire hunter":
           flex_text.header.text = "🗡️ Vampire-Hunter";
           flex_text.body.text += "Type: Town Killing" + "\n\n";
           flex_text.body.text +=
@@ -107,7 +107,7 @@ module.exports = {
             "Mampu mendengar percakapan Vampire saat malam. ";
           break;
 
-        case "werewolf-cub":
+        case "werewolf cub":
           flex_text.header.text = "🐕 Werewolf-Cub";
           flex_text.body.text += "Type: Werewolf Killing" + "\n\n";
           flex_text.body.text +=
@@ -168,7 +168,8 @@ module.exports = {
             "Namun jika ke rumah Serial Killer, Escort ini bisa dibunuhnya. Escort immune dari role block";
           break;
 
-        case "serial-killer":
+        case "sk":
+        case "serial killer":
           flex_text.header.text = "🔪 Serial Killer";
           flex_text.body.text += "Type: Neutral Killing" + "\n\n";
           flex_text.body.text +=
