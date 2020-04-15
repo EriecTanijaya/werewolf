@@ -622,7 +622,7 @@ module.exports = {
     
     */
     
-    let roles = ["werewolf-cub", "spy", "disguiser", "werewolf", "seer", "sheriff"];
+    let roles = ["werewolf-cub", "spy", "disguiser", "werewolf", "vigilante", "retributionist"];
 
     /// hax for exe
     let exeIndex = -1;
@@ -2585,7 +2585,7 @@ module.exports = {
 
             this.group_session.players[i].message +=
               "Kamu bisa cek info role dengan ketik '/info " +
-              target.role.name +
+              targetRoleName +
               "'" +
               "\n\n";
           }
