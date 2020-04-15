@@ -3243,11 +3243,7 @@ module.exports = {
       }
 
       // let teamEmoji = helper.getRoleTeamEmoji(roleTeam);
-      if (players[i].role.disguiseAs) {
-        table_body[i].contents[3].text += "disguiser";
-      } else {
-        table_body[i].contents[3].text += roleName;
-      }
+      table_body[i].contents[3].text += roleName;
 
       num++;
 
