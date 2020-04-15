@@ -373,6 +373,12 @@ module.exports = {
     if (this.group_session.players.length === 0) {
       this.group_session.roomHostId = this.user_session.id;
     }
+    
+    if (this.group_session.players.length === 15) {
+      let text = "💡 " + this.user_session.name;
+      text += ", room sudah penuh";
+      return this.replyText(text);
+    }
 
     this.user_session.state = "active";
     this.user_session.groupId = this.group_session.groupId;
@@ -394,7 +400,11 @@ module.exports = {
       "💡 " + this.user_session.name + " berhasil bergabung!" + "\n" + reminder;
 
     if (this.group_session.players.length >= 5) {
-      text += "\n" + "📣 Sudah cukup pemain, game bisa dimulai";
+      if (this.group_session.players.length === 15) {
+        text += "\n" + "📣 Room sudah penuh, game bisa dimulai";
+      } else {
+        text += "\n" + "📣 Sudah cukup pemain, game bisa dimulai";
+      }
     }
 
     return this.replyText(text);
@@ -3698,7 +3708,9 @@ module.exports = {
   },
   
   getClassicRoleSet: function() {
-    
+    let maxWerewolfCount = 3; // include the werewolf
+    let maxNeutralCount = 3;
+    // cp
   },
 
   getTimeDefault: function(playersLength) {
