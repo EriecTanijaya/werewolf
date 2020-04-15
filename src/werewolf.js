@@ -3059,10 +3059,12 @@ module.exports = {
 
     let text = "☝️ " + this.user_session.name;
 
-    if (players[index].targetVoteIndex !== -1) {
-      text += " mengganti vote ke ";
-    } else {
+    if (players[index].targetVoteIndex === -1) {
       text += " vote ";
+    } else if (players[index].targetVoteIndex === targetIndex){
+      text = "💡 " + this.user_session.name + ", kamu sudah vote "
+    } else {
+      text += " mengganti vote ke ";
     }
 
     this.group_session.players[index].targetVoteIndex = targetIndex;
