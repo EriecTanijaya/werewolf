@@ -3611,10 +3611,10 @@ module.exports = {
     // jumlah ww dibatasin 75% dari badNeedCount Quota
     let werewolfNeedCount = Math.round((75 / 100) * badNeedCount);
 
+    // plus 1 reserve untuk werewolf
+    // ini kalau jumlah ww yang dibutuhkan lebih besar dari jumlah team ww yg ada
     let maxWerewolfCount = werewolfTeam.length + 1;
     if (werewolfNeedCount > maxWerewolfCount) {
-      //plus 1 reserve untuk werewolf
-      // ini kalau jumlah ww yang dibutuhkan lebih besar dari jumlah team ww yg ada
       werewolfNeedCount = maxWerewolfCount;
     }
 
