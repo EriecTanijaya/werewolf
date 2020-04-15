@@ -610,19 +610,10 @@ module.exports = {
     );
     let players = this.group_session.players;
     let playersLength = players.length;
-    //let roles = this.getRandomRoleSet(playersLength); //cp
-    // test list
-    /*
+    let roles = this.getRandomRoleSet(playersLength); //cp
     
-    1. test hasil cek disguiser dari seer dan sheriff, cek spy apakah disguiser kemana aja (role skrng)
-    2. test disguiser di bunuh apa yang muncul + apa yg di roles sama apa yg di playersList, sama apa yang di retri
-        roles = disguiser, retributionist, vigilante, ww, ww cub
-    3. test framer, apakah hasil cek nya itu framed atau tidak, dan test spy werewolf Visit
-        roles = ww, ww cub, framer, spy, sheriff, seer
-    
-    */
-    
-    let roles = ["werewolf-cub", "spy", "framer", "werewolf", "sheriff", "seer"];
+    /// cp test specific role
+    // let roles = ["werewolf-cub", "spy", "framer", "werewolf", "sheriff", "seer"];
 
     /// hax for exe
     let exeIndex = -1;
@@ -2916,7 +2907,7 @@ module.exports = {
     let someoneWin = this.checkVictory();
     
     // cp make endless
-    someoneWin = false;
+    //someoneWin = false;
     
     if (someoneWin) {
       flex_texts.unshift(flex_text);
@@ -3168,7 +3159,7 @@ module.exports = {
       let someoneWin = this.checkVictory();
       
       // cp
-      someoneWin = false;
+      //someoneWin = false;
       
       if (someoneWin) {
         return this.endGame(null, someoneWin);
