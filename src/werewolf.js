@@ -3708,9 +3708,19 @@ module.exports = {
   },
   
   getClassicRoleSet: function() {
+    // cp
     let maxWerewolfCount = 3; // include the werewolf
     let maxNeutralCount = 3;
-    // cp
+    let roles = [];
+    let neutralIndex = 0;
+    let werewolfIndex = 0;
+    let teams = helper.getRandomTeams();
+    let townTeam = teams.town;
+    let werewolfTeam = teams.werewolf;
+    let neutralTeam = teams.neutral;
+    
+    
+    
   },
 
   getTimeDefault: function(playersLength) {

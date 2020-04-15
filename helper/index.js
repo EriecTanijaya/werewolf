@@ -56,10 +56,22 @@ module.exports = {
 
   getRandomTeams: function() {
     let teams = {
-      town: [],
-      townAddon: [],
-      werewolf: [],
-      neutral: []
+      town: {
+        investigate: [],
+        killing: [],
+        support: [],
+        protector: []
+      },
+      werewolf: {
+        killing: [],
+        support: [],
+        deception: []
+      },
+      neutral: {
+        killing: [],
+        chaos: [],
+        benign: []
+      }
     };
 
     let townTeam = [
@@ -92,11 +104,14 @@ module.exports = {
     ];
 
     let neutralTeam = [
-      "serial-killer",
-      "arsonist",
       "jester",
       "vampire",
       "survivor"
+    ];
+    
+    let neutralKilling = [
+      "serial-killer",
+      "arsonist",
     ];
 
     teams.town = this.shuffleArray(townTeam);
