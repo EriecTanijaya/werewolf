@@ -373,7 +373,7 @@ module.exports = {
     if (this.group_session.players.length === 0) {
       this.group_session.roomHostId = this.user_session.id;
     }
-    
+
     if (this.group_session.players.length === 15) {
       let text = "💡 " + this.user_session.name;
       text += ", room sudah penuh";
@@ -3582,7 +3582,7 @@ module.exports = {
     // cp
     let mode = helper.random(["classic", "chaos"]);
     let roles = [];
-    
+
     if (mode === "classic") {
       roles = this.getClassicRoleSet(playersLength);
     } else if (mode === "chaos") {
@@ -3595,13 +3595,66 @@ module.exports = {
 
     return roles;
   },
-
+  // spy, tracker, vigilante, vampire-hunter
   getClassicRoleSet: function(playersLength) {
-    let roles = ["werewolf", "seer", "doctor", "lookout", "veteran", "jester", "escort", "werewolf-cub", ""]
+    let roles = [
+      "werewolf",
+      "seer",
+      "doctor",
+      "lookout",
+      "veteran",
+      "jester",
+      "escort",
+      "werewolf-cub",
+      "sheriff",
+      "executioner",
+      "retributionist",
+      "", // 12 tambah ww 1
+      "", // 13 tambah 1 warga
+      "", // tamabah 1 neutral
+      "" // tambah 1 warga
+    ];
     
+    let werewolfAddon = ["framer", "disguiser", "consort", "sorcerer"];
+    werewolfAddon = helper.random(werewolfAddon);
+    
+    
+    
+    let neutralAddon = ["serial-killer", "arsonist"];
+    neutralAddon = helper.shuffleArray(neutralAddon);
+    
+    
+    
+    
+    
+
     return roles;
   },
-  
+  // spy, sheriff, vigilante, vampire-hunter
+  getChaosRoleSet: function(playersLength) {
+    let roles = [
+      "werewolf",
+      "seer",
+      "doctor",
+      "lookout",
+      "veteran",
+      "jester",
+      "escort",
+      "werewolf-cub",
+      "retributionist",
+      "executioner",
+      "tracker",
+      "", // 12 tambah ww 1
+      "", // 13 tambah 1 warga
+      "", // tamabah 1 neutral
+      "" // tambah 1 warga
+    ];
+    
+    
+
+    return roles;
+  },
+
   getTimeDefault: function(playersLength) {
     let time = 0;
 
