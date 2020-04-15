@@ -3653,28 +3653,63 @@ module.exports = {
     if (playersLength > 5) {
       if (mode === "classic") {
         neutralTeam = ["executioner", "jester"];
-        let neutralKilling = teams.neutral
+        let neutralKilling = helper.random(teams.neutral.killing);
+        neutralTeam.push(neutralKilling);
       } else if (mode === "chaos") {
-        
+        teams.neutral.killing.forEach(w => {
+          neutralTeam.push(w);
+        });
+        teams.neutral.benign.forEach(w => {
+          neutralTeam.push(w);
+        });
+        neutralTeam.push("vampire");
+        neutralTeam = helper.shuffleArray(neutralTeam);
       }
     }
     
-    
-    
     while (neutralNeedCount) {
+      if (neutralTeam[neutralIndex] === "vampire") {
+        needVampireHunter = true;
+      }
       
+      roles.push(neutralTeam[neutralIndex]);
       
       neutralNeedCount--;
     }
 
+    // town team
     if (needSheriff) {
       roles.push("sheriff");
+      townNeedCount--;
+    }
+    
+    if (needVampireHunter) {
+      roles.push("vampire-hunter");
       townNeedCount--;
     }
     
     if (playersLength > 7) {
       let townKilling = helper.random(teams.town.killing);
       roles.push(townKilling);
+      townNeedCount--;
+    }
+    
+    let townTeam = [];
+    
+    tea
+    
+    if (mode === "classic") {
+      
+    } else if (mode === "chaos") {
+      
+    }
+    
+    let townIndex = 0;
+    
+    while(townNeedCount) {
+      
+      
+      
       townNeedCount--;
     }
 
