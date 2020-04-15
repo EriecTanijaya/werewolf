@@ -60,6 +60,7 @@ module.exports = {
       werewolf: [],
       neutral: []
     };
+    
     let townTeam = [
       "seer",
       "doctor",
@@ -70,7 +71,14 @@ module.exports = {
       "spy",
       "tracker"
     ];
+    
+    // hax, maybe temporary untill all town roles can duplicate
+    let townAddon = [
+      
+    ]
+    
     let werewolfTeam = ["werewolf-cub", "sorcerer", "consort", "framer", "disguiser"];
+    
     let neutralTeam = [
       "serial-killer",
       "arsonist",
