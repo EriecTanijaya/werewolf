@@ -58,7 +58,7 @@ module.exports = {
     let teams = {
       town: {
         investigate: ["seer", "lookout", "spy", "tracker"],
-        killing: ["veteran"],
+        killing: ["veteran", "vigilante"],
         support: ["retributionist", "escort"],
         protector: ["doctor"],
         addon: []

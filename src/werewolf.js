@@ -3601,14 +3601,7 @@ module.exports = {
     
     let roles = [];
     let teams = helper.getRandomTeams();
-    let maxWerewolfCount = 0;
-    
-    if (mode === "classic") {
-      maxWerewolfCount = 4;
-    } else if (mode === "chaos") {
-      // cp belum pasti
-      maxWerewolfCount = 3;
-    }
+    let maxWerewolfCount = 4;
     
     let townNeedCount = Math.round(playersLength / 2) + 1;
     let badNeedCount = playersLength - townNeedCount;
@@ -3633,7 +3626,7 @@ module.exports = {
     
     
     let needSheriff = false;
-    let needVigilante = false;
+    let needVampireHunter = false;
     
     /// Always role
     roles.push("werewolf");
@@ -3647,38 +3640,20 @@ module.exports = {
     
     /// bad guy generator
       
-      let werewolfSupportIndex = 0;
-      let werewolfDeceptionIndex = 0;
+    let werewolfSupportIndex = 0;
+    let werewolfDeceptionIndex = 0;
       
-      // ww team
-      while (werewolfNeedCount) {
-        
-        if (helper.trueOrFalse()) {
-          // werewolf support
-          roles.push(teams.werewolf.support[werewolfSupportIndex]);
-          werewolfSupportIndex++;
-        } else {
-          // werewolf deception
-          roles.push(teams.werewolf.deception[werewolfDeceptionIndex]);
-          werewolfDeceptionIndex++;
-        }
-
-        werewolfNeedCount--;
-      }
-    
-
     // ww team
     while (werewolfNeedCount) {
-      roles.push(werewolfTeam[werewolfIndex]);
       if (helper.trueOrFalse()) {
-        needSheriff = true;
+        // werewolf support
+        roles.push(teams.werewolf.support[werewolfSupportIndex]);
+        werewolfSupportIndex++;
       } else {
-        if (!roles.includes("vigilante")) {
-          roles.push("vigilante");
-          townNeedCount--;
-        }
+        // werewolf deception
+        roles.push(teams.werewolf.deception[werewolfDeceptionIndex]);
+        werewolfDeceptionIndex++;
       }
-      werewolfIndex++;
 
       werewolfNeedCount--;
     }
@@ -3716,8 +3691,9 @@ module.exports = {
       townNeedCount--;
     }
     
-    if (needVigilante) {
-      roles.push("vigilante");
+    if (playersLength > 7) {
+      let townKilling = helper.random(teams.town.killing);
+      roles.push(townKilling);
       townNeedCount--;
     }
 
