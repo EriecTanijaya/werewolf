@@ -3572,14 +3572,6 @@ module.exports = {
     let teams = helper.getRandomTeams();
     let townTeam = teams.town;
 
-    if (townNeedCount > townTeam.length) {
-      let addTownTeam = helper.getRandomTeams().town;
-      let neededCount = townNeedCount - townTeam.length;
-      for (let i = 0; i < neededCount; i++) {
-        townTeam.push(addTownTeam[i]);
-      }
-    }
-
     if (playersLength !== 6) {
       roles = this.getRoleSet(townNeedCount, badNeedCount);
     } else {
@@ -3613,6 +3605,15 @@ module.exports = {
     let townTeam = teams.town;
     let werewolfTeam = teams.werewolf;
     let neutralTeam = teams.neutral;
+    
+    // hax biar ga ada villager, tapi ada role warga yang duplikat
+    if (townNeedCount > townTeam.length) {
+      let addTownTeam = helper.getRandomTeams().townAddon;
+      let neededCount = townNeedCount - townTeam.length;
+      for (let i = 0; i < neededCount; i++) {
+        townTeam.push(addTownTeam[i]);
+      }
+    }
 
     // jumlah ww dibatasin 75% dari badNeedCount Quota
     let werewolfNeedCount = Math.round((75 / 100) * badNeedCount);

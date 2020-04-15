@@ -12,7 +12,7 @@ module.exports = {
     });
     return text;
   },
-  
+
   getRoleTeamEmoji: function(team) {
     const roles = require("/app/roles/rolesData");
     for (let i = 0; i < roles.length; i++) {
@@ -21,7 +21,7 @@ module.exports = {
       }
     }
   },
-  
+
   getRoleNameEmoji: function(roleName) {
     const roles = require("/app/roles/rolesData");
     for (let i = 0; i < roles.length; i++) {
@@ -57,9 +57,11 @@ module.exports = {
   getRandomTeams: function() {
     let teams = {
       town: [],
+      townAddon: [],
       werewolf: [],
       neutral: []
     };
+
     let townTeam = [
       "seer",
       "doctor",
@@ -70,7 +72,18 @@ module.exports = {
       "spy",
       "tracker"
     ];
-    let werewolfTeam = ["werewolf-cub", "sorcerer", "consort", "framer", "disguiser"];
+
+    // hax, maybe temporary untill all town roles can duplicate
+    let townAddon = ["seer", "escort", "spy", "tracker", "lookout"];
+
+    let werewolfTeam = [
+      "werewolf-cub",
+      "sorcerer",
+      "consort",
+      "framer",
+      "disguiser"
+    ];
+
     let neutralTeam = [
       "serial-killer",
       "arsonist",
@@ -78,9 +91,11 @@ module.exports = {
       "vampire",
       "survivor"
     ];
+
     teams.town = this.shuffleArray(townTeam);
     teams.werewolf = this.shuffleArray(werewolfTeam);
     teams.neutral = this.shuffleArray(neutralTeam);
+    teams.townAddon = this.shuffleArray(townAddon);
     return teams;
   },
 
