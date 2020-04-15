@@ -738,7 +738,7 @@ module.exports = {
   getChaosRoleSet: function(playersLength) {
     let roles = [];
     
-    let townNeedCount = Math.round(playersLength / 2) + 1;
+    let townNeedCount = Math.round(playersLength / 2);
     let badNeedCount = playersLength - townNeedCount;
     let werewolfNeedCount = Math.round((50 / 100) * badNeedCount);
     
@@ -748,8 +748,12 @@ module.exports = {
     
     let neutralNeedCount = badNeedCount - werewolfNeedCount;
     
+    let werewolfIndex = 0;
+    let neutralIndex = 0;
+    
     let needSheriff = false;
     let needVampireHunter = false;
+    let needVigilante = true;
     
     // always
     roles.push("werewolf");
@@ -760,13 +764,51 @@ module.exports = {
     let towns = ["seer", "doctor", "lookout", "veteran", "escort", "retributionist", "spy", "tracker"];
     towns = helper.shuffleArray(towns);
     
-    let townAddon = ["seer", "lookout", "escort", "tracker", "retributionist", "sheriff", "vigilante"];
-    townAddon = helper.shuffleArray(
-    
     let neutrals = ["vampire", "serial-killer", "arsonist", "executioner", "jester", "survivor"];
+    neutrals = helper.shuffleArray(neutrals);
     
+    while (werewolfNeedCount) {
+      roles.push(werewolves[werewolfIndex]);
+      needVigilante = true;
+      
+      werewolfIndex++;
+      werewolfNeedCount--;
+    }
     
-
+    while (neutralNeedCount) {
+      roles.push(neutrals[neutralIndex]);
+      
+      if (neutrals[neutralIndex] === "vampire") {
+        needVampireHunter = true;
+      }
+      
+      if (neutrals[neutralIndex] === "serial-killer") {
+        needSheriff = true;
+      }
+      
+      neutralIndex++;
+      neutralNeedCount--;      
+    }
+    
+    if (needSheriff) {
+      roles.push("sheriff");
+      townNeedCount--;
+    }
+    
+    if (needVigilante) {
+      roles.push("vigilante");
+      townNeedCount--;
+    }
+    
+    if (needVampireHunter) {
+      roles.push("vampire-hunter");
+      townNeedCount--;
+    }
+    
+    for (let i = 0; i < townNeedCount; i++) {
+      roles.push(towns[i]);
+    }
+    
     return roles;
   },
 
