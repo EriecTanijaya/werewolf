@@ -247,5 +247,4 @@ module.exports = {
     
     return text;
   },
-  // teamResponse: function(roleName)
 };
