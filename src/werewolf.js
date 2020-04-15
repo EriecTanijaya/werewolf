@@ -3581,15 +3581,7 @@ module.exports = {
     // bisa pilih mode
     let mode = helper.random(["classic", "chaos"]);
     let roles = [];
-    
-    let werewolfNeedCount = 0;
-    let neutralNeedCount = 0;
-    
-    if (mode === "classic") {
-      
-    } else if (mode === "chaos") {
-      
-    }
+    roles = this.getRoleSet(mode, playersLength);
 
     roles = helper.shuffleArray(roles);
 
@@ -3598,45 +3590,88 @@ module.exports = {
     return roles;
   },
 
-  getRoleSet: function(townNeedCount, badNeedCount) {
+  getRoleSet: function(mode, playersLength) {
     /* 
       bisa juga untuk tandain berapa jumlah role yg sudah ditambahkan
       kalau index nya 2, berarti uda 2 role dideploy
       yaitu index 0, sama index 1 
     */
-//     let roles = [];
-//     let neutralIndex = 0;
-//     let werewolfIndex = 0;
-
-//     let teams = helper.getRandomTeams();
-//     let townTeam = teams.town;
-//     let werewolfTeam = teams.werewolf;
-//     let neutralTeam = teams.neutral;
+    let roles = [];
+    let maxWerewolfCount = 0;
     
+    if (mode === "classic") {
+      maxWerewolfCount = 4;
+    } else if (mode === "chaos") {
+      // cp belum pasti
+      maxWerewolfCount = 3;
+    }
     
-
-    // jumlah ww dibatasin 75% dari badNeedCount Quota
-    //let werewolfNeedCount = Math.round((75 / 100) * badNeedCount);
-
-    let maxWerewolfCount = 4;
+    let townNeedCount = Math.round(playersLength / 2) + 1;
+    let badNeedCount = playersLength - townNeedCount;
+    let werewolfNeedCount = Math.round((50 / 100) * badNeedCount);
+    
     if (werewolfNeedCount > maxWerewolfCount) {
       werewolfNeedCount = maxWerewolfCount;
     }
-
+    
     let neutralNeedCount = badNeedCount - werewolfNeedCount;
-    let needSheriff = false;
 
+    if (mode === "classic") {
+      /// Unique role utk sekarang si exe
+      if (this.group_session.players.length > 7) {
+        roles.push("executioner");
+        neutralNeedCount--;
+      }
+    } else if (mode === "chaos") {
+      // cp
+    }
+    
+    
+      
+      
+    let needSheriff = false;
+    
     /// Always role
     roles.push("werewolf");
     werewolfNeedCount--;
 
-    /// Unique role utk sekarang si exe
-    if (this.group_session.players.length > 7) {
-      roles.push("executioner");
-      neutralNeedCount--;
-    }
-
     /// bad guy generator
+    
+    if (mode === "classic") {
+      
+    } else if (mode === "chaos") {
+      
+    }
+    
+    /// bad guy generator
+    
+    if (mode === "classic") {
+      /// Always role
+      roles.push("werewolf-cub");
+      werewolfNeedCount--;
+      needSheriff = true;
+      
+      let werewolfIndex = 0;
+      
+      // ww team
+      while (werewolfNeedCount) {
+        roles.push(werewolfTeam[werewolfIndex]);
+        if (helper.trueOrFalse()) {
+          
+        } else {
+          if (!roles.includes("vigilante")) {
+            roles.push("vigilante");
+            townNeedCount--;
+          }
+        }
+        werewolfIndex++;
+
+        werewolfNeedCount--;
+      }
+    } else if (mode === "chaos") {
+      
+    }
+    
 
     // ww team
     while (werewolfNeedCount) {
