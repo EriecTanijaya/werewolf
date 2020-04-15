@@ -740,7 +740,7 @@ module.exports = {
     
     let townNeedCount = Math.round(playersLength / 2);
     let badNeedCount = playersLength - townNeedCount;
-    let werewolfNeedCount = Math.round((50 / 100) * badNeedCount);
+    let werewolfNeedCount = Math.round((45 / 100) * badNeedCount);
     
     if (werewolfNeedCount > 4) {
       werewolfNeedCount = 4;
