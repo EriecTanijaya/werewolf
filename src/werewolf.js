@@ -671,6 +671,7 @@ module.exports = {
     this.group_session.werewolfChat = [];
     this.group_session.vampireChat = [];
 
+    // set prop yang reset tiap malamnya (TEMPORARY)
     this.group_session.players.forEach((item, index) => {
       if (item.status === "alive") {
         item.target = {
@@ -1128,6 +1129,8 @@ module.exports = {
             };
             this.group_session.players[targetIndex].visitors.push(visitor);
 
+            let immuneToRoleBlock = ["escort", "consort", "veteran"];
+
             if (target.role.name === "serial-killer") {
               this.group_session.players[i].message +=
                 "💡 Target kamu immune!" + "\n\n";
@@ -1144,10 +1147,7 @@ module.exports = {
                   "🔍 Ada yang mencoba roleblock Target kamu, hingga Targetmu menyerang nya!" +
                   "\n\n";
               }
-            } else if (
-              target.role.name === "consort" ||
-              target.role.name === "veteran"
-            ) {
+            } else if (immuneToRoleBlock.includes(target.role.name)) {
               this.group_session.players[i].message +=
                 "💡 Target kamu immune!" + "\n\n";
 
@@ -1219,6 +1219,8 @@ module.exports = {
             };
             this.group_session.players[targetIndex].visitors.push(visitor);
 
+            let immuneToRoleBlock = ["escort", "consort", "veteran"];
+
             if (target.role.name === "serial-killer") {
               this.group_session.players[i].message +=
                 "💡 Target kamu immune!" + "\n\n";
@@ -1235,10 +1237,7 @@ module.exports = {
                   "🔍 Ada yang mencoba roleblock Target kamu, hingga Targetmu menyerang nya!" +
                   "\n\n";
               }
-            } else if (
-              target.role.name === "escort" ||
-              target.role.name === "veteran"
-            ) {
+            } else if (immuneToRoleBlock.includes(target.role.name)) {
               this.group_session.players[i].message +=
                 "💡 Target kamu immune!" + "\n\n";
 
@@ -1293,6 +1292,7 @@ module.exports = {
     }
 
     /// Disguiser Action
+    // jangan dipindah di bawah veteran
     for (let i = 0; i < players.length; i++) {
       let doer = players[i];
 
@@ -1317,7 +1317,16 @@ module.exports = {
               "👣 Kamu ke rumah " + target.name + "\n\n";
 
             werewolfAnnouncement +=
-              "🎭 " + doer.name + " mengimitasi role " + target.name + "\n\n";
+              "🎭 " +
+              doer.name +
+              " akan mengimitasi role " +
+              target.name +
+              "\n\n";
+
+            // hax for check if the target was veteran
+            if (target.role.name === "veteran" && target.target.index !== -1) {
+              continue;
+            }
 
             let visitor = {
               name: doer.name,
@@ -1335,6 +1344,7 @@ module.exports = {
     }
 
     /// Vampire Action
+    // jangan dipindah di bawah veteran
     for (let i = 0; i < players.length; i++) {
       if (vampireDoerIndex === i) {
         let doer = players[i];
@@ -1474,6 +1484,7 @@ module.exports = {
             continue;
           }
 
+          // hax untuk werewolf yang tukang bunuh bukan ww, tapi ww cub
           if (target.role.name === "veteran") {
             if (doer.role.name === "werewolf") {
               if (werewolfDoerIndex !== i) {
@@ -1521,6 +1532,8 @@ module.exports = {
               this.group_session.players[i].message +=
                 "💡 Ada yang datang mengunjungi kamu!" + "\n\n";
 
+              // hax karna escort dan consort sudah masukkin data visitor ke veteran
+              // jadi escort dan consort tak perlu masukin lagi
               if (targetRoleName !== "escort" || targetRoleName !== "consort") {
                 this.group_session.players[targetIndex].message +=
                   "👣 Kamu ke rumah " + doer.name + "\n\n";
@@ -3420,6 +3433,7 @@ module.exports = {
   },
 
   createNewPlayer: function(user_session) {
+    // di sini set prop yang ga bisa di reset tiap malam, dan bisa persistent sepanjang game
     let newPlayer = {
       id: user_session.id,
       name: user_session.name,
@@ -3437,22 +3451,13 @@ module.exports = {
         team: "villager"
       },
       status: "alive",
-      message: "",
-      attacked: false,
-      healed: false,
-      targetIndex: -1,
       targetVoteIndex: -1,
       afkCounter: 0,
-      visitors: [],
-      blocked: false,
-      attackers: [],
-      intercepted: false,
       journals: [],
       deathNote: "",
       willSuicide: false,
       doused: false,
-      burned: false,
-      bugged: false
+      burned: false
     };
     return newPlayer;
   },
