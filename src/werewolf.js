@@ -3629,36 +3629,40 @@ module.exports = {
     
     /// bad guy generator
       
-    // ww team
-    let werewolfSupportIndex = 0;
-    let werewolfDeceptionIndex = 0;
+    // ww team 
+    let werewolfTeam = [];
+    teams.werewolf.support.forEach(w => {
+      werewolfTeam.push(w);
+    });
+    teams.werewolf.deception.forEach(w => {
+      werewolfTeam.push(w);
+    });
+    werewolfTeam = helper.shuffleArray(werewolfTeam);
+    
+    let werewolfIndex = 0;
+    
     while (werewolfNeedCount) {
-      if (helper.trueOrFalse()) {
-        // werewolf support
-        roles.push(teams.werewolf.support[werewolfSupportIndex]);
-        werewolfSupportIndex++;
-      } else {
-        // werewolf deception
-        roles.push(teams.werewolf.deception[werewolfDeceptionIndex]);
-        werewolfDeceptionIndex++;
-      }
-
+      roles.push(werewolfTeam[werewolfIndex]);
+      werewolfIndex++;
       werewolfNeedCount--;
     }
 
-    // neutral team    
-    let neutralBenignIndex = 0;
-    let neutralChaosIndex = 0;
-    let neutralKillingIndex = 0;
-    while (neutralNeedCount) {
+    // neutral team
+    let neutralTeam = [];
+    let neutralIndex = 0;
+    if (playersLength > 5) {
       if (mode === "classic") {
-        // neutral benign
-        roles.push(teams.neutral.benign[neutralBenignIndex]);
-        neutralBenignIndex++;
+        neutralTeam = ["executioner", "jester"];
+        let neutralKilling = teams.neutral
       } else if (mode === "chaos") {
-        // neutral chaos / killing
-        if (helper)
+        
       }
+    }
+    
+    
+    
+    while (neutralNeedCount) {
+      
       
       neutralNeedCount--;
     }
