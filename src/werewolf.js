@@ -611,7 +611,7 @@ module.exports = {
     let players = this.group_session.players;
     let playersLength = players.length;
     let roles = this.getRandomRoleSet(playersLength); //cp
-    
+
     /// test specific role
     // let roles = ["werewolf-cub", "spy", "framer", "werewolf", "sheriff", "seer"];
 
@@ -2905,10 +2905,10 @@ module.exports = {
 
     ///check victory
     let someoneWin = this.checkVictory();
-    
+
     // cp make endless
     //someoneWin = false;
-    
+
     if (someoneWin) {
       flex_texts.unshift(flex_text);
       return this.endGame(flex_texts, someoneWin);
@@ -3061,8 +3061,8 @@ module.exports = {
 
     if (players[index].targetVoteIndex === -1) {
       text += " vote ";
-    } else if (players[index].targetVoteIndex === targetIndex){
-      text = "💡 " + this.user_session.name + ", kamu sudah vote "
+    } else if (players[index].targetVoteIndex === targetIndex) {
+      text = "💡 " + this.user_session.name + ", kamu sudah vote ";
     } else {
       text += " mengganti vote ke ";
     }
@@ -3159,10 +3159,10 @@ module.exports = {
       return this.night(null);
     } else {
       let someoneWin = this.checkVictory();
-      
+
       // cp
       //someoneWin = false;
-      
+
       if (someoneWin) {
         return this.endGame(null, someoneWin);
       } else {
@@ -3607,7 +3607,7 @@ module.exports = {
     let townTeam = teams.town;
     let werewolfTeam = teams.werewolf;
     let neutralTeam = teams.neutral;
-    
+
     // hax biar ga ada villager, tapi ada role warga yang duplikat
     if (townNeedCount > townTeam.length) {
       let addTownTeam = helper.getRandomTeams().townAddon;
