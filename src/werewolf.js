@@ -3715,12 +3715,11 @@ module.exports = {
     let neutralIndex = 0;
     let werewolfIndex = 0;
     let teams = helper.getRandomTeams();
-    let townTeam = teams.town;
-    let werewolfTeam = teams.werewolf;
-    let neutralTeam = teams.neutral;
     
     
     
+    
+    return roles;
   },
 
   getTimeDefault: function(playersLength) {

@@ -57,33 +57,23 @@ module.exports = {
   getRandomTeams: function() {
     let teams = {
       town: {
-        investigate: [],
-        killing: [],
-        support: [],
-        protector: []
+        investigate: ["seer", "lookout", "spy", "tracker"],
+        killing: ["veteran"],
+        support: ["retributionist", "escort"],
+        protector: ["doctor"],
+        addon: []
       },
       werewolf: {
-        killing: [],
-        support: [],
-        deception: []
+        killing: ["werewolf-cub"],
+        support: ["sorcerer", "consort"],
+        deception: ["framer", "disguiser"]
       },
       neutral: {
-        killing: [],
-        chaos: [],
-        benign: []
+        killing: ["arsonist", "serial-killer"],
+        chaos: ["vampire"],
+        benign: ["jester", "survivor"]
       }
     };
-
-    let townTeam = [
-      "seer",
-      "doctor",
-      "escort",
-      "veteran",
-      "lookout",
-      "retributionist",
-      "spy",
-      "tracker"
-    ];
 
     // hax, maybe temporary untill all town roles can duplicate
     let townAddon = [
@@ -95,29 +85,14 @@ module.exports = {
       "vigilante"
     ];
 
-    let werewolfTeam = [
-      "werewolf-cub",
-      "sorcerer",
-      "consort",
-      "framer",
-      "disguiser"
-    ];
-
-    let neutralTeam = [
-      "jester",
-      "vampire",
-      "survivor"
-    ];
+    teams.town.investigate = this.shuffleArray(teams.town.investigate);
+    teams.town.support = this.shuffleArray(teams.town.support);
+    teams.town.addon = this.shuffleArray(townAddon);
+    teams.werewolf.support = this.shuffleArray(teams.werewolf.support);
+    teams.werewolf.deception = this.shuffleArray(teams.werewolf.deception);
+    teams.neutral.killing = this.shuffleArray(teams.neutral.killing);
+    teams.neutral.benign = this.shuffleArray(teams.neutral.benign);
     
-    let neutralKilling = [
-      "serial-killer",
-      "arsonist",
-    ];
-
-    teams.town = this.shuffleArray(townTeam);
-    teams.werewolf = this.shuffleArray(werewolfTeam);
-    teams.neutral = this.shuffleArray(neutralTeam);
-    teams.townAddon = this.shuffleArray(townAddon);
     return teams;
   },
 
