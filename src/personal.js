@@ -1,4 +1,4 @@
-const skillText = require("/app/message/skill");
+const skillText = require("/app/message/skill"); //cp buat skill text satu
 const helper = require("/app/helper");
 
 module.exports = {
@@ -327,6 +327,7 @@ module.exports = {
     /// Special role communication cp
     if (roleTeam === "werewolf" || roleTeam === "vampire") {
       let chatBox = [];
+      let text = response.team(roleName);
 
       let message = {
         name: players[index].name,
