@@ -622,7 +622,7 @@ module.exports = {
     
     */
     
-    let roles = ["werewolf-cub", "spy", "disguiser", "werewolf", "vigilante", "retributionist"];
+    let roles = ["werewolf-cub", "spy", "framer", "werewolf", "sheriff", "seer"];
 
     /// hax for exe
     let exeIndex = -1;
