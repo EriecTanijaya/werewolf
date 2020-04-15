@@ -74,7 +74,14 @@ module.exports = {
     ];
 
     // hax, maybe temporary untill all town roles can duplicate
-    let townAddon = ["seer", "escort", "tracker", "lookout"];
+    let townAddon = [
+      "seer",
+      "escort",
+      "tracker",
+      "lookout",
+      "sheriff",
+      "vigilante"
+    ];
 
     let werewolfTeam = [
       "werewolf-cub",
