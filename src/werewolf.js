@@ -3608,7 +3608,7 @@ module.exports = {
     
     // hax biar ga ada villager, tapi ada role warga yang duplikat
     if (townNeedCount > townTeam.length) {
-      let addTownTeam = helper.getRandomTeams().town;
+      let addTownTeam = helper.getRandomTeams().townAddon;
       let neededCount = townNeedCount - townTeam.length;
       for (let i = 0; i < neededCount; i++) {
         townTeam.push(addTownTeam[i]);
