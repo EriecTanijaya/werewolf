@@ -3612,17 +3612,6 @@ module.exports = {
     }
     
     let neutralNeedCount = badNeedCount - werewolfNeedCount;
-
-    if (mode === "classic") {
-      /// Unique role utk sekarang si exe
-      if (this.group_session.players.length > 7) {
-        roles.push("executioner");
-        neutralNeedCount--;
-      }
-    } else if (mode === "chaos") {
-      // cp
-    }
-    
     
     
     let needSheriff = false;
@@ -3640,10 +3629,9 @@ module.exports = {
     
     /// bad guy generator
       
+    // ww team
     let werewolfSupportIndex = 0;
     let werewolfDeceptionIndex = 0;
-      
-    // ww team
     while (werewolfNeedCount) {
       if (helper.trueOrFalse()) {
         // werewolf support
@@ -3658,31 +3646,20 @@ module.exports = {
       werewolfNeedCount--;
     }
 
-    // neutral team
+    // neutral team    
+    let neutralBenignIndex = 0;
+    let neutralChaosIndex = 0;
+    let neutralKillingIndex = 0;
     while (neutralNeedCount) {
-      // check apakah neutral role sudah habis ato engga
-      // kalau habis, randomkan saja
-      if (neutralIndex > neutralTeam.length - 1) {
-        let randomNeutralIndex = helper.getRandomInt(0, neutralTeam.length - 1);
-        roles.push(neutralTeam[randomNeutralIndex]);
-      } else {
-        roles.push(neutralTeam[neutralIndex]);
-        if (neutralTeam[neutralIndex] === "vampire") {
-          if (!roles.includes("vampire-hunter")) {
-            roles.push("vampire-hunter");
-            townNeedCount--;
-          }
-        } else if (neutralTeam[neutralIndex] === "serial-killer") {
-          needSheriff = true;
-        } else if (neutralTeam[neutralIndex] === "jester") {
-          if (!roles.includes("vigilante")) {
-            roles.push("vigilante");
-            townNeedCount--;
-          }
-        }
-        neutralIndex++;
+      if (mode === "classic") {
+        // neutral benign
+        roles.push(teams.neutral.benign[neutralBenignIndex]);
+        neutralBenignIndex++;
+      } else if (mode === "chaos") {
+        // neutral chaos / killing
+        if (helper)
       }
-
+      
       neutralNeedCount--;
     }
 

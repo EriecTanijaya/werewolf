@@ -71,7 +71,7 @@ module.exports = {
       neutral: {
         killing: ["arsonist", "serial-killer"],
         chaos: ["vampire"],
-        benign: ["jester", "survivor"]
+        benign: ["jester", "survivor", "executioner"]
       }
     };
 
