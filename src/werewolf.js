@@ -3577,23 +3577,18 @@ module.exports = {
   },
 
   getRandomRoleSet: function(playersLength) {
+    // sementara random dulu mode nya, kedepan kalo ada setting
+    // bisa pilih mode
+    let mode = helper.random(["classic", "chaos"]);
     let roles = [];
-    let townNeedCount = Math.round(playersLength / 2) + 1;
-    let badNeedCount = playersLength - townNeedCount;
-
-    let teams = helper.getRandomTeams();
-    let townTeam = teams.town;
-
-    if (playersLength !== 6) {
-      roles = this.getRoleSet(townNeedCount, badNeedCount);
-    } else {
-      // bad practice, but who cares?
-      townTeam.length = townNeedCount;
-      townTeam.forEach(item => {
-        roles.push(item);
-      });
-      let badRole = helper.random(["werewolf", "serial-killer"]);
-      roles.push(badRole, "jester");
+    
+    let werewolfNeedCount = 0;
+    let neutralNeedCount = 0;
+    
+    if (mode === "classic") {
+      
+    } else if (mode === "chaos") {
+      
     }
 
     roles = helper.shuffleArray(roles);
@@ -3609,17 +3604,19 @@ module.exports = {
       kalau index nya 2, berarti uda 2 role dideploy
       yaitu index 0, sama index 1 
     */
-    let roles = [];
-    let neutralIndex = 0;
-    let werewolfIndex = 0;
+//     let roles = [];
+//     let neutralIndex = 0;
+//     let werewolfIndex = 0;
 
-    let teams = helper.getRandomTeams();
-    let townTeam = teams.town;
-    let werewolfTeam = teams.werewolf;
-    let neutralTeam = teams.neutral;
+//     let teams = helper.getRandomTeams();
+//     let townTeam = teams.town;
+//     let werewolfTeam = teams.werewolf;
+//     let neutralTeam = teams.neutral;
+    
+    
 
     // jumlah ww dibatasin 75% dari badNeedCount Quota
-    let werewolfNeedCount = Math.round((75 / 100) * badNeedCount);
+    //let werewolfNeedCount = Math.round((75 / 100) * badNeedCount);
 
     let maxWerewolfCount = 4;
     if (werewolfNeedCount > maxWerewolfCount) {
@@ -3692,7 +3689,7 @@ module.exports = {
 
     // hax biar ga ada villager, tapi ada role warga yang duplikat
     if (townNeedCount > townTeam.length) {
-      let addTownTeam = helper.getRandomTeams().townAddon;
+      let addTownTeam = helper.getRandomTeams().town.addon;
       let neededCount = townNeedCount - townTeam.length;
       for (let i = 0; i < neededCount; i++) {
         townTeam.push(addTownTeam[i]);
@@ -3716,7 +3713,9 @@ module.exports = {
     let werewolfIndex = 0;
     let teams = helper.getRandomTeams();
     
-    
+    /// Always role
+    roles.push("werewolf");
+    werewolfNeedCount--;
     
     
     return roles;
