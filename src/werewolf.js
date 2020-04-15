@@ -3633,24 +3633,16 @@ module.exports = {
 
     // ww team
     while (werewolfNeedCount) {
-      // check apakah ww role sudah habis ato engga
-      // kalau habis, randomkan saja
-      if (werewolfIndex > werewolfTeam.length - 1) {
-        let maxIndex = werewolfTeam.length - 1;
-        let randomWerewolfIndex = helper.getRandomInt(0, maxIndex);
-        roles.push(neutralTeam[randomWerewolfIndex]);
+      roles.push(werewolfTeam[werewolfIndex]);
+      if (helper.trueOrFalse()) {
+        needSheriff = true;
       } else {
-        roles.push(werewolfTeam[werewolfIndex]);
-        if (helper.trueOrFalse()) {
-          needSheriff = true;
-        } else {
-          if (!roles.includes("vigilante")) {
-            roles.push("vigilante");
-            townNeedCount--;
-          }
+        if (!roles.includes("vigilante")) {
+          roles.push("vigilante");
+          townNeedCount--;
         }
-        werewolfIndex++;
       }
+      werewolfIndex++;
 
       werewolfNeedCount--;
     }
