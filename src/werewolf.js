@@ -3596,7 +3596,11 @@ module.exports = {
       kalau index nya 2, berarti uda 2 role dideploy
       yaitu index 0, sama index 1 
     */
+    
+    /// INI COBA BUAT CLASSIC DULU
+    
     let roles = [];
+    let teams = helper.getRandomTeams();
     let maxWerewolfCount = 0;
     
     if (mode === "classic") {
@@ -3627,50 +3631,40 @@ module.exports = {
     }
     
     
-      
-      
+    
     let needSheriff = false;
+    let needVigilante = false;
     
     /// Always role
     roles.push("werewolf");
     werewolfNeedCount--;
-
-    /// bad guy generator
     
-    if (mode === "classic") {
-      
-    } else if (mode === "chaos") {
-      
-    }
-    
-    /// bad guy generator
-    
-    if (mode === "classic") {
-      /// Always role
+    if (playersLength > 7) {
       roles.push("werewolf-cub");
       werewolfNeedCount--;
       needSheriff = true;
+    }
+    
+    /// bad guy generator
       
-      let werewolfIndex = 0;
+      let werewolfSupportIndex = 0;
+      let werewolfDeceptionIndex = 0;
       
       // ww team
       while (werewolfNeedCount) {
-        roles.push(werewolfTeam[werewolfIndex]);
+        
         if (helper.trueOrFalse()) {
-          
+          // werewolf support
+          roles.push(teams.werewolf.support[werewolfSupportIndex]);
+          werewolfSupportIndex++;
         } else {
-          if (!roles.includes("vigilante")) {
-            roles.push("vigilante");
-            townNeedCount--;
-          }
+          // werewolf deception
+          roles.push(teams.werewolf.deception[werewolfDeceptionIndex]);
+          werewolfDeceptionIndex++;
         }
-        werewolfIndex++;
 
         werewolfNeedCount--;
       }
-    } else if (mode === "chaos") {
-      
-    }
     
 
     // ww team
@@ -3717,8 +3711,13 @@ module.exports = {
       neutralNeedCount--;
     }
 
-    if (needSheriff && !roles.includes("sheriff")) {
+    if (needSheriff) {
       roles.push("sheriff");
+      townNeedCount--;
+    }
+    
+    if (needVigilante) {
+      roles.push("vigilante");
       townNeedCount--;
     }
 
