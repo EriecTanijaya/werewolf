@@ -611,7 +611,9 @@ module.exports = {
     let players = this.group_session.players;
     let playersLength = players.length;
     let roles = this.getRandomRoleSet(playersLength); //cp
-    //let roles = ["executioner", "spy", "doctor", "werewolf", "seer"];
+    
+    /// test specific role
+    // let roles = ["werewolf-cub", "spy", "framer", "werewolf", "sheriff", "seer"];
 
     /// hax for exe
     let exeIndex = -1;
@@ -1253,7 +1255,7 @@ module.exports = {
               this.group_session.players[targetIndex].blocked = true;
 
               spyWerewolfVisitInfo +=
-                "🐺 " + target.name + " dikunjungi Werewolf" + "\n\n";
+                "🐺 " + target.name + " dikunjungi anggota Werewolf" + "\n\n";
 
               if (players[targetIndex].bugged) {
                 spyBuggedInfo +=
@@ -1337,7 +1339,7 @@ module.exports = {
             this.group_session.players[i].role.disguiseAs = target.role.name;
 
             spyWerewolfVisitInfo +=
-              "🐺 " + target.name + " dikunjungi Werewolf" + "\n\n";
+              "🐺 " + target.name + " dikunjungi anggota Werewolf" + "\n\n";
           }
         }
       }
@@ -2202,7 +2204,7 @@ module.exports = {
               ];
 
               spyWerewolfVisitInfo +=
-                "🐺 " + target.name + " dikunjungi Werewolf" + "\n\n";
+                "🐺 " + target.name + " dikunjungi anggota Werewolf" + "\n\n";
 
               if (immuneToBasicAttack.includes(target.role.name)) {
                 this.group_session.players[i].message +=
@@ -2465,7 +2467,7 @@ module.exports = {
               "🎞️ " + doer.name + " menjebak " + target.name + "\n\n";
 
             spyWerewolfVisitInfo +=
-              "🐺 " + target.name + " dikunjungi Werewolf" + "\n\n";
+              "🐺 " + target.name + " dikunjungi anggota Werewolf" + "\n\n";
 
             this.group_session.players[targetIndex].framed = true;
           }
@@ -2574,7 +2576,7 @@ module.exports = {
 
             this.group_session.players[i].message +=
               "Kamu bisa cek info role dengan ketik '/info " +
-              target.role.name +
+              targetRoleName +
               "'" +
               "\n\n";
           }
@@ -2617,7 +2619,7 @@ module.exports = {
               "🧙 Role " + target.name + " adalah " + target.role.name + "\n\n";
 
             spyWerewolfVisitInfo +=
-              "🐺 " + target.name + " dikunjungi Werewolf" + "\n\n";
+              "🐺 " + target.name + " dikunjungi anggota Werewolf" + "\n\n";
 
             this.group_session.players[i].message +=
               "Kamu bisa cek info role dengan ketik '/info " +
@@ -2903,7 +2905,10 @@ module.exports = {
 
     ///check victory
     let someoneWin = this.checkVictory();
-
+    
+    // cp make endless
+    //someoneWin = false;
+    
     if (someoneWin) {
       flex_texts.unshift(flex_text);
       return this.endGame(flex_texts, someoneWin);
@@ -3152,6 +3157,10 @@ module.exports = {
       return this.night(null);
     } else {
       let someoneWin = this.checkVictory();
+      
+      // cp
+      //someoneWin = false;
+      
       if (someoneWin) {
         return this.endGame(null, someoneWin);
       } else {
