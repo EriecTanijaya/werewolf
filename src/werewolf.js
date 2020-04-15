@@ -3696,6 +3696,10 @@ module.exports = {
 
     return roles;
   },
+  
+  getClassicRoleSet: function() {
+    
+  },
 
   getTimeDefault: function(playersLength) {
     let time = 0;
