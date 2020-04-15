@@ -324,7 +324,7 @@ module.exports = {
       this.group_session.players[index].target.value++;
     }
 
-    /// Special role communication
+    /// Special role communication cp
     if (roleTeam === "werewolf" || roleTeam === "vampire") {
       let chatBox = [];
 
@@ -344,7 +344,7 @@ module.exports = {
 
     msg = [text];
     if (players[index].role.canKill && players[index].deathNote === "") {
-      msg.push("💡 Kamu belum buat death note, ketik '/dnote' <isi note kamu>");
+      msg.push("💡 Kamu belum buat death note, ketik '/dnote isi note kamu'");
     }
 
     return this.replyText(msg);
