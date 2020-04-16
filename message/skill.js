@@ -1,5 +1,5 @@
 module.exports = {
-  response: function(doer) {
+  response: function(doer, wantBroadcast) {
     let roleName = doer.roleName;
     let targetName = doer.targetName;
     let isChangeTarget = doer.changeTarget;
@@ -8,7 +8,7 @@ module.exports = {
     let subjectText = "Kamu";
     
     if (wantBroadcast) {
-      subjectText = doer.name;
+      subjectText = "Aku"
     }
     
     switch (roleName) {

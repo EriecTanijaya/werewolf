@@ -311,8 +311,6 @@ module.exports = {
         doer.selfTarget = true;
       }
     }
-    
-    let text = skillText.response(doer);
 
     this.group_session.players[index].target = {
       index: targetIndex,
@@ -326,6 +324,7 @@ module.exports = {
     /// Special role communication cp
     if (roleTeam === "werewolf" || roleTeam === "vampire") {
       let chatBox = [];
+      let text = skillText.response(doer, true);
       let message = {
         name: players[index].name,
         text: text
@@ -340,6 +339,7 @@ module.exports = {
       }
     }
     
+    let text = skillText.response(doer, null);
     let msg = [text];
     if (players[index].role.canKill && players[index].deathNote === "") {
       msg.push("💡 Kamu belum buat death note, ketik '/dnote isi note kamu'");
