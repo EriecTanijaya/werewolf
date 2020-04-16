@@ -623,7 +623,14 @@ module.exports = {
     let text = "";
     let msg = [];
 
-    text = skillText.response(roleName, null, null, true);
+    let doer = {
+      name: players[index].name,
+      roleName: roleName,
+      targetName: "",
+      selfTarget: false,
+      changeTarget: false
+    }
+    text = skillText.response(doer, null);
     msg = [text];
 
     if (players[index].role.canKill && players[index].deathNote === "") {
@@ -663,7 +670,14 @@ module.exports = {
     let text = "";
     let msg = [];
 
-    text = skillText.response(roleName, null, null, true);
+    let doer = {
+      name: players[index].name,
+      roleName: roleName,
+      targetName: "",
+      selfTarget: false,
+      changeTarget: false
+    }
+    text = skillText.response(doer, null);
     msg = [text];
 
     return this.replyText(msg);
