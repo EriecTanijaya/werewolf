@@ -312,7 +312,36 @@ const roles = [
       self: "👣"
     },
     type: "Town Investigate"
-  }
+  },
+  {
+    name: "framer",
+    description:
+      "Kamu adalah anggota Werewolf yang bisa menjebak seorang warga pada malam hari agar warga tersebut terlihat bersalah jika di cek",
+    skillText: "Framer, pilih siapa yang mau dijebak",
+    cmdText: "/skill",
+    team: "werewolf",
+    canKill: false,
+    emoji: {
+      team: "🐺",
+      self: "🎞️"
+    },
+    type: "Werewolf Deception"
+  },
+  {
+    name: "disguiser",
+    description:
+      "Kamu adalah anggota Werewolf yang bisa mengimitasi nama role seorang warga, dan jika mati yang terlihat role mu adalah role yang kamu imitasi",
+    skillText: "Disguiser, pilih siapa yang mau imitasi",
+    cmdText: "/skill",
+    team: "werewolf",
+    canKill: false,
+    emoji: {
+      team: "🐺",
+      self: "🎭"
+    },
+    type: "Werewolf Deception",
+    disguiseAs: ""
+  },
 ];
 
 module.exports = roles;

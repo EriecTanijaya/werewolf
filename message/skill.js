@@ -1,16 +1,26 @@
 module.exports = {
-  response: function(roleName, targetName, isChangeTarget, isSelfTarget) {
+  response: function(doer, wantBroadcast) {
+    let roleName = doer.roleName;
+    let targetName = doer.targetName;
+    let isChangeTarget = doer.changeTarget;
+    let isSelfTarget= doer.selfTarget;
     let text = "";
+    let subjectText = "Kamu";
+    
+    if (wantBroadcast) {
+      subjectText = "Aku"
+    }
+    
     switch (roleName) {
       case "werewolf":
       case "werewolf-cub":
         if (isChangeTarget) {
           text +=
-            "🐺 Kamu berubah pikiran dan memutuskan untuk membunuh " +
+            "🐺 " + subjectText + " berubah pikiran dan memutuskan untuk membunuh " +
             targetName +
             " saja malam ini";
         } else {
-          text += "🐺 Kamu memilih untuk membunuh " + targetName + " malam ini";
+          text += "🐺 " + subjectText + " memilih untuk membunuh " + targetName + " malam ini";
         }
         break;
 
@@ -18,12 +28,12 @@ module.exports = {
       case "sorcerer":
         if (isChangeTarget) {
           text +=
-            "🔮 Kamu berubah pikiran dan berencana untuk menerawang " +
+            "🔮 " + subjectText + " berubah pikiran dan berencana untuk menerawang " +
             targetName +
             " saja malam ini";
         } else {
           text +=
-            "🔮 Kamu berencana untuk menerawang " + targetName + " malam ini";
+            "🔮 " + subjectText + " berencana untuk menerawang " + targetName + " malam ini";
         }
         break;
 
@@ -31,44 +41,44 @@ module.exports = {
       case "consort":
         if (isChangeTarget) {
           text +=
-            "🚷 Kamu berubah pikiran dan berencana untuk me-roleblock " +
+            "🚷 " + subjectText + " berubah pikiran dan berencana untuk me-roleblock " +
             targetName +
             " saja malam ini";
         } else {
           text +=
-            "🚷 Kamu berencana untuk me-roleblock " + targetName + " malam ini";
+            "🚷 " + subjectText + " berencana untuk me-roleblock " + targetName + " malam ini";
         }
         break;
 
       case "vigilante":
         if (isChangeTarget) {
           text +=
-            "🔫 Kamu berubah pikiran dan berencana untuk membunuh " +
+            "🔫 " + subjectText + " berubah pikiran dan berencana untuk membunuh " +
             targetName +
             " saja malam ini";
         } else {
           text +=
-            "🔫 Kamu berencana untuk membunuh " + targetName + " malam ini";
+            "🔫 " + subjectText + " berencana untuk membunuh " + targetName + " malam ini";
         }
         break;
 
       case "veteran":
-        text += "💥 Kamu memutuskan untuk berjaga-jaga di rumah mu";
+        text += "💥 " + subjectText + " memutuskan untuk berjaga-jaga di rumah mu";
         break;
         
       case "survivor":
-        text += "🦺 Kamu memutuskan untuk memakai Vest mu";
+        text += "🦺 " + subjectText + " memutuskan untuk memakai Vest mu";
         break;
 
       case "serial-killer":
         if (isChangeTarget) {
           text +=
-            "🔪 Kamu berubah pikiran dan berencana untuk membunuh " +
+            "🔪 " + subjectText + " berubah pikiran dan berencana untuk membunuh " +
             targetName +
             " saja malam ini";
         } else {
           text +=
-            "🔪 Kamu berencana untuk membunuh " + targetName + " malam ini";
+            "🔪 " + subjectText + " berencana untuk membunuh " + targetName + " malam ini";
         }
         break;
 
@@ -76,20 +86,20 @@ module.exports = {
         if (isChangeTarget) {
           if (isSelfTarget) {
             text +=
-              "🔥 Kamu berubah pikiran dan memutuskan untuk membakar rumah target yg telah disirami bensin";
+              "🔥 " + subjectText + " berubah pikiran dan memutuskan untuk membakar rumah target yg telah disirami bensin";
           } else {
             text +=
-              "⛽ Kamu berubah pikiran dan memutuskan untuk me nyirami rumah " +
+              "⛽ " + subjectText + " berubah pikiran dan memutuskan untuk me nyirami rumah " +
               targetName +
               " saja dengan bensin";
           }
         } else {
           if (isSelfTarget) {
             text +=
-              "🔥 Kamu memutuskan untuk membakar rumah target yg telah disirami bensin";
+              "🔥 " + subjectText + " memutuskan untuk membakar rumah target yg telah disirami bensin";
           } else {
             text +=
-              "⛽ Kamu memutuskan untuk me nyirami rumah " +
+              "⛽ " + subjectText + " memutuskan untuk me nyirami rumah " +
               targetName +
               " dengan bensin";
           }
@@ -100,20 +110,20 @@ module.exports = {
         if (isChangeTarget) {
           if (isSelfTarget) {
             text +=
-              "💉 Kamu berubah pikiran dan memutuskan untuk melindungi diri mu sendiri saja malam ini";
+              "💉 " + subjectText + " berubah pikiran dan memutuskan untuk melindungi diri mu sendiri saja malam ini";
           } else {
             text +=
-              "💉 Kamu berubah pikiran dan memutuskan untuk berkunjung ke rumah " +
+              "💉 " + subjectText + " berubah pikiran dan memutuskan untuk berkunjung ke rumah " +
               targetName +
               " saja dan merawatnya jika dia terkena serangan";
           }
         } else {
           if (isSelfTarget) {
             text +=
-              "💉 Kamu memutuskan untuk berjaga-jaga untuk melindungi diri mu sendiri malam ini";
+              "💉 " + subjectText + " memutuskan untuk berjaga-jaga untuk melindungi diri mu sendiri malam ini";
           } else {
             text +=
-              "💉 Kamu memutuskan untuk berkunjung ke rumah " +
+              "💉 " + subjectText + " memutuskan untuk berkunjung ke rumah " +
               targetName +
               " dan merawatnya jika dia terkena serangan";
           }
@@ -123,12 +133,12 @@ module.exports = {
       case "retributionist":
         if (isChangeTarget) {
           text +=
-            "⚰️ Kamu berubah pikiran dan memutuskan untuk ke makam " +
+            "⚰️ " + subjectText + " berubah pikiran dan memutuskan untuk ke makam " +
             targetName +
             " saja dan membangkitkan nya dari kematian";
         } else {
           text +=
-            "⚰️ Kamu memutuskan untuk ke makam " +
+            "⚰️ " + subjectText + " memutuskan untuk ke makam " +
             targetName +
             " dan membangkitkan nya dari kematian";
         }
@@ -137,23 +147,23 @@ module.exports = {
       case "vampire":
         if (isChangeTarget) {
           text +=
-            "🦇 Kamu berubah pikiran dan memilih " +
+            "🦇 " + subjectText + " berubah pikiran dan memilih " +
             targetName +
             " saja untuk dijadikan vampire";
         } else {
-          text += "🦇 Kamu memilih " + targetName + " untuk dijadikan vampire";
+          text += "🦇 " + subjectText + " memilih " + targetName + " untuk dijadikan vampire";
         }
         break;
 
       case "vampire-hunter":
         if (isChangeTarget) {
           text +=
-            "🗡️ Kamu berubah pikiran dan memutuskan untuk cek " +
+            "🗡️ " + subjectText + " berubah pikiran dan memutuskan untuk cek " +
             targetName +
             " apakah dia vampire atau bukan";
         } else {
           text +=
-            "🗡️ Kamu memutuskan untuk cek " +
+            "🗡️ " + subjectText + " memutuskan untuk cek " +
             targetName +
             " apakah dia vampire atau bukan";
         }
@@ -162,65 +172,89 @@ module.exports = {
       case "lookout":
         if (isChangeTarget) {
           text +=
-            "👀 Kamu berubah pikiran dan memutuskan untuk mengawasi " +
+            "👀 " + subjectText + " berubah pikiran dan memutuskan untuk mengawasi " +
             targetName +
             " saja malam ini";
         } else {
           text +=
-            "👀 Kamu memutuskan untuk mengawasi " + targetName + " malam ini";
+            "👀 " + subjectText + " memutuskan untuk mengawasi " + targetName + " malam ini";
         }
         break;
 
       case "sheriff":
         if (isChangeTarget) {
           text +=
-            "👮 Kamu berubah pikiran dan memutuskan untuk interogasi " +
+            "👮 " + subjectText + " berubah pikiran dan memutuskan untuk interogasi " +
             targetName +
             " saja malam ini";
         } else {
           text +=
-            "👮 Kamu memutuskan untuk interogasi " + targetName + " malam ini";
+            "👮 " + subjectText + " memutuskan untuk interogasi " + targetName + " malam ini";
         }
         break;
         
       case "jester":
         if (isChangeTarget) {
           text +=
-            "👻 Kamu berubah pikiran dan memutuskan untuk menghantui " +
+            "👻 " + subjectText + " berubah pikiran dan memutuskan untuk menghantui " +
             targetName +
             " saja malam ini";
         } else {
           text +=
-            "👻 Kamu memutuskan untuk menghantui " + targetName + " malam ini";
+            "👻 " + subjectText + " memutuskan untuk menghantui " + targetName + " malam ini";
         }
         break;
         
       case "spy":
         if (isChangeTarget) {
           text +=
-            "🔍 Kamu berubah pikiran dan memutuskan untuk menyadap " +
+            "🔍 " + subjectText + " berubah pikiran dan memutuskan untuk menyadap " +
             targetName +
             " saja malam ini";
         } else {
           text +=
-            "🔍 Kamu memutuskan untuk menyadap " + targetName + " malam ini";
+            "🔍 " + subjectText + " memutuskan untuk menyadap " + targetName + " malam ini";
         }
         break;
         
       case "tracker":
         if (isChangeTarget) {
           text +=
-            "👣 Kamu berubah pikiran dan memutuskan untuk melacak " +
+            "👣 " + subjectText + " berubah pikiran dan memutuskan untuk melacak " +
             targetName +
             " saja malam ini";
         } else {
           text +=
-            "👣 Kamu memutuskan untuk melacak " + targetName + " malam ini";
+            "👣 " + subjectText + " memutuskan untuk melacak " + targetName + " malam ini";
+        }
+        break;
+        
+      case "framer":
+        if (isChangeTarget) {
+          text +=
+            "🎞️ " + subjectText + " berubah pikiran dan memutuskan untuk menjebak " +
+            targetName +
+            " saja malam ini";
+        } else {
+          text +=
+            "🎞️ " + subjectText + " memutuskan untuk menjebak " + targetName + " malam ini";
+        }
+        break;
+        
+      case "disguiser":
+        if (isChangeTarget) {
+          text +=
+            "🎭 " + subjectText + " berubah pikiran dan memutuskan untuk mengimitasi " +
+            targetName +
+            " saja malam ini";
+        } else {
+          text +=
+            "🎭 " + subjectText + " memutuskan untuk mengimitasi " + targetName + " malam ini";
         }
         break;
         
     }
     
     return text;
-  }
+  },
 };
