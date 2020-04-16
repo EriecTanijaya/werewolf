@@ -620,7 +620,7 @@ module.exports = {
     let roles = this.getRandomRoleSet(playersLength); //cp
 
     /// test specific role
-    // let roles = ["werewolf-cub", "spy", "framer", "werewolf", "sheriff", "seer"];
+    //let roles = ["arsonist", "doctor", "veteran"];
 
     /// hax for exe
     let exeIndex = -1;
