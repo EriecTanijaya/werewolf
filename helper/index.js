@@ -54,48 +54,6 @@ module.exports = {
     this.resetRoom(group_sessions, key);
   },
 
-  getRandomTeams: function() {
-    let teams = {
-      town: {
-        investigate: ["seer", "lookout", "spy", "tracker"],
-        killing: ["veteran", "vigilante"],
-        support: ["retributionist", "escort"],
-        protector: ["doctor"],
-        addon: []
-      },
-      werewolf: {
-        killing: ["werewolf-cub"],
-        support: ["sorcerer", "consort"],
-        deception: ["framer", "disguiser"]
-      },
-      neutral: {
-        killing: ["arsonist", "serial-killer"],
-        chaos: ["vampire"],
-        benign: ["jester", "survivor", "executioner"]
-      }
-    };
-
-    // hax, maybe temporary untill all town roles can duplicate
-    let townAddon = [
-      "seer",
-      "escort",
-      "tracker",
-      "lookout",
-      "sheriff",
-      "vigilante"
-    ];
-
-    teams.town.investigate = this.shuffleArray(teams.town.investigate);
-    teams.town.support = this.shuffleArray(teams.town.support);
-    teams.town.addon = this.shuffleArray(townAddon);
-    teams.werewolf.support = this.shuffleArray(teams.werewolf.support);
-    teams.werewolf.deception = this.shuffleArray(teams.werewolf.deception);
-    teams.neutral.killing = this.shuffleArray(teams.neutral.killing);
-    teams.neutral.benign = this.shuffleArray(teams.neutral.benign);
-    
-    return teams;
-  },
-
   getFlexColor: function() {
     let color = {};
     let today = new Date().toLocaleTimeString("id-ID", {

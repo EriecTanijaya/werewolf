@@ -1,7 +1,5 @@
 TODO
 
-- refactor skillText func
-
 ```
 let playersLength = 5
 let townNeedCount = Math.round(playersLength / 2) + 1;
