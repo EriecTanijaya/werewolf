@@ -304,12 +304,12 @@ module.exports = {
 
     let playerTargetIndex = players[index].target.index;
     if (playerTargetIndex === -1) {
-        if (targetIndex === index) {
+        if (targetIndex == index) {
           doer.selfTarget = true;
         }
     } else {
       doer.changeTarget = true;
-      if (targetIndex === index) {
+      if (targetIndex == index) {
         doer.selfTarget = true;
       }
     }
@@ -654,7 +654,7 @@ module.exports = {
     let roleName = players[index].role.name;
 
     if (roleName !== "survivor") {
-      return this.replyText("💡 Role mu bukan Veteran");
+      return this.replyText("💡 Role mu bukan Survivor");
     }
 
     if (players[index].status === "death") {
