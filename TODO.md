@@ -1,5 +1,17 @@
 TODO
 
+```
+let playersLength = 5
+let townNeedCount = Math.round(playersLength / 2) + 1;
+let badNeedCount = playersLength - townNeedCount;
+let werewolfNeedCount = Math.round((50 / 100) * badNeedCount);
+//werewolfNeedCount = 4;
+let neutralNeedCount = badNeedCount - werewolfNeedCount;
+
+console.log(`jumlah pemain ${playersLength}`)
+console.log(`town ${townNeedCount}, ww ${werewolfNeedCount}, neutral ${neutralNeedCount}`)
+```
+
 - buat database beneran, data user store di mongodb freakin' hard tho
 - kalau role udah bsa multi gitu,
   - doctor : ada private prop ke target, yg di healed, pasti harus ada prop healed by who gitu
