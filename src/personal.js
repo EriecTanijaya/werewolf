@@ -654,7 +654,7 @@ module.exports = {
     let roleName = players[index].role.name;
 
     if (roleName !== "survivor") {
-      return this.replyText("💡 Role mu bukan Veteran");
+      return this.replyText("💡 Role mu bukan Survivor");
     }
 
     if (players[index].status === "death") {
