@@ -1,4 +1,4 @@
-const skillText = require("/app/message/skill"); //cp refactor
+const skillText = require("/app/message/skill");
 const helper = require("/app/helper");
 
 module.exports = {
@@ -165,7 +165,7 @@ module.exports = {
 
     if (this.args.length < 2) {
       return this.replyText(
-        "💡 isi death note dengan '/dnote <kata-kata nya>'"
+        "💡 isi death note dengan '/dnote pesan kamu'"
       );
     }
 
@@ -303,8 +303,10 @@ module.exports = {
     }
 
     let playerTargetIndex = players[index].target.index;
-    if (playerTargetIndex === -1 && targetIndex === index) {
-        doer.selfTarget = true;
+    if (playerTargetIndex === -1) {
+        if (targetIndex === index) {
+          doer.selfTarget = true;
+        }
     } else {
       doer.changeTarget = true;
       if (targetIndex === index) {
@@ -321,7 +323,7 @@ module.exports = {
       this.group_session.players[index].target.value++;
     }
 
-    /// Special role communication cp
+    /// Special role communication
     if (roleTeam === "werewolf" || roleTeam === "vampire") {
       let chatBox = [];
       let text = skillText.response(doer, true);
