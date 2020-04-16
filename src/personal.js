@@ -304,12 +304,12 @@ module.exports = {
 
     let playerTargetIndex = players[index].target.index;
     if (playerTargetIndex === -1) {
-        if (targetIndex === index) {
+        if (targetIndex == index) {
           doer.selfTarget = true;
         }
     } else {
       doer.changeTarget = true;
-      if (targetIndex === index) {
+      if (targetIndex == index) {
         doer.selfTarget = true;
       }
     }
