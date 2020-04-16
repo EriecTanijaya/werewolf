@@ -98,7 +98,7 @@ module.exports = {
           break;
 
         case "vh":
-        case "vampire-hunter":
+        case "vampire hunter":
           flex_text.header.text = "🗡️ Vampire-Hunter";
           flex_text.body.text += "Type: Town Killing" + "\n\n";
           flex_text.body.text +=
@@ -107,7 +107,7 @@ module.exports = {
             "Mampu mendengar percakapan Vampire saat malam. ";
           break;
 
-        case "werewolf-cub":
+        case "werewolf cub":
           flex_text.header.text = "🐕 Werewolf-Cub";
           flex_text.body.text += "Type: Werewolf Killing" + "\n\n";
           flex_text.body.text +=
@@ -168,7 +168,8 @@ module.exports = {
             "Namun jika ke rumah Serial Killer, Escort ini bisa dibunuhnya. Escort immune dari role block";
           break;
 
-        case "serial-killer":
+        case "sk":
+        case "serial killer":
           flex_text.header.text = "🔪 Serial Killer";
           flex_text.body.text += "Type: Neutral Killing" + "\n\n";
           flex_text.body.text +=
@@ -225,9 +226,9 @@ module.exports = {
           flex_text.header.text = "🪓 Executioner";
           flex_text.body.text += "Type: Neutral Chaos" + "\n\n";
           flex_text.body.text +=
-            "Pendendam yang ingin targetnya mati di gantung. Jika targetmu mati di serang saat malam, ";
+            "Pendendam yang ingin targetnya mati di gantung. Jika targetnya mati di serang saat malam, ";
           flex_text.body.text +=
-            "maka dia akan menjadi Jester. Targetmu akan selalu di pihak warga dan kamu bisa immune dari serangan biasa";
+            "maka dia akan menjadi Jester. Targetnya akan selalu di pihak warga dan dia bisa immune dari serangan biasa";
           break;
 
         case "spy":
@@ -244,6 +245,28 @@ module.exports = {
           flex_text.body.text += "Type: Town Investigate" + "\n\n";
           flex_text.body.text +=
             "Warga yang bisa melacak suatu pemain untuk diketahui kemana aja Targetnya. ";
+          break;
+          
+        case "framer":
+          flex_text.header.text = "🎞️ Framer";
+          flex_text.body.text += "Type: Werewolf Deception" + "\n\n";
+          flex_text.body.text +=
+            "Anggota Werewolf yang bisa membuat suatu pemain tampak bersalah. ";
+          flex_text.body.text +=
+            "Jika Target Framer di cek Sheriff, maka akan tampak bersalah walaupun ia adalah warga. ";
+          flex_text.body.text +=
+            "Jika di cek Seer, akan muncul Werewolf, walaupun sebenarnya bukan";
+          break;
+          
+        case "disguiser":
+          flex_text.header.text = "🎭 Disguiser";
+          flex_text.body.text += "Type: Werewolf Deception" + "\n\n";
+          flex_text.body.text +=
+            "Anggota Werewolf yang bisa meniru nama role seorang warga. ";
+          flex_text.body.text +=
+            "Jika Disguiser mati, maka nama role yang ada di daftar pemain adalah nama role warga yang dia imitasi. ";
+          flex_text.body.text +=
+            "Hasil cek Sheriff akan tetap mencurigakan, sedangkan Seer hasil terawangnya adalah role yang di imitasi"
           break;
 
         default:

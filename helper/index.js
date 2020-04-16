@@ -12,7 +12,7 @@ module.exports = {
     });
     return text;
   },
-  
+
   getRoleTeamEmoji: function(team) {
     const roles = require("/app/roles/rolesData");
     for (let i = 0; i < roles.length; i++) {
@@ -21,7 +21,7 @@ module.exports = {
       }
     }
   },
-  
+
   getRoleNameEmoji: function(roleName) {
     const roles = require("/app/roles/rolesData");
     for (let i = 0; i < roles.length; i++) {
@@ -52,36 +52,6 @@ module.exports = {
       this.resetUser(user_sessions, item.id);
     });
     this.resetRoom(group_sessions, key);
-  },
-
-  getRandomTeams: function() {
-    let teams = {
-      town: [],
-      werewolf: [],
-      neutral: []
-    };
-    let townTeam = [
-      "seer",
-      "doctor",
-      "escort",
-      "veteran",
-      "lookout",
-      "retributionist",
-      "spy",
-      "tracker"
-    ];
-    let werewolfTeam = ["werewolf-cub", "sorcerer", "consort"];
-    let neutralTeam = [
-      "serial-killer",
-      "arsonist",
-      "jester",
-      "vampire",
-      "survivor"
-    ];
-    teams.town = this.shuffleArray(townTeam);
-    teams.werewolf = this.shuffleArray(werewolfTeam);
-    teams.neutral = this.shuffleArray(neutralTeam);
-    return teams;
   },
 
   getFlexColor: function() {

@@ -165,7 +165,7 @@ module.exports = {
 
     if (this.args.length < 2) {
       return this.replyText(
-        "💡 isi death note dengan '/dnote <kata-kata nya>'"
+        "💡 isi death note dengan '/dnote pesan kamu'"
       );
     }
 
@@ -293,25 +293,24 @@ module.exports = {
       }
     }
 
-    let text = "";
-    let msg = [];
-    let broadcastMessage;
-
     let targetName = players[targetIndex].name;
+    let doer = {
+      name: players[index].name,
+      roleName: roleName,
+      targetName: targetName,
+      selfTarget: false,
+      changeTarget: false
+    }
 
-    if (players[index].target.index === -1) {
-      if (targetIndex === index) {
-        text = skillText.response(roleName, targetName, null, true);
-      } else {
-        text = skillText.response(roleName, targetName, null, null);
-        broadcastMessage = skillText.response(roleName, targetName, null, null);
-      }
+    let playerTargetIndex = players[index].target.index;
+    if (playerTargetIndex === -1) {
+        if (targetIndex === index) {
+          doer.selfTarget = true;
+        }
     } else {
+      doer.changeTarget = true;
       if (targetIndex === index) {
-        text = skillText.response(roleName, targetName, true, true);
-      } else {
-        text = skillText.response(roleName, targetName, true, null);
-        broadcastMessage = skillText.response(roleName, targetName, true, null);
+        doer.selfTarget = true;
       }
     }
 
@@ -327,10 +326,10 @@ module.exports = {
     /// Special role communication
     if (roleTeam === "werewolf" || roleTeam === "vampire") {
       let chatBox = [];
-
+      let text = skillText.response(doer, true);
       let message = {
         name: players[index].name,
-        text: "📣 Saya menggunakan skill ke " + targetName
+        text: text
       };
 
       if (roleTeam === "werewolf") {
@@ -341,10 +340,11 @@ module.exports = {
         this.group_session.vampireChat.push(message);
       }
     }
-
-    msg = [text];
+    
+    let text = skillText.response(doer, null);
+    let msg = [text];
     if (players[index].role.canKill && players[index].deathNote === "") {
-      msg.push("💡 Kamu belum buat death note, ketik '/dnote' <isi note kamu>");
+      msg.push("💡 Kamu belum buat death note, ketik '/dnote isi note kamu'");
     }
 
     return this.replyText(msg);
@@ -935,7 +935,9 @@ module.exports = {
       "sheriff",
       "jester",
       "spy",
-      "tracker"
+      "tracker",
+      "disguiser",
+      "framer"
     ];
 
     if (cantTargetItSelf.includes(roleName)) {

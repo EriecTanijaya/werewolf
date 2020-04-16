@@ -374,6 +374,12 @@ module.exports = {
       this.group_session.roomHostId = this.user_session.id;
     }
 
+    if (this.group_session.players.length === 15) {
+      let text = "💡 " + this.user_session.name;
+      text += ", room sudah penuh";
+      return this.replyText(text);
+    }
+
     this.user_session.state = "active";
     this.user_session.groupId = this.group_session.groupId;
 
@@ -394,7 +400,11 @@ module.exports = {
       "💡 " + this.user_session.name + " berhasil bergabung!" + "\n" + reminder;
 
     if (this.group_session.players.length >= 5) {
-      text += "\n" + "📣 Sudah cukup pemain, game bisa dimulai";
+      if (this.group_session.players.length === 15) {
+        text += "\n" + "📣 Room sudah penuh, game bisa dimulai";
+      } else {
+        text += "\n" + "📣 Sudah cukup pemain, game bisa dimulai";
+      }
     }
 
     return this.replyText(text);
@@ -473,6 +483,10 @@ module.exports = {
 
         if (item.status === "death") {
           role.text = item.role.name;
+
+          if (item.role.disguiseAs) {
+            role.text = item.role.disguiseAs;
+          }
         }
 
         table_body[index].contents.push(role);
@@ -601,16 +615,19 @@ module.exports = {
 
   randomRoles: function() {
     ///werewolf harus selalu ada
-    this.group_session.players = helper.shuffleArray(
-      this.group_session.players
-    );
     let players = this.group_session.players;
     let playersLength = players.length;
     let roles = this.getRandomRoleSet(playersLength); //cp
-    //let roles = ["executioner", "spy", "doctor", "werewolf", "seer"];
+
+    /// test specific role
+    // let roles = ["werewolf-cub", "spy", "framer", "werewolf", "sheriff", "seer"];
 
     /// hax for exe
     let exeIndex = -1;
+
+    this.group_session.players = helper.shuffleArray(
+      this.group_session.players
+    );
 
     this.group_session.players.forEach((item, index) => {
       if (index <= roles.length - 1) {
@@ -618,19 +635,23 @@ module.exports = {
       }
 
       item.role = this.getRoleData(item.role.name);
+      // disini bagi role pake pushMessage
+      // if (this.group_session.groupId === process.env.TEST_GROUP) {
+      //   // this.client.pushMessage();
+      // }
+    });
 
+    this.group_session.players = helper.shuffleArray(
+      this.group_session.players
+    );
+
+    this.group_session.players.forEach((item, index) => {
       /// init private prop special role
-
       switch (item.role.name) {
         case "executioner":
           exeIndex = index;
           break;
       }
-
-      // disini bagi role pake pushMessage
-      // if (this.group_session.groupId === process.env.TEST_GROUP) {
-      //   // this.client.pushMessage();
-      // }
     });
 
     /// special exe hax
@@ -646,6 +667,8 @@ module.exports = {
     // to werewolf cub
     this.checkMorphingRole("consort", "werewolf-cub", "werewolf-cub");
     this.checkMorphingRole("sorcerer", "werewolf-cub", "werewolf-cub");
+    this.checkMorphingRole("framer", "werewolf-cub", "werewolf-cub");
+    this.checkMorphingRole("disguiser", "werewolf-cub", "werewolf-cub");
 
     // vampire hunter to vigi
     this.checkMorphingRole("vampire-hunter", "vampire", "vigilante");
@@ -654,6 +677,157 @@ module.exports = {
     this.group_session.roles = this.getRoleList();
 
     this.night(null);
+  },
+
+  getRandomRoleSet: function(playersLength) {
+    // sementara random dulu mode nya, kedepan kalo ada setting
+    // bisa pilih mode
+    // cp
+    let mode = helper.random(["classic", "chaos"]);
+    let roles = [];
+
+    if (mode === "classic") {
+      roles = this.getClassicRoleSet(playersLength);
+    } else if (mode === "chaos") {
+      roles = this.getChaosRoleSet(playersLength);
+    }
+
+    // console.log(`roles di room ${this.group_session.groupId} : ${roles}`);
+
+    return roles;
+  },
+
+  getClassicRoleSet: function(playersLength) {
+    let roles = [
+      "werewolf",
+      "seer",
+      "doctor",
+      "lookout",
+      "veteran",
+      "jester",
+      "escort",
+      "werewolf-cub",
+      "sheriff",
+      "executioner",
+      "retributionist"
+    ];
+
+    let werewolves = ["framer", "disguiser", "consort", "sorcerer"];
+    let werewolfAddon = helper.random(werewolves);
+    roles.push(werewolfAddon);
+
+    let towns = ["tracker", "spy", "vigilante"];
+    towns = helper.shuffleArray(towns);
+    roles.push(towns[0]);
+
+    let neutrals = ["serial-killer", "arsonist"];
+    let neutralAddon = helper.random(neutrals);
+    roles.push(neutralAddon);
+
+    roles.push(towns[1]);
+
+    roles.length = playersLength;
+
+    return roles;
+  },
+  // spy, tracker, vigilante, vampire-hunter
+  getChaosRoleSet: function(playersLength) {
+    let roles = [];
+
+    let townNeedCount = Math.round(playersLength / 2);
+    let badNeedCount = playersLength - townNeedCount;
+    let werewolfNeedCount = Math.round((45 / 100) * badNeedCount);
+
+    if (werewolfNeedCount > 4) {
+      werewolfNeedCount = 4;
+    }
+
+    let neutralNeedCount = badNeedCount - werewolfNeedCount;
+
+    let werewolfIndex = 0;
+    let neutralIndex = 0;
+
+    let needSheriff = false;
+    let needVampireHunter = false;
+    let needVigilante = true;
+
+    // always
+    roles.push("werewolf");
+    werewolfNeedCount--;
+    let werewolves = [
+      "werewolf-cub",
+      "framer",
+      "consort",
+      "disguiser",
+      "sorcerer"
+    ];
+    werewolves = helper.shuffleArray(werewolves);
+
+    let towns = [
+      "seer",
+      "doctor",
+      "lookout",
+      "veteran",
+      "escort",
+      "retributionist",
+      "spy",
+      "tracker"
+    ];
+    towns = helper.shuffleArray(towns);
+
+    let neutrals = [
+      "vampire",
+      "serial-killer",
+      "arsonist",
+      "executioner",
+      "jester",
+      "survivor"
+    ];
+    neutrals = helper.shuffleArray(neutrals);
+
+    while (werewolfNeedCount) {
+      roles.push(werewolves[werewolfIndex]);
+      needVigilante = true;
+
+      werewolfIndex++;
+      werewolfNeedCount--;
+    }
+
+    while (neutralNeedCount) {
+      roles.push(neutrals[neutralIndex]);
+
+      if (neutrals[neutralIndex] === "vampire") {
+        needVampireHunter = true;
+      }
+
+      if (neutrals[neutralIndex] === "serial-killer") {
+        needSheriff = true;
+      }
+
+      neutralIndex++;
+      neutralNeedCount--;
+    }
+
+    if (needSheriff) {
+      roles.push("sheriff");
+      townNeedCount--;
+    }
+
+    if (needVigilante) {
+      roles.push("vigilante");
+      townNeedCount--;
+    }
+
+    if (needVampireHunter) {
+      roles.push("vampire-hunter");
+      townNeedCount--;
+    }
+
+    for (let i = 0; i < townNeedCount; i++) {
+      roles.push(towns[i]);
+    }
+
+    return roles;
   },
 
   night: function(flex_texts) {
@@ -665,6 +839,7 @@ module.exports = {
     this.group_session.werewolfChat = [];
     this.group_session.vampireChat = [];
 
+    // set prop yang reset tiap malamnya (TEMPORARY)
     this.group_session.players.forEach((item, index) => {
       if (item.status === "alive") {
         item.target = {
@@ -683,6 +858,7 @@ module.exports = {
         item.addonMessage = "";
         item.vested = false;
         item.bugged = false;
+        item.framed = false;
 
         //special role (vampire)
         if (item.role.team === "vampire") {
@@ -705,6 +881,8 @@ module.exports = {
     // to werewolf cub
     this.checkMorphingRole("consort", "werewolf-cub", "werewolf-cub");
     this.checkMorphingRole("sorcerer", "werewolf-cub", "werewolf-cub");
+    this.checkMorphingRole("framer", "werewolf-cub", "werewolf-cub");
+    this.checkMorphingRole("disguiser", "werewolf-cub", "werewolf-cub");
 
     // vampire hunter to vigi
     this.checkMorphingRole("vampire-hunter", "vampire", "vigilante");
@@ -878,7 +1056,7 @@ module.exports = {
         }
 
         // check afk
-        let noSkillRoles = ["villager", "jester"];
+        let noSkillRoles = ["villager", "jester", "executioner"];
         if (!noSkillRoles.includes(item.role.name)) {
           if (item.target.index === -1) {
             item.afkCounter++;
@@ -1119,6 +1297,8 @@ module.exports = {
             };
             this.group_session.players[targetIndex].visitors.push(visitor);
 
+            let immuneToRoleBlock = ["escort", "consort", "veteran"];
+
             if (target.role.name === "serial-killer") {
               this.group_session.players[i].message +=
                 "💡 Target kamu immune!" + "\n\n";
@@ -1135,10 +1315,7 @@ module.exports = {
                   "🔍 Ada yang mencoba roleblock Target kamu, hingga Targetmu menyerang nya!" +
                   "\n\n";
               }
-            } else if (
-              target.role.name === "consort" ||
-              target.role.name === "veteran"
-            ) {
+            } else if (immuneToRoleBlock.includes(target.role.name)) {
               this.group_session.players[i].message +=
                 "💡 Target kamu immune!" + "\n\n";
 
@@ -1210,6 +1387,8 @@ module.exports = {
             };
             this.group_session.players[targetIndex].visitors.push(visitor);
 
+            let immuneToRoleBlock = ["escort", "consort", "veteran"];
+
             if (target.role.name === "serial-killer") {
               this.group_session.players[i].message +=
                 "💡 Target kamu immune!" + "\n\n";
@@ -1226,10 +1405,7 @@ module.exports = {
                   "🔍 Ada yang mencoba roleblock Target kamu, hingga Targetmu menyerang nya!" +
                   "\n\n";
               }
-            } else if (
-              target.role.name === "escort" ||
-              target.role.name === "veteran"
-            ) {
+            } else if (immuneToRoleBlock.includes(target.role.name)) {
               this.group_session.players[i].message +=
                 "💡 Target kamu immune!" + "\n\n";
 
@@ -1245,7 +1421,7 @@ module.exports = {
               this.group_session.players[targetIndex].blocked = true;
 
               spyWerewolfVisitInfo +=
-                "🐺 " + target.name + " dikunjungi Werewolf" + "\n\n";
+                "🐺 " + target.name + " dikunjungi anggota Werewolf" + "\n\n";
 
               if (players[targetIndex].bugged) {
                 spyBuggedInfo +=
@@ -1283,7 +1459,60 @@ module.exports = {
       }
     }
 
+    /// Disguiser Action
+    // jangan dipindah di bawah veteran
+    for (let i = 0; i < players.length; i++) {
+      let doer = players[i];
+
+      if (doer.role.name === "disguiser" && doer.status === "alive") {
+        if (doer.target.index === -1) {
+          this.group_session.players[i].message +=
+            "💡 Kamu tidak menggunakan skill mu" + "\n\n";
+
+          continue;
+        } else {
+          if (doer.blocked === true) {
+            this.group_session.players[i].message +=
+              "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." +
+              "\n\n";
+
+            continue;
+          } else if (!doer.attacked) {
+            let targetIndex = doer.target.index;
+            let target = players[targetIndex];
+
+            this.group_session.players[i].message +=
+              "👣 Kamu ke rumah " + target.name + "\n\n";
+
+            werewolfAnnouncement +=
+              "🎭 " +
+              doer.name +
+              " akan mengimitasi role " +
+              target.name +
+              "\n\n";
+
+            // hax for check if the target was veteran
+            if (target.role.name === "veteran" && target.target.index !== -1) {
+              continue;
+            }
+
+            let visitor = {
+              name: doer.name,
+              role: doer.role
+            };
+            this.group_session.players[targetIndex].visitors.push(visitor);
+
+            this.group_session.players[i].role.disguiseAs = target.role.name;
+
+            spyWerewolfVisitInfo +=
+              "🐺 " + target.name + " dikunjungi anggota Werewolf" + "\n\n";
+          }
+        }
+      }
+    }
+
     /// Vampire Action
+    // jangan dipindah di bawah veteran
     for (let i = 0; i < players.length; i++) {
       if (vampireDoerIndex === i) {
         let doer = players[i];
@@ -1345,7 +1574,13 @@ module.exports = {
               "executioner"
             ];
 
-            let canAttacked = ["werewolf-cub", "sorcerer", "consort"];
+            let canAttacked = [
+              "werewolf-cub",
+              "sorcerer",
+              "consort",
+              "framer",
+              "disguiser"
+            ];
 
             if (canAttacked.includes(targetRoleName)) {
               this.group_session.players[i].message +=
@@ -1417,6 +1652,7 @@ module.exports = {
             continue;
           }
 
+          // hax untuk werewolf yang tukang bunuh bukan ww, tapi ww cub
           if (target.role.name === "veteran") {
             if (doer.role.name === "werewolf") {
               if (werewolfDoerIndex !== i) {
@@ -1464,6 +1700,8 @@ module.exports = {
               this.group_session.players[i].message +=
                 "💡 Ada yang datang mengunjungi kamu!" + "\n\n";
 
+              // hax karna escort dan consort sudah masukkin data visitor ke veteran
+              // jadi escort dan consort tak perlu masukin lagi
               if (targetRoleName !== "escort" || targetRoleName !== "consort") {
                 this.group_session.players[targetIndex].message +=
                   "👣 Kamu ke rumah " + doer.name + "\n\n";
@@ -1649,12 +1887,19 @@ module.exports = {
               value: 1
             };
             this.group_session.players[targetIndex].willSuicide = false;
+            this.group_session.players[targetIndex].framed = false;
+
+            let targetRoleName = target.role.name;
+
+            if (target.role.disguiseAs) {
+              targetRoleName = target.role.disguiseAs;
+            }
 
             this.group_session.players[i].message +=
               "⚰️ Kamu berhasil membangkitkan " +
               target.name +
               " (" +
-              target.role.name +
+              targetRoleName +
               ")" +
               "\n\n";
 
@@ -1665,7 +1910,7 @@ module.exports = {
               "⚰️ " +
               target.name +
               " (" +
-              target.role.name +
+              targetRoleName +
               ") bangkit dari kematian!" +
               "\n\n";
           }
@@ -2125,7 +2370,7 @@ module.exports = {
               ];
 
               spyWerewolfVisitInfo +=
-                "🐺 " + target.name + " dikunjungi Werewolf" + "\n\n";
+                "🐺 " + target.name + " dikunjungi anggota Werewolf" + "\n\n";
 
               if (immuneToBasicAttack.includes(target.role.name)) {
                 this.group_session.players[i].message +=
@@ -2182,6 +2427,11 @@ module.exports = {
         let attackerLength = players[i].attackers.length;
         let isBurned = players[i].burned;
         let isHaunted = players[i].isHaunted;
+        let roleName = players[i].role.name;
+
+        if (players[i].role.disguiseAs) {
+          roleName = players[i].role.disguiseAs;
+        }
 
         if (players[i].willSuicide) {
           if (players[i].bugged) {
@@ -2200,8 +2450,7 @@ module.exports = {
 
           allAnnouncement += attackedAnnouncement + "\n";
 
-          allAnnouncement +=
-            "✉️ Role nya adalah " + players[i].role.name + "\n\n";
+          allAnnouncement += "✉️ Role nya adalah " + roleName + "\n\n";
         } else if (isAttacked || isVampireBited) {
           if (isHealed) {
             this.group_session.players[i].message +=
@@ -2275,8 +2524,7 @@ module.exports = {
 
           allAnnouncement += attackedAnnouncement + "\n";
 
-          allAnnouncement +=
-            "✉️ Role nya adalah " + players[i].role.name + "\n\n";
+          allAnnouncement += "✉️ Role nya adalah " + roleName + "\n\n";
 
           //Thanks to
           //https://stackoverflow.com/questions/24806772/how-to-skip-over-an-element-in-map/24806827
@@ -2344,6 +2592,55 @@ module.exports = {
       }
     }
 
+    /// Framer Action
+    for (let i = 0; i < players.length; i++) {
+      let doer = players[i];
+
+      if (doer.role.name === "framer" && doer.status === "alive") {
+        if (doer.target.index === -1) {
+          this.group_session.players[i].message +=
+            "💡 Kamu tidak menggunakan skill mu" + "\n\n";
+
+          continue;
+        } else {
+          if (doer.blocked === true) {
+            this.group_session.players[i].message +=
+              "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." +
+              "\n\n";
+
+            continue;
+          } else {
+            let targetIndex = doer.target.index;
+            let target = players[targetIndex];
+
+            let visitor = {
+              name: doer.name,
+              role: doer.role
+            };
+
+            this.group_session.players[targetIndex].visitors.push(visitor);
+
+            this.group_session.players[i].message +=
+              "👣 Kamu ke rumah " + target.name + "\n\n";
+
+            this.group_session.players[i].message +=
+              "🎞️ Kamu menjebak " +
+              target.name +
+              " agar terlihat bersalah" +
+              "\n\n";
+
+            werewolfAnnouncement +=
+              "🎞️ " + doer.name + " menjebak " + target.name + "\n\n";
+
+            spyWerewolfVisitInfo +=
+              "🐺 " + target.name + " dikunjungi anggota Werewolf" + "\n\n";
+
+            this.group_session.players[targetIndex].framed = true;
+          }
+        }
+      }
+    }
+
     /// Sheriff Action
     for (let i = 0; i < players.length; i++) {
       let doer = players[i];
@@ -2379,10 +2676,12 @@ module.exports = {
               "werewolf-cub",
               "sorcerer",
               "consort",
-              "serial-killer"
+              "serial-killer",
+              "framer",
+              "disguiser"
             ];
 
-            if (suspiciousList.includes(target.role.name)) {
+            if (target.framed || suspiciousList.includes(target.role.name)) {
               this.group_session.players[i].message +=
                 "👮 " + target.name + " mencurigakan" + "\n\n";
             } else {
@@ -2425,15 +2724,25 @@ module.exports = {
 
             this.group_session.players[targetIndex].visitors.push(visitor);
 
+            let targetRoleName = target.role.name;
+
+            if (target.framed) {
+              targetRoleName = "werewolf";
+            }
+
+            if (target.role.disguiseAs) {
+              targetRoleName = target.role.disguiseAs;
+            }
+
             this.group_session.players[i].message +=
               "👣 Kamu ke rumah " + target.name + "\n\n";
 
             this.group_session.players[i].message +=
-              "🔮 Role " + target.name + " adalah " + target.role.name + "\n\n";
+              "🔮 Role " + target.name + " adalah " + targetRoleName + "\n\n";
 
             this.group_session.players[i].message +=
               "Kamu bisa cek info role dengan ketik '/info " +
-              target.role.name +
+              targetRoleName +
               "'" +
               "\n\n";
           }
@@ -2472,13 +2781,11 @@ module.exports = {
             this.group_session.players[i].message +=
               "👣 Kamu ke rumah " + target.name + "\n\n";
 
-            let skillResult =
+            werewolfAnnouncement +=
               "🧙 Role " + target.name + " adalah " + target.role.name + "\n\n";
 
-            werewolfAnnouncement += skillResult;
-
             spyWerewolfVisitInfo +=
-              "🐺 " + target.name + " dikunjungi Werewolf" + "\n\n";
+              "🐺 " + target.name + " dikunjungi anggota Werewolf" + "\n\n";
 
             this.group_session.players[i].message +=
               "Kamu bisa cek info role dengan ketik '/info " +
@@ -2765,6 +3072,9 @@ module.exports = {
     ///check victory
     let someoneWin = this.checkVictory();
 
+    // cp make endless
+    //someoneWin = false;
+
     if (someoneWin) {
       flex_texts.unshift(flex_text);
       return this.endGame(flex_texts, someoneWin);
@@ -2915,10 +3225,12 @@ module.exports = {
 
     let text = "☝️ " + this.user_session.name;
 
-    if (players[index].targetVoteIndex !== -1) {
-      text += " mengganti vote ke ";
-    } else {
+    if (players[index].targetVoteIndex === -1) {
       text += " vote ";
+    } else if (players[index].targetVoteIndex === targetIndex) {
+      text = "💡 " + this.user_session.name + ", kamu sudah vote ";
+    } else {
+      text += " mengganti vote ke ";
     }
 
     this.group_session.players[index].targetVoteIndex = targetIndex;
@@ -3013,6 +3325,10 @@ module.exports = {
       return this.night(null);
     } else {
       let someoneWin = this.checkVictory();
+
+      // cp
+      //someoneWin = false;
+
       if (someoneWin) {
         return this.endGame(null, someoneWin);
       } else {
@@ -3118,6 +3434,7 @@ module.exports = {
 
       // let teamEmoji = helper.getRoleTeamEmoji(roleTeam);
       table_body[i].contents[3].text += roleName;
+
       num++;
 
       newFlex_text.table.body.push(table_body[i]);
@@ -3293,6 +3610,7 @@ module.exports = {
   },
 
   createNewPlayer: function(user_session) {
+    // di sini set prop yang ga bisa di reset tiap malam, dan bisa persistent sepanjang game
     let newPlayer = {
       id: user_session.id,
       name: user_session.name,
@@ -3310,22 +3628,13 @@ module.exports = {
         team: "villager"
       },
       status: "alive",
-      message: "",
-      attacked: false,
-      healed: false,
-      targetIndex: -1,
       targetVoteIndex: -1,
       afkCounter: 0,
-      visitors: [],
-      blocked: false,
-      attackers: [],
-      intercepted: false,
       journals: [],
       deathNote: "",
       willSuicide: false,
       doused: false,
-      burned: false,
-      bugged: false
+      burned: false
     };
     return newPlayer;
   },
@@ -3421,138 +3730,6 @@ module.exports = {
         break;
     }
     this.group_session.players[index].points += 1;
-  },
-
-  getRandomRoleSet: function(playersLength) {
-    let roles = [];
-    let townNeedCount = Math.round(playersLength / 2) + 1;
-    let badNeedCount = playersLength - townNeedCount;
-
-    let teams = helper.getRandomTeams();
-    let townTeam = teams.town;
-
-    if (playersLength !== 6) {
-      roles = this.getRoleSet(townNeedCount, badNeedCount);
-    } else {
-      // bad practice, but who cares?
-      townTeam.length = townNeedCount;
-      townTeam.forEach(item => {
-        roles.push(item);
-      });
-      let badRole = helper.random(["werewolf", "serial-killer"]);
-      roles.push(badRole, "jester");
-    }
-
-    roles = helper.shuffleArray(roles);
-
-    // console.log(`roles di room ${this.group_session.groupId} : ${roles}`);
-
-    return roles;
-  },
-
-  getRoleSet: function(townNeedCount, badNeedCount) {
-    /* 
-      bisa juga untuk tandain berapa jumlah role yg sudah ditambahkan
-      kalau index nya 2, berarti uda 2 role dideploy
-      yaitu index 0, sama index 1 
-    */
-    let roles = [];
-    let neutralIndex = 0;
-    let werewolfIndex = 0;
-
-    let teams = helper.getRandomTeams();
-    let townTeam = teams.town;
-    let werewolfTeam = teams.werewolf;
-    let neutralTeam = teams.neutral;
-
-    // jumlah ww dibatasin 75% dari badNeedCount Quota
-    let werewolfNeedCount = Math.round((75 / 100) * badNeedCount);
-
-    let maxWerewolfCount = werewolfTeam.length + 1;
-    if (werewolfNeedCount > maxWerewolfCount) {
-      //plus 1 reserve untuk werewolf
-      // ini kalau jumlah ww yang dibutuhkan lebih besar dari jumlah team ww yg ada
-      werewolfNeedCount = maxWerewolfCount;
-    }
-
-    let neutralNeedCount = badNeedCount - werewolfNeedCount;
-    let needSheriff = false;
-
-    /// Always role
-    roles.push("werewolf");
-    werewolfNeedCount--;
-
-    /// Unique role utk sekarang si exe
-    if (this.group_session.players.length > 5) {
-      roles.push("executioner");
-      neutralNeedCount--;
-    }
-
-    /// bad guy generator
-
-    // ww team
-    while (werewolfNeedCount) {
-      // check apakah ww role sudah habis ato engga
-      // kalau habis, randomkan saja
-      if (werewolfIndex > werewolfTeam.length - 1) {
-        let maxIndex = werewolfTeam.length - 1;
-        let randomWerewolfIndex = helper.getRandomInt(0, maxIndex);
-        roles.push(neutralTeam[randomWerewolfIndex]);
-      } else {
-        roles.push(werewolfTeam[werewolfIndex]);
-        if (helper.trueOrFalse()) {
-          needSheriff = true;
-        } else {
-          if (!roles.includes("vigilante")) {
-            roles.push("vigilante");
-            townNeedCount--;
-          }
-        }
-        werewolfIndex++;
-      }
-
-      werewolfNeedCount--;
-    }
-
-    // neutral team
-    while (neutralNeedCount > 1) {
-      // check apakah neutral role sudah habis ato engga
-      // kalau habis, randomkan saja
-      if (neutralIndex > neutralTeam.length - 1) {
-        let randomNeutralIndex = helper.getRandomInt(0, neutralTeam.length - 1);
-        roles.push(neutralTeam[randomNeutralIndex]);
-      } else {
-        roles.push(neutralTeam[neutralIndex]);
-        if (neutralTeam[neutralIndex] === "vampire") {
-          if (!roles.includes("vampire-hunter")) {
-            roles.push("vampire-hunter");
-            townNeedCount--;
-          }
-        } else if (neutralTeam[neutralIndex] === "serial-killer") {
-          needSheriff = true;
-        } else if (neutralTeam[neutralIndex] === "jester") {
-          if (!roles.includes("vigilante")) {
-            roles.push("vigilante");
-            townNeedCount--;
-          }
-        }
-        neutralIndex++;
-      }
-
-      neutralNeedCount--;
-    }
-
-    if (needSheriff && !roles.includes("sheriff")) {
-      roles.push("sheriff");
-      townNeedCount--;
-    }
-
-    townTeam.length = townNeedCount;
-    townTeam.forEach(item => {
-      roles.push(item);
-    });
-
-    return roles;
   },
 
   getTimeDefault: function(playersLength) {
