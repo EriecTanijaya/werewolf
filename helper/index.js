@@ -3,7 +3,193 @@ module.exports = {
     let modeList = ["classic", "vampire", "chaos", "ww-vs-neutral"];
     return modeList;
   },
-  
+
+  getVampireRoleSet: function(playersLength) {
+    /// step
+    /*
+    ww, town, town, town, town, neutral, town, ww, town, neutral, town
+    ww, town, neutral, town
+    */
+
+    let roles = [
+      "vampire",
+      "vigilante",
+      "seer",
+      "doctor",
+      "escort",
+      "werewolf",
+      "vampire",
+      "vampire-hunter",
+      "veteran",
+      "jester",
+      "retributionist",
+      "vampire",
+      "tracker",
+      "survivor",
+      "lookout"
+    ];
+    return roles;
+  },
+
+  getWerewolfVsNeutralRoleSet: function(playersLength) {
+    /// step
+    /*
+    ww, town, town, town, town, neutral, town, ww, town, neutral, town
+    ww, town, neutral, town
+    */
+    let roles = [
+      "serial-killer",
+      "vigilante",
+      "veteran",
+      "escort",
+      "werewolf",
+      "spy",
+      "doctor",
+      "werewolf-cub",
+      "arsonist",
+      "consort",
+      "vampire",
+      "sorcerer",
+      "jester",
+      "executioner",
+      "disguiser"
+    ];
+    return roles;
+  },
+
+  getClassicRoleSet: function(playersLength) {
+    let roles = [
+      "werewolf",
+      "seer",
+      "doctor",
+      "lookout",
+      "veteran",
+      "jester",
+      "escort",
+      "werewolf-cub",
+      "sheriff",
+      "executioner",
+      "retributionist"
+    ];
+
+    let werewolves = ["framer", "disguiser", "consort", "sorcerer"];
+    let werewolfAddon = this.random(werewolves);
+    roles.push(werewolfAddon);
+
+    let towns = ["tracker", "spy", "vigilante"];
+    towns = this.shuffleArray(towns);
+    roles.push(towns[0]);
+
+    let neutrals = ["serial-killer", "arsonist"];
+    let neutralAddon = this.random(neutrals);
+    roles.push(neutralAddon);
+
+    roles.push(towns[1]);
+
+    roles.length = playersLength;
+
+    return roles;
+  },
+
+  getChaosRoleSet: function(playersLength) {
+    let roles = [];
+
+    let townNeedCount = Math.round(playersLength / 2);
+    let badNeedCount = playersLength - townNeedCount;
+    let werewolfNeedCount = Math.round((45 / 100) * badNeedCount);
+
+    if (werewolfNeedCount > 4) {
+      werewolfNeedCount = 4;
+    }
+
+    let neutralNeedCount = badNeedCount - werewolfNeedCount;
+
+    let werewolfIndex = 0;
+    let neutralIndex = 0;
+
+    let needSheriff = false;
+    let needVampireHunter = false;
+    let needVigilante = true;
+
+    // always
+    roles.push("werewolf");
+    werewolfNeedCount--;
+    let werewolves = [
+      "werewolf-cub",
+      "framer",
+      "consort",
+      "disguiser",
+      "sorcerer"
+    ];
+    werewolves = this.shuffleArray(werewolves);
+
+    let towns = [
+      "seer",
+      "doctor",
+      "lookout",
+      "veteran",
+      "escort",
+      "retributionist",
+      "spy",
+      "tracker"
+    ];
+    towns = this.shuffleArray(towns);
+
+    let neutrals = [
+      "vampire",
+      "serial-killer",
+      "arsonist",
+      "executioner",
+      "jester",
+      "survivor"
+    ];
+    neutrals = this.shuffleArray(neutrals);
+
+    while (werewolfNeedCount) {
+      roles.push(werewolves[werewolfIndex]);
+      needVigilante = true;
+
+      werewolfIndex++;
+      werewolfNeedCount--;
+    }
+
+    while (neutralNeedCount) {
+      roles.push(neutrals[neutralIndex]);
+
+      if (neutrals[neutralIndex] === "vampire") {
+        needVampireHunter = true;
+      }
+
+      if (neutrals[neutralIndex] === "serial-killer") {
+        needSheriff = true;
+      }
+
+      neutralIndex++;
+      neutralNeedCount--;
+    }
+
+    if (needSheriff) {
+      roles.push("sheriff");
+      townNeedCount--;
+    }
+
+    if (needVigilante) {
+      roles.push("vigilante");
+      townNeedCount--;
+    }
+
+    if (needVampireHunter) {
+      roles.push("vampire-hunter");
+      townNeedCount--;
+    }
+
+    for (let i = 0; i < townNeedCount; i++) {
+      roles.push(towns[i]);
+    }
+
+    return roles;
+  },
+
   parseToText: function(arr) {
     let text = "";
     arr.forEach(function(item, index) {
