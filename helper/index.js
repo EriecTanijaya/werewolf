@@ -13,13 +13,13 @@ module.exports = {
 
     let roles = [
       "vampire",
-      "vampire-hunter",
+      "vigilante",
       "seer",
       "doctor",
       "escort",
       "werewolf",
-      "vigilante",
       "vampire",
+      "vampire-hunter",
       "veteran",
       "jester",
       "retributionist",
@@ -31,7 +31,7 @@ module.exports = {
     return roles;
   },
 
-  getWerewolfVsNeutral: function() {
+  getWerewolfVsNeutralRoleSet: function(playersLength) {
     /// step
     /*
     ww, town, town, town, town, neutral, town, ww, town, neutral, town

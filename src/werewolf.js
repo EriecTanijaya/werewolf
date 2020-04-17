@@ -694,6 +694,10 @@ module.exports = {
       roles = helper.getClassicRoleSet(playersLength);
     } else if (mode === "chaos") {
       roles = helper.getChaosRoleSet(playersLength);
+    } else if (mode === "vampire") {
+      roles = helper.getVampireRoleSet(playersLength);
+    } else if (mode === "ww-vs-neutral") {
+      roles = helper.getWerewolfVsNeutralRoleSet(playersLength);
     }
 
     // console.log(`roles di room ${this.group_session.groupId} : ${roles}`);
@@ -853,9 +857,9 @@ module.exports = {
           text += time + " detik lagi ";
         }
         text += "untuk memulai game";
-        
+
         let flex_text = this.getNewStateFlex();
-        
+
         return this.replyFlex(flex_text, text);
 
       default:
