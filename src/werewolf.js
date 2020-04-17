@@ -687,149 +687,16 @@ module.exports = {
     // sementara random dulu mode nya, kedepan kalo ada setting
     // bisa pilih mode
     // cp
-    let mode = helper.random(["classic", "chaos"]);
+    let mode = this.group_session.mode;
     let roles = [];
 
     if (mode === "classic") {
-      roles = this.getClassicRoleSet(playersLength);
+      roles = helper.getClassicRoleSet(playersLength);
     } else if (mode === "chaos") {
-      roles = this.getChaosRoleSet(playersLength);
+      roles = helper.getChaosRoleSet(playersLength);
     }
 
     // console.log(`roles di room ${this.group_session.groupId} : ${roles}`);
-
-    return roles;
-  },
-
-  getClassicRoleSet: function(playersLength) {
-    let roles = [
-      "werewolf",
-      "seer",
-      "doctor",
-      "lookout",
-      "veteran",
-      "jester",
-      "escort",
-      "werewolf-cub",
-      "sheriff",
-      "executioner",
-      "retributionist"
-    ];
-
-    let werewolves = ["framer", "disguiser", "consort", "sorcerer"];
-    let werewolfAddon = helper.random(werewolves);
-    roles.push(werewolfAddon);
-
-    let towns = ["tracker", "spy", "vigilante"];
-    towns = helper.shuffleArray(towns);
-    roles.push(towns[0]);
-
-    let neutrals = ["serial-killer", "arsonist"];
-    let neutralAddon = helper.random(neutrals);
-    roles.push(neutralAddon);
-
-    roles.push(towns[1]);
-
-    roles.length = playersLength;
-
-    return roles;
-  },
-  // spy, tracker, vigilante, vampire-hunter
-  getChaosRoleSet: function(playersLength) {
-    let roles = [];
-
-    let townNeedCount = Math.round(playersLength / 2);
-    let badNeedCount = playersLength - townNeedCount;
-    let werewolfNeedCount = Math.round((45 / 100) * badNeedCount);
-
-    if (werewolfNeedCount > 4) {
-      werewolfNeedCount = 4;
-    }
-
-    let neutralNeedCount = badNeedCount - werewolfNeedCount;
-
-    let werewolfIndex = 0;
-    let neutralIndex = 0;
-
-    let needSheriff = false;
-    let needVampireHunter = false;
-    let needVigilante = true;
-
-    // always
-    roles.push("werewolf");
-    werewolfNeedCount--;
-    let werewolves = [
-      "werewolf-cub",
-      "framer",
-      "consort",
-      "disguiser",
-      "sorcerer"
-    ];
-    werewolves = helper.shuffleArray(werewolves);
-
-    let towns = [
-      "seer",
-      "doctor",
-      "lookout",
-      "veteran",
-      "escort",
-      "retributionist",
-      "spy",
-      "tracker"
-    ];
-    towns = helper.shuffleArray(towns);
-
-    let neutrals = [
-      "vampire",
-      "serial-killer",
-      "arsonist",
-      "executioner",
-      "jester",
-      "survivor"
-    ];
-    neutrals = helper.shuffleArray(neutrals);
-
-    while (werewolfNeedCount) {
-      roles.push(werewolves[werewolfIndex]);
-      needVigilante = true;
-
-      werewolfIndex++;
-      werewolfNeedCount--;
-    }
-
-    while (neutralNeedCount) {
-      roles.push(neutrals[neutralIndex]);
-
-      if (neutrals[neutralIndex] === "vampire") {
-        needVampireHunter = true;
-      }
-
-      if (neutrals[neutralIndex] === "serial-killer") {
-        needSheriff = true;
-      }
-
-      neutralIndex++;
-      neutralNeedCount--;
-    }
-
-    if (needSheriff) {
-      roles.push("sheriff");
-      townNeedCount--;
-    }
-
-    if (needVigilante) {
-      roles.push("vigilante");
-      townNeedCount--;
-    }
-
-    if (needVampireHunter) {
-      roles.push("vampire-hunter");
-      townNeedCount--;
-    }
-
-    for (let i = 0; i < townNeedCount; i++) {
-      roles.push(towns[i]);
-    }
 
     return roles;
   },
@@ -3486,7 +3353,8 @@ module.exports = {
       "/about : tentang bot",
       "/revoke : untuk batal voting",
       "/extend : untuk menambah 1 menit saat baru membuat room game",
-      "/kick : untuk mengeluarkan bot dari group/room chat"
+      "/kick : untuk mengeluarkan bot dari group/room chat",
+      "/set : untuk setting game"
     ];
 
     cmds.forEach((item, index) => {
