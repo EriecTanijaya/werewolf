@@ -26,7 +26,14 @@ console.log(`town ${townNeedCount}, ww ${werewolfNeedCount}, neutral ${neutralNe
 
 - ROLE YANG BELUM BISA DUPLICATE
   - DOKTOR
-  - SPY
+  - SPY, store data spyBuggedInfo dalam obj,
+    
+    ubah spyBuggedInfo ke {}
+  
+    jadi ada obj -> spyBuggedInfo[spyTargetIndex] = "isi"
+    
+    spy action
+    message += spyBuggedInfo[targetIndex];
   
 - ROLE YG JANGAN DUPLICATE
   - VETERAN, vampire hunter, team ww(consort, wwcub, sorcerer jangan ada dupe)

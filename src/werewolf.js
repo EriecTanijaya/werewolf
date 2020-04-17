@@ -1777,6 +1777,8 @@ module.exports = {
             };
             this.group_session.players[targetIndex].willSuicide = false;
             this.group_session.players[targetIndex].framed = false;
+            this.group_session.players[targetIndex].protectors = [];
+            this.group_session.players[targetIndex].guarded = false;
 
             let targetRoleName = target.role.name;
 
@@ -1812,7 +1814,6 @@ module.exports = {
       let doer = players[i];
 
       if (doer.role.name === "doctor" && doer.status === "alive") {
-        doctorIndex = i;
 
         if (doer.target.index === -1) {
           this.group_session.players[i].message +=
@@ -1851,6 +1852,13 @@ module.exports = {
             }
 
             this.group_session.players[targetIndex].healed = true;
+            
+            let protector = {
+              index: i,
+              
+            }
+            
+            
           }
           
         }
