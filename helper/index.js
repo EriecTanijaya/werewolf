@@ -3,21 +3,60 @@ module.exports = {
     let modeList = ["classic", "vampire", "chaos", "ww-vs-neutral"];
     return modeList;
   },
-  
+
   getVampireRoleSet: function(playersLength) {
     /// step
     /*
     ww, town, town, town, town, neutral, town, ww, town, neutral, town
     ww, town, neutral, town
     */
-    
+
     let roles = [
-      "vampire", "vampire-hunter", "seer", "doctor", "escort", "werewolf", "vigilante", "vampire", "veteran", "jester", "" 
-    ]
-    
+      "vampire",
+      "vampire-hunter",
+      "seer",
+      "doctor",
+      "escort",
+      "werewolf",
+      "vigilante",
+      "vampire",
+      "veteran",
+      "jester",
+      "retributionist",
+      "vampire",
+      "tracker",
+      "survivor",
+      "lookout"
+    ];
     return roles;
   },
-  
+
+  getWerewolfVsNeutral: function() {
+    /// step
+    /*
+    ww, town, town, town, town, neutral, town, ww, town, neutral, town
+    ww, town, neutral, town
+    */
+    let roles = [
+      "serial-killer",
+      "vigilante",
+      "veteran",
+      "escort",
+      "werewolf",
+      "spy",
+      "doctor",
+      "werewolf-cub",
+      "arsonist",
+      "consort",
+      "vampire",
+      "sorcerer",
+      "jester",
+      "executioner",
+      "disguiser"
+    ];
+    return roles;
+  },
+
   getClassicRoleSet: function(playersLength) {
     let roles = [
       "werewolf",
@@ -51,7 +90,7 @@ module.exports = {
 
     return roles;
   },
-  
+
   getChaosRoleSet: function(playersLength) {
     let roles = [];
 
