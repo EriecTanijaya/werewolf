@@ -2386,7 +2386,8 @@ module.exports = {
         let isVampireBited = players[i].vampireBited;
         let isHealed = players[i].healed;
         let isVested = players[i].vested;
-        let attackerLength = players[i].attackers;
+        let attackers = players[i].attackers;
+        let protectors = players[i].protectors;
         let isBurned = players[i].burned;
         let isHaunted = players[i].isHaunted;
         let isGuarded = players[i].guarded;
@@ -2395,6 +2396,8 @@ module.exports = {
         if (players[i].role.disguiseAs) {
           roleName = players[i].role.disguiseAs;
         }
+        
+        if (isBurned || isHaunted || )
 
         if (players[i].willSuicide) {
           if (players[i].bugged) {
