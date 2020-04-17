@@ -343,7 +343,7 @@ module.exports = {
       this.getUserData(item.id, reset_player);
     });
 
-    this.resetRoom(groupId);
+    //this.resetRoom(groupId);
   },
 
   resetRoom: function(groupId) {
