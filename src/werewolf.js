@@ -2411,6 +2411,7 @@ module.exports = {
         let willSuicide = players[i].willSuicide;
         let roleName = players[i].role.name;
         let afkCounter = players[i].afkCounter;
+        let selfDefense = false;
 
         if (players[i].role.disguiseAs) {
           roleName = players[i].role.disguiseAs;
@@ -2451,14 +2452,14 @@ module.exports = {
                   
                 }
                 
+              } else {
+                
               }
               
             }
             
             
             if (protectors.length >= attackers.length) {
-              this.group_session.players[i].message +=
-                "🤕 Nyawa kamu berhasil diselamatkan!" + "\n\n";
               
               // purge from vampire bite
               if (isVampireBited) {
@@ -2471,13 +2472,22 @@ module.exports = {
                     "🔍 Target kamu selamat dari serangan berkat Vest yang digunakannya!" +
                     "\n\n";
                 }
+                
+                this.group_session.players[i].message +=
+                  "🦺 Vest yang kamu pakai menyelamatkan nyawamu!" + "\n\n";
               }
               
               if (isHealed) {
+                
+                if ()
+                
                 if (players[i].bugged) {
                   spyBuggedInfo +=
                     "🔍 Target kamu selamat karena di sembuhkan Doctor!" + "\n\n";
                 }
+                
+                this.group_session.players[i].message +=
+                  "💉 Dokter berhasil menyelamatkan nyawamu!" + "\n\n";
               }
               
               if (isGuarded) {
