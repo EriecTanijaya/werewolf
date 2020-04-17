@@ -2392,12 +2392,20 @@ module.exports = {
         let isHaunted = players[i].isHaunted;
         let isGuarded = players[i].guarded;
         let roleName = players[i].role.name;
+        let afkCounter = players[i].afkCounter;
 
         if (players[i].role.disguiseAs) {
           roleName = players[i].role.disguiseAs;
         }
         
-        if (isBurned || isHaunted || )
+        if (isBurned || isHaunted || afkCounter > 6) {
+          for (let u = 0; u < protectors.length; u++) {
+            let protector = protectors[u];
+            let attackedMessage = "💡 " + players[i].name + " diserang semalam!" + "\n\n";
+            this.group_session.players[protector.index].message  += attackedMessage;
+              
+          }
+        }
 
         if (players[i].willSuicide) {
           if (players[i].bugged) {
