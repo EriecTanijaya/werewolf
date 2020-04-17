@@ -2418,9 +2418,11 @@ module.exports = {
                 "💡 " + players[i].name + " diserang semalam!" + "\n\n";
             }
             
-            
               
           }
+          
+          
+          
         }
         
         
