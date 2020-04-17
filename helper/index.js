@@ -1,4 +1,9 @@
 module.exports = {
+  getModeList: function() {
+    let modeList = ["classic", "vampire", "chaos", "ww-vs-neutral"];
+    return modeList;
+  },
+  
   parseToText: function(arr) {
     let text = "";
     arr.forEach(function(item, index) {
