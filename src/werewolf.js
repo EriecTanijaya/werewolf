@@ -327,9 +327,7 @@ module.exports = {
     this.group_session.checkChance = 1;
     this.group_session.lynched = null;
 
-    let infoText = "⏳ Time Speed : " + this.group_session.timeSpeed + "\n";
-    infoText += "🕹️ Mode : " + this.group_session.mode;
-
+    let infoText = "🕹️ Mode : " + this.group_session.mode;
     let flex_text = {
       header: {
         text: "🎮 Game Baru"
