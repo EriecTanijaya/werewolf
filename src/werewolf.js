@@ -2191,6 +2191,13 @@ module.exports = {
                     "🔍 Target kamu di serang Serial Killer yang dia kunjungi!" +
                     "\n\n";
                 }
+                
+                if (players[i].bugged) {
+                  spyBuggedInfo +=
+                    "🔍 Ada yang berusaha role block Targetmu, tetapi Targetmu menyerang balik!" +
+                    "\n\n";
+                }
+                
               } else {
                 this.group_session.players[targetIndex].message +=
                   "🔪 Kamu diserang " + doer.role.name + "!" + "\n\n";
@@ -2402,7 +2409,6 @@ module.exports = {
         let isHaunted = players[i].isHaunted;
         let isGuarded = players[i].guarded;
         let willSuicide = players[i].willSuicide;
-        let isBugged = players[i].bugged;
         let roleName = players[i].role.name;
         let afkCounter = players[i].afkCounter;
 
@@ -2422,7 +2428,16 @@ module.exports = {
               }
               
               if (protector.roleName === "bodyguard") {
-                this.group_session.players[protector.index].counterAttackIndex = .index;
+                if (players[protector.index].bugged) {
+                  spyBuggedInfo +=
+                    "🔍 Target kamu sedang melindungi seseorang!" +
+                    "\n\n";
+                }
+                
+                this.group_session.players[i].message +=
+                  "🛡️ Ada yang menyerang balik penyerang mu!" + "\n\n";
+                
+                this.group_session.players[protector.index].counterAttackIndex = attackers[0].index;
               }
               
             }
@@ -2447,7 +2462,7 @@ module.exports = {
               true
             );
               
-            if (isBugged) {
+            if (players[i].bugged) {
               spyBuggedInfo +=
                 "🔍 Target kamu mati bunuh diri karena perasaan bersalah!" +
                 "\n\n";
