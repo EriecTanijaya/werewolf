@@ -125,9 +125,29 @@ module.exports = {
         return this.extendCommand();
       case "/kick":
         return this.kickCommand();
+      case "/set":
+      case "/setting":
+        return this.settingCommand();
       default:
         return this.invalidCommand();
     }
+  },
+
+  settingCommand: function() {
+    let state = this.group_session.state;
+    if (state !== "idle" && state !== "new") {
+      let text = "💡 " + this.user_session.name;
+      text += ", setting hanya bisa di atur saat game belum berjalan";
+      return this.replyText(text);
+    }
+
+    const setting = require("/app/src/setting");
+    return setting.receive(
+      this.client,
+      this.event,
+      this.args,
+      this.group_session
+    );
   },
 
   kickCommand: function() {
@@ -307,12 +327,15 @@ module.exports = {
     this.group_session.checkChance = 1;
     this.group_session.lynched = null;
 
+    let infoText = "⏳ Time Speed : " + this.group_session.timeSpeed + "\n";
+    infoText += "🕹️ Mode : " + this.group_session.mode;
+
     let flex_text = {
       header: {
-        text: "📣 Game Baru"
+        text: "🎮 Game Baru"
       },
       body: {
-        text: "🎮 Game baru telah dibuat!"
+        text: infoText
       },
       footer: {
         buttons: [
