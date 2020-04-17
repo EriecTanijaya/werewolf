@@ -16,5 +16,29 @@ module.exports = {
         return this.invalidCommand();
     }
     
-  }
+  },
+  
+  commandCommand: function() {
+    let text = "";
+    
+    let cmds = [
+      "/set mode : untuk lihat mode game yang ada",
+      "/set mode < : untuk "
+    ];
+
+    cmds.forEach((item, index) => {
+      text += "- " + item + "\n";
+    });
+    
+    let flex_text = {
+      header: {
+        text: "⚙️ Daftar Perintah"
+      },
+      body: {
+        text: text
+      }
+    };
+    return this.replyFlex(flex_text);
+  },
+  
 }
