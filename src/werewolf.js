@@ -327,24 +327,7 @@ module.exports = {
     this.group_session.checkChance = 1;
     this.group_session.lynched = null;
 
-    let infoText = "🕹️ Mode : " + this.group_session.mode;
-    let flex_text = {
-      header: {
-        text: "🎮 Game Baru"
-      },
-      body: {
-        text: infoText
-      },
-      footer: {
-        buttons: [
-          {
-            action: "postback",
-            label: "join",
-            data: "/join"
-          }
-        ]
-      }
-    };
+    let flex_text = this.getNewStateFlex();
 
     let remindText = "⏳ Jika jumlah pemain kurang dari 5 dalam 10 menit, ";
     remindText += "game akan diberhentikan";
@@ -1003,7 +986,10 @@ module.exports = {
           text += time + " detik lagi ";
         }
         text += "untuk memulai game";
-        return this.replyText(text);
+        
+        let flex_text = this.getNewStateFlex();
+        
+        return this.replyFlex(flex_text, text);
 
       default:
         return this.replyText(
@@ -3771,6 +3757,28 @@ module.exports = {
     }
 
     return time;
+  },
+
+  getNewStateFlex: function() {
+    let infoText = "🕹️ Mode : " + this.group_session.mode;
+    let flex_text = {
+      header: {
+        text: "🎮 Game Baru"
+      },
+      body: {
+        text: infoText
+      },
+      footer: {
+        buttons: [
+          {
+            action: "postback",
+            label: "join",
+            data: "/join"
+          }
+        ]
+      }
+    };
+    return flex_text;
   },
 
   getNightStateFlex: function(text) {
