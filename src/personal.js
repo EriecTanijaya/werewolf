@@ -533,6 +533,9 @@ module.exports = {
           "💉 Kamu memiliki " + players[index].role.selfHeal + " self heal";
       } else if (roleName === "vigilante") {
         text += "🔫 Kamu memiliki " + players[index].role.bullet + " peluru";
+      } else if (roleName === "bodyguard") {
+        text +=
+          "🦺 Kamu memiliki " + players[index].role.vest + " vest";
       }
 
       return this.roleSkill(flex_text, index, text);

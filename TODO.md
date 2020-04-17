@@ -1,7 +1,6 @@
 TODO
 
 - buat deskripsi role set
-- 
 
 ```
 let playersLength = 5

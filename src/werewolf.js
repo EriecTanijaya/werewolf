@@ -956,9 +956,6 @@ module.exports = {
     /// Veteran targetIndexes
     let veteranTargetIndexes = [];
 
-    /// Doctor Index
-    let doctorIndex = -1;
-
     /// vigilante check existences
     let vigilanteExists = this.checkExistsRole("vigilante");
 
@@ -1821,14 +1818,14 @@ module.exports = {
           this.group_session.players[i].message +=
             "💡 Kamu tidak menggunakan skill mu" + "\n\n";
 
-          break;
+          continue;
         } else {
           if (doer.blocked === true) {
             this.group_session.players[i].message +=
               "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." +
               "\n\n";
 
-            break;
+            continue;
           } else if (!doer.attacked) {
             let targetIndex = doer.target.index;
             let target = players[targetIndex];
@@ -1855,8 +1852,7 @@ module.exports = {
 
             this.group_session.players[targetIndex].healed = true;
           }
-
-          break;
+          
         }
       }
     }
