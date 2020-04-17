@@ -94,8 +94,6 @@ module.exports = {
           flex_text.body.text +=
             "Makhluk hidup yang membawa kerusuhan dengan bisa mengubah warga menjadi sejenisnya. ";
           flex_text.body.text +=
-            "Menang jika mengubah semua warga menjadi Vampire, atau menggantung penentangnya. ";
-          flex_text.body.text +=
             "Vampire jika berhasil mengubah seoranga warga menjadi Vampire, akan ada jeda untuk ";
           flex_text.body.text += "menggigit target selanjutnya. ";
           flex_text.body.text +=
