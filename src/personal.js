@@ -273,6 +273,12 @@ module.exports = {
             "💡 Kamu sudah tidak bisa melindungi diri sendiri"
           );
         }
+      } else if (roleName === "bodyguard") {
+        if (!players[index].role.vest) {
+          return this.replyText(
+            "💡 Kamu sudah tidak memiliki Vest yang tersisa"
+          );
+        }
       }
 
       if (!this.canSelfTarget(roleName)) {

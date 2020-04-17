@@ -272,6 +272,15 @@ module.exports = {
           flex_text.body.text +=
             "Hasil cek Sheriff akan tetap mencurigakan, sedangkan Seer hasil terawangnya adalah role yang di imitasi";
           break;
+          
+        case "bodyguard":
+          flex_text.header.text = "🛡️ Bodyguard";
+          flex_text.body.text += "Type: Town Protector" + "\n\n";
+          flex_text.body.text +=
+            "Warga yang bisa memilih siapa pemain yang ingin dilindungi. ";
+          flex_text.body.text +=
+            "Jika Target mau Bodyguard diserang, maka Bodyguard akan melawan balik penyerang tersebut. ";
+          break;
 
         default:
           let text =

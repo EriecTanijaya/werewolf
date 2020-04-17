@@ -354,7 +354,9 @@ const roles = [
       team: "👨‍🌾",
       self: "🛡️"
     },
-    type: "Town Protector"
+    type: "Town Protector",
+    vest: 1,
+    counterAttackIndex: -1,
   },
 ];
 
