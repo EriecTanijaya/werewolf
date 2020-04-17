@@ -2402,6 +2402,7 @@ module.exports = {
         let isHaunted = players[i].isHaunted;
         let isGuarded = players[i].guarded;
         let willSuicide = players[i].willSuicide;
+        let isBugged = players[i].bugged;
         let roleName = players[i].role.name;
         let afkCounter = players[i].afkCounter;
 
@@ -2414,6 +2415,29 @@ module.exports = {
           
           if (isBurned || isHaunted || willSuicide || afkCounter > 6) {
             // gak ada obat
+            let attackedAnnouncement = "";
+            this.group_session.players[i].status = "death";
+            
+            if (willSuicide) {
+              // attackedAnnouncement = attackedMsg.getAttackResponse(
+              //   [],
+              //   players[i].name,
+              //   true
+              // );
+              
+              if (isBugged) {
+                spyBuggedInfo +=
+                  "🔍 Target kamu mati bunuh diri karena perasaan bersalah!" +
+                  "\n\n";
+              }
+            } else {
+              
+            }
+            
+            allAnnouncement += attackedAnnouncement + "\n";
+
+            allAnnouncement += "✉️ Role nya adalah " + roleName + "\n\n";
+            
           } else {
             // masih ada kesemapatan hidup
             for (let u = 0; u < protectors.length; u++) {
@@ -2433,8 +2457,12 @@ module.exports = {
         
         
         
-        
-        
+        // buat yg suicide
+        // attackedAnnouncement = attackedMsg.getAttackResponse(
+        //         [],
+        //         players[i].name,
+        //         true
+        //       );
         
         
         
@@ -2443,9 +2471,7 @@ module.exports = {
 
         if (players[i].willSuicide) {
           if (players[i].bugged) {
-            spyBuggedInfo +=
-              "🔍 Target kamu mati bunuh diri karena perasaan bersalah!" +
-              "\n\n";
+            
           }
 
           this.group_session.players[i].status = "death";
@@ -2456,9 +2482,7 @@ module.exports = {
             true
           );
 
-          allAnnouncement += attackedAnnouncement + "\n";
-
-          allAnnouncement += "✉️ Role nya adalah " + roleName + "\n\n";
+          
         } else if (isAttacked || isVampireBited) {
           if (isHealed) {
             this.group_session.players[i].message +=
