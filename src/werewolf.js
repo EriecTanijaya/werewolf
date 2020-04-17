@@ -730,9 +730,11 @@ module.exports = {
         item.visitors = [];
         item.blocked = false;
         item.attackers = [];
+        item.protectors = [];
         item.intercepted = false;
         item.addonMessage = "";
         item.vested = false;
+        item.guarded = false;
         item.bugged = false;
         item.framed = false;
 

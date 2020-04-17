@@ -1,7 +1,7 @@
 TODO
 
-- for vampire: If you succeed, you must wait another night before biting again.
-  - kasih max 4 vampire, kalau udah 4 atau lebih, itu vampire gak convert lagi, tapi attack
+- buat deskripsi role set
+- 
 
 ```
 let playersLength = 5
