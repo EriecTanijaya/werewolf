@@ -132,7 +132,7 @@ module.exports = {
         return this.invalidCommand();
     }
   },
-  
+
   settingCommand: function() {
     let state = this.group_session.state;
     if (state !== "idle" && state !== "new") {
@@ -140,9 +140,14 @@ module.exports = {
       text += ", setting hanya bisa di atur saat game belum berjalan";
       return this.replyText(text);
     }
-    
+
     const setting = require("/app/src/setting");
-    return setting.receive(this.client, this.event, this.args, this.group_session);
+    return setting.receive(
+      this.client,
+      this.event,
+      this.args,
+      this.group_session
+    );
   },
 
   kickCommand: function() {
@@ -324,7 +329,7 @@ module.exports = {
 
     let infoText = "⏳ Time Speed : " + this.group_session.timeSpeed + "\n";
     infoText += "🕹️ Mode : " + this.group_session.mode;
-    
+
     let flex_text = {
       header: {
         text: "🎮 Game Baru"

@@ -12,9 +12,6 @@ module.exports = {
     switch(this.args[1]) {
       case "mode":
         return this.setModeCommand();
-      case "time":
-      case "waktu":
-        return this.setTimeCommand();
       default:
         return this.invalidCommand();
     }
