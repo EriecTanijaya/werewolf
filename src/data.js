@@ -153,6 +153,8 @@ module.exports = {
         state: "idle",
         time_default: 0,
         time: 300,
+        mode: "classic",
+        timeSpeed: "",
         players: []
       };
       group_sessions[groupId] = newGroup;
