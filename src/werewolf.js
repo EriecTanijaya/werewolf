@@ -2403,23 +2403,9 @@ module.exports = {
         let isGuarded = players[i].guarded;
         let roleName = players[i].role.name;
         let afkCounter = players[i].afkCounter;
-        let defensePoint = 0;
-        let damagePoint = 0;
 
         if (players[i].role.disguiseAs) {
           roleName = players[i].role.disguiseAs;
-        }
-        
-        if (isHealed) {
-          defensePoint++;
-        }
-        
-        if (isVested) {
-          defensePoint++;
-        }
-        
-        if (isGuarded) {
-          defensePoint++;
         }
         
         
