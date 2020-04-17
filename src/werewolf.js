@@ -2413,59 +2413,87 @@ module.exports = {
         
         if (isAttacked || isVampireBited) {
           
-          if (isBurned || isHaunted || willSuicide || afkCounter > 6) {
-            // gak ada obat
-            let attackedAnnouncement = "";
-            this.group_session.players[i].status = "death";
-            
-            if (willSuicide) {
-              // attackedAnnouncement = attackedMsg.getAttackResponse(
-              //   [],
-              //   players[i].name,
-              //   true
-              // );
-              
-              if (isBugged) {
-                spyBuggedInfo +=
-                  "🔍 Target kamu mati bunuh diri karena perasaan bersalah!" +
-                  "\n\n";
-              }
-            } else {
-              
-            }
-            
-            allAnnouncement += attackedAnnouncement + "\n";
-
-            allAnnouncement += "✉️ Role nya adalah " + roleName + "\n\n";
-            
-          } else {
-            // masih ada kesemapatan hidup
+          if (!isBurned && !isHaunted && !willSuicide && afkCounter <= 6) {
             for (let u = 0; u < protectors.length; u++) {
               let protector = protectors[u];
-
               if (!protector.isSelfTarget) {
                 this.group_session.players[protector.index].message  +=
                   "💡 " + players[i].name + " diserang semalam!" + "\n\n";
-              }
-
-
+              }  
             }
+            
+            
+            
           }
           
+          // DEATH!
+          let attackedAnnouncement = "";
+          this.group_session.players[i].status = "death";
+          
+          if (willSuicide) {
+            attackedAnnouncement = attackedMsg.getAttackResponse(
+              [],
+              players[i].name,
+              true
+            );
+              
+            if (isBugged) {
+              spyBuggedInfo +=
+                "🔍 Target kamu mati bunuh diri karena perasaan bersalah!" +
+                "\n\n";
+            }
+          } else {
+            let attackersRole = players[i].attackers.map(atkr => {
+              return atkr.role.name;
+            });
+
+            let attackedAnnouncement = attackedMsg.getAttackResponse(
+              attackersRole,
+              players[i].name,
+              false
+            );
+          }
+          
+          allAnnouncement += attackedAnnouncement + "\n";
+
+          allAnnouncement += "✉️ Role nya adalah " + roleName + "\n\n";
+          
+          //Thanks to
+          //https://stackoverflow.com/questions/24806772/how-to-skip-over-an-element-in-map/24806827
+          let attackersDeathNote = players[i].attackers
+            .filter(atkr => {
+              if (!atkr.deathNote) {
+                return false;
+              }
+              return true;
+            })
+            .map((atkr, idx) => {
+              let note = atkr.deathNote + "\n\n";
+
+              if (atkr.role.name === "werewolf-cub") {
+                note += "- werewolf";
+              } else {
+                note += "- " + atkr.role.name;
+              }
+
+              return note;
+            })
+            .join("\n\n");
+
+          let victimName = players[i].name;
+          if (attackersDeathNote) {
+            let deathFlex_text = {
+              header: {
+                text: "📝💀 Death Note " + victimName
+              },
+              body: {
+                text: attackersDeathNote
+              }
+            };
+
+            flex_texts.push(deathFlex_text);
+          }
         }
-        
-        
-        
-        
-        // buat yg suicide
-        // attackedAnnouncement = attackedMsg.getAttackResponse(
-        //         [],
-        //         players[i].name,
-        //         true
-        //       );
-        
-        
-        
         
         
 
@@ -2558,42 +2586,7 @@ module.exports = {
 
           allAnnouncement += "✉️ Role nya adalah " + roleName + "\n\n";
 
-          //Thanks to
-          //https://stackoverflow.com/questions/24806772/how-to-skip-over-an-element-in-map/24806827
-          let attackersDeathNote = players[i].attackers
-            .filter(atkr => {
-              if (!atkr.deathNote) {
-                return false;
-              }
-              return true;
-            })
-            .map((atkr, idx) => {
-              let note = atkr.deathNote + "\n\n";
-
-              if (atkr.role.name === "werewolf-cub") {
-                note += "- werewolf";
-              } else {
-                note += "- " + atkr.role.name;
-              }
-
-              return note;
-            })
-            .join("\n\n");
-
-          ///kalau uda ada will note victim, munculin dulu note victim dulu
-          let victimName = players[i].name;
-          if (attackersDeathNote) {
-            let deathFlex_text = {
-              header: {
-                text: "📝💀 Death Note " + victimName
-              },
-              body: {
-                text: attackersDeathNote
-              }
-            };
-
-            flex_texts.push(deathFlex_text);
-          }
+          
         } else if (players[i].afkCounter >= 6) {
           this.group_session.players[i].status = "death";
 
