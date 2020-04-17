@@ -2398,14 +2398,29 @@ module.exports = {
           roleName = players[i].role.disguiseAs;
         }
         
+        
+        if (isAttacked) //cp
+        
+        
+        
+        
         if (isBurned || isHaunted || afkCounter > 6) {
           for (let u = 0; u < protectors.length; u++) {
             let protector = protectors[u];
-            let attackedMessage = "💡 " + players[i].name + " diserang semalam!" + "\n\n";
-            this.group_session.players[protector.index].message  += attackedMessage;
+            
+            if (!protector.isSelfTarget) {
+              this.group_session.players[protector.index].message  +=
+                "💡 " + players[i].name + " diserang semalam!" + "\n\n";
+            }
               
           }
         }
+        
+        
+        
+        
+        
+        
 
         if (players[i].willSuicide) {
           if (players[i].bugged) {
