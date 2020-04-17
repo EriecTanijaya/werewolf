@@ -326,6 +326,7 @@ module.exports = {
     this.group_session.deadlineCheckChance = 1;
     this.group_session.checkChance = 1;
     this.group_session.lynched = null;
+    this.group_session.vampireConvertCooldown = 0;
 
     let flex_text = this.getNewStateFlex();
 
@@ -980,6 +981,7 @@ module.exports = {
     // search the vampire that responsible to bite
     // note: the youngest
     let vampireExists = this.checkExistsRole("vampire");
+    let vampireAttackMode = false;
     let vampires = [];
     let vampireDoerIndex = -1;
 
@@ -993,6 +995,10 @@ module.exports = {
           vampires.push(vampire);
         }
       });
+
+      if (vampires.length >= 4) {
+        vampireAttackMode = true;
+      }
 
       let tmp = vampires[0].age;
       vampireDoerIndex = vampires[0].index;
@@ -1460,7 +1466,25 @@ module.exports = {
               "disguiser"
             ];
 
-            if (canAttacked.includes(targetRoleName)) {
+            if (immuneToVampireBite.includes(targetRoleName)) {
+              this.group_session.players[i].message +=
+                "💡 Target kamu kebal dari gigitan!" + "\n\n";
+
+              if (players[targetIndex].bugged) {
+                spyBuggedInfo +=
+                  "🔍 Target kamu diserang tapi serangan tersebut tidak mempan!" +
+                  "\n\n";
+              }
+
+              if (targetRoleName === "vampire-hunter") {
+                this.group_session.players[targetIndex].intercepted = true;
+
+                this.group_session.players[targetIndex].target.index = i;
+              }
+            } else if (
+              canAttacked.includes(targetRoleName) ||
+              vampireAttackMode
+            ) {
               this.group_session.players[i].message +=
                 "💡 Kamu menyerang " + target.name + "\n\n";
 
@@ -1481,21 +1505,6 @@ module.exports = {
               };
 
               this.group_session.players[targetIndex].attackers.push(attacker);
-            } else if (immuneToVampireBite.includes(targetRoleName)) {
-              this.group_session.players[i].message +=
-                "💡 Target kamu kebal dari gigitan!" + "\n\n";
-
-              if (players[targetIndex].bugged) {
-                spyBuggedInfo +=
-                  "🔍 Target kamu diserang tapi serangan tersebut tidak mempan!" +
-                  "\n\n";
-              }
-
-              if (targetRoleName === "vampire-hunter") {
-                this.group_session.players[targetIndex].intercepted = true;
-
-                this.group_session.players[targetIndex].target.index = i;
-              }
             } else {
               this.group_session.players[i].message +=
                 "💡 Kamu gigit " + target.name + "\n\n";
