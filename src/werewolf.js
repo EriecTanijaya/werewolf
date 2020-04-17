@@ -306,13 +306,14 @@ module.exports = {
     this.group_session.deadlineCheckChance = 1;
     this.group_session.checkChance = 1;
     this.group_session.lynched = null;
+    this.group_session.mode = "classic";
 
     let flex_text = {
       header: {
-        text: "📣 Game Baru"
+        text: "🎮  Game Baru"
       },
       body: {
-        text: "🎮 Game baru telah dibuat!"
+        text: "Game baru telah dibuat!"
       },
       footer: {
         buttons: [
