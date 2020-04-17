@@ -2455,7 +2455,17 @@ module.exports = {
               }
               
               if (isHealed) {
-                
+                if (players[i].bugged) {
+                  spyBuggedInfo +=
+                    "🔍 Target kamu selamat karena di sembuhkan Doctor!" + "\n\n";
+                }
+              }
+              
+              if (isGuarded) {
+                if (players[i].bugged) {
+                  spyBuggedInfo +=
+                    "🔍 Ada orang yang menyerang balik penyerang Targetmu!" + "\n\n";
+                }
               }
               
               continue;
