@@ -1814,7 +1814,6 @@ module.exports = {
       let doer = players[i];
 
       if (doer.role.name === "doctor" && doer.status === "alive") {
-
         if (doer.target.index === -1) {
           this.group_session.players[i].message +=
             "💡 Kamu tidak menggunakan skill mu" + "\n\n";
@@ -1832,6 +1831,12 @@ module.exports = {
             let target = players[targetIndex];
             let targetName = target.name;
 
+            let protector = {
+              index: i,
+              roleName: doer.role.name,
+              isSelfTarget: false
+            };
+
             if (parseInt(targetIndex) === parseInt(i)) {
               targetName = "diri sendiri";
 
@@ -1839,6 +1844,8 @@ module.exports = {
                 "🏠 Kamu memilih diam di rumah dan jaga-jaga" + "\n\n";
 
               this.group_session.players[i].role.selfHeal--;
+
+              protector.isSelfTarget = true;
             } else {
               let visitor = {
                 name: doer.name,
@@ -1852,15 +1859,9 @@ module.exports = {
             }
 
             this.group_session.players[targetIndex].healed = true;
-            
-            let protector = {
-              index: i,
-              
-            }
-            
-            
+
+            this.group_session.players[targetIndex].protectors.push(protector);
           }
-          
         }
       }
     }
@@ -1890,6 +1891,14 @@ module.exports = {
         } else {
           this.group_session.players[i].role.vest--;
           this.group_session.players[i].vested = true;
+
+          let protector = {
+            index: i,
+            roleName: doer.role.name,
+            isSelfTarget: true
+          };
+
+          this.group_session.players[i].protectors.push(protector);
         }
         continue;
       }
