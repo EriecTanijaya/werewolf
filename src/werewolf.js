@@ -2439,13 +2439,32 @@ module.exports = {
                   this.group_session.players[protector.index].counterAttackIndex = attackers[0].index;
                 }
                 
+                if (protector.roleName === "doctor") {
+                  if (players[protector.index].bugged) {
+                    spyBuggedInfo +=
+                      "🔍 Target dari Targetmu di serang!" +
+                      "\n\n";
+                  }
+                  
+                  this.group_session.players[i].message +=
+                    "💉 Ada yang datang berusaha menyelamatkanmu!" + "\n\n";
+                  
+                }
+                
               }
               
             }
             
             
-            
             if (protectors.length >= attackers.length) {
+              this.group_session.players[i].message +=
+                "🤕 Nyawa kamu berhasil diselamatkan!" + "\n\n";
+              
+              // purge from vampire bite
+              if (isVampireBited) {
+                this.group_session.players[i].vampireBited = false;
+              }
+              
               if (isVested) {
                 if (players[i].bugged) {
                   spyBuggedInfo +=
