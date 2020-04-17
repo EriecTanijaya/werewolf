@@ -2417,6 +2417,8 @@ module.exports = {
               this.group_session.players[protector.index].message  +=
                 "💡 " + players[i].name + " diserang semalam!" + "\n\n";
             }
+            
+            
               
           }
         }
