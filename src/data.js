@@ -153,6 +153,7 @@ module.exports = {
         state: "idle",
         time_default: 0,
         time: 300,
+        mode: "classic",
         players: []
       };
       group_sessions[groupId] = newGroup;
@@ -343,7 +344,7 @@ module.exports = {
       this.getUserData(item.id, reset_player);
     });
 
-    this.resetRoom(groupId);
+    //this.resetRoom(groupId);
   },
 
   resetRoom: function(groupId) {

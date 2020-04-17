@@ -12,6 +12,7 @@ console.log(`jumlah pemain ${playersLength}`)
 console.log(`town ${townNeedCount}, ww ${werewolfNeedCount}, neutral ${neutralNeedCount}`)
 ```
 
+- buat sistem settings, setting waktu di game, setting mode game (buat custom role set)
 - buat database beneran, data user store di mongodb freakin' hard tho
 - kalau role udah bsa multi gitu,
   - doctor : ada private prop ke target, yg di healed, pasti harus ada prop healed by who gitu
