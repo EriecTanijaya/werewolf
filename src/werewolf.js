@@ -986,6 +986,11 @@ module.exports = {
     let vampireDoerIndex = -1;
 
     if (vampireExists) {
+      // reset vampire convert cooldown
+      if (this.group_session.vampireConvertCooldown > 0) {
+        this.group_session.vampireConvertCooldown = 0;
+      }
+
       players.forEach((item, index) => {
         if (item.role.team === "vampire" && item.status === "alive") {
           let vampire = {
@@ -1515,7 +1520,6 @@ module.exports = {
 
               this.group_session.players[targetIndex].vampireBited = true;
             }
-            
           }
         }
       }
@@ -2876,7 +2880,7 @@ module.exports = {
 
           vampireAnnouncement +=
             "🧛 " + players[i].name + " berhasil menjadi Vampire!" + "\n\n";
-          
+
           this.group_session.vampireConvertCooldown = 1;
 
           break;

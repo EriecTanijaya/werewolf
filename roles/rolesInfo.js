@@ -95,6 +95,12 @@ module.exports = {
             "Makhluk hidup yang membawa kerusuhan dengan bisa mengubah warga menjadi sejenisnya. ";
           flex_text.body.text +=
             "Menang jika mengubah semua warga menjadi Vampire, atau menggantung penentangnya. ";
+          flex_text.body.text +=
+            "Vampire jika berhasil mengubah seoranga warga menjadi Vampire, akan ada jeda untuk ";
+          flex_text.body.text += "menggigit target selanjutnya. ";
+          flex_text.body.text +=
+            "Jika jumlah Vampire sudah 4 atau lebih, maka Vampire tidak lagi mengubah seorang warga ";
+          flex_text.body.text += "warga menjadi Vampire, tetapi menyerangnya. ";
           break;
 
         case "vh":
@@ -246,7 +252,7 @@ module.exports = {
           flex_text.body.text +=
             "Warga yang bisa melacak suatu pemain untuk diketahui kemana aja Targetnya. ";
           break;
-          
+
         case "framer":
           flex_text.header.text = "🎞️ Framer";
           flex_text.body.text += "Type: Werewolf Deception" + "\n\n";
@@ -257,7 +263,7 @@ module.exports = {
           flex_text.body.text +=
             "Jika di cek Seer, akan muncul Werewolf, walaupun sebenarnya bukan";
           break;
-          
+
         case "disguiser":
           flex_text.header.text = "🎭 Disguiser";
           flex_text.body.text += "Type: Werewolf Deception" + "\n\n";
@@ -266,7 +272,7 @@ module.exports = {
           flex_text.body.text +=
             "Jika Disguiser mati, maka nama role yang ada di daftar pemain adalah nama role warga yang dia imitasi. ";
           flex_text.body.text +=
-            "Hasil cek Sheriff akan tetap mencurigakan, sedangkan Seer hasil terawangnya adalah role yang di imitasi"
+            "Hasil cek Sheriff akan tetap mencurigakan, sedangkan Seer hasil terawangnya adalah role yang di imitasi";
           break;
 
         default:

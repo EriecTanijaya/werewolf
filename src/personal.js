@@ -282,15 +282,15 @@ module.exports = {
       }
     }
 
-    if (
-      roleName === "vampire" &&
-      this.group_session.vampireConvertCooldown > 0
-    ) {
-      return this.replyText(
-        "💡 Kamu harus menunggu 1 malam lagi untuk gigit orang" //cp
-      );
+    if (roleName === "vampire") {
+      let vampireConvertCooldown = this.group_session.vampireConvertCooldown;
+      if (vampireConvertCooldown > 0) {
+        let infoText = "💡 Kamu harus menunggu ";
+        infoText += vampireConvertCooldown + " malam lagi untuk gigit orang";
+        return this.replyText(infoText);
+      }
     }
-    
+
     if (roleName === "jester" && !players[index].role.isLynched) {
       return this.replyText("💡 Jangan pernah kau coba untuk");
     }
@@ -513,7 +513,10 @@ module.exports = {
       } else if (roleName === "vampire") {
         let vampireConvertCooldown = this.group_session.vampireConvertCooldown;
         if (vampireConvertCooldown > 0) {
-          let infoText = "🦇 Kamu harus menunggu " + vampireConvertCooldown + " malam untuk gigit orang";
+          let infoText =
+            "🦇 Kamu harus menunggu " +
+            vampireConvertCooldown +
+            " malam untuk gigit orang";
           return this.replyFlex(flex_text, [text, infoText]);
         }
       }
