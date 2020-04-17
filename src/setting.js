@@ -23,7 +23,7 @@ module.exports = {
     
     let cmds = [
       "/set mode : untuk lihat mode game yang ada",
-      "/set mode < : untuk "
+      "/set mode <nama mode> : untuk set ke mode yang diinginkan"
     ];
 
     cmds.forEach((item, index) => {
@@ -40,5 +40,29 @@ module.exports = {
     };
     return this.replyFlex(flex_text);
   },
+  
+  setModeCommand: function() {
+    let modeList = this.getModeList();
+    
+    if (!this.args[2]) {
+      let list = modeList.join(", ");
+      let text = "📜 Mode List : " + "\n";
+      text += list;
+      return text;
+    }
+    
+    for (let i = 0; i < modeList.length; i++) {
+      if (this.args[2] === modeList[i]) {
+        this.group_session.mode =
+        break;
+      }
+    }
+    
+  },
+  
+  getModeList: function() {
+    let modeList = ["classic", "vampire", "chaos", "ww-vs-neutral"];
+    return modeList;
+  }
   
 }
