@@ -1865,6 +1865,63 @@ module.exports = {
         }
       }
     }
+    
+    /// Bodyguard Action
+    for (let i = 0; i < players.length; i++) {
+      let doer = players[i];
+
+      if (doer.role.name === "bodygard" && doer.status === "alive") {
+        if (doer.target.index === -1) {
+          this.group_session.players[i].message +=
+            "💡 Kamu tidak menggunakan skill mu" + "\n\n";
+
+          continue;
+        } else {
+          if (doer.blocked === true) {
+            this.group_session.players[i].message +=
+              "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." +
+              "\n\n";
+
+            continue;
+          } else if (!doer.attacked) {
+            let targetIndex = doer.target.index;
+            let target = players[targetIndex];
+            let targetName = target.name;
+
+            let protector = {
+              index: i,
+              roleName: doer.role.name,
+              isSelfTarget: false
+            };
+
+            if (parseInt(targetIndex) === parseInt(i)) {
+              targetName = "diri sendiri";
+
+              this.group_session.players[i].message +=
+                "🦺 Kamu memilih diam di rumah dan menggunakan vest" + "\n\n";
+
+              this.group_session.players[i].role.vest--;
+
+              protector.isSelfTarget = true;
+            } else {
+              let visitor = {
+                name: doer.name,
+                role: doer.role
+              };
+
+              this.group_session.players[targetIndex].visitors.push(visitor);
+
+              this.group_session.players[i].message +=
+                "👣 Kamu ke rumah " + target.name + "\n\n";
+            }
+
+            this.group_session.players[targetIndex].guarded = true;
+
+            this.group_session.players[targetIndex].protectors.push(protector);
+          }
+        }
+      }
+    }
 
     /// Survivor Action
     for (let i = 0; i < players.length; i++) {
@@ -2329,9 +2386,10 @@ module.exports = {
         let isVampireBited = players[i].vampireBited;
         let isHealed = players[i].healed;
         let isVested = players[i].vested;
-        let attackerLength = players[i].attackers.length;
+        let attackerLength = players[i].attackers;
         let isBurned = players[i].burned;
         let isHaunted = players[i].isHaunted;
+        let isGuarded = players[i].guarded;
         let roleName = players[i].role.name;
 
         if (players[i].role.disguiseAs) {
