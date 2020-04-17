@@ -2401,6 +2401,7 @@ module.exports = {
         let isBurned = players[i].burned;
         let isHaunted = players[i].isHaunted;
         let isGuarded = players[i].guarded;
+        let willSuicide = players[i].willSuicide;
         let roleName = players[i].role.name;
         let afkCounter = players[i].afkCounter;
 
@@ -2410,27 +2411,29 @@ module.exports = {
         
         
         if (isAttacked || isVampireBited) {
-          for (let u = 0; u < protectors.length; u++) {
-            let protector = protectors[u];
-            
-            if (!protector.isSelfTarget) {
-              this.group_session.players[protector.index].message  +=
-                "💡 " + players[i].name + " diserang semalam!" + "\n\n";
+          
+          if (isBurned || isHaunted || willSuicide || afkCounter > 6) {
+            // gak ada obat
+          } else {
+            // masih ada kesemapatan hidup
+            for (let u = 0; u < protectors.length; u++) {
+              let protector = protectors[u];
+
+              if (!protector.isSelfTarget) {
+                this.group_session.players[protector.index].message  +=
+                  "💡 " + players[i].name + " diserang semalam!" + "\n\n";
+              }
+
+
             }
-            
-              
           }
           
-          
-          
         }
         
         
         
         
-        if (isBurned || isHaunted || afkCounter > 6) {
-          
-        }
+        
         
         
         
