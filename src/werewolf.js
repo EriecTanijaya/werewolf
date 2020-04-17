@@ -1515,8 +1515,7 @@ module.exports = {
 
               this.group_session.players[targetIndex].vampireBited = true;
             }
-
-            break;
+            
           }
         }
       }
@@ -2877,6 +2876,8 @@ module.exports = {
 
           vampireAnnouncement +=
             "🧛 " + players[i].name + " berhasil menjadi Vampire!" + "\n\n";
+          
+          this.group_session.vampireConvertCooldown = 1;
 
           break;
         }

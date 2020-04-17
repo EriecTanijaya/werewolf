@@ -164,9 +164,7 @@ module.exports = {
     }
 
     if (this.args.length < 2) {
-      return this.replyText(
-        "💡 isi death note dengan '/dnote pesan kamu'"
-      );
+      return this.replyText("💡 isi death note dengan '/dnote pesan kamu'");
     }
 
     if (this.args.length > 60) {
@@ -284,6 +282,19 @@ module.exports = {
       }
     }
 
+    if (
+      roleName === "vampire" &&
+      this.group_session.vampireConvertCooldown > 0
+    ) {
+      return this.replyText(
+        "💡 Kamu harus menunggu 1 malam lagi untuk gigit orang" //cp
+      );
+    }
+    
+    if (roleName === "jester" && !players[index].role.isLynched) {
+      return this.replyText("💡 Jangan pernah kau coba untuk");
+    }
+
     //need system for it
     if (roleTeam === "vampire" || roleTeam === "werewolf") {
       if (players[targetIndex].role.team === roleTeam) {
@@ -300,13 +311,13 @@ module.exports = {
       targetName: targetName,
       selfTarget: false,
       changeTarget: false
-    }
+    };
 
     let playerTargetIndex = players[index].target.index;
     if (playerTargetIndex === -1) {
-        if (targetIndex == index) {
-          doer.selfTarget = true;
-        }
+      if (targetIndex == index) {
+        doer.selfTarget = true;
+      }
     } else {
       doer.changeTarget = true;
       if (targetIndex == index) {
@@ -340,7 +351,7 @@ module.exports = {
         this.group_session.vampireChat.push(message);
       }
     }
-    
+
     let text = skillText.response(doer, null);
     let msg = [text];
     if (players[index].role.canKill && players[index].deathNote === "") {
@@ -499,6 +510,12 @@ module.exports = {
         } else {
           return this.replyFlex(flex_text);
         }
+      } else if (roleName === "vampire") {
+        let vampireConvertCooldown = this.group_session.vampireConvertCooldown;
+        if (vampireConvertCooldown > 0) {
+          let infoText = "🦇 Kamu harus menunggu " + vampireConvertCooldown + " malam untuk gigit orang";
+          return this.replyFlex(flex_text, [text, infoText]);
+        }
       }
 
       // special role private role prop reminder
@@ -629,7 +646,7 @@ module.exports = {
       targetName: "",
       selfTarget: false,
       changeTarget: false
-    }
+    };
     text = skillText.response(doer, null);
     msg = [text];
 
@@ -676,7 +693,7 @@ module.exports = {
       targetName: "",
       selfTarget: false,
       changeTarget: false
-    }
+    };
     text = skillText.response(doer, null);
     msg = [text];
 
