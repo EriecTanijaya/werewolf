@@ -2414,15 +2414,25 @@ module.exports = {
         if (isAttacked || isVampireBited) {
           
           if (!isBurned && !isHaunted && !willSuicide && afkCounter <= 6) {
-            for (let u = 0; u < protectors.length; u++) {
-              let protector = protectors[u];
+            for (let i = 0; i < protectors.length; i++) {
+              let protector = protectors[i];
               if (!protector.isSelfTarget) {
                 this.group_session.players[protector.index].message  +=
                   "💡 " + players[i].name + " diserang semalam!" + "\n\n";
-              }  
+              }
+              
+              if (protector.roleName === "bodyguard") {
+                this.group_session.players[protector.index].counterAttackIndex = .index;
+              }
+              
             }
             
-            
+            if (protectors.length >= attackers.length) {
+              
+              continue;
+            } else {
+              
+            }
             
           }
           
