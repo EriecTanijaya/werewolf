@@ -978,7 +978,7 @@ module.exports = {
         break;
 
       case "new":
-        let text = "⏳ " + name + ", sisa waktu "; //cp
+        let text = "⏳ " + name + ", sisa waktu ";
         if (time > 90) {
           let minute = Math.round(time / 60);
           text += minute + " menit lagi ";
@@ -987,9 +987,9 @@ module.exports = {
         }
         text += "untuk memulai game";
         
-        let flex_text = this.getNewFlexText();
+        let flex_text = this.getNewStateFlex();
         
-        return this.replyText(text);
+        return this.replyFlex(flex_text, text);
 
       default:
         return this.replyText(
