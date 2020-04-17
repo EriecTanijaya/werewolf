@@ -1518,6 +1518,16 @@ module.exports = {
               }
 
               this.group_session.players[targetIndex].vampireBited = true;
+              
+              let attacker = {
+                index: i,
+                name: doer.name,
+                role: doer.role,
+                deathNote: doer.deathNote
+              };
+
+              this.group_session.players[targetIndex].attackers.push(attacker);
+              
             }
           }
         }
@@ -2393,18 +2403,27 @@ module.exports = {
         let isGuarded = players[i].guarded;
         let roleName = players[i].role.name;
         let afkCounter = players[i].afkCounter;
+        let defensePoint = 0;
+        let damagePoint = 0;
 
         if (players[i].role.disguiseAs) {
           roleName = players[i].role.disguiseAs;
         }
         
+        if (isHealed) {
+          defensePoint++;
+        }
         
-        if (isAttacked) //cp
+        if (isVested) {
+          defensePoint++;
+        }
+        
+        if (isGuarded) {
+          defensePoint++;
+        }
         
         
-        
-        
-        if (isBurned || isHaunted || afkCounter > 6) {
+        if (isAttacked || isVampireBited) {
           for (let u = 0; u < protectors.length; u++) {
             let protector = protectors[u];
             
@@ -2414,6 +2433,13 @@ module.exports = {
             }
               
           }
+        }
+        
+        
+        
+        
+        if (isBurned || isHaunted || afkCounter > 6) {
+          
         }
         
         
