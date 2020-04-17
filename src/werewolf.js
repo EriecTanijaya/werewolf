@@ -2425,27 +2425,43 @@ module.exports = {
               if (!protector.isSelfTarget) {
                 this.group_session.players[protector.index].message  +=
                   "💡 " + players[i].name + " diserang semalam!" + "\n\n";
-              }
-              
-              if (protector.roleName === "bodyguard") {
-                if (players[protector.index].bugged) {
-                  spyBuggedInfo +=
-                    "🔍 Target kamu sedang melindungi seseorang!" +
-                    "\n\n";
+                
+                if (protector.roleName === "bodyguard") {
+                  if (players[protector.index].bugged) {
+                    spyBuggedInfo +=
+                      "🔍 Target kamu sedang melindungi seseorang!" +
+                      "\n\n";
+                  }
+
+                  this.group_session.players[i].message +=
+                    "🛡️ Ada yang menyerang balik penyerang mu!" + "\n\n";
+
+                  this.group_session.players[protector.index].counterAttackIndex = attackers[0].index;
                 }
                 
-                this.group_session.players[i].message +=
-                  "🛡️ Ada yang menyerang balik penyerang mu!" + "\n\n";
-                
-                this.group_session.players[protector.index].counterAttackIndex = attackers[0].index;
               }
               
             }
             
+            
+            
             if (protectors.length >= attackers.length) {
+              if (isVested) {
+                if (players[i].bugged) {
+                  spyBuggedInfo +=
+                    "🔍 Target kamu selamat dari serangan berkat Vest yang digunakannya!" +
+                    "\n\n";
+                }
+              }
+              
+              if (isHealed) {
+                
+              }
               
               continue;
             } else {
+              
+              
               
             }
             
