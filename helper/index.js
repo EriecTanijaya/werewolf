@@ -31,6 +31,14 @@ module.exports = {
     ww, town, town, town, town, neutral, town, ww, town, neutral, town
     ww, town, neutral, town
     */
+    
+    //ada pas butuh
+    let 
+    
+    let towns = [
+      ""
+    ];
+    
     let roles = [
       "serial-killer",
       "vigilante",
