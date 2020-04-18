@@ -2726,7 +2726,9 @@ module.exports = {
 
         this.group_session.players[i].status = "death";
 
-        if (willSuicide) {
+        if (players[i].afkCounter > 6){
+        
+      }else if (willSuicide) {
           attackedAnnouncement = attackedMsg.getAttackResponse(
             [],
             players[i].name,
