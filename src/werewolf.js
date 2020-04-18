@@ -2410,11 +2410,13 @@ module.exports = {
 
         if (isAttacked || isVampireBited) {
           if (!isBurned && !isHaunted && !willSuicide && afkCounter <= 6) {
+            let damage = attackers.length;
+            
             for (let i = 0; i < attackers.length; i++) {
               let attacker = attackers[i];
 
               if (isHealed || isGuarded || isVested || isSelfHeal) {
-                // di lindungi
+
                 for (let i = 0; i < protectors.length; i++) {
                   let protector = protectors[i];
                   
@@ -2429,27 +2431,47 @@ module.exports = {
                     }
                     
                     // counter attack
-                    if (!players[protector.index].role.alreadyCounter) {
-                      if (players[protector.index].bugged) {
-                        spyBuggedInfo +=
-                          "🔍 Target kamu sedang melindungi seseorang!" + "\n\n";
-                      }
-                      
-                      this.group_session.players[i].message +=
-                        "🛡️ Ada yang menyerang balik penyerang mu!" + "\n\n";
-                      
-                      this.group_session.players[protector.index].role.counterAttackIndex = attacker.index;
-                      this.group_session.players[protector.index].role.alreadyCounter = true;
+                    if (players[protector.index].bugged) {
+                      spyBuggedInfo +=
+                        "🔍 Target kamu sedang melindungi seseorang!" + "\n\n";
                     }
+                      
+                    this.group_session.players[i].message +=
+                      "🛡️ Ada yang menyerang balik penyerang mu!" + "\n\n";
+                      
+                    this.group_session.players[protector.index].role.counterAttackIndex = attacker.index;
                   }
                   
                   if (players[protector.index].roleName === "doctor") {
-                    //
+                    
+                    if (players[protector.index].bugged) {
+                      spyBuggedInfo +=
+                        "🔍 Target dari Targetmu di serang!" + "\n\n";
+                    }
+                    
+                    this.group_session.players[i].message +=
+                      "💉 Ada yang datang berusaha menyelamatkanmu!" + "\n\n";
+                    
                   }
                   
+                  if (isSelfHeal) {
+                    
+                  }
+                  
+                  
+                  damage--;
                 }
                 
               }
+            }
+            
+            if (!damage) {
+              //saved
+            } else {
+              //not enough protector or no protector
+              
+              // check vampireBited juga disini
+              
             }
           }
         }
