@@ -2395,6 +2395,7 @@ module.exports = {
       }
     }
 
+    /// DEATH ACTION STILL WIP
     /// Death Action
     for (let i = 0; i < players.length; i++) {
       if (players[i].status === "alive") {
@@ -2422,6 +2423,9 @@ module.exports = {
                   "💡 " + players[i].name + " diserang semalam!" + "\n\n";
 
                 if (protector.roleName === "bodyguard") {
+                  
+                  
+                  
                   if (players[protector.index].bugged) {
                     spyBuggedInfo +=
                       "🔍 Target kamu sedang melindungi seseorang!" + "\n\n";
@@ -2430,6 +2434,8 @@ module.exports = {
                   this.group_session.players[i].message +=
                     "🛡️ Ada yang menyerang balik penyerang mu!" + "\n\n";
 
+                  
+                  
                   this.group_session.players[
                     protector.index
                   ].role.counterAttackIndex = attackers[0].index;

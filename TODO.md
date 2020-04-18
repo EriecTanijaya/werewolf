@@ -1,8 +1,6 @@
 TODO
 
 - buat deskripsi role set
-- refactor obj attacker yang mau di push ke attackers arr
-  role, dipake ke roleName: doer.role.name aja
 
 ```
 let playersLength = 5
