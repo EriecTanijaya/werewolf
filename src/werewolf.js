@@ -356,12 +356,12 @@ module.exports = {
       this.addPlayer(newPlayer);
 
       //cp
-      for (let i = 0; i < 8; i++) {
-        let dummy = JSON.parse(JSON.stringify(this.user_session));
-        dummy.name += " " + helper.getRandomInt(1, 99);
-        let newPlayer = this.createNewPlayer(dummy);
-        this.addPlayer(newPlayer);
-      }
+      // for (let i = 0; i < 8; i++) {
+      //   let dummy = JSON.parse(JSON.stringify(this.user_session));
+      //   dummy.name += " " + helper.getRandomInt(1, 99);
+      //   let newPlayer = this.createNewPlayer(dummy);
+      //   this.addPlayer(newPlayer);
+      // }
 
       let text = "💡 " + this.user_session.name + " berhasil bergabung!";
       return this.replyFlex(flex_text, [text, remindText]);
@@ -641,18 +641,18 @@ module.exports = {
     ///werewolf harus selalu ada
     let players = this.group_session.players;
     let playersLength = players.length;
-    //let roles = this.getRandomRoleSet(playersLength); //cp
+    let roles = this.getRandomRoleSet(playersLength); //cp
 
     /// test specific role
-    let roles = [
-      "vampire",
-      "doctor",
-      "doctor",
-      "bodyguard",
-      "vampire-hunter",
-      "serial-killer",
-      "escort"
-    ];
+    // let roles = [
+    //   "vampire",
+    //   "doctor",
+    //   "doctor",
+    //   "bodyguard",
+    //   "vampire-hunter",
+    //   "serial-killer",
+    //   "escort"
+    // ];
 
     /// hax for exe
     let exeIndex = -1;
@@ -816,14 +816,14 @@ module.exports = {
     this.runTimer();
 
     //cp
-    let playersWithRole = this.group_session.players.map(i => {
-      return {
-        name: i.name,
-        roleName: i.role.name
-      };
-    });
+//     let playersWithRole = this.group_session.players.map(i => {
+//       return {
+//         name: i.name,
+//         roleName: i.role.name
+//       };
+//     });
 
-    console.table(playersWithRole);
+//     console.table(playersWithRole);
 
     if (flex_texts) {
       return this.replyFlex(flex_texts, null, newFlex_text);
@@ -1693,7 +1693,6 @@ module.exports = {
               "\n\n";
 
             targetIndex = this.getJesterTargetIndex(doer.id);
-            console.log(`random target index jester ${targetIndex}`);
           } else {
             targetIndex = doer.target.index;
           }
@@ -3261,7 +3260,7 @@ module.exports = {
         item.message += werewolfAnnouncement;
       }
       
-      console.log(`pesan ${item.name} (${item.role.name}) : ${item.message}`); //cp
+      //console.log(`pesan ${item.name} (${item.role.name}) : ${item.message}`); //cp
       
       /// journal , keep this below any special Announcement
       if (item.status === "alive" && item.message !== "") {

@@ -24,6 +24,8 @@ module.exports = {
       return this.roleListCommand();
     } else if (cmd === "type") {
       return this.roleTypeCommand();
+    } else if(cmd === "mode") {
+      return this.roleSetCommand();
     } else {
       let input = "";
       if (this.args[2]) {
@@ -303,8 +305,10 @@ module.exports = {
       "/info :  tampilin list command info",
       "/info role : list role yang ada",
       "/info type : list type yang ada",
+      "/info mode : list mode yang ada",
       "/info <nama-role> : deskripsi role tersebut",
-      "/info <nama-type> : deskripsi role tersebut"
+      "/info <nama-type> : deskripsi role tersebut",
+      "/info <nama-mode> : deskripsi mode tersebut"
     ];
 
     cmds.forEach((item, index) => {
@@ -320,6 +324,10 @@ module.exports = {
       }
     };
     return this.replyFlex(flex_text);
+  },
+  
+  roleSetCommand: function() {
+    
   },
 
   roleListCommand: function() {
