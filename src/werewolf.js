@@ -649,7 +649,9 @@ module.exports = {
       "doctor",
       "doctor",
       "bodyguard",
-      "vampire-hunter"
+      "vampire-hunter",
+      "serial-killer",
+      "escort"
     ];
 
     /// hax for exe
@@ -710,9 +712,6 @@ module.exports = {
   },
 
   getRandomRoleSet: function(playersLength) {
-    // sementara random dulu mode nya, kedepan kalo ada setting
-    // bisa pilih mode
-    // cp
     let mode = this.group_session.mode;
     let roles = [];
 
@@ -725,8 +724,6 @@ module.exports = {
     } else if (mode === "ww-vs-neutral") {
       roles = helper.getWerewolfVsNeutralRoleSet(playersLength);
     }
-
-    // console.log(`roles di room ${this.group_session.groupId} : ${roles}`);
 
     return roles;
   },
@@ -3264,9 +3261,10 @@ module.exports = {
         item.message += werewolfAnnouncement;
       }
       
+      console.log(`pesan ${item.name} (${item.role.name}) : ${item.message}`); //cp
+      
       /// journal , keep this below any special Announcement
       if (item.status === "alive" && item.message !== "") {
-        console.log(`pesan ${item.name} (${item.role.name}) : ${item.message}`); //cp
         let journal = {
           nightCounter: this.group_session.nightCounter,
           content: item.message.trim()
@@ -3291,9 +3289,6 @@ module.exports = {
 
     ///check victory
     let someoneWin = this.checkVictory();
-
-    // cp make endless
-    //someoneWin = false;
 
     if (someoneWin) {
       flex_texts.unshift(flex_text);
