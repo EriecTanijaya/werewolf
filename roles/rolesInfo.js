@@ -24,7 +24,7 @@ module.exports = {
       return this.roleListCommand();
     } else if (cmd === "type") {
       return this.roleTypeCommand();
-    } else if(cmd === "mode") {
+    } else if (cmd === "mode") {
       return this.roleSetCommand();
     } else {
       let input = "";
@@ -54,8 +54,24 @@ module.exports = {
         }
       }
 
-      /// check untuk role
+      /// check untuk role & Mode info
       switch (input) {
+        case "ww vs neutral":
+          
+          break;
+          
+        case "vampire":
+          
+          break;
+          
+        case "chaos":
+          
+          break;
+          
+        case "classic":
+          
+          break;
+          
         case "villager":
         case "warga":
           flex_text.header.text = "👨‍🌾 Villager";
@@ -325,9 +341,27 @@ module.exports = {
     };
     return this.replyFlex(flex_text);
   },
-  
+
   roleSetCommand: function() {
-    
+    let modeList = helper.getModeList();
+
+    let flex_text = {
+      header: {
+        text: ""
+      },
+      body: {
+        text: ""
+      }
+    };
+
+    flex_text.header.text = "📜 Mode List 🔮";
+    flex_text.body.text = modeList.join(", ");
+    flex_text.body.text +=
+      "\n\n" +
+      "Cth: '/info ww-vs-neutral' untuk mengetahui deskripsi mode Vampire-Hunter" +
+      "\n";
+    flex_text.body.text += "Untuk set mode bisa ketik '/set mode <nama-mode>'";
+    return this.replyFlex(flex_text);
   },
 
   roleListCommand: function() {
