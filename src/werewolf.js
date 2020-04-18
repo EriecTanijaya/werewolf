@@ -651,7 +651,8 @@ module.exports = {
       "bodyguard",
       "vampire-hunter",
       "serial-killer",
-      "escort"
+      "escort",
+      "bodyguard"
     ];
 
     /// hax for exe
