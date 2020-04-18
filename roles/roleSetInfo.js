@@ -20,33 +20,45 @@ module.exports = {
     }
 
     let input = "";
-    if (this.args[3]) {
-      input = helper.parseToText(this.args, 2);
+    if (this.args[2]) {
+      input = this.parseToText(this.args);
     } else {
       input = this.args[2].replace("-", " ");
     }
     input = input.toLowerCase();
 
-    console.log(input)
+    console.log(input);
     /// check untuk role
     switch (input) {
       case "ww vs neutral":
       case "neutral vs ww":
+      case "ww-vs-neutral":
+      case "neutral-vs-ww":
         flex_text.header.text = "🐺🔥 Werewolf X Neutral";
-        flex_text.body.text += "Mode game dimana banyak Werewolf dan Neutral";
+        flex_text.body.text += "Mode game dimana banyak Werewolf dan Neutral. ";
         break;
 
-      case "mode vampire":
+      case "vampire":
         flex_text.header.text = "🦇🧛 Vampire Mode";
-        flex_text.body.text += "Mode game dimana banyak Werewolf dan Neutral";
+        flex_text.body.text += "Disana Vampire, disini Vampire. ";
         break;
 
       case "chaos":
+        flex_text.header.text = "🃏🪓 Chaos Mode";
+        flex_text.body.text += "Sesuai namanya, role role yang ada beneran buat chaos. ";
         break;
 
       case "classic":
         break;
+
+      default:
+        let text =
+          "💡 Tidak ada ditemukan info mode '" + this.args[2] + "' pada mode list. ";
+        text += "Cek info mode yang ada dengan cmd '/info mode'";
+        return this.replyText(text);
     }
+
+    return this.replyFlex(flex_text);
   },
 
   roleSetCommand: function() {
@@ -65,12 +77,28 @@ module.exports = {
     flex_text.body.text = modeList.join(", ");
     flex_text.body.text +=
       "\n\n" +
-      "Cth: '/info ww-vs-neutral' untuk mengetahui deskripsi mode" +
+      "Cth: '/info mode ww-vs-neutral' untuk mengetahui deskripsi mode" +
       "\n";
     flex_text.body.text += "Untuk set mode bisa ketik '/set mode <nama-mode>'";
     return this.replyFlex(flex_text);
   },
-  
+
+  parseToText: function(arr) {
+    let text = "";
+    arr.forEach(function(item, index) {
+      if (index !== 0) {
+        //ini untuk tidak parse text command '/command'
+        if (index !== 1) {
+          if (index !== 2) {
+            text += " ";
+          }
+          text += item;
+        }
+      }
+    });
+    return text;
+  },
+
   /** message func **/
 
   replyText: function(texts) {
@@ -101,5 +129,4 @@ module.exports = {
     const flex = require("/app/message/flex");
     return flex.receive(this.client, this.event, flex_texts, opt_texts);
   }
-  
 };

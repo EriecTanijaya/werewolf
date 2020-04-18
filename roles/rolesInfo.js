@@ -290,7 +290,7 @@ module.exports = {
             "💡 Tidak ada ditemukan role '" +
             this.args[1] +
             "' pada role list. ";
-          text += "Cek info role yang dengan cmd '/info'";
+          text += "Cek info role yang ada dengan cmd '/info'";
           return this.replyText(text);
       }
 
@@ -309,7 +309,7 @@ module.exports = {
       "/info mode : list mode yang ada",
       "/info <nama-role> : deskripsi role tersebut",
       "/info <nama-type> : deskripsi role tersebut",
-      "/info <nama-mode> : deskripsi mode tersebut"
+      "/info mode <nama-mode> : deskripsi mode tersebut"
     ];
 
     cmds.forEach((item, index) => {
