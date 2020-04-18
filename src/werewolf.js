@@ -2426,8 +2426,10 @@ module.exports = {
                     "💡 " + players[i].name + " diserang semalam!" + "\n\n";
 
                   if (players[protector.index].roleName === "bodyguard") {
+                    console.log(`di lindungi bg`);
                     // bodyguard tidak lindungi yang diserang veteran alert
                     if (attacker.role.name === "veteran") {
+                      console.log(`doi diserang veteran, jadi tak di lindungi bg`);
                       continue;
                     }
 
@@ -2443,9 +2445,11 @@ module.exports = {
                     this.group_session.players[
                       protector.index
                     ].role.counterAttackIndex = attacker.index;
+                    console.log(`bg akan counter attack ${players[attacker.index].name}`);
                   }
 
                   if (players[protector.index].roleName === "doctor") {
+                    console.log(`dilindungi doctor`);
                     if (players[protector.index].bugged) {
                       spyBuggedInfo +=
                         "🔍 Target dari Targetmu di serang!" + "\n\n";
@@ -2460,9 +2464,12 @@ module.exports = {
               }
 
               if (isVested || isSelfHeal) {
+                console.log(`${players[i].name} pake vest/selfheal`);
                 this.group_session.players[i].damage--;
               }
             }
+            
+            console.log(`damage - defense yg ada jadi ${this.group_session.players[i].damage}`)
 
             if (this.group_session.players[i].damage <= 0) {
               //saved
@@ -2506,6 +2513,8 @@ module.exports = {
               //not enough protector or no protector
 
               // check vampireBited juga disini
+              console.log(`apakah ${players[i].name} digigit vamp? ${isVampireBited}`);
+              console.log(`apakah ${players[i].name} di attack? ${isAttacked}`);
               if (!isAttacked) continue;
 
               this.group_session.players[i].status = "will_death";
@@ -2524,6 +2533,7 @@ module.exports = {
         let targetIndex = doer.target.index;
 
         if (attackerIndex !== -1) {
+          console.log(`Bodyguard ${players[i].name} counter attack ${players[attackerIndex].name} waktu lindungi ${players[targetIndex].name}`);
           let isAttackerHealed = players[attackerIndex].healed;
           let isHealed = players[i].healed;
 
@@ -2556,6 +2566,8 @@ module.exports = {
             let attackerProtectors = players[attackerIndex].protectors;
             for (let i = 0; i < attackerProtectors.length; i++) {
               let protector = attackerProtectors[i];
+              
+              console.log(`${players[attackerIndex].name} diheal ${players[protector.index].name}`)
 
               this.group_session.players[protector.index].message +=
                 "💡 " + players[i].name + " diserang semalam!" + "\n\n";
@@ -2645,6 +2657,9 @@ module.exports = {
 
             this.group_session.players[attackerIndex].attackers.push(attacker);
           }
+          
+          //reset bg counter attack
+          this.group_session.players[i].role.counterAttackIndex = -1;
         }
       }
     }
