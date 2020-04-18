@@ -737,6 +737,7 @@ module.exports = {
         item.guarded = false;
         item.bugged = false;
         item.framed = false;
+        item.selfHeal = false;
 
         //special role (vampire)
         if (item.role.team === "vampire") {
@@ -1788,6 +1789,7 @@ module.exports = {
             this.group_session.players[targetIndex].framed = false;
             this.group_session.players[targetIndex].protectors = [];
             this.group_session.players[targetIndex].guarded = false;
+            this.group_session.players[targetIndex].selfHeal = false;
 
             let targetRoleName = target.role.name;
 
@@ -1840,12 +1842,6 @@ module.exports = {
             let target = players[targetIndex];
             let targetName = target.name;
 
-            let protector = {
-              index: i,
-              roleName: doer.role.name,
-              isSelfTarget: false
-            };
-
             if (parseInt(targetIndex) === parseInt(i)) {
               targetName = "diri sendiri";
 
@@ -1854,7 +1850,7 @@ module.exports = {
 
               this.group_session.players[i].role.selfHeal--;
 
-              protector.isSelfTarget = true;
+              this.group_session.players[i].selfHeal = true;
             } else {
               let visitor = {
                 name: doer.name,
@@ -1865,11 +1861,18 @@ module.exports = {
 
               this.group_session.players[i].message +=
                 "👣 Kamu ke rumah " + target.name + "\n\n";
+
+              this.group_session.players[targetIndex].healed = true;
+
+              let protector = {
+                index: i,
+                roleName: doer.role.name
+              };
+
+              this.group_session.players[targetIndex].protectors.push(
+                protector
+              );
             }
-
-            this.group_session.players[targetIndex].healed = true;
-
-            this.group_session.players[targetIndex].protectors.push(protector);
           }
         }
       }
@@ -1899,8 +1902,7 @@ module.exports = {
 
             let protector = {
               index: i,
-              roleName: doer.role.name,
-              isSelfTarget: false
+              roleName: doer.role.name
             };
 
             if (parseInt(targetIndex) === parseInt(i)) {
@@ -1911,8 +1913,6 @@ module.exports = {
 
               this.group_session.players[i].role.vest--;
               this.group_session.players[i].vested = true;
-
-              protector.isSelfTarget = true;
             } else {
               let visitor = {
                 name: doer.name,
@@ -1961,8 +1961,7 @@ module.exports = {
 
           let protector = {
             index: i,
-            roleName: doer.role.name,
-            isSelfTarget: true
+            roleName: doer.role.name
           };
 
           this.group_session.players[i].protectors.push(protector);
@@ -2396,6 +2395,51 @@ module.exports = {
     }
 
     /// DEATH ACTION STILL WIP
+    for (let i = 0; i < players.length; i++) {
+      if (players[i].status === "alive") {
+        let isAttacked = players[i].attacked;
+        let isVampireBited = players[i].vampireBited;
+
+        let isHealed = players[i].healed;
+        let isVested = players[i].vested;
+        let isGuarded = players[i].guarded;
+        let isSelfHeal = players[i].selfHeal;
+
+        let isBurned = players[i].burned;
+        let isHaunted = players[i].isHaunted;
+        let willSuicide = players[i].willSuicide;
+        let afkCounter = players[i].afkCounter;
+
+        let attackers = players[i].attackers;
+        let protectors = players[i].protectors;
+
+        if (isAttacked || isVampireBited) {
+          if (!isBurned && !isHaunted && !willSuicide && afkCounter <= 6) {
+            for (let i = 0; i < attackers.length; i++) {
+              let attackerIndex = attackers[i].index;
+
+              if (isHealed || isGuarded) {
+                // di lindungi
+                for (let i = 0; i < protectors.length; i++) {
+                  let protectorIndex = protectors[i].index;
+                  
+                  this.group_session.players[protectorIndex].message +=
+                    "💡 " + players[i].name + " diserang semalam!" + "\n\n";
+                  
+                  if (players[protectorIndex].role.name === "")
+                  
+                }
+                
+              } else if (isVested || isSelfHeal) {
+                // self defense
+                
+              }
+            }
+          }
+        }
+      }
+    }
+
     /// Death Action
     for (let i = 0; i < players.length; i++) {
       if (players[i].status === "alive") {
@@ -2423,9 +2467,6 @@ module.exports = {
                   "💡 " + players[i].name + " diserang semalam!" + "\n\n";
 
                 if (protector.roleName === "bodyguard") {
-                  
-                  
-                  
                   if (players[protector.index].bugged) {
                     spyBuggedInfo +=
                       "🔍 Target kamu sedang melindungi seseorang!" + "\n\n";
@@ -2434,8 +2475,6 @@ module.exports = {
                   this.group_session.players[i].message +=
                     "🛡️ Ada yang menyerang balik penyerang mu!" + "\n\n";
 
-                  
-                  
                   this.group_session.players[
                     protector.index
                   ].role.counterAttackIndex = attackers[0].index;
@@ -2519,17 +2558,15 @@ module.exports = {
 
         if (attackerIndex !== -1) {
           let isHealed = players[attackerIndex].healed;
-          let isGuarded = players[]
-//           let attacker = {
-//             index: i,
-//             name: doer.name,
-//             role: doer.role,
-//             deathNote: doer.deathNote
-//           };
 
-//           this.group_session.players[attackerIndex].attackers.push(attacker);
-          
-          if ()
+          //           let attacker = {
+          //             index: i,
+          //             name: doer.name,
+          //             role: doer.role,
+          //             deathNote: doer.deathNote
+          //           };
+
+          //           this.group_session.players[attackerIndex].attackers.push(attacker);
 
           attackerIndex = -1;
         }
