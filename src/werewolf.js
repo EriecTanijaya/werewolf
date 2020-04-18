@@ -339,10 +339,10 @@ module.exports = {
       this.user_session.state = "active";
       this.user_session.groupId = this.group_session.groupId;
       //cp
-      //for (let i = 0; i < 6; i++) {
+      for (let i = 0; i < 6; i++) {
       let newPlayer = this.createNewPlayer(this.user_session);
       this.addPlayer(newPlayer);
-      //}
+      }
 
       let text = "💡 " + this.user_session.name + " berhasil bergabung!";
       return this.replyFlex(flex_text, [text, remindText]);
@@ -622,10 +622,10 @@ module.exports = {
     ///werewolf harus selalu ada
     let players = this.group_session.players;
     let playersLength = players.length;
-    let roles = this.getRandomRoleSet(playersLength); //cp
+    //let roles = this.getRandomRoleSet(playersLength); //cp
 
     /// test specific role
-    //let roles = ["arsonist", "doctor", "veteran"];
+    let roles = ["werewolf", "doctor", "veteran", "bodyguard", "doctor", "spy"];
 
     /// hax for exe
     let exeIndex = -1;

@@ -1,6 +1,7 @@
 TODO
 
 - buat deskripsi role set
+- masukin bg ke role set di helper func
 
 ```
 let playersLength = 5
