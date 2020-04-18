@@ -24,6 +24,9 @@ module.exports = {
       return this.roleListCommand();
     } else if (cmd === "type") {
       return this.roleTypeCommand();
+    } else if (cmd === "mode") {
+      const roles = require("/app/roles/roleSetInfo");
+      return roles.receive(this.client, this.event, this.args);
     } else {
       let input = "";
       if (this.args[2]) {
@@ -53,7 +56,7 @@ module.exports = {
       }
 
       /// check untuk role
-      switch (input) {
+      switch (input) {  
         case "villager":
         case "warga":
           flex_text.header.text = "👨‍🌾 Villager";
@@ -206,7 +209,7 @@ module.exports = {
           flex_text.body.text +=
             "Warga yang bisa cek suatu pemain mencurigakan atau tidak. ";
           flex_text.body.text +=
-            "Setiap warga akan tampil tidak mencurigakan. Namun role Werewolf, Arsonist, Vampire akan tampil tidak mencurigakan juga. ";
+            "Setiap warga akan tampil tidak mencurigakan. Namun role Werewolf, Arsonist, Vampire, Executioner akan tampil tidak mencurigakan juga. ";
           break;
 
         case "arsonist":
@@ -272,14 +275,14 @@ module.exports = {
           flex_text.body.text +=
             "Hasil cek Sheriff akan tetap mencurigakan, sedangkan Seer hasil terawangnya adalah role yang di imitasi";
           break;
-          
+
         case "bodyguard":
           flex_text.header.text = "🛡️ Bodyguard";
           flex_text.body.text += "Type: Town Protector" + "\n\n";
           flex_text.body.text +=
             "Warga yang bisa memilih siapa pemain yang ingin dilindungi. ";
           flex_text.body.text +=
-            "Jika Target mau Bodyguard diserang, maka Bodyguard akan melawan balik penyerang tersebut. ";
+            "Jika Target Bodyguard mau diserang, maka Bodyguard akan melawan balik penyerang tersebut. ";
           break;
 
         default:
@@ -287,7 +290,7 @@ module.exports = {
             "💡 Tidak ada ditemukan role '" +
             this.args[1] +
             "' pada role list. ";
-          text += "Cek info role yang dengan cmd '/info'";
+          text += "Cek info role yang ada dengan cmd '/info'";
           return this.replyText(text);
       }
 
@@ -303,8 +306,10 @@ module.exports = {
       "/info :  tampilin list command info",
       "/info role : list role yang ada",
       "/info type : list type yang ada",
+      "/info mode : list mode yang ada",
       "/info <nama-role> : deskripsi role tersebut",
-      "/info <nama-type> : deskripsi role tersebut"
+      "/info <nama-type> : deskripsi role tersebut",
+      "/info mode <nama-mode> : deskripsi mode tersebut"
     ];
 
     cmds.forEach((item, index) => {

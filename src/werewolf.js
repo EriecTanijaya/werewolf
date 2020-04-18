@@ -356,12 +356,12 @@ module.exports = {
       this.addPlayer(newPlayer);
 
       //cp
-      /*for (let i = 0; i < 8; i++) {
-        let dummy = JSON.parse(JSON.stringify(this.user_session));
-        dummy.name += " " + helper.getRandomInt(1, 99);
-        let newPlayer = this.createNewPlayer(dummy);
-        this.addPlayer(newPlayer);
-      }*/
+      // for (let i = 0; i < 8; i++) {
+      //   let dummy = JSON.parse(JSON.stringify(this.user_session));
+      //   dummy.name += " " + helper.getRandomInt(1, 99);
+      //   let newPlayer = this.createNewPlayer(dummy);
+      //   this.addPlayer(newPlayer);
+      // }
 
       let text = "💡 " + this.user_session.name + " berhasil bergabung!";
       return this.replyFlex(flex_text, [text, remindText]);
@@ -641,20 +641,18 @@ module.exports = {
     ///werewolf harus selalu ada
     let players = this.group_session.players;
     let playersLength = players.length;
-    //let roles = this.getRandomRoleSet(playersLength); //cp
+    let roles = this.getRandomRoleSet(playersLength); //cp
 
     /// test specific role
-    let roles = [
-      "werewolf",
-      "doctor",
-      "veteran",
-      "bodyguard",
-      "doctor",
-      "spy",
-      "werewolf-cub",
-      "vampire",
-      "vampire-hunter", 
-    ];
+    // let roles = [
+    //   "vampire",
+    //   "doctor",
+    //   "doctor",
+    //   "bodyguard",
+    //   "vampire-hunter",
+    //   "serial-killer",
+    //   "escort"
+    // ];
 
     /// hax for exe
     let exeIndex = -1;
@@ -714,9 +712,6 @@ module.exports = {
   },
 
   getRandomRoleSet: function(playersLength) {
-    // sementara random dulu mode nya, kedepan kalo ada setting
-    // bisa pilih mode
-    // cp
     let mode = this.group_session.mode;
     let roles = [];
 
@@ -729,8 +724,6 @@ module.exports = {
     } else if (mode === "ww-vs-neutral") {
       roles = helper.getWerewolfVsNeutralRoleSet(playersLength);
     }
-
-    // console.log(`roles di room ${this.group_session.groupId} : ${roles}`);
 
     return roles;
   },
@@ -823,14 +816,14 @@ module.exports = {
     this.runTimer();
 
     //cp
-    let playersWithRole = this.group_session.players.map(i => {
-      return {
-        name: i.name,
-        roleName: i.role.name
-      };
-    });
+//     let playersWithRole = this.group_session.players.map(i => {
+//       return {
+//         name: i.name,
+//         roleName: i.role.name
+//       };
+//     });
 
-    console.table(playersWithRole);
+//     console.table(playersWithRole);
 
     if (flex_texts) {
       return this.replyFlex(flex_texts, null, newFlex_text);
@@ -1700,7 +1693,6 @@ module.exports = {
               "\n\n";
 
             targetIndex = this.getJesterTargetIndex(doer.id);
-            console.log(`random target index jester ${targetIndex}`);
           } else {
             targetIndex = doer.target.index;
           }
@@ -2460,16 +2452,11 @@ module.exports = {
         let protectors = players[i].protectors;
 
         if (isAttacked || isVampireBited) {
-          console.log(`${players[i].name} diserang!`);
           if (!isBurned && !isHaunted && !willSuicide && afkCounter <= 6) {
             this.group_session.players[i].damage = attackers.length;
-            console.log(`damage ${this.group_session.players[i].damage}`);
 
             for (let x = 0; x < attackers.length; x++) {
               let attacker = attackers[x];
-
-              // console.log(attacker);
-              // console.log(protectors);
 
               if (isHealed || isGuarded) {
                 for (let u = 0; u < protectors.length; u++) {
@@ -2483,13 +2470,9 @@ module.exports = {
                     "💡 " + players[i].name + " diserang semalam!" + "\n\n";
 
                   if (protector.roleName === "bodyguard") {
-                    console.log(`di lindungi bg`);
 
                     // bodyguard tidak lindungi yang diserang veteran alert
                     if (attacker.role.name === "veteran") {
-                      console.log(
-                        `doi diserang veteran, jadi tak di lindungi bg`
-                      );
                       continue;
                     }
 
@@ -2507,14 +2490,9 @@ module.exports = {
                     ].role.counterAttackIndex = attacker.index;
 
                     protector.used = true;
-
-                    console.log(
-                      `bg akan counter attack ${players[attacker.index].name}`
-                    );
                   }
 
                   if (protector.roleName === "doctor") {
-                    console.log(`dilindungi doctor`);
                     if (players[protector.index].bugged) {
                       spyBuggedInfo[protector.index] +=
                         "🔍 Target dari Targetmu di serang!" + "\n\n";
@@ -2531,18 +2509,9 @@ module.exports = {
               }
 
               if (isVested || isSelfHeal) {
-                console.log(`${players[i].name} pake vest/selfheal`);
                 this.group_session.players[i].damage--;
               }
             }
-
-            console.log(
-              `damage - defense yg ada jadi ${this.group_session.players[i].damage}`
-            );
-            console.log(
-              `apakah ${players[i].name} digigit vamp? ${isVampireBited}`
-            );
-            console.log(`apakah ${players[i].name} di attack? ${isAttacked}`);
 
             if (this.group_session.players[i].damage <= 0) {
               //saved
@@ -2608,9 +2577,6 @@ module.exports = {
         let targetIndex = doer.target.index;
 
         if (attackerIndex !== -1) {
-          console.log(
-            `Bodyguard ${players[i].name} counter attack ${players[attackerIndex].name} waktu lindungi ${players[targetIndex].name}`
-          );
           let isAttackerHealed = players[attackerIndex].healed;
           let isHealed = players[i].healed;
 
@@ -2648,10 +2614,6 @@ module.exports = {
                 continue;
               }
 
-              console.log(
-                `${players[attackerIndex].name} diheal ${players[protector.index].name}`
-              );
-
               this.group_session.players[protector.index].message +=
                 "💡 " + players[i].name + " diserang semalam!" + "\n\n";
 
@@ -2670,10 +2632,6 @@ module.exports = {
               this.group_session.players[attackerIndex].damage--;
             }
           }
-
-          console.log(
-            `damage ${players[attackerIndex].name} adalah ${players[attackerIndex].damage}`
-          );
 
           if (this.group_session.players[attackerIndex].damage <= 0) {
             //saved
@@ -2708,10 +2666,6 @@ module.exports = {
                 continue;
               }
 
-              console.log(
-                `${players[i].name} diheal ${players[protector.index].name}`
-              );
-
               this.group_session.players[protector.index].message +=
                 "💡 " + players[i].name + " diserang semalam!" + "\n\n";
 
@@ -2730,8 +2684,6 @@ module.exports = {
               this.group_session.players[i].damage--;
             }
           }
-
-          console.log(`damage ${players[i].name} adalah ${players[i].damage}`);
 
           if (this.group_session.players[i].damage <= 0) {
             //saved
@@ -2938,8 +2890,7 @@ module.exports = {
               "consort",
               "serial-killer",
               "framer",
-              "disguiser",
-              "arsonist"
+              "disguiser"
             ];
 
             if (target.framed || suspiciousList.includes(target.role.name)) {
@@ -3308,7 +3259,9 @@ module.exports = {
       if (item.role.team === "werewolf" && item.status === "alive") {
         item.message += werewolfAnnouncement;
       }
-
+      
+      //console.log(`pesan ${item.name} (${item.role.name}) : ${item.message}`); //cp
+      
       /// journal , keep this below any special Announcement
       if (item.status === "alive" && item.message !== "") {
         let journal = {
@@ -3335,9 +3288,6 @@ module.exports = {
 
     ///check victory
     let someoneWin = this.checkVictory();
-
-    // cp make endless
-    //someoneWin = false;
 
     if (someoneWin) {
       flex_texts.unshift(flex_text);
@@ -3589,9 +3539,6 @@ module.exports = {
       return this.night(null);
     } else {
       let someoneWin = this.checkVictory();
-
-      // cp
-      //someoneWin = false;
 
       if (someoneWin) {
         return this.endGame(null, someoneWin);

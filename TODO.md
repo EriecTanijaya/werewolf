@@ -15,11 +15,10 @@ console.log(`jumlah pemain ${playersLength}`)
 console.log(`town ${townNeedCount}, ww ${werewolfNeedCount}, neutral ${neutralNeedCount}`)
 ```
 
-- buat sistem settings, setting waktu di game, setting mode game (buat custom role set)
+
+
 - buat database beneran, data user store di mongodb freakin' hard tho
 - kalau role udah bsa multi gitu,
-  - doctor : ada private prop ke target, yg di healed, pasti harus ada prop healed by who gitu
-    - doctor sementara ga bisa multi dulu, ntr lah
   - bisa ada role amnesiac
   - sekarang neutral dh bisa multiple, tapi mereka ga tau siapa sesama mereka
 - sekarang udah bisa custom, jadi di getRandomRoleSet bnyak tugas nih
@@ -29,9 +28,13 @@ console.log(`town ${townNeedCount}, ww ${werewolfNeedCount}, neutral ${neutralNe
   - executioner
   
 - ROLE YG JANGAN DUPLICATE
-  - VETERAN, vampire hunter, team ww(consort, wwcub, sorcerer jangan ada dupe)
-  - Arsonist, survivor
+  - VETERAN
   - executioner
+  - team ww semua
+  - vampire hunter hanya ada saat ada vampire
+  - sheriff ada kalau ada list yg bisa di suspiciouskan
+  - vigilante ada kalau ada musuh yang bisa di dor
+  
 
 - buat module sendiri, untuk flex message, biar gampang dipake di bot lain
   - ini flexMessage table nya gampang di kostumisasi
