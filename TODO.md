@@ -26,6 +26,7 @@ console.log(`town ${townNeedCount}, ww ${werewolfNeedCount}, neutral ${neutralNe
 
 - ROLE YANG BELUM BISA DUPLICATE
   - executioner
+  - veteran, sebenarnya bisa ganti veteranIndexes jadiin kek spyBuggedInfo, tapi kalo banyak veteran ga bagus
   
 - ROLE YG JANGAN DUPLICATE
   - VETERAN

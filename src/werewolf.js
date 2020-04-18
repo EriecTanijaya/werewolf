@@ -649,7 +649,7 @@ module.exports = {
       "vampire",
       "vampire",
       "veteran",
-      "veteran",
+      "vampire-hunter",
       "serial-killer",
       "escort",
       "bodyguard"
