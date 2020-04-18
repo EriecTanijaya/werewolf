@@ -995,15 +995,20 @@ module.exports = {
     let isExecutionerTargetDie = false;
 
     /// Spy global var
-    let spyIndex = this.getPlayerIndexByRole("spy");
     let spyWerewolfVisitInfo = "";
     let spyBuggedInfo = {};
 
     /// Spy lock target action
-    if (spyIndex !== -1) {
-      let targetIndex = players[spyIndex].target.index;
-      if (targetIndex !== -1) {
-        this.group_session.players[targetIndex].bugged = true;
+    for (let i = 0; i < players.length; i++) {
+      let doer = players[i];
+      if (doer.role.name === "spy" && doer.status === "alive") {
+        let targetIndex = doer.target.index;
+        
+        if (targetIndex !== -1) {
+          this.group_session.players[targetIndex].bugged = true;
+          spyBuggedInfo[targetIndex] = "";
+        }
+        
       }
     }
 
@@ -3024,7 +3029,7 @@ module.exports = {
 
       if (doer.role.name === "spy" && doer.status === "alive") {
         if (!doer.blocked) {
-          this.group_session.players[i].message += spyWerewolfVisitInfo + "\n";
+          this.group_session.players[i].message += spyWerewolfVisitInfo;
         }
 
         if (doer.target.index === -1) {
