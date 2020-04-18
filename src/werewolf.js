@@ -356,12 +356,12 @@ module.exports = {
       this.addPlayer(newPlayer);
 
       //cp
-      // for (let i = 0; i < 8; i++) {
-      //   let dummy = JSON.parse(JSON.stringify(this.user_session));
-      //   dummy.name += " " + helper.getRandomInt(1, 99);
-      //   let newPlayer = this.createNewPlayer(dummy);
-      //   this.addPlayer(newPlayer);
-      // }
+      for (let i = 0; i < 8; i++) {
+        let dummy = JSON.parse(JSON.stringify(this.user_session));
+        dummy.name += " " + helper.getRandomInt(1, 99);
+        let newPlayer = this.createNewPlayer(dummy);
+        this.addPlayer(newPlayer);
+      }
 
       let text = "💡 " + this.user_session.name + " berhasil bergabung!";
       return this.replyFlex(flex_text, [text, remindText]);
@@ -641,18 +641,18 @@ module.exports = {
     ///werewolf harus selalu ada
     let players = this.group_session.players;
     let playersLength = players.length;
-    let roles = this.getRandomRoleSet(playersLength); //cp
+    //let roles = this.getRandomRoleSet(playersLength); //cp
 
     /// test specific role
-    // let roles = [
-    //   "vampire",
-    //   "doctor",
-    //   "doctor",
-    //   "bodyguard",
-    //   "vampire-hunter",
-    //   "serial-killer",
-    //   "escort"
-    // ];
+    let roles = [
+      "vampire",
+      "doctor",
+      "doctor",
+      "bodyguard",
+      "vampire-hunter",
+      "serial-killer",
+      "escort"
+    ];
 
     /// hax for exe
     let exeIndex = -1;
@@ -816,14 +816,14 @@ module.exports = {
     this.runTimer();
 
     //cp
-//     let playersWithRole = this.group_session.players.map(i => {
-//       return {
-//         name: i.name,
-//         roleName: i.role.name
-//       };
-//     });
+        let playersWithRole = this.group_session.players.map(i => {
+          return {
+            name: i.name,
+            roleName: i.role.name
+          };
+        });
 
-//     console.table(playersWithRole);
+        console.table(playersWithRole);
 
     if (flex_texts) {
       return this.replyFlex(flex_texts, null, newFlex_text);
@@ -2452,7 +2452,7 @@ module.exports = {
         let protectors = players[i].protectors;
 
         if (isAttacked || isVampireBited) {
-          if (!isBurned && !isHaunted && !willSuicide && afkCounter <= 6) {
+          if (!isBurned && !isHaunted && !willSuicide && afkCounter < 6) {
             this.group_session.players[i].damage = attackers.length;
 
             for (let x = 0; x < attackers.length; x++) {
@@ -2470,7 +2470,6 @@ module.exports = {
                     "💡 " + players[i].name + " diserang semalam!" + "\n\n";
 
                   if (protector.roleName === "bodyguard") {
-
                     // bodyguard tidak lindungi yang diserang veteran alert
                     if (attacker.role.name === "veteran") {
                       continue;
@@ -2726,9 +2725,14 @@ module.exports = {
 
         this.group_session.players[i].status = "death";
 
-        if (players[i].afkCounter > 6){
-        
-      }else if (willSuicide) {
+        if (players[i].afkCounter > 6) {
+          attackedAnnouncement = attackedMsg.getAttackResponse(
+            [],
+            players[i].name,
+            false,
+            true
+          );
+        } else if (willSuicide) {
           attackedAnnouncement = attackedMsg.getAttackResponse(
             [],
             players[i].name,
@@ -3261,9 +3265,9 @@ module.exports = {
       if (item.role.team === "werewolf" && item.status === "alive") {
         item.message += werewolfAnnouncement;
       }
-      
-      //console.log(`pesan ${item.name} (${item.role.name}) : ${item.message}`); //cp
-      
+
+      console.log(`pesan ${item.name} (${item.role.name}) : ${item.message}`); //cp
+
       /// journal , keep this below any special Announcement
       if (item.status === "alive" && item.message !== "") {
         let journal = {
@@ -4169,7 +4173,7 @@ module.exports = {
         // from vampire-hunter to vigilante
         if (this.group_session.players[index].role.name === "vigilante") {
           this.group_session.players[index].role.bullet = 1;
-          this.group_session.players[index].role.isLoadBullet = false
+          this.group_session.players[index].role.isLoadBullet = false;
         }
 
         this.group_session.players[index].addonMessage +=
