@@ -2449,11 +2449,11 @@ module.exports = {
             this.group_session.players[i].damage = attackers.length;
             console.log(`damage ${this.group_session.players[i].damage}`);
 
-            for (let i = 0; i < attackers.length; i++) {
-              let attacker = attackers[i];
+            for (let x = 0; x < attackers.length; x++) {
+              let attacker = attackers[x];
 
-              console.log(attacker);
-              console.log(protectors);
+              // console.log(attacker);
+              // console.log(protectors);
               
               if (isHealed || isGuarded) {
                 for (let u = 0; u < protectors.length; u++) {
@@ -2484,8 +2484,6 @@ module.exports = {
                     this.group_session.players[
                       protector.index
                     ].role.counterAttackIndex = attacker.index;
-                    
-                    this.group_session.players[i].damage--;
                     
                     console.log(
                       `bg akan counter attack ${players[attacker.index].name}`
