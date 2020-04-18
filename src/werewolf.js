@@ -2453,8 +2453,8 @@ module.exports = {
               let attacker = attackers[i];
 
               if (isHealed || isGuarded) {
-                for (let i = 0; i < protectors.length; i++) {
-                  let protector = protectors[i];
+                for (let u = 0; u < protectors.length; u++) {
+                  let protector = protectors[u];
 
                   this.group_session.players[protector.index].message +=
                     "💡 " + players[i].name + " diserang semalam!" + "\n\n";
@@ -2609,8 +2609,8 @@ module.exports = {
           this.group_session.players[attackerIndex].damage += 1;
           if (isAttackerHealed) {
             let attackerProtectors = players[attackerIndex].protectors;
-            for (let i = 0; i < attackerProtectors.length; i++) {
-              let protector = attackerProtectors[i];
+            for (let u = 0; u < attackerProtectors.length; u++) {
+              let protector = attackerProtectors[u];
 
               console.log(
                 `${players[attackerIndex].name} diheal ${players[protector.index].name}`
@@ -2625,7 +2625,7 @@ module.exports = {
                     "🔍 Target dari Targetmu di serang!" + "\n\n";
                 }
 
-                this.group_session.players[i].message +=
+                this.group_session.players[attackerIndex].message +=
                   "💉 Ada yang datang berusaha menyelamatkanmu!" + "\n\n";
               }
 
@@ -2663,8 +2663,8 @@ module.exports = {
           this.group_session.players[i].damage += 1;
           if (isHealed) {
             let protectors = players[i].protectors;
-            for (let i = 0; i < protectors.length; i++) {
-              let protector = protectors[i];
+            for (let u = 0; u < protectors.length; u++) {
+              let protector = protectors[u];
 
               console.log(
                 `${players[i].name} diheal ${players[protector.index].name}`
@@ -2701,16 +2701,16 @@ module.exports = {
           } else {
             //not enough protector or no protector
 
-            this.group_session.players[attackerIndex].status = "will_death";
+            this.group_session.players[i].status = "will_death";
 
             let attacker = {
-              index: i,
-              name: doer.name,
-              role: doer.role,
-              deathNote: doer.deathNote
+              index: attackerIndex,
+              name: players[attackerIndex].name,
+              role: players[attackerIndex].role,
+              deathNote: players[attackerIndex].deathNote
             };
 
-            this.group_session.players[attackerIndex].attackers.push(attacker);
+            this.group_session.players[i].attackers.push(attacker);
           }
 
           //reset bg counter attack
@@ -2739,7 +2739,7 @@ module.exports = {
           );
 
           if (players[i].bugged) {
-            spyBuggedInfo[targetIndex] +=
+            spyBuggedInfo[i] +=
               "🔍 Target kamu mati bunuh diri karena perasaan bersalah!" +
               "\n\n";
           }
@@ -2748,7 +2748,7 @@ module.exports = {
             return atkr.role.name;
           });
 
-          let attackedAnnouncement = attackedMsg.getAttackResponse(
+          attackedAnnouncement = attackedMsg.getAttackResponse(
             attackersRole,
             players[i].name,
             false
