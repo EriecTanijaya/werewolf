@@ -2938,7 +2938,8 @@ module.exports = {
               "consort",
               "serial-killer",
               "framer",
-              "disguiser"
+              "disguiser",
+              "arsonist"
             ];
 
             if (target.framed || suspiciousList.includes(target.role.name)) {
