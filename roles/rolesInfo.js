@@ -25,7 +25,8 @@ module.exports = {
     } else if (cmd === "type") {
       return this.roleTypeCommand();
     } else if (cmd === "mode") {
-      return this.roleSetCommand();
+      const roles = require("/app/roles/roleSetInfo");
+      return roles.receive(this.client, this.event, this.args);
     } else {
       let input = "";
       if (this.args[2]) {
@@ -54,29 +55,8 @@ module.exports = {
         }
       }
 
-      /// check untuk role & Mode info
-      switch (input) {
-        case "ww vs neutral":
-        case "neutral vs ww":
-          flex_text.header.text = "🐺🔥 Werewolf X Neutral";
-          flex_text.body.text +=
-            "Mode game dimana banyak Werewolf dan Neutral";
-          break;
-          
-        case "vampire":
-          flex_text.header.text = "🐺🔥 Werewolf X Neutral";
-          flex_text.body.text +=
-            "Mode game dimana banyak Werewolf dan Neutral";
-          break;
-          
-        case "chaos":
-          
-          break;
-          
-        case "classic":
-          
-          break;
-          
+      /// check untuk role
+      switch (input) {  
         case "villager":
         case "warga":
           flex_text.header.text = "👨‍🌾 Villager";
@@ -344,28 +324,6 @@ module.exports = {
         text: text
       }
     };
-    return this.replyFlex(flex_text);
-  },
-
-  roleSetCommand: function() {
-    let modeList = helper.getModeList();
-
-    let flex_text = {
-      header: {
-        text: ""
-      },
-      body: {
-        text: ""
-      }
-    };
-
-    flex_text.header.text = "📜 Mode List 🔮";
-    flex_text.body.text = modeList.join(", ");
-    flex_text.body.text +=
-      "\n\n" +
-      "Cth: '/info ww-vs-neutral' untuk mengetahui deskripsi mode Vampire-Hunter" +
-      "\n";
-    flex_text.body.text += "Untuk set mode bisa ketik '/set mode <nama-mode>'";
     return this.replyFlex(flex_text);
   },
 
