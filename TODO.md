@@ -26,15 +26,7 @@ console.log(`town ${townNeedCount}, ww ${werewolfNeedCount}, neutral ${neutralNe
 - kalau pemain dah rame, adain **role investigator**, dimana dia miripin aj sama investigator di TOS
 
 - ROLE YANG BELUM BISA DUPLICATE
-  - DOKTOR
-  - SPY, store data spyBuggedInfo dalam obj,
-    
-    ubah spyBuggedInfo ke {}
-  
-    jadi ada obj -> spyBuggedInfo[spyTargetIndex] = "isi"
-    
-    spy action
-    message += spyBuggedInfo[targetIndex];
+  - executioner
   
 - ROLE YG JANGAN DUPLICATE
   - VETERAN, vampire hunter, team ww(consort, wwcub, sorcerer jangan ada dupe)
