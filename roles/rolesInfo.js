@@ -206,7 +206,7 @@ module.exports = {
           flex_text.body.text +=
             "Warga yang bisa cek suatu pemain mencurigakan atau tidak. ";
           flex_text.body.text +=
-            "Setiap warga akan tampil tidak mencurigakan. Namun role Werewolf, Arsonist, Vampire akan tampil tidak mencurigakan juga. ";
+            "Setiap warga akan tampil tidak mencurigakan. Namun role Werewolf, Arsonist, Vampire, Executioner akan tampil tidak mencurigakan juga. ";
           break;
 
         case "arsonist":
@@ -272,7 +272,7 @@ module.exports = {
           flex_text.body.text +=
             "Hasil cek Sheriff akan tetap mencurigakan, sedangkan Seer hasil terawangnya adalah role yang di imitasi";
           break;
-          
+
         case "bodyguard":
           flex_text.header.text = "🛡️ Bodyguard";
           flex_text.body.text += "Type: Town Protector" + "\n\n";

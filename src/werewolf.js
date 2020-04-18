@@ -648,12 +648,11 @@ module.exports = {
       "werewolf",
       "doctor",
       "veteran",
-      "bodyguard",
       "doctor",
+      "bodyguard",
       "spy",
-      "werewolf-cub",
-      "arsonist",
-      "vampire-hunter", 
+      "spy",
+      "werewolf-cub"
     ];
 
     /// hax for exe
@@ -2951,7 +2950,6 @@ module.exports = {
                 " tidak bersalah" +
                 "\n\n";
             }
-            console.log(this.group_session.players[i].message);
           }
         }
       }
@@ -3308,9 +3306,10 @@ module.exports = {
       if (item.role.team === "werewolf" && item.status === "alive") {
         item.message += werewolfAnnouncement;
       }
-
+      
       /// journal , keep this below any special Announcement
       if (item.status === "alive" && item.message !== "") {
+        console.log(`pesan ${item.name} : ${item.message}`);
         let journal = {
           nightCounter: this.group_session.nightCounter,
           content: item.message.trim()
