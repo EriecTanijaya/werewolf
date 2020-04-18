@@ -356,7 +356,7 @@ module.exports = {
       this.addPlayer(newPlayer);
 
       //cp
-      for (let i = 0; i < 8; i++) {
+      /for (let i = 0; i < 8; i++) {
         let dummy = JSON.parse(JSON.stringify(this.user_session));
         dummy.name += " " + helper.getRandomInt(1, 99);
         let newPlayer = this.createNewPlayer(dummy);
@@ -653,7 +653,7 @@ module.exports = {
       "spy",
       "werewolf-cub",
       "vampire",
-      "vampire-hunter"
+      "vampire-hunter", 
     ];
 
     /// hax for exe
