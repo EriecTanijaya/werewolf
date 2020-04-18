@@ -2475,14 +2475,14 @@ module.exports = {
                 for (let u = 0; u < protectors.length; u++) {
                   let protector = protectors[u];
 
+                  if (protector.used) {
+                    continue;
+                  }
+
                   this.group_session.players[protector.index].message +=
                     "💡 " + players[i].name + " diserang semalam!" + "\n\n";
 
                   if (protector.roleName === "bodyguard") {
-                    if (protector.used) {
-                      continue;
-                    }
-
                     console.log(`di lindungi bg`);
 
                     // bodyguard tidak lindungi yang diserang veteran alert
@@ -2514,10 +2514,6 @@ module.exports = {
                   }
 
                   if (protector.roleName === "doctor") {
-                    if (protector.used) {
-                      continue;
-                    }
-
                     console.log(`dilindungi doctor`);
                     if (players[protector.index].bugged) {
                       spyBuggedInfo[protector.index] +=
@@ -2648,6 +2644,10 @@ module.exports = {
             for (let u = 0; u < attackerProtectors.length; u++) {
               let protector = attackerProtectors[u];
 
+              if (protector.used) {
+                continue;
+              }
+
               console.log(
                 `${players[attackerIndex].name} diheal ${players[protector.index].name}`
               );
@@ -2656,10 +2656,6 @@ module.exports = {
                 "💡 " + players[i].name + " diserang semalam!" + "\n\n";
 
               if (protector.roleName === "doctor") {
-                if (protector.used) {
-                  continue;
-                }
-
                 if (players[protector.index].bugged) {
                   spyBuggedInfo[protector.index] +=
                     "🔍 Target dari Targetmu di serang!" + "\n\n";
@@ -2708,6 +2704,10 @@ module.exports = {
             for (let u = 0; u < protectors.length; u++) {
               let protector = protectors[u];
 
+              if (protector.used) {
+                continue;
+              }
+
               console.log(
                 `${players[i].name} diheal ${players[protector.index].name}`
               );
@@ -2716,10 +2716,6 @@ module.exports = {
                 "💡 " + players[i].name + " diserang semalam!" + "\n\n";
 
               if (protector.roleName === "doctor") {
-                if (protector.used) {
-                  continue;
-                }
-
                 if (players[protector.index].bugged) {
                   spyBuggedInfo[protector.index] +=
                     "🔍 Target dari Targetmu di serang!" + "\n\n";
