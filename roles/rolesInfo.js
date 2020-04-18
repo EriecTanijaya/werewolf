@@ -57,11 +57,16 @@ module.exports = {
       /// check untuk role & Mode info
       switch (input) {
         case "ww vs neutral":
-          
+        case "neutral vs ww":
+          flex_text.header.text = "🐺🔥 Werewolf X Neutral";
+          flex_text.body.text +=
+            "Mode game dimana banyak Werewolf dan Neutral";
           break;
           
         case "vampire":
-          
+          flex_text.header.text = "🐺🔥 Werewolf X Neutral";
+          flex_text.body.text +=
+            "Mode game dimana banyak Werewolf dan Neutral";
           break;
           
         case "chaos":

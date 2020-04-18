@@ -28,9 +28,13 @@ console.log(`town ${townNeedCount}, ww ${werewolfNeedCount}, neutral ${neutralNe
   - executioner
   
 - ROLE YG JANGAN DUPLICATE
-  - VETERAN, vampire hunter, team ww(consort, wwcub, sorcerer jangan ada dupe)
-  - Arsonist, survivor
+  - VETERAN
   - executioner
+  - team ww semua
+  - vampire hunter hanya ada saat ada vampire
+  - sheriff ada kalau ada list yg bisa di suspiciouskan
+  - vigilante ada kalau ada musuh yang bisa di dor
+  
 
 - buat module sendiri, untuk flex message, biar gampang dipake di bot lain
   - ini flexMessage table nya gampang di kostumisasi
