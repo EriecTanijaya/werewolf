@@ -1920,17 +1920,16 @@ module.exports = {
                 "👣 Kamu ke rumah " + target.name + "\n\n";
 
               this.group_session.players[targetIndex].guarded = true;
-              
+
               let protector = {
                 index: i,
                 roleName: doer.role.name
               };
-              
-              this.group_session.players[targetIndex].protectors.push(protector);
-              
-            }
 
-            
+              this.group_session.players[targetIndex].protectors.push(
+                protector
+              );
+            }
           }
         }
       }
@@ -2411,60 +2410,56 @@ module.exports = {
         if (isAttacked || isVampireBited) {
           if (!isBurned && !isHaunted && !willSuicide && afkCounter <= 6) {
             let damage = attackers.length;
-            
+
             for (let i = 0; i < attackers.length; i++) {
               let attacker = attackers[i];
 
               if (isHealed || isGuarded) {
-
                 for (let i = 0; i < protectors.length; i++) {
                   let protector = protectors[i];
-                  
+
                   this.group_session.players[protector.index].message +=
                     "💡 " + players[i].name + " diserang semalam!" + "\n\n";
-                  
+
                   if (players[protector.index].roleName === "bodyguard") {
-                    
                     // bodyguard tidak lindungi yang diserang veteran alert
                     if (attacker.role.name === "veteran") {
                       continue;
                     }
-                    
+
                     // counter attack
                     if (players[protector.index].bugged) {
                       spyBuggedInfo +=
                         "🔍 Target kamu sedang melindungi seseorang!" + "\n\n";
                     }
-                      
+
                     this.group_session.players[i].message +=
                       "🛡️ Ada yang menyerang balik penyerang mu!" + "\n\n";
-                      
-                    this.group_session.players[protector.index].role.counterAttackIndex = attacker.index;
+
+                    this.group_session.players[
+                      protector.index
+                    ].role.counterAttackIndex = attacker.index;
                   }
-                  
+
                   if (players[protector.index].roleName === "doctor") {
-                    
                     if (players[protector.index].bugged) {
                       spyBuggedInfo +=
                         "🔍 Target dari Targetmu di serang!" + "\n\n";
                     }
-                    
+
                     this.group_session.players[i].message +=
                       "💉 Ada yang datang berusaha menyelamatkanmu!" + "\n\n";
-                    
                   }
 
                   damage--;
                 }
-                
               }
-              
+
               if (isVested || isSelfHeal) {
                 damage--;
               }
-              
             }
-            
+
             if (damage <= 0) {
               //saved
               if (isVested) {
@@ -2473,23 +2468,22 @@ module.exports = {
                     "🔍 Target kamu selamat dari serangan berkat Vest yang digunakannya!" +
                     "\n\n";
                 }
-                
+
                 this.group_session.players[i].message +=
                   "🦺 Vest yang kamu pakai menyelamatkan nyawamu!" + "\n\n";
               }
-              
+
               if (isSelfHeal) {
                 if (players[i].bugged) {
                   spyBuggedInfo +=
                     "🔍 Target kamu selamat karena menyembuhkan diri sendiri!" +
                     "\n\n";
                 }
-                
+
                 this.group_session.players[i].message +=
-                  "💉 Kamu selamat dengan menyembuhkan diri sendiri!" +
-                  "\n\n";
+                  "💉 Kamu selamat dengan menyembuhkan diri sendiri!" + "\n\n";
               }
-              
+
               if (isGuarded) {
                 if (players[i].bugged) {
                   spyBuggedInfo +=
@@ -2497,131 +2491,19 @@ module.exports = {
                     "\n\n";
                 }
               }
-              
+
               if (isHealed) {
                 if (players[i].bugged) {
                   spyBuggedInfo +=
-                    "🔍 Target kamu selamat karena disembuhkan!" +
-                    "\n\n";
+                    "🔍 Target kamu selamat karena disembuhkan!" + "\n\n";
                 }
               }
-              
             } else {
               //not enough protector or no protector
- 
+
               // check vampireBited juga disini
               if (!isAttacked) continue;
-              
-              this.group_session.players[i].status = "will_death";
-              
-            }
-          }
-        }
-      }
-    }
 
-    /// Death Action
-    for (let i = 0; i < players.length; i++) {
-      if (players[i].status === "alive") {
-        let isAttacked = players[i].attacked;
-        let isVampireBited = players[i].vampireBited;
-        let isHealed = players[i].healed;
-        let isVested = players[i].vested;
-        let attackers = players[i].attackers;
-        let protectors = players[i].protectors;
-        let isBurned = players[i].burned;
-        let isHaunted = players[i].isHaunted;
-        let isGuarded = players[i].guarded;
-        let willSuicide = players[i].willSuicide;
-        let afkCounter = players[i].afkCounter;
-        let selfDefense = {
-          index: ""
-        };
-
-        if (isAttacked || isVampireBited) {
-          if (!isBurned && !isHaunted && !willSuicide && afkCounter <= 6) {
-            for (let i = 0; i < protectors.length; i++) {
-              let protector = protectors[i];
-              if (!protector.isSelfTarget) {
-                this.group_session.players[protector.index].message +=
-                  "💡 " + players[i].name + " diserang semalam!" + "\n\n";
-
-                if (protector.roleName === "bodyguard") {
-                  if (players[protector.index].bugged) {
-                    spyBuggedInfo +=
-                      "🔍 Target kamu sedang melindungi seseorang!" + "\n\n";
-                  }
-
-                  this.group_session.players[i].message +=
-                    "🛡️ Ada yang menyerang balik penyerang mu!" + "\n\n";
-
-                  this.group_session.players[
-                    protector.index
-                  ].role.counterAttackIndex = attackers[0].index;
-                }
-
-                if (protector.roleName === "doctor") {
-                  if (players[protector.index].bugged) {
-                    spyBuggedInfo +=
-                      "🔍 Target dari Targetmu di serang!" + "\n\n";
-                  }
-
-                  this.group_session.players[i].message +=
-                    "💉 Ada yang datang berusaha menyelamatkanmu!" + "\n\n";
-                }
-              } else {
-                selfDefense.index = protector.index;
-              }
-            }
-
-            if (protectors.length >= attackers.length) {
-              // purge from vampire bite
-              if (isVampireBited) {
-                this.group_session.players[i].vampireBited = false;
-              }
-
-              if (isVested) {
-                if (players[i].bugged) {
-                  spyBuggedInfo +=
-                    "🔍 Target kamu selamat dari serangan berkat Vest yang digunakannya!" +
-                    "\n\n";
-                }
-
-                this.group_session.players[i].message +=
-                  "🦺 Vest yang kamu pakai menyelamatkan nyawamu!" + "\n\n";
-              }
-
-              if (isHealed) {
-                if (selfDefense.index === i) {
-                  if (players[i].bugged) {
-                    spyBuggedInfo +=
-                      "🔍 Target kamu selamat karena menyembuhkan diri sendiri!" +
-                      "\n\n";
-                  }
-
-                  this.group_session.players[i].message +=
-                    "💉 Kamu selamat dengan menyembuhkan diri sendiri!" +
-                    "\n\n";
-                } else {
-                  if (players[i].bugged) {
-                    spyBuggedInfo +=
-                      "🔍 Target kamu selamat karena di sembuhkan Doctor!" +
-                      "\n\n";
-                  }
-
-                  this.group_session.players[i].message +=
-                    "💉 Dokter berhasil menyelamatkan nyawamu!" + "\n\n";
-                }
-              }
-
-              if (isGuarded) {
-                if (players[i].bugged) {
-                  spyBuggedInfo +=
-                    "🔍 Ada orang yang menyerang balik penyerang Targetmu!" +
-                    "\n\n";
-                }
-              }
-            } else {
               this.group_session.players[i].status = "will_death";
             }
           }
@@ -2635,9 +2517,46 @@ module.exports = {
 
       if (doer.role.name === "bodyguard") {
         let attackerIndex = players[i].role.counterAttackIndex;
+        let targetIndex = doer.target.index;
 
         if (attackerIndex !== -1) {
-          let isHealed = players[attackerIndex].healed;
+          let isAttackerHealed = players[attackerIndex].healed;
+
+          this.group_session.players[i].message +=
+            "💡 Kamu melawan penyerang " +
+            players[targetIndex].name +
+            ", dan diserang penyerang tersebut!" +
+            "\n\n";
+
+          this.group_session.players[attackerIndex].message +=
+            "🛡️ " +
+            players[targetIndex].name +
+            " dilindungi Bodyguard! " +
+            "Kamu diserang Bodyguard!" +
+            "\n\n";
+
+          if (isAttackerHealed) {
+            let attackerProtectors = players[attackerIndex].protectors;
+            for (let i = 0; i < attackerProtectors.length; i++) {
+              let protector = attackerProtectors[i];
+
+              this.group_session.players[protector.index].message +=
+                "💡 " + players[i].name + " diserang semalam!" + "\n\n";
+
+              if (players[protector.index].roleName === "doctor") {
+                if (players[protector.index].bugged) {
+                  spyBuggedInfo +=
+                    "🔍 Target dari Targetmu di serang!" + "\n\n";
+                }
+
+                this.group_session.players[i].message +=
+                  "💉 Ada yang datang berusaha menyelamatkanmu!" + "\n\n";
+              }
+
+              damage--;
+            }
+          } else {
+          }
 
           //           let attacker = {
           //             index: i,
@@ -2647,8 +2566,6 @@ module.exports = {
           //           };
 
           //           this.group_session.players[attackerIndex].attackers.push(attacker);
-
-          attackerIndex = -1;
         }
       }
     }
