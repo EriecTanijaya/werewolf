@@ -279,7 +279,7 @@ module.exports = {
           flex_text.body.text +=
             "Warga yang bisa memilih siapa pemain yang ingin dilindungi. ";
           flex_text.body.text +=
-            "Jika Target mau Bodyguard diserang, maka Bodyguard akan melawan balik penyerang tersebut. ";
+            "Jika Target Bodyguard mau diserang, maka Bodyguard akan melawan balik penyerang tersebut. ";
           break;
 
         default:
