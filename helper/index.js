@@ -33,7 +33,7 @@ module.exports = {
     */
     
     //ada pas butuh
-    let 
+    
     
     let towns = [
       ""
