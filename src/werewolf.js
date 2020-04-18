@@ -651,7 +651,8 @@ module.exports = {
     //   "bodyguard",
     //   "vampire-hunter",
     //   "serial-killer",
-    //   "escort"
+    //   "escort",
+    //   "bodyguard"
     // ];
 
     /// hax for exe
@@ -1544,7 +1545,8 @@ module.exports = {
                 index: i,
                 name: doer.name,
                 role: doer.role,
-                deathNote: doer.deathNote
+                deathNote: doer.deathNote,
+                countered: false
               };
 
               this.group_session.players[targetIndex].attackers.push(attacker);
@@ -1563,7 +1565,8 @@ module.exports = {
                 index: i,
                 name: doer.name,
                 role: doer.role,
-                deathNote: doer.deathNote
+                deathNote: doer.deathNote,
+                countered: false
               };
 
               this.group_session.players[targetIndex].attackers.push(attacker);
@@ -1666,7 +1669,8 @@ module.exports = {
               index: i,
               name: doer.name,
               role: doer.role,
-              deathNote: doer.deathNote
+              deathNote: doer.deathNote,
+              countered: false
             };
 
             this.group_session.players[targetIndex].attackers.push(attacker);
@@ -1712,7 +1716,8 @@ module.exports = {
             index: i,
             name: doer.name,
             role: doer.role,
-            deathNote: doer.deathNote
+            deathNote: doer.deathNote,
+            countered: false
           };
 
           this.group_session.players[targetIndex].attackers.push(attacker);
@@ -2067,7 +2072,8 @@ module.exports = {
                 index: i,
                 name: doer.name,
                 role: doer.role,
-                deathNote: doer.deathNote
+                deathNote: doer.deathNote,
+                countered: false
               };
 
               this.group_session.players[targetIndex].attackers.push(attacker);
@@ -2153,7 +2159,8 @@ module.exports = {
                 index: i,
                 name: doer.name,
                 role: doer.role,
-                deathNote: doer.deathNote
+                deathNote: doer.deathNote,
+                countered: false
               };
 
               this.group_session.players[targetIndex].attackers.push(attacker);
@@ -2249,7 +2256,8 @@ module.exports = {
                 index: i,
                 name: doer.name,
                 role: doer.role,
-                deathNote: doer.deathNote
+                deathNote: doer.deathNote,
+                countered: false
               };
 
               this.group_session.players[targetIndex].attackers.push(attacker);
@@ -2314,7 +2322,8 @@ module.exports = {
                 index: i,
                 name: doer.name,
                 role: doer.role,
-                deathNote: doer.deathNote
+                deathNote: doer.deathNote,
+                countered: false
               };
 
               this.group_session.players[targetIndex].attackers.push(attacker);
@@ -2417,7 +2426,8 @@ module.exports = {
                   index: i,
                   name: doer.name,
                   role: doer.role,
-                  deathNote: doer.deathNote
+                  deathNote: doer.deathNote,
+                  countered: false
                 };
 
                 this.group_session.players[targetIndex].attackers.push(
@@ -2452,7 +2462,7 @@ module.exports = {
         let protectors = players[i].protectors;
 
         if (isAttacked || isVampireBited) {
-          if (!isBurned && !isHaunted && !willSuicide && afkCounter <= 6) {
+          if (!isBurned && !isHaunted && !willSuicide && afkCounter < 6) {
             this.group_session.players[i].damage = attackers.length;
 
             for (let x = 0; x < attackers.length; x++) {
@@ -2462,15 +2472,18 @@ module.exports = {
                 for (let u = 0; u < protectors.length; u++) {
                   let protector = protectors[u];
 
+                  this.group_session.players[protector.index].message +=
+                    "💡 " + players[i].name + " diserang semalam!" + "\n\n";
+
+                  if (attacker.countered) {
+                    continue;
+                  }
+
                   if (protector.used) {
                     continue;
                   }
 
-                  this.group_session.players[protector.index].message +=
-                    "💡 " + players[i].name + " diserang semalam!" + "\n\n";
-
                   if (protector.roleName === "bodyguard") {
-
                     // bodyguard tidak lindungi yang diserang veteran alert
                     if (attacker.role.name === "veteran") {
                       continue;
@@ -2490,6 +2503,8 @@ module.exports = {
                     ].role.counterAttackIndex = attacker.index;
 
                     protector.used = true;
+
+                    attacker.countered = true;
                   }
 
                   if (protector.roleName === "doctor") {
@@ -2649,7 +2664,8 @@ module.exports = {
               index: i,
               name: doer.name,
               role: doer.role,
-              deathNote: doer.deathNote
+              deathNote: doer.deathNote,
+              countered: false
             };
 
             this.group_session.players[attackerIndex].attackers.push(attacker);
@@ -2702,7 +2718,8 @@ module.exports = {
               index: attackerIndex,
               name: players[attackerIndex].name,
               role: players[attackerIndex].role,
-              deathNote: players[attackerIndex].deathNote
+              deathNote: players[attackerIndex].deathNote,
+              countered: false
             };
 
             this.group_session.players[i].attackers.push(attacker);
@@ -2726,29 +2743,43 @@ module.exports = {
 
         this.group_session.players[i].status = "death";
 
-        if (willSuicide) {
-          attackedAnnouncement = attackedMsg.getAttackResponse(
-            [],
-            players[i].name,
-            true
-          );
+        let attackersRole = [];
 
+        if (players[i].attackers.length > 0) {
+          attackersRole = players[i].attackers
+            .filter(atkr => {
+              if (atkr.countered) {
+                return false;
+              }
+              return true;
+            })
+            .map(atkr => {
+              return atkr.role.name;
+            });
+        }
+
+        let isAfk = false;
+        let isSuicide = false;
+
+        if (attackersRole.length > 0) {
+          //
+        } else if (players[i].afkCounter > 6) {
+          isAfk = true;
+        } else if (willSuicide) {
+          isSuicide = true;
           if (players[i].bugged) {
             spyBuggedInfo[i] +=
               "🔍 Target kamu mati bunuh diri karena perasaan bersalah!" +
               "\n\n";
           }
-        } else {
-          let attackersRole = players[i].attackers.map(atkr => {
-            return atkr.role.name;
-          });
-
-          attackedAnnouncement = attackedMsg.getAttackResponse(
-            attackersRole,
-            players[i].name,
-            false
-          );
         }
+
+        attackedAnnouncement = attackedMsg.getAttackResponse(
+          attackersRole,
+          players[i].name,
+          isSuicide,
+          isAfk
+        );
 
         allAnnouncement += attackedAnnouncement + "\n";
 
@@ -3259,9 +3290,9 @@ module.exports = {
       if (item.role.team === "werewolf" && item.status === "alive") {
         item.message += werewolfAnnouncement;
       }
-      
-      //console.log(`pesan ${item.name} (${item.role.name}) : ${item.message}`); //cp
-      
+
+      // console.log(`pesan ${item.name} (${item.role.name}) : ${item.message}`); //cp
+
       /// journal , keep this below any special Announcement
       if (item.status === "alive" && item.message !== "") {
         let journal = {
@@ -4167,7 +4198,7 @@ module.exports = {
         // from vampire-hunter to vigilante
         if (this.group_session.players[index].role.name === "vigilante") {
           this.group_session.players[index].role.bullet = 1;
-          this.group_session.players[index].role.isLoadBullet = false
+          this.group_session.players[index].role.isLoadBullet = false;
         }
 
         this.group_session.players[index].addonMessage +=
