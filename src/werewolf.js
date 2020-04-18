@@ -1518,7 +1518,7 @@ module.exports = {
               }
 
               this.group_session.players[targetIndex].vampireBited = true;
-              
+
               let attacker = {
                 index: i,
                 name: doer.name,
@@ -1527,7 +1527,6 @@ module.exports = {
               };
 
               this.group_session.players[targetIndex].attackers.push(attacker);
-              
             }
           }
         }
@@ -1875,7 +1874,7 @@ module.exports = {
         }
       }
     }
-    
+
     /// Bodyguard Action
     for (let i = 0; i < players.length; i++) {
       let doer = players[i];
@@ -1924,11 +1923,9 @@ module.exports = {
 
               this.group_session.players[i].message +=
                 "👣 Kamu ke rumah " + target.name + "\n\n";
-              
+
               this.group_session.players[targetIndex].guarded = true;
             }
-
-            
 
             this.group_session.players[targetIndex].protectors.push(protector);
           }
@@ -2194,13 +2191,12 @@ module.exports = {
                     "🔍 Target kamu di serang Serial Killer yang dia kunjungi!" +
                     "\n\n";
                 }
-                
+
                 if (players[i].bugged) {
                   spyBuggedInfo +=
                     "🔍 Ada yang berusaha role block Targetmu, tetapi Targetmu menyerang balik!" +
                     "\n\n";
                 }
-                
               } else {
                 this.group_session.players[targetIndex].message +=
                   "🔪 Kamu diserang " + doer.role.name + "!" + "\n\n";
@@ -2412,179 +2408,181 @@ module.exports = {
         let isHaunted = players[i].isHaunted;
         let isGuarded = players[i].guarded;
         let willSuicide = players[i].willSuicide;
-        let roleName = players[i].role.name;
         let afkCounter = players[i].afkCounter;
         let selfDefense = {
           index: ""
-        }
+        };
 
-        if (players[i].role.disguiseAs) {
-          roleName = players[i].role.disguiseAs;
-        }
-        
-        
         if (isAttacked || isVampireBited) {
-          
           if (!isBurned && !isHaunted && !willSuicide && afkCounter <= 6) {
             for (let i = 0; i < protectors.length; i++) {
               let protector = protectors[i];
               if (!protector.isSelfTarget) {
-                this.group_session.players[protector.index].message  +=
+                this.group_session.players[protector.index].message +=
                   "💡 " + players[i].name + " diserang semalam!" + "\n\n";
-                
+
                 if (protector.roleName === "bodyguard") {
                   if (players[protector.index].bugged) {
                     spyBuggedInfo +=
-                      "🔍 Target kamu sedang melindungi seseorang!" +
-                      "\n\n";
+                      "🔍 Target kamu sedang melindungi seseorang!" + "\n\n";
                   }
 
                   this.group_session.players[i].message +=
                     "🛡️ Ada yang menyerang balik penyerang mu!" + "\n\n";
 
-                  this.group_session.players[protector.index].counterAttackIndex = attackers[0].index;
+                  this.group_session.players[
+                    protector.index
+                  ].role.counterAttackIndex = attackers[0].index;
                 }
-                
+
                 if (protector.roleName === "doctor") {
                   if (players[protector.index].bugged) {
                     spyBuggedInfo +=
-                      "🔍 Target dari Targetmu di serang!" +
-                      "\n\n";
+                      "🔍 Target dari Targetmu di serang!" + "\n\n";
                   }
-                  
+
                   this.group_session.players[i].message +=
                     "💉 Ada yang datang berusaha menyelamatkanmu!" + "\n\n";
-                  
                 }
-                
               } else {
                 selfDefense.index = protector.index;
               }
-              
             }
-            
-            
+
             if (protectors.length >= attackers.length) {
-              
               // purge from vampire bite
               if (isVampireBited) {
                 this.group_session.players[i].vampireBited = false;
               }
-              
+
               if (isVested) {
-                
                 if (players[i].bugged) {
                   spyBuggedInfo +=
                     "🔍 Target kamu selamat dari serangan berkat Vest yang digunakannya!" +
                     "\n\n";
                 }
-                
+
                 this.group_session.players[i].message +=
                   "🦺 Vest yang kamu pakai menyelamatkan nyawamu!" + "\n\n";
               }
-              
+
               if (isHealed) {
-                
                 if (selfDefense.index === i) {
                   if (players[i].bugged) {
                     spyBuggedInfo +=
-                      "🔍 Target kamu selamat karena menyembuhkan diri sendiri!" + "\n\n";
+                      "🔍 Target kamu selamat karena menyembuhkan diri sendiri!" +
+                      "\n\n";
                   }
 
                   this.group_session.players[i].message +=
-                    "💉 Kamu selamat dengan menyembuhkan diri sendiri!" + "\n\n";
+                    "💉 Kamu selamat dengan menyembuhkan diri sendiri!" +
+                    "\n\n";
                 } else {
                   if (players[i].bugged) {
                     spyBuggedInfo +=
-                      "🔍 Target kamu selamat karena di sembuhkan Doctor!" + "\n\n";
+                      "🔍 Target kamu selamat karena di sembuhkan Doctor!" +
+                      "\n\n";
                   }
 
                   this.group_session.players[i].message +=
                     "💉 Dokter berhasil menyelamatkan nyawamu!" + "\n\n";
                 }
-                
               }
-              
+
               if (isGuarded) {
-                
                 if (players[i].bugged) {
                   spyBuggedInfo +=
-                    "🔍 Ada orang yang menyerang balik penyerang Targetmu!" + "\n\n";
+                    "🔍 Ada orang yang menyerang balik penyerang Targetmu!" +
+                    "\n\n";
                 }
               }
-              
-              continue;
+            } else {
+              this.group_session.players[i].status = "will_death";
             }
-            
           }
-          
-          // DEATH!
-          let attackedAnnouncement = "";
-          this.group_session.players[i].status = "death";
-          
-          if (willSuicide) {
-            attackedAnnouncement = attackedMsg.getAttackResponse(
-              [],
-              players[i].name,
-              true
-            );
-              
-            if (players[i].bugged) {
-              spyBuggedInfo +=
-                "🔍 Target kamu mati bunuh diri karena perasaan bersalah!" +
-                "\n\n";
+        }
+      }
+    }
+    
+    /// Bodyguard Action
+    for (let i = 0; i < players.length; i++) {
+      if ()
+    }
+
+    /// Death Action II
+    for (let i = 0; i < players.length; i++) {
+      if (players[i].status === "will_death") {
+        let attackedAnnouncement = "";
+        let willSuicide = players[i].willSuicice;
+        let roleName = players[i].role.name;
+        if (players[i].role.disguiseAs) {
+          roleName = players[i].role.disguiseAs;
+        }
+
+        this.group_session.players[i].status = "death";
+
+        if (willSuicide) {
+          attackedAnnouncement = attackedMsg.getAttackResponse(
+            [],
+            players[i].name,
+            true
+          );
+
+          if (players[i].bugged) {
+            spyBuggedInfo +=
+              "🔍 Target kamu mati bunuh diri karena perasaan bersalah!" +
+              "\n\n";
+          }
+        } else {
+          let attackersRole = players[i].attackers.map(atkr => {
+            return atkr.role.name;
+          });
+
+          let attackedAnnouncement = attackedMsg.getAttackResponse(
+            attackersRole,
+            players[i].name,
+            false
+          );
+        }
+
+        allAnnouncement += attackedAnnouncement + "\n";
+
+        allAnnouncement += "✉️ Role nya adalah " + roleName + "\n\n";
+
+        //Thanks to
+        //https://stackoverflow.com/questions/24806772/how-to-skip-over-an-element-in-map/24806827
+        let attackersDeathNote = players[i].attackers
+          .filter(atkr => {
+            if (!atkr.deathNote) {
+              return false;
             }
-          } else {
-            let attackersRole = players[i].attackers.map(atkr => {
-              return atkr.role.name;
-            });
+            return true;
+          })
+          .map((atkr, idx) => {
+            let note = atkr.deathNote + "\n\n";
 
-            let attackedAnnouncement = attackedMsg.getAttackResponse(
-              attackersRole,
-              players[i].name,
-              false
-            );
-          }
-          
-          allAnnouncement += attackedAnnouncement + "\n";
+            if (atkr.role.name === "werewolf-cub") {
+              note += "- werewolf";
+            } else {
+              note += "- " + atkr.role.name;
+            }
 
-          allAnnouncement += "✉️ Role nya adalah " + roleName + "\n\n";
-          
-          //Thanks to
-          //https://stackoverflow.com/questions/24806772/how-to-skip-over-an-element-in-map/24806827
-          let attackersDeathNote = players[i].attackers
-            .filter(atkr => {
-              if (!atkr.deathNote) {
-                return false;
-              }
-              return true;
-            })
-            .map((atkr, idx) => {
-              let note = atkr.deathNote + "\n\n";
+            return note;
+          })
+          .join("\n\n");
 
-              if (atkr.role.name === "werewolf-cub") {
-                note += "- werewolf";
-              } else {
-                note += "- " + atkr.role.name;
-              }
+        let victimName = players[i].name;
+        if (attackersDeathNote) {
+          let deathFlex_text = {
+            header: {
+              text: "📝💀 Death Note " + victimName
+            },
+            body: {
+              text: attackersDeathNote
+            }
+          };
 
-              return note;
-            })
-            .join("\n\n");
-
-          let victimName = players[i].name;
-          if (attackersDeathNote) {
-            let deathFlex_text = {
-              header: {
-                text: "📝💀 Death Note " + victimName
-              },
-              body: {
-                text: attackersDeathNote
-              }
-            };
-
-            flex_texts.push(deathFlex_text);
-          }
+          flex_texts.push(deathFlex_text);
         }
 
         ///yang baru mati
