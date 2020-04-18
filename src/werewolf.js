@@ -351,9 +351,15 @@ module.exports = {
       this.group_session.roomHostId = this.user_session.id;
       this.user_session.state = "active";
       this.user_session.groupId = this.group_session.groupId;
+      
+      let newPlayer = this.createNewPlayer(this.user_session);
+      this.addPlayer(newPlayer);
+      
       //cp
-      for (let i = 0; i < 6; i++) {
-        let newPlayer = this.createNewPlayer(this.user_session);
+      for (let i = 0; i < 5; i++) {
+        let dummy = JSON.parse(JSON.stringify(this.user_session));
+        dummy.name += " " + helper.getRandomInt(1, 99);
+        let newPlayer = this.createNewPlayer(dummy);
         this.addPlayer(newPlayer);
       }
 
@@ -2465,7 +2471,7 @@ module.exports = {
 
                     // counter attack
                     if (players[protector.index].bugged) {
-                      spyBuggedInfo[targetIndex] +=
+                      spyBuggedInfo[protector.index] +=
                         "🔍 Target kamu sedang melindungi seseorang!" + "\n\n";
                     }
 
@@ -2483,7 +2489,7 @@ module.exports = {
                   if (players[protector.index].roleName === "doctor") {
                     console.log(`dilindungi doctor`);
                     if (players[protector.index].bugged) {
-                      spyBuggedInfo[targetIndex] +=
+                      spyBuggedInfo[protector.index] +=
                         "🔍 Target dari Targetmu di serang!" + "\n\n";
                     }
 
@@ -2517,7 +2523,7 @@ module.exports = {
 
               if (isVested) {
                 if (players[i].bugged) {
-                  spyBuggedInfo[targetIndex] +=
+                  spyBuggedInfo[i] +=
                     "🔍 Target kamu selamat dari serangan berkat Vest yang digunakannya!" +
                     "\n\n";
                 }
@@ -2528,7 +2534,7 @@ module.exports = {
 
               if (isSelfHeal) {
                 if (players[i].bugged) {
-                  spyBuggedInfo[targetIndex] +=
+                  spyBuggedInfo[i] +=
                     "🔍 Target kamu selamat karena menyembuhkan diri sendiri!" +
                     "\n\n";
                 }
@@ -2539,7 +2545,7 @@ module.exports = {
 
               if (isGuarded) {
                 if (players[i].bugged) {
-                  spyBuggedInfo[targetIndex] +=
+                  spyBuggedInfo[i] +=
                     "🔍 Target kamu selamat karena dilindungi seseorang!" +
                     "\n\n";
                 }
@@ -2547,7 +2553,7 @@ module.exports = {
 
               if (isHealed) {
                 if (players[i].bugged) {
-                  spyBuggedInfo[targetIndex] +=
+                  spyBuggedInfo[i] +=
                     "🔍 Target kamu selamat karena disembuhkan!" + "\n\n";
                 }
               }
@@ -2590,12 +2596,12 @@ module.exports = {
             "\n\n";
 
           if (players[i].bugged) {
-            spyBuggedInfo[targetIndex] +=
+            spyBuggedInfo[i] +=
               "🔍 Target kamu diserang karena melindungi seseorang!" + "\n\n";
           }
 
           if (players[attackerIndex].bugged) {
-            spyBuggedInfo[targetIndex] +=
+            spyBuggedInfo[attackerIndex] +=
               "🔍 Target kamu diserang Bodyguard!" + "\n\n";
           }
 
@@ -2615,7 +2621,7 @@ module.exports = {
 
               if (players[protector.index].roleName === "doctor") {
                 if (players[protector.index].bugged) {
-                  spyBuggedInfo[targetIndex] +=
+                  spyBuggedInfo[protector.index] +=
                     "🔍 Target dari Targetmu di serang!" + "\n\n";
                 }
 
@@ -2635,7 +2641,7 @@ module.exports = {
             //saved
             if (isAttackerHealed) {
               if (players[attackerIndex].bugged) {
-                spyBuggedInfo[targetIndex] +=
+                spyBuggedInfo[attackerIndex] +=
                   "🔍 Target kamu selamat karena disembuhkan!" + "\n\n";
               }
             }
@@ -2669,7 +2675,7 @@ module.exports = {
 
               if (players[protector.index].roleName === "doctor") {
                 if (players[protector.index].bugged) {
-                  spyBuggedInfo[targetIndex] +=
+                  spyBuggedInfo[protector.index] +=
                     "🔍 Target dari Targetmu di serang!" + "\n\n";
                 }
 
@@ -2688,7 +2694,7 @@ module.exports = {
 
             if (isHealed) {
               if (players[i].bugged) {
-                spyBuggedInfo[targetIndex] +=
+                spyBuggedInfo[i] +=
                   "🔍 Target kamu selamat karena disembuhkan!" + "\n\n";
               }
             }
