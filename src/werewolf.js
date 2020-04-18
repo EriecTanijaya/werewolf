@@ -2474,7 +2474,7 @@ module.exports = {
 
                   this.group_session.players[protector.index].message +=
                     "💡 " + players[i].name + " diserang semalam!" + "\n\n";
-                  
+
                   if (attacker.countered) {
                     continue;
                   }
@@ -2743,9 +2743,24 @@ module.exports = {
 
         this.group_session.players[i].status = "death";
 
+        let attackersRole = [];
+
+        if (players[i].attackers.length > 0) {
+          attackersRole = players[i].attackers
+            .filter(atkr => {
+              if (atkr.countered) {
+                return false;
+              }
+              return true;
+            })
+            .map(atkr => {
+              return atkr.role.name;
+            });
+        }
+
         if (players[i].afkCounter > 6) {
           attackedAnnouncement = attackedMsg.getAttackResponse(
-            [],
+            attackersRole,
             players[i].name,
             false,
             true
@@ -2763,16 +2778,14 @@ module.exports = {
               "\n\n";
           }
         } else {
-          let attackersRole = players[i].attackers.map(atkr => {
-            return atkr.role.name;
-          });
-
           attackedAnnouncement = attackedMsg.getAttackResponse(
             attackersRole,
             players[i].name,
             false
           );
         }
+        
+        attackedAnnouncement = attackedMsg.getAttackResponse
 
         allAnnouncement += attackedAnnouncement + "\n";
 
