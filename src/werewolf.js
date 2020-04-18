@@ -356,12 +356,12 @@ module.exports = {
       this.addPlayer(newPlayer);
 
       //cp
-      for (let i = 0; i < 8; i++) {
+      /*for (let i = 0; i < 8; i++) {
         let dummy = JSON.parse(JSON.stringify(this.user_session));
         dummy.name += " " + helper.getRandomInt(1, 99);
         let newPlayer = this.createNewPlayer(dummy);
         this.addPlayer(newPlayer);
-      }
+      }*/
 
       let text = "💡 " + this.user_session.name + " berhasil bergabung!";
       return this.replyFlex(flex_text, [text, remindText]);
@@ -653,7 +653,7 @@ module.exports = {
       "spy",
       "werewolf-cub",
       "vampire",
-      "vampire-hunter"
+      "vampire-hunter", 
     ];
 
     /// hax for exe
@@ -2938,7 +2938,8 @@ module.exports = {
               "consort",
               "serial-killer",
               "framer",
-              "disguiser"
+              "disguiser",
+              "arsonist"
             ];
 
             if (target.framed || suspiciousList.includes(target.role.name)) {
