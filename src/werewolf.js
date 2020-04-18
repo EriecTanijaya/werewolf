@@ -2415,7 +2415,7 @@ module.exports = {
             for (let i = 0; i < attackers.length; i++) {
               let attacker = attackers[i];
 
-              if (isHealed || isGuarded || isVested || isSelfHeal) {
+              if (isHealed || isGuarded) {
 
                 for (let i = 0; i < protectors.length; i++) {
                   let protector = protectors[i];
@@ -2453,24 +2453,66 @@ module.exports = {
                       "💉 Ada yang datang berusaha menyelamatkanmu!" + "\n\n";
                     
                   }
-                  
-                  if (isSelfHeal) {
-                    
-                  }
-                  
-                  
+
                   damage--;
                 }
                 
               }
+              
+              if (isVested || isSelfHeal) {
+                damage--;
+              }
+              
             }
             
-            if (!damage) {
+            if (damage <= 0) {
               //saved
+              if (isVested) {
+                if (players[i].bugged) {
+                  spyBuggedInfo +=
+                    "🔍 Target kamu selamat dari serangan berkat Vest yang digunakannya!" +
+                    "\n\n";
+                }
+                
+                this.group_session.players[i].message +=
+                  "🦺 Vest yang kamu pakai menyelamatkan nyawamu!" + "\n\n";
+              }
+              
+              if (isSelfHeal) {
+                if (players[i].bugged) {
+                  spyBuggedInfo +=
+                    "🔍 Target kamu selamat karena menyembuhkan diri sendiri!" +
+                    "\n\n";
+                }
+                
+                this.group_session.players[i].message +=
+                  "💉 Kamu selamat dengan menyembuhkan diri sendiri!" +
+                  "\n\n";
+              }
+              
+              if (isGuarded) {
+                if (players[i].bugged) {
+                  spyBuggedInfo +=
+                    "🔍 Target kamu selamat karena dilindungi seseorang!" +
+                    "\n\n";
+                }
+              }
+              
+              if (isHealed) {
+                if (players[i].bugged) {
+                  spyBuggedInfo +=
+                    "🔍 Target kamu selamat karena disembuhkan!" +
+                    "\n\n";
+                }
+              }
+              
             } else {
               //not enough protector or no protector
-              
+ 
               // check vampireBited juga disini
+              if (!isAttacked) continue;
+              
+              this.group_session.players[i].status = "will_death";
               
             }
           }
