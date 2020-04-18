@@ -357,6 +357,7 @@ const roles = [
     type: "Town Protector",
     vest: 1,
     counterAttackIndex: -1,
+    alreadyCounter: false
   },
 ];
 
