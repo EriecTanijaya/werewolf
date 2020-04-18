@@ -4219,6 +4219,7 @@ module.exports = {
         // from vampire-hunter to vigilante
         if (this.group_session.players[index].role.name === "vigilante") {
           this.group_session.players[index].role.bullet = 1;
+          this.group_session.players[index].role.isLoadBullet = false
         }
 
         this.group_session.players[index].addonMessage +=
