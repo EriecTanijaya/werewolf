@@ -645,14 +645,11 @@ module.exports = {
 
     /// test specific role
     let roles = [
-      "werewolf",
+      "vampire",
       "doctor",
-      "veteran",
       "doctor",
       "bodyguard",
-      "spy",
-      "spy",
-      "werewolf-cub"
+      "vampire-hunter"
     ];
 
     /// hax for exe
@@ -2459,16 +2456,11 @@ module.exports = {
         let protectors = players[i].protectors;
 
         if (isAttacked || isVampireBited) {
-          console.log(`${players[i].name} diserang!`);
           if (!isBurned && !isHaunted && !willSuicide && afkCounter <= 6) {
             this.group_session.players[i].damage = attackers.length;
-            console.log(`damage ${this.group_session.players[i].damage}`);
 
             for (let x = 0; x < attackers.length; x++) {
               let attacker = attackers[x];
-
-              // console.log(attacker);
-              // console.log(protectors);
 
               if (isHealed || isGuarded) {
                 for (let u = 0; u < protectors.length; u++) {
@@ -2482,13 +2474,9 @@ module.exports = {
                     "💡 " + players[i].name + " diserang semalam!" + "\n\n";
 
                   if (protector.roleName === "bodyguard") {
-                    console.log(`di lindungi bg`);
 
                     // bodyguard tidak lindungi yang diserang veteran alert
                     if (attacker.role.name === "veteran") {
-                      console.log(
-                        `doi diserang veteran, jadi tak di lindungi bg`
-                      );
                       continue;
                     }
 
@@ -2506,14 +2494,9 @@ module.exports = {
                     ].role.counterAttackIndex = attacker.index;
 
                     protector.used = true;
-
-                    console.log(
-                      `bg akan counter attack ${players[attacker.index].name}`
-                    );
                   }
 
                   if (protector.roleName === "doctor") {
-                    console.log(`dilindungi doctor`);
                     if (players[protector.index].bugged) {
                       spyBuggedInfo[protector.index] +=
                         "🔍 Target dari Targetmu di serang!" + "\n\n";
@@ -2530,18 +2513,9 @@ module.exports = {
               }
 
               if (isVested || isSelfHeal) {
-                console.log(`${players[i].name} pake vest/selfheal`);
                 this.group_session.players[i].damage--;
               }
             }
-
-            console.log(
-              `damage - defense yg ada jadi ${this.group_session.players[i].damage}`
-            );
-            console.log(
-              `apakah ${players[i].name} digigit vamp? ${isVampireBited}`
-            );
-            console.log(`apakah ${players[i].name} di attack? ${isAttacked}`);
 
             if (this.group_session.players[i].damage <= 0) {
               //saved
@@ -2607,9 +2581,6 @@ module.exports = {
         let targetIndex = doer.target.index;
 
         if (attackerIndex !== -1) {
-          console.log(
-            `Bodyguard ${players[i].name} counter attack ${players[attackerIndex].name} waktu lindungi ${players[targetIndex].name}`
-          );
           let isAttackerHealed = players[attackerIndex].healed;
           let isHealed = players[i].healed;
 
@@ -2647,10 +2618,6 @@ module.exports = {
                 continue;
               }
 
-              console.log(
-                `${players[attackerIndex].name} diheal ${players[protector.index].name}`
-              );
-
               this.group_session.players[protector.index].message +=
                 "💡 " + players[i].name + " diserang semalam!" + "\n\n";
 
@@ -2669,10 +2636,6 @@ module.exports = {
               this.group_session.players[attackerIndex].damage--;
             }
           }
-
-          console.log(
-            `damage ${players[attackerIndex].name} adalah ${players[attackerIndex].damage}`
-          );
 
           if (this.group_session.players[attackerIndex].damage <= 0) {
             //saved
@@ -2707,10 +2670,6 @@ module.exports = {
                 continue;
               }
 
-              console.log(
-                `${players[i].name} diheal ${players[protector.index].name}`
-              );
-
               this.group_session.players[protector.index].message +=
                 "💡 " + players[i].name + " diserang semalam!" + "\n\n";
 
@@ -2729,8 +2688,6 @@ module.exports = {
               this.group_session.players[i].damage--;
             }
           }
-
-          console.log(`damage ${players[i].name} adalah ${players[i].damage}`);
 
           if (this.group_session.players[i].damage <= 0) {
             //saved
@@ -3309,7 +3266,7 @@ module.exports = {
       
       /// journal , keep this below any special Announcement
       if (item.status === "alive" && item.message !== "") {
-        console.log(`pesan ${item.name} : ${item.message}`);
+        console.log(`pesan ${item.name} (${item.role.name}) : ${item.message}`); //cp
         let journal = {
           nightCounter: this.group_session.nightCounter,
           content: item.message.trim()
@@ -3588,9 +3545,6 @@ module.exports = {
       return this.night(null);
     } else {
       let someoneWin = this.checkVictory();
-
-      // cp
-      //someoneWin = false;
 
       if (someoneWin) {
         return this.endGame(null, someoneWin);
