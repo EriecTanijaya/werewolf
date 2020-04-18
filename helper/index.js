@@ -195,11 +195,12 @@ module.exports = {
     arr.forEach(function(item, index) {
       if (index !== 0) {
         //ini untuk tidak parse text command '/command'
-        if (index !== 1 && index !== 2 ) {
+        if (index !== 2) {
           text += " ";
         }
         text += item;
       }
+      console.log(text);
     });
     return text;
   },
