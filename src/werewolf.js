@@ -2568,7 +2568,10 @@ module.exports = {
               }
             } else {
               //not enough protector or no protector
-
+              
+              // check vampireBited
+              if (!isAttacked) continue;
+              
               this.group_session.players[i].status = "will_death";
             }
           }
@@ -2682,7 +2685,7 @@ module.exports = {
               this.group_session.players[protector.index].message +=
                 "💡 " + players[i].name + " diserang semalam!" + "\n\n";
 
-              if (players[protector.index].roleName === "doctor") {
+              if (protector.roleName === "doctor") {
                 if (players[protector.index].bugged) {
                   spyBuggedInfo[protector.index] +=
                     "🔍 Target dari Targetmu di serang!" + "\n\n";
