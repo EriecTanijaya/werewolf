@@ -2758,34 +2758,28 @@ module.exports = {
             });
         }
 
-        if (players[i].afkCounter > 6) {
-          attackedAnnouncement = attackedMsg.getAttackResponse(
-            attackersRole,
-            players[i].name,
-            false,
-            true
-          );
-        } else if (willSuicide) {
-          attackedAnnouncement = attackedMsg.getAttackResponse(
-            [],
-            players[i].name,
-            true
-          );
+        let isAfk = false;
+        let isSuicide = false;
 
+        if (attackersRole.length > 0) {
+          //
+        } else if (players[i].afkCounter > 6) {
+          isAfk = true;
+        } else if (willSuicide) {
+          isSuicide = true;
           if (players[i].bugged) {
             spyBuggedInfo[i] +=
               "🔍 Target kamu mati bunuh diri karena perasaan bersalah!" +
               "\n\n";
           }
-        } else {
-          attackedAnnouncement = attackedMsg.getAttackResponse(
-            attackersRole,
-            players[i].name,
-            false
-          );
         }
-        
-        attackedAnnouncement = attackedMsg.getAttackResponse
+
+        attackedAnnouncement = attackedMsg.getAttackResponse(
+          attackersRole,
+          players[i].name,
+          isSuicide,
+          isAfk
+        );
 
         allAnnouncement += attackedAnnouncement + "\n";
 
