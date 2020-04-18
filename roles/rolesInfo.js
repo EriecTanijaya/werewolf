@@ -94,8 +94,6 @@ module.exports = {
           flex_text.body.text +=
             "Makhluk hidup yang membawa kerusuhan dengan bisa mengubah warga menjadi sejenisnya. ";
           flex_text.body.text +=
-            "Menang jika mengubah semua warga menjadi Vampire, atau menggantung penentangnya. ";
-          flex_text.body.text +=
             "Vampire jika berhasil mengubah seoranga warga menjadi Vampire, akan ada jeda untuk ";
           flex_text.body.text += "menggigit target selanjutnya. ";
           flex_text.body.text +=
@@ -273,6 +271,15 @@ module.exports = {
             "Jika Disguiser mati, maka nama role yang ada di daftar pemain adalah nama role warga yang dia imitasi. ";
           flex_text.body.text +=
             "Hasil cek Sheriff akan tetap mencurigakan, sedangkan Seer hasil terawangnya adalah role yang di imitasi";
+          break;
+          
+        case "bodyguard":
+          flex_text.header.text = "🛡️ Bodyguard";
+          flex_text.body.text += "Type: Town Protector" + "\n\n";
+          flex_text.body.text +=
+            "Warga yang bisa memilih siapa pemain yang ingin dilindungi. ";
+          flex_text.body.text +=
+            "Jika Target mau Bodyguard diserang, maka Bodyguard akan melawan balik penyerang tersebut. ";
           break;
 
         default:

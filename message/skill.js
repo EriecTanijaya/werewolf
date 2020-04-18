@@ -253,6 +253,18 @@ module.exports = {
         }
         break;
         
+      case "bodyguard":
+        if (isChangeTarget) {
+          text +=
+            "🛡️ " + subjectText + " berubah pikiran dan memutuskan untuk melindungi " +
+            targetName +
+            " saja malam ini";
+        } else {
+          text +=
+            "🛡️ " + subjectText + " memutuskan untuk melindungi " + targetName + " malam ini";
+        }
+        break;
+        
     }
     
     return text;

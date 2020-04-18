@@ -1,7 +1,6 @@
 TODO
 
-- for vampire: If you succeed, you must wait another night before biting again.
-  - kasih max 4 vampire, kalau udah 4 atau lebih, itu vampire gak convert lagi, tapi attack
+- buat deskripsi role set
 
 ```
 let playersLength = 5
@@ -27,7 +26,14 @@ console.log(`town ${townNeedCount}, ww ${werewolfNeedCount}, neutral ${neutralNe
 
 - ROLE YANG BELUM BISA DUPLICATE
   - DOKTOR
-  - SPY
+  - SPY, store data spyBuggedInfo dalam obj,
+    
+    ubah spyBuggedInfo ke {}
+  
+    jadi ada obj -> spyBuggedInfo[spyTargetIndex] = "isi"
+    
+    spy action
+    message += spyBuggedInfo[targetIndex];
   
 - ROLE YG JANGAN DUPLICATE
   - VETERAN, vampire hunter, team ww(consort, wwcub, sorcerer jangan ada dupe)

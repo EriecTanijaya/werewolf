@@ -273,6 +273,12 @@ module.exports = {
             "💡 Kamu sudah tidak bisa melindungi diri sendiri"
           );
         }
+      } else if (roleName === "bodyguard") {
+        if (!players[index].role.vest) {
+          return this.replyText(
+            "💡 Kamu sudah tidak memiliki Vest yang tersisa"
+          );
+        }
       }
 
       if (!this.canSelfTarget(roleName)) {
@@ -527,6 +533,9 @@ module.exports = {
           "💉 Kamu memiliki " + players[index].role.selfHeal + " self heal";
       } else if (roleName === "vigilante") {
         text += "🔫 Kamu memiliki " + players[index].role.bullet + " peluru";
+      } else if (roleName === "bodyguard") {
+        text +=
+          "🦺 Kamu memiliki " + players[index].role.vest + " vest";
       }
 
       return this.roleSkill(flex_text, index, text);

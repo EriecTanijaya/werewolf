@@ -49,10 +49,13 @@ module.exports = {
           text += "🔥 Dia sebelumnya dibakar " + item + ". ";
           break;
         case "vampire":
-          text += "🧛 Dia sebelumnya digigit vampire. ";
+          text += "🧛 Dia sebelumnya digigit " + item + ". ";
           break;
         case "jester":
-          text += "👻 Dia sebelumnya dihantui jester. ";
+          text += "👻 Dia sebelumnya dihantui " + item + ". ";
+          break;
+        case "bodyguard":
+          text += "🛡️ Dia sebelumnya diserang " + item + ". ";
           break;
       }
     });
