@@ -40,7 +40,7 @@ module.exports = {
 
       case "vampire":
         flex_text.header.text = "🦇🧛 Vampire Mode";
-        flex_text.body.text += "Disana Vampire, disini Vampire. ";
+        flex_text.body.text += "Disana Vampire, disini Vampire, dimana mana ada Vampire. ";
         break;
 
       case "chaos":
@@ -49,6 +49,8 @@ module.exports = {
         break;
 
       case "classic":
+        flex_text.header.text = "👨‍🌾🐺 Classic Mode";
+        flex_text.body.text += "Mode normal, cocok untuk pemula. ";
         break;
 
       default:
