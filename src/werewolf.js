@@ -1564,7 +1564,8 @@ module.exports = {
                 index: i,
                 name: doer.name,
                 role: doer.role,
-                deathNote: doer.deathNote
+                deathNote: doer.deathNote,
+                countered: false
               };
 
               this.group_session.players[targetIndex].attackers.push(attacker);
@@ -1667,7 +1668,8 @@ module.exports = {
               index: i,
               name: doer.name,
               role: doer.role,
-              deathNote: doer.deathNote
+              deathNote: doer.deathNote,
+              countered: false
             };
 
             this.group_session.players[targetIndex].attackers.push(attacker);
@@ -1713,7 +1715,8 @@ module.exports = {
             index: i,
             name: doer.name,
             role: doer.role,
-            deathNote: doer.deathNote
+            deathNote: doer.deathNote,
+            countered: false
           };
 
           this.group_session.players[targetIndex].attackers.push(attacker);
@@ -2068,7 +2071,8 @@ module.exports = {
                 index: i,
                 name: doer.name,
                 role: doer.role,
-                deathNote: doer.deathNote
+                deathNote: doer.deathNote,
+                countered: false
               };
 
               this.group_session.players[targetIndex].attackers.push(attacker);
