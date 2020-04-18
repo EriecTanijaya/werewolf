@@ -1916,7 +1916,7 @@ module.exports = {
     for (let i = 0; i < players.length; i++) {
       let doer = players[i];
 
-      if (doer.role.name === "bodygard" && doer.status === "alive") {
+      if (doer.role.name === "bodyguard" && doer.status === "alive") {
         if (doer.target.index === -1) {
           this.group_session.players[i].message +=
             "💡 Kamu tidak menggunakan skill mu" + "\n\n";
@@ -2452,6 +2452,9 @@ module.exports = {
             for (let i = 0; i < attackers.length; i++) {
               let attacker = attackers[i];
 
+              console.log(attacker);
+              console.log(protectors);
+              
               if (isHealed || isGuarded) {
                 for (let u = 0; u < protectors.length; u++) {
                   let protector = protectors[u];
@@ -2459,7 +2462,7 @@ module.exports = {
                   this.group_session.players[protector.index].message +=
                     "💡 " + players[i].name + " diserang semalam!" + "\n\n";
 
-                  if (players[protector.index].roleName === "bodyguard") {
+                  if (protector.roleName === "bodyguard") {
                     console.log(`di lindungi bg`);
                     // bodyguard tidak lindungi yang diserang veteran alert
                     if (attacker.role.name === "veteran") {
@@ -2481,12 +2484,15 @@ module.exports = {
                     this.group_session.players[
                       protector.index
                     ].role.counterAttackIndex = attacker.index;
+                    
+                    this.group_session.players[i].damage--;
+                    
                     console.log(
                       `bg akan counter attack ${players[attacker.index].name}`
                     );
                   }
 
-                  if (players[protector.index].roleName === "doctor") {
+                  if (protector.roleName === "doctor") {
                     console.log(`dilindungi doctor`);
                     if (players[protector.index].bugged) {
                       spyBuggedInfo[protector.index] +=
@@ -2619,7 +2625,7 @@ module.exports = {
               this.group_session.players[protector.index].message +=
                 "💡 " + players[i].name + " diserang semalam!" + "\n\n";
 
-              if (players[protector.index].roleName === "doctor") {
+              if (protector.roleName === "doctor") {
                 if (players[protector.index].bugged) {
                   spyBuggedInfo[protector.index] +=
                     "🔍 Target dari Targetmu di serang!" + "\n\n";
