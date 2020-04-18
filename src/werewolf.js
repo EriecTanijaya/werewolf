@@ -356,7 +356,7 @@ module.exports = {
       this.addPlayer(newPlayer);
       
       //cp
-      for (let i = 0; i < 5; i++) {
+      for (let i = 0; i < 8; i++) {
         let dummy = JSON.parse(JSON.stringify(this.user_session));
         dummy.name += " " + helper.getRandomInt(1, 99);
         let newPlayer = this.createNewPlayer(dummy);
@@ -644,7 +644,7 @@ module.exports = {
     //let roles = this.getRandomRoleSet(playersLength); //cp
 
     /// test specific role
-    let roles = ["werewolf", "doctor", "veteran", "bodyguard", "doctor", "spy"];
+    let roles = ["werewolf", "doctor", "veteran", "bodyguard", "doctor", "spy", "werewolf-cub", "vampire", "vampire-hunter"];
 
     /// hax for exe
     let exeIndex = -1;
