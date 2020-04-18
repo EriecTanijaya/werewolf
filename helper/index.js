@@ -33,6 +33,7 @@ module.exports = {
     */
     
     //ada pas butuh
+    // aheriff, vigi, vh
     
     
     let towns = [
