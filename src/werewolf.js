@@ -2503,10 +2503,31 @@ module.exports = {
         }
       }
     }
-    
-    /// Bodyguard Action
+
+    /// Bodyguard Counter Attack Action
     for (let i = 0; i < players.length; i++) {
-      if ()
+      let doer = players[i];
+
+      if (doer.role.name === "bodyguard") {
+        let attackerIndex = players[i].role.counterAttackIndex;
+
+        if (attackerIndex !== -1) {
+          let isHealed = players[attackerIndex].healed;
+          let isGuarded = players[]
+//           let attacker = {
+//             index: i,
+//             name: doer.name,
+//             role: doer.role,
+//             deathNote: doer.deathNote
+//           };
+
+//           this.group_session.players[attackerIndex].attackers.push(attacker);
+          
+          if ()
+
+          attackerIndex = -1;
+        }
+      }
     }
 
     /// Death Action II
