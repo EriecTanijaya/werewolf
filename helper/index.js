@@ -62,15 +62,18 @@ module.exports = {
       "werewolf",
       "seer",
       "doctor",
-      "lookout",
-      "veteran",
-      "jester",
-      "escort",
-      "werewolf-cub",
-      "sheriff",
-      "executioner",
-      "retributionist"
+      // "lookout",
+      // "veteran",
+      // "jester",
+      // "escort",
+      // "werewolf-cub",
+      // "sheriff",
+      // "executioner",
+      // "retributionist"
     ];
+    
+    let townProtectors = ["bodyguard", "doctor"];
+    let townProtector = this.random(townProtectors)
 
     let werewolves = ["framer", "disguiser", "consort", "sorcerer"];
     let werewolfAddon = this.random(werewolves);

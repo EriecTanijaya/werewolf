@@ -49,7 +49,8 @@ module.exports = {
     if (!this.args[2]) {
       let list = modeList.join(", ");
       let text = "📜 Mode List : " + "\n";
-      text += list;
+      text += list + "\n\n";
+      text += "Untuk info mode bisa ketik '/info mode <nama-mode>'";
       return this.replyText(text);
     }
 
