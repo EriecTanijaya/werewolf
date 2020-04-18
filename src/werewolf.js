@@ -817,14 +817,14 @@ module.exports = {
     this.runTimer();
 
     //cp
-        let playersWithRole = this.group_session.players.map(i => {
-          return {
-            name: i.name,
-            roleName: i.role.name
-          };
-        });
+    let playersWithRole = this.group_session.players.map(i => {
+      return {
+        name: i.name,
+        roleName: i.role.name
+      };
+    });
 
-        console.table(playersWithRole);
+    console.table(playersWithRole);
 
     if (flex_texts) {
       return this.replyFlex(flex_texts, null, newFlex_text);
@@ -1545,7 +1545,8 @@ module.exports = {
                 index: i,
                 name: doer.name,
                 role: doer.role,
-                deathNote: doer.deathNote
+                deathNote: doer.deathNote,
+                countered: false
               };
 
               this.group_session.players[targetIndex].attackers.push(attacker);
@@ -2158,7 +2159,8 @@ module.exports = {
                 index: i,
                 name: doer.name,
                 role: doer.role,
-                deathNote: doer.deathNote
+                deathNote: doer.deathNote,
+                countered: false
               };
 
               this.group_session.players[targetIndex].attackers.push(attacker);
@@ -2254,7 +2256,8 @@ module.exports = {
                 index: i,
                 name: doer.name,
                 role: doer.role,
-                deathNote: doer.deathNote
+                deathNote: doer.deathNote,
+                countered: false
               };
 
               this.group_session.players[targetIndex].attackers.push(attacker);
@@ -2319,7 +2322,8 @@ module.exports = {
                 index: i,
                 name: doer.name,
                 role: doer.role,
-                deathNote: doer.deathNote
+                deathNote: doer.deathNote,
+                countered: false
               };
 
               this.group_session.players[targetIndex].attackers.push(attacker);
@@ -2422,7 +2426,8 @@ module.exports = {
                   index: i,
                   name: doer.name,
                   role: doer.role,
-                  deathNote: doer.deathNote
+                  deathNote: doer.deathNote,
+                  countered: false
                 };
 
                 this.group_session.players[targetIndex].attackers.push(
@@ -2467,12 +2472,16 @@ module.exports = {
                 for (let u = 0; u < protectors.length; u++) {
                   let protector = protectors[u];
 
-                  if (protector.used) {
+                  this.group_session.players[protector.index].message +=
+                    "💡 " + players[i].name + " diserang semalam!" + "\n\n";
+                  
+                  if (attacker.countered) {
                     continue;
                   }
 
-                  this.group_session.players[protector.index].message +=
-                    "💡 " + players[i].name + " diserang semalam!" + "\n\n";
+                  if (protector.used) {
+                    continue;
+                  }
 
                   if (protector.roleName === "bodyguard") {
                     // bodyguard tidak lindungi yang diserang veteran alert
@@ -2494,6 +2503,8 @@ module.exports = {
                     ].role.counterAttackIndex = attacker.index;
 
                     protector.used = true;
+
+                    attacker.countered = true;
                   }
 
                   if (protector.roleName === "doctor") {
@@ -2653,7 +2664,8 @@ module.exports = {
               index: i,
               name: doer.name,
               role: doer.role,
-              deathNote: doer.deathNote
+              deathNote: doer.deathNote,
+              countered: false
             };
 
             this.group_session.players[attackerIndex].attackers.push(attacker);
@@ -2706,7 +2718,8 @@ module.exports = {
               index: attackerIndex,
               name: players[attackerIndex].name,
               role: players[attackerIndex].role,
-              deathNote: players[attackerIndex].deathNote
+              deathNote: players[attackerIndex].deathNote,
+              countered: false
             };
 
             this.group_session.players[i].attackers.push(attacker);
