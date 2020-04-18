@@ -2410,8 +2410,10 @@ module.exports = {
         let protectors = players[i].protectors;
 
         if (isAttacked || isVampireBited) {
+          console.log(`${players[i].name} diserang!`);
           if (!isBurned && !isHaunted && !willSuicide && afkCounter <= 6) {
             this.group_session.players[i].damage = attackers.length;
+            console.log(`damage ${this.group_session.players[i].damage}`);
 
             for (let i = 0; i < attackers.length; i++) {
               let attacker = attackers[i];
