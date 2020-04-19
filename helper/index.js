@@ -20,6 +20,10 @@ module.exports = {
     
     let towns = ["seer", "doctor", "escort", "lookout", "tracker", "retributionist", "bodyguard"];
     
+    let uniqueTown = ["veteran"];
+    
+    let uniqueNeutral = ["executioner"]
+    
     roles = this.shuffleArray(roles);
     
     return roles;
