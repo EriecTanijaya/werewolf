@@ -40,7 +40,11 @@ module.exports = {
     
     
     let towns = [
-      "seer", "doctor", "vigilante", "lookout", "escort", "retributionist", "tracker", 
+      "seer", "doctor", "lookout", "escort", "retributionist", "tracker", 
+    ];
+    
+    let townAddon = [
+      "sheriff", "vigilante", "spy", "seer", "doctor", "lookout", "escort", "retributionist", "tracker"
     ];
     
     let roles = [
