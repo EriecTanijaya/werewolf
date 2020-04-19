@@ -658,9 +658,9 @@ module.exports = {
     /// hax for exe
     let exeIndex = -1;
 
-    this.group_session.players = helper.shuffleArray(
-      this.group_session.players
-    );
+    // this.group_session.players = helper.shuffleArray(
+    //   this.group_session.players
+    // );
 
     this.group_session.players.forEach((item, index) => {
       if (index <= roles.length - 1) {
@@ -674,9 +674,9 @@ module.exports = {
       // }
     });
 
-    this.group_session.players = helper.shuffleArray(
-      this.group_session.players
-    );
+    // this.group_session.players = helper.shuffleArray(
+    //   this.group_session.players
+    // );
 
     this.group_session.players.forEach((item, index) => {
       /// init private prop special role
