@@ -1,4 +1,4 @@
- tel      module.exports = {
+e tel      module.exports = {
   getModeList: function() {
     let modeList = ["classic", "vampire", "chaos", "ww-vs-neutral"];
     return modeList;
@@ -46,8 +46,9 @@
     let townAddon = [
       "sheriff", "vigilante", "spy", "seer", "doctor", "lookout", "escort", "retributionist", "tracker"
     ];
+        let townUnique = ["veteran"];
     
-    let uniquie
+        let uniquie
     
     let roles = [
       "serial-killer",
