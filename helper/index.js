@@ -1,4 +1,4 @@
-module.exports = {
+ tel      module.exports = {
   getModeList: function() {
     let modeList = ["classic", "vampire", "chaos", "ww-vs-neutral"];
     return modeList;
