@@ -10,24 +10,34 @@ module.exports = {
     ww, town, town, town, town, neutral, town, ww, town, neutral, town
     ww, town, neutral, town
     */
-    let townNeedCount = Math.round(playersLength / 2) + 1;
-    let badNeedCount = playersLength - townNeedCount;
-    let vampireNeedCount = Math.round((25 / 100) * badNeedCount);
-    let neutralNeedCount = badNeedCount - vampireNeedCount;
     
-    
-    let roles = [];
-    
-    let towns = ["seer", "doctor", "escort", "lookout", "tracker", "retributionist", "bodyguard", "vigilante"];
-    
-    let uniqueTown = ["veteran"];
-    
-    let uniqueNeutral = ["executioner"]
-    
-    let neutrals = [
-      "jester",
-      "survivor"
+    let roles = [
+      "vampire",
+      "lookout",
+      "lookout",
+      "doctor",
+      "vigilante",
+      "jester"
     ];
+    
+    let townSupports = ["escort", "retributionist"];
+    let townSupport = this.random(townSupports);
+    roles.push(townSupport);
+    
+    let addon = ["vampire", "vampire-hunter", "survivor"];
+    addon.forEach(item => {
+      roles.push(item);
+    })
+    
+    let townProtectors = ["doctor", "bodyguard"];
+    let townProtector = this.random(townProtectors);
+    roles.push(townProtector);
+    
+    
+    
+    
+    
+    roles.length = playersLength;
     
     roles = this.shuffleArray(roles);
     
