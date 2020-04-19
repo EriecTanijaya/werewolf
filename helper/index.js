@@ -48,9 +48,15 @@ e tel      module.exports = {
     ];
         let townUnique = ["veteran"];
     
-    let neutralKilling = ["serial-killer", "arsonist"];
+    let neutralKilling = ["serial-killer", "arsonist", "vampire"];
     
-    let uniqueNeutral = [];    let uniquie
+    let uniqueNeutral = ["executioner"];
+    
+    let neutralBenign = ["jester", "sorcerer"];
+    
+    let needSheriff = false;
+    let needVampireHunter = false;
+        let uniquie
     
     let roles = [
       "serial-killer",
