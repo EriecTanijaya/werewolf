@@ -1,4 +1,4 @@
-e module.exports = {
+module.exports = {
   getModeList: function() {
     let modeList = ["classic", "vampire", "chaos"];
     return modeList;
@@ -10,20 +10,19 @@ e module.exports = {
     ww, town, town, town, town, neutral, town, ww, town, neutral, town
     ww, town, neutral, town
     */
+    let townNeedCount = Math.round(playersLength / 2) + 1;
+    let badNeedCount = playersLength - townNeedCount;
+    let vampireNeedCount = Math.round((25 / 100) * badNeedCount);
+    let neutralNeedCount = badNeedCount - vampireNeedCount;
     
-    let towns = [
-      ""
-    ]
-
-    let roles = [
-      "vampire",
-      "vigilante",
-      "seer",
-      "lookout",
-      "escort"
-    ];
+    
+    let roles = [];
+    
+    
+    
+    roles = this.shuffleArray(roles);
+    
     return roles;
-  },rn roles;
   },
 
   getClassicRoleSet: function(playersLength) {
