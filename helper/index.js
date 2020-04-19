@@ -18,7 +18,7 @@ module.exports = {
     
     let roles = [];
     
-    
+    let towns = [];
     
     roles = this.shuffleArray(roles);
     
