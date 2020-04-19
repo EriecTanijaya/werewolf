@@ -30,15 +30,8 @@ module.exports = {
     console.log(input);
     /// check untuk role
     switch (input) {
-      case "ww vs neutral":
-      case "neutral vs ww":
-      case "ww-vs-neutral":
-      case "neutral-vs-ww":
-        flex_text.header.text = "🐺🔥 Werewolf X Neutral";
-        flex_text.body.text += "Mode game dimana banyak Werewolf dan Neutral. ";
-        break;
-
       case "vampire":
+      case "vampir":
         flex_text.header.text = "🦇🧛 Vampire Mode";
         flex_text.body.text += "Disana Vampire, disini Vampire, dimana mana ada Vampire. ";
         break;
@@ -49,6 +42,7 @@ module.exports = {
         break;
 
       case "classic":
+      case "klasik":
         flex_text.header.text = "👨‍🌾🐺 Classic Mode";
         flex_text.body.text += "Mode normal, cocok untuk pemula. ";
         break;

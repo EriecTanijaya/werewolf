@@ -534,8 +534,7 @@ module.exports = {
       } else if (roleName === "vigilante") {
         text += "🔫 Kamu memiliki " + players[index].role.bullet + " peluru";
       } else if (roleName === "bodyguard") {
-        text +=
-          "🦺 Kamu memiliki " + players[index].role.vest + " vest";
+        text += "🦺 Kamu memiliki " + players[index].role.vest + " vest";
       }
 
       return this.roleSkill(flex_text, index, text);
@@ -717,17 +716,12 @@ module.exports = {
       return this.replyText("💡 Game belum dimulai");
     }
 
-    if (this.group_session.state === "night") {
-      return this.journalCommand();
-    }
-
     let index = this.indexOfPlayer();
     let players = this.group_session.players;
+    let state = this.group_session.state;
 
-    let message = "🛏️ Kamu tidak diganggu semalam";
-
-    if (players[index].message !== "") {
-      message = players[index].message;
+    if (state === "night" || players[index].status === "death") {
+      return this.journalCommand();
     }
 
     let flex_texts = [
@@ -736,7 +730,7 @@ module.exports = {
           text: "🌙 Berita Malam ke - " + this.group_session.nightCounter
         },
         body: {
-          text: message
+          text: players[index].message
         }
       }
     ];
