@@ -3292,9 +3292,13 @@ module.exports = {
       }
 
       console.log(`pesan ${item.name} (${item.role.name}) : ${item.message}`); //cp
+      
+      if (!item.message) {
+        item.message += "🛏️ Kamu tidak diganggu semalam";
+      }
 
       /// journal , keep this below any special Announcement
-      if (item.status === "alive" && item.message !== "") {
+      if (item.status === "alive") {
         let journal = {
           nightCounter: this.group_session.nightCounter,
           content: item.message.trim()
