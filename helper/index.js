@@ -10,7 +10,7 @@ module.exports = {
     ww, town, town, town, town, neutral, town, ww, town, neutral, town
     ww, town, neutral, town
     */
-    
+
     let roles = [
       "vampire",
       "lookout",
@@ -19,28 +19,35 @@ module.exports = {
       "vigilante",
       "jester"
     ];
-    
+
     let townSupports = ["escort", "retributionist"];
     let townSupport = this.random(townSupports);
     roles.push(townSupport);
-    
+
     let addon = ["vampire", "vampire-hunter", "survivor"];
     addon.forEach(item => {
       roles.push(item);
-    })
-    
+    });
+
     let townProtectors = ["doctor", "bodyguard"];
     let townProtector = this.random(townProtectors);
     roles.push(townProtector);
-    
-    
-    
-    
-    
+
+    roles.push("vampire");
+
+    let townKillings = ["veteran", "vigilante"];
+    let townKilling = this.random(townKillings);
+    roles.push(townKilling);
+
+    let anotherTownSupport = this.random(townSupports);
+    roles.push(anotherTownSupport);
+
+    roles.push("vampire");
+
     roles.length = playersLength;
-    
+
     roles = this.shuffleArray(roles);
-    
+
     return roles;
   },
 
@@ -64,7 +71,7 @@ module.exports = {
 
     remainingRoles.forEach(item => {
       roles.push(item);
-    })
+    });
 
     let werewolves = ["framer", "disguiser", "consort", "sorcerer"];
     let werewolfAddon = this.random(werewolves);
@@ -81,7 +88,7 @@ module.exports = {
     roles.push(towns[1]);
 
     roles.length = playersLength;
-    
+
     roles = this.shuffleArray(roles);
 
     return roles;
