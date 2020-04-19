@@ -56,7 +56,7 @@ module.exports = {
       }
 
       /// check untuk role
-      switch (input) {  
+      switch (input) {
         case "villager":
         case "warga":
           flex_text.header.text = "👨‍🌾 Villager";

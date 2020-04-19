@@ -33,12 +33,14 @@ module.exports = {
       case "vampire":
       case "vampir":
         flex_text.header.text = "🦇🧛 Vampire Mode";
-        flex_text.body.text += "Disana Vampire, disini Vampire, dimana mana ada Vampire. ";
+        flex_text.body.text +=
+          "Disana Vampire, disini Vampire, dimana mana ada Vampire. ";
         break;
 
       case "chaos":
         flex_text.header.text = "🃏🪓 Chaos Mode";
-        flex_text.body.text += "Sesuai namanya, role role yang ada beneran buat chaos. ";
+        flex_text.body.text +=
+          "Sesuai namanya, role role yang ada beneran buat chaos. ";
         break;
 
       case "classic":
@@ -49,7 +51,9 @@ module.exports = {
 
       default:
         let text =
-          "💡 Tidak ada ditemukan info mode '" + this.args[2] + "' pada mode list. ";
+          "💡 Tidak ada ditemukan info mode '" +
+          this.args[2] +
+          "' pada mode list. ";
         text += "Cek info mode yang ada dengan cmd '/info mode'";
         return this.replyText(text);
     }
@@ -72,9 +76,7 @@ module.exports = {
     flex_text.header.text = "📜 Mode List 🔮";
     flex_text.body.text = modeList.join(", ");
     flex_text.body.text +=
-      "\n\n" +
-      "Cth: '/info mode ww-vs-neutral' untuk mengetahui deskripsi mode" +
-      "\n";
+      "\n\n" + "Cth: '/info mode chaos' untuk mengetahui deskripsi mode" + "\n";
     flex_text.body.text += "Untuk set mode bisa ketik '/set mode <nama-mode>'";
     return this.replyFlex(flex_text);
   },

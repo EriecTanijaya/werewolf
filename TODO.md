@@ -1,8 +1,5 @@
 TODO
 
-- buat deskripsi role set
-- masukin bg ke role set di helper func
-
 ```
 let playersLength = 5
 let townNeedCount = Math.round(playersLength / 2) + 1;
@@ -14,8 +11,6 @@ let neutralNeedCount = badNeedCount - werewolfNeedCount;
 console.log(`jumlah pemain ${playersLength}`)
 console.log(`town ${townNeedCount}, ww ${werewolfNeedCount}, neutral ${neutralNeedCount}`)
 ```
-
-
 
 - buat database beneran, data user store di mongodb freakin' hard tho
 - kalau role udah bsa multi gitu,

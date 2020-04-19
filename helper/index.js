@@ -191,6 +191,8 @@ module.exports = {
       roles.push(towns[i]);
     }
 
+    roles = this.shuffleArray(roles);
+
     return roles;
   },
 
