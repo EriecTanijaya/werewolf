@@ -18,11 +18,13 @@ module.exports = {
     
     let roles = [];
     
-    let towns = ["seer", "doctor", "escort", "lookout", "tracker", "retributionist", "bodyguard"];
+    let towns = ["seer", "doctor", "escort", "lookout", "tracker", "retributionist", "bodyguard", "vigilante"];
     
     let uniqueTown = ["veteran"];
     
     let uniqueNeutral = ["executioner"]
+    
+    let neutrals = [];
     
     roles = this.shuffleArray(roles);
     
