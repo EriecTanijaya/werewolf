@@ -47,7 +47,7 @@ module.exports = {
       "sheriff", "vigilante", "spy", "seer", "doctor", "lookout", "escort", "retributionist", "tracker"
     ];
     
-    let werewolves = ["werewolf-cub", ""];
+    let uniquie
     
     let roles = [
       "serial-killer",
