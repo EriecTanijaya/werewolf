@@ -18,7 +18,7 @@ module.exports = {
     
     let roles = [];
     
-    let towns = [""];
+    let towns = ["seer", "doctor", "escort", "lookout", "tracker", "retributionist", "bodyguard"];
     
     roles = this.shuffleArray(roles);
     
