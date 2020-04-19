@@ -47,6 +47,8 @@ module.exports = {
       "sheriff", "vigilante", "spy", "seer", "doctor", "lookout", "escort", "retributionist", "tracker"
     ];
     
+    let werewolves = ["werewolf-cub", ""];
+    
     let roles = [
       "serial-killer",
       "vigilante",
@@ -104,6 +106,8 @@ module.exports = {
     roles.push(towns[1]);
 
     roles.length = playersLength;
+    
+    roles = this.shuffleArray(roles);
 
     return roles;
   },
