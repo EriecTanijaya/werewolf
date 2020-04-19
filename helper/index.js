@@ -33,11 +33,14 @@ module.exports = {
     */
     
     //ada pas butuh
-    // aheriff, vigi, vh
+    // sheriff, vigi, vh, spy
+    
+    // town unique
+    //veteran
     
     
     let towns = [
-      ""
+      "seer", "doctor", "vigilante", "lookout", "escort", "retributionist", "tracker", 
     ];
     
     let roles = [
