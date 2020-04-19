@@ -641,19 +641,19 @@ module.exports = {
     ///werewolf harus selalu ada
     let players = this.group_session.players;
     let playersLength = players.length;
-    //let roles = this.getRandomRoleSet(playersLength); //cp
+    let roles = this.getRandomRoleSet(playersLength); //cp
 
     /// test specific role
-    let roles = [
-      "vampire",
-      "vampire",
-      "vampire",
-      "veteran",
-      "vampire-hunter",
-      "serial-killer",
-      "escort",
-      "bodyguard"
-    ];
+    // let roles = [
+    //   "vampire",
+    //   "vampire",
+    //   "vampire",
+    //   "veteran",
+    //   "vampire-hunter",
+    //   "serial-killer",
+    //   "escort",
+    //   "bodyguard"
+    // ];
 
     /// hax for exe
     let exeIndex = -1;
@@ -3298,13 +3298,13 @@ module.exports = {
       }
 
       /// journal , keep this below any special Announcement
-      if (item.status === "alive") {
+      //if (item.status === "alive") {
         let journal = {
           nightCounter: this.group_session.nightCounter,
           content: item.message.trim()
         };
         item.journals.push(journal);
-      }
+      //}
     });
 
     if (!allAnnouncement) {
