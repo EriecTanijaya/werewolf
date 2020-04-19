@@ -164,9 +164,7 @@ module.exports = {
     }
 
     if (this.args.length < 2) {
-      return this.replyText(
-        "💡 isi death note dengan '/dnote pesan kamu'"
-      );
+      return this.replyText("💡 isi death note dengan '/dnote pesan kamu'");
     }
 
     if (this.args.length > 60) {
@@ -275,6 +273,12 @@ module.exports = {
             "💡 Kamu sudah tidak bisa melindungi diri sendiri"
           );
         }
+      } else if (roleName === "bodyguard") {
+        if (!players[index].role.vest) {
+          return this.replyText(
+            "💡 Kamu sudah tidak memiliki Vest yang tersisa"
+          );
+        }
       }
 
       if (!this.canSelfTarget(roleName)) {
@@ -282,6 +286,19 @@ module.exports = {
           "💡 Kamu tidak bisa pilih diri sendiri di role ini"
         );
       }
+    }
+
+    if (roleName === "vampire") {
+      let vampireConvertCooldown = this.group_session.vampireConvertCooldown;
+      if (vampireConvertCooldown > 0) {
+        let infoText = "💡 Kamu harus menunggu ";
+        infoText += vampireConvertCooldown + " malam lagi untuk gigit orang";
+        return this.replyText(infoText);
+      }
+    }
+
+    if (roleName === "jester" && !players[index].role.isLynched) {
+      return this.replyText("💡 Jangan pernah kau coba untuk");
     }
 
     //need system for it
@@ -300,13 +317,13 @@ module.exports = {
       targetName: targetName,
       selfTarget: false,
       changeTarget: false
-    }
+    };
 
     let playerTargetIndex = players[index].target.index;
     if (playerTargetIndex === -1) {
-        if (targetIndex == index) {
-          doer.selfTarget = true;
-        }
+      if (targetIndex == index) {
+        doer.selfTarget = true;
+      }
     } else {
       doer.changeTarget = true;
       if (targetIndex == index) {
@@ -340,7 +357,7 @@ module.exports = {
         this.group_session.vampireChat.push(message);
       }
     }
-    
+
     let text = skillText.response(doer, null);
     let msg = [text];
     if (players[index].role.canKill && players[index].deathNote === "") {
@@ -499,6 +516,15 @@ module.exports = {
         } else {
           return this.replyFlex(flex_text);
         }
+      } else if (roleName === "vampire") {
+        let vampireConvertCooldown = this.group_session.vampireConvertCooldown;
+        if (vampireConvertCooldown > 0) {
+          let infoText =
+            "🦇 Kamu harus menunggu " +
+            vampireConvertCooldown +
+            " malam untuk gigit orang";
+          return this.replyFlex(flex_text, [text, infoText]);
+        }
       }
 
       // special role private role prop reminder
@@ -507,6 +533,8 @@ module.exports = {
           "💉 Kamu memiliki " + players[index].role.selfHeal + " self heal";
       } else if (roleName === "vigilante") {
         text += "🔫 Kamu memiliki " + players[index].role.bullet + " peluru";
+      } else if (roleName === "bodyguard") {
+        text += "🦺 Kamu memiliki " + players[index].role.vest + " vest";
       }
 
       return this.roleSkill(flex_text, index, text);
@@ -629,7 +657,7 @@ module.exports = {
       targetName: "",
       selfTarget: false,
       changeTarget: false
-    }
+    };
     text = skillText.response(doer, null);
     msg = [text];
 
@@ -676,7 +704,7 @@ module.exports = {
       targetName: "",
       selfTarget: false,
       changeTarget: false
-    }
+    };
     text = skillText.response(doer, null);
     msg = [text];
 
@@ -688,17 +716,12 @@ module.exports = {
       return this.replyText("💡 Game belum dimulai");
     }
 
-    if (this.group_session.state === "night") {
-      return this.journalCommand();
-    }
-
     let index = this.indexOfPlayer();
     let players = this.group_session.players;
+    let state = this.group_session.state;
 
-    let message = "🛏️ Kamu tidak diganggu semalam";
-
-    if (players[index].message !== "") {
-      message = players[index].message;
+    if (state === "night" || players[index].status === "death") {
+      return this.journalCommand();
     }
 
     let flex_texts = [
@@ -707,7 +730,7 @@ module.exports = {
           text: "🌙 Berita Malam ke - " + this.group_session.nightCounter
         },
         body: {
-          text: message
+          text: players[index].message
         }
       }
     ];

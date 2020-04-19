@@ -342,6 +342,22 @@ const roles = [
     type: "Werewolf Deception",
     disguiseAs: ""
   },
+  {
+    name: "bodyguard",
+    description:
+      "Kamu adalah warga yang bisa melindungi seseorang saat malam, dan menyerang kembali penyerang targetmu. ",
+    skillText: "Bodyguard, pilih siapa yang mau kamu lindungi",
+    cmdText: "/skill",
+    team: "villager",
+    canKill: false,
+    emoji: {
+      team: "👨‍🌾",
+      self: "🛡️"
+    },
+    type: "Town Protector",
+    vest: 1,
+    counterAttackIndex: -1
+  }
 ];
 
 module.exports = roles;

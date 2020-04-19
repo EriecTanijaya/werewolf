@@ -24,6 +24,9 @@ module.exports = {
       return this.roleListCommand();
     } else if (cmd === "type") {
       return this.roleTypeCommand();
+    } else if (cmd === "mode") {
+      const roles = require("/app/roles/roleSetInfo");
+      return roles.receive(this.client, this.event, this.args);
     } else {
       let input = "";
       if (this.args[2]) {
@@ -94,7 +97,11 @@ module.exports = {
           flex_text.body.text +=
             "Makhluk hidup yang membawa kerusuhan dengan bisa mengubah warga menjadi sejenisnya. ";
           flex_text.body.text +=
-            "Menang jika mengubah semua warga menjadi Vampire, atau menggantung penentangnya. ";
+            "Vampire jika berhasil mengubah seoranga warga menjadi Vampire, akan ada jeda untuk ";
+          flex_text.body.text += "menggigit target selanjutnya. ";
+          flex_text.body.text +=
+            "Jika jumlah Vampire sudah 4 atau lebih, maka Vampire tidak lagi mengubah seorang warga ";
+          flex_text.body.text += "warga menjadi Vampire, tetapi menyerangnya. ";
           break;
 
         case "vh":
@@ -202,7 +209,7 @@ module.exports = {
           flex_text.body.text +=
             "Warga yang bisa cek suatu pemain mencurigakan atau tidak. ";
           flex_text.body.text +=
-            "Setiap warga akan tampil tidak mencurigakan. Namun role Werewolf, Arsonist, Vampire akan tampil tidak mencurigakan juga. ";
+            "Setiap warga akan tampil tidak mencurigakan. Namun role Werewolf, Arsonist, Vampire, Executioner akan tampil tidak mencurigakan juga. ";
           break;
 
         case "arsonist":
@@ -246,7 +253,7 @@ module.exports = {
           flex_text.body.text +=
             "Warga yang bisa melacak suatu pemain untuk diketahui kemana aja Targetnya. ";
           break;
-          
+
         case "framer":
           flex_text.header.text = "🎞️ Framer";
           flex_text.body.text += "Type: Werewolf Deception" + "\n\n";
@@ -257,7 +264,7 @@ module.exports = {
           flex_text.body.text +=
             "Jika di cek Seer, akan muncul Werewolf, walaupun sebenarnya bukan";
           break;
-          
+
         case "disguiser":
           flex_text.header.text = "🎭 Disguiser";
           flex_text.body.text += "Type: Werewolf Deception" + "\n\n";
@@ -266,7 +273,16 @@ module.exports = {
           flex_text.body.text +=
             "Jika Disguiser mati, maka nama role yang ada di daftar pemain adalah nama role warga yang dia imitasi. ";
           flex_text.body.text +=
-            "Hasil cek Sheriff akan tetap mencurigakan, sedangkan Seer hasil terawangnya adalah role yang di imitasi"
+            "Hasil cek Sheriff akan tetap mencurigakan, sedangkan Seer hasil terawangnya adalah role yang di imitasi";
+          break;
+
+        case "bodyguard":
+          flex_text.header.text = "🛡️ Bodyguard";
+          flex_text.body.text += "Type: Town Protector" + "\n\n";
+          flex_text.body.text +=
+            "Warga yang bisa memilih siapa pemain yang ingin dilindungi. ";
+          flex_text.body.text +=
+            "Jika Target Bodyguard mau diserang, maka Bodyguard akan melawan balik penyerang tersebut. ";
           break;
 
         default:
@@ -274,7 +290,7 @@ module.exports = {
             "💡 Tidak ada ditemukan role '" +
             this.args[1] +
             "' pada role list. ";
-          text += "Cek info role yang dengan cmd '/info'";
+          text += "Cek info role yang ada dengan cmd '/info'";
           return this.replyText(text);
       }
 
@@ -290,8 +306,10 @@ module.exports = {
       "/info :  tampilin list command info",
       "/info role : list role yang ada",
       "/info type : list type yang ada",
+      "/info mode : list mode yang ada",
       "/info <nama-role> : deskripsi role tersebut",
-      "/info <nama-type> : deskripsi role tersebut"
+      "/info <nama-type> : deskripsi role tersebut",
+      "/info mode <nama-mode> : deskripsi mode tersebut"
     ];
 
     cmds.forEach((item, index) => {
