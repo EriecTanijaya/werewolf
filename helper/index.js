@@ -24,7 +24,10 @@ module.exports = {
     
     let uniqueNeutral = ["executioner"]
     
-    let neutrals = [];
+    let neutrals = [
+      "jester",
+      "survivor"
+    ];
     
     roles = this.shuffleArray(roles);
     
