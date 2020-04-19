@@ -1,6 +1,6 @@
 e module.exports = {
   getModeList: function() {
-    let modeList = ["classic", "vampire", "chaos", "ww-vs-neutral"];
+    let modeList = ["classic", "vampire", "chaos"];
     return modeList;
   },
 
@@ -23,64 +23,7 @@ e module.exports = {
       "escort"
     ];
     return roles;
-  },
-
-  getWerewolfVsNeutralRoleSet: function(playersLength) {
-    /// step
-    /*
-    ww, town, town, town, town, neutral, town, ww, town, neutral, town
-    ww, town, neutral, town
-    */
-    
-    //ada pas butuh
-    // sheriff, vigi, vh, spy
-    
-    // town unique
-    //veteran
-    
-    
-    let towns = [
-      "seer", "doctor", "lookout", "escort", "retributionist", "tracker", 
-    ];
-    
-    let townAddon = [
-      "sheriff", "vigilante", "spy", "seer", "doctor", "lookout", "escort", "retributionist", "tracker"
-    ];
-        let townUnique = ["veteran"];
-    
-    let neutralKilling = ["serial-killer", "arsonist", "vampire"];
-    
-    let uniqueNeutral = ["executioner"];
-    
-    let neutralBenign = ["jester", "sorcerer"];
-    
-    let needSheriff = false;
-    let needVampireHunter = false;
-    
-    
-        let uniquie
-    
-    let roles = [
-      "serial-killer",
-      "vigilante",
-      "veteran",
-      "escort",
-      "werewolf",
-      "spy",
-      "doctor",
-      "werewolf-cub",
-      "arsonist",
-      "consort",
-      "vampire",
-      "sorcerer",
-      "jester",
-      "executioner",
-      "di
-    
-    roles = this.shuffleArray(roles);
-    sguiser"
-    ];
-    return roles;
+  },rn roles;
   },
 
   getClassicRoleSet: function(playersLength) {

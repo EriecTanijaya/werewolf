@@ -30,14 +30,6 @@ module.exports = {
     console.log(input);
     /// check untuk role
     switch (input) {
-      case "ww vs neutral":
-      case "neutral vs ww":
-      case "ww-vs-neutral":
-      case "neutral-vs-ww":
-        flex_text.header.text = "🐺🔥 Werewolf X Neutral";
-        flex_text.body.text += "Mode game dimana banyak Werewolf dan Neutral. ";
-        break;
-
       case "vampire":
       case "vampir":
         flex_text.header.text = "🦇🧛 Vampire Mode";
