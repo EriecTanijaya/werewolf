@@ -114,9 +114,7 @@ module.exports = {
           this.group_session.time = 0;
           this.checkCommand();
         } else {
-          return this.replyText(
-            "mo ngapain lu " + this.user_session.name + "?"
-          );
+          return this.invalidCommand();
         }
         break;
       case "/revoke":
@@ -137,11 +135,15 @@ module.exports = {
 
   skillCommand: function() {
     if (this.user_session.id !== process.env.DEV_ID) {
-      return this.replyText("mo ngapain lu " + this.user_session.name + "?");
+      return this.invalidCommand();
     }
 
     let doerIndex = this.args[1];
     let targetIndex = this.args[2];
+
+    if (doerIndex === undefined || targetIndex === undefined) {
+      return this.replyText("/skill doerIndex targetIndex");
+    }
 
     this.group_session.players[doerIndex].target.index = targetIndex;
   },
