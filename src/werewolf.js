@@ -358,12 +358,12 @@ module.exports = {
       this.addPlayer(newPlayer);
 
       //cp
-      // for (let i = 0; i < 8; i++) {
-      //   let dummy = JSON.parse(JSON.stringify(this.user_session));
-      //   dummy.name += " " + helper.getRandomInt(1, 99);
-      //   let newPlayer = this.createNewPlayer(dummy);
-      //   this.addPlayer(newPlayer);
-      // }
+      for (let i = 0; i < 8; i++) {
+        let dummy = JSON.parse(JSON.stringify(this.user_session));
+        dummy.name += " " + helper.getRandomInt(1, 99);
+        let newPlayer = this.createNewPlayer(dummy);
+        this.addPlayer(newPlayer);
+      }
 
       let text = "💡 " + this.user_session.name + " berhasil bergabung!";
       return this.replyFlex(flex_text, [text, remindText]);
@@ -653,7 +653,8 @@ module.exports = {
       "arsonist",
       "seer",
       "lookout",
-      "seer"
+      "seer",
+      "vampire"
     ];
 
     /// hax for exe
@@ -821,14 +822,14 @@ module.exports = {
     this.runTimer();
 
     //cp
-    //     let playersWithRole = this.group_session.players.map(i => {
-    //       return {
-    //         name: i.name,
-    //         roleName: i.role.name
-    //       };
-    //     });
+        let playersWithRole = this.group_session.players.map(i => {
+          return {
+            name: i.name,
+            roleName: i.role.name
+          };
+        });
 
-    //     console.table(playersWithRole);
+        console.table(playersWithRole);
 
     if (flex_texts) {
       return this.replyFlex(flex_texts, null, newFlex_text);
@@ -3298,7 +3299,7 @@ module.exports = {
         item.message += werewolfAnnouncement;
       }
 
-      //console.log(`pesan ${item.name} (${item.role.name}) : ${item.message}`); //cp
+      console.log(`pesan ${item.name} (${item.role.name}) : ${item.message}`); //cp
 
       if (!item.message) {
         item.message += "🛏️ Kamu tidak diganggu semalam";
