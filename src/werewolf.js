@@ -2575,6 +2575,8 @@ module.exports = {
                     "🔍 Target kamu selamat karena disembuhkan!" + "\n\n";
                 }
               }
+              
+              continue;
             } else {
               //not enough protector or no protector
 
