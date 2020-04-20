@@ -1,5 +1,7 @@
 TODO
 
+- properly mekanis attacked bisa pake skill itu gmna
+
 ```
 let playersLength = 5
 let townNeedCount = Math.round(playersLength / 2) + 1;
