@@ -1686,6 +1686,54 @@ module.exports = {
       }
     }
 
+    /// Arsonist Douse Action
+    for (let i = 0; i < players.length; i++) {
+      let doer = players[i];
+      let roleName = doer.role.name;
+      let status = doer.status;
+      let targetIndex = doer.target.index;
+
+      if (roleName === "arsonist" && status === "alive") {
+        if (doer.target.index === -1) {
+          this.group_session.players[i].message +=
+            "💡 Kamu tidak menggunakan skill mu" + "\n\n";
+
+          continue;
+        } else if (parseInt(targetIndex) !== parseInt(i)) {
+          if (doer.blocked === true) {
+            this.group_session.players[i].message +=
+              "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." +
+              "\n\n";
+
+            continue;
+          } else if (!doer.attacked) {
+            let target = players[targetIndex];
+
+            this.group_session.players[targetIndex].doused = true;
+
+            if (players[targetIndex].bugged) {
+              spyBuggedInfo[targetIndex] +=
+                "🔍 Target kamu disiram bensin oleh Arsonist!" + "\n\n";
+            }
+
+            this.group_session.players[i].message +=
+              "👣 Kamu ke rumah " + target.name + "\n\n";
+
+            let visitor = {
+              name: doer.name,
+              role: doer.role
+            };
+            this.group_session.players[targetIndex].visitors.push(visitor);
+
+            this.group_session.players[i].message +=
+              "⛽ Kamu diam diam menyiram bensin ke rumah " +
+              target.name +
+              "\n\n";
+          }
+        }
+      }
+    }
+    
     /// Jester Haunt Action
     for (let i = 0; i < players.length; i++) {
       let doer = players[i];
@@ -1734,54 +1782,6 @@ module.exports = {
             players[targetIndex].name +
             " sampai dia mati ketakutan" +
             "\n\n";
-        }
-      }
-    }
-
-    /// Arsonist Douse Action
-    for (let i = 0; i < players.length; i++) {
-      let doer = players[i];
-      let roleName = doer.role.name;
-      let status = doer.status;
-      let targetIndex = doer.target.index;
-
-      if (roleName === "arsonist" && status === "alive") {
-        if (doer.target.index === -1) {
-          this.group_session.players[i].message +=
-            "💡 Kamu tidak menggunakan skill mu" + "\n\n";
-
-          continue;
-        } else if (parseInt(targetIndex) !== parseInt(i)) {
-          if (doer.blocked === true) {
-            this.group_session.players[i].message +=
-              "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." +
-              "\n\n";
-
-            continue;
-          } else if (!doer.attacked) {
-            let target = players[targetIndex];
-
-            this.group_session.players[targetIndex].doused = true;
-
-            if (players[targetIndex].bugged) {
-              spyBuggedInfo[targetIndex] +=
-                "🔍 Target kamu disiram bensin oleh Arsonist!" + "\n\n";
-            }
-
-            this.group_session.players[i].message +=
-              "👣 Kamu ke rumah " + target.name + "\n\n";
-
-            let visitor = {
-              name: doer.name,
-              role: doer.role
-            };
-            this.group_session.players[targetIndex].visitors.push(visitor);
-
-            this.group_session.players[i].message +=
-              "⛽ Kamu diam diam menyiram bensin ke rumah " +
-              target.name +
-              "\n\n";
-          }
         }
       }
     }
@@ -2467,9 +2467,9 @@ module.exports = {
         let protectors = players[i].protectors;
 
         if (isAttacked || isVampireBited) {
+          this.group_session.players[i].damage = attackers.length;
+          
           if (!isBurned && !isHaunted && !willSuicide && afkCounter < 6) {
-            this.group_session.players[i].damage = attackers.length;
-
             for (let x = 0; x < attackers.length; x++) {
               let attacker = attackers[x];
 
