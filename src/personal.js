@@ -466,9 +466,15 @@ module.exports = {
     // special role exe
     if (roleName === "executioner") {
       let exeTarget = players[players[index].role.targetLynchIndex];
-      let text =
-        "🪓 Target kamu adalah " + exeTarget.name + ". Kamu harus bisa ";
-      text += "menghasut warga untuk gantung dia";
+      let text = "";
+
+      if (player.role.isTargetLynched) {
+        text = "🪓 " + exeTarget.name;
+        text += " sudah digantung! Sekarang tinggal sit back and relax";
+      } else {
+        text = "🪓 Target kamu adalah " + exeTarget.name + ". Kamu harus bisa ";
+        text += "menghasut warga untuk gantung dia";
+      }
 
       return this.replyFlex(flex_text, text);
     }
