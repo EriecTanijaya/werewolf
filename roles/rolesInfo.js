@@ -154,7 +154,7 @@ module.exports = {
             "Tidak memihak kesiapa siapa, Jester menang jika di gantung. ";
           flex_text.body.text +=
             "Jika berhasil digantung, dia bisa membalas kematiannya ";
-          flex_text.body.text += "dengan menghantui orang lain";
+          flex_text.body.text += "dengan menghantui orang lain sampai mati";
           break;
 
         case "lookout":

@@ -207,8 +207,18 @@ module.exports = {
     // buat if role.name === jester & isLynched true
     if (players[index].status === "death") {
       /// special role yg bisa skill pas mati
-      if (roleName !== "jester" && !players[index].role.isLynched) {
+
+      // Jester
+      if (roleName !== "jester") {
         return this.replyText("💡 Kamu sudah mati");
+      } else {
+        if (!players[index].role.isLynched) {
+          return this.replyText(
+            "💡 Kamu hanya bisa hantui orang jika mati digantung"
+          );
+        } else if (players[index].role.hasRevenged) {
+          return this.replyText("💡 Kamu sudah balas dendam mu kepada warga");
+        }
       }
     }
 
@@ -297,8 +307,10 @@ module.exports = {
       }
     }
 
-    if (roleName === "jester" && !players[index].role.isLynched) {
-      return this.replyText("💡 Jangan pernah kau coba untuk");
+    if (roleName === "jester") {
+      if (!players[index].role.isLynched && players[index].role.hasRevenged) {
+        return this.replyText("💡 Jangan pernah kau coba untuk");
+      }
     }
 
     //need system for it
