@@ -308,7 +308,7 @@ module.exports = {
     }
 
     if (roleName === "jester") {
-      if (!players[index].role.isLynched && players[index].role.hasRevenged) {
+      if (!players[index].role.isLynched || players[index].role.hasRevenged) {
         return this.replyText("💡 Jangan pernah kau coba untuk");
       }
     }
@@ -516,7 +516,7 @@ module.exports = {
           return this.replyFlex(flex_text, text);
         }
       } else if (roleName === "jester") {
-        if (!player.role.isLynched && player.role.hasRevenged) {
+        if (!player.role.isLynched || player.role.hasRevenged) {
           return this.replyFlex(flex_text);
         } else {
           text += "👻 Kamu pilih siapa saja yang ingin kamu hantui. ";

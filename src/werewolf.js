@@ -643,19 +643,18 @@ module.exports = {
     ///werewolf harus selalu ada
     let players = this.group_session.players;
     let playersLength = players.length;
-    let roles = this.getRandomRoleSet(playersLength); //cp
+    //let roles = this.getRandomRoleSet(playersLength); //cp
 
     /// test specific role
-    // let roles = [
-    //   "vampire",
-    //   "vampire",
-    //   "vampire",
-    //   "veteran",
-    //   "vampire-hunter",
-    //   "serial-killer",
-    //   "escort",
-    //   "bodyguard"
-    // ];
+    let roles = [
+      "jester",
+      "survivor",
+      "doctor",
+      "arsonist",
+      "seer",
+      "lookout",
+      "seer"
+    ];
 
     /// hax for exe
     let exeIndex = -1;
