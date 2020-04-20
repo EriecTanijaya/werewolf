@@ -647,10 +647,8 @@ module.exports = {
 
     /// test specific role
     // let roles = [
-    //   "jester",
-    //   "werewolf",
-    //   "jester",
-    //   "jester"
+    //   "vigilante",
+    //   "werewolf"
     // ];
 
     /// hax for exe
@@ -818,14 +816,14 @@ module.exports = {
     this.runTimer();
 
     //cp
-    //         let playersWithRole = this.group_session.players.map(i => {
-    //           return {
-    //             name: i.name,
-    //             roleName: i.role.name
-    //           };
-    //         });
+//     let playersWithRole = this.group_session.players.map(i => {
+//       return {
+//         name: i.name,
+//         roleName: i.role.name
+//       };
+//     });
 
-    //         console.table(playersWithRole);
+//     console.table(playersWithRole);
 
     if (flex_texts) {
       return this.replyFlex(flex_texts, null, newFlex_text);
@@ -2582,6 +2580,8 @@ module.exports = {
           }
 
           this.group_session.players[i].status = "will_death";
+        } else if (willSuicide || afkCounter >= 6) {
+          this.group_session.players[i].status = "will_death";
         }
       }
     }
@@ -2738,7 +2738,7 @@ module.exports = {
     for (let i = 0; i < players.length; i++) {
       if (players[i].status === "will_death") {
         let attackedAnnouncement = "";
-        let willSuicide = players[i].willSuicice;
+        let willSuicide = players[i].willSuicide;
         let roleName = players[i].role.name;
         if (players[i].role.disguiseAs) {
           roleName = players[i].role.disguiseAs;
