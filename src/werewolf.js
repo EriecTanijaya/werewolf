@@ -2580,10 +2580,11 @@ module.exports = {
 
               // check vampireBited
               if (!isAttacked) continue;
-
-              this.group_session.players[i].status = "will_death";
+              
             }
           }
+          
+          this.group_session.players[i].status = "will_death";
         }
       }
     }
