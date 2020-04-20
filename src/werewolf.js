@@ -647,14 +647,8 @@ module.exports = {
 
     /// test specific role
     // let roles = [
-    //   "vampire",
-    //   "vampire",
-    //   "vampire",
-    //   "veteran",
-    //   "vampire-hunter",
-    //   "serial-killer",
-    //   "escort",
-    //   "bodyguard"
+    //   "executioner",
+    //   "werewolf"
     // ];
 
     /// hax for exe
@@ -822,14 +816,14 @@ module.exports = {
     this.runTimer();
 
     //cp
-    //     let playersWithRole = this.group_session.players.map(i => {
-    //       return {
-    //         name: i.name,
-    //         roleName: i.role.name
-    //       };
-    //     });
+    //         let playersWithRole = this.group_session.players.map(i => {
+    //           return {
+    //             name: i.name,
+    //             roleName: i.role.name
+    //           };
+    //         });
 
-    //     console.table(playersWithRole);
+    //         console.table(playersWithRole);
 
     if (flex_texts) {
       return this.replyFlex(flex_texts, null, newFlex_text);
@@ -1733,7 +1727,7 @@ module.exports = {
         }
       }
     }
-    
+
     /// Jester Haunt Action
     for (let i = 0; i < players.length; i++) {
       let doer = players[i];
@@ -2468,7 +2462,7 @@ module.exports = {
 
         if (isAttacked || isVampireBited) {
           this.group_session.players[i].damage = attackers.length;
-          
+
           if (!isBurned && !isHaunted && !willSuicide && afkCounter < 6) {
             for (let x = 0; x < attackers.length; x++) {
               let attacker = attackers[x];
@@ -2575,17 +2569,16 @@ module.exports = {
                     "🔍 Target kamu selamat karena disembuhkan!" + "\n\n";
                 }
               }
-              
+
               continue;
             } else {
               //not enough protector or no protector
 
               // check vampireBited
               if (!isAttacked) continue;
-              
             }
           }
-          
+
           this.group_session.players[i].status = "will_death";
         }
       }

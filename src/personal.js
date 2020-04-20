@@ -308,7 +308,7 @@ module.exports = {
     }
 
     if (roleName === "jester") {
-      if (!players[index].role.isLynched && players[index].role.hasRevenged) {
+      if (!players[index].role.isLynched || players[index].role.hasRevenged) {
         return this.replyText("💡 Jangan pernah kau coba untuk");
       }
     }
@@ -466,9 +466,15 @@ module.exports = {
     // special role exe
     if (roleName === "executioner") {
       let exeTarget = players[players[index].role.targetLynchIndex];
-      let text =
-        "🪓 Target kamu adalah " + exeTarget.name + ". Kamu harus bisa ";
-      text += "menghasut warga untuk gantung dia";
+      let text = "";
+
+      if (player.role.isTargetLynched) {
+        text = "🪓 " + exeTarget.name;
+        text += " sudah digantung! Sekarang tinggal sit back and relax";
+      } else {
+        text = "🪓 Target kamu adalah " + exeTarget.name + ". Kamu harus bisa ";
+        text += "menghasut warga untuk gantung dia";
+      }
 
       return this.replyFlex(flex_text, text);
     }
@@ -516,7 +522,7 @@ module.exports = {
           return this.replyFlex(flex_text, text);
         }
       } else if (roleName === "jester") {
-        if (!player.role.isLynched && player.role.hasRevenged) {
+        if (!player.role.isLynched || player.role.hasRevenged) {
           return this.replyFlex(flex_text);
         } else {
           text += "👻 Kamu pilih siapa saja yang ingin kamu hantui. ";
