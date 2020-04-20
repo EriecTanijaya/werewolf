@@ -52,7 +52,7 @@ module.exports = {
   },
 
   getClassicRoleSet: function(playersLength) {
-    let roles = ["werewolf", "seer", "doctor"];
+    let roles = ["werewolf", "seer"];
 
     let townProtectors = ["bodyguard", "doctor"];
     let townProtector = this.random(townProtectors);
