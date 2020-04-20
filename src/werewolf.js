@@ -643,15 +643,13 @@ module.exports = {
     ///werewolf harus selalu ada
     let players = this.group_session.players;
     let playersLength = players.length;
-    let roles = this.getRandomRoleSet(playersLength); //cp
+    //let roles = this.getRandomRoleSet(playersLength); //cp
 
     /// test specific role
-    // let roles = [
-    //   "jester",
-    //   "werewolf",
-    //   "jester",
-    //   "jester"
-    // ];
+    let roles = [
+      "vigilante",
+      "werewolf"
+    ];
 
     /// hax for exe
     let exeIndex = -1;
@@ -2738,7 +2736,7 @@ module.exports = {
     for (let i = 0; i < players.length; i++) {
       if (players[i].status === "will_death") {
         let attackedAnnouncement = "";
-        let willSuicide = players[i].willSuicice;
+        let willSuicide = players[i].willSuicide;
         let roleName = players[i].role.name;
         if (players[i].role.disguiseAs) {
           roleName = players[i].role.disguiseAs;
