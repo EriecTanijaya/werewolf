@@ -647,8 +647,10 @@ module.exports = {
 
     /// test specific role
     // let roles = [
-    //   "executioner",
-    //   "werewolf"
+    //   "jester",
+    //   "werewolf",
+    //   "jester",
+    //   "jester"
     // ];
 
     /// hax for exe
