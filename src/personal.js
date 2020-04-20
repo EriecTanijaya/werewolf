@@ -516,7 +516,7 @@ module.exports = {
           return this.replyFlex(flex_text, text);
         }
       } else if (roleName === "jester") {
-        if (!player.role.isLynched) {
+        if (!player.role.isLynched && player.role.hasRevenged) {
           return this.replyFlex(flex_text);
         } else {
           text += "👻 Kamu pilih siapa saja yang ingin kamu hantui. ";
