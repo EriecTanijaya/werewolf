@@ -643,13 +643,13 @@ module.exports = {
     ///werewolf harus selalu ada
     let players = this.group_session.players;
     let playersLength = players.length;
-    //let roles = this.getRandomRoleSet(playersLength); //cp
+    let roles = this.getRandomRoleSet(playersLength); //cp
 
     /// test specific role
-    let roles = [
-      "vigilante",
-      "werewolf"
-    ];
+    // let roles = [
+    //   "vigilante",
+    //   "werewolf"
+    // ];
 
     /// hax for exe
     let exeIndex = -1;
@@ -816,14 +816,14 @@ module.exports = {
     this.runTimer();
 
     //cp
-    //         let playersWithRole = this.group_session.players.map(i => {
-    //           return {
-    //             name: i.name,
-    //             roleName: i.role.name
-    //           };
-    //         });
+//     let playersWithRole = this.group_session.players.map(i => {
+//       return {
+//         name: i.name,
+//         roleName: i.role.name
+//       };
+//     });
 
-    //         console.table(playersWithRole);
+//     console.table(playersWithRole);
 
     if (flex_texts) {
       return this.replyFlex(flex_texts, null, newFlex_text);
@@ -2579,6 +2579,8 @@ module.exports = {
             }
           }
 
+          this.group_session.players[i].status = "will_death";
+        } else if (willSuicide || afkCounter >= 6) {
           this.group_session.players[i].status = "will_death";
         }
       }
