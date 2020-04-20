@@ -2467,9 +2467,9 @@ module.exports = {
         let protectors = players[i].protectors;
 
         if (isAttacked || isVampireBited) {
+          this.group_session.players[i].damage = attackers.length;
+          
           if (!isBurned && !isHaunted && !willSuicide && afkCounter < 6) {
-            this.group_session.players[i].damage = attackers.length;
-
             for (let x = 0; x < attackers.length; x++) {
               let attacker = attackers[x];
 
