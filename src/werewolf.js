@@ -1733,6 +1733,58 @@ module.exports = {
         }
       }
     }
+    
+    /// Jester Haunt Action
+    for (let i = 0; i < players.length; i++) {
+      let doer = players[i];
+      let roleName = doer.role.name;
+
+      if (doer.role.name === "jester") {
+        if (doer.role.isLynched && !doer.role.hasRevenged) {
+          let targetIndex = -1;
+
+          if (doer.target.index === -1) {
+            // random kill
+            this.group_session.players[i].message +=
+              "💡 Karena kamu tidak pilih target, kamu akan sembarangan menghantui orang" +
+              "\n\n";
+
+            targetIndex = this.getJesterTargetIndex(doer.id);
+          } else {
+            targetIndex = doer.target.index;
+          }
+
+          this.group_session.players[targetIndex].message +=
+            "👻 SURPRISEEE!! Kamu didatangi 🃏 Jester yang mati itu" + "\n\n";
+
+          if (players[targetIndex].bugged) {
+            spyBuggedInfo[targetIndex] +=
+              "🔍 Target kamu di hantui Jester!" + "\n\n";
+          }
+
+          this.group_session.players[targetIndex].attacked = true;
+          this.group_session.players[targetIndex].isHaunted = true;
+
+          let attacker = {
+            index: i,
+            name: doer.name,
+            role: doer.role,
+            deathNote: doer.deathNote,
+            countered: false
+          };
+
+          this.group_session.players[targetIndex].attackers.push(attacker);
+
+          this.group_session.players[i].role.hasRevenged = true;
+
+          this.group_session.players[i].message +=
+            "👻 Kamu menghantui " +
+            players[targetIndex].name +
+            " sampai dia mati ketakutan" +
+            "\n\n";
+        }
+      }
+    }
 
     /// Retributionist Action
     for (let i = 0; i < players.length; i++) {
@@ -2391,58 +2443,6 @@ module.exports = {
               break;
             }
           }
-        }
-      }
-    }
-    
-    /// Jester Haunt Action
-    for (let i = 0; i < players.length; i++) {
-      let doer = players[i];
-      let roleName = doer.role.name;
-
-      if (doer.role.name === "jester") {
-        if (doer.role.isLynched && !doer.role.hasRevenged) {
-          let targetIndex = -1;
-
-          if (doer.target.index === -1) {
-            // random kill
-            this.group_session.players[i].message +=
-              "💡 Karena kamu tidak pilih target, kamu akan sembarangan menghantui orang" +
-              "\n\n";
-
-            targetIndex = this.getJesterTargetIndex(doer.id);
-          } else {
-            targetIndex = doer.target.index;
-          }
-
-          this.group_session.players[targetIndex].message +=
-            "👻 SURPRISEEE!! Kamu didatangi 🃏 Jester yang mati itu" + "\n\n";
-
-          if (players[targetIndex].bugged) {
-            spyBuggedInfo[targetIndex] +=
-              "🔍 Target kamu di hantui Jester!" + "\n\n";
-          }
-
-          this.group_session.players[targetIndex].attacked = true;
-          this.group_session.players[targetIndex].isHaunted = true;
-
-          let attacker = {
-            index: i,
-            name: doer.name,
-            role: doer.role,
-            deathNote: doer.deathNote,
-            countered: false
-          };
-
-          this.group_session.players[targetIndex].attackers.push(attacker);
-
-          this.group_session.players[i].role.hasRevenged = true;
-
-          this.group_session.players[i].message +=
-            "👻 Kamu menghantui " +
-            players[targetIndex].name +
-            " sampai dia mati ketakutan" +
-            "\n\n";
         }
       }
     }
