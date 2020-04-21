@@ -128,8 +128,6 @@ module.exports = {
         return this.settingCommand();
       case "/skill":
         return this.skillCommand();
-      case "/wish":
-        return this.birthdayWishes();
       default:
         return this.invalidCommand();
     }
@@ -3588,87 +3586,6 @@ module.exports = {
         return this.night(null);
       }
     }
-  },
-
-  birthdayWishes: function() {
-    let flex_text = {
-      header: {
-        text: "🎉HAPPY BIRTHDAY🎉ANTHONY!"
-      },
-      body: {
-        text: "🥳 di baca ya wish wish kamii"
-      }
-    };
-
-    let flex_texts_addon = [];
-    let flex_text_dummy = {};
-
-    // MAX 10 bubble!
-    let wishes = [
-      {
-        from: "Eriec",
-        wish: "Semakin dewasa, selalu terjaga kesehatannya, sukses selalu!"
-      },
-      {
-        from: "Andi Tan",
-        wish:
-          "Habede ANTOTNY, wish aku semoga panjang umur, panjang burung, panjang segala2nya. Perbanyak rokok, perbanyak narkoba. Jangan main game terus, main cewe aja"
-      },
-      {
-        from: "Yoris",
-        wish: 'smoga makin jagoo main game kotak"'
-      },
-      {
-        from: "Febry",
-        wish:
-          "Happy birthday Anthony, wish u all the bestt, makin lancar kerjanyaa"
-      },
-      {
-        from: "Dovin",
-        wish: "Cepetan nikahnya!🤣"
-      },
-      {
-        from: "Hendru",
-        wish: "Semoga Anthony traktir aku makan :v"
-      },
-      {
-        from: "Fransisco",
-        wish:
-          "Semoga dengan bertambahnya usia. Anthony semakin dewasa, semakin dekat dengan Tuhan, hubungan dengan orang tua dan sekelilingnya baik baik, dan semakin di berkati"
-      },
-      {
-        from: "Andy Wijaya",
-        wish:
-          "tetap sehat ditengah wabah gini, diberkati dalam pekerjaan dan apapunlah, panjang umur"
-      },
-      {
-        from: "Nicky",
-        wish:
-          "HBD ton, semakin intim dengan Tuhan dan menjadi terang untuk dunia ini"
-      },
-      {
-        from: "Anjay",
-        wish:
-          'Panjang umur, sehat" terus dan jangan lupa selalu cari situs" yg terbaru agar update terus video kita'
-      }
-    ];
-
-    let emojis = ["🍰", "🎁", "🎈", "🎂"];
-
-    wishes.forEach((item, index) => {
-      let emoji = helper.random(emojis);
-      flex_text_dummy[index] = {
-        header: {
-          text: "Wish " + item.from + " " + emoji
-        },
-        body: {
-          text: item.wish
-        }
-      };
-      flex_texts_addon.push(flex_text_dummy[index]);
-    });
-
-    return this.replyFlex(flex_text, null, flex_texts_addon);
   },
 
   endGame: function(flex_texts, whoWin) {

@@ -1,19 +1,4 @@
 TODO
-- jangan lupa di data.js maintenance mode di off kan
-
-```
-{
-    "type": "text",
-    "text": "Hello, I am Cony!!",
-    "sender": {
-        "name": "Cony",
-        "iconUrl": "https://line.me/conyprof"
-    }
-}
-```
-- buatkan ini di semua replyText func, sama buatkan di helper folder punya flex func
-  - pas game mulai, moderator
-  - pas game belum di mulai, random role-roles yang ada wkaodwa, tapi sama iconUrl nya!! susah
 
 - properly mekanis attacked bisa pake skill itu gmna
 
