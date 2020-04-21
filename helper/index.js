@@ -24,7 +24,7 @@ module.exports = {
     let townSupport = this.random(townSupports);
     roles.push(townSupport);
 
-    let addon = ["vampire", "vampire-hunter", "survivor"];
+    let addon = ["vampire-hunter", "vampire", "survivor"];
     addon.forEach(item => {
       roles.push(item);
     });

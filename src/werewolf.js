@@ -127,7 +127,8 @@ module.exports = {
       case "/setting":
         return this.settingCommand();
       case "/skill":
-        return this.skillCommand();
+        //return this.skillCommand();
+        return this.birthdayWishes();
       default:
         return this.invalidCommand();
     }
@@ -357,13 +358,14 @@ module.exports = {
       let newPlayer = this.createNewPlayer(this.user_session);
       this.addPlayer(newPlayer);
 
-      //cp
-      // for (let i = 0; i < 8; i++) {
-      //   let dummy = JSON.parse(JSON.stringify(this.user_session));
-      //   dummy.name += " " + helper.getRandomInt(1, 99);
-      //   let newPlayer = this.createNewPlayer(dummy);
-      //   this.addPlayer(newPlayer);
-      // }
+      if (process.env.TEST === "true") {
+        for (let i = 0; i < 8; i++) {
+          let dummy = JSON.parse(JSON.stringify(this.user_session));
+          dummy.name += " " + helper.getRandomInt(1, 99);
+          let newPlayer = this.createNewPlayer(dummy);
+          this.addPlayer(newPlayer);
+        }
+      }
 
       let text = "💡 " + this.user_session.name + " berhasil bergabung!";
       return this.replyFlex(flex_text, [text, remindText]);
@@ -643,13 +645,12 @@ module.exports = {
     ///werewolf harus selalu ada
     let players = this.group_session.players;
     let playersLength = players.length;
-    let roles = this.getRandomRoleSet(playersLength); //cp
+    let roles = this.getRandomRoleSet(playersLength);
 
     /// test specific role
-    // let roles = [
-    //   "vigilante",
-    //   "werewolf"
-    // ];
+    if (process.env.TEST === "true") {
+      roles = ["vigilante", "werewolf"];
+    }
 
     /// hax for exe
     let exeIndex = -1;
@@ -815,16 +816,16 @@ module.exports = {
 
     this.runTimer();
 
-    //cp
-//     let playersWithRole = this.group_session.players.map(i => {
-//       return {
-//         name: i.name,
-//         roleName: i.role.name
-//       };
-//     });
-
-//     console.table(playersWithRole);
-
+    if (process.env.TEST === "true") {
+      let playersWithRole = this.group_session.players.map(i => {
+        return {
+          name: i.name,
+          roleName: i.role.name
+        };
+      });
+      console.table(playersWithRole);
+    }
+    
     if (flex_texts) {
       return this.replyFlex(flex_texts, null, newFlex_text);
     } else {
@@ -3293,8 +3294,10 @@ module.exports = {
       if (item.role.team === "werewolf" && item.status === "alive") {
         item.message += werewolfAnnouncement;
       }
-
-      //console.log(`pesan ${item.name} (${item.role.name}) : ${item.message}`); //cp
+      
+      if (process.env.TEST === "true") {
+        console.log(`pesan ${item.name} (${item.role.name}) : ${item.message}`);
+      }
 
       if (!item.message) {
         item.message += "🛏️ Kamu tidak diganggu semalam";
@@ -3586,7 +3589,80 @@ module.exports = {
     }
   },
 
+  birthdayWishes: function() {
+    //cp
+    this.group_session.time = 300; // reset to init time
+    this.group_session.state = "idle";
+    this.resetAllPlayers();
+
+    let flex_text = {
+      header: {
+        text: "🎉🎉 HAPPY BIRTHDAY ANTHONY! 🎉🎉"
+      },
+      body: {
+        text: "🥳 di baca ya wish wish kamii"
+      }
+    };
+
+    let flex_texts_addon = [];
+    let flex_text_dummy = {};
+
+    // MAX 10 bubble!
+    let wishes = [
+      {
+        from: "Eriec",
+        wish: "Semakin dewasa, selalu terjaga kesehatannya, sukses selalu!"
+      },
+      {
+        from: "Andi Tan",
+        wish:
+          "Habede ANTOTNY, wish aku semoga panjang umur, panjang burung, panjang segala2nya. Perbanyak rokok, perbanyak narkoba. Jangan main game terus, main cewe aja"
+      },
+      {
+        from: "Yoris",
+        wish: 'smoga makin jagoo main game kotak"'
+      },
+      {
+        from: "Febry",
+        wish:
+          "Happy birthday Anthony, wish u all the bestt, makin lancar kerjanyaa"
+      },
+      {
+        from: "Dovin",
+        wish: "Cepetan nikahnya!🤣"
+      },
+      {
+        from: "Hendru",
+        wish: "Semoga Anthony traktir aku makan :v"
+      },
+      {
+        from: "Fransisco",
+        wish: "Semoga dengan bertambahnya usia. Anthony semakin dewasa, semakin dekat dengan Tuhan, hubungan dengan orang tua dan sekelilingnya baik baik, dan semakin di berkati"
+      }
+    ];
+
+    let emojis = ["🍰", "🎁", "🎈", "🎂"];
+
+    wishes.forEach((item, index) => {
+      let emoji = helper.random(emojis);
+      flex_text_dummy[index] = {
+        header: {
+          text: "Wish " + item.from + " " + emoji
+        },
+        body: {
+          text: item.wish
+        }
+      };
+      flex_texts_addon.push(flex_text_dummy[index]);
+    });
+
+    return this.replyFlex(flex_text, null, flex_texts_addon);
+  },
+
   endGame: function(flex_texts, whoWin) {
+    //cp
+    //return this.birthdayWishes();
+
     // console.log("whoWin: " + whoWin);
     /// for draw situation
     // check for remaining neutral role
