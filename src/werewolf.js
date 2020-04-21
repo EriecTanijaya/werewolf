@@ -3597,7 +3597,7 @@ module.exports = {
 
     let flex_text = {
       header: {
-        text: "🎉HAPPY BIRTHDAY🎉ANTHONY!🎉"
+        text: "🎉HAPPY BIRTHDAY🎉ANTHONY!"
       },
       body: {
         text: "🥳 di baca ya wish wish kamii"
