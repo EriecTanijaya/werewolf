@@ -127,8 +127,8 @@ module.exports = {
       case "/setting":
         return this.settingCommand();
       case "/skill":
-        //return this.skillCommand();
-        return this.birthdayWishes();
+        //return this.birthdayWishes();
+        return this.skillCommand();
       default:
         return this.invalidCommand();
     }
