@@ -3597,7 +3597,7 @@ module.exports = {
 
     let flex_text = {
       header: {
-        text: "🎉🎉 HAPPY BIRTHDAY ANTHONY! 🎉🎉"
+        text: "🎉HAPPY BIRTHDAY🎉ANTHONY!🎉"
       },
       body: {
         text: "🥳 di baca ya wish wish kamii"
@@ -3642,7 +3642,8 @@ module.exports = {
       },
       {
         from: "Andy Wijaya",
-        wish: "tetap sehat ditengah wabah gini, diberkati dalam pekerjaan dan apapunlah, panjang umur"
+        wish:
+          "tetap sehat ditengah wabah gini, diberkati dalam pekerjaan dan apapunlah, panjang umur"
       }
     ];
 
@@ -4530,21 +4531,13 @@ module.exports = {
     let sender = {
       name: "",
       iconUrl: ""
-    }
+    };
 
     if (state !== "idle" && state !== "new") {
-      let roles = require("/app/roles/rolesData").map(role => {
-        return {
-          name: role.name,
-          iconUrl: role.iconUrl
-        };
-      });
-      
-      let role = helper.random(roles);
-      
-      sender.name = role.name;
-      sender.iconUrl = role.iconUrl;
-      
+      sender.name = "Moderator";
+      sender.iconUrl =
+        "https://cdn.glitch.com/fc7de31a-faeb-4c50-8a38-834ec153f590%2F%E2%80%94Pngtree%E2%80%94microphone%20vector%20icon_3725450.png?v=1587456628843";
+
       if (time < 15) {
         let reminder = "💡 ";
 
@@ -4566,8 +4559,18 @@ module.exports = {
         opt_texts.push(reminder_text);
       }
     } else {
-      sender.name = "Moderator";
-      sender.iconUrl = "https://cdn.glitch.com/fc7de31a-faeb-4c50-8a38-834ec153f590%2F%E2%80%94Pngtree%E2%80%94microphone%20vector%20icon_3725450.png?v=1587456628843";
+      let roles = require("/app/roles/rolesData").map(role => {
+        let roleName = role.name[0].toUpperCase() + role.name.substring(1);
+        return {
+          name: roleName,
+          iconUrl: role.iconUrl
+        };
+      });
+
+      let role = helper.random(roles);
+
+      sender.name = role.name;
+      sender.iconUrl = role.iconUrl;
     }
 
     const flex = require("/app/message/flex");
@@ -4577,6 +4580,7 @@ module.exports = {
       flex_texts,
       opt_texts,
       newFlex_texts,
+      null,
       sender
     );
   },
@@ -4588,25 +4592,27 @@ module.exports = {
     let sender = {
       name: "",
       iconUrl: ""
-    }
-    
+    };
+
     if (state !== "idle" && state !== "new") {
       sender.name = "Moderator";
-      sender.iconUrl = "https://cdn.glitch.com/fc7de31a-faeb-4c50-8a38-834ec153f590%2F%E2%80%94Pngtree%E2%80%94microphone%20vector%20icon_3725450.png?v=1587456628843";
+      sender.iconUrl =
+        "https://cdn.glitch.com/fc7de31a-faeb-4c50-8a38-834ec153f590%2F%E2%80%94Pngtree%E2%80%94microphone%20vector%20icon_3725450.png?v=1587456628843";
     } else {
       let roles = require("/app/roles/rolesData").map(role => {
+        let roleName = role.name[0].toUpperCase() + role.name.substring(1);
         return {
-          name: role.name,
+          name: roleName,
           iconUrl: role.iconUrl
         };
       });
-      
+
       let role = helper.random(roles);
-      
+
       sender.name = role.name;
       sender.iconUrl = role.iconUrl;
     }
-    
+
     let msg = texts.map(text => {
       return {
         sender: sender,

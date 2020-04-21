@@ -1,12 +1,20 @@
 const helper = require("/app/helper");
 
 module.exports = {
-  receive: function(client, event, flex_texts, opt_texts, newFlex_texts, stat) {
+  receive: function(
+    client,
+    event,
+    flex_texts,
+    opt_texts,
+    newFlex_texts,
+    stat,
+    sender
+  ) {
     this.client = client;
     this.event = event;
     this.color = helper.getFlexColor();
-    
-    this.checkFlex(flex_texts, opt_texts, newFlex_texts, stat);
+
+    this.checkFlex(flex_texts, opt_texts, newFlex_texts, stat, sender);
   },
 
   /*
@@ -35,7 +43,7 @@ module.exports = {
     };
   */
 
-  checkFlex: function(flex_texts, opt_texts, newFlex_texts, stat) {
+  checkFlex: function(flex_texts, opt_texts, newFlex_texts, stat, sender) {
     //console.log(flex_texts[0]);
     let flex_msg = {
       type: "flex",
@@ -43,7 +51,8 @@ module.exports = {
       contents: {
         type: "carousel",
         contents: []
-      }
+      },
+      sender
     };
 
     let bubble = {};
@@ -232,7 +241,7 @@ module.exports = {
     }
 
     if (newFlex_texts) {
-      msg.push(this.addNewFlexMsg(newFlex_texts));
+      msg.push(this.addNewFlexMsg(newFlex_texts, sender));
     }
 
     //console.log(msg);
@@ -242,14 +251,15 @@ module.exports = {
     });
   },
 
-  addNewFlexMsg: function(newFlex_texts) {
+  addNewFlexMsg: function(newFlex_texts, sender) {
     let flex_msg = {
       type: "flex",
       altText: "📣 ada pesan untuk kamu",
       contents: {
         type: "carousel",
         contents: []
-      }
+      },
+      sender
     };
 
     let bubble = {};
