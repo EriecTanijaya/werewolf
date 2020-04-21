@@ -3594,7 +3594,7 @@ module.exports = {
     
     let flex_text = {
         header: {
-          text: "🎉HABEDE TON!🎉"
+          text: "🎉 HAPPY BIR 🎉"
         },
         body: {
           text: "🥳 di baca ya wish wish kamii"
@@ -3604,6 +3604,7 @@ module.exports = {
     let flex_texts_addon = [];
     let flex_text_dummy = {};
 
+    // MAX 10 bubble!
     let wishes = [
       {
         from: "Eriec",
@@ -3615,7 +3616,7 @@ module.exports = {
       },
       {
         from: "Yoris",
-        wish: "smoga makin jagoo main game kotak"
+        wish: "smoga makin jagoo main game kotak\""
       },
       {
         from: "Febry",
@@ -3633,7 +3634,7 @@ module.exports = {
       let emoji = helper.random(emojis);
       flex_text_dummy[index] = {
         header: {
-          text: "Wish " + item.from + emoji
+          text: "Wish " + item.from + " " + emoji
         },
         body: {
           text: item.wish
