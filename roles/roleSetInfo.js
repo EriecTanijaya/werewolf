@@ -27,7 +27,6 @@ module.exports = {
     }
     input = input.toLowerCase();
 
-    console.log(input);
     /// check untuk role
     switch (input) {
       case "vampire":

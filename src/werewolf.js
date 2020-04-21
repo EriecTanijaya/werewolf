@@ -127,7 +127,6 @@ module.exports = {
       case "/setting":
         return this.settingCommand();
       case "/skill":
-        //return this.birthdayWishes();
         return this.skillCommand();
       case "/wish":
         return this.birthdayWishes();
@@ -3592,11 +3591,6 @@ module.exports = {
   },
 
   birthdayWishes: function() {
-    //cp
-    this.group_session.time = 300; // reset to init time
-    this.group_session.state = "idle";
-    this.resetAllPlayers();
-
     let flex_text = {
       header: {
         text: "🎉HAPPY BIRTHDAY🎉ANTHONY!"
