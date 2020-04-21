@@ -3639,6 +3639,10 @@ module.exports = {
         from: "Fransisco",
         wish:
           "Semoga dengan bertambahnya usia. Anthony semakin dewasa, semakin dekat dengan Tuhan, hubungan dengan orang tua dan sekelilingnya baik baik, dan semakin di berkati"
+      },
+      {
+        from: "Andy Wijaya",
+        wish: "tetap sehat ditengah wabah gini, diberkati dalam"
       }
     ];
 
@@ -4553,22 +4557,30 @@ module.exports = {
       this.event,
       flex_texts,
       opt_texts,
-      newFlex_texts
+      newFlex_texts,
+      sender
     );
   },
 
   replyText: function(texts = []) {
     let state = this.group_session.state;
-    let time = this.group_session.time;
     texts = Array.isArray(texts) ? texts : [texts];
 
+    let sender = {
+      name: "",
+      iconUrl: ""
+    }
+    
+    if (state !== "idle" && state !== "new") {
+      sender.name = "Moderator";
+      sender.iconUrl = "https://cdn.glitch.com/fc7de31a-faeb-4c50-8a38-834ec153f590%2F%E2%80%94Pngtree%E2%80%94microphone%20vector%20icon_3725450.png?v=1587456628843";
+    } else {
+      //cp
+    }
+    
     let msg = texts.map(text => {
       return {
-        sender: {
-          name: "Moderator",
-          iconUrl:
-            "https://cdn4.iconfinder.com/data/icons/game-show/512/game-show-entertainment-03-512.png"
-        },
+        sender: sender,
         type: "text",
         text: text.trim()
       };
