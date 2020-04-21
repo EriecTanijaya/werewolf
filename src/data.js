@@ -142,7 +142,7 @@ module.exports = {
 
         // buat khusus test grup aja
         if (groupId !== process.env.TEST_GROUP) {
-          //return this.maintenanceRespond();
+          return this.maintenanceRespond();
         }
       }
     }
