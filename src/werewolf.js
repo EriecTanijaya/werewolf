@@ -4622,7 +4622,7 @@ module.exports = {
     });
 
     return this.client.replyMessage(this.event.replyToken, msg).catch(err => {
-      console.log("err di replyText", err.originalError.response.data);
+      console.log("err di replyText di werewolf.js", err.originalError.response.data);
     });
   },
 

@@ -1140,27 +1140,40 @@ module.exports = {
     let time = this.group_session.time;
     let state = this.group_session.state;
 
-    if (state !== "new" && state !== "idle") {
-      if (time < 15) {
-        let reminder = "💡 ";
+    let sender = {
+      name: "",
+      iconUrl: ""
+    };
 
-        if (time < 1) {
-          reminder +=
-            "Waktu sudah habis, ketik '/check' di group untuk lanjutkan proses";
-        } else {
-          reminder +=
-            "Waktu tersisa " +
-            time +
-            " detik lagi, nanti ketik '/check' di group untuk lanjutkan proses";
-        }
+    if (state !== "idle" && state !== "new") {
+      sender.name = "Moderator";
+      sender.iconUrl =
+        "https://cdn.glitch.com/fc7de31a-faeb-4c50-8a38-834ec153f590%2F%E2%80%94Pngtree%E2%80%94microphone%20vector%20icon_3725450.png?v=1587456628843";
+    } else {
+      let roles = require("/app/roles/rolesData").map(role => {
+        let roleName = role.name[0].toUpperCase() + role.name.substring(1);
+        return {
+          name: roleName,
+          iconUrl: role.iconUrl
+        };
+      });
 
-        texts.push(reminder);
-      }
+      let role = helper.random(roles);
+
+      sender.name = role.name;
+      sender.iconUrl = role.iconUrl;
     }
 
-    return this.client.replyMessage(
-      this.event.replyToken,
-      texts.map(text => ({ type: "text", text: text.trim() }))
-    );
+    let msg = texts.map(text => {
+      return {
+        sender: sender,
+        type: "text",
+        text: text.trim()
+      };
+    });
+
+    return this.client.replyMessage(this.event.replyToken, msg).catch(err => {
+      console.log("err di replyText di personal.js", err.originalError.response.data);
+    });
   }
 };
