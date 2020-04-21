@@ -4561,10 +4561,21 @@ module.exports = {
     let time = this.group_session.time;
     texts = Array.isArray(texts) ? texts : [texts];
 
+    let msg = texts.map(text => {
+      return {
+        sender: {
+          name: "Moderator",
+          iconUrl: ""
+        },
+        type: "text",
+        text: text.trim()
+      }
+    })
+    
     return this.client
       .replyMessage(
         this.event.replyToken,
-        texts.map(text => ({ type: "text", text: text.trim() }))
+        msg
       )
       .catch(err => {
         console.log("err di replyText", err.originalError.response.data);
