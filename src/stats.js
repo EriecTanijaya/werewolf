@@ -270,7 +270,7 @@ module.exports = {
         table: newFlex_raw.table
       }));
     }
-    
+
     let sender = {
       name: "",
       iconUrl: ""
@@ -336,5 +336,5 @@ module.exports = {
         err.originalError.response.data
       );
     });
-  },
+  }
 };

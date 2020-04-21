@@ -3644,6 +3644,10 @@ module.exports = {
         from: "Andy Wijaya",
         wish:
           "tetap sehat ditengah wabah gini, diberkati dalam pekerjaan dan apapunlah, panjang umur"
+      },
+      {
+        from: "Nicky",
+        wish: "HBD ton, semakin intim dengan Tuhan dan menjadi terang untuk dunia ini"
       }
     ];
 
@@ -3810,7 +3814,7 @@ module.exports = {
       "/about : tentang bot",
       "/revoke : untuk batal voting",
       "/extend : untuk menambah 1 menit saat baru membuat room game",
-      "/kick : untuk mengeluarkan bot dari group/room chat",
+      "/kick : untuk mengeluarkan bot dari group atau room chat",
       "/set : untuk setting game"
     ];
 

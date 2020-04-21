@@ -37,9 +37,9 @@ function getAllUserData(team, cb) {
             totalGame: totalGame,
             winRate: winRate + "%"
           };
-          
+
           if (team) {
-            let points = (result.win * 5) + result.lose;
+            let points = result.win * 5 + result.lose;
             user.points = points;
           }
 
@@ -86,12 +86,12 @@ function calculateWinLose(team, stats) {
       win = stats.arsonist.win;
       lose = stats.arsonist.lose;
       break;
-      
+
     case "survivor":
       win = stats.survivor.win;
       lose = stats.survivor.lose;
       break;
-      
+
     case "executioner":
       win = stats.executioner.win;
       lose = stats.executioner.lose;
@@ -111,7 +111,7 @@ function calculateWinLose(team, stats) {
     win: win,
     lose: lose
   };
-  
+
   return result;
 }
 
