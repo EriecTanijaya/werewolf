@@ -127,8 +127,7 @@ module.exports = {
       case "/setting":
         return this.settingCommand();
       case "/skill":
-        //return this.skillCommand();
-        return this.birthdayWishes();
+        return this.skillCommand();
       default:
         return this.invalidCommand();
     }
@@ -3589,90 +3588,7 @@ module.exports = {
     }
   },
 
-  birthdayWishes: function() {
-    //cp
-    this.group_session.time = 300; // reset to init time
-    this.group_session.state = "idle";
-    this.resetAllPlayers();
-
-    let flex_text = {
-      header: {
-        text: "🎉HAPPY BIRTHDAY🎉ANTHONY!"
-      },
-      body: {
-        text: "🥳 di baca ya wish wish kamii"
-      }
-    };
-
-    let flex_texts_addon = [];
-    let flex_text_dummy = {};
-
-    // MAX 10 bubble!
-    let wishes = [
-      {
-        from: "Eriec",
-        wish: "Semakin dewasa, selalu terjaga kesehatannya, sukses selalu!"
-      },
-      {
-        from: "Andi Tan",
-        wish:
-          "Habede ANTOTNY, wish aku semoga panjang umur, panjang burung, panjang segala2nya. Perbanyak rokok, perbanyak narkoba. Jangan main game terus, main cewe aja"
-      },
-      {
-        from: "Yoris",
-        wish: 'smoga makin jagoo main game kotak"'
-      },
-      {
-        from: "Febry",
-        wish:
-          "Happy birthday Anthony, wish u all the bestt, makin lancar kerjanyaa"
-      },
-      {
-        from: "Dovin",
-        wish: "Cepetan nikahnya!🤣"
-      },
-      {
-        from: "Hendru",
-        wish: "Semoga Anthony traktir aku makan :v"
-      },
-      {
-        from: "Fransisco",
-        wish:
-          "Semoga dengan bertambahnya usia. Anthony semakin dewasa, semakin dekat dengan Tuhan, hubungan dengan orang tua dan sekelilingnya baik baik, dan semakin di berkati"
-      },
-      {
-        from: "Andy Wijaya",
-        wish:
-          "tetap sehat ditengah wabah gini, diberkati dalam pekerjaan dan apapunlah, panjang umur"
-      },
-      {
-        from: "Nicky",
-        wish: "HBD ton, semakin intim dengan Tuhan dan menjadi terang untuk dunia ini"
-      }
-    ];
-
-    let emojis = ["🍰", "🎁", "🎈", "🎂"];
-
-    wishes.forEach((item, index) => {
-      let emoji = helper.random(emojis);
-      flex_text_dummy[index] = {
-        header: {
-          text: "Wish " + item.from + " " + emoji
-        },
-        body: {
-          text: item.wish
-        }
-      };
-      flex_texts_addon.push(flex_text_dummy[index]);
-    });
-
-    return this.replyFlex(flex_text, null, flex_texts_addon);
-  },
-
   endGame: function(flex_texts, whoWin) {
-    //cp
-    //return this.birthdayWishes();
-
     // console.log("whoWin: " + whoWin);
     /// for draw situation
     // check for remaining neutral role
@@ -4626,7 +4542,10 @@ module.exports = {
     });
 
     return this.client.replyMessage(this.event.replyToken, msg).catch(err => {
-      console.log("err di replyText di werewolf.js", err.originalError.response.data);
+      console.log(
+        "err di replyText di werewolf.js",
+        err.originalError.response.data
+      );
     });
   },
 
