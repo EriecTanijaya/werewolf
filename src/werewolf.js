@@ -3647,11 +3647,13 @@ module.exports = {
       },
       {
         from: "Nicky",
-        wish: "HBD ton, semakin intim dengan Tuhan dan menjadi terang untuk dunia ini"
+        wish:
+          "HBD ton, semakin intim dengan Tuhan dan menjadi terang untuk dunia ini"
       },
       {
         from: "Anjay",
-        wish: ""
+        wish:
+          'Panjang umur, sehat" terus dan jangan lupa selalu cari situs" yg terbaru agar update terus video kita'
       }
     ];
 
@@ -4630,7 +4632,10 @@ module.exports = {
     });
 
     return this.client.replyMessage(this.event.replyToken, msg).catch(err => {
-      console.log("err di replyText di werewolf.js", err.originalError.response.data);
+      console.log(
+        "err di replyText di werewolf.js",
+        err.originalError.response.data
+      );
     });
   },
 
