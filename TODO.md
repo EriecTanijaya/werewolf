@@ -1,5 +1,5 @@
 TODO
-
+- jangan lupa di data.js maintenance mode di off kan
 ```
 {
     "type": "text",
