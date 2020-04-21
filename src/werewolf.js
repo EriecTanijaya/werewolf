@@ -3585,6 +3585,26 @@ module.exports = {
       }
     }
   },
+  
+  birthdayWishes: function() {
+    this.group_session.time = 300; // reset to init time
+    this.group_session.state = "idle";
+
+    this.resetAllPlayers();
+    
+    let f
+    
+    let flex_text = {
+        header: {
+          text: headerText
+        },
+        body: {
+          text: text
+        }
+      };
+    
+    return this.replyFlex(flex_texts)
+  },
 
   endGame: function(flex_texts, whoWin) {
     // console.log("whoWin: " + whoWin);
