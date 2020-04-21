@@ -14,8 +14,6 @@ TODO
   - pas game mulai, moderator
   - pas game belum di mulai, random role-roles yang ada wkaodwa, tapi sama iconUrl nya!! susah
 
-- buat env variable test, jadi nanti tinggal ganti di env nya aj kalo mo testing
-
 - properly mekanis attacked bisa pake skill itu gmna
 
 ```
