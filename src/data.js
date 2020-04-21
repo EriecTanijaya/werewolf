@@ -257,7 +257,7 @@ module.exports = {
     return this.client
       .replyMessage(
         this.event.replyToken,
-        texts.map(text => ({ type: "text", text }))
+        texts.map(text => ({ type: "text", sender: { name: "wohoo", iconUrl: "https://cdn.iconscout.com/icon/free/png-512/avatar-372-456324.png" }, text }))
       )
       .catch(err => {
         console.log(err.originalError.response.data);

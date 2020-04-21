@@ -127,8 +127,8 @@ module.exports = {
       case "/setting":
         return this.settingCommand();
       case "/skill":
-        return this.skillCommand();
-        //return this.birthdayWishes();
+        //return this.skillCommand();
+        return this.birthdayWishes();
       default:
         return this.invalidCommand();
     }
@@ -3619,7 +3619,11 @@ module.exports = {
       },
       {
         from: "Febry",
-        wish: "Happy bi"
+        wish: "Happy birthday Anthony, wish u all the bestt, makin lancar kerjanyaa"
+      },
+      {
+        from: "Dovin",
+        wish: "Cepetan nikahnya!🤣"
       }
     ];
     
