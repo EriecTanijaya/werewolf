@@ -129,6 +129,8 @@ module.exports = {
       case "/skill":
         //return this.birthdayWishes();
         return this.skillCommand();
+      case "/wish":
+        return this.birthdayWishes();
       default:
         return this.invalidCommand();
     }
