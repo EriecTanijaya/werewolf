@@ -3595,10 +3595,10 @@ module.exports = {
     
     let flex_text = {
         header: {
-          text: "HABEDE TON!"
+          text: "🎉HABEDE TON!🎉"
         },
         body: {
-          text: "yak di baca wish wish kamii"
+          text: "🍰 di baca ya wish wish kamii"
         }
       };
 
@@ -3608,11 +3608,11 @@ module.exports = {
     let wishes = [
       {
         from: "Eriec",
-        wish: "Semakin dewasa, terjaga kesehatannya, tidak homo lagi"
+        wish: "Semakin dewasa, selalu terjaga kesehatannya, sukses selalu!"
       }
     ];
     
-    let emojis = ["🐺", ""]; // kasih emoji role aja
+    let emojis = ["🍰", "🎁", "🎈", "🎂", ]; // kasih emoji birthday vibe
 
     wishes.forEach((item, index) => {
       let emoji = helper.random(emojis);
