@@ -3588,7 +3588,6 @@ module.exports = {
   },
 
   birthdayWishes: function() {
-    // cp
     this.group_session.time = 300; // reset to init time
     this.group_session.state = "idle";
     this.resetAllPlayers();
@@ -3598,7 +3597,7 @@ module.exports = {
           text: "🎉HABEDE TON!🎉"
         },
         body: {
-          text: "🍰 di baca ya wish wish kamii"
+          text: "🥳 di baca ya wish wish kamii"
         }
       };
 
@@ -3609,10 +3608,22 @@ module.exports = {
       {
         from: "Eriec",
         wish: "Semakin dewasa, selalu terjaga kesehatannya, sukses selalu!"
+      },
+      {
+        from: "Andi Tan",
+        wish: "Habede ANTONY, wish aku semoga panjang umur, panjang burung, panjang segala2nya. Perbanyak rokok, perbanyak narkoba. Jangan main game terus, main cewe aja"
+      },
+      {
+        from: "Yoris",
+        wish: "smoga makin jagoo main game kotak"
+      },
+      {
+        from: "Febry",
+        wish: "Happy bi"
       }
     ];
     
-    let emojis = ["🍰", "🎁", "🎈", "🎂", ]; // kasih emoji birthday vibe
+    let emojis = ["🍰", "🎁", "🎈", "🎂"];
 
     wishes.forEach((item, index) => {
       let emoji = helper.random(emojis);
