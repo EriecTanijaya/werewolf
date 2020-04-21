@@ -825,7 +825,7 @@ module.exports = {
       });
       console.table(playersWithRole);
     }
-    
+
     if (flex_texts) {
       return this.replyFlex(flex_texts, null, newFlex_text);
     } else {
@@ -3294,7 +3294,7 @@ module.exports = {
       if (item.role.team === "werewolf" && item.status === "alive") {
         item.message += werewolfAnnouncement;
       }
-      
+
       if (process.env.TEST === "true") {
         console.log(`pesan ${item.name} (${item.role.name}) : ${item.message}`);
       }
@@ -3597,7 +3597,7 @@ module.exports = {
 
     let flex_text = {
       header: {
-        text: "🎉🎉 HAPPY BIRTHDAY ANTHONY! 🎉🎉"
+        text: "🎉HAPPY BIRTHDAY🎉ANTHONY!"
       },
       body: {
         text: "🥳 di baca ya wish wish kamii"
@@ -3637,7 +3637,13 @@ module.exports = {
       },
       {
         from: "Fransisco",
-        wish: "Semoga dengan bertambahnya usia. Anthony semakin dewasa, semakin dekat dengan Tuhan, hubungan dengan orang tua dan sekelilingnya baik baik, dan semakin di berkati"
+        wish:
+          "Semoga dengan bertambahnya usia. Anthony semakin dewasa, semakin dekat dengan Tuhan, hubungan dengan orang tua dan sekelilingnya baik baik, dan semakin di berkati"
+      },
+      {
+        from: "Andy Wijaya",
+        wish:
+          "tetap sehat ditengah wabah gini, diberkati dalam pekerjaan dan apapunlah, panjang umur"
       }
     ];
 
@@ -4522,8 +4528,16 @@ module.exports = {
 
     let state = this.group_session.state;
     let time = this.group_session.time;
+    let sender = {
+      name: "",
+      iconUrl: ""
+    };
 
     if (state !== "idle" && state !== "new") {
+      sender.name = "Moderator";
+      sender.iconUrl =
+        "https://cdn.glitch.com/fc7de31a-faeb-4c50-8a38-834ec153f590%2F%E2%80%94Pngtree%E2%80%94microphone%20vector%20icon_3725450.png?v=1587456628843";
+
       if (time < 15) {
         let reminder = "💡 ";
 
@@ -4544,6 +4558,19 @@ module.exports = {
 
         opt_texts.push(reminder_text);
       }
+    } else {
+      let roles = require("/app/roles/rolesData").map(role => {
+        let roleName = role.name[0].toUpperCase() + role.name.substring(1);
+        return {
+          name: roleName,
+          iconUrl: role.iconUrl
+        };
+      });
+
+      let role = helper.random(roles);
+
+      sender.name = role.name;
+      sender.iconUrl = role.iconUrl;
     }
 
     const flex = require("/app/message/flex");
@@ -4552,23 +4579,51 @@ module.exports = {
       this.event,
       flex_texts,
       opt_texts,
-      newFlex_texts
+      newFlex_texts,
+      null,
+      sender
     );
   },
 
   replyText: function(texts = []) {
     let state = this.group_session.state;
-    let time = this.group_session.time;
     texts = Array.isArray(texts) ? texts : [texts];
 
-    return this.client
-      .replyMessage(
-        this.event.replyToken,
-        texts.map(text => ({ type: "text", text: text.trim() }))
-      )
-      .catch(err => {
-        console.log("err di replyText", err.originalError.response.data);
+    let sender = {
+      name: "",
+      iconUrl: ""
+    };
+
+    if (state !== "idle" && state !== "new") {
+      sender.name = "Moderator";
+      sender.iconUrl =
+        "https://cdn.glitch.com/fc7de31a-faeb-4c50-8a38-834ec153f590%2F%E2%80%94Pngtree%E2%80%94microphone%20vector%20icon_3725450.png?v=1587456628843";
+    } else {
+      let roles = require("/app/roles/rolesData").map(role => {
+        let roleName = role.name[0].toUpperCase() + role.name.substring(1);
+        return {
+          name: roleName,
+          iconUrl: role.iconUrl
+        };
       });
+
+      let role = helper.random(roles);
+
+      sender.name = role.name;
+      sender.iconUrl = role.iconUrl;
+    }
+
+    let msg = texts.map(text => {
+      return {
+        sender: sender,
+        type: "text",
+        text: text.trim()
+      };
+    });
+
+    return this.client.replyMessage(this.event.replyToken, msg).catch(err => {
+      console.log("err di replyText", err.originalError.response.data);
+    });
   },
 
   /** save data func **/
