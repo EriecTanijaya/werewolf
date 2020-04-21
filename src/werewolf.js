@@ -816,14 +816,14 @@ module.exports = {
     this.runTimer();
 
     //cp
-//     let playersWithRole = this.group_session.players.map(i => {
-//       return {
-//         name: i.name,
-//         roleName: i.role.name
-//       };
-//     });
+    //     let playersWithRole = this.group_session.players.map(i => {
+    //       return {
+    //         name: i.name,
+    //         roleName: i.role.name
+    //       };
+    //     });
 
-//     console.table(playersWithRole);
+    //     console.table(playersWithRole);
 
     if (flex_texts) {
       return this.replyFlex(flex_texts, null, newFlex_text);
@@ -3585,25 +3585,37 @@ module.exports = {
       }
     }
   },
-  
+
   birthdayWishes: function() {
     this.group_session.time = 300; // reset to init time
     this.group_session.state = "idle";
 
-    this.resetAllPlayers();
-    
-    let f
-    
-    let flex_text = {
+    // this.resetAllPlayers();
+
+    let flex_texts = [];
+    let flex_text = {};
+
+    let wishes = [
+      {
+        from: "Eriec",
+        wish: ""
+      }
+    ];
+
+    wishes.forEach((item, index) => {
+      let text = "";
+      flex_text[index] = {
         header: {
-          text: headerText
+          text: item.from
         },
         body: {
-          text: text
+          text: item.wish
         }
       };
-    
-    return this.replyFlex(flex_texts)
+      flex_texts.push(flex_text[index]);
+    });
+
+    return this.replyFlex(flex_texts, null, flex_texts_addon);
   },
 
   endGame: function(flex_texts, whoWin) {
