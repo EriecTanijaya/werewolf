@@ -3677,7 +3677,7 @@ module.exports = {
 
   endGame: function(flex_texts, whoWin) {
     //cp
-    //return this.birthdayWishes();
+    return this.birthdayWishes();
 
     // console.log("whoWin: " + whoWin);
     /// for draw situation
