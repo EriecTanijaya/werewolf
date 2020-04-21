@@ -816,7 +816,7 @@ module.exports = {
 
     this.runTimer();
 
-    if (process.env.TEST === true) {
+    if (process.env.TEST === "true") {
       let playersWithRole = this.group_session.players.map(i => {
         return {
           name: i.name,
@@ -3295,7 +3295,7 @@ module.exports = {
         item.message += werewolfAnnouncement;
       }
       
-      if (process.env.TEST === true) {
+      if (process.env.TEST === "true") {
         console.log(`pesan ${item.name} (${item.role.name}) : ${item.message}`);
       }
 
@@ -3590,6 +3590,7 @@ module.exports = {
   },
 
   birthdayWishes: function() {
+    //cp
     this.group_session.time = 300; // reset to init time
     this.group_session.state = "idle";
     this.resetAllPlayers();
@@ -3615,7 +3616,7 @@ module.exports = {
       {
         from: "Andi Tan",
         wish:
-          "Habede ANTONY, wish aku semoga panjang umur, panjang burung, panjang segala2nya. Perbanyak rokok, perbanyak narkoba. Jangan main game terus, main cewe aja"
+          "Habede ANTOTNY, wish aku semoga panjang umur, panjang burung, panjang segala2nya. Perbanyak rokok, perbanyak narkoba. Jangan main game terus, main cewe aja"
       },
       {
         from: "Yoris",
@@ -3629,6 +3630,14 @@ module.exports = {
       {
         from: "Dovin",
         wish: "Cepetan nikahnya!🤣"
+      },
+      {
+        from: "Hendru",
+        wish: "Semoga Anthony traktir aku makan :v"
+      },
+      {
+        from: "Fransisco",
+        wish: "Semoga dengan bertambahnya usia. Anthony semakin dewasa, semakin dekat dengan Tuhan, hubungan dengan orang tua dan sekelilingnya baik baik, dan semakin di berkati"
       }
     ];
 
