@@ -128,6 +128,7 @@ module.exports = {
         return this.settingCommand();
       case "/skill":
         return this.skillCommand();
+        //return this.birthdayWishes();
       default:
         return this.invalidCommand();
     }
@@ -3587,10 +3588,11 @@ module.exports = {
   },
 
   birthdayWishes: function() {
+    // cp
     this.group_session.time = 300; // reset to init time
     this.group_session.state = "idle";
-
-    // this.resetAllPlayers();
+    this.resetAllPlayers();
+    
     let flex_text = {
         header: {
           text: "HABEDE TON!"
@@ -3606,15 +3608,17 @@ module.exports = {
     let wishes = [
       {
         from: "Eriec",
-        wish: ""
+        wish: "Semakin dewasa, terjaga kesehatannya, tidak homo lagi"
       }
     ];
+    
+    let emojis = ["🐺", ""]; // kasih emoji role aja
 
     wishes.forEach((item, index) => {
-      let text = "";
+      let emoji = helper.random(emojis);
       flex_text_dummy[index] = {
         header: {
-          text: "Wish " + item.from
+          text: "Wish " + item.from + emoji
         },
         body: {
           text: item.wish
