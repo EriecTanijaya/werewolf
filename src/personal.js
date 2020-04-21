@@ -1196,7 +1196,10 @@ module.exports = {
     });
 
     return this.client.replyMessage(this.event.replyToken, msg).catch(err => {
-      console.log("err di replyText di personal.js", err.originalError.response.data);
+      console.log(
+        "err di replyText di personal.js",
+        err.originalError.response.data
+      );
     });
   }
 };
