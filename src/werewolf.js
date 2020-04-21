@@ -3591,9 +3591,17 @@ module.exports = {
     this.group_session.state = "idle";
 
     // this.resetAllPlayers();
+    let flex_text = {
+        header: {
+          text: "HABEDE TON!"
+        },
+        body: {
+          text: "yak di baca wish wish kamii"
+        }
+      };
 
-    let flex_texts = [];
-    let flex_text = {};
+    let flex_texts_addon = [];
+    let flex_text_dummy = {};
 
     let wishes = [
       {
@@ -3604,18 +3612,18 @@ module.exports = {
 
     wishes.forEach((item, index) => {
       let text = "";
-      flex_text[index] = {
+      flex_text_dummy[index] = {
         header: {
-          text: item.from
+          text: "Wish " + item.from
         },
         body: {
           text: item.wish
         }
       };
-      flex_texts.push(flex_text[index]);
+      flex_texts_addon.push(flex_text_dummy[index]);
     });
 
-    return this.replyFlex(flex_texts, null, flex_texts_addon);
+    return this.replyFlex(flex_text, null, flex_texts_addon);
   },
 
   endGame: function(flex_texts, whoWin) {
