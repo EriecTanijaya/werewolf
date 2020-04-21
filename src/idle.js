@@ -144,8 +144,34 @@ module.exports = {
       });
     }
 
+    let sender = {
+      name: "",
+      iconUrl: ""
+    };
+
+    let roles = require("/app/roles/rolesData").map(role => {
+      let roleName = role.name[0].toUpperCase() + role.name.substring(1);
+      return {
+        name: roleName,
+        iconUrl: role.iconUrl
+      };
+    });
+
+    let role = helper.random(roles);
+
+    sender.name = role.name;
+    sender.iconUrl = role.iconUrl;
+
     const flex = require("/app/message/flex");
-    return flex.receive(this.client, this.event, flex_texts, opt_texts);
+    return flex.receive(
+      this.client,
+      this.event,
+      flex_texts,
+      opt_texts,
+      null,
+      null,
+      sender
+    );
   },
 
   replyText: function(texts) {
