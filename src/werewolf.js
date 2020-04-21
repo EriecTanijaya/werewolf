@@ -825,7 +825,7 @@ module.exports = {
       });
       console.table(playersWithRole);
     }
-    
+
     if (flex_texts) {
       return this.replyFlex(flex_texts, null, newFlex_text);
     } else {
@@ -3294,7 +3294,7 @@ module.exports = {
       if (item.role.team === "werewolf" && item.status === "alive") {
         item.message += werewolfAnnouncement;
       }
-      
+
       if (process.env.TEST === "true") {
         console.log(`pesan ${item.name} (${item.role.name}) : ${item.message}`);
       }
@@ -3637,7 +3637,8 @@ module.exports = {
       },
       {
         from: "Fransisco",
-        wish: "Semoga dengan bertambahnya usia. Anthony semakin dewasa, semakin dekat dengan Tuhan, hubungan dengan orang tua dan sekelilingnya baik baik, dan semakin di berkati"
+        wish:
+          "Semoga dengan bertambahnya usia. Anthony semakin dewasa, semakin dekat dengan Tuhan, hubungan dengan orang tua dan sekelilingnya baik baik, dan semakin di berkati"
       }
     ];
 
@@ -4565,21 +4566,17 @@ module.exports = {
       return {
         sender: {
           name: "Moderator",
-          iconUrl: ""
+          iconUrl:
+            "https://cdn4.iconfinder.com/data/icons/game-show/512/game-show-entertainment-03-512.png"
         },
         type: "text",
         text: text.trim()
-      }
-    })
-    
-    return this.client
-      .replyMessage(
-        this.event.replyToken,
-        msg
-      )
-      .catch(err => {
-        console.log("err di replyText", err.originalError.response.data);
-      });
+      };
+    });
+
+    return this.client.replyMessage(this.event.replyToken, msg).catch(err => {
+      console.log("err di replyText", err.originalError.response.data);
+    });
   },
 
   /** save data func **/
