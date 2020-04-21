@@ -3648,6 +3648,10 @@ module.exports = {
       {
         from: "Nicky",
         wish: "HBD ton, semakin intim dengan Tuhan dan menjadi terang untuk dunia ini"
+      },
+      {
+        from: "Anjay",
+        wish: ""
       }
     ];
 
