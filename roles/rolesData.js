@@ -11,7 +11,8 @@ const roles = [
       team: "🐺",
       self: "🐺"
     },
-    type: "Werewolf Killing"
+    type: "Werewolf Killing",
+    iconUrl: "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/wolf_1f43a.png"
   },
   {
     name: "sorcerer",
@@ -25,7 +26,8 @@ const roles = [
       team: "🐺",
       self: "🧙"
     },
-    type: "Werewolf Support"
+    type: "Werewolf Support",
+    iconUrl: "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/mage_1f9d9.png"
   },
   {
     name: "consort",
@@ -39,7 +41,8 @@ const roles = [
       team: "🐺",
       self: "🚷"
     },
-    type: "Werewolf Support"
+    type: "Werewolf Support",
+    iconUrl: "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/no-pedestrians_1f6b7.png"
   },
   {
     name: "seer",
@@ -53,7 +56,8 @@ const roles = [
       team: "👨‍🌾",
       self: "🔮"
     },
-    type: "Town Investigate"
+    type: "Town Investigate",
+    iconUrl: "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/crystal-ball_1f52e.png"
   },
   {
     name: "doctor",
@@ -68,7 +72,8 @@ const roles = [
       self: "💉"
     },
     selfHeal: 1,
-    type: "Town Protector"
+    type: "Town Protector",
+    iconUrl: ""
   },
   {
     name: "villager",
@@ -80,7 +85,8 @@ const roles = [
       team: "👨‍🌾",
       self: "👨‍🌾"
     },
-    type: "Town"
+    type: "Town",
+    iconUrl: "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/syringe_1f489.png"
   },
   {
     name: "vampire",

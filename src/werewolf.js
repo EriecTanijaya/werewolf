@@ -3642,7 +3642,7 @@ module.exports = {
       },
       {
         from: "Andy Wijaya",
-        wish: "tetap sehat ditengah wabah gini, diberkati dalam"
+        wish: "tetap sehat ditengah wabah gini, diberkati dalam pekerjaan dan apapunlah, panjang umur"
       }
     ];
 
@@ -4575,7 +4575,17 @@ module.exports = {
       sender.name = "Moderator";
       sender.iconUrl = "https://cdn.glitch.com/fc7de31a-faeb-4c50-8a38-834ec153f590%2F%E2%80%94Pngtree%E2%80%94microphone%20vector%20icon_3725450.png?v=1587456628843";
     } else {
-      //cp
+      let roles = require("/app/roles/rolesData").map(role => {
+        return {
+          name: role.name,
+          iconUrl: role.iconUrl
+        };
+      });
+      
+      let role = helper.random(roles);
+      
+      sender.name = role.name;
+      sender.iconUrl = role.iconUrl;
     }
     
     let msg = texts.map(text => {
