@@ -1,3 +1,5 @@
+const helper = require("/app/helper");
+
 module.exports = {
   receive: function(client, event, args, rawArgs, user_session) {
     this.client = client;
@@ -142,15 +144,70 @@ module.exports = {
       });
     }
 
+    let sender = {
+      name: "",
+      iconUrl: ""
+    };
+
+    let roles = require("/app/roles/rolesData").map(role => {
+      let roleName = role.name[0].toUpperCase() + role.name.substring(1);
+      return {
+        name: roleName,
+        iconUrl: role.iconUrl
+      };
+    });
+
+    let role = helper.random(roles);
+
+    sender.name = role.name;
+    sender.iconUrl = role.iconUrl;
+
     const flex = require("/app/message/flex");
-    return flex.receive(this.client, this.event, flex_texts, opt_texts);
+    return flex.receive(
+      this.client,
+      this.event,
+      flex_texts,
+      opt_texts,
+      null,
+      null,
+      sender
+    );
   },
 
   replyText: function(texts) {
     texts = Array.isArray(texts) ? texts : [texts];
-    return this.client.replyMessage(
-      this.event.replyToken,
-      texts.map(text => ({ type: "text", text }))
-    );
+
+    let sender = {
+      name: "",
+      iconUrl: ""
+    };
+
+    let roles = require("/app/roles/rolesData").map(role => {
+      let roleName = role.name[0].toUpperCase() + role.name.substring(1);
+      return {
+        name: roleName,
+        iconUrl: role.iconUrl
+      };
+    });
+
+    let role = helper.random(roles);
+
+    sender.name = role.name;
+    sender.iconUrl = role.iconUrl;
+
+    let msg = texts.map(text => {
+      return {
+        sender: sender,
+        type: "text",
+        text: text.trim()
+      };
+    });
+
+    return this.client.replyMessage(this.event.replyToken, msg).catch(err => {
+      console.log(
+        "err di replyText di idle.js",
+        err.originalError.response.data
+      );
+    });
   }
 };

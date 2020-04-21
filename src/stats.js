@@ -1,6 +1,7 @@
 const fs = require("fs");
 const baseUserPath = "/app/.data/users/";
 const database = require("/app/src/database");
+const helper = require("/app/helper");
 
 // const datas = require("/app/src/data");
 
@@ -269,6 +270,24 @@ module.exports = {
         table: newFlex_raw.table
       }));
     }
+    
+    let sender = {
+      name: "",
+      iconUrl: ""
+    };
+
+    let roles = require("/app/roles/rolesData").map(role => {
+      let roleName = role.name[0].toUpperCase() + role.name.substring(1);
+      return {
+        name: roleName,
+        iconUrl: role.iconUrl
+      };
+    });
+
+    let role = helper.random(roles);
+
+    sender.name = role.name;
+    sender.iconUrl = role.iconUrl;
 
     const flex = require("/app/message/flex");
     return flex.receive(
@@ -277,20 +296,45 @@ module.exports = {
       flex_texts,
       opt_texts,
       newFlex_texts,
-      "stat"
+      "stat",
+      sender
     );
   },
 
   replyText: function(texts) {
     texts = Array.isArray(texts) ? texts : [texts];
 
-    return this.client
-      .replyMessage(
-        this.event.replyToken,
-        texts.map(text => ({ type: "text", text: text.trim() }))
-      )
-      .catch(err => {
-        console.log(err.originalError.response.data);
-      });
-  }
+    let sender = {
+      name: "",
+      iconUrl: ""
+    };
+
+    let roles = require("/app/roles/rolesData").map(role => {
+      let roleName = role.name[0].toUpperCase() + role.name.substring(1);
+      return {
+        name: roleName,
+        iconUrl: role.iconUrl
+      };
+    });
+
+    let role = helper.random(roles);
+
+    sender.name = role.name;
+    sender.iconUrl = role.iconUrl;
+
+    let msg = texts.map(text => {
+      return {
+        sender: sender,
+        type: "text",
+        text: text.trim()
+      };
+    });
+
+    return this.client.replyMessage(this.event.replyToken, msg).catch(err => {
+      console.log(
+        "err di replyText di stats.js",
+        err.originalError.response.data
+      );
+    });
+  },
 };
