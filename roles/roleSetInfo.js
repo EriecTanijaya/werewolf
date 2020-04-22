@@ -28,45 +28,59 @@ module.exports = {
     input = input.toLowerCase();
 
     /// check untuk role
+    let modeId = -1;
     switch (input) {
       case "vampire":
         flex_text.header.text = "🦇🧛 Vampire Mode";
+        flex_text.body.text += "Mode ID: 1" + "\n\n";
         flex_text.body.text +=
           "Disana Vampire, disini Vampire, dimana mana ada Vampire. ";
+        modeId = 1;
         break;
 
       case "chaos":
         flex_text.header.text = "🃏🪓 Chaos Mode";
+        flex_text.body.text += "Mode ID: 2" + "\n\n";
         flex_text.body.text +=
           "Sesuai namanya, role role yang ada beneran buat chaos. ";
+        modeId = 2;
         break;
 
       case "classic":
         flex_text.header.text = "👨‍🌾🐺 Classic Mode";
+        flex_text.body.text += "Mode ID: 3" + "\n\n";
         flex_text.body.text += "Mode normal, cocok untuk pemula. ";
+        modeId = 3;
         break;
 
       case "survive":
         flex_text.header.text = "🏳️🦺 Survive Mode";
+        flex_text.body.text += "Mode ID: 4" + "\n\n";
         flex_text.body.text +=
           "Sebagian besar dari kalian hanyalah Survivor yang ingin tetap hidup. ";
+        modeId = 4;
         break;
 
       case "killing wars":
         flex_text.header.text = "🐺🔥 Killing Wars Mode";
+        flex_text.body.text += "Mode ID: 5" + "\n\n";
         flex_text.body.text +=
           "Warga telah binasa, sekarang Werewolf masih menghadapi ancaman yang lain!";
+        modeId = 5;
         break;
 
       case "who there":
       case "who's there":
         flex_text.header.text = "🚷👮 Who's There? Mode";
+        flex_text.body.text += "Mode ID: 6" + "\n\n";
         flex_text.body.text +=
           "Warga masih berusaha membasmi para penjahat. Namun para Escort terkadang merepotkan warga";
+        modeId = 6;
         break;
 
       case "trust issue":
         flex_text.header.text = "🎞️🔮 Trust Issue Mode";
+        flex_text.body.text += "Mode ID: 7" + "\n\n";
         flex_text.body.text +=
           "Warga di buat kesal, karena salah menggantung orang yang dikira Werewolf. ";
         flex_text.body.text += "Padahal role nya adalah Sheriff. ";
@@ -74,6 +88,7 @@ module.exports = {
           "Seer yang sebelumnya dipercayai warga, telah membuat para warga kecewa. ";
         flex_text.body.text +=
           "Padahal Seer sudah yakin akan terawangannya. Sayangnya, semalam Sheriff di frame!";
+        modeId = 7;
         break;
 
       default:
@@ -84,6 +99,8 @@ module.exports = {
         text += "Cek info mode yang ada dengan cmd '/info mode'";
         return this.replyText(text);
     }
+    
+    flex_text.body.text += "\n\n" + "💡 Ketik '/set mode " + modeId + "' untuk terapkan mode ini";
 
     return this.replyFlex(flex_text);
   },

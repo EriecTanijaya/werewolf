@@ -92,7 +92,7 @@ const roles = [
     },
     type: "Town",
     iconUrl:
-      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/syringe_1f489.png"
+      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/man-farmer_1f468-200d-1f33e.png"
   },
   {
     name: "vampire",
