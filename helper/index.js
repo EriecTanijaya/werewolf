@@ -230,8 +230,15 @@ module.exports = {
   getKillingWarsRoleSet: function(playersLength) {
     let roles = [
       "werewolf", "serial-killer", "werewolf-cub", "jester", "survivor",
-      "arsonist", "sorcerer", "serial-killer", "arsonist", ""
+      "arsonist", "sorcerer", "serial-killer"
     ];
+    
+    let werewolves = ["sorcerer", "disguiser", "consort"];
+    
+    
+    roles.push()
+    
+    // minus 1 arso
     
     roles.length = playersLength;
     roles = this.shuffleArray(roles);
