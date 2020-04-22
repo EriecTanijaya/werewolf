@@ -215,7 +215,23 @@ module.exports = {
   },
   
   getWeWillSurviveRoleSet: function(playersLength) {
-    let roles = ["seer", "werewolf", "survivo"];
+    let roles = ["seer", "werewolf"];
+    
+    let survivorNeededCount = playersLength - 2;
+    
+    for (let i = 0; i < survivorNeededCount; i++) {
+      roles.push("survivor");
+    }
+    
+    roles = this.shuffleArray(roles);
+    return roles;
+  },
+  
+  getKillingWarsRoleSet: function(playersLength) {
+    let roles = [
+      "werewolf", "serial-killer", "werewolf-cub", "jester", "survivor",
+      "arsonist", "sorcerer", "serial-killer", "arsonist", ""
+    ];
     
     roles.length = playersLength;
     roles = this.shuffleArray(roles);
