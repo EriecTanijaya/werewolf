@@ -57,7 +57,6 @@ module.exports = {
     for (let i = 0; i < modeList.length; i++) {
       let mode = modeList[i];
       let modeId = i + 1;
-      console.log(`modeId ${modeId}, input ${this.args[2]}, mode `);
       if (this.args[2] === mode || this.args[2] == modeId) {
         this.group_session.mode = mode;
         found = true;

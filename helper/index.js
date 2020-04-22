@@ -1,9 +1,9 @@
 module.exports = {
   getModeList: function() {
     let modeList = [
-      "classic",
       "vampire",
       "chaos",
+      "classic",
       "survive",
       "killing-wars",
       "who's-there",
