@@ -225,7 +225,7 @@ module.exports = {
   getSurviveRoleSet: function(playersLength) {
     let roles = ["seer", "seer", "werewolf"];
 
-    let survivorNeededCount = playersLength - 2;
+    let survivorNeededCount = playersLength - 3;
 
     for (let i = 0; i < survivorNeededCount; i++) {
       roles.push("survivor");
