@@ -254,9 +254,21 @@ module.exports = {
   },
   
   getWhosThereRoleSet: function(playersLength) {
-    let roles = ["werewolf", "escort", "escort", "sheriff", "serial-killer"];
+    let roles = [
+      "werewolf", "escort", "escort", "sheriff", "serial-killer",
+      "escort", "escort", "werewolf-cub", "vigilante", "sheriff",
+      "serial-killer", "escort", "vigilante", "sheriff", "escort"
+    ];
     
-    roles.push("escort", "sheriff");
+    roles.length = playersLength;
+    roles = this.shuffleArray(roles);
+    return roles;
+  },
+  
+  getChaosAllAroundRoleSet: function(playersLength) {
+    let roles = [
+      "werewolf", "executioner", "seer"
+    ]
     
     roles.length = playersLength;
     roles = this.shuffleArray(roles);
