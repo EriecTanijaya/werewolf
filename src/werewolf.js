@@ -724,7 +724,7 @@ module.exports = {
     } else if (mode === "killing-wars") {
       roles = helper.getKillingWarsRoleSet(playersLength);
     } else if (mode === "who's-there") {
-      roles = helper.getWhosThereSet(playersLength);
+      roles = helper.getWhosThereRoleSet(playersLength);
     } else if (mode === "trust-issue") {
       roles = helper.getTrustIssueRoleSet(playersLength);
     }
@@ -2994,7 +2994,7 @@ module.exports = {
               "🔮 Role " + target.name + " adalah " + targetRoleName + "\n\n";
 
             this.group_session.players[i].message +=
-              "Kamu bisa cek info role dengan ketik '/info " +
+              "💡 Kamu bisa cek info role dengan ketik '/info " +
               targetRoleName +
               "'" +
               "\n\n";
@@ -3041,7 +3041,7 @@ module.exports = {
               "🐺 " + target.name + " dikunjungi anggota Werewolf" + "\n\n";
 
             this.group_session.players[i].message +=
-              "Kamu bisa cek info role dengan ketik '/info " +
+              "💡 Kamu bisa cek info role dengan ketik '/info " +
               target.role.name +
               "'" +
               "\n\n";
