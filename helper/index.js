@@ -213,6 +213,14 @@ module.exports = {
 
     return roles;
   },
+  
+  getWeWillSurviveRoleSet: function(playersLength) {
+    let roles = ["seer", "werewolf", "survivo"];
+    
+    roles.length = playersLength;
+    roles = this.shuffleArray(roles);
+    return roles;
+  },
 
   parseToText: function(arr) {
     let text = "";
