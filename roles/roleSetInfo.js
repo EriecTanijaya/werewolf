@@ -28,32 +28,39 @@ module.exports = {
     input = input.toLowerCase();
 
     /// check untuk role
+    let modeId = -1;
     switch (input) {
       case "vampire":
         flex_text.header.text = "🦇🧛 Vampire Mode";
+        flex_text.body.text += "Mode ID: 1" + "\n\n";
         flex_text.body.text +=
           "Disana Vampire, disini Vampire, dimana mana ada Vampire. ";
+        modeId = 1;
         break;
 
       case "chaos":
         flex_text.header.text = "🃏🪓 Chaos Mode";
+        flex_text.body.text += "Mode ID: 2" + "\n\n";
         flex_text.body.text +=
           "Sesuai namanya, role role yang ada beneran buat chaos. ";
         break;
 
       case "classic":
         flex_text.header.text = "👨‍🌾🐺 Classic Mode";
+        flex_text.body.text += "Mode ID: 3" + "\n\n";
         flex_text.body.text += "Mode normal, cocok untuk pemula. ";
         break;
 
       case "survive":
         flex_text.header.text = "🏳️🦺 Survive Mode";
+        flex_text.body.text += "Mode ID: 4" + "\n\n";
         flex_text.body.text +=
           "Sebagian besar dari kalian hanyalah Survivor yang ingin tetap hidup. ";
         break;
 
       case "killing wars":
         flex_text.header.text = "🐺🔥 Killing Wars Mode";
+        flex_text.body.text += "Mode ID: 5" + "\n\n";
         flex_text.body.text +=
           "Warga telah binasa, sekarang Werewolf masih menghadapi ancaman yang lain!";
         break;
@@ -85,7 +92,7 @@ module.exports = {
         return this.replyText(text);
     }
     
-    flex_text.body.text += "\n\n" + "ketik ''";
+    flex_text.body.text += "\n\n" + "💡 Ketik '/set mode " + modeId + "' untuk terapkan mode ini";
 
     return this.replyFlex(flex_text);
   },
