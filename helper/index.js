@@ -213,27 +213,33 @@ module.exports = {
 
     return roles;
   },
-  
+
   getWeWillSurviveRoleSet: function(playersLength) {
     let roles = ["seer", "werewolf"];
-    
+
     let survivorNeededCount = playersLength - 2;
-    
+
     for (let i = 0; i < survivorNeededCount; i++) {
       roles.push("survivor");
     }
-    
+
     roles = this.shuffleArray(roles);
     return roles;
   },
-  
+
   getKillingWarsRoleSet: function(playersLength) {
     let werewolves = ["sorcerer", "disguiser", "consort"];
     let roles = [
-      "werewolf", "werewolf-cub", "jester", "serial-killer", "survivor",
-      "arsonist", "sorcerer", "serial-killer"
+      "werewolf",
+      "werewolf-cub",
+      "jester",
+      "serial-killer",
+      "survivor",
+      "arsonist",
+      "sorcerer",
+      "serial-killer"
     ];
-    
+
     roles.push(this.random(werewolves));
     roles.push("arsonist");
     roles.push("jester");
@@ -241,6 +247,16 @@ module.exports = {
     roles.push("serial-killer");
     roles.push(this.random(werewolves));
     roles.push("survivor");
+
+    roles.length = playersLength;
+    roles = this.shuffleArray(roles);
+    return roles;
+  },
+  
+  getWhosThereRoleSet: function(playersLength) {
+    let roles = ["werewolf", "escort", "escort", "sheriff", "serial-killer"];
+    
+    roles.push("escort", "sheriff");
     
     roles.length = playersLength;
     roles = this.shuffleArray(roles);
