@@ -16,7 +16,7 @@ module.exports = {
       "lookout",
       "lookout",
       "doctor",
-      "vigilante",
+      "vampire-hunter",
       "jester"
     ];
 
@@ -24,7 +24,7 @@ module.exports = {
     let townSupport = this.random(townSupports);
     roles.push(townSupport);
 
-    let addon = ["vampire-hunter", "vampire", "survivor"];
+    let addon = ["vigilante", "vampire", "survivor"];
     addon.forEach(item => {
       roles.push(item);
     });
@@ -113,6 +113,11 @@ module.exports = {
     let needSheriff = false;
     let needVampireHunter = false;
     let needVigilante = true;
+    let needSpy = true;
+
+    if (werewolfNeedCount > 3) {
+      needSpy = true;
+    }
 
     // always
     roles.push("werewolf");
@@ -126,14 +131,13 @@ module.exports = {
     ];
     werewolves = this.shuffleArray(werewolves);
 
+    let uniqueTowns = ["veteran"];
     let towns = [
       "seer",
       "doctor",
       "lookout",
-      "veteran",
       "escort",
       "retributionist",
-      "spy",
       "tracker",
       "bodyguard"
     ];
@@ -187,8 +191,22 @@ module.exports = {
       townNeedCount--;
     }
 
+    if (needSpy) {
+      roles.push("spy");
+      townNeedCount--;
+    }
+
+    // unique town roles
+    if (townNeedCount > 0) {
+      for (let i = 0; i < uniqueTowns.length; i++) {
+        roles.push(uniqueTowns[i]);
+        townNeedCount--;
+      }
+    }
+
     for (let i = 0; i < townNeedCount; i++) {
       roles.push(towns[i]);
+      towns = this.shuffleArray(towns); // experimental
     }
 
     roles = this.shuffleArray(roles);
