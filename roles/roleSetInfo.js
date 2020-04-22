@@ -20,7 +20,7 @@ module.exports = {
     }
 
     let input = "";
-    if (this.args[2]) {
+    if (this.args[3]) {
       input = this.parseToText(this.args);
     } else {
       input = this.args[2].replace("-", " ");

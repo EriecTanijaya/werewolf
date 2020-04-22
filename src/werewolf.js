@@ -719,8 +719,14 @@ module.exports = {
       roles = helper.getChaosRoleSet(playersLength);
     } else if (mode === "vampire") {
       roles = helper.getVampireRoleSet(playersLength);
-    } else if (mode === "ww-vs-neutral") {
-      roles = helper.getWerewolfVsNeutralRoleSet(playersLength);
+    } else if (mode === "survive") {
+      roles = helper.getSurviveRoleSet(playersLength);
+    } else if (mode === "killing-wars") {
+      roles = helper.getKillingWarsRoleSet(playersLength);
+    } else if (mode === "who's-there") {
+      roles = helper.getWhosThereSet(playersLength);
+    } else if (mode === "trust-issue") {
+      roles = helper.getTrustIssueRoleSet(playersLength);
     }
 
     return roles;
