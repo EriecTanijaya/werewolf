@@ -123,6 +123,7 @@ module.exports = {
               text: "Name",
               flex: 3,
               weight: "bold",
+              wrap: true,
               color: this.color.text
             },
             {

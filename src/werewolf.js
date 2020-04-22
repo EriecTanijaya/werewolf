@@ -4302,8 +4302,7 @@ module.exports = {
             type: "text",
             text: "",
             flex: 2,
-            align: "center",
-            wrap: true
+            align: "center"
           }
         ],
         margin: "sm"
