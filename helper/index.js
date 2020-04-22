@@ -1,6 +1,14 @@
 module.exports = {
   getModeList: function() {
-    let modeList = ["classic", "vampire", "chaos"];
+    let modeList = [
+      "vampire",
+      "chaos",
+      "classic",
+      "survive",
+      "killing-wars",
+      "who's-there",
+      "trust-issue"
+    ];
     return modeList;
   },
 
@@ -16,7 +24,7 @@ module.exports = {
       "lookout",
       "lookout",
       "doctor",
-      "vigilante",
+      "vampire-hunter",
       "jester"
     ];
 
@@ -24,7 +32,7 @@ module.exports = {
     let townSupport = this.random(townSupports);
     roles.push(townSupport);
 
-    let addon = ["vampire", "vampire-hunter", "survivor"];
+    let addon = ["vigilante", "vampire", "survivor"];
     addon.forEach(item => {
       roles.push(item);
     });
@@ -97,7 +105,7 @@ module.exports = {
   getChaosRoleSet: function(playersLength) {
     let roles = [];
 
-    let townNeedCount = Math.round(playersLength / 2);
+    let townNeedCount = Math.round(playersLength / 2) + 1;
     let badNeedCount = playersLength - townNeedCount;
     let werewolfNeedCount = Math.round((45 / 100) * badNeedCount);
 
@@ -113,6 +121,11 @@ module.exports = {
     let needSheriff = false;
     let needVampireHunter = false;
     let needVigilante = true;
+    let needSpy = true;
+
+    if (werewolfNeedCount > 3) {
+      needSpy = true;
+    }
 
     // always
     roles.push("werewolf");
@@ -126,14 +139,13 @@ module.exports = {
     ];
     werewolves = this.shuffleArray(werewolves);
 
+    let uniqueTowns = ["veteran"];
     let towns = [
       "seer",
       "doctor",
       "lookout",
-      "veteran",
       "escort",
       "retributionist",
-      "spy",
       "tracker",
       "bodyguard"
     ];
@@ -187,12 +199,113 @@ module.exports = {
       townNeedCount--;
     }
 
+    if (needSpy) {
+      roles.push("spy");
+      townNeedCount--;
+    }
+
+    // unique town roles
+    if (townNeedCount > 0) {
+      for (let i = 0; i < uniqueTowns.length; i++) {
+        roles.push(uniqueTowns[i]);
+        townNeedCount--;
+      }
+    }
+
     for (let i = 0; i < townNeedCount; i++) {
       roles.push(towns[i]);
+      towns = this.shuffleArray(towns); // experimental
     }
 
     roles = this.shuffleArray(roles);
 
+    return roles;
+  },
+
+  getSurviveRoleSet: function(playersLength) {
+    let roles = ["seer", "seer", "werewolf"];
+
+    let survivorNeededCount = playersLength - 3;
+
+    for (let i = 0; i < survivorNeededCount; i++) {
+      roles.push("survivor");
+    }
+
+    roles = this.shuffleArray(roles);
+    return roles;
+  },
+
+  getKillingWarsRoleSet: function(playersLength) {
+    let werewolves = ["sorcerer", "disguiser", "consort"];
+    let roles = [
+      "werewolf",
+      "werewolf-cub",
+      "jester",
+      "serial-killer",
+      "survivor",
+      "arsonist",
+      "sorcerer",
+      "serial-killer"
+    ];
+
+    roles.push(this.random(werewolves));
+    roles.push("arsonist");
+    roles.push("jester");
+    roles.push(this.random(werewolves));
+    roles.push("serial-killer");
+    roles.push(this.random(werewolves));
+    roles.push("survivor");
+
+    roles.length = playersLength;
+    roles = this.shuffleArray(roles);
+    return roles;
+  },
+
+  getWhosThereRoleSet: function(playersLength) {
+    let roles = [
+      "werewolf",
+      "escort",
+      "escort",
+      "sheriff",
+      "serial-killer",
+      "escort",
+      "escort",
+      "werewolf-cub",
+      "vigilante",
+      "sheriff",
+      "serial-killer",
+      "escort",
+      "vigilante",
+      "sheriff",
+      "escort"
+    ];
+
+    roles.length = playersLength;
+    roles = this.shuffleArray(roles);
+    return roles;
+  },
+
+  getTrustIssueRoleSet: function(playersLength) {
+    let roles = [
+      "werewolf",
+      "executioner",
+      "seer",
+      "seer",
+      "sheriff",
+      "werewolf-cub",
+      "sheriff",
+      "framer",
+      "seer",
+      "sheriff",
+      "framer",
+      "seer",
+      "sheriff",
+      "seer",
+      "sheriff"
+    ];
+
+    roles.length = playersLength;
+    roles = this.shuffleArray(roles);
     return roles;
   },
 

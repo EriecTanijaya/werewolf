@@ -357,13 +357,15 @@ module.exports = {
       let newPlayer = this.createNewPlayer(this.user_session);
       this.addPlayer(newPlayer);
 
-      //cp
-      // for (let i = 0; i < 8; i++) {
-      //   let dummy = JSON.parse(JSON.stringify(this.user_session));
-      //   dummy.name += " " + helper.getRandomInt(1, 99);
-      //   let newPlayer = this.createNewPlayer(dummy);
-      //   this.addPlayer(newPlayer);
-      // }
+      if (process.env.TEST === "true") {
+        // cp
+        for (let i = 0; i < 12; i++) {
+          let dummy = JSON.parse(JSON.stringify(this.user_session));
+          dummy.name += " " + helper.getRandomInt(1, 99);
+          let newPlayer = this.createNewPlayer(dummy);
+          this.addPlayer(newPlayer);
+        }
+      }
 
       let text = "💡 " + this.user_session.name + " berhasil bergabung!";
       return this.replyFlex(flex_text, [text, remindText]);
@@ -643,13 +645,12 @@ module.exports = {
     ///werewolf harus selalu ada
     let players = this.group_session.players;
     let playersLength = players.length;
-    let roles = this.getRandomRoleSet(playersLength); //cp
+    let roles = this.getRandomRoleSet(playersLength);
 
-    /// test specific role
-    // let roles = [
-    //   "vigilante",
-    //   "werewolf"
-    // ];
+    /// test specific role cp
+    if (process.env.TEST === "true") {
+      //roles = ["vigilante", "werewolf"];
+    }
 
     /// hax for exe
     let exeIndex = -1;
@@ -718,8 +719,14 @@ module.exports = {
       roles = helper.getChaosRoleSet(playersLength);
     } else if (mode === "vampire") {
       roles = helper.getVampireRoleSet(playersLength);
-    } else if (mode === "ww-vs-neutral") {
-      roles = helper.getWerewolfVsNeutralRoleSet(playersLength);
+    } else if (mode === "survive") {
+      roles = helper.getSurviveRoleSet(playersLength);
+    } else if (mode === "killing-wars") {
+      roles = helper.getKillingWarsRoleSet(playersLength);
+    } else if (mode === "who's-there") {
+      roles = helper.getWhosThereRoleSet(playersLength);
+    } else if (mode === "trust-issue") {
+      roles = helper.getTrustIssueRoleSet(playersLength);
     }
 
     return roles;
@@ -815,15 +822,15 @@ module.exports = {
 
     this.runTimer();
 
-    //cp
-//     let playersWithRole = this.group_session.players.map(i => {
-//       return {
-//         name: i.name,
-//         roleName: i.role.name
-//       };
-//     });
-
-//     console.table(playersWithRole);
+    if (process.env.TEST === "true") {
+      let playersWithRole = this.group_session.players.map(i => {
+        return {
+          name: i.name,
+          roleName: i.role.name
+        };
+      });
+      console.table(playersWithRole);
+    }
 
     if (flex_texts) {
       return this.replyFlex(flex_texts, null, newFlex_text);
@@ -844,10 +851,12 @@ module.exports = {
       }
 
       if (time > 0) {
-        if (this.group_session.checkChance === 0) {
-          return Promise.resolve(null);
-        } else {
-          this.group_session.checkChance--;
+        if (state !== "vote") {
+          if (this.group_session.checkChance === 0) {
+            return Promise.resolve(null);
+          } else {
+            this.group_session.checkChance--;
+          }
         }
       }
     }
@@ -2987,7 +2996,7 @@ module.exports = {
               "🔮 Role " + target.name + " adalah " + targetRoleName + "\n\n";
 
             this.group_session.players[i].message +=
-              "Kamu bisa cek info role dengan ketik '/info " +
+              "💡 Kamu bisa cek info role dengan ketik '/info " +
               targetRoleName +
               "'" +
               "\n\n";
@@ -3034,7 +3043,7 @@ module.exports = {
               "🐺 " + target.name + " dikunjungi anggota Werewolf" + "\n\n";
 
             this.group_session.players[i].message +=
-              "Kamu bisa cek info role dengan ketik '/info " +
+              "💡 Kamu bisa cek info role dengan ketik '/info " +
               target.role.name +
               "'" +
               "\n\n";
@@ -3294,7 +3303,9 @@ module.exports = {
         item.message += werewolfAnnouncement;
       }
 
-      //console.log(`pesan ${item.name} (${item.role.name}) : ${item.message}`); //cp
+      if (process.env.TEST === "true") {
+        console.log(`pesan ${item.name} (${item.role.name}) : ${item.message}`);
+      }
 
       if (!item.message) {
         item.message += "🛏️ Kamu tidak diganggu semalam";
@@ -3728,7 +3739,7 @@ module.exports = {
       "/about : tentang bot",
       "/revoke : untuk batal voting",
       "/extend : untuk menambah 1 menit saat baru membuat room game",
-      "/kick : untuk mengeluarkan bot dari group/room chat",
+      "/kick : untuk mengeluarkan bot dari group atau room chat",
       "/set : untuk setting game"
     ];
 
@@ -4293,8 +4304,7 @@ module.exports = {
             type: "text",
             text: "",
             flex: 2,
-            align: "center",
-            wrap: true
+            align: "center"
           }
         ],
         margin: "sm"
@@ -4446,8 +4456,16 @@ module.exports = {
 
     let state = this.group_session.state;
     let time = this.group_session.time;
+    let sender = {
+      name: "",
+      iconUrl: ""
+    };
 
     if (state !== "idle" && state !== "new") {
+      sender.name = "Moderator";
+      sender.iconUrl =
+        "https://cdn.glitch.com/fc7de31a-faeb-4c50-8a38-834ec153f590%2F%E2%80%94Pngtree%E2%80%94microphone%20vector%20icon_3725450.png?v=1587456628843";
+
       if (time < 15) {
         let reminder = "💡 ";
 
@@ -4468,6 +4486,19 @@ module.exports = {
 
         opt_texts.push(reminder_text);
       }
+    } else {
+      let roles = require("/app/roles/rolesData").map(role => {
+        let roleName = role.name[0].toUpperCase() + role.name.substring(1);
+        return {
+          name: roleName,
+          iconUrl: role.iconUrl
+        };
+      });
+
+      let role = helper.random(roles);
+
+      sender.name = role.name;
+      sender.iconUrl = role.iconUrl;
     }
 
     const flex = require("/app/message/flex");
@@ -4476,23 +4507,54 @@ module.exports = {
       this.event,
       flex_texts,
       opt_texts,
-      newFlex_texts
+      newFlex_texts,
+      null,
+      sender
     );
   },
 
   replyText: function(texts = []) {
     let state = this.group_session.state;
-    let time = this.group_session.time;
     texts = Array.isArray(texts) ? texts : [texts];
 
-    return this.client
-      .replyMessage(
-        this.event.replyToken,
-        texts.map(text => ({ type: "text", text: text.trim() }))
-      )
-      .catch(err => {
-        console.log("err di replyText", err.originalError.response.data);
+    let sender = {
+      name: "",
+      iconUrl: ""
+    };
+
+    if (state !== "idle" && state !== "new") {
+      sender.name = "Moderator";
+      sender.iconUrl =
+        "https://cdn.glitch.com/fc7de31a-faeb-4c50-8a38-834ec153f590%2F%E2%80%94Pngtree%E2%80%94microphone%20vector%20icon_3725450.png?v=1587456628843";
+    } else {
+      let roles = require("/app/roles/rolesData").map(role => {
+        let roleName = role.name[0].toUpperCase() + role.name.substring(1);
+        return {
+          name: roleName,
+          iconUrl: role.iconUrl
+        };
       });
+
+      let role = helper.random(roles);
+
+      sender.name = role.name;
+      sender.iconUrl = role.iconUrl;
+    }
+
+    let msg = texts.map(text => {
+      return {
+        sender: sender,
+        type: "text",
+        text: text.trim()
+      };
+    });
+
+    return this.client.replyMessage(this.event.replyToken, msg).catch(err => {
+      console.log(
+        "err di replyText di werewolf.js",
+        err.originalError.response.data
+      );
+    });
   },
 
   /** save data func **/

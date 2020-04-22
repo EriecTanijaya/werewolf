@@ -50,13 +50,14 @@ module.exports = {
       let list = modeList.join(", ");
       let text = "📜 Mode List : " + "\n";
       text += list + "\n\n";
-      text += "Untuk info mode bisa ketik '/info mode <nama-mode>'";
+      text += "Cth: Untuk set mode bisa ketik '/set mode who's-there";
       return this.replyText(text);
     }
 
     for (let i = 0; i < modeList.length; i++) {
       let mode = modeList[i];
-      if (this.args[2] === mode) {
+      let modeId = i + 1;
+      if (this.args[2] === mode || this.args[2] == modeId) {
         this.group_session.mode = mode;
         found = true;
         return this.replyText("🕹️ Game mode berhasil diubah ke " + mode + "!");
@@ -65,7 +66,7 @@ module.exports = {
 
     if (!found) {
       let text = "💡 Tidak ditemukan mode " + this.args[2] + ". ";
-      text += "Jika ada ide, boleh share ya";
+      text += "Lihat daftar mode dengan '/info mode'";
       return this.replyText(text);
     }
   },
@@ -74,10 +75,39 @@ module.exports = {
 
   replyText: function(texts) {
     texts = Array.isArray(texts) ? texts : [texts];
-    return this.client.replyMessage(
-      this.event.replyToken,
-      texts.map(text => ({ type: "text", text }))
-    );
+
+    let sender = {
+      name: "",
+      iconUrl: ""
+    };
+
+    let roles = require("/app/roles/rolesData").map(role => {
+      let roleName = role.name[0].toUpperCase() + role.name.substring(1);
+      return {
+        name: roleName,
+        iconUrl: role.iconUrl
+      };
+    });
+
+    let role = helper.random(roles);
+
+    sender.name = role.name;
+    sender.iconUrl = role.iconUrl;
+
+    let msg = texts.map(text => {
+      return {
+        sender: sender,
+        type: "text",
+        text: text.trim()
+      };
+    });
+
+    return this.client.replyMessage(this.event.replyToken, msg).catch(err => {
+      console.log(
+        "err di replyText di rolesInfo.js",
+        err.originalError.response.data
+      );
+    });
   },
 
   replyFlex: function(flex_raws, text_raws) {
@@ -97,7 +127,33 @@ module.exports = {
       });
     }
 
+    let sender = {
+      name: "",
+      iconUrl: ""
+    };
+
+    let roles = require("/app/roles/rolesData").map(role => {
+      let roleName = role.name[0].toUpperCase() + role.name.substring(1);
+      return {
+        name: roleName,
+        iconUrl: role.iconUrl
+      };
+    });
+
+    let role = helper.random(roles);
+
+    sender.name = role.name;
+    sender.iconUrl = role.iconUrl;
+
     const flex = require("/app/message/flex");
-    return flex.receive(this.client, this.event, flex_texts, opt_texts);
+    return flex.receive(
+      this.client,
+      this.event,
+      flex_texts,
+      opt_texts,
+      null,
+      null,
+      sender
+    );
   }
 };

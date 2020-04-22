@@ -11,7 +11,9 @@ const roles = [
       team: "🐺",
       self: "🐺"
     },
-    type: "Werewolf Killing"
+    type: "Werewolf Killing",
+    iconUrl:
+      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/wolf_1f43a.png"
   },
   {
     name: "sorcerer",
@@ -25,7 +27,9 @@ const roles = [
       team: "🐺",
       self: "🧙"
     },
-    type: "Werewolf Support"
+    type: "Werewolf Support",
+    iconUrl:
+      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/mage_1f9d9.png"
   },
   {
     name: "consort",
@@ -39,7 +43,9 @@ const roles = [
       team: "🐺",
       self: "🚷"
     },
-    type: "Werewolf Support"
+    type: "Werewolf Support",
+    iconUrl:
+      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/no-pedestrians_1f6b7.png"
   },
   {
     name: "seer",
@@ -53,7 +59,9 @@ const roles = [
       team: "👨‍🌾",
       self: "🔮"
     },
-    type: "Town Investigate"
+    type: "Town Investigate",
+    iconUrl:
+      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/crystal-ball_1f52e.png"
   },
   {
     name: "doctor",
@@ -68,7 +76,9 @@ const roles = [
       self: "💉"
     },
     selfHeal: 1,
-    type: "Town Protector"
+    type: "Town Protector",
+    iconUrl:
+      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/syringe_1f489.png"
   },
   {
     name: "villager",
@@ -80,7 +90,9 @@ const roles = [
       team: "👨‍🌾",
       self: "👨‍🌾"
     },
-    type: "Town"
+    type: "Town",
+    iconUrl:
+      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/man-farmer_1f468-200d-1f33e.png"
   },
   {
     name: "vampire",
@@ -95,7 +107,9 @@ const roles = [
       self: "🧛"
     },
     age: 0,
-    type: "Neutral Chaos"
+    type: "Neutral Chaos",
+    iconUrl:
+      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/vampire_1f9db.png"
   },
   {
     name: "vampire-hunter",
@@ -109,7 +123,9 @@ const roles = [
       team: "👨‍🌾",
       self: "🗡️"
     },
-    type: "Town Killing"
+    type: "Town Killing",
+    iconUrl:
+      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/dagger_1f5e1.png"
   },
   {
     name: "werewolf-cub",
@@ -123,7 +139,9 @@ const roles = [
       team: "🐺",
       self: "🐕"
     },
-    type: "Werewolf Killing"
+    type: "Werewolf Killing",
+    iconUrl:
+      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/dog_1f415.png"
   },
   {
     name: "vigilante",
@@ -139,7 +157,9 @@ const roles = [
     },
     isLoadBullet: true,
     bullet: 3,
-    type: "Town Killing"
+    type: "Town Killing",
+    iconUrl:
+      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/pistol_1f52b.png"
   },
   {
     name: "jester",
@@ -155,7 +175,9 @@ const roles = [
     },
     isLynched: false,
     hasRevenged: false,
-    type: "Neutral"
+    type: "Neutral",
+    iconUrl:
+      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/joker_1f0cf.png"
   },
   {
     name: "lookout",
@@ -169,7 +191,9 @@ const roles = [
       team: "👨‍🌾",
       self: "👀"
     },
-    type: "Town Investigate"
+    type: "Town Investigate",
+    iconUrl:
+      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/eyes_1f440.png"
   },
   {
     name: "escort",
@@ -183,7 +207,9 @@ const roles = [
       team: "👨‍🌾",
       self: "💋"
     },
-    type: "Town Support"
+    type: "Town Support",
+    iconUrl:
+      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/kiss-mark_1f48b.png"
   },
   {
     name: "serial-killer",
@@ -197,7 +223,9 @@ const roles = [
       team: "🔪",
       self: "🔪"
     },
-    type: "Neutral Killing"
+    type: "Neutral Killing",
+    iconUrl:
+      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/kitchen-knife_1f52a.png"
   },
   {
     name: "retributionist",
@@ -212,7 +240,9 @@ const roles = [
       self: "⚰️"
     },
     revive: 1,
-    type: "Town Support"
+    type: "Town Support",
+    iconUrl:
+      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/coffin_26b0.png"
   },
   {
     name: "veteran",
@@ -227,7 +257,9 @@ const roles = [
       self: "🎖️"
     },
     alert: 3,
-    type: "Town Killing"
+    type: "Town Killing",
+    iconUrl:
+      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/military-medal_1f396.png"
   },
   {
     name: "arsonist",
@@ -242,7 +274,9 @@ const roles = [
       team: "🔥",
       self: "🔥"
     },
-    type: "Neutral Killing"
+    type: "Neutral Killing",
+    iconUrl:
+      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/fire_1f525.png"
   },
   {
     name: "sheriff",
@@ -256,7 +290,9 @@ const roles = [
       team: "👨‍🌾",
       self: "👮"
     },
-    type: "Town Investigate"
+    type: "Town Investigate",
+    iconUrl:
+      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/police-officer_1f46e.png"
   },
   {
     name: "survivor",
@@ -271,7 +307,9 @@ const roles = [
       self: "🏳️"
     },
     vest: 4,
-    type: "Neutral"
+    type: "Neutral",
+    iconUrl:
+      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/white-flag_1f3f3.png"
   },
   {
     name: "executioner",
@@ -283,7 +321,9 @@ const roles = [
       team: "🪓",
       self: "🪓"
     },
-    type: "Neutral Chaos"
+    type: "Neutral Chaos",
+    iconUrl:
+      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/axe_1fa93.png"
   },
   {
     name: "spy",
@@ -297,7 +337,9 @@ const roles = [
       team: "👨‍🌾",
       self: "🔍"
     },
-    type: "Town Investigate"
+    type: "Town Investigate",
+    iconUrl:
+      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/magnifying-glass-tilted-left_1f50d.png"
   },
   {
     name: "tracker",
@@ -311,7 +353,9 @@ const roles = [
       team: "👨‍🌾",
       self: "👣"
     },
-    type: "Town Investigate"
+    type: "Town Investigate",
+    iconUrl:
+      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/footprints_1f463.png"
   },
   {
     name: "framer",
@@ -325,7 +369,9 @@ const roles = [
       team: "🐺",
       self: "🎞️"
     },
-    type: "Werewolf Deception"
+    type: "Werewolf Deception",
+    iconUrl:
+      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/film-frames_1f39e.png"
   },
   {
     name: "disguiser",
@@ -340,7 +386,9 @@ const roles = [
       self: "🎭"
     },
     type: "Werewolf Deception",
-    disguiseAs: ""
+    disguiseAs: "",
+    iconUrl:
+      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/performing-arts_1f3ad.png"
   },
   {
     name: "bodyguard",
@@ -356,7 +404,9 @@ const roles = [
     },
     type: "Town Protector",
     vest: 1,
-    counterAttackIndex: -1
+    counterAttackIndex: -1,
+    iconUrl:
+      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/shield_1f6e1.png"
   }
 ];
 

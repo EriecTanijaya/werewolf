@@ -20,33 +20,75 @@ module.exports = {
     }
 
     let input = "";
-    if (this.args[2]) {
+    if (this.args[3]) {
       input = this.parseToText(this.args);
     } else {
       input = this.args[2].replace("-", " ");
     }
     input = input.toLowerCase();
 
-    console.log(input);
     /// check untuk role
+    let modeId = -1;
     switch (input) {
       case "vampire":
-      case "vampir":
         flex_text.header.text = "🦇🧛 Vampire Mode";
+        flex_text.body.text += "Mode ID: 1" + "\n\n";
         flex_text.body.text +=
           "Disana Vampire, disini Vampire, dimana mana ada Vampire. ";
+        modeId = 1;
         break;
 
       case "chaos":
         flex_text.header.text = "🃏🪓 Chaos Mode";
+        flex_text.body.text += "Mode ID: 2" + "\n\n";
         flex_text.body.text +=
           "Sesuai namanya, role role yang ada beneran buat chaos. ";
+        modeId = 2;
         break;
 
       case "classic":
-      case "klasik":
         flex_text.header.text = "👨‍🌾🐺 Classic Mode";
+        flex_text.body.text += "Mode ID: 3" + "\n\n";
         flex_text.body.text += "Mode normal, cocok untuk pemula. ";
+        modeId = 3;
+        break;
+
+      case "survive":
+        flex_text.header.text = "🏳️🦺 Survive Mode";
+        flex_text.body.text += "Mode ID: 4" + "\n\n";
+        flex_text.body.text +=
+          "Sebagian besar dari kalian hanyalah Survivor yang ingin tetap hidup. ";
+        modeId = 4;
+        break;
+
+      case "killing wars":
+        flex_text.header.text = "🐺🔥 Killing Wars Mode";
+        flex_text.body.text += "Mode ID: 5" + "\n\n";
+        flex_text.body.text +=
+          "Warga telah binasa, sekarang Werewolf masih menghadapi ancaman yang lain!";
+        modeId = 5;
+        break;
+
+      case "who there":
+      case "who's there":
+        flex_text.header.text = "🚷👮 Who's There? Mode";
+        flex_text.body.text += "Mode ID: 6" + "\n\n";
+        flex_text.body.text +=
+          "Warga masih berusaha membasmi para penjahat. Namun para Escort terkadang merepotkan warga";
+        modeId = 6;
+        break;
+
+      case "trust issue":
+        flex_text.header.text = "🎞️🔮 Trust Issue Mode";
+        flex_text.body.text += "Mode ID: 7" + "\n\n";
+        flex_text.body.text +=
+          "Warga di buat kesal, karena salah menggantung orang yang dikira Werewolf. ";
+        flex_text.body.text += "Padahal role nya adalah Sheriff. ";
+        flex_text.body.text +=
+          "Seer yang sebelumnya dipercayai warga, telah membuat para warga kecewa. ";
+        flex_text.body.text +=
+          "Padahal Seer sudah yakin akan terawangannya. Sayangnya, semalam Sheriff di frame!";
+        modeId = 7;
         break;
 
       default:
@@ -57,6 +99,8 @@ module.exports = {
         text += "Cek info mode yang ada dengan cmd '/info mode'";
         return this.replyText(text);
     }
+    
+    flex_text.body.text += "\n\n" + "💡 Ketik '/set mode " + modeId + "' untuk terapkan mode ini";
 
     return this.replyFlex(flex_text);
   },
@@ -101,10 +145,39 @@ module.exports = {
 
   replyText: function(texts) {
     texts = Array.isArray(texts) ? texts : [texts];
-    return this.client.replyMessage(
-      this.event.replyToken,
-      texts.map(text => ({ type: "text", text }))
-    );
+
+    let sender = {
+      name: "",
+      iconUrl: ""
+    };
+
+    let roles = require("/app/roles/rolesData").map(role => {
+      let roleName = role.name[0].toUpperCase() + role.name.substring(1);
+      return {
+        name: roleName,
+        iconUrl: role.iconUrl
+      };
+    });
+
+    let role = helper.random(roles);
+
+    sender.name = role.name;
+    sender.iconUrl = role.iconUrl;
+
+    let msg = texts.map(text => {
+      return {
+        sender: sender,
+        type: "text",
+        text: text.trim()
+      };
+    });
+
+    return this.client.replyMessage(this.event.replyToken, msg).catch(err => {
+      console.log(
+        "err di replyText di rolesSetInfo.js",
+        err.originalError.response.data
+      );
+    });
   },
 
   replyFlex: function(flex_raws, text_raws) {
@@ -124,7 +197,33 @@ module.exports = {
       });
     }
 
+    let sender = {
+      name: "",
+      iconUrl: ""
+    };
+
+    let roles = require("/app/roles/rolesData").map(role => {
+      let roleName = role.name[0].toUpperCase() + role.name.substring(1);
+      return {
+        name: roleName,
+        iconUrl: role.iconUrl
+      };
+    });
+
+    let role = helper.random(roles);
+
+    sender.name = role.name;
+    sender.iconUrl = role.iconUrl;
+
     const flex = require("/app/message/flex");
-    return flex.receive(this.client, this.event, flex_texts, opt_texts);
+    return flex.receive(
+      this.client,
+      this.event,
+      flex_texts,
+      opt_texts,
+      null,
+      null,
+      sender
+    );
   }
 };

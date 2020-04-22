@@ -254,14 +254,39 @@ module.exports = {
 
   replyText: function(texts) {
     texts = Array.isArray(texts) ? texts : [texts];
-    return this.client
-      .replyMessage(
-        this.event.replyToken,
-        texts.map(text => ({ type: "text", text }))
-      )
-      .catch(err => {
-        console.log(err.originalError.response.data);
-      });
+
+    let sender = {
+      name: "",
+      iconUrl: ""
+    };
+
+    let roles = require("/app/roles/rolesData").map(role => {
+      let roleName = role.name[0].toUpperCase() + role.name.substring(1);
+      return {
+        name: roleName,
+        iconUrl: role.iconUrl
+      };
+    });
+
+    let role = helper.random(roles);
+
+    sender.name = role.name;
+    sender.iconUrl = role.iconUrl;
+
+    let msg = texts.map(text => {
+      return {
+        sender: sender,
+        type: "text",
+        text: text.trim()
+      };
+    });
+
+    return this.client.replyMessage(this.event.replyToken, msg).catch(err => {
+      console.log(
+        "err di replyText di data.js",
+        err.originalError.response.data
+      );
+    });
   },
 
   /** save data func **/
