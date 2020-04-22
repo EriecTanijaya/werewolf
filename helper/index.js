@@ -277,7 +277,7 @@ module.exports = {
     return roles;
   },
 
-  getChaosAllAroundRoleSet: function(playersLength) {
+  getTrustIssueRoleSet: function(playersLength) {
     let roles = [
       "werewolf",
       "executioner",

@@ -30,7 +30,6 @@ module.exports = {
     /// check untuk role
     switch (input) {
       case "vampire":
-      case "vampir":
         flex_text.header.text = "🦇🧛 Vampire Mode";
         flex_text.body.text +=
           "Disana Vampire, disini Vampire, dimana mana ada Vampire. ";
@@ -43,18 +42,29 @@ module.exports = {
         break;
 
       case "classic":
-      case "klasik":
         flex_text.header.text = "👨‍🌾🐺 Classic Mode";
         flex_text.body.text += "Mode normal, cocok untuk pemula. ";
         break;
         
-      case "survivor":
       case "survive":
         flex_text.header.text = "🏳️🦺 Survive Mode";
         flex_text.body.text += "Sebagian besar dari kalian ada Survivor yang hanya ingin selamat. ";
         break;
         
-      case ""
+      case "killing wars":
+        flex_text.header.text = "🐺🔥 Killing Wars Mode";
+        flex_text.body.text += "Warga telah binasa, sekarang Werewolf masih menghadapi ancaman yang lain!";
+        break;
+        
+      case "who there":
+      case "whos there":
+        flex_text.header.text = "🚷🔮 Who's There? Mode";
+        flex_text.body.text += "Warga masih berusaha membasmi para penjahat. Namun para Escort terkadang merepotkan warga";
+        break;
+        
+      case "trust issue":
+        
+        break;
 
       default:
         let text =
