@@ -84,6 +84,8 @@ module.exports = {
         text += "Cek info mode yang ada dengan cmd '/info mode'";
         return this.replyText(text);
     }
+    
+    flex_text.body.text += "\n\n" + "ketik ''";
 
     return this.replyFlex(flex_text);
   },
