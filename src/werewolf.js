@@ -851,10 +851,12 @@ module.exports = {
       }
 
       if (time > 0) {
-        if (this.group_session.checkChance === 0) {
-          return Promise.resolve(null);
-        } else {
-          this.group_session.checkChance--;
+        if (state !== "vote") {
+          if (this.group_session.checkChance === 0) {
+            return Promise.resolve(null);
+          } else {
+            this.group_session.checkChance--;
+          }
         }
       }
     }
