@@ -45,25 +45,35 @@ module.exports = {
         flex_text.header.text = "👨‍🌾🐺 Classic Mode";
         flex_text.body.text += "Mode normal, cocok untuk pemula. ";
         break;
-        
+
       case "survive":
         flex_text.header.text = "🏳️🦺 Survive Mode";
-        flex_text.body.text += "Sebagian besar dari kalian ada Survivor yang hanya ingin selamat. ";
+        flex_text.body.text +=
+          "Sebagian besar dari kalian hanyalah Survivor yang ingin tetap hidup. ";
         break;
-        
+
       case "killing wars":
         flex_text.header.text = "🐺🔥 Killing Wars Mode";
-        flex_text.body.text += "Warga telah binasa, sekarang Werewolf masih menghadapi ancaman yang lain!";
+        flex_text.body.text +=
+          "Warga telah binasa, sekarang Werewolf masih menghadapi ancaman yang lain!";
         break;
-        
+
       case "who there":
-      case "whos there":
-        flex_text.header.text = "🚷🔮 Who's There? Mode";
-        flex_text.body.text += "Warga masih berusaha membasmi para penjahat. Namun para Escort terkadang merepotkan warga";
+      case "who's there":
+        flex_text.header.text = "🚷👮 Who's There? Mode";
+        flex_text.body.text +=
+          "Warga masih berusaha membasmi para penjahat. Namun para Escort terkadang merepotkan warga";
         break;
-        
+
       case "trust issue":
-        
+        flex_text.header.text = "🎞️🔮 Trust Issue Mode";
+        flex_text.body.text +=
+          "Warga di buat kesal, karena salah menggantung orang yang dikira Werewolf. ";
+        flex_text.body.text += "Padahal role nya adalah Sheriff. ";
+        flex_text.body.text +=
+          "Seer yang sebelumnya dipercayai warga, telah membuat para warga kecewa. ";
+        flex_text.body.text +=
+          "Padahal Seer sudah yakin akan terawangannya. Sayangnya, semalam Sheriff di frame!";
         break;
 
       default:
