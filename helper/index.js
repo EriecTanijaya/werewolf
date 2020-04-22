@@ -214,7 +214,7 @@ module.exports = {
     return roles;
   },
 
-  getWeWillSurviveRoleSet: function(playersLength) {
+  getSurviveRoleSet: function(playersLength) {
     let roles = ["seer", "werewolf"];
 
     let survivorNeededCount = playersLength - 2;
@@ -252,24 +252,50 @@ module.exports = {
     roles = this.shuffleArray(roles);
     return roles;
   },
-  
+
   getWhosThereRoleSet: function(playersLength) {
     let roles = [
-      "werewolf", "escort", "escort", "sheriff", "serial-killer",
-      "escort", "escort", "werewolf-cub", "vigilante", "sheriff",
-      "serial-killer", "escort", "vigilante", "sheriff", "escort"
+      "werewolf",
+      "escort",
+      "escort",
+      "sheriff",
+      "serial-killer",
+      "escort",
+      "escort",
+      "werewolf-cub",
+      "vigilante",
+      "sheriff",
+      "serial-killer",
+      "escort",
+      "vigilante",
+      "sheriff",
+      "escort"
     ];
-    
+
     roles.length = playersLength;
     roles = this.shuffleArray(roles);
     return roles;
   },
-  
+
   getChaosAllAroundRoleSet: function(playersLength) {
     let roles = [
-      "werewolf", "executioner", "seer"
-    ]
-    
+      "werewolf",
+      "executioner",
+      "seer",
+      "seer",
+      "sheriff",
+      "werewolf-cub",
+      "sheriff",
+      "framer",
+      "seer",
+      "sheriff",
+      "framer",
+      "seer",
+      "sheriff",
+      "seer",
+      "sheriff"
+    ];
+
     roles.length = playersLength;
     roles = this.shuffleArray(roles);
     return roles;

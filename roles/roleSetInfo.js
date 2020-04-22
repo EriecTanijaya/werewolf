@@ -47,6 +47,14 @@ module.exports = {
         flex_text.header.text = "👨‍🌾🐺 Classic Mode";
         flex_text.body.text += "Mode normal, cocok untuk pemula. ";
         break;
+        
+      case "survivor":
+      case "survive":
+        flex_text.header.text = "🏳️🦺 Survive Mode";
+        flex_text.body.text += "Sebagian besar dari kalian ada Survivor yang hanya ingin selamat. ";
+        break;
+        
+      case ""
 
       default:
         let text =
