@@ -358,7 +358,8 @@ module.exports = {
       this.addPlayer(newPlayer);
 
       if (process.env.TEST === "true") {
-        for (let i = 0; i < 8; i++) {
+        // cp
+        for (let i = 0; i < 12; i++) {
           let dummy = JSON.parse(JSON.stringify(this.user_session));
           dummy.name += " " + helper.getRandomInt(1, 99);
           let newPlayer = this.createNewPlayer(dummy);
@@ -646,9 +647,9 @@ module.exports = {
     let playersLength = players.length;
     let roles = this.getRandomRoleSet(playersLength);
 
-    /// test specific role
+    /// test specific role cp
     if (process.env.TEST === "true") {
-      roles = ["vigilante", "werewolf"];
+      //roles = ["vigilante", "werewolf"];
     }
 
     /// hax for exe
@@ -718,8 +719,14 @@ module.exports = {
       roles = helper.getChaosRoleSet(playersLength);
     } else if (mode === "vampire") {
       roles = helper.getVampireRoleSet(playersLength);
-    } else if (mode === "ww-vs-neutral") {
-      roles = helper.getWerewolfVsNeutralRoleSet(playersLength);
+    } else if (mode === "survive") {
+      roles = helper.getSurviveRoleSet(playersLength);
+    } else if (mode === "killing-wars") {
+      roles = helper.getKillingWarsRoleSet(playersLength);
+    } else if (mode === "who's-there") {
+      roles = helper.getWhosThereRoleSet(playersLength);
+    } else if (mode === "trust-issue") {
+      roles = helper.getTrustIssueRoleSet(playersLength);
     }
 
     return roles;
@@ -2987,7 +2994,7 @@ module.exports = {
               "🔮 Role " + target.name + " adalah " + targetRoleName + "\n\n";
 
             this.group_session.players[i].message +=
-              "Kamu bisa cek info role dengan ketik '/info " +
+              "💡 Kamu bisa cek info role dengan ketik '/info " +
               targetRoleName +
               "'" +
               "\n\n";
@@ -3034,7 +3041,7 @@ module.exports = {
               "🐺 " + target.name + " dikunjungi anggota Werewolf" + "\n\n";
 
             this.group_session.players[i].message +=
-              "Kamu bisa cek info role dengan ketik '/info " +
+              "💡 Kamu bisa cek info role dengan ketik '/info " +
               target.role.name +
               "'" +
               "\n\n";

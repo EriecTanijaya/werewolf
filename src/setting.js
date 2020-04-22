@@ -50,7 +50,7 @@ module.exports = {
       let list = modeList.join(", ");
       let text = "📜 Mode List : " + "\n";
       text += list + "\n\n";
-      text += "Untuk info mode bisa ketik '/info mode <nama-mode>'";
+      text += "Cth: Untuk set mode bisa ketik '/set mode who's-there";
       return this.replyText(text);
     }
 
@@ -65,7 +65,7 @@ module.exports = {
 
     if (!found) {
       let text = "💡 Tidak ditemukan mode " + this.args[2] + ". ";
-      text += "Jika ada ide, boleh share ya";
+      text += "Lihat daftar mode dengan '/info mode'";
       return this.replyText(text);
     }
   },
