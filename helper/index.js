@@ -97,7 +97,7 @@ module.exports = {
   getChaosRoleSet: function(playersLength) {
     let roles = [];
 
-    let townNeedCount = Math.round(playersLength / 2);
+    let townNeedCount = Math.round(playersLength / 2) + 1;
     let badNeedCount = playersLength - townNeedCount;
     let werewolfNeedCount = Math.round((45 / 100) * badNeedCount);
 
