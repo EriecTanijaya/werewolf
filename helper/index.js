@@ -25,17 +25,12 @@ module.exports = {
       "lookout",
       "doctor",
       "vampire-hunter",
-      "jester"
+      "jester",
+      "escort",
+      "vigilante",
+      "vampire",
+      "survivor"
     ];
-
-    let townSupports = ["escort", "retributionist"];
-    let townSupport = this.random(townSupports);
-    roles.push(townSupport);
-
-    let addon = ["vigilante", "vampire", "survivor"];
-    addon.forEach(item => {
-      roles.push(item);
-    });
 
     let townProtectors = ["doctor", "bodyguard"];
     let townProtector = this.random(townProtectors);
@@ -47,8 +42,8 @@ module.exports = {
     let townKilling = this.random(townKillings);
     roles.push(townKilling);
 
-    let anotherTownSupport = this.random(townSupports);
-    roles.push(anotherTownSupport);
+    let anotherTownProtector= this.random(townProtectors);
+    roles.push(anotherTownProtector);
 
     roles.push("vampire");
 
