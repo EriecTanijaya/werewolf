@@ -19,6 +19,12 @@ module.exports = {
     }
   },
 
+  invalidCommand: function() {
+    let text = "💡 Tidak ada command " + this.args[1] + ". ";
+    text += "Cek daftar command dengan ketik '/set'";
+    return this.replyText(text);
+  },
+
   commandCommand: function() {
     let text = "";
 
