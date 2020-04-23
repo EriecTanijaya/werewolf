@@ -16,7 +16,8 @@ module.exports = {
 
       if (state !== "idle" && state !== "new") {
         if (time < 15) {
-          return this.replyText();
+          let reminder = "💡 Waktu tersisa " + time + " detik lagi";
+          return this.replyText(reminder);
         }
       }
       return Promise.resolve(null);
