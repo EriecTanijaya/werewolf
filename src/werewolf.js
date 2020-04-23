@@ -2775,7 +2775,7 @@ module.exports = {
 
         if (attackersRole.length > 0) {
           //
-        } else if (players[i].afkCounter > 6) {
+        } else if (players[i].afkCounter >= 6) {
           isAfk = true;
         } else if (willSuicide) {
           isSuicide = true;
