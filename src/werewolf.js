@@ -3374,7 +3374,8 @@ module.exports = {
           {
             action: "uri",
             label: "✉️ News",
-            data: "line://oaMessage/" + process.env.BOT_ID + "/?/news"
+            data:
+              "https://line.me/R/oaMessage/" + process.env.BOT_ID + "/?%2Fnews"
           },
           {
             action: "postback",
@@ -4058,7 +4059,8 @@ module.exports = {
           {
             action: "uri",
             label: "💡 Role",
-            data: "line://oaMessage/" + process.env.BOT_ID + "/?/role"
+            data:
+              "https://line.me/R/oaMessage/" + process.env.BOT_ID + "/?%2Frole"
           },
           {
             action: "postback",
@@ -4089,7 +4091,8 @@ module.exports = {
           {
             action: "uri",
             label: "✉️ Cek berita",
-            data: "line://oaMessage/" + process.env.BOT_ID + "/?/news"
+            data:
+              "https://line.me/R/oaMessage/" + process.env.BOT_ID + "/?%2Fnews"
           },
           {
             action: "postback",
