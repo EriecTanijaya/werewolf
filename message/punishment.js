@@ -7,7 +7,6 @@ const punishment = [
   "jual 💰",
   "pacung 🤕",
   "gebuk 👊",
-  "infeksi corona 🦠",
   "suntik mati 💉",
   "kubur hiduphidup ⚰️",
   "tenggelamkan 🌊",

@@ -2469,6 +2469,9 @@ module.exports = {
         let attackers = players[i].attackers;
         let protectors = players[i].protectors;
 
+        let vestUsed = false;
+        let selfHealUsed = false;
+
         if (isAttacked || isVampireBited) {
           this.group_session.players[i].damage = attackers.length;
 
@@ -2531,8 +2534,14 @@ module.exports = {
                 }
               }
 
-              if (isVested || isSelfHeal) {
+              if (isVested && !vestUsed) {
                 this.group_session.players[i].damage--;
+                vestUsed = true;
+              }
+
+              if (isSelfHeal && !selfHealUsed) {
+                this.group_session.players[i].damage--;
+                selfHealUsed = true;
               }
             }
 
@@ -2775,7 +2784,7 @@ module.exports = {
 
         if (attackersRole.length > 0) {
           //
-        } else if (players[i].afkCounter > 6) {
+        } else if (players[i].afkCounter >= 6) {
           isAfk = true;
         } else if (willSuicide) {
           isSuicide = true;
