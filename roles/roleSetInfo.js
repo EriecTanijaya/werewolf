@@ -31,6 +31,7 @@ module.exports = {
     let modeId = -1;
     switch (input) {
       case "vampire":
+      case "1":
         flex_text.header.text = "🦇🧛 Vampire Mode";
         flex_text.body.text += "Mode ID: 1" + "\n\n";
         flex_text.body.text +=
@@ -39,6 +40,7 @@ module.exports = {
         break;
 
       case "chaos":
+      case "2":
         flex_text.header.text = "🃏🪓 Chaos Mode";
         flex_text.body.text += "Mode ID: 2" + "\n\n";
         flex_text.body.text +=
@@ -47,6 +49,7 @@ module.exports = {
         break;
 
       case "classic":
+      case "3":
         flex_text.header.text = "👨‍🌾🐺 Classic Mode";
         flex_text.body.text += "Mode ID: 3" + "\n\n";
         flex_text.body.text += "Mode normal, cocok untuk pemula. ";
@@ -54,6 +57,7 @@ module.exports = {
         break;
 
       case "survive":
+      case "4":
         flex_text.header.text = "🏳️🦺 Survive Mode";
         flex_text.body.text += "Mode ID: 4" + "\n\n";
         flex_text.body.text +=
@@ -62,6 +66,7 @@ module.exports = {
         break;
 
       case "killing wars":
+      case "5":
         flex_text.header.text = "🐺🔥 Killing Wars Mode";
         flex_text.body.text += "Mode ID: 5" + "\n\n";
         flex_text.body.text +=
@@ -71,6 +76,7 @@ module.exports = {
 
       case "who there":
       case "who's there":
+      case "6":
         flex_text.header.text = "🚷👮 Who's There? Mode";
         flex_text.body.text += "Mode ID: 6" + "\n\n";
         flex_text.body.text +=
@@ -79,6 +85,7 @@ module.exports = {
         break;
 
       case "trust issue":
+      case "7":
         flex_text.header.text = "🎞️🔮 Trust Issue Mode";
         flex_text.body.text += "Mode ID: 7" + "\n\n";
         flex_text.body.text +=
@@ -99,8 +106,9 @@ module.exports = {
         text += "Cek info mode yang ada dengan cmd '/info mode'";
         return this.replyText(text);
     }
-    
-    flex_text.body.text += "\n\n" + "💡 Ketik '/set mode " + modeId + "' untuk terapkan mode ini";
+
+    flex_text.body.text +=
+      "\n\n" + "💡 Ketik '/set mode " + modeId + "' untuk terapkan mode ini";
 
     return this.replyFlex(flex_text);
   },
