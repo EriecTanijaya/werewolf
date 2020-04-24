@@ -274,7 +274,7 @@ module.exports = {
         SET name = EXCLUDED.name,
             points = EXCLUDED.points + ${user_session.points}
     `;
-    console.log(query)
+    // console.log(query)
     dbClient.query(query).catch(err => {
       console.log("err saveUserData", err);
     });
@@ -302,9 +302,9 @@ module.exports = {
           SET lose = EXCLUDED.lose + 1
       `;
     }
-    console.log(query);
+    // console.log(query);
     dbClient.query(query).then(() => {
-      console.log(userData);
+      // console.log(userData);
       this.saveUserData(userData);
     }).catch(err => {
       console.log("err updateUserData", err);
