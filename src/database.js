@@ -13,11 +13,11 @@ function getAllUserData(team, cb) {
   dbClient.query(query).then(db => {
     console.log(db.rows);
     let user = {
-      id: db.rows[0],
-      name: db.rows[1],
-      points: db.rows[2],
-      totalGame: 0,
-      winRate: 0
+      // id: db.rows[0],
+      // name: db.rows[1],
+      // points: db.rows[2],
+      // totalGame: 0,
+      // winRate: 0
     };
     
     

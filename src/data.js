@@ -288,7 +288,7 @@ module.exports = {
     let query = `INSERT INTO ${userData.winAs}Stats (playerId, win, lose) `;
     if (userData.winAs !== "") {
       query += `
-        VALUES ('${userData.id}', '1', '0')
+        VALUES ('${userData.id}', 1, 0)
         ON CONFLICT(playerId) DO UPDATE
           SET win = EXCLUDED.win + 1
       `;
