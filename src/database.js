@@ -11,6 +11,7 @@ function getAllUserData(team, cb) {
   `;
 
   dbClient.query(query).then(db => {
+    // console.log(db)
     db.rows.forEach(item => {
       let user = {
         id: item.id,
@@ -20,10 +21,51 @@ function getAllUserData(team, cb) {
         winRate: 0
       };
 
-      if ()
+      let stats = {
+        villager: {
+          win: 0,
+          lose: 0
+        },
+        werewolf: {
+          win: 0,
+          lose: 0
+        },
+        vampire: {
+          win: 0,
+          lose: 0
+        },
+        jester: {
+          win: 0,
+          lose: 0
+        },
+        serialKiller: {
+          win: 0,
+          lose: 0
+        },
+        arsonist: {
+          win: 0,
+          lose: 0
+        },
+        survivor: {
+          win: 0,
+          lose: 0
+        },
+        executioner: {
+          win: 0,
+          lose: 0
+        }
+      };
+
+      for (let key in stats) {
+        let team = key[stats].toUpperCase() + key
+        role.name[0].toUpperCase() + role.name.substring(1);
+      }
       
+      let teamStatQuery = `SELECT win, lose FROM `;
+      teamStatQuery += `${team}`;
+      dbClient.query(teamStatQuery);
+
       //
-      
     });
   });
 
