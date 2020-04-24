@@ -2,7 +2,7 @@ const baseUserPath = "/app/.data/users/";
 const fs = require("fs");
 const dbClient = require("/app/src/databaseClient");
 
-function getAllUserData(team, cb) {
+async function getAllUserData(team, cb) {
   const users = [];
   let pending = 0;
   // dbClient.query('DROP TABLE IF EXISTS PlayerStats');
@@ -10,10 +10,11 @@ function getAllUserData(team, cb) {
     SELECT * FROM PlayerStats
   `;
 
-  dbClient.query(query).then(db => {
-    pending = db.rows.length;
-    // console.log(db)
-    db.rows.forEach((item, index) => {
+  let playerData = await dbClient.query(query);
+  
+  playerData.forEach((item, index) => {
+    pending = playerData.rows.length;
+    playerData.rows.forEach((item, index) => {
       let user = {
         id: item.id,
         name: item.name,
@@ -58,41 +59,54 @@ function getAllUserData(team, cb) {
       };
 
       for (let key in stats) {
-        let teamName = key[0].toUpperCase() + key.substring(1);
-        let teamStatQuery = `SELECT win, lose FROM ${teamName}Stats WHERE playerId = '${user.id}';`;
-        // console.log(teamStatQuery)
-        dbClient
-          .query(teamStatQuery)
-          .then(stat => {
-            if (stat.rows.length !== 0) {
-              stats[key].win = stat.rows[0].win;
-              stats[key].lose = stat.rows[0].lose;
-            }
-          })
-          .then(() => {
-            let result = calculateWinLose(team, stats);
-            let totalGame = result.win + result.lose;
-            let winRate = Math.floor((result.win / totalGame) * 100);
-            if (isNaN(winRate)) {
-              winRate = 0;
-            }
+        // let teamName = key[0].toUpperCase() + key.substring(1);
+        // let teamStatQuery = `SELECT win, lose FROM ${teamName}Stats WHERE playerId = '${user.id}';`;
+        
+        // let stat = dbClient.query(teamStatQuery);
+        // if (stat.rows.length !== 0) {
+        //     stats[key].win = stat.rows[0].win;
+        //     stats[key].lose = stat.rows[0].lose;
+        //   }
+      }
 
-            user.totalGame = totalGame;
-            user.winRate = winRate + "%";
-            if (team) {
-              let points = result.win * 5 + result.lose;
-              user.points = points;
-            }
+      let result = calculateWinLose(team, stats);
+      let totalGame = result.win + result.lose;
+      let winRate = Math.floor((result.win / totalGame) * 100);
+      if (isNaN(winRate)) {
+        winRate = 0;
+      }
 
-            users.push(user);
-            if (pending === index + 1) {
-              console.log(users);
-              cb(users);
-            }
-          });
+      user.totalGame = totalGame;
+      user.winRate = winRate + "%";
+      if (team) {
+        let points = result.win * 5 + result.lose;
+        user.points = points;
+      }
+
+      users.push(user);
+      if (pending === index + 1) {
+        console.log(users);
+        cb(users);
       }
     });
-  });
+  })
+  
+}
+
+async function getStat(team, userId) {
+  return Promise ((resolve, reject) => {
+    let teamName = team[0].toUpperCase() + team.substring(1);
+    let teamStatQuery = `SELECT win, lose FROM ${teamName}Stats WHERE playerId = '${userId}';`;
+    dbClient.query(teamStatQuery).then(stat => {
+      if (stat.rows.length !== 0) {
+        let obj = {
+          win: 0,
+          lose: 0
+        }
+        obj.win = st
+      }
+    })
+  })
 }
 
 function calculateWinLose(team, stats) {
