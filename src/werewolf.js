@@ -359,7 +359,7 @@ module.exports = {
 
       if (process.env.TEST === "true") {
         // cp
-        for (let i = 0; i < 12; i++) {
+        for (let i = 0; i < 4; i++) {
           let dummy = JSON.parse(JSON.stringify(this.user_session));
           dummy.name += " " + helper.getRandomInt(1, 99);
           let newPlayer = this.createNewPlayer(dummy);
@@ -3887,14 +3887,9 @@ module.exports = {
       id: user_session.id,
       name: user_session.name,
       points: user_session.points,
-      villagerStats: user_session.villagerStats,
-      werewolfStats: user_session.werewolfStats,
-      vampireStats: user_session.vampireStats,
-      jesterStats: user_session.jesterStats,
-      serialKillerStats: user_session.serialKillerStats,
-      arsonistStats: user_session.arsonistStats,
-      executionerStats: user_session.executionerStats,
-      survivorStats: user_session.survivorStats,
+      winAs: "",
+      loseAs: "",
+      addedPoints: 0,
       role: {
         name: "villager",
         team: "villager"
@@ -3945,63 +3940,13 @@ module.exports = {
   },
 
   increaseWinRate: function(index, roleTeam) {
-    switch (roleTeam) {
-      case "villager":
-        this.group_session.players[index].villagerStats.win++;
-        break;
-      case "werewolf":
-        this.group_session.players[index].werewolfStats.win++;
-        break;
-      case "jester":
-        this.group_session.players[index].jesterStats.win++;
-        break;
-      case "vampire":
-        this.group_session.players[index].vampireStats.win++;
-        break;
-      case "serial-killer":
-        this.group_session.players[index].serialKillerStats.win++;
-        break;
-      case "arsonist":
-        this.group_session.players[index].arsonistStats.win++;
-        break;
-      case "survivor":
-        this.group_session.players[index].survivorStats.win++;
-        break;
-      case "executioner":
-        this.group_session.players[index].executionerStats.win++;
-        break;
-    }
-    this.group_session.players[index].points += 5;
+    this.group_session.players[index].winAs = roleTeam;
+    this.group_session.players[index].addedPoints += 5;
   },
 
   decreaseWinRate: function(index, roleTeam) {
-    switch (roleTeam) {
-      case "villager":
-        this.group_session.players[index].villagerStats.lose++;
-        break;
-      case "werewolf":
-        this.group_session.players[index].werewolfStats.lose++;
-        break;
-      case "jester":
-        this.group_session.players[index].jesterStats.lose++;
-        break;
-      case "vampire":
-        this.group_session.players[index].vampireStats.lose++;
-        break;
-      case "serial-killer":
-        this.group_session.players[index].serialKillerStats.lose++;
-        break;
-      case "arsonist":
-        this.group_session.players[index].arsonistStats.lose++;
-        break;
-      case "survivor":
-        this.group_session.players[index].survivorStats.lose++;
-        break;
-      case "executioner":
-        this.group_session.players[index].executionerStats.lose++;
-        break;
-    }
-    this.group_session.players[index].points += 1;
+    this.group_session.players[index].loseAs = roleTeam;
+    this.group_session.players[index].addedPoints += 1;
   },
 
   getTimeDefault: function(playersLength) {
