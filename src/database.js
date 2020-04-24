@@ -11,7 +11,7 @@ async function getAllUserData(team, cb) {
   `;
 
   let playerData = await dbClient.query(query);
-  
+
   playerData.forEach((item, index) => {
     pending = playerData.rows.length;
     playerData.rows.forEach((item, index) => {
@@ -23,90 +23,89 @@ async function getAllUserData(team, cb) {
         winRate: 0
       };
 
-      let stats = {
-        villager: {
-          win: 0,
-          lose: 0
-        },
-        werewolf: {
-          win: 0,
-          lose: 0
-        },
-        vampire: {
-          win: 0,
-          lose: 0
-        },
-        jester: {
-          win: 0,
-          lose: 0
-        },
-        serialKiller: {
-          win: 0,
-          lose: 0
-        },
-        arsonist: {
-          win: 0,
-          lose: 0
-        },
-        survivor: {
-          win: 0,
-          lose: 0
-        },
-        executioner: {
-          win: 0,
-          lose: 0
+      this.getStats(user.id).then(stats => {
+        let result = calculateWinLose(team, stats);
+        let totalGame = result.win + result.lose;
+        let winRate = Math.floor((result.win / totalGame) * 100);
+        if (isNaN(winRate)) {
+          winRate = 0;
         }
-      };
 
-      for (let key in stats) {
-        // let teamName = key[0].toUpperCase() + key.substring(1);
-        // let teamStatQuery = `SELECT win, lose FROM ${teamName}Stats WHERE playerId = '${user.id}';`;
-        
-        // let stat = dbClient.query(teamStatQuery);
-        // if (stat.rows.length !== 0) {
-        //     stats[key].win = stat.rows[0].win;
-        //     stats[key].lose = stat.rows[0].lose;
-        //   }
-      }
+        user.totalGame = totalGame;
+        user.winRate = winRate + "%";
+        if (team) {
+          let points = result.win * 5 + result.lose;
+          user.points = points;
+        }
 
-      let result = calculateWinLose(team, stats);
-      let totalGame = result.win + result.lose;
-      let winRate = Math.floor((result.win / totalGame) * 100);
-      if (isNaN(winRate)) {
-        winRate = 0;
-      }
-
-      user.totalGame = totalGame;
-      user.winRate = winRate + "%";
-      if (team) {
-        let points = result.win * 5 + result.lose;
-        user.points = points;
-      }
-
-      users.push(user);
-      if (pending === index + 1) {
-        console.log(users);
-        cb(users);
-      }
+        users.push(user);
+        if (pending === index + 1) {
+          console.log(users);
+          cb(users);
+        }
+      });
     });
-  })
-  
+  });
 }
 
-async function getStat(team, userId) {
-  return Promise ((resolve, reject) => {
-    let teamName = team[0].toUpperCase() + team.substring(1);
-    let teamStatQuery = `SELECT win, lose FROM ${teamName}Stats WHERE playerId = '${userId}';`;
-    dbClient.query(teamStatQuery).then(stat => {
-      if (stat.rows.length !== 0) {
-        let obj = {
-          win: 0,
-          lose: 0
-        }
-        obj.win = st
+function getStats(userId) {
+  return Promise((resolve, reject) => {
+    let stats = {
+      villager: {
+        win: 0,
+        lose: 0
+      },
+      werewolf: {
+        win: 0,
+        lose: 0
+      },
+      vampire: {
+        win: 0,
+        lose: 0
+      },
+      jester: {
+        win: 0,
+        lose: 0
+      },
+      serialKiller: {
+        win: 0,
+        lose: 0
+      },
+      arsonist: {
+        win: 0,
+        lose: 0
+      },
+      survivor: {
+        win: 0,
+        lose: 0
+      },
+      executioner: {
+        win: 0,
+        lose: 0
       }
-    })
-  })
+    };
+
+    let cnt = 0;
+    for (let key in stats) {
+      cnt++;
+      let teamName = key[0].toUpperCase() + key.substring(1);
+      let teamStatQuery = `SELECT win, lose FROM ${teamName}Stats WHERE playerId = '${userId}';`;
+      // console.log(teamStatQuery)
+      dbClient.query(teamStatQuery).then(stat => {
+        if (stat.rows.length !== 0) {
+          stats[key].win = stat.rows[0].win;
+          stats[key].lose = stat.rows[0].lose;
+        }
+
+        /// hardcode because our max team is 8
+        let maxTeamCount = 8;
+
+        if (cnt === maxTeamCount) {
+          resolve(stats);
+        }
+      });
+    }
+  });
 }
 
 function calculateWinLose(team, stats) {
