@@ -58,82 +58,41 @@ function getAllUserData(team, cb) {
       };
 
       for (let key in stats) {
-        let teamName = key.toUpperCase() + key.substring(1);
+        let teamName = key[0].toUpperCase() + key.substring(1);
         let teamStatQuery = `SELECT win, lose FROM ${teamName}Stats WHERE playerId = '${user.id}';`;
-        dbClient.query(teamStatQuery).then(stat => {
-          stats[key].win = stat.rows[0].win;
-          stats[key].lose = stat.rows[0].lose;
-        });
-      }
+        // console.log(teamStatQuery)
+        dbClient
+          .query(teamStatQuery)
+          .then(stat => {
+            if (stat.rows.length !== 0) {
+              stats[key].win = stat.rows[0].win;
+              stats[key].lose = stat.rows[0].lose;
+            }
+          })
+          .then(() => {
+            let result = calculateWinLose(team, stats);
+            let totalGame = result.win + result.lose;
+            let winRate = Math.floor((result.win / totalGame) * 100);
+            if (isNaN(winRate)) {
+              winRate = 0;
+            }
 
-      let result = calculateWinLose(team, stats);
-      let totalGame = result.win + result.lose;
-      let winRate = Math.floor((result.win / totalGame) * 100);
-      if (isNaN(winRate)) {
-        winRate = 0;
-      }
+            user.totalGame = totalGame;
+            user.winRate = winRate + "%";
+            if (team) {
+              let points = result.win * 5 + result.lose;
+              user.points = points;
+            }
 
-      user.totalGame = totalGame;
-      user.winRate = winRate + "%";
-      if (team) {
-        let points = result.win * 5 + result.lose;
-        user.points = points;
-      }
-
-      users.push(user);
-      if (pending === index + 1) {
-        cb(users);
+            users.push(user);
+            if (pending === index + 1) {
+              console.log(users);
+              cb(users);
+            }
+          });
       }
     });
   });
-
-  //   fs.readdir(baseUserPath, (err, list) => {
-  //     if (err) throw err;
-  //     pending = list.length;
-  //     list.forEach((item, index) => {
-  //       if (item.includes("user")) {
-  //         fs.readFile(baseUserPath + item, (err, data) => {
-  //           let rawUser = JSON.parse(data);
-
-  //           let stats = {
-  //             villager: rawUser.villagerStats,
-  //             werewolf: rawUser.werewolfStats,
-  //             vampire: rawUser.vampireStats,
-  //             jester: rawUser.jesterStats,
-  //             serialKiller: rawUser.serialKillerStats,
-  //             arsonist: rawUser.arsonistStats,
-  //             survivor: rawUser.survivorStats,
-  //             executioner: rawUser.executionerStats
-  //           };
-
-  //           let result = calculateWinLose(team, stats);
-  //           let totalGame = result.win + result.lose;
-  //           let winRate = Math.floor((result.win / totalGame) * 100);
-  //           if (isNaN(winRate)) {
-  //             winRate = 0;
-  //           }
-
-  //           let user = {
-  //             id: rawUser.id,
-  //             name: rawUser.name,
-  //             points: rawUser.points,
-  //             totalGame: totalGame,
-  //             winRate: winRate + "%"
-  //           };
-
-  //           if (team) {
-  //             let points = result.win * 5 + result.lose;
-  //             user.points = points;
-  //           }
-
-  //           users.push(user);
-  //           if (pending === index + 1) {
-  //             cb(users);
-  //           }
-  //         });
-  //       }
-  //     });
-  //   });
 }
 
 function calculateWinLose(team, stats) {
