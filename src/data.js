@@ -1,4 +1,3 @@
-const fs = require("fs");
 const helper = require("/app/helper");
 const CronJob = require("cron").CronJob;
 
