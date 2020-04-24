@@ -3940,11 +3940,17 @@ module.exports = {
   },
 
   increaseWinRate: function(index, roleTeam) {
+    if (roleTeam === "serial-killer") {
+      roleTeam = "serialKiller"
+    }
     this.group_session.players[index].winAs = roleTeam;
     this.group_session.players[index].addedPoints += 5;
   },
 
   decreaseWinRate: function(index, roleTeam) {
+    if (roleTeam === "serial-killer") {
+      roleTeam = "serialKiller"
+    }
     this.group_session.players[index].loseAs = roleTeam;
     this.group_session.players[index].addedPoints += 1;
   },
