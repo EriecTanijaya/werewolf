@@ -19,6 +19,9 @@ dbClient
   dbClient.query('CREATE TABLE IF NOT EXISTS SurvivorStats (playerId text, win integer, lose integer);');
   dbClient.query('CREATE TABLE IF NOT EXISTS ExecutionerStats (playerId text, win integer, lose integer);');
   
+  // dbClient.query(`SELECT * FROM VillagerStats;`).then((res) => {
+  //   console.log(res.rows);
+  // });
   // dbClient.query(`DROP TABLE IF EXISTS PlayerStats;`);
   })
   .catch(err => {
