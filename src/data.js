@@ -295,12 +295,13 @@ module.exports = {
   /** save data func **/
 
   saveUserData: function(user_session) {
-    let path = "/app/.data/users/" + user_session.id + "_user.json";
-    let data = JSON.stringify(user_session, null, 2);
-    fs.writeFile(path, data, err => {
-      if (err) throw err;
-      this.resetUser(user_session.id);
-    });
+    // let path = "/app/.data/users/" + user_session.id + "_user.json";
+    // let data = JSON.stringify(user_session, null, 2);
+    // fs.writeFile(path, data, err => {
+    //   if (err) throw err;
+    //   this.resetUser(user_session.id);
+    // });
+    //dbClient.query()
   },
 
   getUserData: function(id, newUserData) {
