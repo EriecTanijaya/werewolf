@@ -12,44 +12,41 @@ async function getAllUserData(team, cb) {
 
   let playerData = await dbClient.query(query);
 
-  playerData.forEach((item, index) => {
-    pending = playerData.rows.length;
-    playerData.rows.forEach((item, index) => {
-      let user = {
-        id: item.id,
-        name: item.name,
-        points: item.points,
-        totalGame: 0,
-        winRate: 0
-      };
+  pending = playerData.rows.length;
+  playerData.rows.forEach((item, index) => {
+    let user = {
+      id: item.id,
+      name: item.name,
+      points: item.points,
+      totalGame: 0,
+      winRate: 0
+    };
 
-      this.getStats(user.id).then(stats => {
-        let result = calculateWinLose(team, stats);
-        let totalGame = result.win + result.lose;
-        let winRate = Math.floor((result.win / totalGame) * 100);
-        if (isNaN(winRate)) {
-          winRate = 0;
-        }
+    getStats(user.id).then(stats => {
+      let result = calculateWinLose(team, stats);
+      let totalGame = result.win + result.lose;
+      let winRate = Math.floor((result.win / totalGame) * 100);
+      if (isNaN(winRate)) {
+        winRate = 0;
+      }
 
-        user.totalGame = totalGame;
-        user.winRate = winRate + "%";
-        if (team) {
-          let points = result.win * 5 + result.lose;
-          user.points = points;
-        }
+      user.totalGame = totalGame;
+      user.winRate = winRate + "%";
+      if (team) {
+        let points = result.win * 5 + result.lose;
+        user.points = points;
+      }
 
-        users.push(user);
-        if (pending === index + 1) {
-          console.log(users);
-          cb(users);
-        }
-      });
+      users.push(user);
+      if (pending === index + 1) {
+        cb(users);
+      }
     });
   });
 }
 
 function getStats(userId) {
-  return Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     let stats = {
       villager: {
         win: 0,
@@ -90,7 +87,6 @@ function getStats(userId) {
       cnt++;
       let teamName = key[0].toUpperCase() + key.substring(1);
       let teamStatQuery = `SELECT win, lose FROM ${teamName}Stats WHERE playerId = '${userId}';`;
-      // console.log(teamStatQuery)
       dbClient.query(teamStatQuery).then(stat => {
         if (stat.rows.length !== 0) {
           stats[key].win = stat.rows[0].win;
