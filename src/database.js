@@ -26,6 +26,7 @@ async function getAllUserData(team, cb) {
       let result = calculateWinLose(team, stats);
       let totalGame = result.win + result.lose;
       let winRate = Math.floor((result.win / totalGame) * 100);
+      
       if (isNaN(winRate)) {
         winRate = 0;
       }

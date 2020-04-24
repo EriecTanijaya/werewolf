@@ -22,7 +22,7 @@ dbClient
   // dbClient.query(`SELECT * FROM VillagerStats;`).then((res) => {
   //   console.log(res.rows);
   // });
-  // dbClient.query(`DROP TABLE IF EXISTS WerewolfStats;`);
+  // dbClient.query(`DROP TABLE IF EXISTS SerialKillerStats;`);
   })
   .catch(err => {
     console.log("error connect to database", err);
