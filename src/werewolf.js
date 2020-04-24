@@ -3945,32 +3945,7 @@ module.exports = {
   },
 
   increaseWinRate: function(index, roleTeam) {
-    switch (roleTeam) {
-      case "villager":
-        this.group_session.players[index].villagerStats.win++;
-        break;
-      case "werewolf":
-        this.group_session.players[index].werewolfStats.win++;
-        break;
-      case "jester":
-        this.group_session.players[index].jesterStats.win++;
-        break;
-      case "vampire":
-        this.group_session.players[index].vampireStats.win++;
-        break;
-      case "serial-killer":
-        this.group_session.players[index].serialKillerStats.win++;
-        break;
-      case "arsonist":
-        this.group_session.players[index].arsonistStats.win++;
-        break;
-      case "survivor":
-        this.group_session.players[index].survivorStats.win++;
-        break;
-      case "executioner":
-        this.group_session.players[index].executionerStats.win++;
-        break;
-    }
+    this.group_session.players[index].winAs = roleTeam;
     this.group_session.players[index].points += 5;
   },
 

@@ -57,39 +57,10 @@ module.exports = {
         name: "",
         state: "inactive",
         groupId: "",
-        points: 0,
-        villagerStats: {
-          win: 0,
-          lose: 0
-        },
-        werewolfStats: {
-          win: 0,
-          lose: 0
-        },
-        vampireStats: {
-          win: 0,
-          lose: 0
-        },
-        jesterStats: {
-          win: 0,
-          lose: 0
-        },
-        serialKillerStats: {
-          win: 0,
-          lose: 0
-        },
-        arsonistStats: {
-          win: 0,
-          lose: 0
-        },
-        survivorStats: {
-          win: 0,
-          lose: 0
-        },
-        executionerStats: {
-          win: 0,
-          lose: 0
-        }
+        // this for database
+        winAs: "",
+        loseAs: "",
+        addedPoints: 0
       };
       user_sessions[id] = newUser;
     }
@@ -141,7 +112,7 @@ module.exports = {
       // console.log(logText);
       if (user_session.id !== process.env.DEV_ID) {
         // semua grup ga bisa
-        //return this.maintenanceRespond();
+        return this.maintenanceRespond();
 
         // buat khusus test grup aja
         if (groupId !== process.env.TEST_GROUP) {
