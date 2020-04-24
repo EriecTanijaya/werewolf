@@ -359,7 +359,7 @@ module.exports = {
 
       if (process.env.TEST === "true") {
         // cp
-        for (let i = 0; i < 12; i++) {
+        for (let i = 0; i < 4; i++) {
           let dummy = JSON.parse(JSON.stringify(this.user_session));
           dummy.name += " " + helper.getRandomInt(1, 99);
           let newPlayer = this.createNewPlayer(dummy);
@@ -3887,14 +3887,9 @@ module.exports = {
       id: user_session.id,
       name: user_session.name,
       points: user_session.points,
-      villagerStats: user_session.villagerStats,
-      werewolfStats: user_session.werewolfStats,
-      vampireStats: user_session.vampireStats,
-      jesterStats: user_session.jesterStats,
-      serialKillerStats: user_session.serialKillerStats,
-      arsonistStats: user_session.arsonistStats,
-      executionerStats: user_session.executionerStats,
-      survivorStats: user_session.survivorStats,
+      winAs: "",
+      loseAs: "",
+      addedPoints: 0,
       role: {
         name: "villager",
         team: "villager"
