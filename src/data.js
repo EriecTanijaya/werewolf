@@ -267,15 +267,9 @@ module.exports = {
   /** save data func **/
 
   saveUserData: function(user_session) {
-    // let path = "/app/.data/users/" + user_session.id + "_user.json";
-    // let data = JSON.stringify(user_session, null, 2);
-    // fs.writeFile(path, data, err => {
-    //   if (err) throw err;
-    //   this.resetUser(user_session.id);
-    // });
     let query = `
       INSERT INTO PlayerStats (id, name, points) 
-      VALUES (${user_session.id}, ${user_session.name}, ${user_session.points})
+      VALUES ('${user_session.id}', '${user_session.name}', '${user_session.points}')
       ON CONFLICT(id) DO UPDATE
         SET name = EXCLUDED.name,
             points = EXCLUDED.points
@@ -293,15 +287,25 @@ module.exports = {
     
     // let query = `
     //   INSERT INTO PlayerStats (id, name, points) 
-    //   VALUES (${user_session.id}, ${user_session.name}, ${user_session.points})
+    //   VALUES ('${user_session.id}', '${user_session.name}', '${user_session.points}')
     //   ON CONFLICT(id) DO UPDATE
     //     SET name = EXCLUDED.name,
     //         points = EXCLUDED.points
     // `;
-    let query = `INSERT INTO ' + userData.winAs + 'Stats (playerId, win, lose) ` ;
-    query += ``
-    
-    
+    let query = `INSERT INTO ${userData.winAs}Stats (playerId, win, lose) ` ;
+    if (userData.winAs !== "") {
+      query += `
+        VALUES ('${userData.id}', '1', '0')
+        ON CONFLICT(playerId) DO UPDATE
+          SET win = EXCLUDED.win + 1
+      `
+    } else {
+      query += `
+        VALUES (${userData.id}, 0, 1)
+        ON CONFLICT(playerId) DO UPDATE
+          SET lose = EXCLUDED.lose + 1
+      `
+    }
     
     this.saveUserData(userData);
   },
