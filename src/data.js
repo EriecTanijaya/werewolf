@@ -285,14 +285,16 @@ module.exports = {
       userData.points = 0;
     }
 
-    let query = `INSERT INTO ${userData.winAs}Stats (playerId, win, lose) `;
+    let query = ``;
     if (userData.winAs !== "") {
+      query += `INSERT INTO ${userData.winAs}Stats (playerId, win, lose) `;
       query += `
         VALUES ('${userData.id}', 1, 0)
         ON CONFLICT(playerId) DO UPDATE
           SET win = EXCLUDED.win + 1
       `;
     } else {
+      query += `INSERT INTO ${userData.loseAs}Stats (playerId, win, lose) `;
       query += `
         VALUES (${userData.id}, 0, 1)
         ON CONFLICT(playerId) DO UPDATE
