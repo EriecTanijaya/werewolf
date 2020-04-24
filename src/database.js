@@ -15,8 +15,13 @@ function getAllUserData(team, cb) {
     let user = {
       id: db.rows[0],
       name: db.rows[1],
-      
-    }
+      points: db.rows[2],
+      totalGame: 0,
+      winRate: 0
+    };
+    
+    
+    
   });
 
   //   fs.readdir(baseUserPath, (err, list) => {
