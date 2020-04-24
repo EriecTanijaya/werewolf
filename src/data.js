@@ -284,29 +284,25 @@ module.exports = {
     if (userData.points < 0) {
       userData.points = 0;
     }
-    
-    // let query = `
-    //   INSERT INTO PlayerStats (id, name, points) 
-    //   VALUES ('${user_session.id}', '${user_session.name}', '${user_session.points}')
-    //   ON CONFLICT(id) DO UPDATE
-    //     SET name = EXCLUDED.name,
-    //         points = EXCLUDED.points
-    // `;
-    let query = `INSERT INTO ${userData.winAs}Stats (playerId, win, lose) ` ;
+
+    let query = `INSERT INTO ${userData.winAs}Stats (playerId, win, lose) `;
     if (userData.winAs !== "") {
       query += `
         VALUES ('${userData.id}', '1', '0')
         ON CONFLICT(playerId) DO UPDATE
           SET win = EXCLUDED.win + 1
-      `
+      `;
     } else {
       query += `
         VALUES (${userData.id}, 0, 1)
         ON CONFLICT(playerId) DO UPDATE
           SET lose = EXCLUDED.lose + 1
-      `
+      `;
     }
-    
+    dbClient.query(query).catch(err => {
+      console.log("err updateUserData", err);
+    });
+
     this.saveUserData(userData);
   },
 

@@ -1,9 +1,18 @@
 const baseUserPath = "/app/.data/users/";
 const fs = require("fs");
+const dbClient = require("/app/src/databaseClient");
 
 function getAllUserData(team, cb) {
   const users = [];
   let pending = 0;
+  
+  
+  
+  dbClient.query()
+    .then(db => {
+    
+  })
+  
   fs.readdir(baseUserPath, (err, list) => {
     if (err) throw err;
     pending = list.length;
