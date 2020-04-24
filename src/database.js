@@ -24,6 +24,11 @@ async function getAllUserData(team, cb) {
 
     getStats(user.id).then(stats => {
       let result = calculateWinLose(team, stats);
+      
+      if (user.id === "U83caf7c21caa4cb90f5c616e0ef85e3a") {
+        console.log(result)
+      }
+      
       let totalGame = result.win + result.lose;
       let winRate = Math.floor((result.win / totalGame) * 100);
       
@@ -37,6 +42,7 @@ async function getAllUserData(team, cb) {
         let points = result.win * 5 + result.lose;
         user.points = points;
       }
+      
 
       users.push(user);
       if (pending === index + 1) {
@@ -90,6 +96,7 @@ function getStats(userId) {
       let teamStatQuery = `SELECT win, lose FROM ${teamName}Stats WHERE playerId = '${userId}';`;
       dbClient.query(teamStatQuery).then(stat => {
         if (stat.rows.length !== 0) {
+          //console.log(`${userId} : win ${stat.rows[0].win}, lose ${stat.rows[0].lose}`);
           stats[key].win = stat.rows[0].win;
           stats[key].lose = stat.rows[0].lose;
         }
