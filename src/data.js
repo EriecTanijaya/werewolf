@@ -2,6 +2,9 @@ const fs = require("fs");
 const helper = require("/app/helper");
 const CronJob = require("cron").CronJob;
 
+// database
+const dbClient = require("/app/src/databaseClient");
+
 // game storage
 const group_sessions = {};
 const user_sessions = {};
