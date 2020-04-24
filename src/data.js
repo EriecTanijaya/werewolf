@@ -269,7 +269,7 @@ module.exports = {
   saveUserData: function(user_session) {
     let query = `
       INSERT INTO PlayerStats (id, name, points) 
-      VALUES ('${user_session.id}', '${user_session.name}', '${user_session.points}')
+      VALUES ('${user_session.id}', '${user_session.name}', ${user_session.points})
       ON CONFLICT(id) DO UPDATE
         SET name = EXCLUDED.name,
             points = EXCLUDED.points
@@ -301,11 +301,11 @@ module.exports = {
           SET lose = EXCLUDED.lose + 1
       `;
     }
-    dbClient.query(query).catch(err => {
+    dbClient.query(query).then(() => {
+      this.saveUserData(userData);
+    }).catch(err => {
       console.log("err updateUserData", err);
     });
-
-    this.saveUserData(userData);
   },
 
   resetAllPlayers: function(players, groupId) {
