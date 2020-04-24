@@ -23,15 +23,14 @@ async function getAllUserData(team, cb) {
     };
 
     getStats(user.id).then(stats => {
-      let result = calculateWinLose(team, stats);
-      
       if (user.id === "U83caf7c21caa4cb90f5c616e0ef85e3a") {
-        console.log(result)
+        //console.log(stats);
       }
-      
+      let result = calculateWinLose(team, stats);
+
       let totalGame = result.win + result.lose;
       let winRate = Math.floor((result.win / totalGame) * 100);
-      
+
       if (isNaN(winRate)) {
         winRate = 0;
       }
@@ -42,7 +41,6 @@ async function getAllUserData(team, cb) {
         let points = result.win * 5 + result.lose;
         user.points = points;
       }
-      
 
       users.push(user);
       if (pending === index + 1) {
@@ -53,42 +51,42 @@ async function getAllUserData(team, cb) {
 }
 
 function getStats(userId) {
-  return new Promise((resolve, reject) => {
-    let stats = {
-      villager: {
-        win: 0,
-        lose: 0
-      },
-      werewolf: {
-        win: 0,
-        lose: 0
-      },
-      vampire: {
-        win: 0,
-        lose: 0
-      },
-      jester: {
-        win: 0,
-        lose: 0
-      },
-      serialKiller: {
-        win: 0,
-        lose: 0
-      },
-      arsonist: {
-        win: 0,
-        lose: 0
-      },
-      survivor: {
-        win: 0,
-        lose: 0
-      },
-      executioner: {
-        win: 0,
-        lose: 0
-      }
-    };
+  let stats = {
+    villager: {
+      win: 0,
+      lose: 0
+    },
+    werewolf: {
+      win: 0,
+      lose: 0
+    },
+    vampire: {
+      win: 0,
+      lose: 0
+    },
+    jester: {
+      win: 0,
+      lose: 0
+    },
+    serialKiller: {
+      win: 0,
+      lose: 0
+    },
+    arsonist: {
+      win: 0,
+      lose: 0
+    },
+    survivor: {
+      win: 0,
+      lose: 0
+    },
+    executioner: {
+      win: 0,
+      lose: 0
+    }
+  };
 
+  return new Promise((resolve, reject) => {
     let cnt = 0;
     for (let key in stats) {
       cnt++;
@@ -105,6 +103,12 @@ function getStats(userId) {
         let maxTeamCount = 8;
 
         if (cnt === maxTeamCount) {
+          if (userId === "U83caf7c21caa4cb90f5c616e0ef85e3a") {
+            if (key === "werewolf") {
+              console.log(stats);
+            }
+            
+          }
           resolve(stats);
         }
       });
