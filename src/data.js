@@ -113,7 +113,7 @@ module.exports = {
       // console.log(logText);
       if (user_session.id !== process.env.DEV_ID) {
         // semua grup ga bisa
-        return this.maintenanceRespond();
+        //return this.maintenanceRespond();
 
         // buat khusus test grup aja
         if (groupId !== process.env.TEST_GROUP) {
@@ -285,14 +285,16 @@ module.exports = {
       userData.points = 0;
     }
 
-    let query = `INSERT INTO ${userData.winAs}Stats (playerId, win, lose) `;
+    let query = ``;
     if (userData.winAs !== "") {
+      query += `INSERT INTO ${userData.winAs}Stats (playerId, win, lose) `;
       query += `
         VALUES ('${userData.id}', 1, 0)
         ON CONFLICT(playerId) DO UPDATE
           SET win = EXCLUDED.win + 1
       `;
     } else {
+      query += `INSERT INTO ${userData.loseAs}Stats (playerId, win, lose) `;
       query += `
         VALUES (${userData.id}, 0, 1)
         ON CONFLICT(playerId) DO UPDATE
