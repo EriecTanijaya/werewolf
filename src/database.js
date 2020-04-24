@@ -1,11 +1,8 @@
-const baseUserPath = "/app/.data/users/";
-const fs = require("fs");
 const dbClient = require("/app/src/databaseClient");
 
 async function getAllUserData(team, cb) {
   const users = [];
   let pending = 0;
-  // dbClient.query('DROP TABLE IF EXISTS PlayerStats');
   let query = `
     SELECT * FROM PlayerStats
   `;
@@ -23,10 +20,7 @@ async function getAllUserData(team, cb) {
     };
 
     getStats(user.id).then(stats => {
-      if (user.id === "U83caf7c21caa4cb90f5c616e0ef85e3a") {
-        //console.log(stats);
-      }
-      let result = calculateWinLose(team, stats);
+      let result = calculateWinLose(team, stats, user.id);
 
       let totalGame = result.win + result.lose;
       let winRate = Math.floor((result.win / totalGame) * 100);
@@ -51,50 +45,49 @@ async function getAllUserData(team, cb) {
 }
 
 function getStats(userId) {
-  let stats = {
-    villager: {
-      win: 0,
-      lose: 0
-    },
-    werewolf: {
-      win: 0,
-      lose: 0
-    },
-    vampire: {
-      win: 0,
-      lose: 0
-    },
-    jester: {
-      win: 0,
-      lose: 0
-    },
-    serialKiller: {
-      win: 0,
-      lose: 0
-    },
-    arsonist: {
-      win: 0,
-      lose: 0
-    },
-    survivor: {
-      win: 0,
-      lose: 0
-    },
-    executioner: {
-      win: 0,
-      lose: 0
-    }
-  };
-
   return new Promise((resolve, reject) => {
+    let stats = {
+      villager: {
+        win: 0,
+        lose: 0
+      },
+      werewolf: {
+        win: 0,
+        lose: 0
+      },
+      vampire: {
+        win: 0,
+        lose: 0
+      },
+      jester: {
+        win: 0,
+        lose: 0
+      },
+      serialKiller: {
+        win: 0,
+        lose: 0
+      },
+      arsonist: {
+        win: 0,
+        lose: 0
+      },
+      survivor: {
+        win: 0,
+        lose: 0
+      },
+      executioner: {
+        win: 0,
+        lose: 0
+      }
+    };
     let cnt = 0;
     for (let key in stats) {
-      cnt++;
       let teamName = key[0].toUpperCase() + key.substring(1);
       let teamStatQuery = `SELECT win, lose FROM ${teamName}Stats WHERE playerId = '${userId}';`;
+
       dbClient.query(teamStatQuery).then(stat => {
+        cnt++;
         if (stat.rows.length !== 0) {
-          //console.log(`${userId} : win ${stat.rows[0].win}, lose ${stat.rows[0].lose}`);
           stats[key].win = stat.rows[0].win;
           stats[key].lose = stat.rows[0].lose;
         }
@@ -103,12 +96,6 @@ function getStats(userId) {
         let maxTeamCount = 8;
 
         if (cnt === maxTeamCount) {
-          if (userId === "U83caf7c21caa4cb90f5c616e0ef85e3a") {
-            if (key === "werewolf") {
-              console.log(stats);
-            }
-            
-          }
           resolve(stats);
         }
       });
