@@ -301,7 +301,16 @@ module.exports = {
     //   if (err) throw err;
     //   this.resetUser(user_session.id);
     // });
-    //dbClient.query()
+    let query = `
+      INSERT INTO PlayerStats (id, name, points) 
+      VALUES (${user_session.id}, ${user_session.name}, ${user_session.points})
+      ON CONFLICT(id) DO UPDATE
+        SET name = EXCLUDED.name,
+            points = EXCLUDED.points
+    `;
+    dbClient.query(query).catch(err => {
+      console.log("err saveUserData", err);
+    });
   },
 
   getUserData: function(id, newUserData) {
