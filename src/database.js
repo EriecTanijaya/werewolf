@@ -6,60 +6,62 @@ function getAllUserData(team, cb) {
   const users = [];
   let pending = 0;
   
+  let query = `
+    SELECT * FROM PlayerStats
+  `;
   
-  
-  dbClient.query()
+  dbClient.query(query)
     .then(db => {
-    
+      console.log(db);
   })
   
-  fs.readdir(baseUserPath, (err, list) => {
-    if (err) throw err;
-    pending = list.length;
-    list.forEach((item, index) => {
-      if (item.includes("user")) {
-        fs.readFile(baseUserPath + item, (err, data) => {
-          let rawUser = JSON.parse(data);
+//   fs.readdir(baseUserPath, (err, list) => {
+//     if (err) throw err;
+//     pending = list.length;
+//     list.forEach((item, index) => {
+//       if (item.includes("user")) {
+//         fs.readFile(baseUserPath + item, (err, data) => {
+//           let rawUser = JSON.parse(data);
 
-          let stats = {
-            villager: rawUser.villagerStats,
-            werewolf: rawUser.werewolfStats,
-            vampire: rawUser.vampireStats,
-            jester: rawUser.jesterStats,
-            serialKiller: rawUser.serialKillerStats,
-            arsonist: rawUser.arsonistStats,
-            survivor: rawUser.survivorStats,
-            executioner: rawUser.executionerStats
-          };
+//           let stats = {
+//             villager: rawUser.villagerStats,
+//             werewolf: rawUser.werewolfStats,
+//             vampire: rawUser.vampireStats,
+//             jester: rawUser.jesterStats,
+//             serialKiller: rawUser.serialKillerStats,
+//             arsonist: rawUser.arsonistStats,
+//             survivor: rawUser.survivorStats,
+//             executioner: rawUser.executionerStats
+//           };
 
-          let result = calculateWinLose(team, stats);
-          let totalGame = result.win + result.lose;
-          let winRate = Math.floor((result.win / totalGame) * 100);
-          if (isNaN(winRate)) {
-            winRate = 0;
-          }
+//           let result = calculateWinLose(team, stats);
+//           let totalGame = result.win + result.lose;
+//           let winRate = Math.floor((result.win / totalGame) * 100);
+//           if (isNaN(winRate)) {
+//             winRate = 0;
+//           }
 
-          let user = {
-            id: rawUser.id,
-            name: rawUser.name,
-            points: rawUser.points,
-            totalGame: totalGame,
-            winRate: winRate + "%"
-          };
+//           let user = {
+//             id: rawUser.id,
+//             name: rawUser.name,
+//             points: rawUser.points,
+//             totalGame: totalGame,
+//             winRate: winRate + "%"
+//           };
 
-          if (team) {
-            let points = result.win * 5 + result.lose;
-            user.points = points;
-          }
+//           if (team) {
+//             let points = result.win * 5 + result.lose;
+//             user.points = points;
+//           }
 
-          users.push(user);
-          if (pending === index + 1) {
-            cb(users);
-          }
-        });
-      }
-    });
-  });
+//           users.push(user);
+//           if (pending === index + 1) {
+//             cb(users);
+//           }
+//         });
+//       }
+//     });
+//   });
 }
 
 function calculateWinLose(team, stats) {
