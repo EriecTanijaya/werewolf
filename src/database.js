@@ -11,8 +11,9 @@ function getAllUserData(team, cb) {
   `;
 
   dbClient.query(query).then(db => {
+    pending = db.rows.length;
     // console.log(db)
-    db.rows.forEach(item => {
+    db.rows.forEach((item, index) => {
       let user = {
         id: item.id,
         name: item.name,
@@ -57,15 +58,32 @@ function getAllUserData(team, cb) {
       };
 
       for (let key in stats) {
-        let team = key[stats].toUpperCase() + key
-        role.name[0].toUpperCase() + role.name.substring(1);
+        let teamName = key.toUpperCase() + key.substring(1);
+        let teamStatQuery = `SELECT win, lose FROM ${teamName}Stats WHERE playerId = '${user.id}';`;
+        dbClient.query(teamStatQuery).then(stat => {
+          stats[key].win = stat.rows[0].win;
+          stats[key].lose = stat.rows[0].lose;
+        });
       }
-      
-      let teamStatQuery = `SELECT win, lose FROM `;
-      teamStatQuery += `${team}`;
-      dbClient.query(teamStatQuery);
 
-      //
+      let result = calculateWinLose(team, stats);
+      let totalGame = result.win + result.lose;
+      let winRate = Math.floor((result.win / totalGame) * 100);
+      if (isNaN(winRate)) {
+        winRate = 0;
+      }
+
+      user.totalGame = totalGame;
+      user.winRate = winRate + "%";
+      if (team) {
+        let points = result.win * 5 + result.lose;
+        user.points = points;
+      }
+
+      users.push(user);
+      if (pending === index + 1) {
+        cb(users);
+      }
     });
   });
 
