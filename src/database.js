@@ -11,17 +11,20 @@ function getAllUserData(team, cb) {
   `;
 
   dbClient.query(query).then(db => {
-    console.log(db.rows);
-    let user = {
-      // id: db.rows[0],
-      // name: db.rows[1],
-      // points: db.rows[2],
-      // totalGame: 0,
-      // winRate: 0
-    };
-    
-    
-    
+    db.rows.forEach(item => {
+      let user = {
+        id: item.id,
+        name: item.name,
+        points: item.points,
+        totalGame: 0,
+        winRate: 0
+      };
+
+      if ()
+      
+      //
+      
+    });
   });
 
   //   fs.readdir(baseUserPath, (err, list) => {
