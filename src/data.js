@@ -57,6 +57,7 @@ module.exports = {
         name: "",
         state: "inactive",
         groupId: "",
+        points: 0,
         // this for database
         winAs: "",
         loseAs: "",
@@ -284,54 +285,25 @@ module.exports = {
     });
   },
 
-  getUserData: function(id, newUserData) {
-    const baseUserPath = "/app/.data/users/";
-    let userPath = baseUserPath + id + "_user.json";
-    let user_session = {};
-    fs.readFile(userPath, "utf8", (err, data) => {
-      if (err) {
-        // use the apa adanya user_session
-        this.saveUserData(newUserData);
-      } else {
-        user_session = JSON.parse(data);
-        this.updateUserData(user_session, newUserData);
-      }
-    });
-  },
-
-  updateUserData: function(oldUserData, newUserData) {
-    oldUserData.name = newUserData.name;
-
-    oldUserData.points += newUserData.points;
-    if (oldUserData.points < 0) {
-      oldUserData.points = 0;
+  updateUserData: function(userId, userData) {
+    userData.points += userData.addedPoints;
+    if (userData.points < 0) {
+      userData.points = 0;
     }
-
-    oldUserData.villagerStats.win += newUserData.villagerStats.win;
-    oldUserData.villagerStats.lose += newUserData.villagerStats.lose;
-
-    oldUserData.werewolfStats.win += newUserData.werewolfStats.win;
-    oldUserData.werewolfStats.lose += newUserData.werewolfStats.lose;
-
-    oldUserData.vampireStats.win += newUserData.vampireStats.win;
-    oldUserData.vampireStats.lose += newUserData.vampireStats.lose;
-
-    oldUserData.jesterStats.win += newUserData.jesterStats.win;
-    oldUserData.jesterStats.lose += newUserData.jesterStats.lose;
-
-    oldUserData.serialKillerStats.win += newUserData.serialKillerStats.win;
-    oldUserData.serialKillerStats.lose += newUserData.serialKillerStats.lose;
-
-    oldUserData.arsonistStats.win += newUserData.arsonistStats.win;
-    oldUserData.arsonistStats.lose += newUserData.arsonistStats.lose;
-
-    oldUserData.survivorStats.win += newUserData.survivorStats.win;
-    oldUserData.survivorStats.lose += newUserData.survivorStats.lose;
-
-    oldUserData.executionerStats.win += newUserData.executionerStats.win;
-    oldUserData.executionerStats.lose += newUserData.executionerStats.lose;
-
-    this.saveUserData(oldUserData);
+    
+    // let query = `
+    //   INSERT INTO PlayerStats (id, name, points) 
+    //   VALUES (${user_session.id}, ${user_session.name}, ${user_session.points})
+    //   ON CONFLICT(id) DO UPDATE
+    //     SET name = EXCLUDED.name,
+    //         points = EXCLUDED.points
+    // `;
+    let query = `INSERT INTO ' + userData.winAs + 'Stats (playerId, win, lose) ` ;
+    query += ``
+    
+    
+    
+    this.saveUserData(userData);
   },
 
   resetAllPlayers: function(players, groupId) {
@@ -340,17 +312,12 @@ module.exports = {
         id: item.id,
         name: item.name,
         points: item.points,
-        villagerStats: item.villagerStats,
-        werewolfStats: item.werewolfStats,
-        vampireStats: item.vampireStats,
-        jesterStats: item.jesterStats,
-        serialKillerStats: item.serialKillerStats,
-        arsonistStats: item.arsonistStats,
-        survivorStats: item.survivorStats,
-        executionerStats: item.executionerStats
+        addedPoints: item.addedPoints,
+        winAs: item.winAs,
+        loseAs: item.loseAs
       };
 
-      this.getUserData(item.id, reset_player);
+      this.updateUserData(item.id, reset_player);
     });
 
     //this.resetRoom(groupId);
