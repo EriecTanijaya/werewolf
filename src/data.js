@@ -112,7 +112,7 @@ module.exports = {
       // console.log(logText);
       if (user_session.id !== process.env.DEV_ID) {
         // semua grup ga bisa
-        return this.maintenanceRespond();
+        //return this.maintenanceRespond();
 
         // buat khusus test grup aja
         if (groupId !== process.env.TEST_GROUP) {
@@ -206,21 +206,20 @@ module.exports = {
   maintenanceRespond: async function() {
     let groupId = "";
     let userId = this.event.source.userId;
-    // let text = "👋 Sorry ";
-    let text = "Eh kenapa ini? https://bit.ly/3539pOB"
+    let text = "👋 Sorry ";
     let addonText =
       "💡 Untuk info lebih lanjut bisa cek di http://bit.ly/openchatww";
     try {
       if (this.event.source.type === "group") {
         let groupId = this.event.source.groupId;
         let profile = await this.client.getGroupMemberProfile(groupId, userId);
-        // text += profile.displayName;
+        text += profile.displayName;
       } else if (this.event.source.type === "room") {
         let groupId = this.event.source.roomId;
         let profile = await this.client.getRoomMemberProfile(groupId, userId);
-        // text += profile.displayName;
+        text += profile.displayName;
       }
-      // text += ", botnya sedang maintenance. " + addonText;
+      text += ", botnya sedang maintenance. " + addonText;
       return this.replyText(text);
     } catch (err) {
       console.log("maintenanceRespond error", err.originalError.response.data);
