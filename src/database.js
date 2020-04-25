@@ -1,8 +1,11 @@
+const baseUserPath = "/app/.data/users/";
+const fs = require("fs");
 const dbClient = require("/app/src/databaseClient");
 
 async function getAllUserData(team, cb) {
   const users = [];
   let pending = 0;
+  // dbClient.query('DROP TABLE IF EXISTS PlayerStats');
   let query = `
     SELECT * FROM PlayerStats
   `;
@@ -20,11 +23,10 @@ async function getAllUserData(team, cb) {
     };
 
     getStats(user.id).then(stats => {
-      let result = calculateWinLose(team, stats, user.id);
-
+      let result = calculateWinLose(team, stats);
       let totalGame = result.win + result.lose;
       let winRate = Math.floor((result.win / totalGame) * 100);
-
+      
       if (isNaN(winRate)) {
         winRate = 0;
       }
@@ -80,13 +82,13 @@ function getStats(userId) {
         lose: 0
       }
     };
+
     let cnt = 0;
     for (let key in stats) {
+      cnt++;
       let teamName = key[0].toUpperCase() + key.substring(1);
       let teamStatQuery = `SELECT win, lose FROM ${teamName}Stats WHERE playerId = '${userId}';`;
-
       dbClient.query(teamStatQuery).then(stat => {
-        cnt++;
         if (stat.rows.length !== 0) {
           stats[key].win = stat.rows[0].win;
           stats[key].lose = stat.rows[0].lose;
