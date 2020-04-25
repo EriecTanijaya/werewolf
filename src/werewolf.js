@@ -3945,13 +3945,63 @@ module.exports = {
   },
 
   increaseWinRate: function(index, roleTeam) {
-    this.group_session.players[index].winAs = roleTeam;
-    this.group_session.players[index].addedPoints += 5;
+    switch (roleTeam) {
+      case "villager":
+        this.group_session.players[index].villagerStats.win++;
+        break;
+      case "werewolf":
+        this.group_session.players[index].werewolfStats.win++;
+        break;
+      case "jester":
+        this.group_session.players[index].jesterStats.win++;
+        break;
+      case "vampire":
+        this.group_session.players[index].vampireStats.win++;
+        break;
+      case "serial-killer":
+        this.group_session.players[index].serialKillerStats.win++;
+        break;
+      case "arsonist":
+        this.group_session.players[index].arsonistStats.win++;
+        break;
+      case "survivor":
+        this.group_session.players[index].survivorStats.win++;
+        break;
+      case "executioner":
+        this.group_session.players[index].executionerStats.win++;
+        break;
+    }
+    this.group_session.players[index].points += 5;
   },
 
   decreaseWinRate: function(index, roleTeam) {
-    this.group_session.players[index].loseAs = roleTeam;
-    this.group_session.players[index].addedPoints += 1;
+    switch (roleTeam) {
+      case "villager":
+        this.group_session.players[index].villagerStats.lose++;
+        break;
+      case "werewolf":
+        this.group_session.players[index].werewolfStats.lose++;
+        break;
+      case "jester":
+        this.group_session.players[index].jesterStats.lose++;
+        break;
+      case "vampire":
+        this.group_session.players[index].vampireStats.lose++;
+        break;
+      case "serial-killer":
+        this.group_session.players[index].serialKillerStats.lose++;
+        break;
+      case "arsonist":
+        this.group_session.players[index].arsonistStats.lose++;
+        break;
+      case "survivor":
+        this.group_session.players[index].survivorStats.lose++;
+        break;
+      case "executioner":
+        this.group_session.players[index].executionerStats.lose++;
+        break;
+    }
+    this.group_session.players[index].points += 1;
   },
 
   getTimeDefault: function(playersLength) {

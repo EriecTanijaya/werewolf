@@ -1,106 +1,55 @@
 const baseUserPath = "/app/.data/users/";
 const fs = require("fs");
-const dbClient = require("/app/src/databaseClient");
 
-async function getAllUserData(team, cb) {
+function getAllUserData(team, cb) {
   const users = [];
   let pending = 0;
-  // dbClient.query('DROP TABLE IF EXISTS PlayerStats');
-  let query = `
-    SELECT * FROM PlayerStats
-  `;
+  fs.readdir(baseUserPath, (err, list) => {
+    if (err) throw err;
+    pending = list.length;
+    list.forEach((item, index) => {
+      if (item.includes("user")) {
+        fs.readFile(baseUserPath + item, (err, data) => {
+          let rawUser = JSON.parse(data);
 
-  let playerData = await dbClient.query(query);
+          let stats = {
+            villager: rawUser.villagerStats,
+            werewolf: rawUser.werewolfStats,
+            vampire: rawUser.vampireStats,
+            jester: rawUser.jesterStats,
+            serialKiller: rawUser.serialKillerStats,
+            arsonist: rawUser.arsonistStats,
+            survivor: rawUser.survivorStats,
+            executioner: rawUser.executionerStats
+          };
 
-  pending = playerData.rows.length;
-  playerData.rows.forEach((item, index) => {
-    let user = {
-      id: item.id,
-      name: item.name,
-      points: item.points,
-      totalGame: 0,
-      winRate: 0
-    };
+          let result = calculateWinLose(team, stats);
+          let totalGame = result.win + result.lose;
+          let winRate = Math.floor((result.win / totalGame) * 100);
+          if (isNaN(winRate)) {
+            winRate = 0;
+          }
 
-    getStats(user.id).then(stats => {
-      let result = calculateWinLose(team, stats);
-      let totalGame = result.win + result.lose;
-      let winRate = Math.floor((result.win / totalGame) * 100);
-      if (isNaN(winRate)) {
-        winRate = 0;
-      }
+          let user = {
+            id: rawUser.id,
+            name: rawUser.name,
+            points: rawUser.points,
+            totalGame: totalGame,
+            winRate: winRate + "%"
+          };
 
-      user.totalGame = totalGame;
-      user.winRate = winRate + "%";
-      if (team) {
-        let points = result.win * 5 + result.lose;
-        user.points = points;
-      }
+          if (team) {
+            let points = result.win * 5 + result.lose;
+            user.points = points;
+          }
 
-      users.push(user);
-      if (pending === index + 1) {
-        cb(users);
+          users.push(user);
+          if (pending === index + 1) {
+            cb(users);
+          }
+        });
       }
     });
-  });
-}
-
-function getStats(userId) {
-  return new Promise((resolve, reject) => {
-    let stats = {
-      villager: {
-        win: 0,
-        lose: 0
-      },
-      werewolf: {
-        win: 0,
-        lose: 0
-      },
-      vampire: {
-        win: 0,
-        lose: 0
-      },
-      jester: {
-        win: 0,
-        lose: 0
-      },
-      serialKiller: {
-        win: 0,
-        lose: 0
-      },
-      arsonist: {
-        win: 0,
-        lose: 0
-      },
-      survivor: {
-        win: 0,
-        lose: 0
-      },
-      executioner: {
-        win: 0,
-        lose: 0
-      }
-    };
-
-    let cnt = 0;
-    for (let key in stats) {
-      cnt++;
-      let teamName = key[0].toUpperCase() + key.substring(1);
-      let teamStatQuery = `SELECT win, lose FROM ${teamName}Stats WHERE playerId = '${userId}';`;
-      dbClient.query(teamStatQuery).then(stat => {
-        if (stat.rows.length !== 0) {
-          stats[key].win = stat.rows[0].win;
-          stats[key].lose = stat.rows[0].lose;
-        }
-
-        /// hardcode because our max team is 8
-        let maxTeamCount = 8;
-
-        if (cnt === maxTeamCount) {
-          resolve(stats);
-        }
-      });
-    }
   });
 }
 
