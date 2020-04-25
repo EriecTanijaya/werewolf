@@ -1,3 +1,5 @@
+const fs = require("fs");
+const baseUserPath = "/app/.data/users/";
 const database = require("/app/src/database");
 const helper = require("/app/helper");
 

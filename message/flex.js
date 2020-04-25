@@ -247,8 +247,8 @@ module.exports = {
     //console.log(msg);
 
     return this.client.replyMessage(this.event.replyToken, msg).catch(err => {
-      //console.log(JSON.stringify(flex_msg.contents, null, 2));
-      console.log("error di flex.js", err.originalError.response.data);
+      console.log(JSON.stringify(flex_msg.contents, null, 2));
+      console.log(err.originalError.response.data);
     });
   },
 
