@@ -12,8 +12,6 @@ module.exports = {
     this.rawArgs = rawArgs;
     this.user_session = user_session;
     this.group_session = group_session;
-    
-    this.kickCommand();
 
     if (!this.rawArgs.startsWith("/")) {
       let time = this.group_session.time;
