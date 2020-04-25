@@ -740,7 +740,6 @@ module.exports = {
     /// special role chat
     this.group_session.werewolfChat = [];
     this.group_session.vampireChat = [];
-    this.group_session.vampireHunterChat = [];
 
     // set prop yang reset tiap malamnya (TEMPORARY)
     this.group_session.players.forEach((item, index) => {

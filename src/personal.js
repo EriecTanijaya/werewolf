@@ -841,7 +841,9 @@ module.exports = {
     } else if (roleTeam === "vampire") {
       chatBox = this.group_session.vampireChat;
     } else if (roleName === "vampire-hunter") {
-      chatBox = this.group_session.vampireHunterChat;
+      chatBox = this.group_session.vampireChat.map(v => {
+        return { name: "vampire", text: v.text };
+      });
     }
 
     if (chatBox.length === 0) {
@@ -891,22 +893,24 @@ module.exports = {
       return this.replyText("💡 isi chat kamu dengan '/c <kata-kata nya>'");
     }
 
+    let chatBox = [];
+
     let message = {
       name: players[index].name,
       text: helper.parseToText(this.args)
     };
 
     if (roleTeam === "werewolf") {
+      chatBox = this.group_session.werewolfChat;
       this.group_session.werewolfChat.push(message);
     } else if (roleTeam === "vampire") {
+      chatBox = this.group_session.vampireChat;
       this.group_session.vampireChat.push(message);
-      
-      // for vampire hunter
-      message.name = "Vampire";
-      this.group_session.vampireHunterChat.push(message);
     }
 
-    return this.replyText("💡 Pesan terkirim! Check chat dengan '/r'");
+    if (chatBox.length < 3) {
+      return this.replyText("💡 Pesan terkirim! Check chat dengan '/r'");
+    }
   },
 
   infoCommand: function() {
