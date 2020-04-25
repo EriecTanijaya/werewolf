@@ -274,14 +274,9 @@ module.exports = {
             points = EXCLUDED.points + ${user_session.points}
     `;
     // console.log(query)
-    dbClient
-      .query(query)
-      .then(() => {
-        this.resetUser(user_session.id);
-      })
-      .catch(err => {
-        console.log("err saveUserData", err);
-      });
+    dbClient.query(query).catch(err => {
+      console.log("err saveUserData", err);
+    });
   },
 
   updateUserData: function(userId, userData) {
@@ -307,15 +302,12 @@ module.exports = {
       `;
     }
     // console.log(query);
-    dbClient
-      .query(query)
-      .then(() => {
-        // console.log(userData);
-        this.saveUserData(userData);
-      })
-      .catch(err => {
-        console.log("err updateUserData", err);
-      });
+    dbClient.query(query).then(() => {
+      // console.log(userData);
+      this.saveUserData(userData);
+    }).catch(err => {
+      console.log("err updateUserData", err);
+    });
   },
 
   resetAllPlayers: function(players, groupId) {
