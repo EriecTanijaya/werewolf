@@ -349,7 +349,7 @@ module.exports = {
       value: 1
     };
 
-    if (roleName === "werewolf") {
+    if (roleName === "alpha-werewolf") {
       this.group_session.players[index].target.value++;
     }
 
@@ -972,7 +972,7 @@ module.exports = {
     let can = false;
 
     let cantTargetItSelf = [
-      "werewolf",
+      "alpha-werewolf",
       "werewolf-cub",
       "escort",
       "sorcerer",

@@ -55,7 +55,7 @@ module.exports = {
   },
 
   getClassicRoleSet: function(playersLength) {
-    let roles = ["werewolf", "seer"];
+    let roles = ["alpha-werewolf", "seer"];
 
     let townProtectors = ["bodyguard", "doctor"];
     let townProtector = this.random(townProtectors);
@@ -123,7 +123,7 @@ module.exports = {
     }
 
     // always
-    roles.push("werewolf");
+    roles.push("alpha-werewolf");
     werewolfNeedCount--;
     let werewolves = [
       "werewolf-cub",
@@ -218,7 +218,7 @@ module.exports = {
   },
 
   getSurviveRoleSet: function(playersLength) {
-    let roles = ["seer", "seer", "werewolf"];
+    let roles = ["seer", "seer", "alpha-werewolf"];
 
     let survivorNeededCount = playersLength - 3;
 
@@ -233,7 +233,7 @@ module.exports = {
   getKillingWarsRoleSet: function(playersLength) {
     let werewolves = ["sorcerer", "disguiser", "consort"];
     let roles = [
-      "werewolf",
+      "alpha-werewolf",
       "werewolf-cub",
       "jester",
       "serial-killer",
@@ -258,7 +258,7 @@ module.exports = {
 
   getWhosThereRoleSet: function(playersLength) {
     let roles = [
-      "werewolf",
+      "alpha-werewolf",
       "escort",
       "escort",
       "sheriff",
@@ -282,7 +282,7 @@ module.exports = {
 
   getTrustIssueRoleSet: function(playersLength) {
     let roles = [
-      "werewolf",
+      "alpha-werewolf",
       "executioner",
       "seer",
       "seer",
