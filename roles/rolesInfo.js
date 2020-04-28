@@ -81,8 +81,7 @@ module.exports = {
             "Warga yang bisa memilih siapa yang ingin dilindungi. Dapat melindungi dari serangan biasa atau gigitan vampire. ";
           break;
 
-        case "werewolf":
-        case "ww":
+        case "alpha werewolf":
           flex_text.header.text = "🐺 Werewolf";
           flex_text.body.text += "Type: Werewolf Killing" + "\n\n";
           flex_text.body.text +=
