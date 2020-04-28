@@ -42,7 +42,7 @@ module.exports = {
     let townKilling = this.random(townKillings);
     roles.push(townKilling);
 
-    let anotherTownProtector= this.random(townProtectors);
+    let anotherTownProtector = this.random(townProtectors);
     roles.push(anotherTownProtector);
 
     roles.push("vampire");
@@ -303,7 +303,50 @@ module.exports = {
     roles = this.shuffleArray(roles);
     return roles;
   },
-  
+
+  getTutorial: function() {
+    let flex_texts = [];
+    let flex_text = {};
+
+    let tutorial = [
+      {
+        header: "🌝 Phase Malam",
+        body: `Pemain personal chat dengan bot, dengan ketik '/role' untuk mengetahui role dan menggunakan skill. 
+          Hingga seterusnya jika ingin menggunakan skill pc bot '/role'. Saat menggunakan skill bisa di cancel dengan ketik '/revoke'.`
+      },
+      {
+        header: "🌤️ Phase Pagi",
+        body: `Pada pagi hari akan ada berita, berita publik (berita yang di beritahu di group chat) dan berita pribadi (berita yang hanya di ketahui sendiri). 
+          Berita pribadi bisa di akses dengan personal chat bot '/news'. 
+          Dikarenakan bot ini tidak auto, jadi pemain perlu cek berita setiap pagi nya`
+      },
+      {
+        header: "☝️ Phase Voting",
+        body: `Para warga bisa voting, bisa cancel vote dengan ketik '/revoke', bisa ganti vote sebelum waktu habis. 
+          Jika ada yang sama jumlah vote, maka system akan random salah satu dari kandidat tersebut untuk dibunuh`
+      },
+      {
+        header: "📜 Note",
+        body: `Setiap Phase ada waktu nya, waktunya tergantung dari total pemain yang hidup. Jika makin sedikit, makin cepat waktunya.
+          Setiap Phase juga tidak berjalan otomatis. Itulah kenapa setiap waktu habis, salah satu dari pemain perlu ada ketik '/cek' untuk lanjutin Phase Game.`
+      }
+    ];
+
+    tutorial.forEach((item, index) => {
+      flex_text[index] = {
+        header: {
+          text: item.header
+        },
+        body: {
+          text: item.body
+        }
+      };
+      flex_texts.push(flex_text[index]);
+    });
+
+    return flex_texts;
+  },
+
   getAbout: function() {
     let text = "Bot semi automatic yang ada campuran elemen dari ";
     text += "Town Of Salem dan Werewolf Board Game. ";

@@ -29,6 +29,8 @@ module.exports = {
       case "/stats":
       case "/reset":
         return this.statCommand();
+      case "/tutorial":
+        return this.tutorialCommand();
       case "/role":
       case "/news":
       case "/jurnal":
@@ -39,6 +41,11 @@ module.exports = {
       default:
         return this.invalidCommand();
     }
+  },
+
+  tutorialCommand: function() {
+    let flex_text = helper.getTutorial();
+    return this.replyFlex(flex_text);
   },
 
   statCommand: function() {
@@ -68,7 +75,8 @@ module.exports = {
       "/about : tentang bot",
       "/info : list role",
       "/me : statistik user",
-      "/rank : cek rank"
+      "/rank : cek rank",
+      "/tutorial : tutorial menggunakan bot ini"
     ];
 
     cmds.forEach((item, index) => {
