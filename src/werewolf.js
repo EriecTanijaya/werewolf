@@ -135,7 +135,7 @@ module.exports = {
     }
   },
 
-  torialCommand: function() {
+  tutorialCommand: function() {
     let flex_text = helper.getTutorial();
     return this.replyFlex(flex_text);
   },
