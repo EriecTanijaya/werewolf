@@ -311,8 +311,10 @@ module.exports = {
     let tutorial = [
       {
         header: "Phase Malam",
-        body: 
-        `Pemain personal chat dengan bot, dengan ketik '/role' untuk mengetahui role dan menggunakan skill. Hingga seterusnya jika ingin menggunakan skill pc bot '/role'`
+        body: `Pemain personal chat dengan bot, dengan ketik '/role' untuk mengetahui role dan menggunakan skill. 
+          Hingga seterusnya jika ingin menggunakan skill pc bot '/role'. Saat menggunakan skill bisa di cancel
+          dengan ketik '/revoke'. Untuk sebagian role bisa menggunakan command '/r', dan command '/c'
+          Command itu biasanya untuk chatbox role Werewolf dan role Vampire. Agar sesama Werewolf / Vampire bisa chatting`
       },
       {
         header: "Phase Pagi",
@@ -324,6 +326,11 @@ module.exports = {
         header: "Phase Voting",
         body: `Para warga bisa voting, bisa cancel vote dengan ketik '/revoke', bisa ganti vote sebelum waktu habis. 
           Jika ada yang sama jumlah vote, maka system akan random salah satu dari kandidat tersebut untuk dibunuh`
+      },
+      {
+        header: "Note",
+        body: `Setiap Phase ada waktu nya, waktunya tergantung dari total pemain yang hidup. Jika makin sedikit, makin cepat waktunya.
+          `
       }
     ];
 
