@@ -106,6 +106,8 @@ module.exports = {
       case "/roles":
       case "/rolelist":
         return this.roleListCommand();
+      case "/tutorial":
+        return this.tutorialCommand();
       case "/role":
       case "/news":
         return this.personalCommand();
@@ -131,6 +133,11 @@ module.exports = {
       default:
         return this.invalidCommand();
     }
+  },
+
+  tutorialCommand: function() {
+    let flex_text = helper.getTutorial();
+    return this.replyFlex(flex_text);
   },
 
   skillCommand: function() {
@@ -261,20 +268,7 @@ module.exports = {
   },
 
   aboutCommand: function() {
-    let text = "Bot semi automatic yang ada campuran elemen dari ";
-    text += "Town Of Salem. ";
-    text +=
-      "Thanks buat grup Avalon City, LOW, Where Wolf(?), Random, RND Twins dan semua adders!" +
-      "\n";
-    text += "- Eriec (creator)";
-    let flex_text = {
-      header: {
-        text: "🐺 Werewolf 👨‍🌾"
-      },
-      body: {
-        text: text
-      }
-    };
+    let flex_text = helper.getAbout();
     return this.replyFlex(flex_text);
   },
 
@@ -649,7 +643,7 @@ module.exports = {
 
     /// test specific role cp
     if (process.env.TEST === "true") {
-      //roles = ["vigilante", "werewolf"];
+      roles = ["seer", "alpha-werewolf", "vampire"];
     }
 
     /// hax for exe
@@ -786,7 +780,7 @@ module.exports = {
     /// untuk role yang berubah-berubah
 
     // to werewolf
-    this.checkMorphingRole("werewolf-cub", "werewolf", "werewolf");
+    this.checkMorphingRole("werewolf-cub", "alpha-werewolf", "alpha-werewolf");
 
     // to werewolf cub
     this.checkMorphingRole("consort", "werewolf-cub", "werewolf-cub");
@@ -1106,7 +1100,8 @@ module.exports = {
     // search the werewolf that responsible to bite
     // note: the werewolf-cub if possible, if there is none, werewolf itself
     let werewolfKillingExists =
-      this.checkExistsRole("werewolf") || this.checkExistsRole("werewolf-cub");
+      this.checkExistsRole("alpha-werewolf") ||
+      this.checkExistsRole("werewolf-cub");
     let werewolfDoerIndex = -1;
 
     // ini biasa werewolf langsung, soalnya bisa aja ww-cub di block / MATI
@@ -1134,7 +1129,7 @@ module.exports = {
         let doer = players[i];
         let status = doer.status;
         let roleName = doer.role.name;
-        if (roleName === "werewolf" && status === "alive") {
+        if (roleName === "alpha-werewolf" && status === "alive") {
           werewolfDoerBackupIndex = i;
           if (doer.target.index !== -1) {
             isBackupWerewolfUseSkill = true;
@@ -1152,7 +1147,7 @@ module.exports = {
         for (let i = 0; i < players.length; i++) {
           let doer = players[i];
           let roleName = doer.role.name;
-          if (roleName === "werewolf-cub" || roleName === "werewolf") {
+          if (roleName === "werewolf-cub" || roleName === "alpha-werewolf") {
             this.group_session.players[i].message +=
               "💡 Kamu tidak menggunakan skill mu" + "\n\n";
           }
@@ -1162,7 +1157,7 @@ module.exports = {
         players.forEach(item => {
           if (
             item.status === "alive" &&
-            (item.role.name === "werewolf" ||
+            (item.role.name === "alpha-werewolf" ||
               item.role.name === "werewolf-cub") &&
             item.target.index !== -1
           ) {
@@ -1503,7 +1498,7 @@ module.exports = {
             let targetRoleTeam = target.role.team;
 
             let immuneToVampireBite = [
-              "werewolf",
+              "alpha-werewolf",
               "vampire-hunter",
               "serial-killer",
               "arsonist",
@@ -1604,7 +1599,7 @@ module.exports = {
 
           // hax untuk werewolf yang tukang bunuh bukan ww, tapi ww cub
           if (target.role.name === "veteran") {
-            if (doer.role.name === "werewolf") {
+            if (doer.role.name === "alpha-werewolf") {
               if (werewolfDoerIndex !== i) {
                 continue;
               }
@@ -2134,7 +2129,7 @@ module.exports = {
             let immuneToBasicAttack = [
               "serial-killer",
               "arsonist",
-              "werewolf",
+              "alpha-werewolf",
               "executioner"
             ];
 
@@ -2211,7 +2206,7 @@ module.exports = {
             let immuneToBasicAttack = [
               "serial-killer",
               "arsonist",
-              "werewolf",
+              "alpha-werewolf",
               "executioner"
             ];
 
@@ -2381,7 +2376,7 @@ module.exports = {
               };
               this.group_session.players[targetIndex].visitors.push(visitor);
 
-              if (doer.role.name === "werewolf") {
+              if (doer.role.name === "alpha-werewolf") {
                 this.group_session.players[i].message +=
                   "👣 Kamu ke rumah " + target.name + "\n\n";
               } else {
@@ -2856,6 +2851,31 @@ module.exports = {
         }
       }
     }
+    
+    /// Vampire convertion Action
+    for (let i = 0; i < players.length; i++) {
+      if (players[i].status === "alive" && players[i].willSuicide === false) {
+        if (players[i].vampireBited === true && players[i].healed === false) {
+          let roleData = this.getRoleData("vampire");
+
+          this.group_session.players[i].role = roleData;
+
+          this.group_session.players[i].message +=
+            "🧛 " + "Kamu berhasil diubah menjadi Vampire" + "\n\n";
+
+          this.group_session.players[i].message +=
+            "💡 Ketik '/role' untuk mengetahui siapa saja sesama Vampire" +
+            "\n\n";
+
+          vampireAnnouncement +=
+            "🧛 " + players[i].name + " berhasil menjadi Vampire!" + "\n\n";
+
+          this.group_session.vampireConvertCooldown = 1;
+
+          break;
+        }
+      }
+    }
 
     /// Framer Action
     for (let i = 0; i < players.length; i++) {
@@ -2992,7 +3012,7 @@ module.exports = {
             let targetRoleName = target.role.name;
 
             if (target.framed) {
-              targetRoleName = "werewolf";
+              targetRoleName = "alpha-werewolf";
             }
 
             if (target.role.disguiseAs) {
@@ -3239,27 +3259,6 @@ module.exports = {
 
             this.group_session.players[i].message += result;
           }
-        }
-      }
-    }
-
-    /// Vampire convertion Action
-    for (let i = 0; i < players.length; i++) {
-      if (players[i].status === "alive" && players[i].willSuicide === false) {
-        if (players[i].vampireBited === true && players[i].healed === false) {
-          let roleData = this.getRoleData("vampire");
-
-          this.group_session.players[i].role = roleData;
-
-          this.group_session.players[i].message +=
-            "🧛 " + "Kamu berhasil diubah menjadi Vampire" + "\n\n";
-
-          vampireAnnouncement +=
-            "🧛 " + players[i].name + " berhasil menjadi Vampire!" + "\n\n";
-
-          this.group_session.vampireConvertCooldown = 1;
-
-          break;
         }
       }
     }
@@ -3751,7 +3750,8 @@ module.exports = {
       "/revoke : untuk batal voting",
       "/extend : untuk menambah 1 menit saat baru membuat room game",
       "/kick : untuk mengeluarkan bot dari group atau room chat",
-      "/set : untuk setting game"
+      "/set : untuk setting game",
+      "/tutorial : tutorial menggunakan bot ini"
     ];
 
     cmds.forEach((item, index) => {

@@ -1,9 +1,9 @@
 const roles = [
   {
-    name: "werewolf",
+    name: "alpha-werewolf",
     description:
       "Kamu adalah penjahat yang menyamar diantara werewolf. Kamu kebal dari serangan biasa. ",
-    skillText: "Werewolf, Pilih siapa mangsamu",
+    skillText: "Alpha Werewolf, Pilih siapa mangsamu",
     cmdText: "/skill",
     team: "werewolf",
     canKill: true,

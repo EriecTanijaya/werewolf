@@ -12,7 +12,7 @@ module.exports = {
     }
     
     switch (roleName) {
-      case "werewolf":
+      case "alpha-werewolf":
       case "werewolf-cub":
         if (isChangeTarget) {
           text +=

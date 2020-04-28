@@ -132,17 +132,17 @@ module.exports = {
     /// for maintenance
     if (this.rawArgs.startsWith("/")) {
       // logging
-      // let logText = user_session.name + " // ";
-      // logText += groupId + " : ";
-      // logText += this.args;
-      // console.log(logText);
+      if (process.env.TEST === "true") {
+        let logText = user_session.name + " // ";
+        logText += groupId + " : ";
+        logText += this.args;
+        console.log(logText);
+      }
+
       if (user_session.id !== process.env.DEV_ID) {
         // semua grup ga bisa
-        //return this.maintenanceRespond();
-
-        // buat khusus test grup aja
-        if (groupId !== process.env.TEST_GROUP) {
-          //return this.maintenanceRespond();
+        if (process.env.TEST === "true") {
+          return this.maintenanceRespond();
         }
       }
     }
