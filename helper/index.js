@@ -303,6 +303,24 @@ module.exports = {
     roles = this.shuffleArray(roles);
     return roles;
   },
+  
+  getAbout: function() {
+    let text = "Bot semi automatic yang ada campuran elemen dari ";
+    text += "Town Of Salem dan Werewolf Board Game. ";
+    text +=
+      "Thanks buat grup Avalon City, LOW, Where Wolf(?), Random, RND Twins dan semua adders!" +
+      "\n";
+    text += "- Eriec (creator)";
+    let flex_text = {
+      header: {
+        text: "🐺 City Of Bedburg 👨‍🌾"
+      },
+      body: {
+        text: text
+      }
+    };
+    return flex_text;
+  },
 
   parseToText: function(arr) {
     let text = "";
