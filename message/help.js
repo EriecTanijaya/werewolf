@@ -45,7 +45,7 @@ module.exports = {
       default:
         header += "🎮 Undang Bot";
         body += "Undang bot ke group / room chat kamu untuk bermain. ";
-        body += "Di butuhkan minimal 5 pemain";
+        body += "Di butuhkan minimal 5 pemain. Untuk tutorial, ketik '/tutorial'";
     }
 
     let helpMessage = {

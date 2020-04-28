@@ -305,11 +305,33 @@ module.exports = {
   },
 
   getTutorial: function() {
-    let flex_text= {
-      
-    }
-    
-    return flex_text;
+    // let flex_text = {
+    //   header: {
+    //     text: ""
+    //   },
+    //   body: {
+    //     text: ""
+    //   }
+    // };
+    let flex_texts = [];
+
+    let tutorial = [
+      {
+        header: "Phase Malam",
+        body:
+          `Pemain personal chat dengan bot, dengan ketik '/role' untuk mengetahui role dan menggunakan skill. 
+          Hingga seterusnya jika ingin menggunakan skill pc bot '/role'`
+      },
+      {
+        header: "Phase Pagi",
+        body: 
+          `Pada pagi hari akan ada berita, berita publik (berita yang di beritahu di group chat), 
+          dan berita pribadi (berita yang hanya di ketahui sendiri). Berita pribadi bisa di akses dengan 
+          personal chat bot '/news'. Dikarenakan bot ini tidak auto, jadi pemain perlu cek berita setiap pagi nya`
+      }
+    ];
+
+    return flex_texts;
   },
 
   getAbout: function() {
