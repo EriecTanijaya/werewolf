@@ -330,7 +330,8 @@ module.exports = {
       {
         header: "Note",
         body: `Setiap Phase ada waktu nya, waktunya tergantung dari total pemain yang hidup. Jika makin sedikit, makin cepat waktunya.
-          `
+          Setiap Phase juga tidak berjalan otomatis. Itulah kenapa setiap waktu habis, salah satu dari pemain perlu ada ketik
+          '/cek' untuk lanjutin Phase Game.`
       }
     ];
 
