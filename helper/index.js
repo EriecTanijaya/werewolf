@@ -42,7 +42,7 @@ module.exports = {
     let townKilling = this.random(townKillings);
     roles.push(townKilling);
 
-    let anotherTownProtector= this.random(townProtectors);
+    let anotherTownProtector = this.random(townProtectors);
     roles.push(anotherTownProtector);
 
     roles.push("vampire");
@@ -303,7 +303,15 @@ module.exports = {
     roles = this.shuffleArray(roles);
     return roles;
   },
-  
+
+  getTutorial: function() {
+    let flex_text= {
+      
+    }
+    
+    return flex_text;
+  },
+
   getAbout: function() {
     let text = "Bot semi automatic yang ada campuran elemen dari ";
     text += "Town Of Salem dan Werewolf Board Game. ";

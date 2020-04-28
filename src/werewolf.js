@@ -106,6 +106,8 @@ module.exports = {
       case "/roles":
       case "/rolelist":
         return this.roleListCommand();
+      case "/tutorial":
+        return this.tutorialCommand();
       case "/role":
       case "/news":
         return this.personalCommand();
@@ -131,6 +133,11 @@ module.exports = {
       default:
         return this.invalidCommand();
     }
+  },
+
+  torialCommand: function() {
+    let flex_text = helper.getTutorial();
+    return this.replyFlex(flex_text);
   },
 
   skillCommand: function() {
@@ -1093,7 +1100,8 @@ module.exports = {
     // search the werewolf that responsible to bite
     // note: the werewolf-cub if possible, if there is none, werewolf itself
     let werewolfKillingExists =
-      this.checkExistsRole("alpha-werewolf") || this.checkExistsRole("werewolf-cub");
+      this.checkExistsRole("alpha-werewolf") ||
+      this.checkExistsRole("werewolf-cub");
     let werewolfDoerIndex = -1;
 
     // ini biasa werewolf langsung, soalnya bisa aja ww-cub di block / MATI
@@ -3738,7 +3746,8 @@ module.exports = {
       "/revoke : untuk batal voting",
       "/extend : untuk menambah 1 menit saat baru membuat room game",
       "/kick : untuk mengeluarkan bot dari group atau room chat",
-      "/set : untuk setting game"
+      "/set : untuk setting game",
+      "/tutorial : tutorial menggunakan bot ini"
     ];
 
     cmds.forEach((item, index) => {
