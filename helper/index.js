@@ -306,7 +306,7 @@ module.exports = {
   
   getAbout: function() {
     let text = "Bot semi automatic yang ada campuran elemen dari ";
-    text += "Town Of Salem. ";
+    text += "Town Of Salem dan Werewolf Board Game. ";
     text +=
       "Thanks buat grup Avalon City, LOW, Where Wolf(?), Random, RND Twins dan semua adders!" +
       "\n";
