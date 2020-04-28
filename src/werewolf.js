@@ -643,7 +643,7 @@ module.exports = {
 
     /// test specific role cp
     if (process.env.TEST === "true") {
-      //roles = ["vigilante", "alpha-werewolf"];
+      roles = ["alpha-werewolf", "vampire"];
     }
 
     /// hax for exe
@@ -3248,6 +3248,10 @@ module.exports = {
 
           this.group_session.players[i].message +=
             "🧛 " + "Kamu berhasil diubah menjadi Vampire" + "\n\n";
+
+          this.group_session.players[i].message +=
+            "💡 Ketik '/role' untuk mengetahui siapa saja sesama Vampire" +
+            "\n\n";
 
           vampireAnnouncement +=
             "🧛 " + players[i].name + " berhasil menjadi Vampire!" + "\n\n";
