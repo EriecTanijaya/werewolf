@@ -328,6 +328,12 @@ module.exports = {
           `Pada pagi hari akan ada berita, berita publik (berita yang di beritahu di group chat), 
           dan berita pribadi (berita yang hanya di ketahui sendiri). Berita pribadi bisa di akses dengan 
           personal chat bot '/news'. Dikarenakan bot ini tidak auto, jadi pemain perlu cek berita setiap pagi nya`
+      },
+      {
+        header: "Phase Voting",
+        body: 
+          `Para warga bisa voting, bisa cancel vote dengan ketik '/revoke', bisa ganti vote sebelum waktu habis. 
+          Jika ada yang sama jumlah vote, maka system akan random salah satu dari kandidat tersebut untuk dibunuh`
       }
     ];
 
