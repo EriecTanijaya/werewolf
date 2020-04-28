@@ -643,7 +643,7 @@ module.exports = {
 
     /// test specific role cp
     if (process.env.TEST === "true") {
-      //roles = ["vigilante", "alpha-werewolf"];
+      roles = ["seer", "alpha-werewolf", "vampire"];
     }
 
     /// hax for exe
@@ -2851,6 +2851,31 @@ module.exports = {
         }
       }
     }
+    
+    /// Vampire convertion Action
+    for (let i = 0; i < players.length; i++) {
+      if (players[i].status === "alive" && players[i].willSuicide === false) {
+        if (players[i].vampireBited === true && players[i].healed === false) {
+          let roleData = this.getRoleData("vampire");
+
+          this.group_session.players[i].role = roleData;
+
+          this.group_session.players[i].message +=
+            "🧛 " + "Kamu berhasil diubah menjadi Vampire" + "\n\n";
+
+          this.group_session.players[i].message +=
+            "💡 Ketik '/role' untuk mengetahui siapa saja sesama Vampire" +
+            "\n\n";
+
+          vampireAnnouncement +=
+            "🧛 " + players[i].name + " berhasil menjadi Vampire!" + "\n\n";
+
+          this.group_session.vampireConvertCooldown = 1;
+
+          break;
+        }
+      }
+    }
 
     /// Framer Action
     for (let i = 0; i < players.length; i++) {
@@ -3234,27 +3259,6 @@ module.exports = {
 
             this.group_session.players[i].message += result;
           }
-        }
-      }
-    }
-
-    /// Vampire convertion Action
-    for (let i = 0; i < players.length; i++) {
-      if (players[i].status === "alive" && players[i].willSuicide === false) {
-        if (players[i].vampireBited === true && players[i].healed === false) {
-          let roleData = this.getRoleData("vampire");
-
-          this.group_session.players[i].role = roleData;
-
-          this.group_session.players[i].message +=
-            "🧛 " + "Kamu berhasil diubah menjadi Vampire" + "\n\n";
-
-          vampireAnnouncement +=
-            "🧛 " + players[i].name + " berhasil menjadi Vampire!" + "\n\n";
-
-          this.group_session.vampireConvertCooldown = 1;
-
-          break;
         }
       }
     }
