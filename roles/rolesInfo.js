@@ -82,7 +82,7 @@ module.exports = {
           break;
 
         case "alpha werewolf":
-          flex_text.header.text = "🐺 Werewolf";
+          flex_text.header.text = "🐺 Alpha Werewolf";
           flex_text.body.text += "Type: Werewolf Killing" + "\n\n";
           flex_text.body.text +=
             "Penjahat yang menyerupai manusia pada siang hari. Yang memberi perintah siapa yang akan dibunuh. ";
