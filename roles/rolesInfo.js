@@ -72,13 +72,20 @@ module.exports = {
           flex_text.body.text += "Type: Town Investigate" + "\n\n";
           flex_text.body.text +=
             "Warga yang bisa mengecek role asli dari suatu player pada malam hari. ";
+          flex_text.body.text +=
+            "Namun jika targetmu di frame, hasil nya bisa Alpha Werewolf, walaupun sebenarnya rolenya bukan itu. ";
+          flex_text.body.text +=
+            "Jika target mu Disguiser, dan Disguiser mengimitasi orang lain, hasil cek mu adalah ";
+          flex_text.body.text += "role dari imitasi Disguiser. ";
           break;
 
         case "doctor":
           flex_text.header.text = "💉 Doctor";
           flex_text.body.text += "Type: Town Protector" + "\n\n";
           flex_text.body.text +=
-            "Warga yang bisa memilih siapa yang ingin dilindungi. Dapat melindungi dari serangan biasa atau gigitan vampire. ";
+            "Warga yang bisa memilih siapa yang ingin dilindungi. Dapat melindungi dari serangan biasa atau gigitan Vampire. ";
+          flex_text.body.text += "Kamu bisa tahu target mu diserang atau tidak. Skill Heal Doctor tidak bisa menolong ";
+          flex_text.body.text += "Vigilante yang akan mati karena bunuh diri, pembakaran Arsonist dan "
           break;
 
         case "alpha werewolf":
