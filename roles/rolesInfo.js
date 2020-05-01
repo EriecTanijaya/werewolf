@@ -72,13 +72,24 @@ module.exports = {
           flex_text.body.text += "Type: Town Investigate" + "\n\n";
           flex_text.body.text +=
             "Warga yang bisa mengecek role asli dari suatu player pada malam hari. ";
+          flex_text.body.text +=
+            "Namun jika targetmu di frame, hasil nya bisa Alpha Werewolf, walaupun sebenarnya rolenya bukan itu. ";
+          flex_text.body.text +=
+            "Jika target mu Disguiser, dan Disguiser mengimitasi orang lain, hasil cek mu adalah ";
+          flex_text.body.text += "role dari imitasi Disguiser. ";
           break;
 
         case "doctor":
           flex_text.header.text = "💉 Doctor";
           flex_text.body.text += "Type: Town Protector" + "\n\n";
           flex_text.body.text +=
-            "Warga yang bisa memilih siapa yang ingin dilindungi. Dapat melindungi dari serangan biasa atau gigitan vampire. ";
+            "Warga yang bisa memilih siapa yang ingin dilindungi. Dapat melindungi dari serangan biasa atau gigitan Vampire. ";
+          flex_text.body.text +=
+            "Kamu bisa tahu target mu diserang atau tidak. Skill Heal Doctor tidak bisa menolong ";
+          flex_text.body.text +=
+            "Vigilante yang akan mati karena bunuh diri, pembakaran Arsonist dan penyerangan Jester. ";
+          flex_text.body.text +=
+            "Doctor hanya bisa menyembuhkan diri sendiri 1 kali saja. ";
           break;
 
         case "alpha werewolf":
@@ -86,8 +97,10 @@ module.exports = {
           flex_text.body.text += "Type: Werewolf Killing" + "\n\n";
           flex_text.body.text +=
             "Penjahat yang menyerupai manusia pada siang hari. Yang memberi perintah siapa yang akan dibunuh. ";
-          flex_text.body.text =
-            "Jika ada Werewolf Cub, maka yang membunuh adalah Werewolf-Cub. ";
+          flex_text.body.text +=
+            "Jika ada Werewolf Cub, maka yang membunuh adalah Werewolf-Cub. Alpha Werewolf kebal dari serangan biasa. ";
+          flex_text.body.text +=
+            "Jika Werewolf Cub di block atau tidak ada, Alpha Werewolf yang akan membunuh target";
           break;
 
         case "vampire":
@@ -101,6 +114,8 @@ module.exports = {
           flex_text.body.text +=
             "Jika jumlah Vampire sudah 4 atau lebih, maka Vampire tidak lagi mengubah seorang warga ";
           flex_text.body.text += "warga menjadi Vampire, tetapi menyerangnya. ";
+          flex_text.body.text +=
+            "Vampire tidak bisa gigit role yang bisa kebal dari serangan biasa. ";
           break;
 
         case "vh":
@@ -110,30 +125,37 @@ module.exports = {
           flex_text.body.text +=
             "Warga yang berani melawan Vampire, disaat Vampire ke rumahnya, Vampire itu pasti mati. ";
           flex_text.body.text +=
-            "Mampu mendengar percakapan Vampire saat malam. ";
+            "Mampu mendengar percakapan Vampire saat malam. Vampire Hunter akan berubah menjadi Vigilante ";
+          flex_text.body.text += "jika semua Vampire telah di basmi";
           break;
 
         case "werewolf cub":
           flex_text.header.text = "🐕 Werewolf-Cub";
           flex_text.body.text += "Type: Werewolf Killing" + "\n\n";
           flex_text.body.text +=
-            "Di Pihak werewolf, melakukan pembunuhan atas suruhan Werewolf. Akan menjadi Werewolf jika Werewolf mati. ";
+            "Tangan kanan Alpha Werewolf dalam pembunuhan. Werewolf Cub akan menjadi Alpha Werewolf jika Alpha Werewolf yang ada mati. ";
+          flex_text.body.text +=
+            "Jika Alpha Werewolf tidak menggunakan skill, maka target yang dituju adalah target Werewolf Cub. ";
+          flex_text.body.text +=
+            "Namun jika pas malam itu Werewolf Cub di block oleh Escort, maka Werewolf tidak jadi membunuh. ";
           break;
 
         case "sorcerer":
           flex_text.header.text = "🧙 Sorcerer";
           flex_text.body.text += "Type: Werewolf Support" + "\n\n";
           flex_text.body.text +=
-            "Di Pihak werewolf, bisa menerawang suatu pemain untuk mengetahui rolenya. ";
+            "Bisa mengecek suatu pemain untuk di ketahui role nya. Sorcerer akan berubah menjadi Werewolf Cub jika ";
+          flex_text.body.text += "Werewolf Cub yang ada mati. ";
           break;
 
         case "consort":
           flex_text.header.text = "🚷 Consort";
           flex_text.body.text += "Type: Werewolf Support" + "\n\n";
           flex_text.body.text +=
-            "Di Pihak werewolf, bisa memilih siapa pemain yang ingin di block skillnya. Consort immune dari role block. ";
+            "Bisa block skill suatu pemain. Namun jika Consort nge block Serial Killer, maka Serial Killer akan menyerang Consort ";
           flex_text.body.text +=
-            "Jika role block Serial-Killer, maka Serial-Killer itu akan ganti target ke orang yang role block";
+            "dan mengabaikan target awalnya. Consort immune dari blocknya Escort. Escort akan berubah menjadi Werewolf Cub ";
+          flex_text.body.text += "jika Werewolf Cub yang ada mati. ";
           break;
 
         case "vigi":
@@ -141,19 +163,23 @@ module.exports = {
           flex_text.header.text = "🔫 Vigilante";
           flex_text.body.text += "Type: Town Killing" + "\n\n";
           flex_text.body.text +=
-            "Warga yang bisa memilih siapa yang ingin dibunuh pas malam. ";
+            "Warga yang bisa menyerang orang lain saat malam. ";
           flex_text.body.text +=
-            "Tetapi jika dia membunuh sesama warga, dia akan bunuh diri keesokan harinya";
+            "Tetapi jika dia membunuh sesama warga, dia akan bunuh diri keesokan harinya. ";
+          flex_text.body.text +=
+            "Vigilante harus menunggu satu malam untuk menyiapkan senjatanya dan baru bisa menggunakan skill ";
+          flex_text.body.text += "keesokkan harinya. ";
           break;
 
         case "jester":
           flex_text.header.text = "🃏 Jester";
           flex_text.body.text += "Type: Neutral" + "\n\n";
-          flex_text.body.text +=
-            "Tidak memihak kesiapa siapa, Jester menang jika di gantung. ";
+          flex_text.body.text += "Jester menang jika dia berhasil digantung. ";
           flex_text.body.text +=
             "Jika berhasil digantung, dia bisa membalas kematiannya ";
-          flex_text.body.text += "dengan menghantui orang lain sampai mati";
+          flex_text.body.text += "dengan menghantui orang lain sampai mati. ";
+          flex_text.body.text +=
+            "Target yang dihantui Jester tidak dapat diselamatkan oleh apapun. ";
           break;
 
         case "lookout":
@@ -162,16 +188,17 @@ module.exports = {
           flex_text.body.text +=
             "Warga yang bisa memilih rumah siapa yang ingin dipantau pas malam. ";
           flex_text.body.text +=
-            "Dia hanya mengetahui siapa nama pendatang targetnya. ";
+            "Lookout bisa mengetahui siapa saja pendatang rumah dari target yang dipantau. ";
           break;
 
         case "escort":
           flex_text.header.text = "💋 Escort";
           flex_text.body.text += "Type: Town Support" + "\n\n";
           flex_text.body.text +=
-            "Warga yang bisa ganggu konsentrasi orang lain, sehingga targetnya bisa tidak menggunakan skillnya. ";
+            "Warga yang bisa block skill orang lain, sehingga targetnya tidak bisa menggunakan skillnya. ";
           flex_text.body.text +=
-            "Namun jika ke rumah Serial Killer, Escort ini bisa dibunuhnya. Escort immune dari role block";
+            "Namun jika ke rumah Serial Killer, Escort ini bisa dibunuhnya dan Serial Killer akan mengabaikan target awalnya. ";
+          flex_text.body.text += "Escort juga immune dari role block. ";
           break;
 
         case "sk":
@@ -179,9 +206,9 @@ module.exports = {
           flex_text.header.text = "🔪 Serial Killer";
           flex_text.body.text += "Type: Neutral Killing" + "\n\n";
           flex_text.body.text +=
-            "Psikopat yang kebal dari serangan biasa. Hidup hanya untuk membunuh orang lain. ";
+            "Psikopat yang menang jika berhasil membunuh Team yang melawannya. ";
           flex_text.body.text +=
-            "Kebal dari serangan biasa. Jika di role block, kamu akan bunuh yang ngerole block dan ";
+            "Serial Killer kebal dari serangan biasa. Jika di role block, kamu akan bunuh yang ngerole block dan ";
           flex_text.body.text += "mengabaikan target awalmu. ";
           break;
 
@@ -190,7 +217,7 @@ module.exports = {
           flex_text.header.text = "⚰️ Retributionist";
           flex_text.body.text += "Type: Town Support" + "\n\n";
           flex_text.body.text +=
-            "Warga yang bisa membangkitkan orang mati. Hanya 1 kali saja";
+            "Warga yang bisa membangkitkan orang yang sudah mati. Namun kesempatan ini hanya 1 kali saja. ";
           break;
 
         case "veteran":
@@ -200,6 +227,8 @@ module.exports = {
             "Warga yang merupakan Veteran perang yang paranoia. ";
           flex_text.body.text +=
             "Mudah terkejut sehingga jika dalam keadaan 'alert', bisa membunuh siapa saja yang kerumahnya. ";
+          flex_text.body.text +=
+            "Veteran immune dari role block Escort atau Consort. ";
           break;
 
         case "sheriff":
@@ -208,7 +237,11 @@ module.exports = {
           flex_text.body.text +=
             "Warga yang bisa cek suatu pemain mencurigakan atau tidak. ";
           flex_text.body.text +=
-            "Setiap warga akan tampil tidak mencurigakan. Namun role Werewolf, Arsonist, Vampire, Executioner akan tampil tidak mencurigakan juga. ";
+            "Setiap warga akan tampil tidak mencurigakan. Namun role Alpha Werewolf, Arsonist, Vampire, Executioner akan tampil tidak mencurigakan juga. ";
+          flex_text.body.text +=
+            "Jika target Sheriff di frame, maka akan tampil mencurigakan walaupun tidak. ";
+          flex_text.body.text +=
+            "Namun jika Disguiser di cek Sheriff, maka akan tampil mencurigakan. Walaupun role imitasi Disguiser adalah warga. ";
           break;
 
         case "arsonist":
@@ -225,6 +258,8 @@ module.exports = {
           flex_text.body.text += "Type: Neutral" + "\n\n";
           flex_text.body.text +=
             "Orang yang bisa menang dengan siapa saja, asalkan dia tidak mati hingga akhir game. ";
+          flex_text.body.text +=
+            "Survivor dibekali 4 vest untuk melindungi diri dari serangan biasa. ";
           break;
 
         case "exe":
@@ -234,7 +269,7 @@ module.exports = {
           flex_text.body.text +=
             "Pendendam yang ingin targetnya mati di gantung. Jika targetnya mati di serang saat malam, ";
           flex_text.body.text +=
-            "maka dia akan menjadi Jester. Targetnya akan selalu di pihak warga dan dia bisa immune dari serangan biasa";
+            "maka dia akan menjadi Jester. Targetnya akan selalu di pihak warga dan dia bisa immune dari serangan biasa. ";
           break;
 
         case "spy":
@@ -261,7 +296,7 @@ module.exports = {
           flex_text.body.text +=
             "Jika Target Framer di cek Sheriff, maka akan tampak bersalah walaupun ia adalah warga. ";
           flex_text.body.text +=
-            "Jika di cek Seer, akan muncul Werewolf, walaupun sebenarnya bukan";
+            "Jika di cek Seer, akan muncul Alpha Werewolf, walaupun sebenarnya bukan. ";
           break;
 
         case "disguiser":
@@ -272,7 +307,9 @@ module.exports = {
           flex_text.body.text +=
             "Jika Disguiser mati, maka nama role yang ada di daftar pemain adalah nama role warga yang dia imitasi. ";
           flex_text.body.text +=
-            "Hasil cek Sheriff akan tetap mencurigakan, sedangkan Seer hasil terawangnya adalah role yang di imitasi";
+            "Hasil cek Sheriff akan tetap mencurigakan, sedangkan Seer hasil terawangnya adalah role yang di imitasi. ";
+          flex_text.body.text +=
+            "Orang yang di imitasi Disguiser tidak tahu jika dirinya di imitasi. ";
           break;
 
         case "bodyguard":
@@ -281,7 +318,11 @@ module.exports = {
           flex_text.body.text +=
             "Warga yang bisa memilih siapa pemain yang ingin dilindungi. ";
           flex_text.body.text +=
-            "Jika Target Bodyguard mau diserang, maka Bodyguard akan melawan balik penyerang tersebut. ";
+            "Jika Target Bodyguard mau diserang, maka Bodyguard akan melawan balik penyerang tersebut, ";
+          flex_text.body.text +=
+            "dan penyerang itu akan balik menyerang Bodyguard dan mengabaikan target awalnya. ";
+          flex_text.body.text +=
+            "Bodyguard memiliki 1 vest yang bisa digunakan untuk melindungi diri sendiri dari serangan biasa. ";
           break;
 
         default:
