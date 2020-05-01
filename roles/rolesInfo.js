@@ -84,8 +84,10 @@ module.exports = {
           flex_text.body.text += "Type: Town Protector" + "\n\n";
           flex_text.body.text +=
             "Warga yang bisa memilih siapa yang ingin dilindungi. Dapat melindungi dari serangan biasa atau gigitan Vampire. ";
-          flex_text.body.text += "Kamu bisa tahu target mu diserang atau tidak. Skill Heal Doctor tidak bisa menolong ";
-          flex_text.body.text += "Vigilante yang akan mati karena bunuh diri, pembakaran Arsonist dan "
+          flex_text.body.text +=
+            "Kamu bisa tahu target mu diserang atau tidak. Skill Heal Doctor tidak bisa menolong ";
+          flex_text.body.text +=
+            "Vigilante yang akan mati karena bunuh diri, pembakaran Arsonist dan penyerangan Jester.";
           break;
 
         case "alpha werewolf":
@@ -93,8 +95,10 @@ module.exports = {
           flex_text.body.text += "Type: Werewolf Killing" + "\n\n";
           flex_text.body.text +=
             "Penjahat yang menyerupai manusia pada siang hari. Yang memberi perintah siapa yang akan dibunuh. ";
-          flex_text.body.text =
-            "Jika ada Werewolf Cub, maka yang membunuh adalah Werewolf-Cub. ";
+          flex_text.body.text +=
+            "Jika ada Werewolf Cub, maka yang membunuh adalah Werewolf-Cub. Alpha Werewolf kebal dari serangan biasa. ";
+          flex_text.body.text +=
+            "Jika Werewolf Cub di block atau tidak ada, Alpha Werewolf yang akan membunuh target";
           break;
 
         case "vampire":
@@ -108,6 +112,7 @@ module.exports = {
           flex_text.body.text +=
             "Jika jumlah Vampire sudah 4 atau lebih, maka Vampire tidak lagi mengubah seorang warga ";
           flex_text.body.text += "warga menjadi Vampire, tetapi menyerangnya. ";
+          flex_text.body.text += "Vampire tidak bisa gigit role yang bisa kebal dari serangan biasa. "
           break;
 
         case "vh":
@@ -117,30 +122,40 @@ module.exports = {
           flex_text.body.text +=
             "Warga yang berani melawan Vampire, disaat Vampire ke rumahnya, Vampire itu pasti mati. ";
           flex_text.body.text +=
-            "Mampu mendengar percakapan Vampire saat malam. ";
+            "Mampu mendengar percakapan Vampire saat malam. Vampire Hunter akan berubah menjadi Vigilante ";
+          flex_text.body.text +=
+            "jika semua Vampire telah di basmi"
           break;
 
         case "werewolf cub":
           flex_text.header.text = "🐕 Werewolf-Cub";
           flex_text.body.text += "Type: Werewolf Killing" + "\n\n";
           flex_text.body.text +=
-            "Di Pihak werewolf, melakukan pembunuhan atas suruhan Werewolf. Akan menjadi Werewolf jika Werewolf mati. ";
+            "Tangan kanan Alpha Werewolf dalam pembunuhan. Werewolf Cub akan menjadi Alpha Werewolf jika Alpha Werewolf yang ada mati. ";
+          flex_text.body.text +=
+            "Jika Alpha Werewolf tidak menggunakan skill, maka target yang dituju adalah target Werewolf Cub. ";
+          flex_text.body.text +=
+            "Namun jika pas malam itu Werewolf Cub di block oleh Escort, maka Werewolf tidak jadi membunuh. "
           break;
 
         case "sorcerer":
           flex_text.header.text = "🧙 Sorcerer";
           flex_text.body.text += "Type: Werewolf Support" + "\n\n";
           flex_text.body.text +=
-            "Di Pihak werewolf, bisa menerawang suatu pemain untuk mengetahui rolenya. ";
+            "Bisa mengecek suatu pemain untuk di ketahui role nya. Sorcerer akan berubah menjadi Werewolf Cub jika ";
+          flex_text.body.text +=
+            "Werewolf Cub yang ada mati. ";
           break;
 
         case "consort":
           flex_text.header.text = "🚷 Consort";
           flex_text.body.text += "Type: Werewolf Support" + "\n\n";
           flex_text.body.text +=
-            "Di Pihak werewolf, bisa memilih siapa pemain yang ingin di block skillnya. Consort immune dari role block. ";
+            "Bisa block skill suatu pemain. Namun jika Consort nge block Serial Killer, maka Serial Killer akan menyerang Consort ";
           flex_text.body.text +=
-            "Jika role block Serial-Killer, maka Serial-Killer itu akan ganti target ke orang yang role block";
+            "dan mengabaikan target awalnya. Consort immune dari blocknya Escort. Escort akan berubah menjadi Werewolf Cub ";
+          flex_text.body.text +=
+            "jika Werewolf Cub yang ada mati. ";
           break;
 
         case "vigi":
@@ -148,7 +163,7 @@ module.exports = {
           flex_text.header.text = "🔫 Vigilante";
           flex_text.body.text += "Type: Town Killing" + "\n\n";
           flex_text.body.text +=
-            "Warga yang bisa memilih siapa yang ingin dibunuh pas malam. ";
+            "Warga yang bisa menyerang orang lain saat malam. ";
           flex_text.body.text +=
             "Tetapi jika dia membunuh sesama warga, dia akan bunuh diri keesokan harinya";
           break;
