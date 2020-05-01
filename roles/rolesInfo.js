@@ -87,7 +87,9 @@ module.exports = {
           flex_text.body.text +=
             "Kamu bisa tahu target mu diserang atau tidak. Skill Heal Doctor tidak bisa menolong ";
           flex_text.body.text +=
-            "Vigilante yang akan mati karena bunuh diri, pembakaran Arsonist dan penyerangan Jester.";
+            "Vigilante yang akan mati karena bunuh diri, pembakaran Arsonist dan penyerangan Jester. ";
+          flex_text.body.text +=
+            "Doctor hanya bisa menyembuhkan diri sendiri 1 kali saja. ";
           break;
 
         case "alpha werewolf":
@@ -239,7 +241,7 @@ module.exports = {
           flex_text.body.text +=
             "Jika target Sheriff di frame, maka akan tampil mencurigakan walaupun tidak. ";
           flex_text.body.text +=
-            "Namun jika Disguiser di cek Sheriff, maka akan tampil mencurigakan. Wala"
+            "Namun jika Disguiser di cek Sheriff, maka akan tampil mencurigakan. Walaupun role imitasi Disguiser adalah warga. ";
           break;
 
         case "arsonist":
@@ -256,6 +258,8 @@ module.exports = {
           flex_text.body.text += "Type: Neutral" + "\n\n";
           flex_text.body.text +=
             "Orang yang bisa menang dengan siapa saja, asalkan dia tidak mati hingga akhir game. ";
+          flex_text.body.text +=
+            "Survivor dibekali 4 vest untuk melindungi diri dari serangan biasa. ";
           break;
 
         case "exe":
@@ -265,7 +269,7 @@ module.exports = {
           flex_text.body.text +=
             "Pendendam yang ingin targetnya mati di gantung. Jika targetnya mati di serang saat malam, ";
           flex_text.body.text +=
-            "maka dia akan menjadi Jester. Targetnya akan selalu di pihak warga dan dia bisa immune dari serangan biasa";
+            "maka dia akan menjadi Jester. Targetnya akan selalu di pihak warga dan dia bisa immune dari serangan biasa. ";
           break;
 
         case "spy":
@@ -292,7 +296,7 @@ module.exports = {
           flex_text.body.text +=
             "Jika Target Framer di cek Sheriff, maka akan tampak bersalah walaupun ia adalah warga. ";
           flex_text.body.text +=
-            "Jika di cek Seer, akan muncul Werewolf, walaupun sebenarnya bukan";
+            "Jika di cek Seer, akan muncul Alpha Werewolf, walaupun sebenarnya bukan. ";
           break;
 
         case "disguiser":
@@ -303,7 +307,9 @@ module.exports = {
           flex_text.body.text +=
             "Jika Disguiser mati, maka nama role yang ada di daftar pemain adalah nama role warga yang dia imitasi. ";
           flex_text.body.text +=
-            "Hasil cek Sheriff akan tetap mencurigakan, sedangkan Seer hasil terawangnya adalah role yang di imitasi";
+            "Hasil cek Sheriff akan tetap mencurigakan, sedangkan Seer hasil terawangnya adalah role yang di imitasi. ";
+          flex_text.body.text +=
+            "Orang yang di imitasi Disguiser tidak tahu jika dirinya di imitasi. ";
           break;
 
         case "bodyguard":
@@ -312,7 +318,11 @@ module.exports = {
           flex_text.body.text +=
             "Warga yang bisa memilih siapa pemain yang ingin dilindungi. ";
           flex_text.body.text +=
-            "Jika Target Bodyguard mau diserang, maka Bodyguard akan melawan balik penyerang tersebut. ";
+            "Jika Target Bodyguard mau diserang, maka Bodyguard akan melawan balik penyerang tersebut, ";
+          flex_text.body.text +=
+            "dan penyerang itu akan balik menyerang Bodyguard dan mengabaikan target awalnya. ";
+          flex_text.body.text +=
+            "Bodyguard memiliki 1 vest yang bisa digunakan untuk melindungi diri sendiri dari serangan biasa. ";
           break;
 
         default:
