@@ -150,10 +150,6 @@ module.exports = {
     } else {
       statusText = userText + "\n\n" + groupText;
     }
-    
-    let curTime = new Date();
-    const nowTime = (new Date()) - curTime;
-    statusText += "⚡ " + nowTime + " ms";
 
     let flex_text = {
       header: {
