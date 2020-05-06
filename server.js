@@ -33,21 +33,23 @@ const getDurationInMilliseconds = start => {
 };
 
 app.use((req, res, next) => {
-  if (process.env.TEST) console.log(`${req.method} ${req.originalUrl} [STARTED]`);
+  if (process.env.TEST === "true")
+    console.log(`${req.method} ${req.originalUrl} [STARTED]`);
+  
   const start = process.hrtime();
 
   res.on("finish", () => {
     const durationInMilliseconds = getDurationInMilliseconds(start);
     let text = `${req.method} ${req.originalUrl} [FINISHED] `;
     text += `${durationInMilliseconds.toLocaleString()} ms`;
-    if (process.env.TEST) console.log(text);
+    if (process.env.TEST === "true") console.log(text);
   });
 
   res.on("close", () => {
     const durationInMilliseconds = getDurationInMilliseconds(start);
     let text = `${req.method} ${req.originalUrl} [CLOSED] `;
     text += `${durationInMilliseconds.toLocaleString()} ms`;
-    if (process.env.TEST) console.log(text);
+    if (process.env.TEST === "true") console.log(text);
   });
 
   next();
