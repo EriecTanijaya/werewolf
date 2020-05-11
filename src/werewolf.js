@@ -81,6 +81,8 @@ module.exports = {
         return this.commandCommand();
       case "/help":
         return this.helpCommand();
+      case "/gamestat":
+        return this.gameStatCommand();
       case "/players":
       case "/player":
       case "/pemain":
@@ -133,6 +135,40 @@ module.exports = {
       default:
         return this.invalidCommand();
     }
+  },
+
+  gameStatCommand: function() {
+    let state = this.group_session.state;
+    let players = this.group_session.players;
+    
+    let bodyText = "";
+    if (state === "idle") {
+      return this.replyText("💡 Belum ada game yang dibuat");
+    }
+
+    bodyText += "Game mode : " + this.group_session.mode + "\n\n";
+    
+    let roomHostIndex = this.getPlayerIndexById(this.group_session.roomHostId);
+    let roomHostName = players[roomHostIndex].name;
+    bodyText += "Room Host : " + roomHostName;
+
+    let flex_text = {
+      header: {
+        text: "🎮 Game Stat"
+      },
+      body: {
+        text: ""
+      }
+    };
+
+    if (state === "new") {
+      flex_text.body.text = bodyText;
+      return this.replyFlex(flex_text);
+    }
+
+    bodyText += "\n\n";
+
+    let nig
   },
 
   tutorialCommand: function() {
@@ -2851,7 +2887,7 @@ module.exports = {
         }
       }
     }
-    
+
     /// Vampire convertion Action
     for (let i = 0; i < players.length; i++) {
       if (players[i].status === "alive" && players[i].willSuicide === false) {
@@ -3751,7 +3787,8 @@ module.exports = {
       "/extend : untuk menambah 1 menit saat baru membuat room game",
       "/kick : untuk mengeluarkan bot dari group atau room chat",
       "/set : untuk setting game",
-      "/tutorial : tutorial menggunakan bot ini"
+      "/tutorial : tutorial menggunakan bot ini",
+      "/gamestat : status game yang berjalan di grup ini"
     ];
 
     cmds.forEach((item, index) => {
