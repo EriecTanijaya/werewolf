@@ -140,17 +140,17 @@ module.exports = {
   gameStatCommand: function() {
     let state = this.group_session.state;
     let players = this.group_session.players;
-    
+
     let bodyText = "";
     if (state === "idle") {
       return this.replyText("💡 Belum ada game yang dibuat");
     }
 
-    bodyText += "Game mode : " + this.group_session.mode + "\n\n";
-    
+    bodyText += "🕹️ Game mode : " + this.group_session.mode + "\n\n";
+
     let roomHostIndex = this.getPlayerIndexById(this.group_session.roomHostId);
     let roomHostName = players[roomHostIndex].name;
-    bodyText += "Room Host : " + roomHostName;
+    bodyText += "👑 Room Host : " + roomHostName;
 
     let flex_text = {
       header: {
@@ -168,7 +168,19 @@ module.exports = {
 
     bodyText += "\n\n";
 
-    let nig
+    let nightCount = this.group_session.nightCounter;
+    let diedPlayerCount = 0;
+    players.forEach(item => {
+      if (item.status === "death") {
+        diedPlayerCount++;
+      }
+    });
+
+    bodyText += "Total yang mati sudah 💀 " + diedPlayerCount + " orang ";
+    bodyText += "dalam 🌕 " + nightCount + " malam";
+
+    flex_text.body.text = bodyText;
+    return this.replyFlex(flex_text);
   },
 
   tutorialCommand: function() {

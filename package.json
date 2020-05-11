@@ -1,6 +1,6 @@
 {
   "name": "Werewolf",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Bot Werewolf untuk line messenger",
   "main": "server.js",
   "scripts": {
