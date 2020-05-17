@@ -31,6 +31,10 @@ module.exports = {
         return this.statCommand();
       case "/tutorial":
         return this.tutorialCommand();
+      case "/forum":
+      case "/oc":
+      case "/openchat":
+        return this.forumCommand();
       case "/role":
       case "/news":
       case "/jurnal":
@@ -41,6 +45,28 @@ module.exports = {
       default:
         return this.invalidCommand();
     }
+  },
+  
+  forumCommand: function() {
+    let flex_text = {
+      header: {
+        text: "💬 Forum"
+      },
+      body: {
+        text: "Gabung ke forum untuk tahu berita tentang bot!"
+      },
+      footer: {
+        buttons: [
+          {
+            action: "uri",
+            label: "open forum",
+            data:
+              "https://line.me/ti/g2/3NEqw4h7jNdOBCur8AQWyw?utm_source=invitation&utm_medium=link_copy&utm_campaign=default"
+          }
+        ]
+      }
+    };
+    return this.replyFlex(flex_text);
   },
 
   tutorialCommand: function() {
