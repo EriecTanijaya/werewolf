@@ -945,7 +945,8 @@ module.exports = {
       "/info : list role",
       "/help : bantuan game",
       "/journal : cek journal kamu",
-      "/revoke: untuk batal menggunakan skill"
+      "/revoke: untuk batal menggunakan skill",
+      "/feedback : untuk kasih sara"
     ];
 
     cmds.forEach((item, index) => {
