@@ -56,6 +56,11 @@ module.exports = {
     }
 
     switch (this.args[0]) {
+      case "/test":
+        setTimeout(() => {
+          
+        }, 5000);
+        break;
       case "/new":
       case "/buat":
       case "/main":

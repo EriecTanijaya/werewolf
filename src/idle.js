@@ -102,8 +102,7 @@ module.exports = {
       "/info : list role",
       "/me : statistik user",
       "/rank : cek rank",
-      "/tutorial : tutorial menggunakan bot ini",
-      "/feedback : untuk kasih saran ke creator"
+      "/tutorial : tutorial menggunakan bot ini"
     ];
 
     cmds.forEach((item, index) => {
