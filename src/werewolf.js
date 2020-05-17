@@ -56,11 +56,6 @@ module.exports = {
     }
 
     switch (this.args[0]) {
-      case "/test":
-        setTimeout(() => {
-          
-        }, 5000);
-        break;
       case "/new":
       case "/buat":
       case "/main":
@@ -3831,7 +3826,8 @@ module.exports = {
       "/kick : untuk mengeluarkan bot dari group atau room chat",
       "/set : untuk setting game",
       "/tutorial : tutorial menggunakan bot ini",
-      "/gamestat : status game yang berjalan di grup ini"
+      "/gamestat : status game yang berjalan di grup ini",
+      "/forum : link ke openchat"
     ];
 
     cmds.forEach((item, index) => {
