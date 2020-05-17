@@ -3826,7 +3826,8 @@ module.exports = {
       "/kick : untuk mengeluarkan bot dari group atau room chat",
       "/set : untuk setting game",
       "/tutorial : tutorial menggunakan bot ini",
-      "/gamestat : status game yang berjalan di grup ini"
+      "/gamestat : status game yang berjalan di grup ini",
+      "/forum : link ke openchat"
     ];
 
     cmds.forEach((item, index) => {
