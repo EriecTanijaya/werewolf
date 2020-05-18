@@ -202,8 +202,12 @@ module.exports = {
       }
     });
 
-    bodyText += "Total yang mati sudah 💀 " + diedPlayerCount + " orang ";
-    bodyText += "dalam 🌕 " + nightCount + " malam";
+    if (diedPlayerCount > 0) {
+      bodyText += "Total yang mati sudah 💀 " + diedPlayerCount + " orang ";
+      bodyText += "dalam 🌕 " + nightCount + " malam";
+    } else {
+      bodyText += "🌕 Belum ada yang mati dalam " + nightCount + " malam ini";
+    }
 
     flex_text.body.text = bodyText;
     return this.replyFlex(flex_text);
