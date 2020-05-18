@@ -59,9 +59,6 @@ module.exports = {
     }
 
     database.getAllUser(team, users => {
-      if (users.length === 0) {
-        return this.replyText("💡Belum ada data usernya, main 1 game dlu");
-      }
       users = this.rank_sort(users);
       for (let i = 0; i < users.length; i++) {
         if (users[i].id === this.event.source.userId) {
@@ -81,6 +78,7 @@ module.exports = {
           return this.replyFlex(flex_text);
         }
       }
+      return this.replyText("💡Belum ada data usernya, main 1 game dlu");
     });
   },
 
@@ -123,7 +121,6 @@ module.exports = {
       let flex_text = this.getTableFlex(users, headerText, team);
       return this.replyFlex(flex_text);
     });
-    //return this.replyText("💡 HAH? KOSONG?!!");
   },
 
   statusCommand: function() {
