@@ -7,7 +7,11 @@ module.exports = {
       "survive",
       "killing-wars",
       "who's-there",
-      "trust-issue"
+      "trust-issue",
+      // new
+      "who-are-you",
+      "new-threat",
+      "clown-town"
     ];
     return modeList;
   },
