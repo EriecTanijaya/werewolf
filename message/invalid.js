@@ -20,7 +20,7 @@ module.exports = {
       "🤔 maksudnya " + invalidText + " apaan? ",
       "😑 au ah gelap. Gak ngerti aku cmd " + invalidText + ". ",
       "😐 tolong ya, aku gak ngerti " + invalidText + " artinya apaan. ",
-      "😒 i don't what is " + invalidText + " means. ",
+      "😒 i don't know what is " + invalidText + " means. ",
       "😕 aku ga ngerti " + invalidText + ", mungkin yang lain tau. ",
       "🙄 gak paham. ",
       "🤔 eyy " + name + ", aku gak ngerti " + invalidText + " artinya apa. ",
