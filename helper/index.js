@@ -90,26 +90,27 @@ module.exports = {
   },
 
   getChaosRoleSet: function(playersLength) {
-    let roles = [
-      "alpha-werewolf"
-    ];
-    
-    let townInvestigates = ["seer", "lookout"]; //and spy, sheriff
+    let roles = ["alpha-werewolf"];
+
+    let townInvestigates = ["seer", "lookout"];
     roles.push(this.random(townInvestigates));
-    
+
     let townProtectors = ["doctor", "bodyguard"];
     roles.push(this.random(townProtectors));
-    
+
     let townSupports = ["escort", "retributionist"];
     roles.push(this.random(townSupports));
-    
+
     let neutralEvils = ["jester", "executioner"];
     roles.push(this.random(neutralEvils));
-    
-    roles.push("lookout");
-    
+
+    roles.push(this.random(townInvestigates));
+
     roles.push("werewolf-cub");
-    
+
+    let townKillings = ["veteran", "vigilante"];
+    roles.push(this.random(townKillings));
+
     let randomTowns = [
       "doctor",
       "bodyguard",
@@ -120,11 +121,21 @@ module.exports = {
       "escort"
     ];
     roles.push(this.random(randomTowns));
-    
-    
-    
-    //townKillings = ["veteran", "vigilante"];
-    
+
+    roles.push(this.random(randomTowns));
+
+    let randomWerewolves = ["framer", "consort", "sorcerer", "disguiser"];
+    roles.push(this.random(randomWerewolves));
+
+    roles.push("spy");
+
+    let neutralKillings = ["arsonist", "serial-killer"];
+    roles.push(this.random(neutralKillings));
+
+    roles.push(this.random(randomTowns));
+
+    roles.push(this.random(randomWerewolves));
+
     roles.length = playersLength;
     roles = this.shuffleArray(roles);
     return roles;
