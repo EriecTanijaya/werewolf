@@ -224,14 +224,13 @@ module.exports = {
       "seer",
       "sheriff"
     ];
-    
+
     roles.length = playersLength;
     roles = this.shuffleArray(roles);
     return roles;
   },
-  
+
   getWhoAreYou: function(playersLength) {
-    
     let roles = [
       "alpha-werewolf",
       "doctor",
@@ -248,24 +247,22 @@ module.exports = {
       "escort",
       "lookout",
       "seer"
-    ]
-    
+    ];
+
     roles.length = playersLength;
     roles = this.shuffleArray(roles);
     return roles;
   },
-  
+
   getNewThreat: function(playersLength) {
-    let roles = [
-      "serial-killer"
-    ]
-    
+    let roles = ["serial-killer"];
+
     let townInvestigates = ["seer", "lookout"];
     roles.push(this.random(townInvestigates));
 
     let townProtectors = ["doctor", "bodyguard"];
     roles.push(this.random(townProtectors));
-    
+
     let randomTowns = [
       "doctor",
       "bodyguard",
@@ -277,30 +274,30 @@ module.exports = {
       "retributionist"
     ];
     roles.push(this.random(randomTowns));
-    
+
     roles.push("arsonist");
-    
+
     roles.push(this.random(townProtectors));
-    
+
     roles.push(this.random(randomTowns));
-    
+
     roles.push(this.random(townInvestigates));
-    
+
     roles.push("serial-killer");
-    
+
     roles.push(this.random(randomTowns));
-    
+
     roles.push("survivor");
-    
+
     roles.push(this.random(randomTowns));
-    
+
     roles.push("executioner", "serial-killer", "jester");
-    
+
     roles.length = playersLength;
     roles = this.shuffleArray(roles);
     return roles;
   },
-  
+
   getClownTown: function(playersLength) {
     let roles = [
       "alpha-werewolf",
@@ -309,15 +306,22 @@ module.exports = {
       "sheriff",
       "seer",
       "framer",
+      "jester",
+      "seer",
+      "seer",
+      "jester",
+      "seer",
+      "jester",
       "framer",
-      ""
+      "seer",
+      "jester"
     ];
-    
+
     roles.length = playersLength;
     roles = this.shuffleArray(roles);
     return roles;
   },
-  
+
   getTutorial: function() {
     let flex_texts = [];
     let flex_text = {};
