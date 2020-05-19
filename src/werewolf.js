@@ -3674,7 +3674,9 @@ module.exports = {
     this.resetCheckChance();
     
     // check if alpha ww die, search a substitute
-    //if () //cp
+    if (roleName === "alpha-werewolf") {
+      this.substituteWerewolf();
+    }
 
     return this.replyFlex(flex_texts);
   },
@@ -3865,6 +3867,10 @@ module.exports = {
   },
 
   /** helper func **/
+  
+  substituteWerewolf: function() {
+    //cp
+  },
 
   handleJesterWin: function(index, tableColumn, surviveTeam) {
     if (this.group_session.players[index].role.isLynched) {
