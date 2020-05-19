@@ -246,7 +246,8 @@ module.exports = {
       this.client,
       this.event,
       this.args,
-      this.group_session
+      this.group_session,
+      this.user_session
     );
   },
 
