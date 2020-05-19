@@ -3673,28 +3673,37 @@ module.exports = {
     this.group_session.time = 8;
     this.resetCheckChance();
     
-    // check werewolf killing yang mati
-    // check if alpha ww die, search a substitute 
-    if (roleName === "alpha-werewolf") {
-      if (this.checkExistsRole("werewolf-cub")) {
-        let willMorphId = this.getPlayerIdByRole("werewolf-cub");
-        let index = this.getPlayerIndexById(willMorphId);
-        let roleData = this.getRoleData("alpha-werewolf");
-        this.group_session.players[index].role = roleData;
-        this.group_session.players[index].addonMessage +=
-          "💡 Kamu menggantikan " + lynchedName +
-          " sebagai Alpha Werewolf";
-      }
-    }
-    
-    
-    
 
     return this.replyFlex(flex_texts);
   },
 
   postLynch: function() {
+    let players = this.group_session.players;
     let lynched = this.group_session.lynched;
+    
+    // check werewolf killing yang mati
+    if (lynched.role.type === "Werewolf Killing") {
+      // check if alpha ww die, search a substitute 
+      if (lynched.role.name === "alpha-werewolf") {
+        if (this.checkExistsRole("werewolf-cub")) {
+          let willMorphId = this.getPlayerIdByRole("werewolf-cub");
+          let index = this.getPlayerIndexById(willMorphId);
+          let roleData = this.getRoleData("alpha-werewolf");
+          this.group_session.players[index].role = roleData;
+          this.group_session.players[index].addonMessage +=
+            "💡 Kamu menggantikan " + lynched.name +
+            " sebagai Alpha Werewolf";
+        }
+      } else if (lynched.role.name === "werewolf-cub") {
+        // check if there is no werewolf killing left
+        for (let i = 0; i < players.length; i++) {
+          if (players[i].status === "alive") {
+            if ()
+          }
+        }
+      }
+    }
+    
     if (!lynched) {
       return this.night(null);
     } else {
