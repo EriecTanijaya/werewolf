@@ -140,7 +140,7 @@ module.exports = {
         return this.invalidCommand();
     }
   },
-  
+
   forumCommand: function() {
     let flex_text = {
       header: {
@@ -737,7 +737,7 @@ module.exports = {
       }
 
       item.role = this.getRoleData(item.role.name);
-      
+
       // disini bagi role pake pushMessage
       // if (this.group_session.groupId === process.env.TEST_GROUP) {
       //   // this.client.pushMessage();
@@ -2524,7 +2524,7 @@ module.exports = {
       }
     }
 
-    /// DEATH ACTION STILL WIP
+    /// DEATH ACTION
     for (let i = 0; i < players.length; i++) {
       if (players[i].status === "alive") {
         let isAttacked = players[i].attacked;
@@ -2926,6 +2926,8 @@ module.exports = {
               isExecutionerTargetDie = true;
             }
           }
+
+          this.substituteWerewolf(this.group_session.players[i]);
         }
       }
     }
@@ -3627,7 +3629,7 @@ module.exports = {
     let candidates = this.getVoteCandidates();
     lynchTarget = helper.getMostFrequent(candidates);
     let roleName = players[lynchTarget.index].role.name;
-    
+
     // check if disguiser, the roleName should different
     if (players[lynchTarget.index].role.disguiseAs) {
       roleName = players[lynchTarget.index].role.disguiseAs;
@@ -3671,41 +3673,16 @@ module.exports = {
     this.group_session.lynched = players[lynchTarget.index];
     this.group_session.time = 8;
     this.resetCheckChance();
-    
 
     return this.replyFlex(flex_texts);
   },
 
   postLynch: function() {
+    let players = this.group_session.players;
     let lynched = this.group_session.lynched;
-    
-    /// buatkan ini ke func yg bisa di pake pas day func juga
-    // check werewolf killing yang mati
-    if (lynched.role.type === "Werewolf Killing") {
-      // check if alpha ww die, search a substitute 
-      if (lynched.role.name === "alpha-werewolf") {
-        this.checkMorphingRole("werewolf-cub", "alpha-werewolf", "alpha-werewolf");
-      } else if (lynched.role.name === "werewolf-cub") {
-        // check if there is no werewolf killing left
-        let isThereWerewolfKillingLeft = false;
-        for (let i = 0; i < thisplayers.length; i++) {
-          if (players[i].status === "alive") {
-            if (players[i].role.type === "Werewolf Killing") {
-              isThereWerewolfKillingLeft = true;
-              break;
-            }
-          }
-        }
-        if (!isThereWerewolfKillingLeft) {
-          // to werewolf cub
-          this.checkMorphingRole("consort", "werewolf-cub", "werewolf-cub");
-          this.checkMorphingRole("sorcerer", "werewolf-cub", "werewolf-cub");
-          this.checkMorphingRole("framer", "werewolf-cub", "werewolf-cub");
-          this.checkMorphingRole("disguiser", "werewolf-cub", "werewolf-cub");
-        }
-      }
-    }
-    
+
+    this.substituteWerewolf(lynched);
+
     if (!lynched) {
       return this.night(null);
     } else {
@@ -3890,9 +3867,38 @@ module.exports = {
   },
 
   /** helper func **/
-  
-  substituteWerewolf: function() {
-    //cp
+
+  substituteWerewolf: function(checkTarget) {
+    let players = this.group_session.players;
+    // check werewolf killing yang mati
+    if (checkTarget.role.type === "Werewolf Killing") {
+      // check if alpha ww die, search a substitute
+      if (checkTarget.role.name === "alpha-werewolf") {
+        this.checkMorphingRole(
+          "werewolf-cub",
+          "alpha-werewolf",
+          "alpha-werewolf"
+        );
+      } else if (checkTarget.role.name === "werewolf-cub") {
+        // check if there is no werewolf killing left
+        let isThereWerewolfKillingLeft = false;
+        for (let i = 0; i < players.length; i++) {
+          if (players[i].status === "alive") {
+            if (players[i].role.type === "Werewolf Killing") {
+              isThereWerewolfKillingLeft = true;
+              break;
+            }
+          }
+        }
+        if (!isThereWerewolfKillingLeft) {
+          // to werewolf cub
+          this.checkMorphingRole("consort", "werewolf-cub", "werewolf-cub");
+          this.checkMorphingRole("sorcerer", "werewolf-cub", "werewolf-cub");
+          this.checkMorphingRole("framer", "werewolf-cub", "werewolf-cub");
+          this.checkMorphingRole("disguiser", "werewolf-cub", "werewolf-cub");
+        }
+      }
+    }
   },
 
   handleJesterWin: function(index, tableColumn, surviveTeam) {
