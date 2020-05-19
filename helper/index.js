@@ -19,17 +19,13 @@ module.exports = {
     ww, town, neutral, town
     */
 
-    let roles = [
-      "vampire",
-      "vampire-hunter",
-      "doctor",
-      "lookout",
-      "lookout"
-    ];
-    
+    let roles = ["vampire", "vampire-hunter", "doctor", "lookout", "lookout"];
+
     let townSupports = ["escort", "retributionist"];
     let townSupport = this.random(townSupports);
     roles.push(townSupport);
+
+    roles.push("vampire", "seer", "vigilante", "vampire");
 
     let townProtectors = ["doctor", "bodyguard"];
     let townProtector = this.random(townProtectors);
@@ -40,7 +36,7 @@ module.exports = {
     let anotherTownSupport = this.random(townSupports);
     roles.push(anotherTownSupport);
 
-    roles.p
+    roles.push("jester");
 
     roles.push("vampire");
 
