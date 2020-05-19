@@ -66,6 +66,11 @@ module.exports = {
       if (this.args[2] === mode || this.args[2] == modeId) {
         this.group_session.mode = mode;
         found = true;
+        if (this.group_session.mode === mode) {
+          let text = "💡 " + this.user_session.name + ", ";
+          text += "game mode nya sudah di set ke " + mode;
+          return this.replyText(text)
+        }
         return this.replyText("🕹️ Game mode berhasil diubah ke " + mode + "!");
       }
     }

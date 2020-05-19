@@ -138,8 +138,16 @@ module.exports = {
         return this.replyText(text);
     }
 
-    flex_text.body.text +=
-      "\n\n" + "💡 Ketik '/set mode " + modeId + "' untuk terapkan mode ini";
+    flex_text.footer = {
+      buttons: [
+        {
+          action: "postback",
+          label: "set mode ini",
+          data:
+            "/set mode " + modeId
+        }
+      ]
+    };
 
     return this.replyFlex(flex_text);
   },
