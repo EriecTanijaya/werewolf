@@ -279,13 +279,29 @@ module.exports = {
     
     roles.push("arsonist");
     
-    roles.push(this.random())
+    roles.push(this.random(townProtectors));
+    
+    roles.push(this.random(randomTowns));
+    
+    roles.push(this.random(townInvestigates));
+    
+    roles.push("serial-killer");
+    
+    roles.push(this.random(randomTowns));
+    
+    roles.push("survivor");
+    
+    roles.push(this.random(randomTowns));
+    
+    roles.push("executioner", "serial-killer", "jester");
     
     roles.length = playersLength;
     roles = this.shuffleArray(roles);
     return roles;
   },
 
+  getPyromaniacs:
+  
   getTutorial: function() {
     let flex_texts = [];
     let flex_text = {};
