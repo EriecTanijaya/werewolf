@@ -767,12 +767,6 @@ module.exports = {
 
     /// untuk role yang berubah-berubah
 
-    // to werewolf cub
-    this.checkMorphingRole("consort", "werewolf-cub", "werewolf-cub");
-    this.checkMorphingRole("sorcerer", "werewolf-cub", "werewolf-cub");
-    this.checkMorphingRole("framer", "werewolf-cub", "werewolf-cub");
-    this.checkMorphingRole("disguiser", "werewolf-cub", "werewolf-cub");
-
     // vampire hunter to vigi
     this.checkMorphingRole("vampire-hunter", "vampire", "vigilante");
 
@@ -856,15 +850,6 @@ module.exports = {
     });
 
     /// untuk role yang berubah-berubah
-
-    // to werewolf
-    this.checkMorphingRole("werewolf-cub", "alpha-werewolf", "alpha-werewolf");
-
-    // to werewolf cub
-    this.checkMorphingRole("consort", "werewolf-cub", "werewolf-cub");
-    this.checkMorphingRole("sorcerer", "werewolf-cub", "werewolf-cub");
-    this.checkMorphingRole("framer", "werewolf-cub", "werewolf-cub");
-    this.checkMorphingRole("disguiser", "werewolf-cub", "werewolf-cub");
 
     // vampire hunter to vigi
     this.checkMorphingRole("vampire-hunter", "vampire", "vigilante");
