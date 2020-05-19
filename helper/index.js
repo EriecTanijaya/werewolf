@@ -48,40 +48,34 @@ module.exports = {
   },
 
   getClassicRoleSet: function(playersLength) {
-    let roles = ["alpha-werewolf", "seer"];
-
-    let townProtectors = ["bodyguard", "doctor"];
-    let townProtector = this.random(townProtectors);
-    roles.push(townProtector);
-
-    let remainingRoles = [
-      "lookout",
-      "veteran",
-      "jester",
+    let roles = [
+      "alpha-werewolf",
+      "doctor",
+      "seer",
       "escort",
+      "jester",
+      "lookout",
       "werewolf-cub",
       "sheriff",
       "executioner",
-      "retributionist"
     ];
-
-    remainingRoles.forEach(item => {
-      roles.push(item);
-    });
-
-    let werewolves = ["framer", "disguiser", "consort", "sorcerer"];
-    let werewolfAddon = this.random(werewolves);
-    roles.push(werewolfAddon);
-
-    let towns = ["tracker", "spy", "vigilante"];
-    towns = this.shuffleArray(towns);
-    roles.push(towns[0]);
-
-    let neutrals = ["serial-killer", "arsonist"];
-    let neutralAddon = this.random(neutrals);
-    roles.push(neutralAddon);
-
-    roles.push(towns[1]);
+    
+    let townKillings = ["veteran", "vigilante"];
+    let townKilling = this.random(townKillings);
+    roles.push(townKilling);
+    
+    let remainingTowns = [
+      "doctor", "bodyguard", "seer", "lookout", "sheriff", "vigilante", "escort"
+    ];
+    
+    let randomTown = this.random(remainingTowns);
+    roles.push(randomTown);
+    
+    roles.push("serial-killer");
+    
+    roles.push("framer");
+    
+    
 
     roles.length = playersLength;
 
