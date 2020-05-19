@@ -157,7 +157,7 @@ module.exports = {
       roles.push(werewolves[i]);
       needVigilante = true;
     }
-  
+
     for (let i = 0; i < neutralNeedCount; i++) {
       roles.push(neutrals[i]);
       if (neutrals[i] === "vampire") needVampireHunter = true;

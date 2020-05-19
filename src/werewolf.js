@@ -737,6 +737,10 @@ module.exports = {
       }
 
       item.role = this.getRoleData(item.role.name);
+      
+      // private prop for werewolf team, init
+      let 
+      
       // disini bagi role pake pushMessage
       // if (this.group_session.groupId === process.env.TEST_GROUP) {
       //   // this.client.pushMessage();
