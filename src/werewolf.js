@@ -2884,7 +2884,7 @@ module.exports = {
           .map((atkr, idx) => {
             let note = atkr.deathNote + "\n\n";
 
-            if (atkr.role.name === "werewolf-cub") {
+            if (atkr.role.type === "Werewolf Killing") {
               note += "- werewolf";
             } else {
               note += "- " + atkr.role.name;
