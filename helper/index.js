@@ -77,12 +77,7 @@ module.exports = {
     let randomTown = this.random(remainingTowns);
     roles.push(randomTown);
 
-    roles.push("serial-killer");
-
-    roles.push("framer");
-
-    let anotherRandomTown = this.random(remainingTowns);
-    roles.push(anotherRandomTown);
+    roles.push("serial-killer", "framer", "spy");
 
     let lastRandomTown = this.random(remainingTowns);
     roles.push(lastRandomTown);
@@ -95,107 +90,54 @@ module.exports = {
   },
 
   getChaosRoleSet: function(playersLength) {
-    let roles = [];
+    let roles = ["alpha-werewolf"];
 
-    let townNeedCount = Math.round(playersLength / 2) + 1;
-    let badNeedCount = playersLength - townNeedCount;
-    let werewolfNeedCount = Math.round((45 / 100) * badNeedCount);
+    let townInvestigates = ["seer", "lookout"];
+    roles.push(this.random(townInvestigates));
 
-    if (werewolfNeedCount > 4) {
-      werewolfNeedCount = 4;
-    }
+    let townProtectors = ["doctor", "bodyguard"];
+    roles.push(this.random(townProtectors));
 
-    let neutralNeedCount = badNeedCount - werewolfNeedCount;
+    let townSupports = ["escort", "retributionist"];
+    roles.push(this.random(townSupports));
 
-    let needSheriff = false;
-    let needVampireHunter = false;
-    let needVigilante = true;
-    let needSpy = true;
+    let neutralEvils = ["jester", "executioner"];
+    roles.push(this.random(neutralEvils));
 
-    if (werewolfNeedCount > 3) {
-      needSpy = true;
-    }
+    roles.push(this.random(townInvestigates));
 
-    // always
-    roles.push("alpha-werewolf");
-    werewolfNeedCount--;
-    let werewolves = [
-      "werewolf-cub",
-      "framer",
-      "consort",
-      "disguiser",
-      "sorcerer"
-    ];
-    werewolves = this.shuffleArray(werewolves);
+    roles.push("werewolf-cub");
 
-    let uniqueTowns = ["veteran"];
-    let towns = [
-      "seer",
+    let townKillings = ["veteran", "vigilante"];
+    roles.push(this.random(townKillings));
+
+    let randomTowns = [
       "doctor",
+      "bodyguard",
+      "seer",
       "lookout",
-      "escort",
-      "retributionist",
-      "tracker",
-      "bodyguard"
+      "sheriff",
+      "vigilante",
+      "escort"
     ];
-    towns = this.shuffleArray(towns);
+    roles.push(this.random(randomTowns));
 
-    let neutrals = [
-      "vampire",
-      "serial-killer",
-      "arsonist",
-      "executioner",
-      "jester",
-      "survivor"
-    ];
-    neutrals = this.shuffleArray(neutrals);
+    roles.push(this.random(randomTowns));
 
-    for (let i = 0; i < werewolfNeedCount; i++) {
-      roles.push(werewolves[i]);
-      needVigilante = true;
-    }
+    let randomWerewolves = ["framer", "consort", "sorcerer", "disguiser"];
+    roles.push(this.random(randomWerewolves));
 
-    for (let i = 0; i < neutralNeedCount; i++) {
-      roles.push(neutrals[i]);
-      if (neutrals[i] === "vampire") needVampireHunter = true;
-      if (neutrals[i] === "serial-killer") needSheriff = true;
-    }
+    roles.push("spy");
 
-    if (needSheriff) {
-      roles.push("sheriff");
-      townNeedCount--;
-    }
+    let neutralKillings = ["arsonist", "serial-killer"];
+    roles.push(this.random(neutralKillings));
 
-    if (needVigilante) {
-      roles.push("vigilante");
-      townNeedCount--;
-    }
+    roles.push(this.random(randomTowns));
 
-    if (needVampireHunter) {
-      roles.push("vampire-hunter");
-      townNeedCount--;
-    }
+    roles.push(this.random(randomWerewolves));
 
-    if (needSpy) {
-      roles.push("spy");
-      townNeedCount--;
-    }
-
-    // unique town roles
-    if (townNeedCount > 0) {
-      for (let i = 0; i < uniqueTowns.length; i++) {
-        roles.push(uniqueTowns[i]);
-        townNeedCount--;
-      }
-    }
-
-    for (let i = 0; i < townNeedCount; i++) {
-      roles.push(towns[i]);
-      towns = this.shuffleArray(towns); // experimental
-    }
-
+    roles.length = playersLength;
     roles = this.shuffleArray(roles);
-
     return roles;
   },
 
