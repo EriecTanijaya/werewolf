@@ -502,6 +502,7 @@ module.exports = {
       // morphed role message
       if (players[index].addonMessage) {
         text += players[index].addonMessage + "\n";
+        players[index].addonMessage = "";
       }
 
       /// special role skill
