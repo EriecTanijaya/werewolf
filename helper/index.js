@@ -71,7 +71,8 @@ module.exports = {
       "lookout",
       "sheriff",
       "vigilante",
-      "escort"
+      "escort",
+      "retributionist"
     ];
 
     let randomTown = this.random(remainingTowns);
@@ -118,7 +119,8 @@ module.exports = {
       "lookout",
       "sheriff",
       "vigilante",
-      "escort"
+      "escort",
+      "retributionist"
     ];
     roles.push(this.random(randomTowns));
 
@@ -182,21 +184,21 @@ module.exports = {
 
   getWhosThereRoleSet: function(playersLength) {
     let roles = [
+      "escort",
       "alpha-werewolf",
       "escort",
       "escort",
-      "sheriff",
-      "serial-killer",
-      "escort",
-      "escort",
       "werewolf-cub",
+      "sheriff",
+      "escort",
+      "escort",
+      "consort",
       "vigilante",
       "sheriff",
-      "serial-killer",
       "escort",
       "vigilante",
       "sheriff",
-      "escort"
+      "consort"
     ];
 
     roles.length = playersLength;
@@ -207,20 +209,112 @@ module.exports = {
   getTrustIssueRoleSet: function(playersLength) {
     let roles = [
       "alpha-werewolf",
-      "executioner",
-      "seer",
-      "seer",
+      "veteran",
       "sheriff",
-      "werewolf-cub",
+      "seer",
+      "framer",
       "sheriff",
+      "sheriff",
+      "seer",
       "framer",
       "seer",
       "sheriff",
-      "framer",
       "seer",
-      "sheriff",
+      "framer",
       "seer",
       "sheriff"
+    ];
+
+    roles.length = playersLength;
+    roles = this.shuffleArray(roles);
+    return roles;
+  },
+
+  getWhoAreYou: function(playersLength) {
+    let roles = [
+      "alpha-werewolf",
+      "doctor",
+      "bodyguard",
+      "doctor",
+      "seer",
+      "disguiser",
+      "vigilante",
+      "bodyguard",
+      "sheriff",
+      "disguiser",
+      "bodyguard",
+      "vigilante",
+      "escort",
+      "lookout",
+      "seer"
+    ];
+
+    roles.length = playersLength;
+    roles = this.shuffleArray(roles);
+    return roles;
+  },
+
+  getNewThreat: function(playersLength) {
+    let roles = ["serial-killer"];
+
+    let townInvestigates = ["seer", "lookout"];
+    roles.push(this.random(townInvestigates));
+
+    let townProtectors = ["doctor", "bodyguard"];
+    roles.push(this.random(townProtectors));
+
+    let randomTowns = [
+      "doctor",
+      "bodyguard",
+      "seer",
+      "lookout",
+      "sheriff",
+      "vigilante",
+      "escort",
+      "retributionist"
+    ];
+    roles.push(this.random(randomTowns));
+
+    roles.push("arsonist");
+
+    roles.push(this.random(townProtectors));
+
+    roles.push(this.random(randomTowns));
+
+    roles.push(this.random(townInvestigates));
+
+    roles.push("serial-killer");
+
+    roles.push(this.random(randomTowns));
+
+    roles.push("survivor");
+
+    roles.push(this.random(randomTowns));
+
+    roles.push("executioner", "serial-killer", "jester");
+
+    roles.length = playersLength;
+    roles = this.shuffleArray(roles);
+    return roles;
+  },
+
+  getClownTown: function(playersLength) {
+    let roles = [
+      "alpha-werewolf",
+      "jester",
+      "seer",
+      "sheriff",
+      "seer",
+      "framer",
+      "jester",
+      "seer",
+      "seer",
+      "jester",
+      "seer",
+      "jester",
+      "framer",
+      "seer",
+      "jester"
     ];
 
     roles.length = playersLength;
