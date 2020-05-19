@@ -228,6 +228,78 @@ module.exports = {
     return roles;
   },
 
+  getWereYouUseAbility: function(playersLength) {
+    let roles = [
+      "escort",
+      "alpha-werewolf",
+      "escort",
+      "escort",
+      "werewolf-cub",
+      "sheriff",
+      "escort",
+      "escort",
+      "consort",
+      "vigilante",
+      "sheriff",
+      "escort",
+      "vigilante",
+      "sheriff",
+      "consort"
+    ];
+
+    roles.length = playersLength;
+    roles = this.shuffleArray(roles);
+    return roles;
+  },
+  
+  getWhoAreYou: function(playersLength) {
+    let roles = [
+      "alpha-werewolf",
+      "doctor",
+      "bodyguard",
+      "doctor",
+      "seer",
+      "disguiser",
+      "vigilante",
+      "bodyguard",
+      "sheriff",
+      "disguiser",
+      "bodyguard",
+      "vigilante",
+      "escort",
+      "lookout",
+      "seer"
+    ]
+    
+    roles.length = playersLength;
+    roles = this.shuffleArray(roles);
+    return roles;
+  },
+  
+  getOhItsYou: function(playersLength) {
+    let roles = [
+      "alpha-werewolf",
+      "veteran",
+      "sheriff",
+      "seer",
+      "framer",
+      "sheriff",
+      "sheriff",
+      "seer",
+      "framer",
+      "seer",
+      "sheriff",
+      "seer",
+      "framer",
+      "seer",
+      "sheriff"
+    ]
+    
+    roles.length = playersLength;
+    roles = this.shuffleArray(roles);
+    return roles;
+  },
+
   getTutorial: function() {
     let flex_texts = [];
     let flex_text = {};
