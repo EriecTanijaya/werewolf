@@ -721,7 +721,7 @@ module.exports = {
 
     /// test specific role cp
     if (process.env.TEST === "true") {
-      roles = ["seer", "alpha-werewolf", "vampire"];
+      //roles = ["seer", "alpha-werewolf", "vampire"];
     }
 
     /// hax for exe
@@ -3672,8 +3672,6 @@ module.exports = {
     let players = this.group_session.players;
     let lynched = this.group_session.lynched;
 
-    this.substituteWerewolf(lynched);
-
     if (!lynched) {
       return this.night(null);
     } else {
@@ -3682,6 +3680,7 @@ module.exports = {
       if (someoneWin) {
         return this.endGame(null, someoneWin);
       } else {
+        this.substituteWerewolf(lynched);
         return this.night(null);
       }
     }
@@ -3870,24 +3869,24 @@ module.exports = {
           "alpha-werewolf",
           "alpha-werewolf"
         );
-      } else if (checkTarget.role.name === "werewolf-cub") {
-        // check if there is no werewolf killing left
-        let isThereWerewolfKillingLeft = false;
-        for (let i = 0; i < players.length; i++) {
-          if (players[i].status === "alive") {
-            if (players[i].role.type === "Werewolf Killing") {
-              isThereWerewolfKillingLeft = true;
-              break;
-            }
+      }
+
+      // check if there is no werewolf killing left
+      let isThereWerewolfKillingLeft = false;
+      for (let i = 0; i < players.length; i++) {
+        if (players[i].status === "alive") {
+          if (players[i].role.type === "Werewolf Killing") {
+            isThereWerewolfKillingLeft = true;
+            break;
           }
         }
-        if (!isThereWerewolfKillingLeft) {
-          // to werewolf cub
-          this.checkMorphingRole("consort", "werewolf-cub", "werewolf-cub");
-          this.checkMorphingRole("sorcerer", "werewolf-cub", "werewolf-cub");
-          this.checkMorphingRole("framer", "werewolf-cub", "werewolf-cub");
-          this.checkMorphingRole("disguiser", "werewolf-cub", "werewolf-cub");
-        }
+      }
+      if (!isThereWerewolfKillingLeft) {
+        // to werewolf cub
+        this.checkMorphingRole("consort", "werewolf-cub", "werewolf-cub");
+        this.checkMorphingRole("sorcerer", "werewolf-cub", "werewolf-cub");
+        this.checkMorphingRole("framer", "werewolf-cub", "werewolf-cub");
+        this.checkMorphingRole("disguiser", "werewolf-cub", "werewolf-cub");
       }
     }
   },
