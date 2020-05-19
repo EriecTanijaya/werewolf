@@ -110,9 +110,6 @@ module.exports = {
 
     let neutralNeedCount = badNeedCount - werewolfNeedCount;
 
-    let werewolfIndex = 0;
-    let neutralIndex = 0;
-
     let needSheriff = false;
     let needVampireHunter = false;
     let needVigilante = true;
@@ -156,27 +153,15 @@ module.exports = {
     ];
     neutrals = this.shuffleArray(neutrals);
 
-    while (werewolfNeedCount) {
-      roles.push(werewolves[werewolfIndex]);
+    for (let i = 0; i < werewolfNeedCount; i++) {
+      roles.push(werewolves[i]);
       needVigilante = true;
-
-      werewolfIndex++;
-      werewolfNeedCount--;
     }
-
-    while (neutralNeedCount) {
-      roles.push(neutrals[neutralIndex]);
-
-      if (neutrals[neutralIndex] === "vampire") {
-        needVampireHunter = true;
-      }
-
-      if (neutrals[neutralIndex] === "serial-killer") {
-        needSheriff = true;
-      }
-
-      neutralIndex++;
-      neutralNeedCount--;
+  
+    for (let i = 0; i < neutralNeedCount; i++) {
+      roles.push(neutrals[i]);
+      if (neutrals[i] === "vampire") needVampireHunter = true;
+      if (neutrals[i] === "serial-killer") needSheriff = true;
     }
 
     if (needSheriff) {
