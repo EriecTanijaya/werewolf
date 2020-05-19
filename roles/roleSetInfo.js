@@ -97,6 +97,20 @@ module.exports = {
           "Padahal Seer sudah yakin akan terawangannya. Sayangnya, semalam Sheriff di frame!";
         modeId = 7;
         break;
+        
+      case "who are you":
+      case "8":
+        flex_text.header.text = "Who Are You? Mode";
+        flex_text.body.text += "Mode ID: 8" + "\n\n";
+        flex_text.body.text +=
+          "Sekarang kebanyakan orang krisis Identitas, yang membuatnya mengimitasi orang lain. ";
+        flex_text.body.text += "Dimana diharapkan bisa menjadi diri sendiri, namun tidak. ";
+        flex_text.body.text +=
+          "Seer yang sebelumnya dipercayai warga, telah membuat para warga kecewa. ";
+        flex_text.body.text +=
+          "Padahal Seer sudah yakin akan terawangannya. Sayangnya, semalam Sheriff di frame!";
+        modeId = 8;
+        break;
 
       default:
         let text =
