@@ -737,6 +737,7 @@ module.exports = {
       }
 
       item.role = this.getRoleData(item.role.name);
+      
       // disini bagi role pake pushMessage
       // if (this.group_session.groupId === process.env.TEST_GROUP) {
       //   // this.client.pushMessage();
@@ -3627,6 +3628,11 @@ module.exports = {
     let candidates = this.getVoteCandidates();
     lynchTarget = helper.getMostFrequent(candidates);
     let roleName = players[lynchTarget.index].role.name;
+    
+    // check if disguiser, the roleName should different
+    if (players[lynchTarget.index].role.disguiseAs) {
+      roleName = players[lynchTarget.index].role.disguiseAs;
+    }
 
     this.group_session.players[lynchTarget.index].status = "death";
 
@@ -3666,6 +3672,9 @@ module.exports = {
     this.group_session.lynched = players[lynchTarget.index];
     this.group_session.time = 8;
     this.resetCheckChance();
+    
+    // check if alpha ww die, search a substitute
+    //if () //cp
 
     return this.replyFlex(flex_texts);
   },
