@@ -231,6 +231,7 @@ module.exports = {
   },
   
   getWhoAreYou: function(playersLength) {
+    
     let roles = [
       "alpha-werewolf",
       "doctor",
@@ -299,8 +300,23 @@ module.exports = {
     roles = this.shuffleArray(roles);
     return roles;
   },
-
-  getPyromaniacs:
+  
+  getClownTown: function(playersLength) {
+    let roles = [
+      "alpha-werewolf",
+      "jester",
+      "seer",
+      "sheriff",
+      "seer",
+      "framer",
+      "framer",
+      ""
+    ];
+    
+    roles.length = playersLength;
+    roles = this.shuffleArray(roles);
+    return roles;
+  },
   
   getTutorial: function() {
     let flex_texts = [];
