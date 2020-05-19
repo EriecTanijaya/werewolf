@@ -794,6 +794,12 @@ module.exports = {
       roles = helper.getWhosThereRoleSet(playersLength);
     } else if (mode === "trust-issue") {
       roles = helper.getTrustIssueRoleSet(playersLength);
+    } else if (mode === "who-are-you") {
+      roles = helper.getWhoAreYou(playersLength);
+    } else if (mode === "new-threat") {
+      roles = helper.getNewThreat(playersLength);
+    } else if (mode === "clown-town") {
+      roles = helper.getClownTown(playersLength);
     }
 
     return roles;
