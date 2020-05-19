@@ -3673,7 +3673,7 @@ module.exports = {
     this.group_session.time = 8;
     this.resetCheckChance();
     
-    // check if alpha ww die, search a substitute
+    // check if alpha ww die, search a substitute 
     if (roleName === "alpha-werewolf") {
       this.substituteWerewolf();
     }
