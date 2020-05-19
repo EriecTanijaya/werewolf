@@ -57,25 +57,35 @@ module.exports = {
       "lookout",
       "werewolf-cub",
       "sheriff",
-      "executioner",
+      "executioner"
     ];
-    
+
     let townKillings = ["veteran", "vigilante"];
     let townKilling = this.random(townKillings);
     roles.push(townKilling);
-    
+
     let remainingTowns = [
-      "doctor", "bodyguard", "seer", "lookout", "sheriff", "vigilante", "escort"
+      "doctor",
+      "bodyguard",
+      "seer",
+      "lookout",
+      "sheriff",
+      "vigilante",
+      "escort"
     ];
-    
+
     let randomTown = this.random(remainingTowns);
     roles.push(randomTown);
-    
+
     roles.push("serial-killer");
-    
+
     roles.push("framer");
-    
-    
+
+    let anotherRandomTown = this.random(remainingTowns);
+    roles.push(anotherRandomTown);
+
+    let lastRandomTown = this.random(remainingTowns);
+    roles.push(lastRandomTown);
 
     roles.length = playersLength;
 
