@@ -3673,10 +3673,22 @@ module.exports = {
     this.group_session.time = 8;
     this.resetCheckChance();
     
+    // check werewolf killing yang mati
     // check if alpha ww die, search a substitute 
     if (roleName === "alpha-werewolf") {
-      this.substituteWerewolf();
+      if (this.checkExistsRole("werewolf-cub")) {
+        let willMorphId = this.getPlayerIdByRole("werewolf-cub");
+        let index = this.getPlayerIndexById(willMorphId);
+        let roleData = this.getRoleData("alpha-werewolf");
+        this.group_session.players[index].role = roleData;
+        this.group_session.players[index].addonMessage +=
+          "💡 Kamu menggantikan " + lynchedName +
+          " sebagai Alpha Werewolf";
+      }
     }
+    
+    
+    
 
     return this.replyFlex(flex_texts);
   },
