@@ -1,11 +1,12 @@
 const helper = require("/app/helper");
 
 module.exports = {
-  receive: function(client, event, args, group_session) {
+  receive: function(client, event, args, group_session, user_session) {
     this.client = client;
     this.event = event;
     this.args = args;
     this.group_session = group_session;
+    this.user_session = user_session;
 
     if (!this.args[1]) {
       return this.commandCommand();
@@ -64,9 +65,17 @@ module.exports = {
       let mode = modeList[i];
       let modeId = i + 1;
       if (this.args[2] === mode || this.args[2] == modeId) {
-        this.group_session.mode = mode;
         found = true;
-        return this.replyText("🕹️ Game mode berhasil diubah ke " + mode + "!");
+        if (this.group_session.mode === mode) {
+          let text = "💡 " + this.user_session.name + ", ";
+          text += "game mode nya sudah di set ke " + mode;
+          return this.replyText(text);
+        } else {
+          this.group_session.mode = mode;
+          return this.replyText(
+            "🕹️ Game mode berhasil diubah ke " + mode + "!"
+          );
+        }
       }
     }
 

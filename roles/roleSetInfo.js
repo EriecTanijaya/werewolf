@@ -98,6 +98,37 @@ module.exports = {
         modeId = 7;
         break;
 
+      case "who are you":
+      case "8":
+        flex_text.header.text = "🎭 Who Are You? Mode";
+        flex_text.body.text += "Mode ID: 8" + "\n\n";
+        flex_text.body.text +=
+          "Mengimitasi adalah jalan ninja ku" + "\n\n" + "- Disguiser";
+        modeId = 8;
+        break;
+
+      case "new threat":
+      case "9":
+        flex_text.header.text = "🔪 New Threat Mode";
+        flex_text.body.text += "Mode ID: 9" + "\n\n";
+        flex_text.body.text +=
+          "Warga senang sekali setelah berhasil membasmi Werewolf, ";
+        flex_text.body.text +=
+          "Namun mereka tidak sadar bahwa ada bahaya yang mengintai selain Werewolf..";
+        modeId = 9;
+        break;
+
+      case "clown town":
+      case "10":
+        flex_text.header.text = "🃏 Clown Town Mode";
+        flex_text.body.text += "Mode ID: 10" + "\n\n";
+        flex_text.body.text +=
+          "Katanya, orang jahat adalah orang baik yang disakiti. " +
+          "\n\n" +
+          "apa benar?";
+        modeId = 10;
+        break;
+
       default:
         let text =
           "💡 Tidak ada ditemukan info mode '" +
@@ -107,8 +138,17 @@ module.exports = {
         return this.replyText(text);
     }
 
-    flex_text.body.text +=
-      "\n\n" + "💡 Ketik '/set mode " + modeId + "' untuk terapkan mode ini";
+    if (this.event.source.type !== "user") {
+      flex_text.footer = {
+        buttons: [
+          {
+            action: "postback",
+            label: "set mode ini",
+            data: "/set mode " + modeId
+          }
+        ]
+      };
+    }
 
     return this.replyFlex(flex_text);
   },
@@ -128,8 +168,8 @@ module.exports = {
     flex_text.header.text = "📜 Mode List 🔮";
     flex_text.body.text = modeList.join(", ");
     flex_text.body.text +=
-      "\n\n" + "Cth: '/info mode chaos' untuk mengetahui deskripsi mode" + "\n";
-    flex_text.body.text += "Untuk set mode bisa ketik '/set mode <nama-mode>'";
+      "\n\n" +
+      "Cth: '/info mode who's there' untuk mengetahui deskripsi mode Who's There";
     return this.replyFlex(flex_text);
   },
 
