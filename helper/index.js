@@ -1,4 +1,12 @@
 module.exports = {
+  checkRoleSet: function(roleSet) {
+    let isEvilExists = false;
+    let evils = ["alpha-werewolf", "werewolf-cub", "serial-killer", "arsonist", "vampire"];
+    for (let i = 0; i < roleSet.length; i++) {
+      
+    }
+  },
+  
   getModeList: function() {
     let modeList = [
       "vampire",
