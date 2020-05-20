@@ -75,7 +75,8 @@ module.exports = {
       "sheriff",
       "vigilante",
       "escort",
-      "retributionist"
+      "retributionist",
+      "tracker"
     ];
 
     let randomTown = this.random(remainingTowns);
@@ -123,7 +124,8 @@ module.exports = {
       "sheriff",
       "vigilante",
       "escort",
-      "retributionist"
+      "retributionist",
+      "tracker"
     ];
     roles.push(this.random(randomTowns));
 
@@ -274,7 +276,8 @@ module.exports = {
       "sheriff",
       "vigilante",
       "escort",
-      "retributionist"
+      "retributionist",
+      "tracker"
     ];
     roles.push(this.random(randomTowns));
 
