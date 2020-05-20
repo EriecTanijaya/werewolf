@@ -1,10 +1,42 @@
 module.exports = {
-  checkRoleSet: function(roleSet) {
+  checkRoleSet: function(roleSet, playersLength) {
     let isEvilExists = false;
-    let evils = ["alpha-werewolf", "werewolf-cub", "serial-killer", "arsonist", "vampire"];
+    let requiredEvils = ["alpha-werewolf", "serial-killer", "arsonist", "vampire"];
+    
+    // cek ada evil ato engga
     for (let i = 0; i < roleSet.length; i++) {
-      
+      if (requiredEvils.includes(roleSet[i])) {
+        isEvilExists = true;
+        break;
+      }
     }
+    
+    if (!isEvilExists) {
+      return {
+        status: "rejected",
+        reason: "Harus ada include minimal salah satu dari " + requiredEvils.join(", ")
+      }
+    }
+    
+    // cek balance ga rolesetnya dari segi jumlah evil sama jumlah good
+    // kita ga mau ada evil yang setara sama jumlah good
+    
+    // ambil jumlah good
+    let goods = [
+      "villager",
+      "seer",
+      "doctor",
+      "escort",
+      "spy",
+      "vigilante",
+      "sheriff",
+      "bodyguard",
+      ""
+    ];
+    roleSet.forEach(item => {
+      
+    })
+    
   },
   
   getModeList: function() {
