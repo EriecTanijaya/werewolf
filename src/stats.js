@@ -59,6 +59,8 @@ module.exports = {
     }
 
     database.getAllUser(team, users => {
+      if (!users.length) return this.replyText("💡Belum ada data usernya, main 1 game dlu");
+      
       users = this.rank_sort(users);
       for (let i = 0; i < users.length; i++) {
         if (users[i].id === this.event.source.userId) {
@@ -78,7 +80,6 @@ module.exports = {
           return this.replyFlex(flex_text);
         }
       }
-      return this.replyText("💡Belum ada data usernya, main 1 game dlu");
     });
   },
 
@@ -111,9 +112,7 @@ module.exports = {
     headerText += whatStat;
 
     database.getAllUser(team, users => {
-      if (users.length === 0) {
-        return this.replyText("💡 Belum ada data usernya");
-      }
+      if (!users.length) return this.replyText("💡 Belum ada data usernya");
 
       users = this.rank_sort(users);
       users.length = 10;
