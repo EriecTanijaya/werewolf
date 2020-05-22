@@ -3,6 +3,7 @@ TODO
 - init role mayor, triggernya pake kata kata "aku mayor" , atau textnya ada kata aku, mayor
 mayor ga bisa di heal kalau udah reveal, kalau uda reveal, votenya jumlah jadi 3
 checker buat mayor if (role.name mayor && role.revealed === true) ini buat dokter juga, dan pas voteCommand
+mayor town support
 
 - add role janitor
 jadi kalau ada janitor, itu prop target janitor ada cleaned, dan kalau mati dan cleaned true, itu nanti rolenya ga dikasih tau
@@ -13,6 +14,8 @@ checker buat semua player = if (status == death && cleaned === true) berarti 'CL
 tapi untuk werewolfAnnouncement, dikasih tau role nya
 janitor werewolf deception
 RETRI gak bisa revive yang cleaned === true (penting)
+
+abis uda buat, masukin role itu ke role set sesuai type masing masing
 
 - buat wiki keci-kecilan buat role role dan mode
 

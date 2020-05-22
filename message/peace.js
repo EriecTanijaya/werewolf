@@ -1,8 +1,6 @@
 const peace = [
-  "🛏️ Tidak ada yang terbunuh",
-  "🛏️ Semua orang masih hidup",
-  "🛏️ Belum ada yang terbunuh",
-  "🛏️ Tadi ma"
+  "🛏️ Tadi malam terlewati tanpa ada pembunuhan",
+  "🛏️ Pagi ini tidak ada bertambahnya orang mati"
 ];
 
 module.exports = peace;

@@ -407,7 +407,23 @@ const roles = [
     counterAttackIndex: -1,
     iconUrl:
       "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/shield_1f6e1.png"
-  }
+  },
+  {
+    name: "mayor",
+    description:
+      "Kamu adalah ",
+    skillText: "Escort, pilih siapa yang mau kamu distrak malam ini",
+    cmdText: "/skill",
+    team: "villager",
+    canKill: false,
+    emoji: {
+      team: "👨‍🌾",
+      self: "💋"
+    },
+    type: "Town Support",
+    iconUrl:
+      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/kiss-mark_1f48b.png"
+  },
 ];
 
 module.exports = roles;
