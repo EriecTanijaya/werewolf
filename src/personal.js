@@ -299,6 +299,14 @@ module.exports = {
       }
     }
 
+    // hax untuk doctor yang mau heal mayor
+    if (roleName === "doctor") {
+      let targetRoleName = players[targetIndex].role.name;
+      if (targetRoleName === "mayor" && players[targetIndex].role.revealed) {
+        return this.replyText("💡 Kamu tidak bisa heal Mayor!");
+      }
+    }
+
     if (roleName === "vampire") {
       let vampireConvertCooldown = this.group_session.vampireConvertCooldown;
       if (vampireConvertCooldown > 0) {
@@ -324,6 +332,7 @@ module.exports = {
     }
 
     let targetName = players[targetIndex].name;
+
     let doer = {
       name: players[index].name,
       roleName: roleName,
@@ -901,7 +910,7 @@ module.exports = {
       this.group_session.werewolfChat.push(message);
     } else if (roleTeam === "vampire") {
       this.group_session.vampireChat.push(message);
-      
+
       // for vampire hunter
       message.name = "Vampire";
       this.group_session.vampireHunterChat.push(message);
@@ -990,7 +999,8 @@ module.exports = {
       "spy",
       "tracker",
       "disguiser",
-      "framer"
+      "framer",
+      "janitor"
     ];
 
     if (cantTargetItSelf.includes(roleName)) {

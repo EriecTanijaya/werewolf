@@ -419,6 +419,7 @@ const roles = [
       self: "🎩"
     },
     type: "Town Support",
+    revealed: false,
     iconUrl:
       "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/top-hat_1f3a9.png"
   },

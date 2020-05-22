@@ -19,7 +19,6 @@ module.exports = {
 
       if (state !== "idle") {
         if (state !== "new") {
-          
           // special role yang bisa trigger lewat text biasa
           let players = this.group_session.players;
           let index = this.indexOfPlayer();
@@ -27,13 +26,20 @@ module.exports = {
             if (players[index].role.name === "mayor") {
               let str = this.args.join(" ");
               str = str.toLowerCase();
-              
-              if (str.includes("role") && str.includes("aku") && str.includes("mayor")) {
-                this.group_session.players 
+
+              if (
+                str.includes("role") &&
+                str.includes("aku") &&
+                str.includes("mayor")
+              ) {
+                this.group_session.players[index].role.revealed = true;
+                let text = "🎩 " + players[index].name;
+                text += " telah mengungkapkan dirinya sebagai Mayor!";
+                return this.replyText(text);
               }
             }
           }
-          
+
           if (time <= 10 && time > 0) {
             if (this.group_session.deadlineCheckChance === 0) {
               return Promise.resolve(null);
@@ -447,12 +453,12 @@ module.exports = {
 
       if (process.env.TEST === "true") {
         // cp
-        for (let i = 0; i < 12; i++) {
-          let dummy = JSON.parse(JSON.stringify(this.user_session));
-          dummy.name += " " + helper.getRandomInt(1, 99);
-          let newPlayer = this.createNewPlayer(dummy);
-          this.addPlayer(newPlayer);
-        }
+        // for (let i = 0; i < 12; i++) {
+        //   let dummy = JSON.parse(JSON.stringify(this.user_session));
+        //   dummy.name += " " + helper.getRandomInt(1, 99);
+        //   let newPlayer = this.createNewPlayer(dummy);
+        //   this.addPlayer(newPlayer);
+        // }
       }
 
       let text = "💡 " + this.user_session.name + " berhasil bergabung!";
@@ -603,11 +609,10 @@ module.exports = {
           if (item.role.disguiseAs) {
             role.text = item.role.disguiseAs;
           }
-          
+
           if (item.cleaned) {
             role.text = "CLEANED";
           }
-          
         }
 
         table_body[index].contents.push(role);
@@ -742,7 +747,7 @@ module.exports = {
 
     /// test specific role cp
     if (process.env.TEST === "true") {
-      //roles = ["seer", "alpha-werewolf", "vampire"];
+      roles = ["werewolf-cub", "mayor", "doctor", "janitor"];
     }
 
     /// hax for exe
@@ -892,8 +897,9 @@ module.exports = {
 
     if (this.group_session.nightCounter === 1) {
       announcement +=
-        "💡 Jangan lupa ketik '/role' di pc bot untuk menggunakan skill" + "\n\n";
-      
+        "💡 Jangan lupa ketik '/role' di pc bot untuk menggunakan skill" +
+        "\n\n";
+
       const firstDayNaration = require("/app/message/firstDay");
       announcement += firstDayNaration + "\n\n";
     } else {
@@ -1875,7 +1881,7 @@ module.exports = {
         }
       }
     }
-    
+
     /// Janitor Action
     for (let i = 0; i < players.length; i++) {
       let doer = players[i];
@@ -1912,8 +1918,9 @@ module.exports = {
 
             this.group_session.players[i].message +=
               "🧹 Kamu akan membersihkan identitas " +
-              target.name + " jika dia mati. "
-              "\n\n";
+              target.name +
+              " jika dia mati. ";
+            ("\n\n");
 
             spyWerewolfVisitInfo +=
               "🐺 " + target.name + " dikunjungi anggota Werewolf" + "\n\n";
@@ -2944,7 +2951,6 @@ module.exports = {
         } else {
           allAnnouncement += "✉️ Role nya adalah " + roleName + "\n\n";
         }
-        
 
         //Thanks to
         //https://stackoverflow.com/questions/24806772/how-to-skip-over-an-element-in-map/24806827
@@ -3467,7 +3473,7 @@ module.exports = {
       }
 
       /// journal , keep this below any special Announcement
-      
+
       let journal = {
         nightCounter: this.group_session.nightCounter,
         content: item.message.trim()
@@ -3573,11 +3579,11 @@ module.exports = {
     let flexBodyText =
       "💀 Pilih siapa yang mau di" + this.group_session.punishment + "\n";
     flexBodyText += text + voteNeededText;
-    
+
     if (this.group_session.nightCounter === 1) {
       flexBodyText += "\n\n" + "💡 Untuk batal vote bisa ketik '/revoke'";
     }
-    
+
     let flex_texts = [];
     let flex_text = {
       header: {
@@ -4043,6 +4049,11 @@ module.exports = {
     this.group_session.players.forEach(item => {
       if (item.status === "alive" && item.targetVoteIndex !== -1) {
         candidates.push(item.targetVoteIndex);
+        
+        if (item.role.name === "mayor" && item.role.revealed) {
+          candidates.push(item.targetVoteIndex, item.targetVoteIndex);
+        }
+        
       }
     });
     return candidates;
