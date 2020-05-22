@@ -411,7 +411,7 @@ const roles = [
   {
     name: "mayor",
     description:
-      "Kamu adalah pemimpin warga, yang menyamar menjadi warga biasa, namun jika kamu mengungkapkan dirimu adalah Mayor, maka jumlah vote mu akan menjadi 3, tapi Doctor tidak bisa heal dirimu. Untuk mengungkapkan identitas, kamu bisa chat di group chat 'role aku mayor'",
+      "Kamu adalah pemimpin warga, yang menyamar menjadi warga biasa, namun jika kamu mengungkapkan dirimu adalah Mayor, maka jumlah vote mu akan menjadi 3, tapi Doctor tidak bisa heal dirimu. Untuk mengungkapkan identitas, kamu bisa chat di group chat 'role aku mayor'. Kamu tak bisa ngungkapin identitas pas malam hari",
     team: "villager",
     canKill: false,
     emoji: {

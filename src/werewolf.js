@@ -1910,7 +1910,7 @@ module.exports = {
 
             this.group_session.players[targetIndex].cleaned = true;
 
-            this.group_session.players[i].role.clean -= 3;
+            this.group_session.players[i].role.clean--;
 
             this.group_session.players[i].message +=
               "👣 Kamu ke rumah " + target.name + "\n\n";
