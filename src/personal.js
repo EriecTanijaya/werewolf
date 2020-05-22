@@ -260,6 +260,12 @@ module.exports = {
       }
     }
 
+    if (roleName === "janitor") {
+      if (!players[index].role.clean) {
+        return this.replyText("💡 Kamu sudah tidak bisa membersihkan orang");
+      }
+    }
+
     if (parseInt(targetIndex) === parseInt(index)) {
       // hax arsonist want to ignite
       // but check is any doused player
@@ -568,6 +574,9 @@ module.exports = {
         text += "🔫 Kamu memiliki " + players[index].role.bullet + " peluru";
       } else if (roleName === "bodyguard") {
         text += "🦺 Kamu memiliki " + players[index].role.vest + " vest";
+      } else if (roleName === "janitor") {
+        text +=
+          "🧹 Kamu memiliki " + players[index].role.clean + " pembersihan";
       }
 
       return this.roleSkill(flex_text, index, text);

@@ -23,19 +23,22 @@ module.exports = {
           let players = this.group_session.players;
           let index = this.indexOfPlayer();
           if (index !== -1) {
-            if (players[index].role.name === "mayor") {
-              let str = this.args.join(" ");
-              str = str.toLowerCase();
+            
+            if (state === "day") {
+              if (players[index].role.name === "mayor") {
+                let str = this.args.join(" ");
+                str = str.toLowerCase();
 
-              if (
-                str.includes("role") &&
-                str.includes("aku") &&
-                str.includes("mayor")
-              ) {
-                this.group_session.players[index].role.revealed = true;
-                let text = "🎩 " + players[index].name;
-                text += " telah mengungkapkan dirinya sebagai Mayor!";
-                return this.replyText(text);
+                if (
+                  str.includes("role") &&
+                  str.includes("aku") &&
+                  str.includes("mayor")
+                ) {
+                  this.group_session.players[index].role.revealed = true;
+                  let text = "🎩 " + players[index].name;
+                  text += " telah mengungkapkan dirinya sebagai Mayor!";
+                  return this.replyText(text);
+                }
               }
             }
           }
