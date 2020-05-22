@@ -435,6 +435,7 @@ const roles = [
       self: "🧹"
     },
     type: "Werewolf Deception",
+    clean: 3,
     iconUrl:
       "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/broom_1f9f9.png"
   },

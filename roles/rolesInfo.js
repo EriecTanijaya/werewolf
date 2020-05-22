@@ -339,6 +339,10 @@ module.exports = {
           flex_text.body.text += "Type: Werewolf Deception" + "\n\n";
           flex_text.body.text += 
             "Anggota Werewolf yang bisa 'clean' seseorang pada malam hari. Jika target Janitor ini dibunuh, ";
+          flex_text.body.text +=
+            "maka rolenya tidak akan diketahui public kecuali sesama Werewolf. ";
+          flex_text.body.text +=
+            "Janitor memiliki 3 clean, jika target Janitor tidak terbunuh, maka clean tetap berkurang.";
           break;
 
         default:
