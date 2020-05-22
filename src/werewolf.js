@@ -746,7 +746,13 @@ module.exports = {
 
     /// test specific role cp
     if (process.env.TEST === "true") {
-      roles = ["werewolf-cub", "mayor", "doctor", "retributionist", "bodyguard"];
+      roles = [
+        "werewolf-cub",
+        "mayor",
+        "doctor",
+        "retributionist",
+        "bodyguard"
+      ];
     }
 
     /// hax for exe
