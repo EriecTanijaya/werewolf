@@ -19,6 +19,10 @@ module.exports = {
 
       if (state !== "idle") {
         if (state !== "new") {
+          
+          // special role yang bisa trigger lewat text biasa
+          if ()
+          
           if (time <= 10 && time > 0) {
             if (this.group_session.deadlineCheckChance === 0) {
               return Promise.resolve(null);
@@ -588,6 +592,11 @@ module.exports = {
           if (item.role.disguiseAs) {
             role.text = item.role.disguiseAs;
           }
+          
+          if (item.cleaned) {
+            role.text = "CLEANED";
+          }
+          
         }
 
         table_body[index].contents.push(role);
@@ -1881,11 +1890,6 @@ module.exports = {
 
             this.group_session.players[targetIndex].cleaned = true;
 
-            if (players[targetIndex].bugged) {
-              spyBuggedInfo[targetIndex] +=
-                "🔍 Target kamu disiram bensin oleh Arsonist!" + "\n\n";
-            }
-
             this.group_session.players[i].message +=
               "👣 Kamu ke rumah " + target.name + "\n\n";
 
@@ -1896,9 +1900,12 @@ module.exports = {
             this.group_session.players[targetIndex].visitors.push(visitor);
 
             this.group_session.players[i].message +=
-              "⛽ Kamu diam diam menyiram bensin ke rumah " +
-              target.name +
+              "🧹 Kamu akan membersihkan identitas " +
+              target.name + " jika dia mati. "
               "\n\n";
+
+            spyWerewolfVisitInfo +=
+              "🐺 " + target.name + " dikunjungi anggota Werewolf" + "\n\n";
           }
         }
       }
@@ -2919,7 +2926,14 @@ module.exports = {
 
         allAnnouncement += attackedAnnouncement + "\n";
 
-        allAnnouncement += "✉️ Role nya adalah " + roleName + "\n\n";
+        if (players[i].cleaned) {
+          allAnnouncement += "✉️ Role nya tidak diketahui" + "\n\n";
+          werewolfAnnouncement +=
+            "🧹 Role " + players[i].name + " adalah " + roleName + "\n\n";
+        } else {
+          allAnnouncement += "✉️ Role nya adalah " + roleName + "\n\n";
+        }
+        
 
         //Thanks to
         //https://stackoverflow.com/questions/24806772/how-to-skip-over-an-element-in-map/24806827
