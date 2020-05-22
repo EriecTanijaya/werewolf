@@ -12,7 +12,8 @@ module.exports = {
       return Promise.resolve(null);
     }
 
-    switch (this.args[0]) {
+    let input = this.args[0].toLowerCase();
+    switch (input) {
       case "/help":
         return this.helpCommand();
       case "/cmd":

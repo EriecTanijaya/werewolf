@@ -27,6 +27,7 @@ module.exports = {
               let roleName = players[index].role.name;
               if (roleName === "mayor" && players[index].status === "alive") {
                 let string = this.args.join(" ");
+                string = string.toLowerCase();
                 if (string.includes("mayor")) {
                   let subjects = ["aku", "ak", "gw", "gue", "gua", "saya"];
 
@@ -78,8 +79,9 @@ module.exports = {
       }
       return Promise.resolve(null);
     }
-
-    switch (this.args[0]) {
+    
+    let input = this.args[0].toLowerCase();
+    switch (input) {
       case "/new":
       case "/buat":
       case "/main":
