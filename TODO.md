@@ -1,5 +1,11 @@
 TODO
 
+- init role mayor, triggernya pake kata kata "aku mayor" , atau textnya ada kata aku, mayor
+mayor ga bisa di heal kalau udah reveal, kalau uda reveal, votenya jumlah jadi 3
+
+- add role janitor
+jadi kalau ada janitor, itu prop target janitor ada 
+
 - properly mekanis attacked bisa pake skill itu gmna
 
 ```
