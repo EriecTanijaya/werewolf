@@ -422,24 +422,7 @@ const roles = [
     revealed: false,
     iconUrl:
       "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/top-hat_1f3a9.png"
-  },
-  {
-    name: "janitor",
-    description:
-      "Kamu adalah anggota Werewolf yang bisa 'clean' seseorang, jika orang tersebut dibunuh, maka rolenya tidak akan diketahui oleh public, sesama Werewolf",
-    skillText: "Janitor, pilih siapa yang mau di 'clean'",
-    cmdText: "/skill",
-    team: "werewolf",
-    canKill: false,
-    emoji: {
-      team: "🐺",
-      self: "🧹"
-    },
-    type: "Werewolf Deception",
-    clean: 3,
-    iconUrl:
-      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/broom_1f9f9.png"
-  },
+  }
 ];
 
 module.exports = roles;

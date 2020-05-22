@@ -218,8 +218,6 @@ module.exports = {
           flex_text.body.text += "Type: Town Support" + "\n\n";
           flex_text.body.text +=
             "Warga yang bisa membangkitkan orang yang sudah mati. Namun kesempatan ini hanya 1 kali saja. ";
-          flex_text.body.text +=
-            "Retributionist tidak dapat hidupin orang yang rolenya di CLEAN oleh Janitor"
           break;
 
         case "veteran":
@@ -334,17 +332,6 @@ module.exports = {
             "Pemimpin warga yang menyamar menjadi warga biasa. Jika Mayor mengungkapkan identitas nya, ";
           flex_text.body.text +=
             "Jumlah vote nya akan terhitung 3, tetapi Doctor tidak bisa heal Mayor yang telah mengungkapkan identitasnya";
-          break;
-
-        case "janitor":
-          flex_text.header.text = "🧹 Janitor";
-          flex_text.body.text += "Type: Werewolf Deception" + "\n\n";
-          flex_text.body.text += 
-            "Anggota Werewolf yang bisa membersihakn identitas seseorang pada malam hari. Jika target Janitor ini dibunuh, ";
-          flex_text.body.text +=
-            "maka rolenya tidak akan diketahui public kecuali sesama Werewolf. ";
-          flex_text.body.text +=
-            "Janitor memiliki 3 pembersihan";
           break;
 
         default:

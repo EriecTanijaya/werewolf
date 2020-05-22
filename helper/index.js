@@ -131,7 +131,7 @@ module.exports = {
 
     roles.push(this.random(randomTowns));
 
-    let randomWerewolves = ["framer", "consort", "sorcerer", "disguiser", "janitor"];
+    let randomWerewolves = ["framer", "consort", "sorcerer", "disguiser"];
     roles.push(this.random(randomWerewolves));
 
     roles.push("spy");
@@ -162,7 +162,7 @@ module.exports = {
   },
 
   getKillingWarsRoleSet: function(playersLength) {
-    let werewolves = ["sorcerer", "disguiser", "consort", "janitor"];
+    let werewolves = ["sorcerer", "disguiser", "consort"];
     let roles = [
       "alpha-werewolf",
       "werewolf-cub",

@@ -247,10 +247,6 @@ module.exports = {
         return this.replyText("💡 Targetmu masih hidup");
       }
       
-      if (players[targetIndex].cleaned) {
-        return this.replyText("💡 Targetmu tidak diketahui rolenya");
-      }
-      
     } else {
       if (players[targetIndex].status === "death") {
         return this.replyText("💡 Targetmu itu dah mati. Mau di apain?");
@@ -262,12 +258,6 @@ module.exports = {
         return this.replyText(
           "💡 Kamu sudah tidak memiliki peluru yang tersisa"
         );
-      }
-    }
-
-    if (roleName === "janitor") {
-      if (!players[index].role.clean) {
-        return this.replyText("💡 Kamu sudah tidak bisa membersihkan orang");
       }
     }
 
@@ -565,10 +555,6 @@ module.exports = {
             " malam untuk gigit orang";
           return this.replyFlex(flex_text, [text, infoText]);
         }
-      } else if (roleName === "janitor") {
-        if (!player.role.clean) {
-          return this.replyFlex(flex_text);
-        }
       }
 
       // special role private role prop reminder
@@ -579,9 +565,6 @@ module.exports = {
         text += "🔫 Kamu memiliki " + players[index].role.bullet + " peluru";
       } else if (roleName === "bodyguard") {
         text += "🦺 Kamu memiliki " + players[index].role.vest + " vest";
-      } else if (roleName === "janitor") {
-        text +=
-          "🧹 Kamu memiliki " + players[index].role.clean + " pembersihan";
       }
 
       return this.roleSkill(flex_text, index, text);
@@ -604,7 +587,7 @@ module.exports = {
 
     let button = {};
     players.forEach((item, index) => {
-      if (item.status === "death" && !item.cleaned) {
+      if (item.status === "death") {
         button[index] = {
           action: "postback",
           label: item.name,
@@ -1018,7 +1001,6 @@ module.exports = {
       "tracker",
       "disguiser",
       "framer",
-      "janitor"
     ];
 
     if (cantTargetItSelf.includes(roleName)) {
