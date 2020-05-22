@@ -136,13 +136,13 @@ module.exports = {
         let logText = user_session.name + " // ";
         logText += groupId + " : ";
         logText += this.args;
-        console.log(logText);
+        //console.log(logText);
       }
 
       if (user_session.id !== process.env.DEV_ID) {
         // semua grup ga bisa
         if (process.env.TEST === "true") {
-          return this.maintenanceRespond();
+          //return this.maintenanceRespond();
         }
       }
     }

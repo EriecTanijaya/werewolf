@@ -6,7 +6,6 @@ const naratives = [
   "🛸 Tiba tiba ada UFO yang menghapus ingatan warga warga, membuat mereka gila. ",
   "🏖️ Suatu hari di pantai, ditemukan ikan hiu dibunuh. Namun para pendatang tidak ada yang mengaku",
   "⛅ Di suatu desa, ditemukan seorang pemuda mati dibunuh. Tidak ada yang mengaku",
-  "⛅ Pada jaman dahuluuuuuuuuuuuuuuuuuuuu 'read more..'"
 ];
 let narative = helper.random(naratives);
 module.exports = narative;

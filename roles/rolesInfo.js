@@ -325,6 +325,15 @@ module.exports = {
             "Bodyguard memiliki 1 vest yang bisa digunakan untuk melindungi diri sendiri dari serangan biasa. ";
           break;
 
+        case "mayor":
+          flex_text.header.text = "🎩 Mayor";
+          flex_text.body.text += "Type: Town Support" + "\n\n";
+          flex_text.body.text +=
+            "Pemimpin warga yang menyamar menjadi warga biasa. Jika Mayor mengungkapkan identitas nya, ";
+          flex_text.body.text +=
+            "Jumlah vote nya akan terhitung 3, tetapi Doctor tidak bisa heal Mayor yang telah mengungkapkan identitasnya";
+          break;
+
         default:
           let text =
             "💡 Tidak ada ditemukan role '" +

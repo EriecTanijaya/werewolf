@@ -19,6 +19,30 @@ module.exports = {
 
       if (state !== "idle") {
         if (state !== "new") {
+          // special role yang bisa trigger lewat text biasa
+          let players = this.group_session.players;
+          let index = this.indexOfPlayer();
+          if (index !== -1) {
+            if (state === "day" || state === "vote") {
+              let roleName = players[index].role.name;
+              if (roleName === "mayor" && players[index].status === "alive") {
+                let string = this.args.join(" ");
+                if (string.includes("mayor")) {
+                  let subjects = ["aku", "ak", "gw", "gue", "gua", "saya"];
+
+                  for (let i = 0; i < subjects.length; i++) {
+                    if (string.indexOf(subjects[i]) !== -1) {
+                      this.group_session.players[index].role.revealed = true;
+                      let text = "🎩 " + players[index].name;
+                      text += " telah mengungkapkan dirinya sebagai Mayor!";
+                      return this.replyText(text);
+                    }
+                  }
+                }
+              }
+            }
+          }
+
           if (time <= 10 && time > 0) {
             if (this.group_session.deadlineCheckChance === 0) {
               return Promise.resolve(null);
@@ -432,12 +456,12 @@ module.exports = {
 
       if (process.env.TEST === "true") {
         // cp
-        for (let i = 0; i < 12; i++) {
-          let dummy = JSON.parse(JSON.stringify(this.user_session));
-          dummy.name += " " + helper.getRandomInt(1, 99);
-          let newPlayer = this.createNewPlayer(dummy);
-          this.addPlayer(newPlayer);
-        }
+        // for (let i = 0; i < 12; i++) {
+        //   let dummy = JSON.parse(JSON.stringify(this.user_session));
+        //   dummy.name += " " + helper.getRandomInt(1, 99);
+        //   let newPlayer = this.createNewPlayer(dummy);
+        //   this.addPlayer(newPlayer);
+        // }
       }
 
       let text = "💡 " + this.user_session.name + " berhasil bergabung!";
@@ -722,7 +746,13 @@ module.exports = {
 
     /// test specific role cp
     if (process.env.TEST === "true") {
-      //roles = ["seer", "alpha-werewolf", "vampire"];
+      roles = [
+        "werewolf-cub",
+        "mayor",
+        "doctor",
+        "retributionist",
+        "bodyguard"
+      ];
     }
 
     /// hax for exe
@@ -869,15 +899,16 @@ module.exports = {
     let announcement = "";
     announcement += "📣 Role yang ada di game ini bisa cek di '/roles'. ";
 
-    announcement +=
-      "💡 Jangan lupa ketik '/role' di pc bot untuk menggunakan skill" + "\n\n";
-
     if (this.group_session.nightCounter === 1) {
+      announcement +=
+        "💡 Jangan lupa ketik '/role' di pc bot untuk menggunakan skill" +
+        "\n\n";
+
       const firstDayNaration = require("/app/message/firstDay");
       announcement += firstDayNaration + "\n\n";
     } else {
       announcement +=
-        "🏘️ 🛏️ Setiap warga kembali kerumah masing-masing" + "\n\n";
+        "\n\n" + "🏘️ 🛏️ Setiap warga kembali kerumah masing-masing" + "\n\n";
     }
 
     announcement +=
@@ -1045,7 +1076,7 @@ module.exports = {
         }
 
         // check afk
-        let noSkillRoles = ["villager", "jester", "executioner"];
+        let noSkillRoles = ["villager", "jester", "executioner", "mayor"];
         if (!noSkillRoles.includes(item.role.name)) {
           if (item.target.index === -1) {
             item.afkCounter++;
@@ -2869,7 +2900,6 @@ module.exports = {
         );
 
         allAnnouncement += attackedAnnouncement + "\n";
-
         allAnnouncement += "✉️ Role nya adalah " + roleName + "\n\n";
 
         //Thanks to
@@ -3393,13 +3423,12 @@ module.exports = {
       }
 
       /// journal , keep this below any special Announcement
-      //if (item.status === "alive") {
+
       let journal = {
         nightCounter: this.group_session.nightCounter,
         content: item.message.trim()
       };
       item.journals.push(journal);
-      //}
     });
 
     if (!allAnnouncement) {
@@ -3437,9 +3466,11 @@ module.exports = {
 
       flex_text.body.text += timerText;
 
-      flex_text.body.text +=
-        "\n\n" +
-        "💡 Pengguna Skill jangan lupa gunakan commands '/news' di pc bot";
+      if (this.group_session.nightCounter === 1) {
+        flex_text.body.text +=
+          "\n\n" +
+          "💡 Pengguna Skill jangan lupa gunakan commands '/news' di pc bot";
+      }
 
       flex_text.footer = {
         buttons: [
@@ -3469,7 +3500,6 @@ module.exports = {
     let players = this.group_session.players;
 
     let text = "";
-    let pendingMemberText = "";
     let time = this.group_session.time;
 
     if (this.group_session.state === "day") {
@@ -3498,7 +3528,12 @@ module.exports = {
 
     let flexBodyText =
       "💀 Pilih siapa yang mau di" + this.group_session.punishment + "\n";
-    flexBodyText += text + pendingMemberText + voteNeededText;
+    flexBodyText += text + voteNeededText;
+
+    if (this.group_session.nightCounter === 1) {
+      flexBodyText += "\n\n" + "💡 Untuk batal vote bisa ketik '/revoke'";
+    }
+
     let flex_texts = [];
     let flex_text = {
       header: {
@@ -3964,6 +3999,10 @@ module.exports = {
     this.group_session.players.forEach(item => {
       if (item.status === "alive" && item.targetVoteIndex !== -1) {
         candidates.push(item.targetVoteIndex);
+
+        if (item.role.name === "mayor" && item.role.revealed) {
+          candidates.push(item.targetVoteIndex, item.targetVoteIndex);
+        }
       }
     });
     return candidates;

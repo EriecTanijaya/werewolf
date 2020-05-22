@@ -1,5 +1,7 @@
 TODO
 
+- buat wiki keci-kecilan buat role role dan mode
+
 - properly mekanis attacked bisa pake skill itu gmna
 
 ```

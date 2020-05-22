@@ -62,9 +62,28 @@ module.exports = {
         return this.chatCommand();
       case "/cancel":
         return this.cancelCommand();
+      case "/roles":
+        return this.roleListCommand();
       default:
         return this.invalidCommand();
     }
+  },
+
+  roleListCommand: function() {
+    if (this.group_session.state === "new") {
+      return this.replyText("💡 Game belum dimulai");
+    }
+
+    let roles = this.group_session.roles;
+    let flex_text = {
+      header: {
+        text: "🐺 Role List 🔮"
+      },
+      body: {
+        text: roles.join(", ")
+      }
+    };
+    return this.replyFlex(flex_text);
   },
 
   cancelCommand: function() {
@@ -85,11 +104,9 @@ module.exports = {
       if (this.group_session.roomHostId === this.user_session.id) {
         let randomPlayer = helper.random(this.group_session.players);
         this.group_session.roomHostId = randomPlayer.id;
-        text +=
-          "\n" +
-          "👑 " +
-          randomPlayer.name +
-          " menjadi host baru dalam room ini. ";
+        text += "\n" + "👑 " + randomPlayer.name;
+
+        text += " menjadi host baru dalam room ini. ";
       }
     }
 
@@ -299,6 +316,14 @@ module.exports = {
       }
     }
 
+    // hax untuk doctor yang mau heal mayor
+    if (roleName === "doctor") {
+      let targetRoleName = players[targetIndex].role.name;
+      if (targetRoleName === "mayor" && players[targetIndex].role.revealed) {
+        return this.replyText("💡 Kamu tidak bisa heal Mayor!");
+      }
+    }
+
     if (roleName === "vampire") {
       let vampireConvertCooldown = this.group_session.vampireConvertCooldown;
       if (vampireConvertCooldown > 0) {
@@ -324,6 +349,7 @@ module.exports = {
     }
 
     let targetName = players[targetIndex].name;
+
     let doer = {
       name: players[index].name,
       roleName: roleName,
@@ -493,7 +519,7 @@ module.exports = {
           "💡 Kamu bisa dengar vampire chat-an, gunakan cmd '/r' secara berkala";
       }
 
-      let noNightSkill = ["villager", "executioner"];
+      let noNightSkill = ["villager", "executioner", "mayor"];
 
       if (noNightSkill.includes(roleName)) {
         return this.replyFlex(flex_text, text);
@@ -901,7 +927,7 @@ module.exports = {
       this.group_session.werewolfChat.push(message);
     } else if (roleTeam === "vampire") {
       this.group_session.vampireChat.push(message);
-      
+
       // for vampire hunter
       message.name = "Vampire";
       this.group_session.vampireHunterChat.push(message);
@@ -946,7 +972,8 @@ module.exports = {
       "/info : list role",
       "/help : bantuan game",
       "/journal : cek journal kamu",
-      "/revoke: untuk batal menggunakan skill"
+      "/revoke: untuk batal menggunakan skill",
+      "/roles : tampilin role list"
     ];
 
     cmds.forEach((item, index) => {
