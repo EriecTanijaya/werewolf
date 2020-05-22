@@ -2,9 +2,19 @@ TODO
 
 - init role mayor, triggernya pake kata kata "aku mayor" , atau textnya ada kata aku, mayor
 mayor ga bisa di heal kalau udah reveal, kalau uda reveal, votenya jumlah jadi 3
+checker buat mayor if (role.name mayor && role.revealed === true) ini buat dokter juga, dan pas voteCommand
 
 - add role janitor
-jadi kalau ada janitor, itu prop target janitor ada 
+jadi kalau ada janitor, itu prop target janitor ada cleaned, dan kalau mati dan cleaned true, itu nanti rolenya ga dikasih tau
+kalau cleaned dan ga mati, itu cleaned = false
+janitor ada 3 cleanings. jadi werewolf cub kalau ga ada Werewolf Killings, janitor diatas escort (top prio)
+
+checker buat semua player = if (status == death && cleaned === true) berarti 'CLEANED' di playersCommand, 
+tapi untuk werewolfAnnouncement, dikasih tau role nya
+janitor werewolf deception
+RETRI gak bisa revive yang cleaned === true (penting)
+
+- buat wiki keci-kecilan buat role role dan mode
 
 - properly mekanis attacked bisa pake skill itu gmna
 
