@@ -599,7 +599,7 @@ module.exports = {
 
     let button = {};
     players.forEach((item, index) => {
-      if (item.status === "death") {
+      if (item.status === "death" && !item.cleaned) {
         button[index] = {
           action: "postback",
           label: item.name,

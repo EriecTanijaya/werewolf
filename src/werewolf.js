@@ -27,7 +27,7 @@ module.exports = {
               let roleName = players[index].role.name;
               if (roleName === "mayor" && players[index].status === "alive") {
                 let string = this.args.join(" ");
-                if (string.includes("role") && string.includes("mayor")) {
+                if (string.includes("mayor")) {
                   let subjects = ["aku", "ak", "gw", "gue", "gua", "saya"];
 
                   for (let i = 0; i < subjects.length; i++) {
@@ -904,10 +904,10 @@ module.exports = {
         "\n\n";
 
       const firstDayNaration = require("/app/message/firstDay");
-      announcement += firstDayNaration + "\n\n";
+      announcement += firstDayNaration;
     } else {
       announcement +=
-        "🏘️ 🛏️ Setiap warga kembali kerumah masing-masing" + "\n\n";
+        "\n\n" + "🏘️ 🛏️ Setiap warga kembali kerumah masing-masing" + "\n\n";
     }
 
     announcement +=
@@ -3974,6 +3974,7 @@ module.exports = {
       }
       if (!isThereWerewolfKillingLeft) {
         // to werewolf cub
+        this.checkMorphingRole("janitor", "werewolf-cub", "werewolf-cub");
         this.checkMorphingRole("consort", "werewolf-cub", "werewolf-cub");
         this.checkMorphingRole("sorcerer", "werewolf-cub", "werewolf-cub");
         this.checkMorphingRole("framer", "werewolf-cub", "werewolf-cub");

@@ -218,6 +218,8 @@ module.exports = {
           flex_text.body.text += "Type: Town Support" + "\n\n";
           flex_text.body.text +=
             "Warga yang bisa membangkitkan orang yang sudah mati. Namun kesempatan ini hanya 1 kali saja. ";
+          flex_text.body.text +=
+            "Retributionist tidak bisa membangkitkan "
           break;
 
         case "veteran":

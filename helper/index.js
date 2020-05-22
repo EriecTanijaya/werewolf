@@ -22,7 +22,7 @@ module.exports = {
     ww, town, neutral, town
     */
 
-    let roles = ["vampire", "vampire-hunter", "doctor", "lookout", "lookout"];
+    let roles = ["vampire", "vampire-hunter", "doctor", "lookout", "mayor"];
 
     let townSupports = ["escort", "retributionist"];
     let townSupport = this.random(townSupports);
@@ -103,7 +103,7 @@ module.exports = {
     let townProtectors = ["doctor", "bodyguard"];
     roles.push(this.random(townProtectors));
 
-    let townSupports = ["escort", "retributionist"];
+    let townSupports = ["escort", "retributionist", "mayor"];
     roles.push(this.random(townSupports));
 
     let neutralEvils = ["jester", "executioner"];
@@ -131,7 +131,7 @@ module.exports = {
 
     roles.push(this.random(randomTowns));
 
-    let randomWerewolves = ["framer", "consort", "sorcerer", "disguiser"];
+    let randomWerewolves = ["framer", "consort", "sorcerer", "disguiser", "janitor"];
     roles.push(this.random(randomWerewolves));
 
     roles.push("spy");
@@ -162,7 +162,7 @@ module.exports = {
   },
 
   getKillingWarsRoleSet: function(playersLength) {
-    let werewolves = ["sorcerer", "disguiser", "consort"];
+    let werewolves = ["sorcerer", "disguiser", "consort", "janitor"];
     let roles = [
       "alpha-werewolf",
       "werewolf-cub",
