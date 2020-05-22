@@ -23,21 +23,21 @@ module.exports = {
           let players = this.group_session.players;
           let index = this.indexOfPlayer();
           if (index !== -1) {
-            
             if (state === "day" || state === "vote") {
-              if (players[index].role.name === "mayor" && players[index].status === "alive") {
-                let str = this.args.join(" ");
-                str = str.toLowerCase();
+              let roleName = players[index].role.name;
+              if (roleName === "mayor" && players[index].status === "alive") {
+                let string = this.args.join(" ");
+                if (string.includes("role") && string.includes("mayor")) {
+                  let subjects = ["aku", "ak", "gw", "gue", "gua", "saya"];
 
-                if (
-                  str.includes("role") &&
-                  str.includes("aku") &&
-                  str.includes("mayor")
-                ) {
-                  this.group_session.players[index].role.revealed = true;
-                  let text = "🎩 " + players[index].name;
-                  text += " telah mengungkapkan dirinya sebagai Mayor!";
-                  return this.replyText(text);
+                  for (let i = 0; i < subjects.length; i++) {
+                    if (string.indexOf(subjects[i]) !== -1) {
+                      this.group_session.players[index].role.revealed = true;
+                      let text = "🎩 " + players[index].name;
+                      text += " telah mengungkapkan dirinya sebagai Mayor!";
+                      return this.replyText(text);
+                    }
+                  }
                 }
               }
             }
@@ -1909,7 +1909,7 @@ module.exports = {
             let target = players[targetIndex];
 
             this.group_session.players[targetIndex].cleaned = true;
-            
+
             this.group_session.players[i].role.clean--;
 
             this.group_session.players[i].message +=
@@ -1924,8 +1924,8 @@ module.exports = {
             this.group_session.players[i].message +=
               "🧹 Kamu akan membersihkan identitas " +
               target.name +
-              " jika dia mati. " + 
-              "\n\n"
+              " jika dia mati. " +
+              "\n\n";
 
             spyWerewolfVisitInfo +=
               "🐺 " + target.name + " dikunjungi anggota Werewolf" + "\n\n";
@@ -4054,11 +4054,10 @@ module.exports = {
     this.group_session.players.forEach(item => {
       if (item.status === "alive" && item.targetVoteIndex !== -1) {
         candidates.push(item.targetVoteIndex);
-        
+
         if (item.role.name === "mayor" && item.role.revealed) {
           candidates.push(item.targetVoteIndex, item.targetVoteIndex);
         }
-        
       }
     });
     return candidates;
