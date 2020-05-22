@@ -1,5 +1,19 @@
 TODO
 
+- add role janitor
+jadi kalau ada janitor, itu prop target janitor ada cleaned, dan kalau mati dan cleaned true, itu nanti rolenya ga dikasih tau
+kalau cleaned dan ga mati, itu cleaned = false
+janitor ada 3 cleanings. jadi werewolf cub kalau ga ada Werewolf Killings, janitor diatas escort (top prio)
+
+checker buat semua player = if (status == death && cleaned === true) berarti 'CLEANED' di playersCommand, 
+tapi untuk werewolfAnnouncement, dikasih tau role nya
+janitor werewolf deception
+RETRI gak bisa revive yang cleaned === true (penting)
+
+abis uda buat, masukin role itu ke role set sesuai type masing masing
+
+- buat wiki keci-kecilan buat role role dan mode
+
 - properly mekanis attacked bisa pake skill itu gmna
 
 ```

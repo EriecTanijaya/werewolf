@@ -325,6 +325,26 @@ module.exports = {
             "Bodyguard memiliki 1 vest yang bisa digunakan untuk melindungi diri sendiri dari serangan biasa. ";
           break;
 
+        case "mayor":
+          flex_text.header.text = "🎩 Mayor";
+          flex_text.body.text += "Type: Town Support" + "\n\n";
+          flex_text.body.text +=
+            "Pemimpin warga yang menyamar menjadi warga biasa. Jika Mayor mengungkapkan identitas nya, ";
+          flex_text.body.text +=
+            "Jumlah vote nya akan terhitung 3, tetapi Doctor tidak bisa heal Mayor yang telah mengungkapkan identitasnya";
+          break;
+
+        case "janitor":
+          flex_text.header.text = "🧹 Janitor";
+          flex_text.body.text += "Type: Werewolf Deception" + "\n\n";
+          flex_text.body.text += 
+            "Anggota Werewolf yang bisa membersihakn identitas seseorang pada malam hari. Jika target Janitor ini dibunuh, ";
+          flex_text.body.text +=
+            "maka rolenya tidak akan diketahui public kecuali sesama Werewolf. ";
+          flex_text.body.text +=
+            "Janitor memiliki 3 pembersihan";
+          break;
+
         default:
           let text =
             "💡 Tidak ada ditemukan role '" +

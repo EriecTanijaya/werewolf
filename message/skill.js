@@ -265,6 +265,18 @@ module.exports = {
         }
         break;
         
+      case "janitor":
+        if (isChangeTarget) {
+          text +=
+            "🧹 " + subjectText + " berubah pikiran dan memutuskan untuk bersihkan " +
+            targetName +
+            " saja malam ini";
+        } else {
+          text +=
+            "🧹 " + subjectText + " memutuskan untuk bersihkan " + targetName + " malam ini";
+        }
+        break;
+        
     }
     
     return text;

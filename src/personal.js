@@ -260,6 +260,12 @@ module.exports = {
       }
     }
 
+    if (roleName === "janitor") {
+      if (!players[index].role.clean) {
+        return this.replyText("💡 Kamu sudah tidak bisa membersihkan orang");
+      }
+    }
+
     if (parseInt(targetIndex) === parseInt(index)) {
       // hax arsonist want to ignite
       // but check is any doused player
@@ -299,6 +305,14 @@ module.exports = {
       }
     }
 
+    // hax untuk doctor yang mau heal mayor
+    if (roleName === "doctor") {
+      let targetRoleName = players[targetIndex].role.name;
+      if (targetRoleName === "mayor" && players[targetIndex].role.revealed) {
+        return this.replyText("💡 Kamu tidak bisa heal Mayor!");
+      }
+    }
+
     if (roleName === "vampire") {
       let vampireConvertCooldown = this.group_session.vampireConvertCooldown;
       if (vampireConvertCooldown > 0) {
@@ -324,6 +338,7 @@ module.exports = {
     }
 
     let targetName = players[targetIndex].name;
+
     let doer = {
       name: players[index].name,
       roleName: roleName,
@@ -493,7 +508,7 @@ module.exports = {
           "💡 Kamu bisa dengar vampire chat-an, gunakan cmd '/r' secara berkala";
       }
 
-      let noNightSkill = ["villager", "executioner"];
+      let noNightSkill = ["villager", "executioner", "mayor"];
 
       if (noNightSkill.includes(roleName)) {
         return this.replyFlex(flex_text, text);
@@ -545,6 +560,10 @@ module.exports = {
             " malam untuk gigit orang";
           return this.replyFlex(flex_text, [text, infoText]);
         }
+      } else if (roleName === "janitor") {
+        if (!player.role.clean) {
+          return this.replyFlex(flex_text);
+        }
       }
 
       // special role private role prop reminder
@@ -555,6 +574,9 @@ module.exports = {
         text += "🔫 Kamu memiliki " + players[index].role.bullet + " peluru";
       } else if (roleName === "bodyguard") {
         text += "🦺 Kamu memiliki " + players[index].role.vest + " vest";
+      } else if (roleName === "janitor") {
+        text +=
+          "🧹 Kamu memiliki " + players[index].role.clean + " pembersihan";
       }
 
       return this.roleSkill(flex_text, index, text);
@@ -577,7 +599,7 @@ module.exports = {
 
     let button = {};
     players.forEach((item, index) => {
-      if (item.status === "death") {
+      if (item.status === "death" && !item.cleaned) {
         button[index] = {
           action: "postback",
           label: item.name,
@@ -901,7 +923,7 @@ module.exports = {
       this.group_session.werewolfChat.push(message);
     } else if (roleTeam === "vampire") {
       this.group_session.vampireChat.push(message);
-      
+
       // for vampire hunter
       message.name = "Vampire";
       this.group_session.vampireHunterChat.push(message);
@@ -990,7 +1012,8 @@ module.exports = {
       "spy",
       "tracker",
       "disguiser",
-      "framer"
+      "framer",
+      "janitor"
     ];
 
     if (cantTargetItSelf.includes(roleName)) {
