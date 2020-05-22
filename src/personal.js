@@ -62,9 +62,28 @@ module.exports = {
         return this.chatCommand();
       case "/cancel":
         return this.cancelCommand();
+      case "/roles":
+        return this.roleListCommand();
       default:
         return this.invalidCommand();
     }
+  },
+
+  roleListCommand: function() {
+    if (this.group_session.state === "new") {
+      return this.replyText("💡 Game belum dimulai");
+    }
+
+    let roles = this.group_session.roles;
+    let flex_text = {
+      header: {
+        text: "🐺 Role List 🔮"
+      },
+      body: {
+        text: roles.join(", ")
+      }
+    };
+    return this.replyFlex(flex_text);
   },
 
   cancelCommand: function() {
@@ -953,7 +972,8 @@ module.exports = {
       "/info : list role",
       "/help : bantuan game",
       "/journal : cek journal kamu",
-      "/revoke: untuk batal menggunakan skill"
+      "/revoke: untuk batal menggunakan skill",
+      "/roles : tampilin role list"
     ];
 
     cmds.forEach((item, index) => {
