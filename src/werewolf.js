@@ -869,10 +869,10 @@ module.exports = {
     let announcement = "";
     announcement += "📣 Role yang ada di game ini bisa cek di '/roles'. ";
 
-    announcement +=
-      "💡 Jangan lupa ketik '/role' di pc bot untuk menggunakan skill" + "\n\n";
-
     if (this.group_session.nightCounter === 1) {
+      announcement +=
+        "💡 Jangan lupa ketik '/role' di pc bot untuk menggunakan skill" + "\n\n";
+      
       const firstDayNaration = require("/app/message/firstDay");
       announcement += firstDayNaration + "\n\n";
     } else {
@@ -3393,13 +3393,12 @@ module.exports = {
       }
 
       /// journal , keep this below any special Announcement
-      //if (item.status === "alive") {
+      
       let journal = {
         nightCounter: this.group_session.nightCounter,
         content: item.message.trim()
       };
       item.journals.push(journal);
-      //}
     });
 
     if (!allAnnouncement) {
@@ -3437,9 +3436,11 @@ module.exports = {
 
       flex_text.body.text += timerText;
 
-      flex_text.body.text +=
-        "\n\n" +
-        "💡 Pengguna Skill jangan lupa gunakan commands '/news' di pc bot";
+      if (this.group_session.nightCounter === 1) {
+        flex_text.body.text +=
+          "\n\n" +
+          "💡 Pengguna Skill jangan lupa gunakan commands '/news' di pc bot";
+      }
 
       flex_text.footer = {
         buttons: [
@@ -3469,7 +3470,6 @@ module.exports = {
     let players = this.group_session.players;
 
     let text = "";
-    let pendingMemberText = "";
     let time = this.group_session.time;
 
     if (this.group_session.state === "day") {
@@ -3498,7 +3498,12 @@ module.exports = {
 
     let flexBodyText =
       "💀 Pilih siapa yang mau di" + this.group_session.punishment + "\n";
-    flexBodyText += text + pendingMemberText + voteNeededText;
+    flexBodyText += text + voteNeededText;
+    
+    if (this.group_session.nightCounter === 1) {
+      flexBodyText += "\n\n" + "💡 Untuk batal vote bisa ketik '/revoke'";
+    }
+    
     let flex_texts = [];
     let flex_text = {
       header: {
