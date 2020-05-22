@@ -8,6 +8,7 @@ const peace = [
   "😴 Semalam tidak ada warga yang meninggal",
   "🛏️ Zzz.. Zzz Eh udah bangun ya. Sorry telat",
   "⛅ Ini Werewolf puasa apa gimana",
+  "☀️ Pada pagi yang cerah ini tidak ditem"
 ];
 
 module.exports = peace;
