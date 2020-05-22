@@ -7,6 +7,10 @@ function getAllUserData(team, cb) {
   fs.readdir(baseUserPath, (err, list) => {
     if (err) throw err;
     pending = list.length;
+    // hax karna ada file .gitkeep
+    if (!pending || pending === 1) {
+      return cb(users);
+    }
     list.forEach((item, index) => {
       if (item.includes("user")) {
         fs.readFile(baseUserPath + item, (err, data) => {
