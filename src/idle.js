@@ -103,7 +103,8 @@ module.exports = {
       "/me : statistik user",
       "/rank : cek rank",
       "/tutorial : tutorial menggunakan bot ini",
-      "/forum : link ke openchat"
+      "/forum : link ke openchat",
+      "/status : untuk melihat berapa yang online"
     ];
 
     cmds.forEach((item, index) => {

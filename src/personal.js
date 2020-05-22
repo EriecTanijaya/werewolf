@@ -62,9 +62,28 @@ module.exports = {
         return this.chatCommand();
       case "/cancel":
         return this.cancelCommand();
+      case "/roles":
+        return this.roleListCommand();
       default:
         return this.invalidCommand();
     }
+  },
+
+  roleListCommand: function() {
+    if (this.group_session.state === "new") {
+      return this.replyText("💡 Game belum dimulai");
+    }
+
+    let roles = this.group_session.roles;
+    let flex_text = {
+      header: {
+        text: "🐺 Role List 🔮"
+      },
+      body: {
+        text: roles.join(", ")
+      }
+    };
+    return this.replyFlex(flex_text);
   },
 
   cancelCommand: function() {
@@ -85,11 +104,9 @@ module.exports = {
       if (this.group_session.roomHostId === this.user_session.id) {
         let randomPlayer = helper.random(this.group_session.players);
         this.group_session.roomHostId = randomPlayer.id;
-        text +=
-          "\n" +
-          "👑 " +
-          randomPlayer.name +
-          " menjadi host baru dalam room ini. ";
+        text += "\n" + "👑 " + randomPlayer.name;
+
+        text += " menjadi host baru dalam room ini. ";
       }
     }
 
@@ -246,7 +263,6 @@ module.exports = {
       if (players[targetIndex].status === "alive") {
         return this.replyText("💡 Targetmu masih hidup");
       }
-      
     } else {
       if (players[targetIndex].status === "death") {
         return this.replyText("💡 Targetmu itu dah mati. Mau di apain?");
@@ -956,7 +972,8 @@ module.exports = {
       "/info : list role",
       "/help : bantuan game",
       "/journal : cek journal kamu",
-      "/revoke: untuk batal menggunakan skill"
+      "/revoke: untuk batal menggunakan skill",
+      "/roles : tampilin role list"
     ];
 
     cmds.forEach((item, index) => {
@@ -1000,7 +1017,7 @@ module.exports = {
       "spy",
       "tracker",
       "disguiser",
-      "framer",
+      "framer"
     ];
 
     if (cantTargetItSelf.includes(roleName)) {
