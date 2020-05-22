@@ -3501,7 +3501,7 @@ module.exports = {
     flexBodyText += text + voteNeededText;
     
     if (this.group_session.nightCounter === 1) {
-      flexBodyText += ""
+      flexBodyText += "\n\n" + "💡 Untuk batal vote bisa ketik '/revoke'";
     }
     
     let flex_texts = [];
