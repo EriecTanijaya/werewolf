@@ -750,7 +750,7 @@ module.exports = {
 
     /// test specific role cp
     if (process.env.TEST === "true") {
-      roles = ["werewolf-cub", "mayor", "doctor", "janitor"];
+      roles = ["werewolf-cub", "mayor", "doctor", "janitor", "retributionist", "bodyguard"];
     }
 
     /// hax for exe
@@ -1075,7 +1075,7 @@ module.exports = {
         }
 
         // check afk
-        let noSkillRoles = ["villager", "jester", "executioner"];
+        let noSkillRoles = ["villager", "jester", "executioner", "mayor"];
         if (!noSkillRoles.includes(item.role.name)) {
           if (item.target.index === -1) {
             item.afkCounter++;
