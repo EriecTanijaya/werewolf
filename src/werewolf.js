@@ -21,7 +21,18 @@ module.exports = {
         if (state !== "new") {
           
           // special role yang bisa trigger lewat text biasa
-          if ()
+          let players = this.group_session.players;
+          let index = this.indexOfPlayer();
+          if (index !== -1) {
+            if (players[index].role.name === "mayor") {
+              let str = this.args.join(" ");
+              str = str.toLowerCase();
+              
+              if (str.includes("role") && str.includes("aku") && str.includes("mayor")) {
+                this.group_session.players 
+              }
+            }
+          }
           
           if (time <= 10 && time > 0) {
             if (this.group_session.deadlineCheckChance === 0) {
