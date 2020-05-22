@@ -411,18 +411,32 @@ const roles = [
   {
     name: "mayor",
     description:
-      "Kamu adalah ",
-    skillText: "Escort, pilih siapa yang mau kamu distrak malam ini",
-    cmdText: "/skill",
+      "Kamu adalah pemimpin warga, yang menyamar menjadi warga biasa, namun jika kamu mengungkapkan dirimu adalah Mayor, maka jumlah vote mu akan menjadi 3, tapi Doctor tidak bisa heal dirimu",
     team: "villager",
     canKill: false,
     emoji: {
       team: "👨‍🌾",
-      self: "💋"
+      self: "🎩"
     },
     type: "Town Support",
     iconUrl:
-      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/kiss-mark_1f48b.png"
+      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/top-hat_1f3a9.png"
+  },
+  {
+    name: "janitor",
+    description:
+      "Kamu adalah anggota Werewolf yang bisa 'clean' seseorang, jika orang tersebut dibunuh, maka rolenya tidak akan diketahui oleh public, sesama Werewolf",
+    skillText: "Janitor, pilih siapa yang mau di 'clean'",
+    cmdText: "/skill",
+    team: "werewolf",
+    canKill: false,
+    emoji: {
+      team: "🐺",
+      self: "🧹"
+    },
+    type: "Werewolf Deception",
+    iconUrl:
+      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/broom_1f9f9.png"
   },
 ];
 

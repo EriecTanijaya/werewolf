@@ -324,6 +324,14 @@ module.exports = {
           flex_text.body.text +=
             "Bodyguard memiliki 1 vest yang bisa digunakan untuk melindungi diri sendiri dari serangan biasa. ";
           break;
+          
+        case "mayor":
+          
+          break;
+          
+        case "janitor":
+          
+          break;
 
         default:
           let text =
