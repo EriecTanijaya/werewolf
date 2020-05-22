@@ -1906,6 +1906,8 @@ module.exports = {
             let target = players[targetIndex];
 
             this.group_session.players[targetIndex].cleaned = true;
+            
+            this.group_session.players[i].role.clean--;
 
             this.group_session.players[i].message +=
               "👣 Kamu ke rumah " + target.name + "\n\n";
@@ -1919,8 +1921,8 @@ module.exports = {
             this.group_session.players[i].message +=
               "🧹 Kamu akan membersihkan identitas " +
               target.name +
-              " jika dia mati. ";
-            ("\n\n");
+              " jika dia mati. " + 
+              "\n\n"
 
             spyWerewolfVisitInfo +=
               "🐺 " + target.name + " dikunjungi anggota Werewolf" + "\n\n";

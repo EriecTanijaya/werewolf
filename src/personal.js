@@ -502,7 +502,7 @@ module.exports = {
           "💡 Kamu bisa dengar vampire chat-an, gunakan cmd '/r' secara berkala";
       }
 
-      let noNightSkill = ["villager", "executioner"];
+      let noNightSkill = ["villager", "executioner", "mayor"];
 
       if (noNightSkill.includes(roleName)) {
         return this.replyFlex(flex_text, text);
@@ -553,6 +553,10 @@ module.exports = {
             vampireConvertCooldown +
             " malam untuk gigit orang";
           return this.replyFlex(flex_text, [text, infoText]);
+        }
+      } else if (roleName === "janitor") {
+        if (!player.role.clean) {
+          return this.replyFlex(flex_text);
         }
       }
 
