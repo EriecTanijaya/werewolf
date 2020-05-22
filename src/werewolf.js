@@ -24,8 +24,8 @@ module.exports = {
           let index = this.indexOfPlayer();
           if (index !== -1) {
             
-            if (state === "day") {
-              if (players[index].role.name === "mayor") {
+            if (state === "day" || state === "vote") {
+              if (players[index].role.name === "mayor" && players[index].status === "alive") {
                 let str = this.args.join(" ");
                 str = str.toLowerCase();
 
