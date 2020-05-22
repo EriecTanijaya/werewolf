@@ -85,11 +85,9 @@ module.exports = {
       if (this.group_session.roomHostId === this.user_session.id) {
         let randomPlayer = helper.random(this.group_session.players);
         this.group_session.roomHostId = randomPlayer.id;
-        text +=
-          "\n" +
-          "👑 " +
-          randomPlayer.name +
-          " menjadi host baru dalam room ini. ";
+        text += "\n" + "👑 " + randomPlayer.name;
+
+        text += " menjadi host baru dalam room ini. ";
       }
     }
 
@@ -246,7 +244,6 @@ module.exports = {
       if (players[targetIndex].status === "alive") {
         return this.replyText("💡 Targetmu masih hidup");
       }
-      
     } else {
       if (players[targetIndex].status === "death") {
         return this.replyText("💡 Targetmu itu dah mati. Mau di apain?");
@@ -1000,7 +997,7 @@ module.exports = {
       "spy",
       "tracker",
       "disguiser",
-      "framer",
+      "framer"
     ];
 
     if (cantTargetItSelf.includes(roleName)) {
