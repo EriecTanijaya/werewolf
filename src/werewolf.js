@@ -899,7 +899,7 @@ module.exports = {
         "\n\n";
 
       const firstDayNaration = require("/app/message/firstDay");
-      announcement += firstDayNaration;
+      announcement += firstDayNaration + "\n\n";
     } else {
       announcement +=
         "\n\n" + "🏘️ 🛏️ Setiap warga kembali kerumah masing-masing" + "\n\n";
