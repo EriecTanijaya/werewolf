@@ -612,10 +612,6 @@ module.exports = {
           if (item.role.disguiseAs) {
             role.text = item.role.disguiseAs;
           }
-
-          if (item.cleaned) {
-            role.text = "CLEANED";
-          }
         }
 
         table_body[index].contents.push(role);
@@ -750,7 +746,7 @@ module.exports = {
 
     /// test specific role cp
     if (process.env.TEST === "true") {
-      roles = ["werewolf-cub", "mayor", "doctor", "janitor", "retributionist", "bodyguard"];
+      roles = ["werewolf-cub", "mayor", "doctor", "retributionist", "bodyguard"];
     }
 
     /// hax for exe
@@ -870,7 +866,6 @@ module.exports = {
         item.framed = false;
         item.selfHeal = false;
         item.damage = 0;
-        item.cleaned = false;
 
         //special role (vampire)
         if (item.role.team === "vampire") {
@@ -1881,55 +1876,6 @@ module.exports = {
             players[targetIndex].name +
             " sampai dia mati ketakutan" +
             "\n\n";
-        }
-      }
-    }
-
-    /// Janitor Action
-    for (let i = 0; i < players.length; i++) {
-      let doer = players[i];
-      let roleName = doer.role.name;
-      let status = doer.status;
-      let targetIndex = doer.target.index;
-
-      if (roleName === "janitor" && status === "alive") {
-        if (doer.target.index === -1) {
-          this.group_session.players[i].message +=
-            "💡 Kamu tidak menggunakan skill mu" + "\n\n";
-
-          continue;
-        } else if (parseInt(targetIndex) !== parseInt(i)) {
-          if (doer.blocked === true) {
-            this.group_session.players[i].message +=
-              "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." +
-              "\n\n";
-
-            continue;
-          } else if (!doer.attacked) {
-            let target = players[targetIndex];
-
-            this.group_session.players[targetIndex].cleaned = true;
-
-            this.group_session.players[i].role.clean--;
-
-            this.group_session.players[i].message +=
-              "👣 Kamu ke rumah " + target.name + "\n\n";
-
-            let visitor = {
-              name: doer.name,
-              role: doer.role
-            };
-            this.group_session.players[targetIndex].visitors.push(visitor);
-
-            this.group_session.players[i].message +=
-              "🧹 Kamu akan membersihkan identitas " +
-              target.name +
-              " jika dia mati. " +
-              "\n\n";
-
-            spyWerewolfVisitInfo +=
-              "🐺 " + target.name + " dikunjungi anggota Werewolf" + "\n\n";
-          }
         }
       }
     }
@@ -2948,14 +2894,7 @@ module.exports = {
         );
 
         allAnnouncement += attackedAnnouncement + "\n";
-
-        if (players[i].cleaned) {
-          allAnnouncement += "✉️ Role nya tidak diketahui" + "\n\n";
-          werewolfAnnouncement +=
-            "🧹 Role " + players[i].name + " adalah " + roleName + "\n\n";
-        } else {
-          allAnnouncement += "✉️ Role nya adalah " + roleName + "\n\n";
-        }
+        allAnnouncement += "✉️ Role nya adalah " + roleName + "\n\n";
 
         //Thanks to
         //https://stackoverflow.com/questions/24806772/how-to-skip-over-an-element-in-map/24806827
@@ -3974,7 +3913,6 @@ module.exports = {
       }
       if (!isThereWerewolfKillingLeft) {
         // to werewolf cub
-        this.checkMorphingRole("janitor", "werewolf-cub", "werewolf-cub");
         this.checkMorphingRole("consort", "werewolf-cub", "werewolf-cub");
         this.checkMorphingRole("sorcerer", "werewolf-cub", "werewolf-cub");
         this.checkMorphingRole("framer", "werewolf-cub", "werewolf-cub");
