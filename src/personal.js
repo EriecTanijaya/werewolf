@@ -930,8 +930,11 @@ module.exports = {
       this.group_session.vampireChat.push(message);
 
       // for vampire hunter
-      message.name = "Vampire";
-      this.group_session.vampireHunterChat.push(message);
+      let toVampireHunterMsg = {
+        name: "Vampire",
+        text: helper.parseToText(this.args)
+      };
+      this.group_session.vampireHunterChat.push(toVampireHunterMsg);
     }
 
     return this.replyText("💡 Pesan terkirim! Check chat dengan '/r'");
