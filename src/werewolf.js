@@ -4082,7 +4082,7 @@ module.exports = {
     return groupId;
   },
 
-  proceedVote: function(voteNeeded) {
+  checkVote: function(voteNeeded) {
     let response = {
       status: "no_candidate",
       lynchTargetIndex: -1
@@ -4096,13 +4096,17 @@ module.exports = {
 
       let lynchTarget = helper.getMostFrequent(candidates);
 
-      if (players[lynchTarget.index] && lynchTarget.count >= voteNeeded) {
-        proceed = true;
-        return proceed;
+      if (players[lynchTarget.index]) {
+        response.lynchTargetIndex = lynchTarget.index
+        if (lynchTarget.count >= voteNeeded) {
+          response.status = "enough_vote";
+        } else {
+          response.status = "not_enough_vote";
+        }
       }
     }
 
-    return proceed;
+    return response;
   },
 
   increaseWinRate: function(index, roleTeam) {
