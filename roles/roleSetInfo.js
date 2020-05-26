@@ -1,7 +1,7 @@
 const helper = require("/app/helper");
 
 module.exports = {
-  receive: function(client, event, args) {
+  receive: function(client, event, args, groupState) {
     this.client = client;
     this.event = event;
     this.args = args;
@@ -139,15 +139,17 @@ module.exports = {
     }
 
     if (this.event.source.type !== "user") {
-      flex_text.footer = {
-        buttons: [
-          {
-            action: "postback",
-            label: "set mode ini",
-            data: "/set mode " + modeId
-          }
-        ]
-      };
+      if (groupState === "idle" || groupState === "new") {
+        flex_text.footer = {
+          buttons: [
+            {
+              action: "postback",
+              label: "set mode ini",
+              data: "/set mode " + modeId
+            }
+          ]
+        };
+      }
     }
 
     return this.replyFlex(flex_text);

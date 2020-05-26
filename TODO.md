@@ -1,5 +1,7 @@
 TODO
 
+- warga imba?
+
 - buat wiki keci-kecilan buat role role dan mode
 
 - properly mekanis attacked bisa pake skill itu gmna
@@ -24,19 +26,20 @@ console.log(`town ${townNeedCount}, ww ${werewolfNeedCount}, neutral ${neutralNe
 - kalau pemain dah rame, adain **role investigator**, dimana dia miripin aj sama investigator di TOS
 
 - ROLE YANG BELUM BISA DUPLICATE
+
   - executioner
   - veteran, sebenarnya bisa ganti veteranIndexes jadiin kek spyBuggedInfo, tapi kalo banyak veteran ga bagus
-  
+
 - ROLE YG JANGAN DUPLICATE
+
   - VETERAN
   - executioner
   - team ww semua
   - vampire hunter hanya ada saat ada vampire
   - sheriff ada kalau ada list yg bisa di suspiciouskan
   - vigilante ada kalau ada musuh yang bisa di dor
-  
 
-- buat module sendiri, untuk flex message, biar gampang dipake di bot lain
+* buat module sendiri, untuk flex message, biar gampang dipake di bot lain
   - ini flexMessage table nya gampang di kostumisasi
   - dan buat gimana flex_textxnya itu bisa di lebih dari 1 bubble chat (max 5 bubble chat)
   - 1 carousel max 10 bubble flex

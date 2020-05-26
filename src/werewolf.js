@@ -79,7 +79,7 @@ module.exports = {
       }
       return Promise.resolve(null);
     }
-    
+
     let input = this.args[0].toLowerCase();
     switch (input) {
       case "/new":
@@ -341,7 +341,8 @@ module.exports = {
 
   infoCommand: function() {
     const roles = require("/app/roles/rolesInfo");
-    return roles.receive(this.client, this.event, this.args);
+    let groupState = this.group_session.state;
+    return roles.receive(this.client, this.event, this.args, groupState);
   },
 
   helpCommand: function() {

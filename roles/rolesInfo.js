@@ -1,7 +1,7 @@
 const helper = require("/app/helper");
 
 module.exports = {
-  receive: function(client, event, args) {
+  receive: function(client, event, args, groupState) {
     this.client = client;
     this.event = event;
     this.args = args;
@@ -26,7 +26,7 @@ module.exports = {
       return this.roleTypeCommand();
     } else if (cmd === "mode") {
       const roles = require("/app/roles/roleSetInfo");
-      return roles.receive(this.client, this.event, this.args);
+      return roles.receive(this.client, this.event, this.args, groupState);
     } else {
       let input = "";
       if (this.args[2]) {
