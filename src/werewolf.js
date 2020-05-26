@@ -1038,12 +1038,22 @@ module.exports = {
         }
       }
     });
+    
+    let checkVote = this.checkVote(voteNeeded);
 
-    if (!this.proceedVote(voteNeeded)) {
+    if (checkVote.status !== "enough_vote") {
       headerText = "📣 Penghukuman ditunda";
       text =
         "💬 Waktu habis dan warga belum menentukan siapa yang akan di" +
         this.group_session.punishment;
+      
+      if (checkVote.status === "not_enough_vote") {
+        let was_candidate_name = players[checkVote.lynchTarget.index].name;
+        let rem_vote = voteNeeded - checkVote.lynchTarget.count;
+        text +=
+          "\n\n" + "💡 Sisa " + rem_vote + " vote lagi, " + was_candidate_name + " akan di hukum!"; 
+      }
+      
     } else {
       headerText = "📣 Voting";
     }
@@ -1051,7 +1061,7 @@ module.exports = {
     let alivePlayers = this.getAlivePlayers();
     let playerListFlex = this.getTableFlex(alivePlayers, null, headerText);
 
-    if (!this.proceedVote(voteNeeded)) {
+    if (checkVote.status !== "enough_vote") {
       this.group_session.state = "lynch";
       this.group_session.time = 8;
       this.resetCheckChance();
@@ -3626,8 +3636,10 @@ module.exports = {
     let headerText = "📣 Voting";
 
     let time = this.group_session.time;
+    
+    let checkVote = this.checkVote();
 
-    if (!this.proceedVote(voteNeeded)) {
+    if (checkVote.status !== "enough_vote") {
       let voteFlex = "💡 Ketik '/cek' untuk munculin flex vote. ";
 
       if (time > 15) {
@@ -4082,8 +4094,12 @@ module.exports = {
     return groupId;
   },
 
-  proceedVote: function(voteNeeded) {
-    let proceed = false;
+  checkVote: function(voteNeeded) {
+    let response = {
+      status: "no_candidate",
+      lynchTarget: {}
+    };
+
     let notVote = this.getNotVotePlayers();
     let players = this.group_session.players;
 
@@ -4092,13 +4108,17 @@ module.exports = {
 
       let lynchTarget = helper.getMostFrequent(candidates);
 
-      if (players[lynchTarget.index] && lynchTarget.count >= voteNeeded) {
-        proceed = true;
-        return proceed;
+      if (players[lynchTarget.index]) {
+        response.lynchTarget = lynchTarget;
+        if (lynchTarget.count >= voteNeeded) {
+          response.status = "enough_vote";
+        } else {
+          response.status = "not_enough_vote";
+        }
       }
     }
 
-    return proceed;
+    return response;
   },
 
   increaseWinRate: function(index, roleTeam) {
