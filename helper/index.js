@@ -455,9 +455,9 @@ module.exports = {
         from: "00:00:00",
         to: "03:59:59",
         color: {
-          main: "#202b58",
-          secondary: "#202b58",
-          background: "#121212",
+          main: "#162447",
+          secondary: "#162447",
+          background: "#000000",
           text: "#ffffff"
         }
       },
