@@ -4083,7 +4083,11 @@ module.exports = {
   },
 
   proceedVote: function(voteNeeded) {
-    let proceed = false;
+    let response = {
+      status: "no_candidate",
+      lynchTargetIndex: -1
+    };
+    
     let notVote = this.getNotVotePlayers();
     let players = this.group_session.players;
 
