@@ -36,7 +36,7 @@ module.exports = {
                       this.group_session.players[index].role.revealed = true;
                       let text = "🎩 " + players[index].name;
                       text += " telah mengungkapkan dirinya sebagai Mayor!";
-                      
+
                       let flex_text = {
                         header: {
                           text: "📜 Info"
@@ -44,8 +44,8 @@ module.exports = {
                         body: {
                           text: text
                         }
-                      }
-                      
+                      };
+
                       return this.replyFlex(flex_text);
                     }
                   }
@@ -910,7 +910,8 @@ module.exports = {
 
     //tell available role
     let announcement = "";
-    announcement += "📣 Role yang ada di game ini bisa cek di '/roles'. ";
+    announcement +=
+      "📣 Role yang ada di game ini bisa cek di '/roles'. " + "\n\n";
 
     if (this.group_session.nightCounter === 1) {
       announcement +=
@@ -921,7 +922,7 @@ module.exports = {
       announcement += firstDayNaration + "\n\n";
     } else {
       announcement +=
-        "\n\n" + "🏘️ 🛏️ Setiap warga kembali kerumah masing-masing" + "\n\n";
+        "🏘️ 🛏️ Setiap warga kembali kerumah masing-masing" + "\n\n";
     }
 
     announcement +=
@@ -1048,7 +1049,7 @@ module.exports = {
         }
       }
     });
-    
+
     let checkVote = this.checkVote(voteNeeded);
 
     if (checkVote.status !== "enough_vote") {
@@ -1105,7 +1106,6 @@ module.exports = {
     let allAnnouncement = "";
     let vampireAnnouncement = "";
     let werewolfAnnouncement = "";
-    // emoji 🐺 💉 🔮 🤵 🚬
 
     /// Veteran targetIndexes
     let veteranTargetIndexes = [];
@@ -1308,8 +1308,7 @@ module.exports = {
 
           let doer = players[werewolfDoerIndex];
           let target = players[werewolfChosenTarget.index];
-          werewolfAnnouncement +=
-            "🐺 " + doer.name + " akan membunuh " + target.name + "\n\n";
+          werewolfAnnouncement += `🐺 ${doer.name} akan membunuh ${target.name}\n\n`;
         }
       }
     }
@@ -1421,12 +1420,7 @@ module.exports = {
             this.group_session.players[i].message +=
               "👣 Kamu ke rumah " + target.name + "\n\n";
 
-            werewolfAnnouncement +=
-              "🚷 " +
-              doer.name +
-              " berencana me roleblock " +
-              target.name +
-              "\n\n";
+            werewolfAnnouncement += `🚷 ${doer.name} berencana block skill ${target.name}\n\n`;
 
             let visitor = {
               name: doer.name,
@@ -1467,8 +1461,7 @@ module.exports = {
             } else {
               this.group_session.players[targetIndex].blocked = true;
 
-              spyWerewolfVisitInfo +=
-                "🐺 " + target.name + " dikunjungi anggota Werewolf" + "\n\n";
+              spyWerewolfVisitInfo += `🐺 ${target.name} dikunjungi anggota Werewolf\n\n`;
 
               if (players[targetIndex].bugged) {
                 spyBuggedInfo[targetIndex] +=
@@ -1531,12 +1524,7 @@ module.exports = {
             this.group_session.players[i].message +=
               "👣 Kamu ke rumah " + target.name + "\n\n";
 
-            werewolfAnnouncement +=
-              "🎭 " +
-              doer.name +
-              " akan mengimitasi role " +
-              target.name +
-              "\n\n";
+            werewolfAnnouncement += `🎭 ${doer.name} akan mengimitasi role ${target.name}\n\n`;
 
             // hax for check if the target was veteran
             if (target.role.name === "veteran" && target.target.index !== -1) {
@@ -1551,8 +1539,7 @@ module.exports = {
 
             this.group_session.players[i].role.disguiseAs = target.role.name;
 
-            spyWerewolfVisitInfo +=
-              "🐺 " + target.name + " dikunjungi anggota Werewolf" + "\n\n";
+            spyWerewolfVisitInfo += `🐺 ${target.name} dikunjungi anggota Werewolf\n\n`;
           }
         }
       }
@@ -1592,8 +1579,7 @@ module.exports = {
             };
             this.group_session.players[targetIndex].visitors.push(visitor);
 
-            vampireAnnouncement +=
-              "🧛 Target Vampire adalah : " + target.name + "\n\n";
+            vampireAnnouncement += `🧛 Target Vampire adalah ${target.name}\n\n`;
 
             // hax for vampire if it only one vampire
             if (vampires.length === 1) {
@@ -1604,8 +1590,7 @@ module.exports = {
                 "👣 Kamu disuruh ke rumah " + target.name + "\n\n";
             }
 
-            vampireAnnouncement +=
-              "👣 " + doer.name + " mengunjungi rumah " + target.name + "\n\n";
+            vampireAnnouncement += `👣 ${doer.name} mengunjungi rumah ${target.name}\n\n`;
 
             this.group_session.players[targetIndex].message +=
               "🧛 Kamu didatangi Vampire!" + "\n\n";
@@ -1973,13 +1958,7 @@ module.exports = {
             this.group_session.players[targetIndex].message +=
               "⚰️ Kamu berhasil dibangkitkan Retributionist!" + "\n\n";
 
-            allAnnouncement +=
-              "⚰️ " +
-              target.name +
-              " (" +
-              targetRoleName +
-              ") bangkit dari kematian!" +
-              "\n\n";
+            allAnnouncement += `⚰️ ${target.name} (${targetRoleName}) bangkit dari kematian!\n\n`;
           }
         }
       }
@@ -2500,12 +2479,7 @@ module.exports = {
                   "👣 Kamu disuruh ke rumah " + target.name + "\n\n";
               }
 
-              werewolfAnnouncement +=
-                "👣 " +
-                doer.name +
-                " mengunjungi rumah " +
-                target.name +
-                "\n\n";
+              werewolfAnnouncement += `👣 ${doer.name} mengunjungi rumah ${target.name}\n\n`;
 
               let immuneToBasicAttack = [
                 "serial-killer",
@@ -2513,8 +2487,7 @@ module.exports = {
                 "executioner"
               ];
 
-              spyWerewolfVisitInfo +=
-                "🐺 " + target.name + " dikunjungi anggota Werewolf" + "\n\n";
+              spyWerewolfVisitInfo += `🐺 ${target.name} dikunjungi anggota Werewolf\n\n`;
 
               if (immuneToBasicAttack.includes(target.role.name)) {
                 this.group_session.players[i].message +=
@@ -2984,8 +2957,7 @@ module.exports = {
             "💡 Ketik '/role' untuk mengetahui siapa saja sesama Vampire" +
             "\n\n";
 
-          vampireAnnouncement +=
-            "🧛 " + players[i].name + " berhasil menjadi Vampire!" + "\n\n";
+          vampireAnnouncement += `🧛 ${players[i].name} berhasil menjadi Vampire!\n\n`;
 
           this.group_session.vampireConvertCooldown = 1;
 
@@ -3031,11 +3003,9 @@ module.exports = {
               " agar terlihat bersalah" +
               "\n\n";
 
-            werewolfAnnouncement +=
-              "🎞️ " + doer.name + " menjebak " + target.name + "\n\n";
+            werewolfAnnouncement += `🎞️ ${doer.name} menjebak ${target.name}\n\n`;
 
-            spyWerewolfVisitInfo +=
-              "🐺 " + target.name + " dikunjungi anggota Werewolf" + "\n\n";
+            spyWerewolfVisitInfo += `🐺 ${target.name} dikunjungi anggota Werewolf\n\n`;
 
             this.group_session.players[targetIndex].framed = true;
           }
@@ -3183,11 +3153,9 @@ module.exports = {
             this.group_session.players[i].message +=
               "👣 Kamu ke rumah " + target.name + "\n\n";
 
-            werewolfAnnouncement +=
-              "🧙 Role " + target.name + " adalah " + target.role.name + "\n\n";
+            werewolfAnnouncement += `🧙 Role ${target.name} adalah ${target.role.name}\n\n`;
 
-            spyWerewolfVisitInfo +=
-              "🐺 " + target.name + " dikunjungi anggota Werewolf" + "\n\n";
+            spyWerewolfVisitInfo += `🐺 ${target.name} dikunjungi anggota Werewolf\n\n`;
 
             this.group_session.players[i].message +=
               "💡 Kamu bisa cek info role dengan ketik '/info " +
@@ -3638,7 +3606,7 @@ module.exports = {
     let headerText = "📣 Voting";
 
     let time = this.group_session.time;
-    
+
     let checkVote = this.checkVote();
 
     if (checkVote.status !== "enough_vote") {
@@ -4234,13 +4202,13 @@ module.exports = {
         buttons: [
           {
             action: "uri",
-            label: "💡 Role",
+            label: "🚪 Role",
             data:
               "https://line.me/R/oaMessage/" + process.env.BOT_ID + "/?%2Frole"
           },
           {
             action: "postback",
-            label: "💡 Check",
+            label: "🔔 Check",
             data: "/check"
           }
         ]
@@ -4658,8 +4626,7 @@ module.exports = {
         let reminder = "💡 ";
 
         if (time < 1) {
-          reminder +=
-            "Waktu sudah habis, ketik '/cek' untuk lanjutkan proses";
+          reminder += "Waktu sudah habis, ketik '/cek' untuk lanjutkan proses";
         } else {
           reminder +=
             "Waktu tersisa " +
