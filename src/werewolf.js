@@ -36,7 +36,17 @@ module.exports = {
                       this.group_session.players[index].role.revealed = true;
                       let text = "🎩 " + players[index].name;
                       text += " telah mengungkapkan dirinya sebagai Mayor!";
-                      return this.replyText(text);
+                      
+                      let flex_text = {
+                        header: {
+                          text: "📜 Info"
+                        },
+                        body: {
+                          text: text
+                        }
+                      }
+                      
+                      return this.replyFlex(flex_text);
                     }
                   }
                 }
