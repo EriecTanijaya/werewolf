@@ -1,6 +1,11 @@
 TODO
 
-- rebrand, role werewolf sekarang jadi mafia, alpha werewolf = godfather, 
+- rebrand, role werewolf sekarang jadi mafia, alpha werewolf = godfather, ww cub = mafioso, seer = investigator
+
+- role that will added if possible :
+  - werewolf (yes, with full moon and rampage shit)
+  - juggernaut with more power each kill
+  - 
 
 - warga imba?
 
