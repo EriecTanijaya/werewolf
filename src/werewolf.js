@@ -910,11 +910,11 @@ module.exports = {
 
     //tell available role
     let announcement = "";
-    announcement += "📣 Role yang ada di game ini bisa cek di '/roles'. ";
+    announcement +=
+      "📣 Role yang ada di game ini bisa cek di '/roles'. " + "\n\n";
 
     if (this.group_session.nightCounter === 1) {
       announcement +=
-        "\n\n" +
         "💡 Jangan lupa ketik '/role' di pc bot untuk menggunakan skill" +
         "\n\n";
 
@@ -922,7 +922,7 @@ module.exports = {
       announcement += firstDayNaration + "\n\n";
     } else {
       announcement +=
-        "\n\n" + "🏘️ 🛏️ Setiap warga kembali kerumah masing-masing" + "\n\n";
+        "🏘️ 🛏️ Setiap warga kembali kerumah masing-masing" + "\n\n";
     }
 
     announcement +=
@@ -1106,7 +1106,6 @@ module.exports = {
     let allAnnouncement = "";
     let vampireAnnouncement = "";
     let werewolfAnnouncement = "";
-    // emoji 🐺 💉 🔮 🤵 🚬
 
     /// Veteran targetIndexes
     let veteranTargetIndexes = [];
@@ -1468,8 +1467,7 @@ module.exports = {
             } else {
               this.group_session.players[targetIndex].blocked = true;
 
-              spyWerewolfVisitInfo +=
-                "🐺 " + target.name + " dikunjungi anggota Werewolf" + "\n\n";
+              spyWerewolfVisitInfo += `🐺 ${target.name} dikunjungi anggota Werewolf\n\n`;
 
               if (players[targetIndex].bugged) {
                 spyBuggedInfo[targetIndex] +=
@@ -1532,12 +1530,7 @@ module.exports = {
             this.group_session.players[i].message +=
               "👣 Kamu ke rumah " + target.name + "\n\n";
 
-            werewolfAnnouncement +=
-              "🎭 " +
-              doer.name +
-              " akan mengimitasi role " +
-              target.name +
-              "\n\n";
+            werewolfAnnouncement += `🎭 ${doer.name} akan mengimitasi role ${target.name}\n\n`;
 
             // hax for check if the target was veteran
             if (target.role.name === "veteran" && target.target.index !== -1) {
@@ -1552,8 +1545,7 @@ module.exports = {
 
             this.group_session.players[i].role.disguiseAs = target.role.name;
 
-            spyWerewolfVisitInfo +=
-              "🐺 " + target.name + " dikunjungi anggota Werewolf" + "\n\n";
+            spyWerewolfVisitInfo += `🐺 ${target.name} dikunjungi anggota Werewolf\n\n`;
           }
         }
       }
@@ -4235,13 +4227,13 @@ module.exports = {
         buttons: [
           {
             action: "uri",
-            label: "💡 Role",
+            label: "🚪 Role",
             data:
               "https://line.me/R/oaMessage/" + process.env.BOT_ID + "/?%2Frole"
           },
           {
             action: "postback",
-            label: "💡 Check",
+            label: "🔔 Check",
             data: "/check"
           }
         ]
