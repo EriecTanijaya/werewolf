@@ -1308,8 +1308,7 @@ module.exports = {
 
           let doer = players[werewolfDoerIndex];
           let target = players[werewolfChosenTarget.index];
-          werewolfAnnouncement +=
-            "🐺 " + doer.name + " akan membunuh " + target.name + "\n\n";
+          werewolfAnnouncement += `🐺 ${doer.name} akan membunuh ${target.name}\n\n`;
         }
       }
     }
@@ -1421,12 +1420,7 @@ module.exports = {
             this.group_session.players[i].message +=
               "👣 Kamu ke rumah " + target.name + "\n\n";
 
-            werewolfAnnouncement +=
-              "🚷 " +
-              doer.name +
-              " berencana me roleblock " +
-              target.name +
-              "\n\n";
+            werewolfAnnouncement += `🚷 ${doer.name} berencana block skill ${target.name}\n\n`;
 
             let visitor = {
               name: doer.name,
@@ -1585,8 +1579,7 @@ module.exports = {
             };
             this.group_session.players[targetIndex].visitors.push(visitor);
 
-            vampireAnnouncement +=
-              "🧛 Target Vampire adalah : " + target.name + "\n\n";
+            vampireAnnouncement += `🧛 Target Vampire adalah ${target.name}\n\n`;
 
             // hax for vampire if it only one vampire
             if (vampires.length === 1) {
@@ -1597,8 +1590,7 @@ module.exports = {
                 "👣 Kamu disuruh ke rumah " + target.name + "\n\n";
             }
 
-            vampireAnnouncement +=
-              "👣 " + doer.name + " mengunjungi rumah " + target.name + "\n\n";
+            vampireAnnouncement += `👣 ${doer.name} mengunjungi rumah ${target.name}\n\n`;
 
             this.group_session.players[targetIndex].message +=
               "🧛 Kamu didatangi Vampire!" + "\n\n";
@@ -1966,13 +1958,7 @@ module.exports = {
             this.group_session.players[targetIndex].message +=
               "⚰️ Kamu berhasil dibangkitkan Retributionist!" + "\n\n";
 
-            allAnnouncement +=
-              "⚰️ " +
-              target.name +
-              " (" +
-              targetRoleName +
-              ") bangkit dari kematian!" +
-              "\n\n";
+            allAnnouncement += `⚰️ ${target.name} (${targetRoleName}) bangkit dari kematian!\n\n`;
           }
         }
       }
@@ -2493,12 +2479,7 @@ module.exports = {
                   "👣 Kamu disuruh ke rumah " + target.name + "\n\n";
               }
 
-              werewolfAnnouncement +=
-                "👣 " +
-                doer.name +
-                " mengunjungi rumah " +
-                target.name +
-                "\n\n";
+              werewolfAnnouncement += `👣 ${doer.name} mengunjungi rumah ${target.name}\n\n`;
 
               let immuneToBasicAttack = [
                 "serial-killer",
@@ -2506,8 +2487,7 @@ module.exports = {
                 "executioner"
               ];
 
-              spyWerewolfVisitInfo +=
-                "🐺 " + target.name + " dikunjungi anggota Werewolf" + "\n\n";
+              spyWerewolfVisitInfo += `🐺 ${target.name} dikunjungi anggota Werewolf\n\n`;
 
               if (immuneToBasicAttack.includes(target.role.name)) {
                 this.group_session.players[i].message +=
@@ -2977,8 +2957,7 @@ module.exports = {
             "💡 Ketik '/role' untuk mengetahui siapa saja sesama Vampire" +
             "\n\n";
 
-          vampireAnnouncement +=
-            "🧛 " + players[i].name + " berhasil menjadi Vampire!" + "\n\n";
+          vampireAnnouncement += `🧛 ${players[i].name} berhasil menjadi Vampire!\n\n`;
 
           this.group_session.vampireConvertCooldown = 1;
 
@@ -3024,11 +3003,9 @@ module.exports = {
               " agar terlihat bersalah" +
               "\n\n";
 
-            werewolfAnnouncement +=
-              "🎞️ " + doer.name + " menjebak " + target.name + "\n\n";
+            werewolfAnnouncement += `🎞️ ${doer.name} menjebak ${target.name}\n\n`;
 
-            spyWerewolfVisitInfo +=
-              "🐺 " + target.name + " dikunjungi anggota Werewolf" + "\n\n";
+            spyWerewolfVisitInfo += `🐺 ${target.name} dikunjungi anggota Werewolf\n\n`;
 
             this.group_session.players[targetIndex].framed = true;
           }
@@ -3176,11 +3153,9 @@ module.exports = {
             this.group_session.players[i].message +=
               "👣 Kamu ke rumah " + target.name + "\n\n";
 
-            werewolfAnnouncement +=
-              "🧙 Role " + target.name + " adalah " + target.role.name + "\n\n";
+            werewolfAnnouncement += `🧙 Role ${target.name} adalah ${target.role.name}\n\n`;
 
-            spyWerewolfVisitInfo +=
-              "🐺 " + target.name + " dikunjungi anggota Werewolf" + "\n\n";
+            spyWerewolfVisitInfo += `🐺 ${target.name} dikunjungi anggota Werewolf\n\n`;
 
             this.group_session.players[i].message +=
               "💡 Kamu bisa cek info role dengan ketik '/info " +
