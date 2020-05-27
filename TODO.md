@@ -1,5 +1,7 @@
 TODO
 
+- rebrand, role werewolf sekarang jadi mafia, alpha werewolf = godfather, 
+
 - warga imba?
 
 - buat wiki keci-kecilan buat role role dan mode
