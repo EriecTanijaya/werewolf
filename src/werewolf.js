@@ -36,7 +36,7 @@ module.exports = {
                       this.group_session.players[index].role.revealed = true;
                       let text = "🎩 " + players[index].name;
                       text += " telah mengungkapkan dirinya sebagai Mayor!";
-                      
+
                       let flex_text = {
                         header: {
                           text: "📜 Info"
@@ -44,8 +44,8 @@ module.exports = {
                         body: {
                           text: text
                         }
-                      }
-                      
+                      };
+
                       return this.replyFlex(flex_text);
                     }
                   }
@@ -914,6 +914,7 @@ module.exports = {
 
     if (this.group_session.nightCounter === 1) {
       announcement +=
+        "\n\n" +
         "💡 Jangan lupa ketik '/role' di pc bot untuk menggunakan skill" +
         "\n\n";
 
@@ -1048,7 +1049,7 @@ module.exports = {
         }
       }
     });
-    
+
     let checkVote = this.checkVote(voteNeeded);
 
     if (checkVote.status !== "enough_vote") {
@@ -3638,7 +3639,7 @@ module.exports = {
     let headerText = "📣 Voting";
 
     let time = this.group_session.time;
-    
+
     let checkVote = this.checkVote();
 
     if (checkVote.status !== "enough_vote") {
@@ -4658,8 +4659,7 @@ module.exports = {
         let reminder = "💡 ";
 
         if (time < 1) {
-          reminder +=
-            "Waktu sudah habis, ketik '/cek' untuk lanjutkan proses";
+          reminder += "Waktu sudah habis, ketik '/cek' untuk lanjutkan proses";
         } else {
           reminder +=
             "Waktu tersisa " +
