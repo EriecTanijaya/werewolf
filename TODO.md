@@ -10,8 +10,12 @@ TODO
     - kalau di block ga bisa dapat info
     - ga ada skill malam
   - trapper masih belum tau gimana mechanismnya
+  - ambusher, passive visit(anjir skip)
+  - amnesiac ribet
   - 
-
+- additional info, investigator kasih tau rolenya ga langsung, tapi pake guess
+- executioner bisa ada target yang sama, tapi skrng belum support lebih dari 1 exe, kalau ada sistem lebih modular, bisa ada role amnesiac
+- 
 
 
 - kau ngapain rik? reverse engineering town of salem WKWWK
