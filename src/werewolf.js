@@ -1046,14 +1046,6 @@ module.exports = {
       text =
         "💬 Waktu habis dan warga belum menentukan siapa yang akan di" +
         this.group_session.punishment;
-      
-      if (checkVote.status === "not_enough_vote") {
-        let was_candidate_name = players[checkVote.lynchTarget.index].name;
-        let rem_vote = voteNeeded - checkVote.lynchTarget.count;
-        text +=
-          "\n\n" + "💡 Sisa " + rem_vote + " vote lagi, " + was_candidate_name + " akan di hukum!"; 
-      }
-      
     } else {
       headerText = "📣 Voting";
     }
@@ -4108,13 +4100,9 @@ module.exports = {
 
       let lynchTarget = helper.getMostFrequent(candidates);
 
-      if (players[lynchTarget.index]) {
+      if (players[lynchTarget.index] && lynchTarget.count >= voteNeeded) {
         response.lynchTarget = lynchTarget;
-        if (lynchTarget.count >= voteNeeded) {
-          response.status = "enough_vote";
-        } else {
-          response.status = "not_enough_vote";
-        }
+        response.status = "enough_vote";
       }
     }
 
