@@ -558,21 +558,16 @@ module.exports = {
     let m = 0; //counter
     let item; //to store item with maximum frequency
     let obj = {}; //object to return
-    for (
-      let i = 0;
-      i < array.length;
-      i++ //select element (current element)
-    ) {
-      for (
-        let j = i;
-        j < array.length;
-        j++ //loop through next elements in array to compare calculate frequency of current element
-      ) {
-        if (array[i] == array[j])
-          //see if element occurs again in the array
-          m++; //increment counter if it does
+
+    //select element (current element)
+    for (let i = 0; i < array.length; i++) {
+      //loop through next elements in array to compare calculate frequency of current element
+      for (let j = i; j < array.length; j++) {
+        //see if element occurs again in the array
+        if (array[i] == array[j]) m++; //increment counter if it does
+
+        //compare current items frequency with maximum frequency
         if (mf < m) {
-          //compare current items frequency with maximum frequency
           mf = m; //if m>mf store m in mf for upcoming elements
           item = array[i]; // store the current element.
         }
