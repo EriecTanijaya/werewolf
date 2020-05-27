@@ -4659,12 +4659,12 @@ module.exports = {
 
         if (time < 1) {
           reminder +=
-            "Waktu sudah habis, ketik '/check' untuk lanjutkan proses";
+            "Waktu sudah habis, ketik '/cek' untuk lanjutkan proses";
         } else {
           reminder +=
             "Waktu tersisa " +
             time +
-            " detik lagi, nanti ketik '/check' untuk lanjutkan proses";
+            " detik lagi, nanti ketik '/cek' untuk lanjutkan proses";
         }
 
         let reminder_text = {
