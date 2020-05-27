@@ -12,7 +12,10 @@ TODO
   - trapper masih belum tau gimana mechanismnya
   - ambusher, passive visit(anjir skip)
   - amnesiac ribet
-  - 
+  - guardiana angle ribet
+  - werewolf, pas full moon bisa rampage di rumah orang, di cek sheriff bisa mencurigakan. kalau rumah nya jadi target rampage, itu siapa aja yang kesana mati
+    - kalau ww ke rmh veteran, ww mati, tapi vete mati juga (kalau ada yang ke vete, mati juga sama ww dan vete) asli ribet
+  - jugg mirip sama ww, tapi ada kek level up skill gitu
 - additional info, investigator kasih tau rolenya ga langsung, tapi pake guess
 - executioner bisa ada target yang sama, tapi skrng belum support lebih dari 1 exe, kalau ada sistem lebih modular, bisa ada role amnesiac
 - 
