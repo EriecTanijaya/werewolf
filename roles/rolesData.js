@@ -18,18 +18,18 @@ const roles = [
   {
     name: "consigliere",
     description:
-      "Kamu adalah penjahat yang bisa mengetahui suatu role. Kamu di pihak Werewolf",
-    skillText: "Sorcerer, Pilih siapa yang ingin diterawang",
+      "Kamu di pihak Mafia, dan bisa mengecek role seorang warga",
+    skillText: "Consigliere, pilih siapa yang ingin dicek",
     cmdText: "/skill",
-    team: "werewolf",
+    team: "mafia",
     canKill: false,
     emoji: {
       team: "🤵",
       self: ""
     },
-    type: "Werewolf Support",
+    type: "Mafia Support",
     iconUrl:
-      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/mage_1f9d9.png"
+      ""
   },
   {
     name: "consort",
