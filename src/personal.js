@@ -544,7 +544,7 @@ module.exports = {
         }
       } else if (roleName === "vigilante") {
         if (player.role.isLoadBullet) {
-          text += "🧳 Kamu masih menyiapkan senjata mu";
+          text += "💼 Kamu masih menyiapkan senjata mu";
           return this.replyFlex(flex_text, text);
         }
       } else if (roleName === "jester") {

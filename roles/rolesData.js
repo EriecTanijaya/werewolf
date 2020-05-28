@@ -2,21 +2,21 @@ const roles = [
   {
     name: "godfather",
     description:
-      "Kamu adalah penjahat yang menyamar diantara werewolf. Kamu kebal dari serangan biasa. ",
-    skillText: "Alpha Werewolf, Pilih siapa mangsamu",
+      "Kamu adalah ketua Mafia. Kamu kebal dari serangan biasa dan tidak bersalah jika di cek Sheriff",
+    skillText: "Godfather, pilih siapa yang ingin dibunuh",
     cmdText: "/skill",
-    team: "werewolf",
+    team: "mafia",
     canKill: true,
     emoji: {
       team: "🤵",
-      self: "🐺"
+      self: ""
     },
-    type: "Werewolf Killing",
+    type: "Mafia Killing",
     iconUrl:
-      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/wolf_1f43a.png"
+      ""
   },
   {
-    name: "sorcerer",
+    name: "consigliere",
     description:
       "Kamu adalah penjahat yang bisa mengetahui suatu role. Kamu di pihak Werewolf",
     skillText: "Sorcerer, Pilih siapa yang ingin diterawang",
@@ -24,8 +24,8 @@ const roles = [
     team: "werewolf",
     canKill: false,
     emoji: {
-      team: "🐺",
-      self: "🧙"
+      team: "🤵",
+      self: ""
     },
     type: "Werewolf Support",
     iconUrl:
@@ -40,7 +40,7 @@ const roles = [
     team: "werewolf",
     canKill: false,
     emoji: {
-      team: "🐺",
+      team: "🤵",
       self: "🚷"
     },
     type: "Werewolf Support",
@@ -48,7 +48,7 @@ const roles = [
       "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/no-pedestrians_1f6b7.png"
   },
   {
-    name: "seer",
+    name: "investigator",
     description:
       "Kamu adalah warga yang bisa cek identitas sebenarnya dari suatu orang. Gantung Werewolf supaya kamu menang",
     skillText: "Seer, pilih siapa yang ingin di check",
@@ -57,7 +57,7 @@ const roles = [
     canKill: false,
     emoji: {
       team: "👨‍🌾",
-      self: "🔮"
+      self: ""
     },
     type: "Town Investigate",
     iconUrl:
@@ -128,7 +128,7 @@ const roles = [
       "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/dagger_1f5e1.png"
   },
   {
-    name: "werewolf-cub",
+    name: "mafioso",
     description:
       "Kamu dipihak werewolf, dan kamu suruhan Werewolf untuk membunuh orang lain. ",
     skillText: "Werewolf Cub, pilih siapa yang ingin di bunuh",
@@ -136,8 +136,8 @@ const roles = [
     cmdText: "/skill",
     canKill: true,
     emoji: {
-      team: "🐺",
-      self: "🐕"
+      team: "🤵",
+      self: ""
     },
     type: "Werewolf Killing",
     iconUrl:
@@ -366,7 +366,7 @@ const roles = [
     team: "werewolf",
     canKill: false,
     emoji: {
-      team: "🐺",
+      team: "🤵",
       self: "🎞️"
     },
     type: "Werewolf Deception",
@@ -382,7 +382,7 @@ const roles = [
     team: "werewolf",
     canKill: false,
     emoji: {
-      team: "🐺",
+      team: "🤵",
       self: "🎭"
     },
     type: "Werewolf Deception",
