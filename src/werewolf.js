@@ -133,10 +133,6 @@ module.exports = {
         return this.voteCommand();
       case "/about":
         return this.aboutCommand();
-      case "/stat":
-      case "/stats":
-      case "/rank":
-      case "/me":
       case "/status":
         return this.statCommand();
       case "/info":

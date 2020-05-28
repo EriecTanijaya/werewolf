@@ -23,12 +23,7 @@ module.exports = {
       case "/info":
       case "/rolelist":
         return this.infoCommand();
-      case "/rank":
-      case "/me":
       case "/status":
-      case "/stat":
-      case "/stats":
-      case "/reset":
         return this.statCommand();
       case "/tutorial":
         return this.tutorialCommand();

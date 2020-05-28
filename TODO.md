@@ -18,8 +18,8 @@ TODO
   - jugg mirip sama ww, tapi ada kek level up skill gitu
 - additional info, investigator kasih tau rolenya ga langsung, tapi pake guess
 - executioner bisa ada target yang sama, tapi skrng belum support lebih dari 1 exe, kalau ada sistem lebih modular, bisa ada role amnesiac
-- 
 
+- jangan lupa rm rf data di .data/users, gak di pake lagi
 
 - kau ngapain rik? reverse engineering town of salem WKWWK
 

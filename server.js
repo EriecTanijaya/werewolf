@@ -5,7 +5,6 @@
 const line = require("@line/bot-sdk");
 const express = require("express");
 const app = express();
-const CronJob = require("cron").CronJob;
 
 // line config
 const config = {
@@ -13,14 +12,6 @@ const config = {
   channelSecret: process.env.CHANNEL_SECRET
 };
 const client = new line.Client(config);
-
-// for update rank once a week, on thursday
-// Thanks https://crontab.guru/examples.html
-const updateRankJob = new CronJob("0 0 * * */4", function() {
-  const reset = require("/app/src/reset");
-  reset.usersPoint();
-});
-updateRankJob.start();
 
 /// measure request time
 // Thanks to https://slao.io/blog/posts/request-duration/
