@@ -1,6 +1,6 @@
 const roles = [
   {
-    name: "alpha-werewolf",
+    name: "godfather",
     description:
       "Kamu adalah penjahat yang menyamar diantara werewolf. Kamu kebal dari serangan biasa. ",
     skillText: "Alpha Werewolf, Pilih siapa mangsamu",
@@ -8,7 +8,7 @@ const roles = [
     team: "werewolf",
     canKill: true,
     emoji: {
-      team: "🐺",
+      team: "🤵",
       self: "🐺"
     },
     type: "Werewolf Killing",
