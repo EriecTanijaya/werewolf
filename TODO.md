@@ -1,6 +1,27 @@
 TODO
+- full moon itu malam yang genap
+- susah ini , ada sistem buat cek visitor, cek visitor attack atau engga.
+- rebrand, role werewolf sekarang jadi mafia, alpha werewolf = godfather, ww cub = mafioso, seer = investigator
+- role that will added if possible :
+  - werewolf (yes, with full moon and rampage shit)
+  - juggernaut with more power each kill
+  - psychic, pada non full moon, bisa ada 3 nama, salah satu ada yang jahat, pada full moon ada 2 nama, salah satu ada yang baik
+    - baik hanya town, survivor, amnesiac, guardian angel, sisa jahat
+    - kalau di block ga bisa dapat info
+    - ga ada skill malam
+  - trapper masih belum tau gimana mechanismnya
+  - ambusher, passive visit(anjir skip)
+  - amnesiac ribet
+  - guardiana angle ribet
+  - werewolf, pas full moon bisa rampage di rumah orang, di cek sheriff bisa mencurigakan. kalau rumah nya jadi target rampage, itu siapa aja yang kesana mati
+    - kalau ww ke rmh veteran, ww mati, tapi vete mati juga (kalau ada yang ke vete, mati juga sama ww dan vete) asli ribet
+  - jugg mirip sama ww, tapi ada kek level up skill gitu
+- additional info, investigator kasih tau rolenya ga langsung, tapi pake guess
+- executioner bisa ada target yang sama, tapi skrng belum support lebih dari 1 exe, kalau ada sistem lebih modular, bisa ada role amnesiac
 
-- warga imba?
+- jangan lupa rm rf data di .data/users, gak di pake lagi
+
+- kau ngapain rik? reverse engineering town of salem WKWWK
 
 - buat wiki keci-kecilan buat role role dan mode
 

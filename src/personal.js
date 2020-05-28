@@ -44,9 +44,6 @@ module.exports = {
         return this.alertCommand();
       case "/vest":
         return this.vestCommand();
-      case "/rank":
-      case "/me":
-      case "/stat":
       case "/status":
         return this.statCommand();
       case "/dnote":
