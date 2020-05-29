@@ -466,12 +466,12 @@ module.exports = {
 
       if (process.env.TEST === "true") {
         // cp
-        // for (let i = 0; i < 12; i++) {
-        //   let dummy = JSON.parse(JSON.stringify(this.user_session));
-        //   dummy.name += " " + helper.getRandomInt(1, 99);
-        //   let newPlayer = this.createNewPlayer(dummy);
-        //   this.addPlayer(newPlayer);
-        // }
+        for (let i = 0; i < 8; i++) {
+          let dummy = JSON.parse(JSON.stringify(this.user_session));
+          dummy.name += " " + helper.getRandomInt(1, 99);
+          let newPlayer = this.createNewPlayer(dummy);
+          this.addPlayer(newPlayer);
+        }
       }
 
       let text = "💡 " + this.user_session.name + " berhasil bergabung!";
@@ -755,13 +755,7 @@ module.exports = {
 
     /// test specific role cp
     if (process.env.TEST === "true") {
-      roles = [
-        "mafioso",
-        "mayor",
-        "doctor",
-        "retributionist",
-        "bodyguard"
-      ];
+      roles = ["mafioso", "werewolf", "doctor", "veteran", "bodyguard"];
     }
 
     /// hax for exe
@@ -849,7 +843,7 @@ module.exports = {
     this.group_session.nightCounter++;
 
     this.group_session.state = "night";
-    
+
     if (this.group_session.nightCounter % 2 == 0) {
       this.group_session.isFullMoon = true;
     } else {
@@ -1218,8 +1212,7 @@ module.exports = {
     // search the mafia that responsible to bite
     // note: the mafioso if possible, if there is none, godfather itself
     let mafiaKillingExists =
-      this.checkExistsRole("godfather") ||
-      this.checkExistsRole("mafioso");
+      this.checkExistsRole("godfather") || this.checkExistsRole("mafioso");
     let mafiaDoerIndex = -1;
 
     // ini biasa godfather langsung, soalnya bisa aja mafioso di block / MATI
@@ -1275,8 +1268,7 @@ module.exports = {
         players.forEach(item => {
           if (
             item.status === "alive" &&
-            (item.role.name === "godfather" ||
-              item.role.name === "mafioso") &&
+            (item.role.name === "godfather" || item.role.name === "mafioso") &&
             item.target.index !== -1
           ) {
             mafiaCandidates.push(item.target.index);
@@ -1346,6 +1338,10 @@ module.exports = {
             this.group_session.players[targetIndex].visitors.push(visitor);
 
             let immuneToRoleBlock = ["escort", "consort", "veteran"];
+
+            if (this.group_session.isFullMoon) {
+              immuneToRoleBlock.push("werewolf");
+            }
 
             if (target.role.name === "serial-killer") {
               this.group_session.players[i].message +=
@@ -1432,6 +1428,10 @@ module.exports = {
 
             let immuneToRoleBlock = ["escort", "consort", "veteran"];
 
+            if (this.group_session.isFullMoon) {
+              immuneToRoleBlock.push("werewolf");
+            }
+
             if (target.role.name === "serial-killer") {
               this.group_session.players[i].message +=
                 "💡 Target kamu immune!" + "\n\n";
@@ -1485,7 +1485,7 @@ module.exports = {
       }
     }
 
-    /// Mafi blocking checker
+    /// Mafia blocking checker
     if (isMainMafiaUseSkill || isBackupMafiaUseSkill) {
       let wasMafiaDoer = players[mafiaDoerIndex];
       if (wasMafiaDoer.blocked) {
@@ -1605,7 +1605,8 @@ module.exports = {
               "vampire-hunter",
               "serial-killer",
               "arsonist",
-              "executioner"
+              "executioner",
+              "werewolf"
             ];
 
             let canAttacked = [
@@ -1682,7 +1683,7 @@ module.exports = {
         }
       }
     }
-    
+
     /// Werewolf set rampage place action
     let werewolfRampageTargetIndexes = [];
     for (let i = 0; i < players.length; i++) {
@@ -1690,11 +1691,10 @@ module.exports = {
       let roleName = doer.role.name;
       let status = doer.status;
       let targetIndex = doer.target.index;
-      
+
       if (roleName === "werewolf" && status === "alive") {
-        
-        if (!this.group_session.isFullMoon) continue; //cp
-        
+        if (!this.group_session.isFullMoon) continue;
+
         if (doer.target.index === -1) {
           this.group_session.players[i].message +=
             "💡 Kamu tidak menggunakan skill mu" + "\n\n";
@@ -1702,46 +1702,60 @@ module.exports = {
           continue;
         } else {
           let rampagePlaceIndex = targetIndex;
-          
+
           werewolfRampageTargetIndexes.push(targetIndex);
-          
+
           for (let i = 0; i < players.length; i++) {
             let visitor = players[i];
-            
+
             if (visitor.role.name === "werewolf") continue;
-            
+
             if (visitor.status !== "alive") continue;
-            
+
             if (visitor.blocked) continue;
-            
+
             if (visitor.target.index != i && visitor.target.index !== -1) {
               if (visitor.target.index === rampagePlaceIndex) {
-                
                 // hax mafia kalo yang pergi itu mafioso
                 if (visitor.role.name === "godfather") {
                   if (mafiaDoerIndex !== i) continue;
                 }
-                
+
                 werewolfRampageTargetIndexes.push(i);
               }
             }
-            
           }
-          
+
           // Werewolf Killing Action
           for (let u = 0; u < werewolfRampageTargetIndexes.length; u++) {
             let targetIndex = werewolfRampageTargetIndexes[u];
-            
+            let targetRoleName = players[targetIndex].role.name;
+
             this.group_session.players[i].message +=
               "💡 Kamu menyerang seseorang!" + "\n\n";
-            
-            
-            
+
+            if (players[targetIndex].bugged) {
+              spyBuggedInfo[targetIndex] +=
+                "🔍 Target kamu di serang Werewolf!" + "\n\n";
+            }
+
+            this.group_session.players[targetIndex].message +=
+              "🐺 Kamu diserang " + roleName + "!" + "\n\n";
+
+            this.group_session.players[targetIndex].attacked = true;
+
+            let attacker = {
+              index: i,
+              name: doer.name,
+              role: doer.role,
+              deathNote: doer.deathNote,
+              countered: false
+            };
+
+            this.group_session.players[targetIndex].attackers.push(attacker);
           }
-          
         }
       }
-      
     }
 
     /// Veteran Visitor fetch
@@ -3944,11 +3958,7 @@ module.exports = {
     if (checkTarget.role.type === "Mafia Killing") {
       // check if alpha ww die, search a substitute
       if (checkTarget.role.name === "godfather") {
-        this.checkMorphingRole(
-          "mafioso",
-          "godfather",
-          "godfather"
-        );
+        this.checkMorphingRole("mafioso", "godfather", "godfather");
       }
 
       // check if there is no mafia killing left

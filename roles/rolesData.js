@@ -1,5 +1,21 @@
 const roles = [
   {
+    name: "werewolf",
+    description:
+      "Kamu adalah Werewolf yang hanya berubah pada Full Moon, jika tidak berubah",
+    skillText: "Werewolf, pilih siapa yang ingin dibunuh",
+    cmdText: "/skill",
+    team: "werewolf",
+    canKill: true,
+    emoji: {
+      team: "🐺",
+      self: "🐺"
+    },
+    type: "Neutral Killing",
+    iconUrl:
+      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/cigarette_1f6ac.png"
+  },
+  {
     name: "godfather",
     description:
       "Kamu adalah ketua Mafia. Kamu kebal dari serangan biasa dan tidak bersalah jika di cek Sheriff",
