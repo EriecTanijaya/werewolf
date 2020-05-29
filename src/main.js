@@ -1108,19 +1108,12 @@ module.exports = {
             let isFullMoon = this.group_session.isFullMoon;
             let roleName = item.role.name;
             if (!isFullMoon) {
-              
-              if (roleName !== "werewolf" &) {
-                
-              }
-              
-              if (roleName === "juggernaut") {
-                if (item.role.skillLevel < 1) {
-                  
-                }
-              } else if (roleName === "werewolf") {
-                //
-              } else {
+              if (roleName !== "werewolf" && roleName !== "juggernaut") {
                 item.afkCounter++;
+              } else if (roleName === "juggernaut") {
+                if (item.role.skillLevel > 0) {
+                  item.afkCounter++;
+                }
               }
             } else {
               item.afkCounter++;
@@ -1727,6 +1720,14 @@ module.exports = {
       if (roleName === "juggernaut" && status === "alive") {
         let skillLevel = doer.role.skillLevel;
         if (!this.group_session.isFullMoon && skillLevel === 0) continue;
+
+        if (doer.blocked) {
+          this.group_session.players[i].message +=
+            "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." +
+            "\n\n";
+
+          continue;
+        }
 
         if (doer.target.index !== -1) {
           let visitor = {
