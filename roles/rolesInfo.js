@@ -57,6 +57,20 @@ module.exports = {
 
       /// check untuk role
       switch (input) {
+        case "werewolf":
+        case "ww":
+          flex_text.header.text = "🐺 Werewolf";
+          flex_text.body.text += "Type: Neutral Killing" + "\n\n";
+          flex_text.body.text +=
+            "Warga biasa yang bisa berubah menjadi Werewolf pada bulan purnama. ";
+          flex_text.body.text +=
+            "Bisa RAMPAGE pada rumah target. Yang ke rumah target Werewolf akan diserang juga. ";
+          flex_text.body.text +=
+            "Werewolf akan tampil tidak bersalah jika di cek pada saat tidak bulan purnama. ";
+          flex_text.body.text +=
+            "Werewolf immune dari role block dan serangan biasa pada bulan purnama";
+          break;
+          
         case "villager":
         case "warga":
           flex_text.header.text = "👨‍🌾 Villager";

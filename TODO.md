@@ -1,5 +1,12 @@
 TODO
 - full moon itu malam yang genap
+
+- werewolf ada immune dari basic attack
+
+- juggernaut boi, ada private prop untuk cek level up skillnya, tiap skill ada improvement!
+
+- buat list investigator punya result kalau role role udah siap (last!);
+
 - susah ini , ada sistem buat cek visitor, cek visitor attack atau engga.
 - rebrand, role werewolf sekarang jadi mafia, alpha werewolf = godfather, ww cub = mafioso, seer = investigator
 - role that will added if possible :

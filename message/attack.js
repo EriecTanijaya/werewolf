@@ -33,6 +33,9 @@ module.exports = {
 
     attackersRoleName.forEach((item, index) => {
       switch (item) {
+        case "werewolf":
+          text += "🐺 Dia sebelumnya dibunuh Werewolf. ";
+          break;
         case "godfather":
         case "mafioso":
           text += "🤵 Dia sebelumnya dibunuh Mafia. ";
