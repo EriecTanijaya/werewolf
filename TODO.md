@@ -10,6 +10,7 @@ TODO
     - baik hanya town, survivor, amnesiac, guardian angel, sisa jahat
     - kalau di block ga bisa dapat info
     - ga ada skill malam
+    - cek trivia di psyhic, kalau udah ga ada yang baik apa resultnya
   - trapper masih belum tau gimana mechanismnya
   - ambusher, passive visit(anjir skip)
   - amnesiac ribet
