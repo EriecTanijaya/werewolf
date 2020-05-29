@@ -3839,8 +3839,6 @@ module.exports = {
       "/players : cek list pemain",
       "/stop : stop game",
       "/start : start game",
-      "/stats : cek statistik user",
-      "/rank : cek rank",
       "/info : tampilin list role",
       "/about : tentang bot",
       "/revoke : untuk batal voting",

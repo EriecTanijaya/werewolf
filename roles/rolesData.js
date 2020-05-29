@@ -1,67 +1,67 @@
 const roles = [
   {
-    name: "alpha-werewolf",
+    name: "godfather",
     description:
-      "Kamu adalah penjahat yang menyamar diantara werewolf. Kamu kebal dari serangan biasa. ",
-    skillText: "Alpha Werewolf, Pilih siapa mangsamu",
+      "Kamu adalah ketua Mafia. Kamu kebal dari serangan biasa dan tidak bersalah jika di cek Sheriff",
+    skillText: "Godfather, pilih siapa yang ingin dibunuh",
     cmdText: "/skill",
-    team: "werewolf",
+    team: "mafia",
     canKill: true,
     emoji: {
-      team: "🐺",
-      self: "🐺"
+      team: "🤵",
+      self: "🚬"
     },
-    type: "Werewolf Killing",
+    type: "Mafia Killing",
     iconUrl:
-      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/wolf_1f43a.png"
+      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/cigarette_1f6ac.png"
   },
   {
-    name: "sorcerer",
+    name: "consigliere",
     description:
-      "Kamu adalah penjahat yang bisa mengetahui suatu role. Kamu di pihak Werewolf",
-    skillText: "Sorcerer, Pilih siapa yang ingin diterawang",
+      "Kamu di pihak Mafia, dan bisa mengecek role seorang warga",
+    skillText: "Consigliere, pilih siapa yang ingin dicek",
     cmdText: "/skill",
-    team: "werewolf",
+    team: "mafia",
     canKill: false,
     emoji: {
-      team: "🐺",
-      self: "🧙"
+      team: "🤵",
+      self: "✒️"
     },
-    type: "Werewolf Support",
+    type: "Mafia Support",
     iconUrl:
-      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/mage_1f9d9.png"
+      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/black-nib_2712.png"
   },
   {
     name: "consort",
     description:
-      "Kamu adalah penjahat yang bisa block skill suatu pemain saat malam. Kamu di pihak Werewolf",
+      "Kamu di pihak Mafia dan bisa block skill suatu pemain saat malam.",
     skillText: "Consort, Pilih siapa yang ingin di block",
     cmdText: "/skill",
-    team: "werewolf",
+    team: "mafia",
     canKill: false,
     emoji: {
-      team: "🐺",
+      team: "🤵",
       self: "🚷"
     },
-    type: "Werewolf Support",
+    type: "Mafia Support",
     iconUrl:
       "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/no-pedestrians_1f6b7.png"
   },
   {
-    name: "seer",
+    name: "investigator",
     description:
-      "Kamu adalah warga yang bisa cek identitas sebenarnya dari suatu orang. Gantung Werewolf supaya kamu menang",
+      "Kamu adalah warga yang bisa cek identitas seorang warga. ",
     skillText: "Seer, pilih siapa yang ingin di check",
     team: "villager",
     cmdText: "/skill",
     canKill: false,
     emoji: {
       team: "👨‍🌾",
-      self: "🔮"
+      self: "🕵️"
     },
     type: "Town Investigate",
     iconUrl:
-      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/crystal-ball_1f52e.png"
+      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/detective_1f575.png"
   },
   {
     name: "doctor",
@@ -83,7 +83,7 @@ const roles = [
   {
     name: "villager",
     description:
-      "Kamu adalah warga (luar)biasa, tugasmu itu cari tau siapa werewolf, dan gantungkan werewolfnya",
+      "Kamu adalah warga (luar)biasa, tugasmu itu menggantung penjahat",
     team: "villager",
     canKill: false,
     emoji: {
@@ -97,7 +97,7 @@ const roles = [
   {
     name: "vampire",
     description:
-      "Kamu bukan dipihak warga atau werewolf, misi kamu gantung werewolf dan membuat semua warga menjadi vampire.",
+      "Kamu adalah makhluk yang bisa mengubah warga menjadi Vampire, misimu mengubah semua warga menjadi Vampire",
     skillText: "Vampire, pilih siapa yang ingin di ubah menjadi vampire",
     team: "vampire",
     cmdText: "/skill",
@@ -128,20 +128,20 @@ const roles = [
       "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/dagger_1f5e1.png"
   },
   {
-    name: "werewolf-cub",
+    name: "mafioso",
     description:
-      "Kamu dipihak werewolf, dan kamu suruhan Werewolf untuk membunuh orang lain. ",
-    skillText: "Werewolf Cub, pilih siapa yang ingin di bunuh",
-    team: "werewolf",
+      "Kamu dipihak Mafia, dan kamu suruhan Godfather untuk membunuh orang lain. ",
+    skillText: "Mafioso, pilih siapa yang ingin di bunuh",
+    team: "mafia",
     cmdText: "/skill",
     canKill: true,
     emoji: {
-      team: "🐺",
-      self: "🐕"
+      team: "🤵",
+      self: "🔫"
     },
-    type: "Werewolf Killing",
+    type: "Mafia Killing",
     iconUrl:
-      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/dog_1f415.png"
+      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/pistol_1f52b.png"
   },
   {
     name: "vigilante",
@@ -153,13 +153,13 @@ const roles = [
     canKill: true,
     emoji: {
       team: "👨‍🌾",
-      self: "🔫"
+      self: "🧥"
     },
     isLoadBullet: true,
     bullet: 3,
     type: "Town Killing",
     iconUrl:
-      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/pistol_1f52b.png"
+      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/coat_1f9e5.png"
   },
   {
     name: "jester",
@@ -328,7 +328,7 @@ const roles = [
   {
     name: "spy",
     description:
-      "Kamu adalah warga yang bisa mengetahui siapa saja yang dikunjungi Werewolf saat malam dan menyadap suatu orang",
+      "Kamu adalah warga yang bisa mengetahui siapa saja yang dikunjungi Mafia saat malam dan menyadap suatu orang",
     skillText: "Spy, pilih siapa yang mau kamu sadap",
     cmdText: "/skill",
     team: "villager",
@@ -360,32 +360,32 @@ const roles = [
   {
     name: "framer",
     description:
-      "Kamu adalah anggota Werewolf yang bisa menjebak seorang warga pada malam hari agar warga tersebut terlihat bersalah jika di cek",
+      "Kamu adalah anggota Mafia yang bisa menjebak seorang warga pada malam hari agar warga tersebut terlihat bersalah jika di cek",
     skillText: "Framer, pilih siapa yang mau dijebak",
     cmdText: "/skill",
-    team: "werewolf",
+    team: "mafia",
     canKill: false,
     emoji: {
-      team: "🐺",
+      team: "🤵",
       self: "🎞️"
     },
-    type: "Werewolf Deception",
+    type: "Mafia Deception",
     iconUrl:
       "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/film-frames_1f39e.png"
   },
   {
     name: "disguiser",
     description:
-      "Kamu adalah anggota Werewolf yang bisa mengimitasi nama role seorang warga, dan jika mati yang terlihat role mu adalah role yang kamu imitasi",
+      "Kamu adalah anggota Mafia yang bisa mengimitasi nama role seorang warga, dan jika mati yang terlihat role mu adalah role yang kamu imitasi",
     skillText: "Disguiser, pilih siapa yang mau imitasi",
     cmdText: "/skill",
-    team: "werewolf",
+    team: "mafia",
     canKill: false,
     emoji: {
-      team: "🐺",
+      team: "🤵",
       self: "🎭"
     },
-    type: "Werewolf Deception",
+    type: "Mafia Deception",
     disguiseAs: "",
     iconUrl:
       "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/performing-arts_1f3ad.png"

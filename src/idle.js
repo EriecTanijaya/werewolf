@@ -96,8 +96,6 @@ module.exports = {
       "/help : bantuan game",
       "/about : tentang bot",
       "/info : list role",
-      "/me : statistik user",
-      "/rank : cek rank",
       "/tutorial : tutorial menggunakan bot ini",
       "/forum : link ke openchat",
       "/status : untuk melihat berapa yang online"
