@@ -47,7 +47,7 @@ module.exports = {
             text += item;
             if (index == pairList[i].items.length - 2) {
               text += " atau ";
-            } else {
+            } else if (index != pairList[i].items.length - 1) {
               text += ", ";
             }
           });

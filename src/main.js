@@ -756,7 +756,7 @@ module.exports = {
     /// test specific role cp
     if (process.env.TEST === "true") {
       roles = [
-        "investigator", "mafioso", "executioner", "doctor", "escort"
+        "investigator", "werewolf", "executioner", "doctor", "escort", "juggernaut"
       ];
     }
 
@@ -3472,7 +3472,11 @@ module.exports = {
             let targetRoleName = target.role.name;
 
             if (target.framed) {
-              targetRoleName = "godfather";
+              targetRoleName = "framer";
+            }
+            
+            if (target.doused) {
+              targetRoleName = "arsonist";
             }
 
             if (target.role.disguiseAs) {
