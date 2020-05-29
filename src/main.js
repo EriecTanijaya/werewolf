@@ -1832,9 +1832,12 @@ module.exports = {
               let targetRoleName = players[targetIndex].role.name;
 
               if (skillLevel < 4) {
-                if (immuneToBasicAttack.includes(players[targetIndex].role.name)) {
+                if (
+                  immuneToBasicAttack.includes(players[targetIndex].role.name)
+                ) {
                   this.group_session.players[i].message +=
-                    "💡 Kamu menyerang seseorang tapi dia immune dari serangan!" + "\n\n";
+                    "💡 Kamu menyerang seseorang tapi dia immune dari serangan!" +
+                    "\n\n";
 
                   this.group_session.players[targetIndex].message +=
                     "💡 Ada yang menyerang kamu tapi kamu immune dari serangan!" +
@@ -3067,12 +3070,20 @@ module.exports = {
           }
 
           // bodyguard checker
-          // hax jika kenak effect rampage werewolf atau juggernaut(soon)
+          // hax jika kenak effect rampage werewolf
           // soalnya pas rampage udah ada damage
-          let rampageRole = ["werewolf", "juggernaut"];
+          let rampageRole = ["werewolf"];
 
           if (!rampageRole.includes(players[attackerIndex].role.name)) {
-            this.group_session.players[i].damage += 1;
+            // check juggernaut juga
+            let targetRoleName = players[attackerIndex].role.name;
+            if (targetRoleName === "juggernaut") {
+              if (players[attackerIndex].role.skillLevel < 3) {
+                this.group_session.players[i].damage += 1;
+              }
+            } else {
+              this.group_session.players[i].damage += 1;
+            }
           }
 
           if (isHealed) {
@@ -3124,12 +3135,20 @@ module.exports = {
               countered: false
             };
 
-            // hax jika kenak effect rampage werewolf atau juggernaut(soon)
+            // hax jika kenak effect rampage werewolf atau juggernaut
             // soalnya pas rampage udah ada dimasukin obj attacker
             let rampageRole = ["werewolf", "juggernaut"];
 
             if (!rampageRole.includes(players[attackerIndex].role.name)) {
-              this.group_session.players[i].attackers.push(attacker);
+              // check juggernaut juga
+              let targetRoleName = players[attackerIndex].role.name;
+              if (targetRoleName === "juggernaut") {
+                if (players[attackerIndex].role.skillLevel < 3) {
+                  this.group_session.players[i].attackers.push(attacker);
+                }
+              } else {
+                this.group_session.players[i].attackers.push(attacker);
+              }
             }
           }
 
@@ -3148,7 +3167,7 @@ module.exports = {
         if (players[i].role.disguiseAs) {
           roleName = players[i].role.disguiseAs;
         }
-        
+
         // Check untuk juggernaut, buat level up skillLevel sesuai index masing"
         let attackersIndex = [];
 
@@ -3167,6 +3186,18 @@ module.exports = {
             .map(atkr => {
               return atkr.role.name;
             });
+
+          attackersIndex = players[i].attackers.map(atkr => {
+            return atkr.index;
+          })
+        }
+        
+        for (let i = 0; i < attackersIndex.length; i++) {
+          let attackerIndex = attackersIndex[i];
+          if (players[attackerIndex].role.name === "juggernaut") {
+            this.group_session.players[attackerIndex].role.skillLevel++;
+            //cp
+          }
         }
 
         let isAfk = false;
