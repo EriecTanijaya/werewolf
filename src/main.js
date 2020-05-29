@@ -2072,7 +2072,7 @@ module.exports = {
               "\n\n";
 
             continue;
-          } else if (!doer.attacked) {
+          } else {
             let targetIndex = doer.target.index;
             let target = players[targetIndex];
             let targetName = target.name;
@@ -2218,7 +2218,7 @@ module.exports = {
               "\n\n";
 
             continue;
-          } else if (!doer.attacked) {
+          } else {
             let targetIndex = doer.target.index;
             let target = players[targetIndex];
 
@@ -2318,6 +2318,10 @@ module.exports = {
               "godfather",
               "executioner"
             ];
+            
+            if (this.group_session.isFullMoon) {
+              immuneToBasicAttack.push("werewolf");
+            }
 
             if (immuneToBasicAttack.includes(target.role.name)) {
               this.group_session.players[i].message +=
