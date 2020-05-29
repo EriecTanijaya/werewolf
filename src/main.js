@@ -3488,14 +3488,10 @@ module.exports = {
             this.group_session.players[i].message +=
               "👣 Kamu ke rumah " + target.name + "\n\n";
 
+            let guessResult = helper.getInvestiga
+            
             this.group_session.players[i].message +=
               "🕵️ Role " + target.name + " adalah " + targetRoleName + "\n\n";
-
-            this.group_session.players[i].message +=
-              "💡 Kamu bisa cek info role dengan ketik '/info " +
-              targetRoleName +
-              "'" +
-              "\n\n";
           }
         }
       }
