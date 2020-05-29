@@ -1,15 +1,6 @@
 TODO
-- juggernaut skillLevel
-  - 0 : default, skill hanya bisa pas bulan purnama
-  - 1 : bisa bunuh tiap malam
-  - 2 : ada basic defense
-  - 3 : rampage di rumah org, kalau ga ada pake skill ga rampage
-  - 4 : attacknya rampage dan gak bisa di stop, tapi bisa di kill bodyguard dan trapper
-
-- buat list investigator punya result kalau role role udah siap (last!);
-
+- role set add werewolf dan juggernaut
 - susah ini , ada sistem buat cek visitor, cek visitor attack atau engga.
-- rebrand, role werewolf sekarang jadi mafia, alpha werewolf = godfather, ww cub = mafioso, seer = investigator
 - role that will added if possible :
   - werewolf (yes, with full moon and rampage shit)
   - juggernaut with more power each kill

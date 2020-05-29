@@ -36,6 +36,10 @@ module.exports = {
       {
         desc: "Targetmu tidak takut kotor!",
         items: ["bodyguard", "godfather", "arsonist"]
+      },
+      {
+        desc: "Targetmu sifatnya sangat bengis!",
+        items: ["juggernaut"]
       }
     ];
 
