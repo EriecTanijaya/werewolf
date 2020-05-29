@@ -1684,6 +1684,7 @@ module.exports = {
     }
     
     /// Werewolf set rampage place action
+    let werewolfRampageTargetIndexes = [];
     for (let i = 0; i < players.length; i++) {
       let doer = players[i];
       let roleName = doer.role.name;
@@ -1702,16 +1703,39 @@ module.exports = {
         } else {
           let rampagePlaceIndex = targetIndex;
           
-          for (let j = 0; j < players.length; j++) {
-            let visitor = players[j];
+          werewolfRampageTargetIndexes.push(targetIndex);
+          
+          for (let i = 0; i < players.length; i++) {
+            let visitor = players[i];
             
             if (visitor.role.name === "werewolf") continue;
             
             if (visitor.status !== "alive") continue;
             
-            if (visitor.target.index != j && visitor.target.index !== -1) {
-              if ()
+            if (visitor.blocked) continue;
+            
+            if (visitor.target.index != i && visitor.target.index !== -1) {
+              if (visitor.target.index === rampagePlaceIndex) {
+                
+                // hax mafia kalo yang pergi itu mafioso
+                if (visitor.role.name === "godfather") {
+                  if (mafiaDoerIndex !== i) continue;
+                }
+                
+                werewolfRampageTargetIndexes.push(i);
+              }
             }
+            
+          }
+          
+          // Werewolf Killing Action
+          for (let u = 0; u < werewolfRampageTargetIndexes.length; u++) {
+            let targetIndex = werewolfRampageTargetIndexes[u];
+            
+            this.group_session.players[i].message +=
+              "💡 Kamu menyerang seseorang!" + "\n\n";
+            
+            
             
           }
           
