@@ -1103,13 +1103,28 @@ module.exports = {
         // check afk
         let noSkillRoles = ["villager", "jester", "executioner", "mayor"];
 
-        if (!this.group_session.isFullMoon) {
-          noSkillRoles.push("werewolf");
-        }
-
         if (!noSkillRoles.includes(item.role.name)) {
           if (item.target.index === -1) {
-            item.afkCounter++;
+            let isFullMoon = this.group_session.isFullMoon;
+            let roleName = item.role.name;
+            if (!isFullMoon) {
+              
+              if (roleName !== "werewolf" &) {
+                
+              }
+              
+              if (roleName === "juggernaut") {
+                if (item.role.skillLevel < 1) {
+                  
+                }
+              } else if (roleName === "werewolf") {
+                //
+              } else {
+                item.afkCounter++;
+              }
+            } else {
+              item.afkCounter++;
+            }
           } else {
             item.afkCounter = 0;
           }
@@ -3189,14 +3204,37 @@ module.exports = {
 
           attackersIndex = players[i].attackers.map(atkr => {
             return atkr.index;
-          })
+          });
         }
-        
+
         for (let i = 0; i < attackersIndex.length; i++) {
           let attackerIndex = attackersIndex[i];
           if (players[attackerIndex].role.name === "juggernaut") {
             this.group_session.players[attackerIndex].role.skillLevel++;
-            //cp
+
+            let text = "";
+            let skillLevel = this.group_session.players[attackerIndex].role
+              .skillLevel;
+            switch (skillLevel) {
+              case 1:
+                text += "💪 Kamu sekarang bisa menyerang pada malam apa saja";
+                break;
+
+              case 2:
+                text += "💪 Kamu sekarang bisa kebal dari serangan biasa";
+                break;
+
+              case 3:
+                text += "💪 Kamu sekarang bisa RAMPAGE pada rumah target";
+                break;
+
+              case 4:
+                text +=
+                  "💪 Seranganmu sekarang bisa menembus perlindungan biasa";
+                break;
+            }
+
+            this.group_session.players[attackerIndex].addonMessage = text;
           }
         }
 
