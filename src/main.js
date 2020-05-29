@@ -4031,15 +4031,13 @@ module.exports = {
     }
     
     // executioner
-    for (let i = 0; i < )
-    
-    
-
-    if (this.checkExistsRole("executioner")) {
-      let exeIndex = this.getPlayerIndexByRole("executioner");
-      let exeLynchTargetIndex = players[exeIndex].role.targetLynchIndex;
-      if (lynchTarget.index == exeLynchTargetIndex) {
-        this.group_session.players[exeIndex].role.isTargetLynched = true;
+    for (let i = 0; i < players.length; i++) {
+      if (players[i].role.name === "executioner") {
+        for (let u = 0; u < players.length; u++) {
+          if (players[i].role.targetLynchIndex == u) {
+            this.group_session.players[i].role.isTargetLynched = true;
+          }
+        }
       }
     }
 
