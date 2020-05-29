@@ -52,40 +52,7 @@ module.exports = {
         id: id,
         name: "",
         state: "inactive",
-        groupId: "",
-        points: 0,
-        villagerStats: {
-          win: 0,
-          lose: 0
-        },
-        werewolfStats: {
-          win: 0,
-          lose: 0
-        },
-        vampireStats: {
-          win: 0,
-          lose: 0
-        },
-        jesterStats: {
-          win: 0,
-          lose: 0
-        },
-        serialKillerStats: {
-          win: 0,
-          lose: 0
-        },
-        arsonistStats: {
-          win: 0,
-          lose: 0
-        },
-        survivorStats: {
-          win: 0,
-          lose: 0
-        },
-        executionerStats: {
-          win: 0,
-          lose: 0
-        }
+        groupId: ""
       };
       user_sessions[id] = newUser;
     }
@@ -194,8 +161,8 @@ module.exports = {
         group_session
       );
     } else {
-      const werewolf = require("/app/src/werewolf");
-      return werewolf.receive(
+      const main = require("/app/src/main");
+      return main.receive(
         this.client,
         this.event,
         this.args,
@@ -294,16 +261,7 @@ module.exports = {
     players.forEach(item => {
       let reset_player = {
         id: item.id,
-        name: item.name,
-        points: item.points,
-        villagerStats: item.villagerStats,
-        werewolfStats: item.werewolfStats,
-        vampireStats: item.vampireStats,
-        jesterStats: item.jesterStats,
-        serialKillerStats: item.serialKillerStats,
-        arsonistStats: item.arsonistStats,
-        survivorStats: item.survivorStats,
-        executionerStats: item.executionerStats
+        name: item.name
       };
 
       this.resetUser(item.id);

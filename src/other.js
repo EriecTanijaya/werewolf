@@ -78,7 +78,7 @@ module.exports = {
       );
       text += profile.displayName;
     }
-    text += ", maen Werewolf yok";
+    text += ", maen yok";
 
     return this.replyText(text);
   },
