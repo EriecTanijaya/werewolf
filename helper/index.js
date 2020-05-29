@@ -52,13 +52,13 @@ module.exports = {
 
   getClassicRoleSet: function(playersLength) {
     let roles = [
-      "alpha-werewolf",
+      "godfather",
       "doctor",
       "seer",
       "escort",
       "jester",
       "lookout",
-      "werewolf-cub",
+      "mafioso",
       "sheriff",
       "executioner"
     ];
@@ -95,7 +95,7 @@ module.exports = {
   },
 
   getChaosRoleSet: function(playersLength) {
-    let roles = ["alpha-werewolf"];
+    let roles = ["godfather"];
 
     let townInvestigates = ["seer", "lookout"];
     roles.push(this.random(townInvestigates));
@@ -111,7 +111,7 @@ module.exports = {
 
     roles.push(this.random(townInvestigates));
 
-    roles.push("werewolf-cub");
+    roles.push("mafioso");
 
     let townKillings = ["veteran", "vigilante"];
     roles.push(this.random(townKillings));
@@ -131,7 +131,7 @@ module.exports = {
 
     roles.push(this.random(randomTowns));
 
-    let randomWerewolves = ["framer", "consort", "sorcerer", "disguiser"];
+    let randomWerewolves = ["framer", "consort", "consigliere", "disguiser"];
     roles.push(this.random(randomWerewolves));
 
     roles.push("spy");
@@ -149,7 +149,7 @@ module.exports = {
   },
 
   getSurviveRoleSet: function(playersLength) {
-    let roles = ["seer", "seer", "alpha-werewolf"];
+    let roles = ["seer", "seer", "godfather"];
 
     let survivorNeededCount = playersLength - 3;
 
@@ -162,15 +162,15 @@ module.exports = {
   },
 
   getKillingWarsRoleSet: function(playersLength) {
-    let werewolves = ["sorcerer", "disguiser", "consort"];
+    let werewolves = ["consigliere", "disguiser", "consort"];
     let roles = [
-      "alpha-werewolf",
-      "werewolf-cub",
+      "godfather",
+      "mafioso",
       "jester",
       "serial-killer",
       "survivor",
       "arsonist",
-      "sorcerer",
+      "consigliere",
       "serial-killer"
     ];
 
@@ -190,10 +190,10 @@ module.exports = {
   getWhosThereRoleSet: function(playersLength) {
     let roles = [
       "escort",
-      "alpha-werewolf",
+      "godfather",
       "escort",
       "escort",
-      "werewolf-cub",
+      "mafioso",
       "sheriff",
       "escort",
       "escort",
@@ -213,7 +213,7 @@ module.exports = {
 
   getTrustIssueRoleSet: function(playersLength) {
     let roles = [
-      "alpha-werewolf",
+      "godfather",
       "veteran",
       "sheriff",
       "seer",
@@ -237,7 +237,7 @@ module.exports = {
 
   getWhoAreYou: function(playersLength) {
     let roles = [
-      "alpha-werewolf",
+      "godfather",
       "doctor",
       "bodyguard",
       "doctor",
@@ -306,7 +306,7 @@ module.exports = {
 
   getClownTown: function(playersLength) {
     let roles = [
-      "alpha-werewolf",
+      "godfather",
       "jester",
       "seer",
       "sheriff",
@@ -372,8 +372,8 @@ module.exports = {
   },
 
   getAbout: function() {
-    let text = "Bot semi automatic yang ada campuran elemen dari ";
-    text += "Town Of Salem dan Werewolf Board Game. ";
+    let text = "Bot semi automatic yang terinspirasi dari ";
+    text += "Town Of Salem. ";
     text +=
       "Thanks buat grup Avalon City, LOW, Where Wolf(?), Random, RND Twins dan semua adders!" +
       "\n";
