@@ -10,13 +10,15 @@ TODO
     - baik hanya town, survivor, amnesiac, guardian angel, sisa jahat
     - kalau di block ga bisa dapat info
     - ga ada skill malam
-    - cek trivia di psyhic, kalau udah ga ada yang baik apa resultnya
+    - kalau sisa 3 pemain dan psychic salah satunya, responnya : 
   - trapper masih belum tau gimana mechanismnya
   - ambusher, passive visit(anjir skip)
   - amnesiac ribet
   - guardiana angle ribet
-- additional info, investigator kasih tau rolenya ga langsung, tapi pake guess
+
 - executioner bisa ada target yang sama, tapi skrng belum support lebih dari 1 exe, kalau ada sistem lebih modular, bisa ada role amnesiac
+
+- bisa ada lebih dari 1 executioner punya role set! (kalau udah support)
 
 - jangan lupa rm rf data di .data/users, gak di pake lagi
 
