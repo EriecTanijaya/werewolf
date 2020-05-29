@@ -2856,7 +2856,14 @@ module.exports = {
           }
 
           // bodyguard checker
-          this.group_session.players[i].damage += 1;
+          // hax jika kenak effect rampage werewolf atau juggernaut(soon)
+          // soalnya pas rampage udah ada damage
+          let rampageRole = ["werewolf", "juggernaut"];
+          
+          if (!rampageRole.includes(players[attackerIndex].role.name)) {
+            this.group_session.players[i].damage += 1;
+          }
+          
           if (isHealed) {
             let protectors = players[i].protectors;
             for (let u = 0; u < protectors.length; u++) {
