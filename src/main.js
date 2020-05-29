@@ -863,7 +863,7 @@ module.exports = {
     this.group_session.vampireChat = [];
     this.group_session.vampireHunterChat = [];
 
-    // set prop yang reset tiap malamnya (TEMPORARY)
+    // set prop yang reset tiap malamnya (TEMPORARY prop)
     this.group_session.players.forEach((item, index) => {
       // all player regardless alive or not
       item.message = "";
@@ -927,6 +927,11 @@ module.exports = {
     } else {
       announcement +=
         "🏘️ 🛏️ Setiap warga kembali kerumah masing-masing" + "\n\n";
+    }
+
+    if (this.group_session.isFullMoon) {
+      announcement +=
+        "🌕 Bulan terlihat indah malam ini, bulan purnama!" + "\n\n";
     }
 
     announcement +=
@@ -1097,11 +1102,11 @@ module.exports = {
 
         // check afk
         let noSkillRoles = ["villager", "jester", "executioner", "mayor"];
-        
+
         if (!this.group_session.isFullMoon) {
           noSkillRoles.push("werewolf");
         }
-        
+
         if (!noSkillRoles.includes(item.role.name)) {
           if (item.target.index === -1) {
             item.afkCounter++;
@@ -2318,7 +2323,7 @@ module.exports = {
               "godfather",
               "executioner"
             ];
-            
+
             if (this.group_session.isFullMoon) {
               immuneToBasicAttack.push("werewolf");
             }
@@ -2581,7 +2586,7 @@ module.exports = {
                 "arsonist",
                 "executioner"
               ];
-              
+
               if (this.group_session.isFullMoon) {
                 immuneToBasicAttack.push("werewolf");
               }
@@ -3164,7 +3169,7 @@ module.exports = {
               "framer",
               "disguiser"
             ];
-            
+
             if (this.group_session.isFullMoon) {
               suspiciousList.push("werewolf");
             }
@@ -4293,7 +4298,12 @@ module.exports = {
     let vampireCount = 0;
 
     // solo
-    let neutralsKilling = ["serial-killer", "arsonist", "werewolf", "juggernaut"];
+    let neutralsKilling = [
+      "serial-killer",
+      "arsonist",
+      "werewolf",
+      "juggernaut"
+    ];
     let neutralsKillingCount = 0;
 
     players.forEach(item => {
