@@ -1030,7 +1030,7 @@ module.exports = {
       "tracker",
       "disguiser",
       "framer",
-      "juggernaut"
+      "juggernaut`"
     ];
 
     if (cantTargetItSelf.includes(roleName)) {
