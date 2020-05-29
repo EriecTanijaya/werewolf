@@ -2,7 +2,7 @@ const roles = [
   {
     name: "werewolf",
     description:
-      "Kamu adalah Werewolf yang hanya berubah pada Full Moon, jika tidak berubah",
+      "Kamu adalah Werewolf yang hanya berubah pada Full Moon, jika tidak berubah, kamu hanya seperti warga biasa",
     skillText: "Werewolf, pilih siapa yang ingin dibunuh",
     cmdText: "/skill",
     team: "werewolf",
@@ -13,7 +13,7 @@ const roles = [
     },
     type: "Neutral Killing",
     iconUrl:
-      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/cigarette_1f6ac.png"
+      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/wolf_1f43a.png"
   },
   {
     name: "godfather",

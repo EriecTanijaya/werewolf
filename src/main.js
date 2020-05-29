@@ -755,7 +755,7 @@ module.exports = {
 
     /// test specific role cp
     if (process.env.TEST === "true") {
-      roles = ["mafioso", "werewolf", "doctor", "veteran", "bodyguard"];
+      roles = ["mafioso", "werewolf", "doctor", "veteran", "bodyguard", "spy", "godfather"];
     }
 
     /// hax for exe
@@ -1684,7 +1684,8 @@ module.exports = {
       }
     }
 
-    /// Werewolf set rampage place action
+    /// Werewolf Action
+    
     let werewolfRampageTargetIndexes = [];
     for (let i = 0; i < players.length; i++) {
       let doer = players[i];
@@ -1693,7 +1694,7 @@ module.exports = {
       let targetIndex = doer.target.index;
 
       if (roleName === "werewolf" && status === "alive") {
-        if (!this.group_session.isFullMoon) continue;
+        // if (!this.group_session.isFullMoon) continue; cp
 
         if (doer.target.index === -1) {
           this.group_session.players[i].message +=
