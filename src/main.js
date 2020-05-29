@@ -1707,7 +1707,7 @@ module.exports = {
       let targetIndex = doer.target.index;
 
       if (roleName === "werewolf" && status === "alive") {
-        // if (!this.group_session.isFullMoon) continue; cp
+        if (!this.group_session.isFullMoon) continue;
 
         if (doer.target.index === -1) {
           this.group_session.players[i].message +=
