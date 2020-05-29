@@ -336,6 +336,7 @@ const roles = [
       self: "🪓"
     },
     type: "Neutral Chaos",
+    targetLynchIndex: -1,
     iconUrl:
       "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/axe_1fa93.png"
   },

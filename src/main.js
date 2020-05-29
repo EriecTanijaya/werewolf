@@ -788,18 +788,11 @@ module.exports = {
       /// init private prop special role
       switch (item.role.name) {
         case "executioner":
-          exeIndex = index;
+          item.role.targetLynchIndex = this.getExecutionerTargetIndex(index);
+          item.role.isTargetLynched = false;
           break;
       }
     });
-
-    /// special exe hax
-    if (exeIndex !== -1) {
-      this.group_session.players[
-        exeIndex
-      ].role.targetLynchIndex = this.getExecutionerTargetIndex(exeIndex);
-      this.group_session.players[exeIndex].role.isTargetLynched = false;
-    }
 
     /// untuk role yang berubah-berubah
 
@@ -4036,6 +4029,11 @@ module.exports = {
       this.group_session.players[lynchTarget.index].role.canKill = true;
       announcement += "\n\n" + "👻 Jester akan membalas dendam dari kuburan!";
     }
+    
+    // executioner
+    for (let i = 0; i < )
+    
+    
 
     if (this.checkExistsRole("executioner")) {
       let exeIndex = this.getPlayerIndexByRole("executioner");
