@@ -1,9 +1,4 @@
 TODO
-- untuk exe bisa multi sbebenarnya, target bisa sama, dan pas lynch func
-  ganti logicnya. buat aja loop disana,
-  - loop 1 cari exe
-  - loop 2 cek target lynch index exe yg dari loop 1 itu sama atau engga, kalau sama, found
-  - kalau found, baru jalanin logic
 - susah ini , ada sistem buat cek visitor, cek visitor attack atau engga.
 - role that will added if possible :
   - psychic, pada non full moon, bisa ada 3 nama, salah satu ada yang jahat, pada full moon ada 2 nama, salah satu ada yang baik

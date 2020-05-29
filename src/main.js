@@ -756,7 +756,7 @@ module.exports = {
     /// test specific role cp
     if (process.env.TEST === "true") {
       roles = [
-        "investigator", "werewolf", "executioner", "doctor", "escort", "juggernaut"
+        "executioner", "investigator", "doctor", "mafioso", "executioner", "bodyguard"
       ];
     }
 
@@ -4034,7 +4034,7 @@ module.exports = {
     for (let i = 0; i < players.length; i++) {
       if (players[i].role.name === "executioner") {
         for (let u = 0; u < players.length; u++) {
-          if (players[i].role.targetLynchIndex == u) {
+          if (players[i].role.targetLynchIndex === u) {
             this.group_session.players[i].role.isTargetLynched = true;
           }
         }
