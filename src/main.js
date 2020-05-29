@@ -2581,6 +2581,10 @@ module.exports = {
                 "arsonist",
                 "executioner"
               ];
+              
+              if (this.group_session.isFullMoon) {
+                immuneToBasicAttack.push("werewolf");
+              }
 
               spyMafiaVisitInfo += `🤵 ${target.name} dikunjungi anggota Mafia\n\n`;
 
