@@ -338,7 +338,7 @@ module.exports = {
     }
 
     //need system for it
-    if (roleTeam === "vampire" || roleTeam === "werewolf") {
+    if (roleTeam === "vampire" || roleTeam === "mafia") {
       if (players[targetIndex].role.team === roleTeam) {
         return this.replyText(
           "💡 Target yang kamu pilih adalah sesama team " + roleTeam
@@ -861,7 +861,7 @@ module.exports = {
 
     let chatBox = [];
 
-    if (roleTeam === "werewolf") {
+    if (roleTeam === "mafia") {
       chatBox = this.group_session.mafiaChat;
     } else if (roleTeam === "vampire") {
       chatBox = this.group_session.vampireChat;
@@ -902,7 +902,7 @@ module.exports = {
     let roleTeam = players[index].role.team;
     let roleName = players[index].role.name;
 
-    if (roleTeam !== "werewolf" && roleTeam !== "vampire") {
+    if (roleTeam !== "mafia" && roleTeam !== "vampire") {
       return this.replyText("💡 " + roleTeam + " gak ada komunikasi malam");
     }
 
@@ -921,7 +921,7 @@ module.exports = {
       text: helper.parseToText(this.args)
     };
 
-    if (roleTeam === "werewolf") {
+    if (roleTeam === "mafia") {
       this.group_session.mafiaChat.push(message);
     } else if (roleTeam === "vampire") {
       this.group_session.vampireChat.push(message);
