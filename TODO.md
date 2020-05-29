@@ -10,7 +10,8 @@ TODO
     - baik hanya town, survivor, amnesiac, guardian angel, sisa jahat
     - kalau di block ga bisa dapat info
     - ga ada skill malam
-    - kalau sisa 3 pemain dan psychic salah satunya, responnya : 
+    - kalau sisa 3 pemain dan psychic salah satunya, responnya : kota ini terlalu kecil untuk menemukan siapa penjahatny dengan akurat
+    - kalau sudah tidak ada yang list baik (kecuali psychic itu sendiri), respon : kota ini terlalu jahat untuk menemukan siapa yang baik
   - trapper masih belum tau gimana mechanismnya
   - ambusher, passive visit(anjir skip)
   - amnesiac ribet
