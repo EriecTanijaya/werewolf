@@ -755,7 +755,15 @@ module.exports = {
 
     /// test specific role cp
     if (process.env.TEST === "true") {
-      roles = ["mafioso", "werewolf", "doctor", "veteran", "bodyguard", "spy", "godfather"];
+      roles = [
+        "mafioso",
+        "werewolf",
+        "doctor",
+        "veteran",
+        "bodyguard",
+        "spy",
+        "godfather"
+      ];
     }
 
     /// hax for exe
@@ -1685,7 +1693,7 @@ module.exports = {
     }
 
     /// Werewolf Action
-    
+
     let werewolfRampageTargetIndexes = [];
     for (let i = 0; i < players.length; i++) {
       let doer = players[i];
@@ -2859,11 +2867,11 @@ module.exports = {
           // hax jika kenak effect rampage werewolf atau juggernaut(soon)
           // soalnya pas rampage udah ada damage
           let rampageRole = ["werewolf", "juggernaut"];
-          
+
           if (!rampageRole.includes(players[attackerIndex].role.name)) {
             this.group_session.players[i].damage += 1;
           }
-          
+
           if (isHealed) {
             let protectors = players[i].protectors;
             for (let u = 0; u < protectors.length; u++) {
@@ -2913,7 +2921,13 @@ module.exports = {
               countered: false
             };
 
-            this.group_session.players[i].attackers.push(attacker);
+            // hax jika kenak effect rampage werewolf atau juggernaut(soon)
+            // soalnya pas rampage udah ada dimasukin obj attacker
+            let rampageRole = ["werewolf", "juggernaut"];
+
+            if (!rampageRole.includes(players[attackerIndex].role.name)) {
+              this.group_session.players[i].attackers.push(attacker);
+            }
           }
 
           //reset bg counter attack
@@ -3137,6 +3151,10 @@ module.exports = {
               "framer",
               "disguiser"
             ];
+            
+            if (this.group_session.isFullMoon) {
+              suspiciousList.push("werewolf");
+            }
 
             if (target.framed || suspiciousList.includes(target.role.name)) {
               this.group_session.players[i].message +=
@@ -4262,7 +4280,7 @@ module.exports = {
     let vampireCount = 0;
 
     // solo
-    let neutralsKilling = ["serial-killer", "arsonist"];
+    let neutralsKilling = ["serial-killer", "arsonist", "werewolf"];
     let neutralsKillingCount = 0;
 
     players.forEach(item => {

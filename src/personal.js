@@ -220,10 +220,9 @@ module.exports = {
       return this.replyText("💡 Jangan pernah kau coba untuk");
     }
 
-    // buat if role.name === jester & isLynched true
+    /// special role yg bisa skill pas mati
     if (players[index].status === "death") {
-      /// special role yg bisa skill pas mati
-
+      
       // Jester
       if (roleName !== "jester") {
         return this.replyText("💡 Kamu sudah mati");
@@ -235,6 +234,13 @@ module.exports = {
         } else if (players[index].role.hasRevenged) {
           return this.replyText("💡 Kamu sudah balas dendam mu kepada warga");
         }
+      }
+    }
+    
+    /// khusus role yang ada limited skill pas full moon
+    if (!this.group_session.isFullMoon) {
+      if (roleName === "werewolf") {
+        return this.replyText("💡 Kamu hanya bisa berubah menjadi Werewolf pada bulan purnama");
       }
     }
 
@@ -568,6 +574,11 @@ module.exports = {
             vampireConvertCooldown +
             " malam untuk gigit orang";
           return this.replyFlex(flex_text, [text, infoText]);
+        }
+      } else if (roleName === "werewolf") {
+        if (!this.group_session.isFullMoon) {
+          text += "🌓 Masih belum bulan purnama, kamu tidur seperti biasa.";
+          return this.replyFlex(flex_text, text);
         }
       }
 
