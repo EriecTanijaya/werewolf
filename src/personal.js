@@ -222,7 +222,6 @@ module.exports = {
 
     /// special role yg bisa skill pas mati
     if (players[index].status === "death") {
-      
       // Jester
       if (roleName !== "jester") {
         return this.replyText("💡 Kamu sudah mati");
@@ -236,11 +235,19 @@ module.exports = {
         }
       }
     }
-    
+
     /// khusus role yang ada limited skill pas full moon
     if (!this.group_session.isFullMoon) {
       if (roleName === "werewolf") {
-        return this.replyText("💡 Kamu hanya bisa berubah menjadi Werewolf pada bulan purnama");
+        return this.replyText(
+          "💡 Kamu hanya bisa berubah menjadi Werewolf pada bulan purnama"
+        );
+      } else if (roleName === "juggernaut") {
+        if (players[index].role.skillLevel === 0) {
+          return this.replyText(
+            "💡 Kamu hanya bisa menyerang pada bulan purnama"
+          );
+        }
       }
     }
 
@@ -578,6 +585,13 @@ module.exports = {
       } else if (roleName === "werewolf") {
         if (!this.group_session.isFullMoon) {
           text += "🌓 Masih belum bulan purnama, kamu tidur seperti biasa.";
+          return this.replyFlex(flex_text, text);
+        }
+      } else if (roleName === "juggernaut") {
+        let skillLevel = players[index].role.skillLevel;
+        if (skillLevel === 0 && !this.group_session.isFullMoon) {
+          text +=
+            "🌓 Masih belum bulan purnama, kamu tidak membunuh pada malam ini.";
           return this.replyFlex(flex_text, text);
         }
       }
@@ -1029,7 +1043,8 @@ module.exports = {
       "spy",
       "tracker",
       "disguiser",
-      "framer"
+      "framer",
+      "juggernaut`"
     ];
 
     if (cantTargetItSelf.includes(roleName)) {

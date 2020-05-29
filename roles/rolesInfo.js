@@ -70,7 +70,7 @@ module.exports = {
           flex_text.body.text +=
             "Werewolf immune dari role block dan serangan biasa pada bulan purnama";
           break;
-          
+
         case "villager":
         case "warga":
           flex_text.header.text = "👨‍🌾 Villager";
@@ -345,6 +345,21 @@ module.exports = {
             "Pemimpin warga yang menyamar menjadi warga biasa. Jika Mayor mengungkapkan identitas nya, ";
           flex_text.body.text +=
             "Jumlah vote nya akan terhitung 3, tetapi Doctor tidak bisa heal Mayor yang telah mengungkapkan identitasnya";
+          break;
+
+        case "juggernaut":
+          flex_text.header.text = "💪 Juggernaut";
+          flex_text.body.text += "Type: Neutral Killing" + "\n\n";
+          flex_text.body.text +=
+            "Seorang kriminal yang kekuatannya makin bertambah tiap kali ia berhasil membunuh. ";
+          flex_text.body.text +=
+            "Jika berhasil membunuh sekali, dia bisa serang tiap malam. ";
+          flex_text.body.text +=
+            "Kedua kali, bisa kebal dari serangan biasa. ";
+          flex_text.body.text +=
+            "Ketiga kali, bisa juga menyerang orang yang kerumah Targetnya. ";
+          flex_text.body.text +=
+            "Keempat kali, serangannya menembus perlindungan biasa. Tapi Bodyguard tetap bisa membunuhnya. ";
           break;
 
         default:

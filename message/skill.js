@@ -412,6 +412,24 @@ module.exports = {
           }
         }
         break;
+        
+      case "juggernaut":
+        if (isChangeTarget) {
+          text +=
+            "💪 " +
+            subjectText +
+            " berubah pikiran dan memutuskan untuk menyerang " +
+            targetName +
+            " saja malam ini";
+        } else {
+          text +=
+            "💪 " +
+            subjectText +
+            " memutuskan untuk menyerang " +
+            targetName +
+            " malam ini";
+        }
+        break;
     }
 
     return text;

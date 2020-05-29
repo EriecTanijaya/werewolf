@@ -33,8 +33,7 @@ const roles = [
   },
   {
     name: "consigliere",
-    description:
-      "Kamu di pihak Mafia, dan bisa mengecek role seorang warga",
+    description: "Kamu di pihak Mafia, dan bisa mengecek role seorang warga",
     skillText: "Consigliere, pilih siapa yang ingin dicek",
     cmdText: "/skill",
     team: "mafia",
@@ -65,8 +64,7 @@ const roles = [
   },
   {
     name: "investigator",
-    description:
-      "Kamu adalah warga yang bisa cek identitas seorang warga. ",
+    description: "Kamu adalah warga yang bisa cek identitas seorang warga. ",
     skillText: "Investigator, pilih siapa yang ingin di check",
     team: "villager",
     cmdText: "/skill",
@@ -438,6 +436,23 @@ const roles = [
     revealed: false,
     iconUrl:
       "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/top-hat_1f3a9.png"
+  },
+  {
+    name: "juggernaut",
+    description:
+      "Kamu adalah kriminal yang akan semakin kuat jika membunuh orang",
+    skillText: "Juggernaut, pilih siapa yang mau kamu bunuh",
+    cmdText: "/skill",
+    team: "juggernaut",
+    canKill: true,
+    emoji: {
+      team: "💪",
+      self: "💪"
+    },
+    type: "Neutral Killing",
+    skillLevel: 0,
+    iconUrl:
+      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/flexed-biceps_1f4aa.png"
   }
 ];
 
