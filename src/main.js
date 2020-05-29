@@ -748,7 +748,6 @@ module.exports = {
   },
 
   randomRoles: function() {
-    ///werewolf harus selalu ada
     let players = this.group_session.players;
     let playersLength = players.length;
     let roles = this.getRandomRoleSet(playersLength);
@@ -756,7 +755,7 @@ module.exports = {
     /// test specific role cp
     if (process.env.TEST === "true") {
       roles = [
-        "werewolf-cub",
+        "mafioso",
         "mayor",
         "doctor",
         "retributionist",
@@ -851,7 +850,7 @@ module.exports = {
     this.group_session.state = "night";
 
     /// special role chat
-    this.group_session.werewolfChat = [];
+    this.group_session.mafiaChat = [];
     this.group_session.vampireChat = [];
     this.group_session.vampireHunterChat = [];
 
@@ -1101,7 +1100,7 @@ module.exports = {
 
     let allAnnouncement = "";
     let vampireAnnouncement = "";
-    let werewolfAnnouncement = "";
+    let mafiaAnnouncement = "";
 
     /// Veteran targetIndexes
     let veteranTargetIndexes = [];
@@ -1114,7 +1113,7 @@ module.exports = {
     let isExecutionerTargetDie = false;
 
     /// Spy global var
-    let spyWerewolfVisitInfo = "";
+    let spyMafiaVisitInfo = "";
     let spyBuggedInfo = {};
 
     /// Spy lock target action
@@ -1208,30 +1207,30 @@ module.exports = {
       }
     }
 
-    /// Werewolf Action
-    // search the werewolf that responsible to bite
-    // note: the werewolf-cub if possible, if there is none, werewolf itself
-    let werewolfKillingExists =
-      this.checkExistsRole("alpha-werewolf") ||
-      this.checkExistsRole("werewolf-cub");
-    let werewolfDoerIndex = -1;
+    /// Mafia Action
+    // search the mafia that responsible to bite
+    // note: the mafioso if possible, if there is none, godfather itself
+    let mafiaKillingExists =
+      this.checkExistsRole("godfather") ||
+      this.checkExistsRole("mafioso");
+    let mafiaDoerIndex = -1;
 
-    // ini biasa werewolf langsung, soalnya bisa aja ww-cub di block / MATI
-    let werewolfDoerBackupIndex = -1;
+    // ini biasa godfather langsung, soalnya bisa aja ww-cub di block / MATI
+    let mafiaDoerBackupIndex = -1;
 
     // isUseSkill for ww
-    let isMainWerewolfUseSkill = false;
-    let isBackupWerewolfUseSkill = false;
+    let isMainMafiaUseSkill = false;
+    let isBackupMafiaUseSkill = false;
 
-    if (werewolfKillingExists) {
+    if (mafiaKillingExists) {
       for (let i = 0; i < players.length; i++) {
         let doer = players[i];
         let status = doer.status;
         let roleName = doer.role.name;
-        if (roleName === "werewolf-cub" && status === "alive") {
-          werewolfDoerIndex = i;
+        if (roleName === "mafioso" && status === "alive") {
+          mafiaDoerIndex = i;
           if (doer.target.index !== -1) {
-            isMainWerewolfUseSkill = true;
+            isMainMafiaUseSkill = true;
           }
           break;
         }
@@ -1241,70 +1240,70 @@ module.exports = {
         let doer = players[i];
         let status = doer.status;
         let roleName = doer.role.name;
-        if (roleName === "alpha-werewolf" && status === "alive") {
-          werewolfDoerBackupIndex = i;
+        if (roleName === "godfather" && status === "alive") {
+          mafiaDoerBackupIndex = i;
           if (doer.target.index !== -1) {
-            isBackupWerewolfUseSkill = true;
+            isBackupMafiaUseSkill = true;
           }
           break;
         }
       }
 
       // check skill nya dipake atau engga
-      if (isBackupWerewolfUseSkill && werewolfDoerIndex === -1) {
-        werewolfDoerIndex = werewolfDoerBackupIndex;
+      if (isBackupMafiaUseSkill && mafiaDoerIndex === -1) {
+        mafiaDoerIndex = mafiaDoerBackupIndex;
       }
 
-      if (!isMainWerewolfUseSkill && !isBackupWerewolfUseSkill) {
+      if (!isMainMafiaUseSkill && !isBackupMafiaUseSkill) {
         for (let i = 0; i < players.length; i++) {
           let doer = players[i];
           let roleName = doer.role.name;
-          if (roleName === "werewolf-cub" || roleName === "alpha-werewolf") {
+          if (roleName === "mafioso" || roleName === "godfather") {
             this.group_session.players[i].message +=
               "💡 Kamu tidak menggunakan skill mu" + "\n\n";
           }
         }
       } else {
-        let werewolfCandidates = [];
+        let mafiaCandidates = [];
         players.forEach(item => {
           if (
             item.status === "alive" &&
-            (item.role.name === "alpha-werewolf" ||
-              item.role.name === "werewolf-cub") &&
+            (item.role.name === "godfather" ||
+              item.role.name === "mafioso") &&
             item.target.index !== -1
           ) {
-            werewolfCandidates.push(item.target.index);
+            mafiaCandidates.push(item.target.index);
             if (item.target.value > 1) {
-              werewolfCandidates.push(item.target.index);
+              mafiaCandidates.push(item.target.index);
             }
           }
         });
 
-        if (werewolfCandidates.length > 0) {
-          let werewolfChosenTarget = helper.getMostFrequent(werewolfCandidates);
+        if (mafiaCandidates.length > 0) {
+          let mafiaChosenTarget = helper.getMostFrequent(mafiaCandidates);
 
-          if (werewolfCandidates.length === 1) {
-            werewolfChosenTarget = {
-              index: werewolfCandidates[0]
+          if (mafiaCandidates.length === 1) {
+            mafiaChosenTarget = {
+              index: mafiaCandidates[0]
             };
           } else {
-            if (werewolfChosenTarget.index === undefined) {
-              helper.shuffleArray(werewolfCandidates);
-              werewolfChosenTarget = {
-                index: werewolfCandidates[0]
+            if (mafiaChosenTarget.index === undefined) {
+              helper.shuffleArray(mafiaCandidates);
+              mafiaChosenTarget = {
+                index: mafiaCandidates[0]
               };
-              werewolfAnnouncement +=
+              mafiaAnnouncement +=
                 "Para Werewolf memiliki target yang berbeda, sehingga random pilih" +
                 "\n";
             }
           }
 
-          this.group_session.players[werewolfDoerIndex].target.index =
-            werewolfChosenTarget.index;
+          this.group_session.players[mafiaDoerIndex].target.index =
+            mafiaChosenTarget.index;
 
-          let doer = players[werewolfDoerIndex];
-          let target = players[werewolfChosenTarget.index];
-          werewolfAnnouncement += `🐺 ${doer.name} akan membunuh ${target.name}\n\n`;
+          let doer = players[mafiaDoerIndex];
+          let target = players[mafiaChosenTarget.index];
+          mafiaAnnouncement += `🐺 ${doer.name} akan membunuh ${target.name}\n\n`;
         }
       }
     }
@@ -1379,9 +1378,9 @@ module.exports = {
               }
 
               /// langsung kasih pesannya aja
-              if (targetIndex === werewolfDoerIndex) {
-                if (isBackupWerewolfUseSkill) {
-                  this.group_session.players[werewolfDoerIndex].message +=
+              if (targetIndex === mafiaDoerIndex) {
+                if (isBackupMafiaUseSkill) {
+                  this.group_session.players[mafiaDoerIndex].message +=
                     "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." +
                     "\n\n";
                 }
@@ -1416,7 +1415,7 @@ module.exports = {
             this.group_session.players[i].message +=
               "👣 Kamu ke rumah " + target.name + "\n\n";
 
-            werewolfAnnouncement += `🚷 ${doer.name} berencana block skill ${target.name}\n\n`;
+            mafiaAnnouncement += `🚷 ${doer.name} berencana block skill ${target.name}\n\n`;
 
             let visitor = {
               name: doer.name,
@@ -1457,7 +1456,7 @@ module.exports = {
             } else {
               this.group_session.players[targetIndex].blocked = true;
 
-              spyWerewolfVisitInfo += `🐺 ${target.name} dikunjungi anggota Werewolf\n\n`;
+              spyMafiaVisitInfo += `🐺 ${target.name} dikunjungi anggota Mafia\n\n`;
 
               if (players[targetIndex].bugged) {
                 spyBuggedInfo[targetIndex] +=
@@ -1466,9 +1465,9 @@ module.exports = {
               }
 
               /// langsung kasih pesannya aja
-              if (targetIndex === werewolfDoerIndex) {
-                if (isBackupWerewolfUseSkill) {
-                  this.group_session.players[werewolfDoerIndex].message +=
+              if (targetIndex === mafiaDoerIndex) {
+                if (isBackupMafiaUseSkill) {
+                  this.group_session.players[mafiaDoerIndex].message +=
                     "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." +
                     "\n\n";
                 }
@@ -1479,17 +1478,17 @@ module.exports = {
       }
     }
 
-    /// Werewolf blocking checker
-    if (isMainWerewolfUseSkill || isBackupWerewolfUseSkill) {
-      let wasWerewolfDoer = players[werewolfDoerIndex];
-      if (wasWerewolfDoer.blocked) {
-        let pastTargetIndex = wasWerewolfDoer.target.index;
+    /// Mafi blocking checker
+    if (isMainMafiaUseSkill || isBackupMafiaUseSkill) {
+      let wasMafiaDoer = players[mafiaDoerIndex];
+      if (wasMafiaDoer.blocked) {
+        let pastTargetIndex = wasMafiaDoer.target.index;
         let pastTarget = players[pastTargetIndex];
 
-        if (isBackupWerewolfUseSkill && werewolfDoerBackupIndex !== -1) {
-          werewolfDoerIndex = werewolfDoerBackupIndex;
+        if (isBackupMafiaUseSkill && mafiaDoerBackupIndex !== -1) {
+          mafiaDoerIndex = mafiaDoerBackupIndex;
           this.group_session.players[
-            werewolfDoerIndex
+            mafiaDoerIndex
           ].target.index = pastTargetIndex;
         }
       }
@@ -1520,7 +1519,7 @@ module.exports = {
             this.group_session.players[i].message +=
               "👣 Kamu ke rumah " + target.name + "\n\n";
 
-            werewolfAnnouncement += `🎭 ${doer.name} akan mengimitasi role ${target.name}\n\n`;
+            mafiaAnnouncement += `🎭 ${doer.name} akan mengimitasi role ${target.name}\n\n`;
 
             // hax for check if the target was veteran
             if (target.role.name === "veteran" && target.target.index !== -1) {
@@ -1535,7 +1534,7 @@ module.exports = {
 
             this.group_session.players[i].role.disguiseAs = target.role.name;
 
-            spyWerewolfVisitInfo += `🐺 ${target.name} dikunjungi anggota Werewolf\n\n`;
+            spyMafiaVisitInfo += `🐺 ${target.name} dikunjungi anggota Mafia\n\n`;
           }
         }
       }
@@ -1595,7 +1594,7 @@ module.exports = {
             let targetRoleTeam = target.role.team;
 
             let immuneToVampireBite = [
-              "alpha-werewolf",
+              "godfather",
               "vampire-hunter",
               "serial-killer",
               "arsonist",
@@ -1603,7 +1602,7 @@ module.exports = {
             ];
 
             let canAttacked = [
-              "werewolf-cub",
+              "mafioso",
               "sorcerer",
               "consort",
               "framer",
@@ -1694,10 +1693,10 @@ module.exports = {
             continue;
           }
 
-          // hax untuk werewolf yang tukang bunuh bukan ww, tapi ww cub
+          // hax untuk Mafia yang tukang bunuh bukan godfather, tapi mafioso
           if (target.role.name === "veteran") {
-            if (doer.role.name === "alpha-werewolf") {
-              if (werewolfDoerIndex !== i) {
+            if (doer.role.name === "godfather") {
+              if (mafiaDoerIndex !== i) {
                 continue;
               }
             }
@@ -2220,7 +2219,7 @@ module.exports = {
             let immuneToBasicAttack = [
               "serial-killer",
               "arsonist",
-              "alpha-werewolf",
+              "godfather",
               "executioner"
             ];
 
@@ -2297,7 +2296,7 @@ module.exports = {
             let immuneToBasicAttack = [
               "serial-killer",
               "arsonist",
-              "alpha-werewolf",
+              "godfather",
               "executioner"
             ];
 
@@ -2428,25 +2427,25 @@ module.exports = {
       }
     }
 
-    /// Werewolf Killing Action
-    if (isMainWerewolfUseSkill || isBackupWerewolfUseSkill) {
-      let wasWerewolfDoer = players[werewolfDoerIndex];
-      if (wasWerewolfDoer.attacked) {
-        let pastTargetIndex = wasWerewolfDoer.target.index;
+    /// Mafia Killing Action
+    if (isMainMafiaUseSkill || isBackupMafiaUseSkill) {
+      let wasMafiaDoer = players[mafiaDoerIndex];
+      if (wasMafiaDoer.attacked) {
+        let pastTargetIndex = wasMafiaDoer.target.index;
         let pastTarget = players[pastTargetIndex];
 
         if (pastTarget && pastTarget.role.name !== "veteran") {
-          if (isBackupWerewolfUseSkill && werewolfDoerBackupIndex !== -1) {
-            werewolfDoerIndex = werewolfDoerBackupIndex;
+          if (isBackupMafiaUseSkill && mafiaDoerBackupIndex !== -1) {
+            mafiaDoerIndex = mafiaDoerBackupIndex;
             this.group_session.players[
-              werewolfDoerIndex
+              mafiaDoerIndex
             ].target.index = pastTargetIndex;
           }
         }
       }
 
       for (let i = 0; i < players.length; i++) {
-        if (werewolfDoerIndex === i) {
+        if (mafiaDoerIndex === i) {
           let doer = players[i];
           let status = doer.status;
           let targetIndex = doer.target.index;
@@ -2467,7 +2466,7 @@ module.exports = {
               };
               this.group_session.players[targetIndex].visitors.push(visitor);
 
-              if (doer.role.name === "alpha-werewolf") {
+              if (doer.role.name === "godfather") {
                 this.group_session.players[i].message +=
                   "👣 Kamu ke rumah " + target.name + "\n\n";
               } else {
@@ -2475,7 +2474,7 @@ module.exports = {
                   "👣 Kamu disuruh ke rumah " + target.name + "\n\n";
               }
 
-              werewolfAnnouncement += `👣 ${doer.name} mengunjungi rumah ${target.name}\n\n`;
+              mafiaAnnouncement += `👣 ${doer.name} mengunjungi rumah ${target.name}\n\n`;
 
               let immuneToBasicAttack = [
                 "serial-killer",
@@ -2483,7 +2482,7 @@ module.exports = {
                 "executioner"
               ];
 
-              spyWerewolfVisitInfo += `🐺 ${target.name} dikunjungi anggota Werewolf\n\n`;
+              spyMafiaVisitInfo += `🐺 ${target.name} dikunjungi anggota Mafia\n\n`;
 
               if (immuneToBasicAttack.includes(target.role.name)) {
                 this.group_session.players[i].message +=
@@ -2508,7 +2507,7 @@ module.exports = {
 
                 if (players[targetIndex].bugged) {
                   spyBuggedInfo[targetIndex] +=
-                    "🔍 Target kamu di serang Werewolf!" + "\n\n";
+                    "🔍 Target kamu di serang Mafia!" + "\n\n";
                 }
 
                 let attacker = {
@@ -2898,8 +2897,8 @@ module.exports = {
           .map((atkr, idx) => {
             let note = atkr.deathNote + "\n\n";
 
-            if (atkr.role.type === "Werewolf Killing") {
-              note += "- werewolf";
+            if (atkr.role.type === "Mafia Killing") {
+              note += "- mafia";
             } else {
               note += "- " + atkr.role.name;
             }
@@ -2933,7 +2932,7 @@ module.exports = {
             }
           }
 
-          this.substituteWerewolf(this.group_session.players[i]);
+          this.substituteMafia(this.group_session.players[i]);
         }
       }
     }
@@ -2999,9 +2998,9 @@ module.exports = {
               " agar terlihat bersalah" +
               "\n\n";
 
-            werewolfAnnouncement += `🎞️ ${doer.name} menjebak ${target.name}\n\n`;
+            mafiaAnnouncement += `🎞️ ${doer.name} menjebak ${target.name}\n\n`;
 
-            spyWerewolfVisitInfo += `🐺 ${target.name} dikunjungi anggota Werewolf\n\n`;
+            spyMafiaVisitInfo += `🐺 ${target.name} dikunjungi anggota Mafia\n\n`;
 
             this.group_session.players[targetIndex].framed = true;
           }
@@ -3041,7 +3040,7 @@ module.exports = {
               "👣 Kamu ke rumah " + target.name + "\n\n";
 
             let suspiciousList = [
-              "werewolf-cub",
+              "mafioso",
               "sorcerer",
               "consort",
               "serial-killer",
@@ -3095,7 +3094,7 @@ module.exports = {
             let targetRoleName = target.role.name;
 
             if (target.framed) {
-              targetRoleName = "alpha-werewolf";
+              targetRoleName = "godfather";
             }
 
             if (target.role.disguiseAs) {
@@ -3149,9 +3148,9 @@ module.exports = {
             this.group_session.players[i].message +=
               "👣 Kamu ke rumah " + target.name + "\n\n";
 
-            werewolfAnnouncement += `🧙 Role ${target.name} adalah ${target.role.name}\n\n`;
+            mafiaAnnouncement += `🧙 Role ${target.name} adalah ${target.role.name}\n\n`;
 
-            spyWerewolfVisitInfo += `🐺 ${target.name} dikunjungi anggota Werewolf\n\n`;
+            spyMafiaVisitInfo += `🐺 ${target.name} dikunjungi anggota Mafia\n\n`;
 
             this.group_session.players[i].message +=
               "💡 Kamu bisa cek info role dengan ketik '/info " +
@@ -3169,7 +3168,7 @@ module.exports = {
 
       if (doer.role.name === "spy" && doer.status === "alive") {
         if (!doer.blocked) {
-          this.group_session.players[i].message += spyWerewolfVisitInfo;
+          this.group_session.players[i].message += spyMafiaVisitInfo;
         }
 
         if (doer.target.index === -1) {
@@ -3388,9 +3387,9 @@ module.exports = {
         item.message += vampireAnnouncement;
       }
 
-      /// Werewolf Announcement
-      if (item.role.team === "werewolf" && item.status === "alive") {
-        item.message += werewolfAnnouncement;
+      /// Mafia Announcement
+      if (item.role.team === "mafia" && item.status === "alive") {
+        item.message += mafiaAnnouncement;
       }
 
       if (process.env.TEST === "true") {
@@ -3697,7 +3696,7 @@ module.exports = {
       if (someoneWin) {
         return this.endGame(null, someoneWin);
       } else {
-        this.substituteWerewolf(lynched);
+        this.substituteMafia(lynched);
         return this.night(null);
       }
     }
@@ -3873,16 +3872,16 @@ module.exports = {
 
   /** helper func **/
 
-  substituteWerewolf: function(checkTarget) {
+  substituteMafia: function(checkTarget) {
     let players = this.group_session.players;
     // check werewolf killing yang mati
     if (checkTarget.role.type === "Werewolf Killing") {
       // check if alpha ww die, search a substitute
-      if (checkTarget.role.name === "alpha-werewolf") {
+      if (checkTarget.role.name === "godfather") {
         this.checkMorphingRole(
-          "werewolf-cub",
-          "alpha-werewolf",
-          "alpha-werewolf"
+          "mafioso",
+          "godfather",
+          "godfather"
         );
       }
 
@@ -3898,10 +3897,10 @@ module.exports = {
       }
       if (!isThereWerewolfKillingLeft) {
         // to werewolf cub
-        this.checkMorphingRole("consort", "werewolf-cub", "werewolf-cub");
-        this.checkMorphingRole("sorcerer", "werewolf-cub", "werewolf-cub");
-        this.checkMorphingRole("framer", "werewolf-cub", "werewolf-cub");
-        this.checkMorphingRole("disguiser", "werewolf-cub", "werewolf-cub");
+        this.checkMorphingRole("consort", "mafioso", "mafioso");
+        this.checkMorphingRole("sorcerer", "mafioso", "mafioso");
+        this.checkMorphingRole("framer", "mafioso", "mafioso");
+        this.checkMorphingRole("disguiser", "mafioso", "mafioso");
       }
     }
   },
