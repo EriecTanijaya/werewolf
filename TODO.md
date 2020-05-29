@@ -1,7 +1,11 @@
 TODO
 - full moon itu malam yang genap
 
-- werewolf ada checkVictory mekanisme baru!
+- werewolf ada immune dari basic attack
+
+-
+
+- buat list investigator punya result kalau role role udah siap (last!);
 
 - susah ini , ada sistem buat cek visitor, cek visitor attack atau engga.
 - rebrand, role werewolf sekarang jadi mafia, alpha werewolf = godfather, ww cub = mafioso, seer = investigator

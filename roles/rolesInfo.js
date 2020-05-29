@@ -67,6 +67,8 @@ module.exports = {
             "Bisa RAMPAGE pada rumah target. Yang ke rumah target Werewolf akan diserang juga. ";
           flex_text.body.text +=
             "Werewolf akan tampil tidak bersalah jika di cek pada saat tidak bulan purnama. ";
+          flex_text.body.text +=
+            "Werewolf immune dari role block dan serangan biasa pada bulan purnama";
           break;
           
         case "villager":

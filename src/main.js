@@ -4280,7 +4280,7 @@ module.exports = {
     let vampireCount = 0;
 
     // solo
-    let neutralsKilling = ["serial-killer", "arsonist", "werewolf"];
+    let neutralsKilling = ["serial-killer", "arsonist", "werewolf", "juggernaut"];
     let neutralsKillingCount = 0;
 
     players.forEach(item => {
@@ -4346,7 +4346,11 @@ module.exports = {
               priority: 0
             };
 
-            if (players[i].role.team === "arsonist") {
+            if (players[i].role.team === "juggernaut") {
+              killingRole.priority = 5;
+            } else if (players[i].role.team === "werewolf") {
+              killingRole.priority = 4;
+            } else if (players[i].role.team === "arsonist") {
               killingRole.priority = 3;
             } else if (players[i].role.team === "serial-killer") {
               killingRole.priority = 2;
