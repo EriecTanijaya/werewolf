@@ -1722,12 +1722,29 @@ module.exports = {
         } else {
           let rampagePlaceIndex = targetIndex;
 
-          werewolfRampageTargetIndexes.push(targetIndex);
+          if (i != targetIndex) {
+            werewolfRampageTargetIndexes.push(targetIndex);
+            let visitor = {
+              name: doer.name,
+              role: doer.role
+            };
+            this.group_session.players[targetIndex].visitors.push(visitor);
+
+            this.group_session.players[i].message +=
+              "👣 Kamu ke rumah " +
+              players[targetIndex].name +
+              " dan RAMPAGE di rumahnya" +
+              "\n\n";
+          } else {
+            this.group_session.players[i].message +=
+              "👣 Kamu diam di rumah dan akan menyerang siapa yang datang" +
+              "\n\n";
+          }
 
           for (let i = 0; i < players.length; i++) {
             let visitor = players[i];
 
-            if (visitor.role.name === "werewolf") continue;
+            if (visitor == doer) continue;
 
             if (visitor.status !== "alive") continue;
 
