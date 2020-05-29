@@ -153,13 +153,13 @@ const roles = [
     canKill: true,
     emoji: {
       team: "👨‍🌾",
-      self: "🧥"
+      self: "🔫"
     },
     isLoadBullet: true,
     bullet: 3,
     type: "Town Killing",
     iconUrl:
-      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/coat_1f9e5.png"
+      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/pistol_1f52b.png"
   },
   {
     name: "jester",

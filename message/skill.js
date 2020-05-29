@@ -12,28 +12,39 @@ module.exports = {
     }
     
     switch (roleName) {
-      case "alpha-werewolf":
-      case "werewolf-cub":
+      case "godfather":
+      case "mafioso":
         if (isChangeTarget) {
           text +=
-            "🐺 " + subjectText + " berubah pikiran dan memutuskan untuk membunuh " +
+            "🤵 " + subjectText + " berubah pikiran dan memutuskan untuk membunuh " +
             targetName +
             " saja malam ini";
         } else {
-          text += "🐺 " + subjectText + " memilih untuk membunuh " + targetName + " malam ini";
+          text += "🤵 " + subjectText + " memilih untuk membunuh " + targetName + " malam ini";
         }
         break;
 
-      case "seer":
-      case "sorcerer":
+      case "investigator":
         if (isChangeTarget) {
           text +=
-            "🔮 " + subjectText + " berubah pikiran dan berencana untuk menerawang " +
+            "🕵️ " + subjectText + " berubah pikiran dan berencana untuk menginvestigasi " +
             targetName +
             " saja malam ini";
         } else {
           text +=
-            "🔮 " + subjectText + " berencana untuk menerawang " + targetName + " malam ini";
+            "🕵️ " + subjectText + " berencana untuk menginvestigasi " + targetName + " malam ini";
+        }
+        break;
+        
+      case "consigliere":
+        if (isChangeTarget) {
+          text +=
+            "✒️ " + subjectText + " berubah pikiran dan berencana untuk menginvestigasi " +
+            targetName +
+            " saja malam ini";
+        } else {
+          text +=
+            "✒️ " + subjectText + " berencana untuk menginvestigasi " + targetName + " malam ini";
         }
         break;
 

@@ -50,7 +50,7 @@ module.exports = {
 
       case "classic":
       case "3":
-        flex_text.header.text = "👨‍🌾🐺 Classic Mode";
+        flex_text.header.text = "👨‍🌾🤵 Classic Mode";
         flex_text.body.text += "Mode ID: 3" + "\n\n";
         flex_text.body.text += "Mode normal, cocok untuk pemula. ";
         modeId = 3;
@@ -67,10 +67,10 @@ module.exports = {
 
       case "killing wars":
       case "5":
-        flex_text.header.text = "🐺🔥 Killing Wars Mode";
+        flex_text.header.text = "🤵🔥 Killing Wars Mode";
         flex_text.body.text += "Mode ID: 5" + "\n\n";
         flex_text.body.text +=
-          "Warga telah binasa, sekarang Werewolf masih menghadapi ancaman yang lain!";
+          "Warga telah binasa, sekarang Mafia masih menghadapi ancaman yang lain!";
         modeId = 5;
         break;
 
@@ -86,10 +86,10 @@ module.exports = {
 
       case "trust issue":
       case "7":
-        flex_text.header.text = "🎞️🔮 Trust Issue Mode";
+        flex_text.header.text = "🎞️🔍 Trust Issue Mode";
         flex_text.body.text += "Mode ID: 7" + "\n\n";
         flex_text.body.text +=
-          "Warga di buat kesal, karena salah menggantung orang yang dikira Werewolf. ";
+          "Warga di buat kesal, karena salah menggantung orang yang dikira Mafia. ";
         flex_text.body.text += "Padahal role nya adalah Sheriff. ";
         flex_text.body.text +=
           "Seer yang sebelumnya dipercayai warga, telah membuat para warga kecewa. ";
@@ -112,9 +112,9 @@ module.exports = {
         flex_text.header.text = "🔪 New Threat Mode";
         flex_text.body.text += "Mode ID: 9" + "\n\n";
         flex_text.body.text +=
-          "Warga senang sekali setelah berhasil membasmi Werewolf, ";
+          "Warga senang sekali setelah berhasil membasmi Mafia, ";
         flex_text.body.text +=
-          "Namun mereka tidak sadar bahwa ada bahaya yang mengintai selain Werewolf..";
+          "Namun mereka tidak sadar bahwa ada bahaya yang mengintai selain Mafia..";
         modeId = 9;
         break;
 
