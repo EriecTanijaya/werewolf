@@ -3488,7 +3488,7 @@ module.exports = {
             this.group_session.players[i].message +=
               "👣 Kamu ke rumah " + target.name + "\n\n";
 
-            let guessResult = helper.getInvestiga
+            let guessResult = helper.getInvestigatorResult(targetRoleName);
             
             this.group_session.players[i].message +=
               "🕵️ Role " + target.name + " adalah " + targetRoleName + "\n\n";

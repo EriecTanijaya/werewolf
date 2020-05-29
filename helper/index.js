@@ -1,4 +1,30 @@
 module.exports = {
+  getInvestigatorResult: function(roleName) {
+    let text = "";
+    let pairList = [
+      ["vigilante", "veteran", "mafioso"],
+      ["retributionist"],
+      ["survivor", "vampire-hunter"],
+      ["spy"],
+      ["sheriff", "executioner", "werewolf"],
+      ["framer", "vampire", "jester"],
+      ["lookout"],
+      ["escort", "consort"],
+      ["doctor", "serial-killer", "disguiser"],
+      ["investigator", "consigliere", "mayor", "tracker"],
+      ["bodyguard", "godfather", "arsonist"]
+    ];
+    
+    for (let i = 0; i < pairList.length; i++) {
+      for (let u = 0; u < pairList[i].length; u++) {
+        if (roleName === pairList[i][u]) {
+          text += pairList[i].join(", ");
+          return text;
+        }
+      }
+    }
+  },
+  
   getModeList: function() {
     let modeList = [
       "vampire",
