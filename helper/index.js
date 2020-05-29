@@ -9,7 +9,7 @@ module.exports = {
       { desc: "Targetmu berurusan dengan mayat!", items: ["retributionist"] },
       {
         desc: "Targetmu suka menutup diri!",
-        items: ["survivor", "vampire-hunter"]
+        items: ["survivor", "vampire-hunter", "psychic"]
       },
       { desc: "Targetmu mengetahui rahasia terbesarmu!", items: ["spy"] },
       {
