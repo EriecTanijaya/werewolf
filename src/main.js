@@ -2218,7 +2218,7 @@ module.exports = {
               "\n\n";
 
             continue;
-          } else {
+          } else if (!doer.attacked) {
             let targetIndex = doer.target.index;
             let target = players[targetIndex];
 
