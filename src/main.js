@@ -448,6 +448,7 @@ module.exports = {
     this.group_session.checkChance = 1;
     this.group_session.lynched = null;
     this.group_session.vampireConvertCooldown = 0;
+    this.group_session.isFullMoon = false;
 
     let flex_text = this.getNewStateFlex();
 
@@ -848,6 +849,12 @@ module.exports = {
     this.group_session.nightCounter++;
 
     this.group_session.state = "night";
+    
+    if (this.group_session.nightCounter % 2 == 0) {
+      this.group_session.isFullMoon = true;
+    } else {
+      this.group_session.isFullMoon = false;
+    }
 
     /// special role chat
     this.group_session.mafiaChat = [];
@@ -1674,6 +1681,43 @@ module.exports = {
           }
         }
       }
+    }
+    
+    /// Werewolf set rampage place action
+    for (let i = 0; i < players.length; i++) {
+      let doer = players[i];
+      let roleName = doer.role.name;
+      let status = doer.status;
+      let targetIndex = doer.target.index;
+      
+      if (roleName === "werewolf" && status === "alive") {
+        
+        if (!this.group_session.isFullMoon) continue; //cp
+        
+        if (doer.target.index === -1) {
+          this.group_session.players[i].message +=
+            "💡 Kamu tidak menggunakan skill mu" + "\n\n";
+
+          continue;
+        } else {
+          let rampagePlaceIndex = targetIndex;
+          
+          for (let j = 0; j < players.length; j++) {
+            let visitor = players[j];
+            
+            if (visitor.role.name === "werewolf") continue;
+            
+            if (visitor.status !== "alive") continue;
+            
+            if (visitor.target.index != j && visitor.target.index !== -1) {
+              if ()
+            }
+            
+          }
+          
+        }
+      }
+      
     }
 
     /// Veteran Visitor fetch
