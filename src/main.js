@@ -4334,6 +4334,9 @@ module.exports = {
 
   resetCheckChance: function() {
     this.group_session.checkChance = 2;
+    if (this.group_session.players.length > 7) {
+      this.group_session.checkChance += 2;
+    }
     this.group_session.deadlineCheckChance = 1;
   },
 
