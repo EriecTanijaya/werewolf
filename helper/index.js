@@ -8,10 +8,10 @@ module.exports = {
       },
       { desc: "Targetmu berurusan dengan mayat!", items: ["retributionist"] },
       {
-        desc: "Targetmu memiliki senjata!",
+        desc: "Targetmu suka menutup diri!",
         items: ["survivor", "vampire-hunter"]
       },
-      { desc: "Targetmu memiliki senjata!", items: ["spy"] },
+      { desc: "Targetmu mengetahui rahasia terbesarmu!", items: ["spy"] },
       {
         desc: "Targetmu menunggu waktu yang tepat untuk beraksi!",
         items: ["sheriff", "executioner", "werewolf"]
@@ -21,7 +21,10 @@ module.exports = {
         items: ["framer", "vampire", "jester"]
       },
       { desc: "Targetmu diam didalam bayangan!", items: ["lookout"] },
-      { desc: "Targetmu ahli dalam mengganggu yang lain!", items: ["escort", "consort"] },
+      {
+        desc: "Targetmu ahli dalam mengganggu yang lain!",
+        items: ["escort", "consort"]
+      },
       {
         desc: "Targetmu berlumuran darah!",
         items: ["doctor", "serial-killer", "disguiser"]
@@ -52,19 +55,6 @@ module.exports = {
         }
       }
     }
-  },
-  
-  getConsigliereResult: function(roleName) {
-    let text = "✒️ ";
-    
-    let roleList = [
-      {
-        name: "werewolf",
-        desc: "Targetmu suka melolong pada malam hari!"
-      }
-    ];
-    
-    return text;
   },
 
   getModeList: function() {
