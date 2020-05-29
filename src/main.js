@@ -1742,62 +1742,87 @@ module.exports = {
           } else {
             // skill level 0 dan 1
 
-            
-            
-            this.group_session.players[targetIndex].attacked = true;
+            let immuneToBasicAttack = [
+              "serial-killer",
+              "arsonist",
+              "godfather",
+              "executioner"
+            ];
 
-            let attacker = {
-              index: i,
-              name: doer.name,
-              role: doer.role,
-              deathNote: doer.deathNote,
-              countered: false
-            };
+            if (this.group_session.isFullMoon) {
+              immuneToBasicAttack.push("werewolf");
+            }
 
-            this.group_session.players[targetIndex].attackers.push(attacker);
-          }
-        } else {
-        }
+            if (immuneToBasicAttack.includes(players[targetIndex].role.name)) {
+              this.group_session.players[i].message +=
+                "💡 Target kamu immune dari serangan!" + "\n\n";
 
-        let juggernautRampageTargetIndexes = [];
-        let rampagePlaceIndex = targetIndex;
+              this.group_session.players[targetIndex].message +=
+                "💡 Ada yang menyerang kamu tapi kamu immune dari serangan!" +
+                "\n\n";
 
-        if (i != targetIndex) {
-          juggernautRampageTargetIndexes.push(targetIndex);
-          let visitor = {
-            name: doer.name,
-            role: doer.role
-          };
-          this.group_session.players[targetIndex].visitors.push(visitor);
+              if (players[targetIndex].bugged) {
+                spyBuggedInfo[targetIndex] +=
+                  "🔍 Target kamu di serang tapi serangan tersebut tidak mempan!" +
+                  "\n\n";
+              }
+            } else {
+              this.group_session.players[i].message +=
+                "💡 Kamu menyerang " + players[targetIndex].name + "\n\n";
 
-          this.group_session.players[i].message +=
-            "👣 Kamu ke rumah " +
-            players[targetIndex].name +
-            " dan RAMPAGE di rumahnya" +
-            "\n\n";
-        } else {
-          this.group_session.players[i].message +=
-            "👣 Kamu diam di rumah dan akan menyerang siapa yang datang" +
-            "\n\n";
-        }
-
-        for (let i = 0; i < players.length; i++) {
-          let visitor = players[i];
-
-          if (visitor == doer) continue;
-
-          if (visitor.status !== "alive") continue;
-
-          if (visitor.blocked) continue;
-
-          if (visitor.target.index != i && visitor.target.index !== -1) {
-            if (visitor.target.index === rampagePlaceIndex) {
-              // hax mafia kalo yang pergi itu mafioso
-              if (visitor.role.name === "godfather") {
-                if (mafiaDoerIndex !== i) continue;
+              if (players[targetIndex].bugged) {
+                spyBuggedInfo[targetIndex] +=
+                  "🔍 Target kamu di serang Juggernaut!" + "\n\n";
               }
 
-              juggernautRampageTargetIndexes.push(i);
+              this.group_session.players[targetIndex].message +=
+                "💪 Kamu diserang " + roleName + "!" + "\n\n";
+
+              this.group_session.players[targetIndex].attacked = true;
+
+              let attacker = {
+                index: i,
+                name: doer.name,
+                role: doer.role,
+                deathNote: doer.deathNote,
+                countered: false
+              };
+
+              this.group_session.players[targetIndex].attackers.push(attacker);
+            }
+          }
+        } else {
+          // skill level 3 dan 4
+          let juggernautRampageTargetIndexes = [];
+          let rampagePlaceIndex = targetIndex;
+
+          if (targetIndex === -1) {
+            this.group_session.players[i].message +=
+              "👣 Kamu diam di rumah dan akan menyerang siapa yang datang" +
+              "\n\n";
+          } else {
+            let juggernautRampageTargetIndexes = [targetIndex];
+            let rampagePlaceIndex = targetIndex;
+
+            for (let i = 0; i < players.length; i++) {
+              let visitor = players[i];
+
+              if (visitor == doer) continue;
+
+              if (visitor.status !== "alive") continue;
+
+              if (visitor.blocked) continue;
+
+              if (visitor.target.index != i && visitor.target.index !== -1) {
+                if (visitor.target.index === rampagePlaceIndex) {
+                  // hax mafia kalo yang pergi itu mafioso
+                  if (visitor.role.name === "godfather") {
+                    if (mafiaDoerIndex !== i) continue;
+                  }
+
+                  juggernautRampageTargetIndexes.push(i);
+                }
+              }
             }
           }
         }
@@ -1874,15 +1899,16 @@ module.exports = {
 
           if (visitor.blocked) continue;
 
-          if (visitor.target.index != i && visitor.target.index !== -1) {
-            if (visitor.target.index === rampagePlaceIndex) {
-              // hax mafia kalo yang pergi itu mafioso
-              if (visitor.role.name === "godfather") {
-                if (mafiaDoerIndex !== i) continue;
-              }
-
-              werewolfRampageTargetIndexes.push(i);
+          if (
+            visitor.target.index !== -1 &&
+            visitor.target.index === rampagePlaceIndex
+          ) {
+            // hax mafia kalo yang pergi itu mafioso
+            if (visitor.role.name === "godfather") {
+              if (mafiaDoerIndex !== i) continue;
             }
+
+            werewolfRampageTargetIndexes.push(i);
           }
         }
 
