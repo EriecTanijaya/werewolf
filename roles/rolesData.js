@@ -9,11 +9,11 @@ const roles = [
     canKill: true,
     emoji: {
       team: "🤵",
-      self: ""
+      self: "🚬"
     },
     type: "Mafia Killing",
     iconUrl:
-      ""
+      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/cigarette_1f6ac.png"
   },
   {
     name: "consigliere",
@@ -25,11 +25,11 @@ const roles = [
     canKill: false,
     emoji: {
       team: "🤵",
-      self: ""
+      self: "✒️"
     },
     type: "Mafia Support",
     iconUrl:
-      ""
+      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/black-nib_2712.png"
   },
   {
     name: "consort",
@@ -57,11 +57,11 @@ const roles = [
     canKill: false,
     emoji: {
       team: "👨‍🌾",
-      self: ""
+      self: "🕵️"
     },
     type: "Town Investigate",
     iconUrl:
-      ""
+      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/detective_1f575.png"
   },
   {
     name: "doctor",
@@ -130,18 +130,18 @@ const roles = [
   {
     name: "mafioso",
     description:
-      "Kamu dipihak werewolf, dan kamu suruhan Werewolf untuk membunuh orang lain. ",
-    skillText: "Werewolf Cub, pilih siapa yang ingin di bunuh",
-    team: "werewolf",
+      "Kamu dipihak Mafia, dan kamu suruhan Godfather untuk membunuh orang lain. ",
+    skillText: "Mafioso, pilih siapa yang ingin di bunuh",
+    team: "mafia",
     cmdText: "/skill",
     canKill: true,
     emoji: {
       team: "🤵",
-      self: ""
+      self: "🔫"
     },
-    type: "Werewolf Killing",
+    type: "Mafia Killing",
     iconUrl:
-      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/dog_1f415.png"
+      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/pistol_1f52b.png"
   },
   {
     name: "vigilante",
@@ -153,13 +153,13 @@ const roles = [
     canKill: true,
     emoji: {
       team: "👨‍🌾",
-      self: "🔫"
+      self: "🧥"
     },
     isLoadBullet: true,
     bullet: 3,
     type: "Town Killing",
     iconUrl:
-      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/pistol_1f52b.png"
+      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/coat_1f9e5.png"
   },
   {
     name: "jester",
