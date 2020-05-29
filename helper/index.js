@@ -36,6 +36,10 @@ module.exports = {
       {
         desc: "Targetmu tidak takut kotor!",
         items: ["bodyguard", "godfather", "arsonist"]
+      },
+      {
+        desc: "Targetmu sifatnya sangat bengis!",
+        items: ["juggernaut"]
       }
     ];
 
@@ -47,7 +51,7 @@ module.exports = {
             text += item;
             if (index == pairList[i].items.length - 2) {
               text += " atau ";
-            } else {
+            } else if (index != pairList[i].items.length - 1) {
               text += ", ";
             }
           });
@@ -86,7 +90,7 @@ module.exports = {
     let townSupport = this.random(townSupports);
     roles.push(townSupport);
 
-    roles.push("vampire", "seer", "vigilante", "vampire");
+    roles.push("vampire", "investigator", "vigilante", "vampire");
 
     let townProtectors = ["doctor", "bodyguard"];
     let townProtector = this.random(townProtectors);
@@ -112,7 +116,7 @@ module.exports = {
     let roles = [
       "godfather",
       "doctor",
-      "seer",
+      "investigator",
       "escort",
       "jester",
       "lookout",
@@ -128,7 +132,7 @@ module.exports = {
     let remainingTowns = [
       "doctor",
       "bodyguard",
-      "seer",
+      "investigator",
       "lookout",
       "sheriff",
       "vigilante",
@@ -155,7 +159,7 @@ module.exports = {
   getChaosRoleSet: function(playersLength) {
     let roles = ["godfather"];
 
-    let townInvestigates = ["seer", "lookout"];
+    let townInvestigates = ["investigator", "lookout"];
     roles.push(this.random(townInvestigates));
 
     let townProtectors = ["doctor", "bodyguard"];
@@ -177,7 +181,7 @@ module.exports = {
     let randomTowns = [
       "doctor",
       "bodyguard",
-      "seer",
+      "investigator",
       "lookout",
       "sheriff",
       "vigilante",
@@ -194,7 +198,7 @@ module.exports = {
 
     roles.push("spy");
 
-    let neutralKillings = ["arsonist", "serial-killer"];
+    let neutralKillings = ["arsonist", "serial-killer", "werewolf", "juggernaut"];
     roles.push(this.random(neutralKillings));
 
     roles.push(this.random(randomTowns));
@@ -207,7 +211,7 @@ module.exports = {
   },
 
   getSurviveRoleSet: function(playersLength) {
-    let roles = ["seer", "seer", "godfather"];
+    let roles = ["investigator", "investigator", "godfather"];
 
     let survivorNeededCount = playersLength - 3;
 
@@ -274,17 +278,17 @@ module.exports = {
       "godfather",
       "veteran",
       "sheriff",
-      "seer",
+      "investigator",
       "framer",
       "sheriff",
       "sheriff",
-      "seer",
+      "investigator",
       "framer",
-      "seer",
+      "investigator",
       "sheriff",
-      "seer",
+      "investigator",
       "framer",
-      "seer",
+      "investigator",
       "sheriff"
     ];
 
@@ -299,7 +303,7 @@ module.exports = {
       "doctor",
       "bodyguard",
       "doctor",
-      "seer",
+      "investigator",
       "disguiser",
       "vigilante",
       "bodyguard",
@@ -309,7 +313,7 @@ module.exports = {
       "vigilante",
       "escort",
       "lookout",
-      "seer"
+      "investigator"
     ];
 
     roles.length = playersLength;
@@ -320,7 +324,7 @@ module.exports = {
   getNewThreat: function(playersLength) {
     let roles = ["serial-killer"];
 
-    let townInvestigates = ["seer", "lookout"];
+    let townInvestigates = ["investigator", "lookout"];
     roles.push(this.random(townInvestigates));
 
     let townProtectors = ["doctor", "bodyguard"];
@@ -329,7 +333,7 @@ module.exports = {
     let randomTowns = [
       "doctor",
       "bodyguard",
-      "seer",
+      "investigator",
       "lookout",
       "sheriff",
       "vigilante",
@@ -366,18 +370,18 @@ module.exports = {
     let roles = [
       "godfather",
       "jester",
-      "seer",
+      "investigator",
       "sheriff",
-      "seer",
+      "investigator",
       "framer",
       "jester",
-      "seer",
-      "seer",
+      "investigator",
+      "investigator",
       "jester",
-      "seer",
+      "investigator",
       "jester",
       "framer",
-      "seer",
+      "investigator",
       "jester"
     ];
 

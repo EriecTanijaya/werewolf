@@ -466,12 +466,12 @@ module.exports = {
 
       if (process.env.TEST === "true") {
         // cp
-        for (let i = 0; i < 8; i++) {
-          let dummy = JSON.parse(JSON.stringify(this.user_session));
-          dummy.name += " " + helper.getRandomInt(1, 99);
-          let newPlayer = this.createNewPlayer(dummy);
-          this.addPlayer(newPlayer);
-        }
+        // for (let i = 0; i < 8; i++) {
+        //   let dummy = JSON.parse(JSON.stringify(this.user_session));
+        //   dummy.name += " " + helper.getRandomInt(1, 99);
+        //   let newPlayer = this.createNewPlayer(dummy);
+        //   this.addPlayer(newPlayer);
+        // }
       }
 
       let text = "💡 " + this.user_session.name + " berhasil bergabung!";
@@ -756,13 +756,7 @@ module.exports = {
     /// test specific role cp
     if (process.env.TEST === "true") {
       roles = [
-        "mafioso",
-        "werewolf",
-        "doctor",
-        "veteran",
-        "bodyguard",
-        "spy",
-        "godfather"
+        "investigator", "werewolf", "executioner", "doctor", "escort", "juggernaut"
       ];
     }
 
@@ -3478,7 +3472,11 @@ module.exports = {
             let targetRoleName = target.role.name;
 
             if (target.framed) {
-              targetRoleName = "godfather";
+              targetRoleName = "framer";
+            }
+            
+            if (target.doused) {
+              targetRoleName = "arsonist";
             }
 
             if (target.role.disguiseAs) {
