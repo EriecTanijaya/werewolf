@@ -2,23 +2,44 @@ module.exports = {
   getInvestigatorResult: function(roleName) {
     let text = "🕵️ ";
     let pairList = [
-      { desc: "Targetmu memiliki senjata!", items: ["vigilante", "veteran", "mafioso"] },
-      { desc: "Targetmu memiliki senjata!", items: ["retributionist"] },
-      { desc: "Targetmu memiliki senjata!", items: ["survivor", "vampire-hunter"] },
+      {
+        desc: "Targetmu memiliki senjata!",
+        items: ["vigilante", "veteran", "mafioso"]
+      },
+      { desc: "Targetmu berurusan dengan mayat!", items: ["retributionist"] },
+      {
+        desc: "Targetmu memiliki senjata!",
+        items: ["survivor", "vampire-hunter"]
+      },
       { desc: "Targetmu memiliki senjata!", items: ["spy"] },
-      { desc: "Targetmu memiliki senjata!", items: ["sheriff", "executioner", "werewolf"] },
-      { desc: "Targetmu memiliki senjata!", items: ["framer", "vampire", "jester"] },
-      { desc: "Targetmu memiliki senjata!", items: ["lookout"] },
-      { desc: "Targetmu memiliki senjata!", items: ["escort", "consort"],
-      { desc: "Targetmu memiliki senjata!", items: ["doctor", "serial-killer", "disguiser"] },
-      { desc: "Targetmu memiliki senjata!", items: ["investigator", "consigliere", "mayor", "tracker"] },
-      { desc: "Targetmu memiliki senjata!", items: ["bodyguard", "godfather", "arsonist"] }
+      {
+        desc: "Targetmu menunggu waktu yang tepat untuk beraksi!",
+        items: ["sheriff", "executioner", "werewolf"]
+      },
+      {
+        desc: "Targetmu mungkin tidak seperti yang dilihat!",
+        items: ["framer", "vampire", "jester"]
+      },
+      { desc: "Targetmu diam didalam bayangan!", items: ["lookout"] },
+      { desc: "Targetmu ahli dalam mengganggu yang lain!", items: ["escort", "consort"] },
+      {
+        desc: "Targetmu berlumuran darah!",
+        items: ["doctor", "serial-killer", "disguiser"]
+      },
+      {
+        desc: "Targetmu memiliki rahasia yang terpendam!",
+        items: ["investigator", "consigliere", "mayor", "tracker"]
+      },
+      {
+        desc: "Targetmu tidak takut kotor!",
+        items: ["bodyguard", "godfather", "arsonist"]
+      }
     ];
 
     for (let i = 0; i < pairList.length; i++) {
       for (let u = 0; u < pairList[i].items.length; u++) {
         if (roleName === pairList[i].items[u]) {
-          text += pairList[i].desc + " Targetmu bisa "; //kasih \n\n ?
+          text += pairList[i].desc + " Targetmu bisa jadi adalah "; //kasih \n\n ?
           pairList[i].items.forEach((item, index) => {
             text += item;
             if (index == pairList[i].items.length - 2) {
@@ -26,11 +47,24 @@ module.exports = {
             } else {
               text += ", ";
             }
-          })
+          });
           return text;
         }
       }
     }
+  },
+  
+  getConsigliereResult: function(roleName) {
+    let text = "✒️ ";
+    
+    let roleList = [
+      {
+        name: "werewolf",
+        desc: "Targetmu suka melolong pada malam hari!"
+      }
+    ];
+    
+    return text;
   },
 
   getModeList: function() {
