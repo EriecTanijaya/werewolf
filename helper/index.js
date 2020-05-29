@@ -1,4 +1,62 @@
 module.exports = {
+  getInvestigatorResult: function(roleName) {
+    let text = "🕵️ ";
+    let pairList = [
+      {
+        desc: "Targetmu memiliki senjata!",
+        items: ["vigilante", "veteran", "mafioso"]
+      },
+      { desc: "Targetmu berurusan dengan mayat!", items: ["retributionist"] },
+      {
+        desc: "Targetmu suka menutup diri!",
+        items: ["survivor", "vampire-hunter"]
+      },
+      { desc: "Targetmu mengetahui rahasia terbesarmu!", items: ["spy"] },
+      {
+        desc: "Targetmu menunggu waktu yang tepat untuk beraksi!",
+        items: ["sheriff", "executioner", "werewolf"]
+      },
+      {
+        desc: "Targetmu mungkin tidak seperti yang dilihat!",
+        items: ["framer", "vampire", "jester"]
+      },
+      { desc: "Targetmu diam didalam bayangan!", items: ["lookout"] },
+      {
+        desc: "Targetmu ahli dalam mengganggu yang lain!",
+        items: ["escort", "consort"]
+      },
+      {
+        desc: "Targetmu berlumuran darah!",
+        items: ["doctor", "serial-killer", "disguiser"]
+      },
+      {
+        desc: "Targetmu memiliki rahasia yang terpendam!",
+        items: ["investigator", "consigliere", "mayor", "tracker"]
+      },
+      {
+        desc: "Targetmu tidak takut kotor!",
+        items: ["bodyguard", "godfather", "arsonist"]
+      }
+    ];
+
+    for (let i = 0; i < pairList.length; i++) {
+      for (let u = 0; u < pairList[i].items.length; u++) {
+        if (roleName === pairList[i].items[u]) {
+          text += pairList[i].desc + " Targetmu bisa jadi adalah "; //kasih \n\n ?
+          pairList[i].items.forEach((item, index) => {
+            text += item;
+            if (index == pairList[i].items.length - 2) {
+              text += " atau ";
+            } else {
+              text += ", ";
+            }
+          });
+          return text;
+        }
+      }
+    }
+  },
+
   getModeList: function() {
     let modeList = [
       "vampire",
