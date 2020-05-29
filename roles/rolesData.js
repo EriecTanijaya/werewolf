@@ -51,7 +51,7 @@ const roles = [
     name: "investigator",
     description:
       "Kamu adalah warga yang bisa cek identitas seorang warga. ",
-    skillText: "Seer, pilih siapa yang ingin di check",
+    skillText: "Investigator, pilih siapa yang ingin di check",
     team: "villager",
     cmdText: "/skill",
     canKill: false,
