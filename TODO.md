@@ -3,7 +3,7 @@ TODO
 
 - werewolf ada immune dari basic attack
 
--
+- juggernaut boi, ada private prop untuk cek level up skillnya, tiap skill ada improvement!
 
 - buat list investigator punya result kalau role role udah siap (last!);
 

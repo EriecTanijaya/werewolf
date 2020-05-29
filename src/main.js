@@ -1097,6 +1097,11 @@ module.exports = {
 
         // check afk
         let noSkillRoles = ["villager", "jester", "executioner", "mayor"];
+        
+        if (!this.group_session.isFullMoon) {
+          noSkillRoles.push("werewolf");
+        }
+        
         if (!noSkillRoles.includes(item.role.name)) {
           if (item.target.index === -1) {
             item.afkCounter++;
