@@ -1,30 +1,38 @@
 module.exports = {
   getInvestigatorResult: function(roleName) {
-    let text = "";
+    let text = "🕵️ ";
     let pairList = [
-      ["vigilante", "veteran", "mafioso"],
-      ["retributionist"],
-      ["survivor", "vampire-hunter"],
-      ["spy"],
-      ["sheriff", "executioner", "werewolf"],
-      ["framer", "vampire", "jester"],
-      ["lookout"],
-      ["escort", "consort"],
-      ["doctor", "serial-killer", "disguiser"],
-      ["investigator", "consigliere", "mayor", "tracker"],
-      ["bodyguard", "godfather", "arsonist"]
+      { desc: "Targetmu memiliki senjata!", items: ["vigilante", "veteran", "mafioso"] },
+      { desc: "Targetmu memiliki senjata!", items: ["retributionist"] },
+      { desc: "Targetmu memiliki senjata!", items: ["survivor", "vampire-hunter"] },
+      { desc: "Targetmu memiliki senjata!", items: ["spy"] },
+      { desc: "Targetmu memiliki senjata!", items: ["sheriff", "executioner", "werewolf"] },
+      { desc: "Targetmu memiliki senjata!", items: ["framer", "vampire", "jester"] },
+      { desc: "Targetmu memiliki senjata!", items: ["lookout"] },
+      { desc: "Targetmu memiliki senjata!", items: ["escort", "consort"],
+      { desc: "Targetmu memiliki senjata!", items: ["doctor", "serial-killer", "disguiser"] },
+      { desc: "Targetmu memiliki senjata!", items: ["investigator", "consigliere", "mayor", "tracker"] },
+      { desc: "Targetmu memiliki senjata!", items: ["bodyguard", "godfather", "arsonist"] }
     ];
-    
+
     for (let i = 0; i < pairList.length; i++) {
-      for (let u = 0; u < pairList[i].length; u++) {
-        if (roleName === pairList[i][u]) {
-          text += pairList[i].join(", ");
+      for (let u = 0; u < pairList[i].items.length; u++) {
+        if (roleName === pairList[i].items[u]) {
+          text += pairList[i].desc + " Targetmu bisa "; //kasih \n\n ?
+          pairList[i].items.forEach((item, index) => {
+            text += item;
+            if (index == pairList[i].items.length - 2) {
+              text += " atau ";
+            } else {
+              text += ", ";
+            }
+          })
           return text;
         }
       }
     }
   },
-  
+
   getModeList: function() {
     let modeList = [
       "vampire",
