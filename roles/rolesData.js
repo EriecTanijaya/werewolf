@@ -83,7 +83,7 @@ const roles = [
   {
     name: "villager",
     description:
-      "Kamu adalah warga (luar)biasa, tugasmu itu cari tau siapa werewolf, dan gantungkan werewolfnya",
+      "Kamu adalah warga (luar)biasa, tugasmu itu menggantung penjahat",
     team: "villager",
     canKill: false,
     emoji: {
@@ -97,7 +97,7 @@ const roles = [
   {
     name: "vampire",
     description:
-      "Kamu bukan dipihak warga atau werewolf, misi kamu gantung werewolf dan membuat semua warga menjadi vampire.",
+      "Kamu adalah makhluk yang bisa mengubah warga menjadi Vampire, misimu mengubah semua warga menjadi Vampire",
     skillText: "Vampire, pilih siapa yang ingin di ubah menjadi vampire",
     team: "vampire",
     cmdText: "/skill",
@@ -328,7 +328,7 @@ const roles = [
   {
     name: "spy",
     description:
-      "Kamu adalah warga yang bisa mengetahui siapa saja yang dikunjungi Werewolf saat malam dan menyadap suatu orang",
+      "Kamu adalah warga yang bisa mengetahui siapa saja yang dikunjungi Mafia saat malam dan menyadap suatu orang",
     skillText: "Spy, pilih siapa yang mau kamu sadap",
     cmdText: "/skill",
     team: "villager",
@@ -360,32 +360,32 @@ const roles = [
   {
     name: "framer",
     description:
-      "Kamu adalah anggota Werewolf yang bisa menjebak seorang warga pada malam hari agar warga tersebut terlihat bersalah jika di cek",
+      "Kamu adalah anggota Mafia yang bisa menjebak seorang warga pada malam hari agar warga tersebut terlihat bersalah jika di cek",
     skillText: "Framer, pilih siapa yang mau dijebak",
     cmdText: "/skill",
-    team: "werewolf",
+    team: "mafia",
     canKill: false,
     emoji: {
       team: "🤵",
       self: "🎞️"
     },
-    type: "Werewolf Deception",
+    type: "Mafia Deception",
     iconUrl:
       "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/film-frames_1f39e.png"
   },
   {
     name: "disguiser",
     description:
-      "Kamu adalah anggota Werewolf yang bisa mengimitasi nama role seorang warga, dan jika mati yang terlihat role mu adalah role yang kamu imitasi",
+      "Kamu adalah anggota Mafia yang bisa mengimitasi nama role seorang warga, dan jika mati yang terlihat role mu adalah role yang kamu imitasi",
     skillText: "Disguiser, pilih siapa yang mau imitasi",
     cmdText: "/skill",
-    team: "werewolf",
+    team: "mafia",
     canKill: false,
     emoji: {
       team: "🤵",
       self: "🎭"
     },
-    type: "Werewolf Deception",
+    type: "Mafia Deception",
     disguiseAs: "",
     iconUrl:
       "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/performing-arts_1f3ad.png"
