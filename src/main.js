@@ -1702,9 +1702,7 @@ module.exports = {
       }
     }
 
-    /// Werewolf Action
-
-    let werewolfRampageTargetIndexes = [];
+    /// Juggernaut Action
     for (let i = 0; i < players.length; i++) {
       let doer = players[i];
       let roleName = doer.role.name;
@@ -1720,6 +1718,98 @@ module.exports = {
 
           continue;
         } else {
+          let werewolfRampageTargetIndexes = [];
+          let rampagePlaceIndex = targetIndex;
+
+          if (i != targetIndex) {
+            werewolfRampageTargetIndexes.push(targetIndex);
+            let visitor = {
+              name: doer.name,
+              role: doer.role
+            };
+            this.group_session.players[targetIndex].visitors.push(visitor);
+
+            this.group_session.players[i].message +=
+              "👣 Kamu ke rumah " +
+              players[targetIndex].name +
+              " dan RAMPAGE di rumahnya" +
+              "\n\n";
+          } else {
+            this.group_session.players[i].message +=
+              "👣 Kamu diam di rumah dan akan menyerang siapa yang datang" +
+              "\n\n";
+          }
+
+          for (let i = 0; i < players.length; i++) {
+            let visitor = players[i];
+
+            if (visitor == doer) continue;
+
+            if (visitor.status !== "alive") continue;
+
+            if (visitor.blocked) continue;
+
+            if (visitor.target.index != i && visitor.target.index !== -1) {
+              if (visitor.target.index === rampagePlaceIndex) {
+                // hax mafia kalo yang pergi itu mafioso
+                if (visitor.role.name === "godfather") {
+                  if (mafiaDoerIndex !== i) continue;
+                }
+
+                werewolfRampageTargetIndexes.push(i);
+              }
+            }
+          }
+
+          // Werewolf Killing Action
+          for (let u = 0; u < werewolfRampageTargetIndexes.length; u++) {
+            let targetIndex = werewolfRampageTargetIndexes[u];
+            let targetRoleName = players[targetIndex].role.name;
+
+            this.group_session.players[i].message +=
+              "💡 Kamu menyerang seseorang!" + "\n\n";
+
+            if (players[targetIndex].bugged) {
+              spyBuggedInfo[targetIndex] +=
+                "🔍 Target kamu di serang Werewolf!" + "\n\n";
+            }
+
+            this.group_session.players[targetIndex].message +=
+              "🐺 Kamu diserang " + roleName + "!" + "\n\n";
+
+            this.group_session.players[targetIndex].attacked = true;
+
+            let attacker = {
+              index: i,
+              name: doer.name,
+              role: doer.role,
+              deathNote: doer.deathNote,
+              countered: false
+            };
+
+            this.group_session.players[targetIndex].attackers.push(attacker);
+          }
+        }
+      }
+    }
+    
+    /// Werewolf Action
+    for (let i = 0; i < players.length; i++) {
+      let doer = players[i];
+      let roleName = doer.role.name;
+      let status = doer.status;
+      let targetIndex = doer.target.index;
+
+      if (roleName === "werewolf" && status === "alive") {
+        if (!this.group_session.isFullMoon) continue;
+
+        if (doer.target.index === -1) {
+          this.group_session.players[i].message +=
+            "💡 Kamu tidak menggunakan skill mu" + "\n\n";
+
+          continue;
+        } else {
+          let werewolfRampageTargetIndexes = [];
           let rampagePlaceIndex = targetIndex;
 
           if (i != targetIndex) {

@@ -1,9 +1,10 @@
 TODO
-- full moon itu malam yang genap
-
-- werewolf ada immune dari basic attack
-
-- juggernaut boi, ada private prop untuk cek level up skillnya, tiap skill ada improvement!
+- juggernaut skillLevel
+  - 0 : default, skill hanya bisa pas bulan purnama
+  - 1 : bisa bunuh tiap malam
+  - 2 : ada basic defense
+  - 3 : rampage di rumah org, kalau ga ada pake skill ga rampage
+  - 4 : attacknya rampage dan gak bisa di stop, tapi bisa di kill bodyguard dan trapper
 
 - buat list investigator punya result kalau role role udah siap (last!);
 
