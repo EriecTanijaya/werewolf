@@ -373,12 +373,12 @@ module.exports = {
       value: 1
     };
 
-    if (roleName === "alpha-werewolf") {
+    if (roleName === "godfather") {
       this.group_session.players[index].target.value++;
     }
 
     /// Special role communication
-    if (roleTeam === "werewolf" || roleTeam === "vampire") {
+    if (roleTeam === "mafia" || roleTeam === "vampire") {
       let chatBox = [];
       let text = skillText.response(doer, true);
       let message = {
@@ -386,9 +386,9 @@ module.exports = {
         text: text
       };
 
-      if (roleTeam === "werewolf") {
-        chatBox = this.group_session.werewolfChat;
-        this.group_session.werewolfChat.push(message);
+      if (roleTeam === "mafia") {
+        chatBox = this.group_session.mafiaChat;
+        this.group_session.mafiaChat.push(message);
       } else if (roleTeam === "vampire") {
         chatBox = this.group_session.vampireChat;
         this.group_session.vampireChat.push(message);
@@ -466,11 +466,11 @@ module.exports = {
       }
     };
 
-    if (roleTeam === "werewolf" || roleTeam === "vampire") {
+    if (roleTeam === "mafia" || roleTeam === "vampire") {
       let nightNews =
         "\n\n" + "📣 Yang berada di team " + roleTeam + " : " + "\n";
       let teammates = "";
-      if (roleTeam === "werewolf") {
+      if (roleTeam === "mafia") {
         // untuk role team yg ada banyak role name
         teammates = this.getNamesByTeam(roleTeam, true);
       } else {
@@ -507,7 +507,7 @@ module.exports = {
     if (state !== "day" && state !== "vote") {
       let text = "";
       /// Special Role Personal chat reminder
-      if (roleTeam === "werewolf" || roleTeam === "vampire") {
+      if (roleTeam === "mafia" || roleTeam === "vampire") {
         text +=
           "💡 Kamu bisa chat sama sesama team dengan cmd '/c <kata-yang ingin disampaikan>'" +
           "\n";
@@ -851,7 +851,7 @@ module.exports = {
       return this.replyText("💡 Kamu sudah mati");
     }
 
-    if (roleTeam !== "werewolf" && roleTeam !== "vampire") {
+    if (roleTeam !== "mafia" && roleTeam !== "vampire") {
       if (roleName !== "vampire-hunter") {
         return this.replyText(
           "💡 Team " + roleTeam + " gak ada komunikasi malam"
@@ -862,7 +862,7 @@ module.exports = {
     let chatBox = [];
 
     if (roleTeam === "werewolf") {
-      chatBox = this.group_session.werewolfChat;
+      chatBox = this.group_session.mafiaChat;
     } else if (roleTeam === "vampire") {
       chatBox = this.group_session.vampireChat;
     } else if (roleName === "vampire-hunter") {
@@ -922,7 +922,7 @@ module.exports = {
     };
 
     if (roleTeam === "werewolf") {
-      this.group_session.werewolfChat.push(message);
+      this.group_session.mafiaChat.push(message);
     } else if (roleTeam === "vampire") {
       this.group_session.vampireChat.push(message);
 
@@ -1001,11 +1001,11 @@ module.exports = {
     let can = false;
 
     let cantTargetItSelf = [
-      "alpha-werewolf",
-      "werewolf-cub",
+      "godfather",
+      "mafioso",
       "escort",
-      "sorcerer",
-      "seer",
+      "consigliere",
+      "investigator",
       "vampire",
       "vampire-hunter",
       "vigilante",
