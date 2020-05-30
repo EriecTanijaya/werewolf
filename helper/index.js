@@ -27,8 +27,16 @@ module.exports = {
     
     if (goodCount === 0) {
       text += "Kota ini sudah terlalu jahat untuk menemukan siapa yang baik";
-    } else if (evilCount === 2 && goodCount === 0) {
-      
+    } else {
+      if (isFullMoon) {
+        
+      } else {
+        if (evilCount === 2 && goodCount === 0) {
+          text += "Kota ini terlalu kecil untuk menemukan siapa penjahatnya dengan akurat";
+        } else {
+          
+        }
+      }
     }
     
   },
