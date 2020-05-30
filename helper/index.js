@@ -1,4 +1,8 @@
 module.exports = {
+  getPsychicResult: function() {
+    
+  },
+  
   getInvestigatorResult: function(roleName) {
     let text = "🕵️ ";
     let pairList = [
