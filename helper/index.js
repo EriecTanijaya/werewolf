@@ -1,5 +1,5 @@
 module.exports = {
-  getPsychicResult: function(players, psychicIndex) {
+  getPsychicResult: function(players, psychicIndex, isFullMoon) {
     let text = "🔮 ";
     let goodTeamList = ["villager", "guardian-angel", "amnesiac"];
     let allAlivePlayers = [];
@@ -26,7 +26,9 @@ module.exports = {
     })
     
     if (goodCount === 0) {
-      text += "Kota ini sudah terlalu jahat untuk mene";
+      text += "Kota ini sudah terlalu jahat untuk menemukan siapa yang baik";
+    } else if (evilCount === 2 && goodCount === 0) {
+      
     }
     
   },
