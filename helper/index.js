@@ -1,7 +1,20 @@
 module.exports = {
   getPsychicResult: function(players) {
     let text = "🔮 ";
-    let 
+    let goodTeamList = ["villager", "guardian-angel", "amnesiac"];
+    let allAlivePlayers = [];
+    players.forEach(item => {
+      if (item.status === "alive") {
+        let player = {
+          name: item.name,
+          team: item.role.team
+        }
+        allAlivePlayers.push(player);
+      }
+    })
+    
+    let goodCount = 0;
+    let evilCount = 0;
   },
   
   getInvestigatorResult: function(roleName) {
