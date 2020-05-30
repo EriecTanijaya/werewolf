@@ -1,6 +1,7 @@
 module.exports = {
-  getPsychicResult: function() {
-    
+  getPsychicResult: function(players) {
+    let text = "🔮 ";
+    let 
   },
   
   getInvestigatorResult: function(roleName) {
