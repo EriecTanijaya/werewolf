@@ -1,9 +1,9 @@
 module.exports = {
-  getPsychicResult: function(players) {
+  getPsychicResult: function(players, psychicIndex) {
     let text = "🔮 ";
     let goodTeamList = ["villager", "guardian-angel", "amnesiac"];
     let allAlivePlayers = [];
-    players.forEach(item => {
+    players.forEach((item, index) => {
       if (item.status === "alive") {
         let player = {
           name: item.name,
@@ -13,8 +13,20 @@ module.exports = {
       }
     })
     
+    allAlivePlayers = this.shuffleArray(allAlivePlayers);
+    
     let goodCount = 0;
     let evilCount = 0;
+    allAlivePlayers.forEach(item => {
+      if (goodTeamList.includes(item.team)) {
+        goodCount++;
+      } else {
+        evilCount++;
+      }
+    })
+    
+    if ()
+    
   },
   
   getInvestigatorResult: function(roleName) {
