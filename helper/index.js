@@ -4,7 +4,7 @@ module.exports = {
     let goodTeamList = ["villager", "guardian-angel", "amnesiac"];
     let allAlivePlayers = [];
     players.forEach((item, index) => {
-      if (item.status === "alive") {
+      if (item.status === "alive" && index !== psychicIndex) {
         let player = {
           name: item.name,
           team: item.role.team
@@ -25,7 +25,9 @@ module.exports = {
       }
     })
     
-    if ()
+    if (goodCount === 0) {
+      text += "Kota ini sudah terlalu jahat untuk mene";
+    }
     
   },
   
