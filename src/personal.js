@@ -1082,7 +1082,8 @@ module.exports = {
       "tracker",
       "disguiser",
       "framer",
-      "juggernaut`"
+      "juggernaut",
+      "amnesiac"
     ];
 
     if (cantTargetItSelf.includes(roleName)) {

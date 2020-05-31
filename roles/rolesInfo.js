@@ -381,7 +381,9 @@ module.exports = {
           flex_text.body.text +=
             "Orang yang lupa dengan siapa dirinya. Dapat mengingat siapa dirinya dengan memilih orang yang telah mati. ";
           flex_text.body.text +=
-            "Jika Amnesiac telah ingat role nya, maka akan di beritahu secara publik";
+            "Jika Amnesiac telah ingat role nya, maka akan di beritahu secara publik. ";
+          flex_text.body.text +=
+            "Jika Amnesiac mengingat seorang Disguiser yang sedang mengimitasi, maka dia akan menjadi Disguiser."
           break;
 
         default:

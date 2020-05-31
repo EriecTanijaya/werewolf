@@ -2,14 +2,13 @@ TODO
 
 - Note push commit
   - initial psychic role (31/05/2020)
+  - inital amnesiac role (31/05/2020)
+  -
 
 - susah ini , ada sistem buat cek visitor, cek visitor attack atau engga.
 - role that will added if possible :
   - trapper masih belum tau gimana mechanismnya
   - ambusher, passive visit(anjir skip) ini buat visitor di attack, susah cok
-  - amnesiac
-    - hanya bisa pake skill kek retri(sama orang mati)
-    - di announce ke publik : Amnesiac baru teringat bahwa dia adalah seorang 'nama role'
   - guardiana angle ribet
 
 - executioner bisa ada target yang sama, tapi skrng belum support lebih dari 1 exe, kalau ada sistem lebih modular, bisa ada role amnesiac
@@ -41,7 +40,6 @@ console.log(`town ${townNeedCount}, ww ${werewolfNeedCount}, neutral ${neutralNe
   - bisa ada role amnesiac
   - sekarang neutral dh bisa multiple, tapi mereka ga tau siapa sesama mereka
 - sekarang udah bisa custom, jadi di getRandomRoleSet bnyak tugas nih
-- kalau pemain dah rame, adain **role investigator**, dimana dia miripin aj sama investigator di TOS
 
 - ROLE YANG BELUM BISA DUPLICATE
 

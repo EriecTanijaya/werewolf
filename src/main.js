@@ -3775,7 +3775,9 @@ module.exports = {
             let target = players[targetIndex];
             let targetRoleName = target.role.name;
 
-            if (target.)
+            if (target.role.isDisguiseAs) {
+              targetRoleName = "disguiser";
+            }
             
             let roleData = this.getRoleData(targetRoleName);
             this.group_session.players[i].role = roleData;
@@ -3794,7 +3796,7 @@ module.exports = {
               "\n\n";
 
             allAnnouncement +=
-              "Amnesiac mengingat bahwa dia adalah " +
+              "🤕 Amnesiac mengingat bahwa dia adalah " +
               targetRoleName +
               "!" +
               "\n\n";
@@ -4227,11 +4229,11 @@ module.exports = {
       table_body[i].contents[0].text += num + ".";
       table_body[i].contents[1].text += players[i].name;
 
-      // if (players[i].status === "death") {
-      //   table_body[i].contents[1].text += " (💀)";
-      // } else {
-      //   table_body[i].contents[1].text += " (😃)";
-      // }
+      if (players[i].status === "death") {
+        table_body[i].contents[1].text += " (💀)";
+      } else {
+        table_body[i].contents[1].text += " (😃)";
+      }
 
       if (roleTeam === whoWin) {
         table_body[i].contents[2].text = "win";
@@ -4241,6 +4243,8 @@ module.exports = {
           this.handleJesterWin(i, table_body[i].contents[2], surviveTeam);
         } else if (roleName === "survivor") {
           this.handleSurvivorWin(i, table_body[i].contents[2], surviveTeam);
+        } else if (roleName === "amnesiac") {
+          this.handleAmnesiacWin(i, table_body[i].contents[2], surviveTeam);
         } else if (roleName === "executioner") {
           this.handleExecutionerWin(i, table_body[i].contents[2], surviveTeam);
         } else if (whoWin === "draw") {
@@ -4371,6 +4375,15 @@ module.exports = {
       tableColumn.text = "lose";
     }
   },
+  
+  handleAmnesiacWin: function(index, tableColumn, surviveTeam) {
+    if (this.group_session.players[index].status === "alive") {
+      tableColumn.text = "win";
+      surviveTeam.push("amnesiac 🤕");
+    } else {
+      tableColumn.text = "lose";
+    }
+  },
 
   handleExecutionerWin: function(index, tableColumn, surviveTeam) {
     if (this.group_session.players[index].role.isTargetLynched) {
@@ -4388,7 +4401,8 @@ module.exports = {
     while (true) {
       let targetIndex = helper.getRandomInt(0, maxIndex);
       let isTownie = false;
-      if (players[targetIndex].role.team === "villager") {
+      let team = players[targetIndex].role.team;
+      if (team === "villager" && players[targetIndex].status === "alive") {
         isTownie = true;
       }
       if (targetIndex !== exeIndex && isTownie) {

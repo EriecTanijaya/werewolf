@@ -84,7 +84,7 @@ module.exports = {
         desc: "Targetmu suka menutup diri!",
         items: ["survivor", "vampire-hunter", "psychic"]
       },
-      { desc: "Targetmu mengetahui rahasia terbesarmu!", items: ["spy"] },
+      { desc: "Targetmu mengetahui rahasia terbesarmu!", items: ["spy", "guardian-angel"] },
       {
         desc: "Targetmu menunggu waktu yang tepat untuk beraksi!",
         items: ["sheriff", "executioner", "werewolf"]
@@ -93,7 +93,7 @@ module.exports = {
         desc: "Targetmu mungkin tidak seperti yang dilihat!",
         items: ["framer", "vampire", "jester"]
       },
-      { desc: "Targetmu diam didalam bayangan!", items: ["lookout"] },
+      { desc: "Targetmu diam didalam bayangan!", items: ["lookout", "amnesiac"] },
       {
         desc: "Targetmu ahli dalam mengganggu yang lain!",
         items: ["escort", "consort"]
