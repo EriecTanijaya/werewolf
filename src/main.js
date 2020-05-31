@@ -757,11 +757,12 @@ module.exports = {
     if (process.env.TEST === "true") {
       roles = [
         "executioner",
-        "investigator",
+        "guardian-angel",
         "doctor",
         "mafioso",
         "executioner",
-        "bodyguard"
+        "amnesiac",
+        "psychic"
       ];
     }
 
@@ -4176,7 +4177,12 @@ module.exports = {
       return this.replyText("💡 " + this.user_session.name + ", invalid vote");
     }
     
-    if (players[targetIndex].protec)
+    if (players[targetIndex].protected) {
+      let targetName = players[targetIndex].name;
+      let text = "💡 " + this.user_session.name + ", ";
+      text += targetName + " immune dari vote karena perlindungan Guardian Angel!";
+      return this.replyText(text);
+    }
 
     let text = "☝️ " + this.user_session.name;
 

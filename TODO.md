@@ -3,7 +3,7 @@ TODO
 - Note push commit
   - initial psychic role (31/05/2020)
   - inital amnesiac role (31/05/2020)
-  -
+  - initial guardian angel role (31/05/2020)
   
 guardian angel dari amnesiac baru belum buat logic nya buat cari target utk di protect
 - ga semua role bisa jadi target guardian angel

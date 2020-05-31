@@ -384,7 +384,7 @@ module.exports = {
             "Jika Amnesiac mengingat seorang Disguiser yang sedang mengimitasi, maka dia akan menjadi Disguiser.";
           break;
 
-        case "guardian-angel":
+        case "guardian angel":
           flex_text.header.text = "😇 Guardian Angel";
           flex_text.body.text += "Type: Neutral" + "\n\n";
           flex_text.body.text +=
