@@ -757,7 +757,16 @@ module.exports = {
     if (process.env.TEST === "true") {
       roles = [
         "psychic",
-        "mafioso"
+        "mafioso",
+        "investigator",
+        "doctor",
+        "escort",
+        "juggernaut",
+        "sheriff",
+        "guardian-angel",
+        "werewolf",
+        "bodyguard",
+        "consigliere"
       ];
     }
 
@@ -4399,6 +4408,8 @@ module.exports = {
           this.handleAmnesiacWin(i, table_body[i].contents[2], surviveTeam);
         } else if (roleName === "executioner") {
           this.handleExecutionerWin(i, table_body[i].contents[2], surviveTeam);
+        } else if (roleName === "guardian-angel") {
+          this.handleGuardianAngelWin(i, table_body[i].contents[2], surviveTeam);
         } else if (whoWin === "draw") {
           table_body[i].contents[2].text = "draw";
         } else {
@@ -4544,6 +4555,11 @@ module.exports = {
     } else {
       tableColumn.text = "lose";
     }
+  },
+  
+  handleGuardianAngelWin: function(index, tableColumn, surviveTeam) {
+      tableColumn.text = "win";
+      surviveTeam.push("guardian angel 😇");
   },
 
   getExecutionerTargetIndex: function(exeIndex, isAmnesiac) {
