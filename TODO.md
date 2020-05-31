@@ -7,7 +7,9 @@ TODO
 - role that will added if possible :
   - trapper masih belum tau gimana mechanismnya
   - ambusher, passive visit(anjir skip) ini buat visitor di attack, susah cok
-  - amnesiac ribet
+  - amnesiac
+    - hanya bisa pake skill kek retri(sama orang mati)
+    - di announce ke publik : Amnesiac baru teringat bahwa dia adalah seorang 'nama role'
   - guardiana angle ribet
 
 - executioner bisa ada target yang sama, tapi skrng belum support lebih dari 1 exe, kalau ada sistem lebih modular, bisa ada role amnesiac
