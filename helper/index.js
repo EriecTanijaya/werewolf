@@ -41,9 +41,10 @@ module.exports = {
             result.push(player.name);
           }
           
-          let total = evilCountNeeded + goodCountNeeded;
-          if (total === 0) {
-            
+          let totalNeeded = evilCountNeeded + goodCountNeeded;
+          if (totalNeeded === 0) {
+            text += "Salah satu dari " + result.join(", ") + " adalah orang baik";
+            break;
           }
         }
       } else {
