@@ -44,6 +44,8 @@ module.exports = {
         return this.alertCommand();
       case "/vest":
         return this.vestCommand();
+      case "/protect":
+        return this.protectCommand();
       case "/status":
         return this.statCommand();
       case "/dnote":
@@ -500,8 +502,8 @@ module.exports = {
     }
 
     if (player.status === "death" || player.willSuicide) {
-      /// sejauh ini hanya jester yg bisa pake skill pas mati
-      if (roleName !== "jester") {
+      /// Yang bisa skill walaupun dah mati
+      if (roleName !== "jester" || roleName !== "guardian-angel") {
         return this.replyFlex(flex_text);
       }
     }
@@ -605,6 +607,12 @@ module.exports = {
         } else {
           return this.replyFlex(flex_text);
         }
+      } else if (roleName === "guardian-angel") {
+        if (player.role.protection > 0) {
+          return this.guardianAngelSkill(flex_text);
+        } else {
+          return this.replyFlex(flex_text);
+        }
       }
 
       // special role private role prop reminder
@@ -677,6 +685,32 @@ module.exports = {
 
     return this.replyFlex(flex_text);
   },
+  
+  guardianAngelSkill: function(flex_text) {
+    let skillText = this.getRoleSkillText("guardian-angel");
+    let players = this.group_session.players;
+    let cmdText = this.getRoleCmdText("guardian-angel");
+    let index = this.indexOfPlayer();
+
+    flex_text.body.text += "\n\n" + skillText + "\n\n";
+
+    flex_text.body.text += "⚔️ Protectionmu sisa " + players[index].role.protection;
+    
+    let targetIndex = players[index].role.mustProtectIndex;
+    
+
+    flex_text.footer = {
+      buttons: [
+        {
+          action: "postback",
+          label: "Protect " + targetName + "!",
+          data: cmdText + 
+        }
+      ]
+    };
+
+    return this.replyFlex(flex_text);
+  },
 
   veteranSkill: function(flex_text) {
     let skillText = this.getRoleSkillText("veteran");
@@ -722,6 +756,45 @@ module.exports = {
     };
 
     return this.replyFlex(flex_text);
+  },
+  
+  protectCommand: function() {
+    let index = this.indexOfPlayer();
+    let players = this.group_session.players;
+    let state = this.group_session.state;
+
+    if (state === "day") {
+      return this.replyText("💡 Bukan saatnya menggunakan skill");
+    }
+
+    let roleName = players[index].role.name;
+
+    if (roleName !== "guardian-angel") {
+      return this.replyText("💡 Role mu bukan Guardian Angel");
+    }
+
+    if (players[index].role.protection === 0) {
+      return this.replyText("💡 Kamu sudah tidak memiliki protection yang tersisa");
+    }
+    
+    let targetIndex = this.args[1];
+    
+    this.group_session.players[index].target.index = targetIndex;
+
+    let text = "";
+    let msg = [];
+
+    let doer = {
+      name: players[index].name,
+      roleName: roleName,
+      targetName: players[targetIndex].name,
+      selfTarget: false,
+      changeTarget: false
+    };
+    text = skillText.response(doer, null);
+    msg = [text];
+
+    return this.replyText(msg);
   },
 
   alertCommand: function() {
@@ -1083,7 +1156,8 @@ module.exports = {
       "disguiser",
       "framer",
       "juggernaut",
-      "amnesiac"
+      "amnesiac",
+      "guardian-angel"
     ];
 
     if (cantTargetItSelf.includes(roleName)) {

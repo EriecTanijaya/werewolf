@@ -447,6 +447,11 @@ module.exports = {
             targetName;
         }
         break;
+
+      case "guardian-angel":
+        text += "⚔️ " + subjectText;
+        text += " memutuskan untuk menjaga " + targetName;
+        break;
     }
 
     return text;
