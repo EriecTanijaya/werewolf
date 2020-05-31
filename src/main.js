@@ -860,7 +860,8 @@ module.exports = {
     this.group_session.players.forEach((item, index) => {
       // all player regardless alive or not
       item.message = "";
-
+      item.blocked = false;
+      
       // only alive player
       if (item.status === "alive") {
         item.target = {
@@ -872,7 +873,6 @@ module.exports = {
         item.targetVoteIndex = -1;
         item.vampireBited = false;
         item.visitors = [];
-        item.blocked = false;
         item.attackers = [];
         item.protectors = [];
         item.intercepted = false;
@@ -2285,6 +2285,8 @@ module.exports = {
               let target = players[targetIndex];
               let targetName = target.name;
 
+              this.group_session.players[i].role.protection--;
+              
               this.group_session.players[targetIndex].protected = true;
 
               let protector = {
@@ -3042,6 +3044,21 @@ module.exports = {
                 
                 this.group_session.players[protector.index].message +=
                   "💡 " + players[i].name + " diserang semalam!" + "\n\n";
+                
+                if (isHaunted) {
+                  this.group_session.players[protector.index].message +=
+                    "💡 " + players[i].name + " gagal dilindungi!" + "\n\n";
+                  
+                  this.group_session.players[i].message +=
+                    "⚔️ Guardian Ange" + "\n\n";
+                  
+                  continue;
+                }
+                
+                this.group_session.players[i].doused = false;
+                
+                this.group_session.players[protector.index].message +=
+                  "💡 " + players[i].name + " berhasil dilindungi!" + "\n\n";
 
                 if (players[i].bugged) {
                   spyBuggedInfo[i] +=
