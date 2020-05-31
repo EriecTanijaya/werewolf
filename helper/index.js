@@ -29,8 +29,19 @@ module.exports = {
       text += "Kota ini sudah terlalu jahat untuk menemukan siapa yang baik";
     } else {
       if (isFullMoon) {
-        
+        // 2 orang, satunya baik
+        let result = [];
+        let count = 0;
+        for (let i = 0; i < allAlivePlayers.length; i++) {
+          let player = allAlivePlayers[i];
+          if (count === 
+          if (goodTeamList.includes(player.team)) {
+            result.push(player.name);
+            count++;
+          }
+        }
       } else {
+        // 3 org, 1 orang nya jahat
         if (evilCount === 2 && goodCount === 0) {
           text += "Kota ini terlalu kecil untuk menemukan siapa penjahatnya dengan akurat";
         } else {
