@@ -41,8 +41,8 @@ module.exports = {
     let goodCountNeeded = 1;
     let evilCountNeeded = 1;
 
-    if (!isFullMoon) goodCount++;
-
+    if (!isFullMoon) goodCountNeeded++;
+    
     for (let i = 0; i < allAlivePlayers.length; i++) {
       let player = allAlivePlayers[i];
       if (goodTeamList.includes(player.team)) {

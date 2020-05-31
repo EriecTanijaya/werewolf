@@ -756,13 +756,8 @@ module.exports = {
     /// test specific role cp
     if (process.env.TEST === "true") {
       roles = [
-        "executioner",
-        "guardian-angel",
-        "doctor",
-        "mafioso",
-        "executioner",
-        "amnesiac",
-        "psychic"
+        "psychic",
+        "mafioso"
       ];
     }
 
