@@ -36,9 +36,14 @@ module.exports = {
         for (let i = 0; i < allAlivePlayers.length; i++) {       
           let player = allAlivePlayers[i];
           if (goodTeamList.includes(player.team)) {
-            result.push(player.name);
+            if (goodCountNeeded) {
+              result.push(player.name);
+              goodCountNeeded--;
+            }
           } else {
-            result.push(player.name);
+            if (evilCountNeeded) {
+              result.push(player.name);  
+            }
           }
           
           let totalNeeded = evilCountNeeded + goodCountNeeded;
