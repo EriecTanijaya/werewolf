@@ -3273,24 +3273,17 @@ module.exports = {
       let doer = players[i];
 
       if (doer.role.name === "psychic" && doer.status === "alive") {
-        if (doer.target.index === -1) {
+        if (doer.blocked === true) {
           this.group_session.players[i].message +=
-            "💡 Kamu tidak menggunakan skill mu" + "\n\n";
+            "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." +
+            "\n\n";
 
           continue;
         } else {
-          if (doer.blocked === true) {
-            this.group_session.players[i].message +=
-              "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." +
-              "\n\n";
+          let isFullMoon = this.group_session.isFullMoon;
+          let psychicResult = helper.getPsychicResult(players, i, isFullMoon);
 
-            continue;
-          } else {
-            let isFullMoon = this.group_session.isFullMoon;
-            let psychicResult = helper.getPsychicResult(players, i, isFullMoon);
-
-            this.group_session.players[i].message += psychicResult + "\n\n";
-          }
+          this.group_session.players[i].message += psychicResult + "\n\n";
         }
       }
     }
@@ -3435,7 +3428,8 @@ module.exports = {
                 this.group_session.players[j].role.isTargetLynched = true;
 
                 this.group_session.players[j].message +=
-                  "💡 Targetmu mati pas malam dibunuh. Kamu menjadi Jester" + "\n\n";
+                  "💡 Targetmu mati pas malam dibunuh. Kamu menjadi Jester" +
+                  "\n\n";
 
                 let roleData = this.getRoleData("jester");
                 this.group_session.players[j].role = roleData;
@@ -3446,15 +3440,19 @@ module.exports = {
           // guardian angel
           for (let j = 0; j < players.length; j++) {
             let roleName = players[j].role.name;
-            
-            if (roleName === "guardian-angel" && players[j].status === "alive") {
+
+            if (
+              roleName === "guardian-angel" &&
+              players[j].status === "alive"
+            ) {
               if (players[j].role.mustProtectIndex === i) {
                 let roleData = this.getRoleData("survivor");
                 this.group_session.players[i].role = roleData;
                 this.group_session.players[i].role.vest = 0;
 
                 this.group_session.players[j].message +=
-                  "💡 Targetmu mati, sekarang kamu hanyalah Survivor tanpa vest" + "\n\n";
+                  "💡 Targetmu mati, sekarang kamu hanyalah Survivor tanpa vest" +
+                  "\n\n";
               }
             }
           }
@@ -4176,11 +4174,12 @@ module.exports = {
     if (!players[targetIndex]) {
       return this.replyText("💡 " + this.user_session.name + ", invalid vote");
     }
-    
+
     if (players[targetIndex].protected) {
       let targetName = players[targetIndex].name;
       let text = "💡 " + this.user_session.name + ", ";
-      text += targetName + " immune dari vote karena perlindungan Guardian Angel!";
+      text +=
+        targetName + " immune dari vote karena perlindungan Guardian Angel!";
       return this.replyText(text);
     }
 
