@@ -412,7 +412,7 @@ module.exports = {
           }
         }
         break;
-        
+
       case "juggernaut":
         if (isChangeTarget) {
           text +=
@@ -428,6 +428,23 @@ module.exports = {
             " memutuskan untuk menyerang " +
             targetName +
             " malam ini";
+        }
+        break;
+
+      case "amnesiac":
+        if (isChangeTarget) {
+          text +=
+            "🤕 " +
+            subjectText +
+            " berubah pikiran dan memutuskan untuk mengingat role " +
+            targetName +
+            " saja";
+        } else {
+          text +=
+            "🤕 " +
+            subjectText +
+            " memutuskan untuk mengingat role " +
+            targetName;
         }
         break;
     }

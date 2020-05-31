@@ -274,6 +274,11 @@ module.exports = {
       if (players[targetIndex].status === "alive") {
         return this.replyText("💡 Targetmu masih hidup");
       }
+    } else if (roleName === "amnesiac") {
+      if (players[targetIndex].status === "alive") {
+        let text = "💡 Kamu hanya bisa mengingat pemain yang telah mati";
+        return this.replyText(text);
+      }
     } else {
       if (players[targetIndex].status === "death") {
         return this.replyText("💡 Targetmu itu dah mati. Mau di apain?");
@@ -594,6 +599,12 @@ module.exports = {
             "🌓 Masih belum bulan purnama, kamu tidak membunuh pada malam ini.";
           return this.replyFlex(flex_text, text);
         }
+      } else if (roleName === "amnesiac") {
+        if (this.isSomeoneDeath()) {
+          return this.amnesiacSkill(flex_text);
+        } else {
+          return this.replyFlex(flex_text);
+        }
       }
 
       // special role private role prop reminder
@@ -617,6 +628,33 @@ module.exports = {
     let skillText = this.getRoleSkillText("retributionist");
     let players = this.group_session.players;
     let cmdText = this.getRoleCmdText("retributionist");
+
+    flex_text.body.text += "\n\n" + skillText;
+
+    flex_text.footer = {
+      buttons: []
+    };
+
+    let button = {};
+    players.forEach((item, index) => {
+      if (item.status === "death") {
+        button[index] = {
+          action: "postback",
+          label: item.name,
+          data: cmdText + " " + index
+        };
+
+        flex_text.footer.buttons.push(button[index]);
+      }
+    });
+
+    return this.replyFlex(flex_text);
+  },
+  
+  amnesiacSkill: function(flex_text) {
+    let skillText = this.getRoleSkillText("amnesiac");
+    let players = this.group_session.players;
+    let cmdText = this.getRoleCmdText("amnesiac");
 
     flex_text.body.text += "\n\n" + skillText;
 
