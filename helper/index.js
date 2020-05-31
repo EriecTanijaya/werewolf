@@ -8,13 +8,13 @@ module.exports = {
         let player = {
           name: item.name,
           team: item.role.team
-        }
+        };
         allAlivePlayers.push(player);
       }
-    })
-    
+    });
+
     allAlivePlayers = this.shuffleArray(allAlivePlayers);
-    
+
     let goodCount = 0;
     let evilCount = 0;
     allAlivePlayers.forEach(item => {
@@ -23,35 +23,40 @@ module.exports = {
       } else {
         evilCount++;
       }
-    })
-    
+    });
+
     if (goodCount === 0) {
       text += "Kota ini sudah terlalu jahat untuk menemukan siapa yang baik";
     } else {
       if (isFullMoon) {
         // 2 orang, satunya baik
         let result = [];
-        let count = 0;
-        for (let i = 0; i < allAlivePlayers.length; i++) {
+        let goodCountNeeded = 1;
+        let evilCountNeeded = 1;
+        for (let i = 0; i < allAlivePlayers.length; i++) {       
           let player = allAlivePlayers[i];
-          if (count === 
           if (goodTeamList.includes(player.team)) {
             result.push(player.name);
-            count++;
+          } else {
+            result.push(player.name);
+          }
+          
+          let total = evilCountNeeded + goodCountNeeded;
+          if (total === 0) {
+            
           }
         }
       } else {
         // 3 org, 1 orang nya jahat
         if (evilCount === 2 && goodCount === 0) {
-          text += "Kota ini terlalu kecil untuk menemukan siapa penjahatnya dengan akurat";
+          text +=
+            "Kota ini terlalu kecil untuk menemukan siapa penjahatnya dengan akurat";
         } else {
-          
         }
       }
     }
-    
   },
-  
+
   getInvestigatorResult: function(roleName) {
     let text = "🕵️ ";
     let pairList = [
@@ -251,7 +256,12 @@ module.exports = {
 
     roles.push("spy");
 
-    let neutralKillings = ["arsonist", "serial-killer", "werewolf", "juggernaut"];
+    let neutralKillings = [
+      "arsonist",
+      "serial-killer",
+      "werewolf",
+      "juggernaut"
+    ];
     roles.push(this.random(neutralKillings));
 
     roles.push(this.random(randomTowns));
