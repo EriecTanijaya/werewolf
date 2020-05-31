@@ -354,14 +354,13 @@ module.exports = {
             "Seorang kriminal yang kekuatannya makin bertambah tiap kali ia berhasil membunuh. ";
           flex_text.body.text +=
             "Jika berhasil membunuh sekali, dia bisa serang tiap malam. ";
-          flex_text.body.text +=
-            "Kedua kali, bisa kebal dari serangan biasa. ";
+          flex_text.body.text += "Kedua kali, bisa kebal dari serangan biasa. ";
           flex_text.body.text +=
             "Ketiga kali, bisa juga menyerang orang yang kerumah Targetnya. ";
           flex_text.body.text +=
             "Keempat kali, serangannya menembus perlindungan biasa. Tapi Bodyguard tetap bisa membunuhnya. ";
           break;
-          
+
         case "psychic":
           flex_text.header.text = "🔮 Psychic";
           flex_text.body.text += "Type: Town Investigate" + "\n\n";
@@ -371,10 +370,9 @@ module.exports = {
             "Pada bulan purnama ia dapat penglihatan 2 orang dan salah satu nya adalah orang baik. ";
           flex_text.body.text +=
             "Jika tidak bulan purnama, ia dapat penglihatan 3 orang dan salah satunya adalah orang jahat. ";
-          flex_text.body.text +=
-            "Orang baik adalah sesama warga dan survivor"; //amnesac, guardian angle juga baik
+          flex_text.body.text += "Orang baik adalah sesama warga dan survivor"; //amnesac, guardian angle juga baik
           break;
-          
+
         case "amnesiac":
           flex_text.header.text = "🤕 Amnesiac";
           flex_text.body.text += "Type: Neutral" + "\n\n";
@@ -383,7 +381,18 @@ module.exports = {
           flex_text.body.text +=
             "Jika Amnesiac telah ingat role nya, maka akan di beritahu secara publik. ";
           flex_text.body.text +=
-            "Jika Amnesiac mengingat seorang Disguiser yang sedang mengimitasi, maka dia akan menjadi Disguiser."
+            "Jika Amnesiac mengingat seorang Disguiser yang sedang mengimitasi, maka dia akan menjadi Disguiser.";
+          break;
+
+        case "guardian-angel":
+          flex_text.header.text = "😇 Guardian Angel";
+          flex_text.body.text += "Type: Neutral" + "\n\n";
+          flex_text.body.text +=
+            "Orang yang misinya adalah untuk melindungi Targetnya. ";
+          flex_text.body.text +=
+            "Jika targetnya mati, maka Guardian Angel akan berubah menjadi Survivor tanpa vest. ";
+          flex_text.body.text +=
+            "Protection dari Guardian Angel dapat me"
           break;
 
         default:
