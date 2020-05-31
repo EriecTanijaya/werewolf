@@ -6,6 +6,8 @@ TODO
   -
   
 guardian angel dari amnesiac baru belum buat logic nya buat cari target utk di protect
+- ga semua role bisa jadi target guardian angel
+- multiple guardian angel bisa ada sama target
 
 - susah ini , ada sistem buat cek visitor, cek visitor attack atau engga.
 - role that will added if possible :

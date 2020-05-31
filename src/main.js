@@ -793,6 +793,10 @@ module.exports = {
           item.role.targetLynchIndex = this.getExecutionerTargetIndex(index);
           item.role.isTargetLynched = false;
           break;
+
+        case "guardian-angel":
+          item.role.mustProtectIndex = this.getGuardianAngelTargetIndex(index);
+          break;
       }
     });
 
@@ -2254,6 +2258,9 @@ module.exports = {
         }
       }
     }
+    
+    /// Guardian Angel Action
+    // kasih prop temp protected, 
 
     /// Doctor Action
     for (let i = 0; i < players.length; i++) {
@@ -3778,15 +3785,36 @@ module.exports = {
             if (target.role.isDisguiseAs) {
               targetRoleName = "disguiser";
             }
-            
-            let roleData = this.getRoleData(targetRoleName);
-            this.group_session.players[i].role = roleData;
 
             if (targetRoleName === "executioner") {
-              this.group_session.players[
-                i
-              ].role.targetLynchIndex = this.getExecutionerTargetIndex(i);
-              this.group_session.players[i].role.isTargetLynched = false;
+              let neededTargetIndex = this.getExecutionerTargetIndex(i, true);
+              if (neededTargetIndex === -1) {
+                let roleData = this.getRoleData("jester");
+                this.group_session.players[i].role = roleData;
+              } else {
+                let roleData = this.getRoleData(targetRoleName);
+                this.group_session.players[i].role = roleData;
+
+                this.group_session.players[
+                  i
+                ].role.targetLynchIndex = neededTargetIndex;
+                this.group_session.players[i].role.isTargetLynched = false;
+              }
+            } else if (targetRoleName === "guardian-angel") {
+              let neededTargetIndex = this.getGuardianAngelTargetIndex(i, true);
+
+              if (neededTargetIndex === -1) {
+                let roleData = this.getRoleData("survivor");
+                this.group_session.players[i].role = roleData;
+                this.group_session.players[i].role.vest = 0;
+              } else {
+                let roleData = this.getRoleData(targetRoleName);
+                this.group_session.players[i].role = roleData;
+
+                this.group_session.players[
+                  i
+                ].role.mustProtectIndex = neededTargetIndex;
+              }
             }
 
             this.group_session.players[i].message +=
@@ -4117,10 +4145,19 @@ module.exports = {
     // executioner
     for (let i = 0; i < players.length; i++) {
       if (players[i].role.name === "executioner") {
-        for (let u = 0; u < players.length; u++) {
-          if (players[i].role.targetLynchIndex === u) {
-            this.group_session.players[i].role.isTargetLynched = true;
-          }
+        if (players[i].role.targetLynchIndex === lynchTarget.index) {
+          this.group_session.players[i].role.isTargetLynched = true;
+        }
+      }
+    }
+
+    // guardian angel
+    for (let i = 0; i < players.length; i++) {
+      if (players[i].role.name === "guardian-angel") {
+        if (players[i].role.mustProtectIndex === lynchTarget.index) {
+          let roleData = this.getRoleData("survivor");
+          this.group_session.players[i].role = roleData;
+          this.group_session.players[i].role.vest = 0;
         }
       }
     }
@@ -4375,7 +4412,7 @@ module.exports = {
       tableColumn.text = "lose";
     }
   },
-  
+
   handleAmnesiacWin: function(index, tableColumn, surviveTeam) {
     if (this.group_session.players[index].status === "alive") {
       tableColumn.text = "win";
@@ -4394,9 +4431,25 @@ module.exports = {
     }
   },
 
-  getExecutionerTargetIndex: function(exeIndex) {
+  getExecutionerTargetIndex: function(exeIndex, isAmnesiac) {
     let players = this.group_session.players;
     let maxIndex = players.length - 1;
+
+    if (isAmnesiac) {
+      let isThereTownie = false;
+      for (let i = 0; i < players.length; i++) {
+        let team = players[i].role.team;
+        if (team === "villager" && players[i].status === "alive") {
+          isThereTownie = true;
+        }
+      }
+
+      if (!isThereTownie) {
+        // langsung aja jadikan ke jester
+        let index = -1;
+        return index;
+      }
+    }
 
     while (true) {
       let targetIndex = helper.getRandomInt(0, maxIndex);
@@ -4406,6 +4459,46 @@ module.exports = {
         isTownie = true;
       }
       if (targetIndex !== exeIndex && isTownie) {
+        return targetIndex;
+      }
+    }
+  },
+
+  getGuardianAngelTargetIndex: function(guardianAngelIndex, isAmnesiac) {
+    let players = this.group_session.players;
+    let maxIndex = players.length - 1;
+
+    let prohibited = [
+      "jester",
+      "executioner",
+      "guardian-angel",
+      "bodyguard",
+      "vigilante"
+    ];
+
+    if (isAmnesiac) {
+      let isTargetAvailable = false;
+      for (let i = 0; i < players.length; i++) {
+        let roleName = players[i].role.name;
+        if (!prohibited.includes(roleName) && players[i].status === "alive") {
+          isTargetAvailable = true;
+        }
+      }
+
+      if (!isTargetAvailable) {
+        // langsung jadikan survivor tanpa vest
+        let index = -1;
+        return index;
+      }
+    }
+
+    while (true) {
+      let targetIndex = helper.getRandomInt(0, maxIndex);
+      let roleName = players[targetIndex].role.name;
+      if (
+        !prohibited.includes(roleName) &&
+        players[targetIndex].status === "alive"
+      ) {
         return targetIndex;
       }
     }

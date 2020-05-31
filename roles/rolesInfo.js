@@ -388,11 +388,15 @@ module.exports = {
           flex_text.header.text = "😇 Guardian Angel";
           flex_text.body.text += "Type: Neutral" + "\n\n";
           flex_text.body.text +=
-            "Orang yang misinya adalah untuk melindungi Targetnya. ";
+            "Orang yang misinya adalah untuk melindungi Targetnya. Guardian Angel dapat melindungi Targetnya walaupun sudah mati. ";
           flex_text.body.text +=
             "Jika targetnya mati, maka Guardian Angel akan berubah menjadi Survivor tanpa vest. ";
           flex_text.body.text +=
-            "Protection dari Guardian Angel dapat me"
+            "Protection dari Guardian Angel dapat melindungi nya dari serangan apapun dan ";
+          flex_text.body.text +=
+            "bisa menghilangkan efek siraman bensin Arsonist. ";
+          flex_text.body.text +=
+            "Saat Guardian Angel berhasil melidungi Targetnya, besoknya Target tersebut tidak bisa di vote. ";
           break;
 
         default:
