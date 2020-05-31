@@ -33,7 +33,7 @@ module.exports = {
         let result = [];
         let goodCountNeeded = 1;
         let evilCountNeeded = 1;
-        for (let i = 0; i < allAlivePlayers.length; i++) {       
+        for (let i = 0; i < allAlivePlayers.length; i++) {
           let player = allAlivePlayers[i];
           if (goodTeamList.includes(player.team)) {
             if (goodCountNeeded) {
@@ -42,7 +42,8 @@ module.exports = {
             }
           } else {
             if (evilCountNeeded) {
-              result.push(player.name);  
+              result.push(player.name);
+              evilCountNeeded--;
             }
           }
           
@@ -58,6 +59,7 @@ module.exports = {
           text +=
             "Kota ini terlalu kecil untuk menemukan siapa penjahatnya dengan akurat";
         } else {
+          
         }
       }
     }
