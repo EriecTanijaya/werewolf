@@ -693,18 +693,19 @@ module.exports = {
     let index = this.indexOfPlayer();
 
     flex_text.body.text += "\n\n" + skillText + "\n\n";
-
-    flex_text.body.text += "⚔️ Protectionmu sisa " + players[index].role.protection;
     
     let targetIndex = players[index].role.mustProtectIndex;
-    
+    let targetName = players[targetIndex].name;
 
+    flex_text.body.text += "⚔️ Kamu bisa protect " + targetName + " ";
+    flex_text.body.text += players[index].role.protection + " kali lagi";
+    
     flex_text.footer = {
       buttons: [
         {
           action: "postback",
-          label: "Protect " + targetName + "!",
-          data: cmdText + 
+          label: "Protect dia!",
+          data: cmdText + " " + targetIndex
         }
       ]
     };
