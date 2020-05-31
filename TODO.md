@@ -1,5 +1,10 @@
 TODO
 
+- test terus changes yang ada sebelumnya
+  - role baru,
+  - double executioner dan double amne
+  - kalau semua udah aman, refactor role set
+
 - Note push commit
   - initial psychic role (31/05/2020)
   - inital amnesiac role (31/05/2020)
@@ -13,7 +18,6 @@ guardian angel dari amnesiac baru belum buat logic nya buat cari target utk di p
 - role that will added if possible :
   - trapper masih belum tau gimana mechanismnya
   - ambusher, passive visit(anjir skip) ini buat visitor di attack, susah cok
-  - guardiana angle ribet
 
 - bisa ada lebih dari 1 executioner punya role set! (kalau udah support)
 
