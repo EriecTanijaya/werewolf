@@ -1,6 +1,15 @@
 module.exports = {
   getPsychicResult: function(players, psychicIndex, isFullMoon) {
     let text = "🔮 ";
+
+    if (players.length === 3) {
+      if (!isFullMoon) {
+        text +=
+          "Kota ini terlalu kecil untuk menemukan siapa yang jahat dengan akurat";
+        return text;
+      }
+    }
+
     let goodTeamList = ["villager", "guardian-angel", "amnesiac"];
     let allAlivePlayers = [];
     players.forEach((item, index) => {
@@ -28,38 +37,37 @@ module.exports = {
     if (goodCount === 0) {
       text += "Kota ini sudah terlalu jahat untuk menemukan siapa yang baik";
     } else {
-      if (isFullMoon) {
-        // 2 orang, satunya baik
-        let result = [];
-        let goodCountNeeded = 1;
-        let evilCountNeeded = 1;
-        for (let i = 0; i < allAlivePlayers.length; i++) {
-          let player = allAlivePlayers[i];
-          if (goodTeamList.includes(player.team)) {
-            if (goodCountNeeded) {
-              result.push(player.name);
-              goodCountNeeded--;
-            }
-          } else {
-            if (evilCountNeeded) {
-              result.push(player.name);
-              evilCountNeeded--;
-            }
+      let result = [];
+      let goodCountNeeded = 1;
+      let evilCountNeeded = 1;
+
+      if (!isFullMoon) goodCount++;
+
+      for (let i = 0; i < allAlivePlayers.length; i++) {
+        let player = allAlivePlayers[i];
+        if (goodTeamList.includes(player.team)) {
+          if (goodCountNeeded) {
+            result.push(player.name);
+            goodCountNeeded--;
           }
-          
-          let totalNeeded = evilCountNeeded + goodCountNeeded;
-          if (totalNeeded === 0) {
-            text += "Salah satu dari " + result.join(", ") + " adalah orang baik";
-            break;
+        } else {
+          if (evilCountNeeded) {
+            result.push(player.name);
+            evilCountNeeded--;
           }
         }
-      } else {
-        // 3 org, 1 orang nya jahat
-        if (evilCount === 2 && goodCount === 0) {
-          text +=
-            "Kota ini terlalu kecil untuk menemukan siapa penjahatnya dengan akurat";
-        } else {
+
+        let totalNeeded = evilCountNeeded + goodCountNeeded;
+        if (totalNeeded === 0) {
+          text += "Salah satu dari " + result.join(", ") + " adalah orang baik";
           
+          if (isFullMoon) {
+            
+          } else {
+            
+          }
+          
+          return text;
         }
       }
     }
