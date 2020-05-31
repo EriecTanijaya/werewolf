@@ -882,6 +882,7 @@ module.exports = {
         item.framed = false;
         item.selfHeal = false;
         item.damage = 0;
+        item.protected = false;
 
         //special role (vampire)
         if (item.role.team === "vampire") {
@@ -2260,7 +2261,14 @@ module.exports = {
     }
     
     /// Guardian Angel Action
-    // kasih prop temp protected, 
+    // kasih prop temp protected
+    for (let i = 0; i < players.length; i++) {
+      let doer = players[i];
+      
+      if (doer.role.name === "guardian-angel" && doer.status === "alive") {
+        
+      }
+    }
 
     /// Doctor Action
     for (let i = 0; i < players.length; i++) {

@@ -705,7 +705,7 @@ module.exports = {
         {
           action: "postback",
           label: "Protect dia!",
-          data: cmdText + " " + targetIndex
+          data: cmdText
         }
       ]
     };
@@ -778,7 +778,7 @@ module.exports = {
       return this.replyText("💡 Kamu sudah tidak memiliki protection yang tersisa");
     }
     
-    let targetIndex = this.args[1];
+    let targetIndex = this.group_session.players[index].role.mustProtectIndex;
     
     this.group_session.players[index].target.index = targetIndex;
 
