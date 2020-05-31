@@ -1,12 +1,10 @@
 TODO
+
+- Note push commit
+  - initial psychic role (31/05/2020)
+
 - susah ini , ada sistem buat cek visitor, cek visitor attack atau engga.
 - role that will added if possible :
-  - psychic, pada non full moon, bisa ada 3 nama, salah satu ada yang jahat, pada full moon ada 2 nama, salah satu ada yang baik
-    - baik hanya town, survivor, amnesiac, guardian angel, sisa jahat
-    - kalau di block ga bisa dapat info
-    - ga ada skill malam
-    - kalau sisa 3 pemain dan psychic salah satunya, responnya : kota ini terlalu kecil untuk menemukan siapa penjahatny dengan akurat
-    - kalau sudah tidak ada yang list baik (kecuali psychic itu sendiri), respon : kota ini terlalu jahat untuk menemukan siapa yang baik
   - trapper masih belum tau gimana mechanismnya
   - ambusher, passive visit(anjir skip)
   - amnesiac ribet

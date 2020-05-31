@@ -454,6 +454,20 @@ const roles = [
     skillLevel: 0,
     iconUrl:
       "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/flexed-biceps_1f4aa.png"
+  },
+  {
+    name: "psychic",
+    description:
+      "Warga yang bisa menerima penglihatan setiap malam",
+    team: "villager",
+    canKill: false,
+    emoji: {
+      team: "👨‍🌾",
+      self: "🔮"
+    },
+    type: "Town Investigate",
+    iconUrl:
+      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/crystal-ball_1f52e.png"
   }
 ];
 

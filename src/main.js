@@ -756,7 +756,12 @@ module.exports = {
     /// test specific role cp
     if (process.env.TEST === "true") {
       roles = [
-        "executioner", "investigator", "doctor", "mafioso", "executioner", "bodyguard"
+        "executioner",
+        "investigator",
+        "doctor",
+        "mafioso",
+        "executioner",
+        "bodyguard"
       ];
     }
 
@@ -1085,7 +1090,7 @@ module.exports = {
         }
 
         // check afk
-        let noSkillRoles = ["villager", "jester", "executioner", "mayor"];
+        let noSkillRoles = ["villager", "jester", "executioner", "mayor", "psychic"];
 
         if (!noSkillRoles.includes(item.role.name)) {
           if (item.target.index === -1) {
@@ -3153,7 +3158,7 @@ module.exports = {
         }
       }
     }
-    
+
     /// Psychic Action
     for (let i = 0; i < players.length; i++) {
       let doer = players[i];
@@ -3311,29 +3316,19 @@ module.exports = {
         ///yang baru mati
         if (this.group_session.players[i].status === "death") {
           /// special check for some role
-          
+
           // executioner
           for (let j = 0; j < players.length; j++) {
             if (players[j].role.name === "executioner") {
-              
               if (players[j].role.targetLynchIndex == i) {
                 this.group_session.players[j].role.isTargetLynched = true;
-                
+
                 this.group_session.players[j].message +=
                   "💡 Targetmu mati pas malam dibunuh. Kamu menjadi Jester";
-                 let roleData = this.getRoleData("jester");
-                
-                this.group_session.players[exeIndex].role = roleData;
+
+                let roleData = this.getRoleData("jester");
+                this.group_session.players[j].role = roleData;
               }
-              
-            }
-          }
-          
-          if (this.checkExistsRole("executioner")) {
-            exeIndex = this.getPlayerIndexByRole("executioner");
-            let exeLynchTargetIndex = players[exeIndex].role.targetLynchIndex;
-            if (i === exeLynchTargetIndex) {
-              isExecutionerTargetDie = true;
             }
           }
 
@@ -3506,7 +3501,7 @@ module.exports = {
             if (target.framed) {
               targetRoleName = "framer";
             }
-            
+
             if (target.doused) {
               targetRoleName = "arsonist";
             }
@@ -4060,7 +4055,7 @@ module.exports = {
       this.group_session.players[lynchTarget.index].role.canKill = true;
       announcement += "\n\n" + "👻 Jester akan membalas dendam dari kuburan!";
     }
-    
+
     // executioner
     for (let i = 0; i < players.length; i++) {
       if (players[i].role.name === "executioner") {

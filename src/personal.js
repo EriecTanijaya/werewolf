@@ -214,7 +214,7 @@ module.exports = {
     let roleName = players[index].role.name;
     let roleTeam = players[index].role.team;
 
-    let prohibited = ["villager", "veteran", "survivor", "executioner"];
+    let prohibited = ["villager", "veteran", "survivor", "executioner", "psychic"];
 
     if (prohibited.includes(roleName)) {
       return this.replyText("💡 Jangan pernah kau coba untuk");
@@ -530,7 +530,7 @@ module.exports = {
           "💡 Kamu bisa dengar vampire chat-an, gunakan cmd '/r' secara berkala";
       }
 
-      let noNightSkill = ["villager", "executioner", "mayor"];
+      let noNightSkill = ["villager", "executioner", "mayor", "psychic"];
 
       if (noNightSkill.includes(roleName)) {
         return this.replyFlex(flex_text, text);
