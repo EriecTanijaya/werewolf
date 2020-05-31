@@ -25,50 +25,48 @@ module.exports = {
     allAlivePlayers = this.shuffleArray(allAlivePlayers);
 
     let goodCount = 0;
-    let evilCount = 0;
     allAlivePlayers.forEach(item => {
       if (goodTeamList.includes(item.team)) {
         goodCount++;
-      } else {
-        evilCount++;
       }
     });
-
+    
     if (goodCount === 0) {
       text += "Kota ini sudah terlalu jahat untuk menemukan siapa yang baik";
-    } else {
-      let result = [];
-      let goodCountNeeded = 1;
-      let evilCountNeeded = 1;
+      return text;
+    }
 
-      if (!isFullMoon) goodCount++;
+    let result = [];
+    let goodCountNeeded = 1;
+    let evilCountNeeded = 1;
 
-      for (let i = 0; i < allAlivePlayers.length; i++) {
-        let player = allAlivePlayers[i];
-        if (goodTeamList.includes(player.team)) {
-          if (goodCountNeeded) {
-            result.push(player.name);
-            goodCountNeeded--;
-          }
+    if (!isFullMoon) goodCount++;
+
+    for (let i = 0; i < allAlivePlayers.length; i++) {
+      let player = allAlivePlayers[i];
+      if (goodTeamList.includes(player.team)) {
+        if (goodCountNeeded) {
+          result.push(player.name);
+          goodCountNeeded--;
+        }
+      } else {
+        if (evilCountNeeded) {
+          result.push(player.name);
+          evilCountNeeded--;
+        }
+      }
+
+      let totalNeeded = evilCountNeeded + goodCountNeeded;
+      if (totalNeeded === 0) {
+        text += "Salah satu dari " + result.join(", ");
+
+        if (isFullMoon) {
+          text += " adalah orang baik";
         } else {
-          if (evilCountNeeded) {
-            result.push(player.name);
-            evilCountNeeded--;
-          }
+          text += " adalah orang jahat";
         }
 
-        let totalNeeded = evilCountNeeded + goodCountNeeded;
-        if (totalNeeded === 0) {
-          text += "Salah satu dari " + result.join(", ") + " adalah orang baik";
-          
-          if (isFullMoon) {
-            
-          } else {
-            
-          }
-          
-          return text;
-        }
+        return text;
       }
     }
   },
