@@ -361,6 +361,18 @@ module.exports = {
           flex_text.body.text +=
             "Keempat kali, serangannya menembus perlindungan biasa. Tapi Bodyguard tetap bisa membunuhnya. ";
           break;
+          
+        case "psychic":
+          flex_text.header.text = "🔮 Psychic";
+          flex_text.body.text += "Type: Town Investigate" + "\n\n";
+          flex_text.body.text +=
+            "Warga yang setiap malam bisa dapat penglihatan. ";
+          flex_text.body.text +=
+            "Pada bulan purnama ia dapat penglihatan 2 orang dan salah satu nya adalah orang baik. ";
+          flex_text.body.text +=
+            "Jika tidak bulan purnama, ia dapat penglihatan 3 orang dan salah satunya adalah orang jahat. ";
+          flex_text.body.text +=
+          break;
 
         default:
           let text =
