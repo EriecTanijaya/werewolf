@@ -4,6 +4,8 @@ TODO
   - initial psychic role (31/05/2020)
   - inital amnesiac role (31/05/2020)
   -
+  
+guardian angel dari amnesiac baru belum buat logic nya buat cari target utk di protect
 
 - susah ini , ada sistem buat cek visitor, cek visitor attack atau engga.
 - role that will added if possible :
