@@ -458,7 +458,7 @@ const roles = [
   {
     name: "psychic",
     description:
-      "Warga yang bisa menerima penglihatan setiap malam",
+      "Warga yang bisa menerima penglihatan setiap malam. Pas pagi cek dengan '/news' di pc bot",
     team: "villager",
     canKill: false,
     emoji: {
