@@ -1090,7 +1090,13 @@ module.exports = {
         }
 
         // check afk
-        let noSkillRoles = ["villager", "jester", "executioner", "mayor", "psychic"];
+        let noSkillRoles = [
+          "villager",
+          "jester",
+          "executioner",
+          "mayor",
+          "psychic"
+        ];
 
         if (!noSkillRoles.includes(item.role.name)) {
           if (item.target.index === -1) {
@@ -3742,6 +3748,56 @@ module.exports = {
             }
 
             this.group_session.players[i].message += result;
+          }
+        }
+      }
+    }
+
+    /// Amnesiac Action
+    for (let i = 0; i < players.length; i++) {
+      let doer = players[i];
+
+      if (doer.role.name === "amnesiac" && doer.status === "alive") {
+        if (doer.target.index === -1) {
+          this.group_session.players[i].message +=
+            "💡 Kamu tidak menggunakan skill mu" + "\n\n";
+
+          continue;
+        } else {
+          if (doer.blocked === true) {
+            this.group_session.players[i].message +=
+              "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." +
+              "\n\n";
+
+            continue;
+          } else {
+            let targetIndex = doer.target.index;
+            let target = players[targetIndex];
+            let targetRoleName = target.role.name;
+
+            if (target.)
+            
+            let roleData = this.getRoleData(targetRoleName);
+            this.group_session.players[i].role = roleData;
+
+            if (targetRoleName === "executioner") {
+              this.group_session.players[
+                i
+              ].role.targetLynchIndex = this.getExecutionerTargetIndex(i);
+              this.group_session.players[i].role.isTargetLynched = false;
+            }
+
+            this.group_session.players[i].message +=
+              "🤕 Kamu ingat bahwa kamu adalah seorang " +
+              targetRoleName +
+              "!" +
+              "\n\n";
+
+            allAnnouncement +=
+              "Amnesiac mengingat bahwa dia adalah " +
+              targetRoleName +
+              "!" +
+              "\n\n";
           }
         }
       }

@@ -374,6 +374,15 @@ module.exports = {
           flex_text.body.text +=
             "Orang baik adalah sesama warga dan survivor"; //amnesac, guardian angle juga baik
           break;
+          
+        case "amnesiac":
+          flex_text.header.text = "🤕 Amnesiac";
+          flex_text.body.text += "Type: Neutral" + "\n\n";
+          flex_text.body.text +=
+            "Orang yang lupa dengan siapa dirinya. Dapat mengingat siapa dirinya dengan memilih orang yang telah mati. ";
+          flex_text.body.text +=
+            "Jika Amnesiac telah ingat role nya, maka akan di beritahu secara publik";
+          break;
 
         default:
           let text =

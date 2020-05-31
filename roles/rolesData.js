@@ -473,18 +473,17 @@ const roles = [
     name: "amnesiac",
     description:
       "Kamu adalah orang yang lupa dengan role mu sendiri. Untuk mengingat role, bisa dengan pilih dari salah orang yang telah mati",
-    skillText: "Amnesiac, pilih siapa yang mau kamu bangkitkan",
+    skillText: "Amnesiac, pilih siapa yang mau kamu ingat rolenya",
     cmdText: "/skill",
-    team: "villager",
+    team: "amnesiac",
     canKill: false,
     emoji: {
-      team: "👨‍🌾",
-      self: "⚰️"
+      team: "🤕",
+      self: "🤕"
     },
-    revive: 1,
-    type: "Town Support",
+    type: "Neutral",
     iconUrl:
-      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/coffin_26b0.png"
+      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/face-with-head-bandage_1f915.png"
   },
 ];
 
