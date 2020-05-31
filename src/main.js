@@ -2259,14 +2259,47 @@ module.exports = {
         }
       }
     }
-    
+
     /// Guardian Angel Action
     // kasih prop temp protected
     for (let i = 0; i < players.length; i++) {
       let doer = players[i];
-      
-      if (doer.role.name === "guardian-angel" && doer.status === "alive") {
-        
+
+      if (doer.role.name === "guardian-angel") {
+        let protection = doer.role.protection;
+
+        if (protection > 0) {
+          if (doer.target.index === -1) {
+            this.group_session.players[i].message +=
+              "💡 Kamu tidak menggunakan skill mu" + "\n\n";
+
+            continue;
+          } else {
+            if (doer.blocked) {
+              this.group_session.players[i].message +=
+                "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." +
+                "\n\n";
+
+              continue;
+            } else {
+              let targetIndex = doer.target.index;
+              let target = players[targetIndex];
+              let targetName = target.name;
+              
+              this.group_session.players[targetIndex].protected = true;
+
+              let protector = {
+                index: i,
+                roleName: doer.role.name,
+                used: false
+              };
+
+              this.group_session.players[targetIndex].protectors.push(
+                protector
+              );
+            }
+          }
+        }
       }
     }
 
