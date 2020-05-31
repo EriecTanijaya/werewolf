@@ -372,6 +372,7 @@ module.exports = {
           flex_text.body.text +=
             "Jika tidak bulan purnama, ia dapat penglihatan 3 orang dan salah satunya adalah orang jahat. ";
           flex_text.body.text +=
+            "Orang baik adalah sesama warga dan survivor"; //amnesac, guardian angle juga baik
           break;
 
         default:

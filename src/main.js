@@ -760,9 +760,6 @@ module.exports = {
       ];
     }
 
-    /// hax for exe
-    let exeIndex = -1;
-
     // this.group_session.players = helper.shuffleArray(
     //   this.group_session.players
     // );
@@ -1121,10 +1118,6 @@ module.exports = {
 
     /// vigilante check existences
     let vigilanteExists = this.checkExistsRole("vigilante");
-
-    /// Executioner global var
-    let exeIndex = -1;
-    let isExecutionerTargetDie = false;
 
     /// Spy global var
     let spyMafiaVisitInfo = "";
@@ -3160,6 +3153,33 @@ module.exports = {
         }
       }
     }
+    
+    /// Psychic Action
+    for (let i = 0; i < players.length; i++) {
+      let doer = players[i];
+
+      if (doer.role.name === "psychic" && doer.status === "alive") {
+        if (doer.target.index === -1) {
+          this.group_session.players[i].message +=
+            "💡 Kamu tidak menggunakan skill mu" + "\n\n";
+
+          continue;
+        } else {
+          if (doer.blocked === true) {
+            this.group_session.players[i].message +=
+              "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." +
+              "\n\n";
+
+            continue;
+          } else {
+            let isFullMoon = this.group_session.isFullMoon;
+            let psychicResult = helper.getPsychicResult(players, i, isFullMoon);
+
+            this.group_session.players[i].message += psychicResult + "\n\n";
+          }
+        }
+      }
+    }
 
     /// Death Action II
     for (let i = 0; i < players.length; i++) {
@@ -3291,6 +3311,24 @@ module.exports = {
         ///yang baru mati
         if (this.group_session.players[i].status === "death") {
           /// special check for some role
+          
+          // executioner
+          for (let j = 0; j < players.length; j++) {
+            if (players[j].role.name === "executioner") {
+              
+              if (players[j].role.targetLynchIndex == i) {
+                this.group_session.players[j].role.isTargetLynched = true;
+                
+                this.group_session.players[j].message +=
+                  "💡 Targetmu mati pas malam dibunuh. Kamu menjadi Jester";
+                 let roleData = this.getRoleData("jester");
+                
+                this.group_session.players[exeIndex].role = roleData;
+              }
+              
+            }
+          }
+          
           if (this.checkExistsRole("executioner")) {
             exeIndex = this.getPlayerIndexByRole("executioner");
             let exeLynchTargetIndex = players[exeIndex].role.targetLynchIndex;
@@ -3299,6 +3337,7 @@ module.exports = {
             }
           }
 
+          // mafia
           this.substituteMafia(this.group_session.players[i]);
         }
       }
@@ -3740,14 +3779,6 @@ module.exports = {
           }
         }
       }
-    }
-
-    if (isExecutionerTargetDie) {
-      this.group_session.players[exeIndex].message +=
-        "💡 Targetmu mati pas malam dibunuh. Kamu menjadi role Jester";
-
-      let roleData = this.getRoleData("jester");
-      this.group_session.players[exeIndex].role = roleData;
     }
 
     /// untuk announcement certain role

@@ -13,7 +13,8 @@ module.exports = {
     let goodTeamList = ["villager", "guardian-angel", "amnesiac"];
     let allAlivePlayers = [];
     players.forEach((item, index) => {
-      if (item.status === "alive" && index !== psychicIndex) {
+      // krna di main.js, itu include juga yg will_death
+      if (item.status !== "death" && index !== psychicIndex) {
         let player = {
           name: item.name,
           team: item.role.team
