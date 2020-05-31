@@ -861,7 +861,7 @@ module.exports = {
       // all player regardless alive or not
       item.message = "";
       item.blocked = false;
-      
+
       // only alive player
       if (item.status === "alive") {
         item.target = {
@@ -2286,7 +2286,7 @@ module.exports = {
               let targetName = target.name;
 
               this.group_session.players[i].role.protection--;
-              
+
               this.group_session.players[targetIndex].protected = true;
 
               let protector = {
@@ -3037,43 +3037,50 @@ module.exports = {
 
               for (let u = 0; u < protectors.length; u++) {
                 let protector = protectors[u];
-                
+
                 if (!protector.roleName === "guardian-angel") {
                   continue;
                 }
-                
+
                 this.group_session.players[protector.index].message +=
                   "💡 " + players[i].name + " diserang semalam!" + "\n\n";
-                
-                if (isHaunted) {
+
+                if (isHaunted || willSuicide || afkCounter >= 6) {
                   this.group_session.players[protector.index].message +=
                     "💡 " + players[i].name + " gagal dilindungi!" + "\n\n";
-                  
+
                   this.group_session.players[i].message +=
-                    "⚔️ Guardian Ange" + "\n\n";
-                  
+                    "⚔️ Guardian Angel berusaha melindungi mu namun gagal!" +
+                    "\n\n";
+
                   continue;
                 }
-                
+
                 this.group_session.players[i].doused = false;
-                
+
                 this.group_session.players[protector.index].message +=
                   "💡 " + players[i].name + " berhasil dilindungi!" + "\n\n";
 
                 if (players[i].bugged) {
                   spyBuggedInfo[i] +=
-                    "🔍 Target kamu selamat karena dilindungi Guardian Angel!" + "\n\n";
+                    "🔍 Target kamu selamat karena dilindungi Guardian Angel!" +
+                    "\n\n";
                 }
 
                 this.group_session.players[i].message +=
                   "⚔️ Kamu selamat karena dilindungi Guardian Angel!" + "\n\n";
-                
+
                 allAnnouncement +=
-                  "⚔️ Guardian Angel berhasil melindungi " + players[i].name + " semalam!" + "\n\n";
+                  "⚔️ Guardian Angel berhasil melindungi " +
+                  players[i].name +
+                  " semalam!" +
+                  "\n\n";
               }
             }
 
-            continue;
+            if (!isHaunted && !willSuicide && afkCounter < 6) {
+              continue;
+            }
           }
 
           this.group_session.players[i].status = "will_death";
@@ -3420,15 +3427,33 @@ module.exports = {
 
           // executioner
           for (let j = 0; j < players.length; j++) {
-            if (players[j].role.name === "executioner") {
-              if (players[j].role.targetLynchIndex == i) {
+            let roleName = players[j].role.name;
+
+            if (roleName === "executioner" && players[j].status === "alive") {
+              if (players[j].role.targetLynchIndex === i) {
                 this.group_session.players[j].role.isTargetLynched = true;
 
                 this.group_session.players[j].message +=
-                  "💡 Targetmu mati pas malam dibunuh. Kamu menjadi Jester";
+                  "💡 Targetmu mati pas malam dibunuh. Kamu menjadi Jester" + "\n\n";
 
                 let roleData = this.getRoleData("jester");
                 this.group_session.players[j].role = roleData;
+              }
+            }
+          }
+
+          // guardian angel
+          for (let j = 0; j < players.length; j++) {
+            let roleName = players[j].role.name;
+            
+            if (roleName === "guardian-angel" && players[j].status === "alive") {
+              if (players[j].role.mustProtectIndex === i) {
+                let roleData = this.getRoleData("survivor");
+                this.group_session.players[i].role = roleData;
+                this.group_session.players[i].role.vest = 0;
+
+                this.group_session.players[j].message +=
+                  "💡 Targetmu mati, sekarang kamu hanyalah Survivor tanpa vest" + "\n\n";
               }
             }
           }
@@ -4150,6 +4175,8 @@ module.exports = {
     if (!players[targetIndex]) {
       return this.replyText("💡 " + this.user_session.name + ", invalid vote");
     }
+    
+    if (players[targetIndex].protec)
 
     let text = "☝️ " + this.user_session.name;
 
