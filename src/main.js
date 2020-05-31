@@ -3035,6 +3035,11 @@ module.exports = {
 
               for (let u = 0; u < protectors.length; u++) {
                 let protector = protectors[u];
+                
+                if (!protector.roleName === "guardian-angel") {
+                  continue;
+                }
+                
                 this.group_session.players[protector.index].message +=
                   "💡 " + players[i].name + " diserang semalam!" + "\n\n";
 
@@ -3047,7 +3052,7 @@ module.exports = {
                   "⚔️ Kamu selamat karena dilindungi Guardian Angel!" + "\n\n";
                 
                 allAnnouncement +=
-                  "⚔️ "
+                  "⚔️ Guardian Angel berhasil melindungi " + players[i].name + " semalam!" + "\n\n";
               }
             }
 
