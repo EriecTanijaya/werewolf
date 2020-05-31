@@ -6,7 +6,7 @@ TODO
 - susah ini , ada sistem buat cek visitor, cek visitor attack atau engga.
 - role that will added if possible :
   - trapper masih belum tau gimana mechanismnya
-  - ambusher, passive visit(anjir skip)
+  - ambusher, passive visit(anjir skip) ini buat visitor di attack, susah cok
   - amnesiac ribet
   - guardiana angle ribet
 
