@@ -15,8 +15,6 @@ guardian angel dari amnesiac baru belum buat logic nya buat cari target utk di p
   - ambusher, passive visit(anjir skip) ini buat visitor di attack, susah cok
   - guardiana angle ribet
 
-- executioner bisa ada target yang sama, tapi skrng belum support lebih dari 1 exe, kalau ada sistem lebih modular, bisa ada role amnesiac
-
 - bisa ada lebih dari 1 executioner punya role set! (kalau udah support)
 
 - jangan lupa rm rf data di .data/users, gak di pake lagi

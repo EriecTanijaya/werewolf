@@ -2261,7 +2261,6 @@ module.exports = {
     }
 
     /// Guardian Angel Action
-    // kasih prop temp protected
     for (let i = 0; i < players.length; i++) {
       let doer = players[i];
 
@@ -2285,7 +2284,7 @@ module.exports = {
               let targetIndex = doer.target.index;
               let target = players[targetIndex];
               let targetName = target.name;
-              
+
               this.group_session.players[targetIndex].protected = true;
 
               let protector = {
@@ -2892,6 +2891,7 @@ module.exports = {
         let isVested = players[i].vested;
         let isGuarded = players[i].guarded;
         let isSelfHeal = players[i].selfHeal;
+        let isProtected = players[i].protected;
 
         let isBurned = players[i].burned;
         let isHaunted = players[i].isHaunted;
@@ -3027,6 +3027,31 @@ module.exports = {
               // check vampireBited
               if (!isAttacked) continue;
             }
+          }
+
+          if (isProtected) {
+            for (let x = 0; x < attackers.length; x++) {
+              let attacker = attackers[x];
+
+              for (let u = 0; u < protectors.length; u++) {
+                let protector = protectors[u];
+                this.group_session.players[protector.index].message +=
+                  "💡 " + players[i].name + " diserang semalam!" + "\n\n";
+
+                if (players[i].bugged) {
+                  spyBuggedInfo[i] +=
+                    "🔍 Target kamu selamat karena dilindungi Guardian Angel!" + "\n\n";
+                }
+
+                this.group_session.players[i].message +=
+                  "⚔️ Kamu selamat karena dilindungi Guardian Angel!" + "\n\n";
+                
+                allAnnouncement +=
+                  "⚔️ "
+              }
+            }
+
+            continue;
           }
 
           this.group_session.players[i].status = "will_death";
