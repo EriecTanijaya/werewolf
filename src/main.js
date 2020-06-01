@@ -3909,11 +3909,12 @@ module.exports = {
             if (targetRoleName === "executioner") {
               let neededTargetIndex = this.getExecutionerTargetIndex(i, true);
               if (neededTargetIndex === -1) {
-                let roleData = this.getRoleData("jester");
-                this.group_session.players[i].role = roleData;
+                targetRoleName = "jester";
+                // let roleData = this.getRoleData("jester");
+                // this.group_session.players[i].role = roleData;
               } else {
-                let roleData = this.getRoleData(targetRoleName);
-                this.group_session.players[i].role = roleData;
+                // let roleData = this.getRoleData(targetRoleName);
+                // this.group_session.players[i].role = roleData;
 
                 this.group_session.players[
                   i
@@ -3924,17 +3925,20 @@ module.exports = {
               let neededTargetIndex = this.getGuardianAngelTargetIndex(i, true);
 
               if (neededTargetIndex === -1) {
-                let roleData = this.getRoleData("survivor");
-                this.group_session.players[i].role = roleData;
+                targetRoleName = "survivor";
+                // let roleData = this.getRoleData("survivor");
+                // this.group_session.players[i].role = roleData;
                 this.group_session.players[i].role.vest = 0;
               } else {
-                let roleData = this.getRoleData(targetRoleName);
-                this.group_session.players[i].role = roleData;
+                // let roleData = this.getRoleData(targetRoleName);
+                // this.group_session.players[i].role = roleData;
 
                 this.group_session.players[
                   i
                 ].role.mustProtectIndex = neededTargetIndex;
               }
+            } else {
+              
             }
 
             this.group_session.players[i].message +=
@@ -4413,7 +4417,11 @@ module.exports = {
         } else if (roleName === "executioner") {
           this.handleExecutionerWin(i, table_body[i].contents[2], surviveTeam);
         } else if (roleName === "guardian-angel") {
-          this.handleGuardianAngelWin(i, table_body[i].contents[2], surviveTeam);
+          this.handleGuardianAngelWin(
+            i,
+            table_body[i].contents[2],
+            surviveTeam
+          );
         } else if (whoWin === "draw") {
           table_body[i].contents[2].text = "draw";
         } else {
@@ -4560,10 +4568,10 @@ module.exports = {
       tableColumn.text = "lose";
     }
   },
-  
+
   handleGuardianAngelWin: function(index, tableColumn, surviveTeam) {
-      tableColumn.text = "win";
-      surviveTeam.push("guardian angel 😇");
+    tableColumn.text = "win";
+    surviveTeam.push("guardian angel 😇");
   },
 
   getExecutionerTargetIndex: function(exeIndex, isAmnesiac) {
