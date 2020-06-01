@@ -756,17 +756,9 @@ module.exports = {
     /// test specific role cp
     if (process.env.TEST === "true") {
       roles = [
-        "psychic",
-        "mafioso",
-        "investigator",
-        "doctor",
-        "escort",
-        "juggernaut",
-        "sheriff",
-        "guardian-angel",
-        "werewolf",
-        "bodyguard",
-        "consigliere"
+        "amnesiac",
+        "arsonist",
+        "escort"
       ];
     }
 
@@ -3910,12 +3902,7 @@ module.exports = {
               let neededTargetIndex = this.getExecutionerTargetIndex(i, true);
               if (neededTargetIndex === -1) {
                 targetRoleName = "jester";
-                // let roleData = this.getRoleData("jester");
-                // this.group_session.players[i].role = roleData;
               } else {
-                // let roleData = this.getRoleData(targetRoleName);
-                // this.group_session.players[i].role = roleData;
-
                 this.group_session.players[
                   i
                 ].role.targetLynchIndex = neededTargetIndex;
@@ -3926,20 +3913,16 @@ module.exports = {
 
               if (neededTargetIndex === -1) {
                 targetRoleName = "survivor";
-                // let roleData = this.getRoleData("survivor");
-                // this.group_session.players[i].role = roleData;
                 this.group_session.players[i].role.vest = 0;
               } else {
-                // let roleData = this.getRoleData(targetRoleName);
-                // this.group_session.players[i].role = roleData;
-
                 this.group_session.players[
                   i
                 ].role.mustProtectIndex = neededTargetIndex;
               }
-            } else {
-              
             }
+            
+            let roleData = this.getRoleData(targetRoleName);
+            this.group_session.players[i].role = roleData;
 
             this.group_session.players[i].message +=
               "🤕 Kamu ingat bahwa kamu adalah seorang " +
