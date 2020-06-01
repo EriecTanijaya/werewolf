@@ -149,7 +149,37 @@ module.exports = {
     ];
     return modeList;
   },
+  
+  getAmnesiacChaos: function() {
+    
+  },
 
+  getFriday13RoleSet: function(playersLength) {
+    let roles = [
+      "serial-killer",
+      "escort",
+      "escort",
+      "vigilante",
+      "escort",
+      "mafioso",
+      "doctor",
+      "consort",
+      "escort",
+      "sheriff",
+      "consort",
+      "escort",
+      "consort",
+      "escort"
+    ];
+    
+    let neutrals = ["survivor", "amnesiac", "executioner"];
+    roles.push(this.random(neutrals));
+    
+    roles.length = playersLength;
+    roles = this.shuffleArray(roles);
+    return roles;
+  },
+  
   getVampireRoleSet: function(playersLength) {
     /// step
     /*

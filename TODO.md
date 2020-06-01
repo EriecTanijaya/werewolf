@@ -5,6 +5,10 @@ TODO
   - double executioner dan double amne
   - kalau semua udah aman, refactor role set
 
+- Role set baru
+  - friday 13
+  
+
 - Note push commit
   - initial psychic role (31/05/2020)
   - inital amnesiac role (31/05/2020)
