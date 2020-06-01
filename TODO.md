@@ -9,17 +9,11 @@ TODO
   - initial psychic role (31/05/2020)
   - inital amnesiac role (31/05/2020)
   - initial guardian angel role (31/05/2020)
-  
-guardian angel dari amnesiac baru belum buat logic nya buat cari target utk di protect
-- ga semua role bisa jadi target guardian angel
-- multiple guardian angel bisa ada sama target
 
 - susah ini , ada sistem buat cek visitor, cek visitor attack atau engga.
 - role that will added if possible :
   - trapper masih belum tau gimana mechanismnya
   - ambusher, passive visit(anjir skip) ini buat visitor di attack, susah cok
-
-- bisa ada lebih dari 1 executioner punya role set! (kalau udah support)
 
 - jangan lupa rm rf data di .data/users, gak di pake lagi
 

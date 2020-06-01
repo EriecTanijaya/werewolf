@@ -211,7 +211,8 @@ module.exports = {
       "vigilante",
       "escort",
       "retributionist",
-      "tracker"
+      "tracker",
+      "psychic"
     ];
 
     let randomTown = this.random(remainingTowns);
@@ -232,7 +233,7 @@ module.exports = {
   getChaosRoleSet: function(playersLength) {
     let roles = ["godfather"];
 
-    let townInvestigates = ["investigator", "lookout"];
+    let townInvestigates = ["investigator", "lookout", "psychic"];
     roles.push(this.random(townInvestigates));
 
     let townProtectors = ["doctor", "bodyguard"];
