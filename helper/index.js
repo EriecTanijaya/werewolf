@@ -145,7 +145,9 @@ module.exports = {
       "trust-issue",
       "who-are-you",
       "new-threat",
-      "clown-town"
+      "clown-town",
+      "amnesiac-chaos",
+      "friday-13"
     ];
     return modeList;
   },
@@ -297,7 +299,15 @@ module.exports = {
     let randomTown = this.random(remainingTowns);
     roles.push(randomTown);
 
-    roles.push("serial-killer", "framer", "spy");
+    let neutralKillings = [
+      "arsonist",
+      "serial-killer",
+      "werewolf",
+      "juggernaut"
+    ];
+    roles.push(this.random(neutralKillings));
+    
+    roles.push("framer", "spy");
 
     let lastRandomTown = this.random(remainingTowns);
     roles.push(lastRandomTown);
@@ -383,7 +393,7 @@ module.exports = {
   },
 
   getKillingWarsRoleSet: function(playersLength) {
-    let werewolves = ["consigliere", "disguiser", "consort"];
+    let mafias = ["consigliere", "disguiser", "consort"];
     let roles = [
       "godfather",
       "mafioso",
@@ -395,12 +405,20 @@ module.exports = {
       "serial-killer"
     ];
 
-    roles.push(this.random(werewolves));
+    roles.push(this.random(mafias));
     roles.push("arsonist");
     roles.push("jester");
-    roles.push(this.random(werewolves));
-    roles.push("serial-killer");
-    roles.push(this.random(werewolves));
+    roles.push(this.random(mafias));
+    
+    let neutralKillings = [
+      "arsonist",
+      "serial-killer",
+      "werewolf",
+      "juggernaut"
+    ];
+    roles.push(this.random(neutralKillings));
+    
+    roles.push(this.random(mafias));
     roles.push("survivor");
 
     roles.length = playersLength;
@@ -481,8 +499,16 @@ module.exports = {
   },
 
   getNewThreat: function(playersLength) {
-    let roles = ["serial-killer"];
-
+    let neutralKillings = [
+      "arsonist",
+      "serial-killer",
+      "werewolf",
+      "juggernaut"
+    ];
+    
+    let roles = [];
+    roles.push(this.random(neutralKillings));
+    
     let townInvestigates = ["investigator", "lookout"];
     roles.push(this.random(townInvestigates));
 
@@ -502,7 +528,7 @@ module.exports = {
     ];
     roles.push(this.random(randomTowns));
 
-    roles.push("arsonist");
+    roles.push(this.random(neutralKillings));
 
     roles.push(this.random(townProtectors));
 
@@ -510,10 +536,11 @@ module.exports = {
 
     roles.push(this.random(townInvestigates));
 
-    roles.push("serial-killer");
+    roles.push(this.random(neutralKillings));
 
     roles.push(this.random(randomTowns));
 
+    let neutrals
     roles.push("survivor");
 
     roles.push(this.random(randomTowns));
