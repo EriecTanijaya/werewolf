@@ -2,14 +2,6 @@ module.exports = {
   getPsychicResult: function(players, psychicIndex, isFullMoon) {
     let text = "🔮 ";
 
-    if (players.length === 3) {
-      if (!isFullMoon) {
-        text +=
-          "Kota ini terlalu kecil untuk menemukan siapa yang jahat dengan akurat";
-        return text;
-      }
-    }
-
     let goodTeamList = ["villager", "guardian-angel", "amnesiac"];
     let allAlivePlayers = [];
     players.forEach((item, index) => {
@@ -22,6 +14,14 @@ module.exports = {
         allAlivePlayers.push(player);
       }
     });
+    
+    if (allAlivePlayers.length === 2) {
+      if (!isFullMoon) {
+        text +=
+          "Kota ini terlalu kecil untuk menemukan siapa yang jahat dengan akurat";
+        return text;
+      }
+    }
 
     allAlivePlayers = this.shuffleArray(allAlivePlayers);
 
