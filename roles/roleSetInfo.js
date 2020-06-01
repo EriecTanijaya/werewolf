@@ -143,7 +143,7 @@ module.exports = {
         flex_text.header.text = "🔪 Friday 13th Mode";
         flex_text.body.text += "Mode ID: 12" + "\n\n";
         flex_text.body.text +=
-          "Dengan tiba tiba, banyak orang yang hilang ingatan sejak Agent K menggunakan Memory Eraser di kota Bedburg"
+          "Kunci pintu rumah kalian, kunci jendela, jangan sampai Jason datang dan membunuh kalian!";
         modeId = 12;
         break;
 
