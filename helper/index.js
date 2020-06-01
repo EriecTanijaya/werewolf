@@ -150,8 +150,57 @@ module.exports = {
     return modeList;
   },
   
-  getAmnesiacChaos: function() {
+  getAmnesiacChaos: function(playersLength) {//cp
+    let roles = [
+      "mafioso",
+      "amnesiac"
+    ];
     
+    let randomTowns = [
+      "doctor",
+      "bodyguard",
+      "investigator",
+      "lookout",
+      "sheriff",
+      "vigilante",
+      "escort",
+      "retributionist",
+      "tracker",
+      "psychic"
+    ];
+    
+    roles.push(this.random(randomTowns));
+    
+    let townKillings = ["veteran", "vigilante"];
+    roles.push(this.random(townKillings));
+    
+    let neutralEvils = ["jester", "executioner"];
+    roles.push(this.random(neutralEvils));
+    
+    roles.push("amnesiac");
+    
+    let neutralKillings = [
+      "arsonist",
+      "serial-killer",
+      "werewolf",
+      "juggernaut"
+    ];
+    roles.push(this.random(neutralKillings));
+    
+    roles.push(this.random(randomTowns));
+    
+    roles.push("godfather");
+    
+    roles.push("sheriff", "amnesiac", "jester");
+    
+    let randomMafia = ["framer", "consort", "consigliere", "disguiser"];
+    roles.push(this.random(randomMafia));
+    
+    roles.push(this.random(randomTowns));
+    
+    roles.length = playersLength;
+    roles = this.shuffleArray(roles);
+    return roles;
   },
 
   getFriday13RoleSet: function(playersLength) {
@@ -291,14 +340,15 @@ module.exports = {
       "vigilante",
       "escort",
       "retributionist",
-      "tracker"
+      "tracker",
+      "psychic"
     ];
     roles.push(this.random(randomTowns));
 
     roles.push(this.random(randomTowns));
 
-    let randomWerewolves = ["framer", "consort", "consigliere", "disguiser"];
-    roles.push(this.random(randomWerewolves));
+    let randomMafia = ["framer", "consort", "consigliere", "disguiser"];
+    roles.push(this.random(randomMafia));
 
     roles.push("spy");
 
@@ -312,7 +362,7 @@ module.exports = {
 
     roles.push(this.random(randomTowns));
 
-    roles.push(this.random(randomWerewolves));
+    roles.push(this.random(randomMafia));
 
     roles.length = playersLength;
     roles = this.shuffleArray(roles);

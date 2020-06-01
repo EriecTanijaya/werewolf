@@ -7,6 +7,7 @@ TODO
 
 - Role set baru
   - friday 13
+  - amnesiac chaos
   
 
 - Note push commit
@@ -45,19 +46,11 @@ console.log(`town ${townNeedCount}, ww ${werewolfNeedCount}, neutral ${neutralNe
   - sekarang neutral dh bisa multiple, tapi mereka ga tau siapa sesama mereka
 - sekarang udah bisa custom, jadi di getRandomRoleSet bnyak tugas nih
 
-- ROLE YANG BELUM BISA DUPLICATE
-
-  - executioner
-  - veteran, sebenarnya bisa ganti veteranIndexes jadiin kek spyBuggedInfo, tapi kalo banyak veteran ga bagus
-
 - ROLE YG JANGAN DUPLICATE
-
   - VETERAN
-  - executioner
-  - team ww semua
   - vampire hunter hanya ada saat ada vampire
   - sheriff ada kalau ada list yg bisa di suspiciouskan
-  - vigilante ada kalau ada musuh yang bisa di dor
+  - mayor
 
 * buat module sendiri, untuk flex message, biar gampang dipake di bot lain
   - ini flexMessage table nya gampang di kostumisasi
