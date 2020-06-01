@@ -840,6 +840,10 @@ module.exports = {
       roles = helper.getNewThreat(playersLength);
     } else if (mode === "clown-town") {
       roles = helper.getClownTown(playersLength);
+    } else if (mode === "friday-13") {
+      roles = helper.getFriday13RoleSet(playersLength);
+    } else if (mode === "amnesiac-chaos") {
+      roles = helper.getAmnesiacChaos(playersLength);
     }
 
     return roles;

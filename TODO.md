@@ -15,6 +15,8 @@ TODO
   - inital amnesiac role (31/05/2020)
   - initial guardian angel role (31/05/2020)
 
+- role set trick or treat (ada di tos punya fandom wiki) buat halloween ntr
+
 - susah ini , ada sistem buat cek visitor, cek visitor attack atau engga.
 - role that will added if possible :
   - trapper masih belum tau gimana mechanismnya
