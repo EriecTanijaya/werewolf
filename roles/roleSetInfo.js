@@ -128,6 +128,24 @@ module.exports = {
           "apa benar?";
         modeId = 10;
         break;
+        
+      case "amnesiac chaos":
+      case "11":
+        flex_text.header.text = "🤕 Amnesiac Chaos Mode";
+        flex_text.body.text += "Mode ID: 11" + "\n\n";
+        flex_text.body.text +=
+          "Dengan tiba tiba, banyak orang yang hilang ingatan sejak Agent K menggunakan Memory Eraser di kota Bedburg"
+        modeId = 11;
+        break;
+        
+      case "friday 13":
+      case "12":
+        flex_text.header.text = "🔪 Friday 13th Mode";
+        flex_text.body.text += "Mode ID: 12" + "\n\n";
+        flex_text.body.text +=
+          "Dengan tiba tiba, banyak orang yang hilang ingatan sejak Agent K menggunakan Memory Eraser di kota Bedburg"
+        modeId = 12;
+        break;
 
       default:
         let text =
