@@ -3682,12 +3682,6 @@ module.exports = {
             mafiaAnnouncement += `✒️ Role ${target.name} adalah ${target.role.name}\n\n`;
 
             spyMafiaVisitInfo += `🤵 ${target.name} dikunjungi anggota Mafia\n\n`;
-
-            this.group_session.players[i].message +=
-              "💡 Kamu bisa cek info role dengan ketik '/info " +
-              target.role.name +
-              "'" +
-              "\n\n";
           }
         }
       }

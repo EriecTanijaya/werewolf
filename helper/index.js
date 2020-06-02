@@ -1,17 +1,4 @@
 module.exports = {
-  getSystemStat: function() {
-    let memory = getMemoryUsage();
-
-    let string = `Here is my memory: ${memory}/512 MB (${Math.round((memory * 100)/ 512 )}%)`
-
-    function getMemoryUsage() {
-      let total_rss = require('fs').readFileSync("/sys/fs/cgroup/memory/memory.stat", "utf8").split("\n").filter(l => l.startsWith("total_rss"))[0].split(" ")[1]; 
-      return Math.round( Number(total_rss) / 1e6 ) - 60;
-    }
-
-    console.log(string);
-  },
-  
   getPsychicResult: function(players, psychicIndex, isFullMoon) {
     let text = "🔮 ";
 
@@ -27,7 +14,7 @@ module.exports = {
         allAlivePlayers.push(player);
       }
     });
-    
+
     if (allAlivePlayers.length === 2) {
       if (!isFullMoon) {
         text +=
@@ -44,7 +31,7 @@ module.exports = {
         goodCount++;
       }
     });
-    
+
     if (goodCount === 0) {
       text += "Kota ini sudah terlalu jahat untuk menemukan siapa yang baik";
       return text;
@@ -55,7 +42,7 @@ module.exports = {
     let evilCountNeeded = 1;
 
     if (!isFullMoon) goodCountNeeded++;
-    
+
     for (let i = 0; i < allAlivePlayers.length; i++) {
       let player = allAlivePlayers[i];
       if (goodTeamList.includes(player.team)) {
@@ -97,7 +84,10 @@ module.exports = {
         desc: "Targetmu suka menutup diri!",
         items: ["survivor", "vampire-hunter", "psychic"]
       },
-      { desc: "Targetmu mengetahui rahasia terbesarmu!", items: ["spy", "guardian-angel"] },
+      {
+        desc: "Targetmu mengetahui rahasia terbesarmu!",
+        items: ["spy", "guardian-angel"]
+      },
       {
         desc: "Targetmu menunggu waktu yang tepat untuk beraksi!",
         items: ["sheriff", "executioner", "werewolf"]
@@ -106,7 +96,10 @@ module.exports = {
         desc: "Targetmu mungkin tidak seperti yang dilihat!",
         items: ["framer", "vampire", "jester"]
       },
-      { desc: "Targetmu diam didalam bayangan!", items: ["lookout", "amnesiac"] },
+      {
+        desc: "Targetmu diam didalam bayangan!",
+        items: ["lookout", "amnesiac"]
+      },
       {
         desc: "Targetmu ahli dalam mengganggu yang lain!",
         items: ["escort", "consort"]
@@ -164,13 +157,10 @@ module.exports = {
     ];
     return modeList;
   },
-  
-  getAmnesiacChaos: function(playersLength) {//cp
-    let roles = [
-      "mafioso",
-      "amnesiac"
-    ];
-    
+
+  getAmnesiacChaos: function(playersLength) {
+    let roles = ["mafioso", "amnesiac"];
+
     let randomTowns = [
       "doctor",
       "bodyguard",
@@ -183,17 +173,17 @@ module.exports = {
       "tracker",
       "psychic"
     ];
-    
+
     roles.push(this.random(randomTowns));
-    
+
     let townKillings = ["veteran", "vigilante"];
     roles.push(this.random(townKillings));
-    
+
     let neutralEvils = ["jester", "executioner"];
     roles.push(this.random(neutralEvils));
-    
+
     roles.push("amnesiac");
-    
+
     let neutralKillings = [
       "arsonist",
       "serial-killer",
@@ -201,18 +191,18 @@ module.exports = {
       "juggernaut"
     ];
     roles.push(this.random(neutralKillings));
-    
+
     roles.push(this.random(randomTowns));
-    
+
     roles.push("godfather");
-    
+
     roles.push("sheriff", "amnesiac", "jester");
-    
+
     let randomMafia = ["framer", "consort", "consigliere", "disguiser"];
     roles.push(this.random(randomMafia));
-    
+
     roles.push(this.random(randomTowns));
-    
+
     roles.length = playersLength;
     roles = this.shuffleArray(roles);
     return roles;
@@ -235,15 +225,15 @@ module.exports = {
       "consort",
       "escort"
     ];
-    
+
     let neutrals = ["survivor", "amnesiac", "executioner"];
     roles.push(this.random(neutrals));
-    
+
     roles.length = playersLength;
     roles = this.shuffleArray(roles);
     return roles;
   },
-  
+
   getVampireRoleSet: function(playersLength) {
     /// step
     /*
@@ -319,7 +309,7 @@ module.exports = {
       "juggernaut"
     ];
     roles.push(this.random(neutralKillings));
-    
+
     roles.push("framer", "spy");
 
     let lastRandomTown = this.random(remainingTowns);
@@ -422,7 +412,7 @@ module.exports = {
     roles.push("arsonist");
     roles.push("jester");
     roles.push(this.random(mafias));
-    
+
     let neutralKillings = [
       "arsonist",
       "serial-killer",
@@ -430,7 +420,7 @@ module.exports = {
       "juggernaut"
     ];
     roles.push(this.random(neutralKillings));
-    
+
     roles.push(this.random(mafias));
     roles.push("survivor");
 
@@ -518,10 +508,10 @@ module.exports = {
       "werewolf",
       "juggernaut"
     ];
-    
+
     let roles = [];
     roles.push(this.random(neutralKillings));
-    
+
     let townInvestigates = ["investigator", "lookout"];
     roles.push(this.random(townInvestigates));
 
@@ -553,7 +543,7 @@ module.exports = {
 
     roles.push(this.random(randomTowns));
 
-    let neutrals
+    let neutrals;
     roles.push("survivor");
 
     roles.push(this.random(randomTowns));

@@ -9,7 +9,6 @@ TODO
   - friday 13
   - amnesiac chaos
   
-
 - Note push commit
   - initial psychic role (31/05/2020)
   - inital amnesiac role (31/05/2020)
@@ -24,22 +23,27 @@ TODO
 
 - jangan lupa rm rf data di .data/users, gak di pake lagi
 
-- kau ngapain rik? reverse engineering town of salem WKWWK
-
-- buat wiki keci-kecilan buat role role dan mode
-
-- properly mekanis attacked bisa pake skill itu gmna
-
 ```
-let playersLength = 5
-let townNeedCount = Math.round(playersLength / 2) + 1;
-let badNeedCount = playersLength - townNeedCount;
-let werewolfNeedCount = Math.round((50 / 100) * badNeedCount);
-//werewolfNeedCount = 4;
-let neutralNeedCount = badNeedCount - werewolfNeedCount;
+check stat
 
-console.log(`jumlah pemain ${playersLength}`)
-console.log(`town ${townNeedCount}, ww ${werewolfNeedCount}, neutral ${neutralNeedCount}`)
+/sys/fs/cgroup/memory/memory.soft_limit_in_bytes
+/sys/fs/cgroup/memory/memory.stat
+/sys/fs/cgroup/cpu/cpu.cfs_quota_us
+/sys/fs/cgroup/cpu/cpu.cfs_period_us
+/sys/fs/cgroup/cpu/cpuacct.usage
+
+buatkan async function sendiri pake readFile
+
+cth memory (todo ubah ke async)
+let memory = getMemoryUsage();
+
+let string = `Here is my memory: ${memory}/512 MB (${Math.round((memory * 100)/ 512 )}%)`
+
+
+function getMemoryUsage() {
+  let total_rss = require('fs').readFileSync("/sys/fs/cgroup/memory/memory.stat", "utf8").split("\n").filter(l => l.startsWith("total_rss"))[0].split(" ")[1]; 
+  return Math.round( Number(total_rss) / 1e6 ) - 60;
+}
 ```
 
 - buat database beneran, data user store di mongodb freakin' hard tho
