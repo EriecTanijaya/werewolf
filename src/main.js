@@ -3628,7 +3628,6 @@ module.exports = {
             if (target.framed) {
               targetRoleName = "framer";
             }
-
             if (target.doused) {
               targetRoleName = "arsonist";
             }

@@ -44,7 +44,6 @@ module.exports = {
         return this.invalidCommand();
     }
   },
-
   forumCommand: function() {
     let flex_text = {
       header: {
