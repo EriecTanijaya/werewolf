@@ -5009,10 +5009,9 @@ module.exports = {
   },
 
   getRoleData: function(roleName) {
-    const roles = require("/app/roles/rolesData");
-    for (let i = 0; i < roles.length; i++) {
-      if (roleName === roles[i].name) {
-        let roleData = JSON.parse(JSON.stringify(roles[i]));
+    for (let i = 0; i < rolesData.length; i++) {
+      if (roleName === rolesData[i].name) {
+        let roleData = JSON.parse(JSON.stringify(rolesData[i]));
         return roleData;
       }
     }
@@ -5269,8 +5268,7 @@ module.exports = {
       sender.name = role.name;
       sender.iconUrl = role.iconUrl;
     }
-
-    const flex = require("/app/message/flex");
+    
     return flex.receive(
       this.client,
       this.event,
@@ -5296,7 +5294,7 @@ module.exports = {
       sender.iconUrl =
         "https://cdn.glitch.com/fc7de31a-faeb-4c50-8a38-834ec153f590%2F%E2%80%94Pngtree%E2%80%94microphone%20vector%20icon_3725450.png?v=1587456628843";
     } else {
-      let roles = require("/app/roles/rolesData").map(role => {
+      let roles = rolesData.map(role => {
         let roleName = role.name[0].toUpperCase() + role.name.substring(1);
         return {
           name: roleName,

@@ -1,4 +1,17 @@
 module.exports = {
+  getSystemStat: function() {
+    let memory = getMemoryUsage();
+
+    let string = `Here is my memory: ${memory}/512 MB (${Math.round((memory * 100)/ 512 )}%)`
+
+    function getMemoryUsage() {
+      let total_rss = require('fs').readFileSync("/sys/fs/cgroup/memory/memory.stat", "utf8").split("\n").filter(l => l.startsWith("total_rss"))[0].split(" ")[1]; 
+      return Math.round( Number(total_rss) / 1e6 ) - 60;
+    }
+
+    console.log(string);
+  },
+  
   getPsychicResult: function(players, psychicIndex, isFullMoon) {
     let text = "🔮 ";
 
