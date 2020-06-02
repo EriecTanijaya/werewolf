@@ -412,7 +412,6 @@ module.exports = {
           }
         }
         break;
-
       case "juggernaut":
         if (isChangeTarget) {
           text +=
