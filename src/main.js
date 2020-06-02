@@ -3,6 +3,8 @@ const helper = require("/app/helper");
 const attackedMsg = require("/app/message/attack");
 const peaceMsg = require("/app/message/peace");
 const punishment = require("/app/message/punishment");
+const flex = require("/app/message/flex");
+const rolesData = require("/app/roles/rolesData");
 
 module.exports = {
   receive: function(client, event, args, rawArgs, user_session, group_session) {
@@ -5254,7 +5256,7 @@ module.exports = {
         opt_texts.push(reminder_text);
       }
     } else {
-      let roles = require("/app/roles/rolesData").map(role => {
+      let roles = rolesData.map(role => {
         let roleName = role.name[0].toUpperCase() + role.name.substring(1);
         return {
           name: roleName,

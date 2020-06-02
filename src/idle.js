@@ -1,4 +1,6 @@
+const flex = require("/app/message/flex");
 const helper = require("/app/helper");
+const rolesData = require("/app/roles/rolesData");
 
 module.exports = {
   receive: function(client, event, args, rawArgs, user_session) {
@@ -42,7 +44,7 @@ module.exports = {
         return this.invalidCommand();
     }
   },
-  
+
   forumCommand: function() {
     let flex_text = {
       header: {
@@ -166,7 +168,7 @@ module.exports = {
       iconUrl: ""
     };
 
-    let roles = require("/app/roles/rolesData").map(role => {
+    let senderEmojiRoles = rolesData.map(role => {
       let roleName = role.name[0].toUpperCase() + role.name.substring(1);
       return {
         name: roleName,
@@ -174,12 +176,11 @@ module.exports = {
       };
     });
 
-    let role = helper.random(roles);
+    let role = helper.random(senderEmojiRoles);
 
     sender.name = role.name;
     sender.iconUrl = role.iconUrl;
 
-    const flex = require("/app/message/flex");
     return flex.receive(
       this.client,
       this.event,
@@ -199,7 +200,7 @@ module.exports = {
       iconUrl: ""
     };
 
-    let roles = require("/app/roles/rolesData").map(role => {
+    let roles = rolesData.map(role => {
       let roleName = role.name[0].toUpperCase() + role.name.substring(1);
       return {
         name: roleName,
