@@ -760,12 +760,11 @@ module.exports = {
       let time = timestamp[times[i]];
       if (today >= time.from && today <= time.to) {
         //color = time.color;
-        
         /// Black lives matter
         color = {
           main: "#0f4c75",
           secondary: "#0f4c75",
-          background: "#1b262c",
+          background: "#000000",
           text: "#ffffff"
         };
         

@@ -218,7 +218,13 @@ module.exports = {
     let roleName = players[index].role.name;
     let roleTeam = players[index].role.team;
 
-    let prohibited = ["villager", "veteran", "survivor", "executioner", "psychic"];
+    let prohibited = [
+      "villager",
+      "veteran",
+      "survivor",
+      "executioner",
+      "psychic"
+    ];
 
     if (prohibited.includes(roleName)) {
       return this.replyText("💡 Jangan pernah kau coba untuk");
@@ -278,6 +284,11 @@ module.exports = {
       if (players[targetIndex].status === "alive") {
         return this.replyText("💡 Targetmu masih hidup");
       }
+      
+      if (players[targetIndex].role.team !== "villager") {
+        return this.replyText("💡 Kamu hanya bisa bangkitin sesama warga");
+      }
+      
     } else if (roleName === "amnesiac") {
       if (players[targetIndex].status === "alive") {
         let text = "💡 Kamu hanya bisa mengingat pemain yang telah mati";
@@ -645,6 +656,21 @@ module.exports = {
       buttons: []
     };
 
+    // check for townies only death
+    let isTownieDeath = false;
+
+    for (let i = 0; i < players.length; i++) {
+      let player = players[i];
+      if (player.status === "death" && player.role.team === "villager") {
+        isTownieDeath = true;
+        break;
+      }
+    }
+    
+    if (!isTownieDeath) {
+      return this.replyFlex(flex_text);
+    }
+
     let button = {};
     players.forEach((item, index) => {
       if (item.status === "death") {
@@ -660,7 +686,7 @@ module.exports = {
 
     return this.replyFlex(flex_text);
   },
-  
+
   amnesiacSkill: function(flex_text) {
     let skillText = this.getRoleSkillText("amnesiac");
     let players = this.group_session.players;
@@ -687,7 +713,7 @@ module.exports = {
 
     return this.replyFlex(flex_text);
   },
-  
+
   guardianAngelSkill: function(flex_text) {
     let skillText = this.getRoleSkillText("guardian-angel");
     let players = this.group_session.players;
@@ -695,13 +721,13 @@ module.exports = {
     let index = this.indexOfPlayer();
 
     flex_text.body.text += "\n\n" + skillText + "\n\n";
-    
+
     let targetIndex = players[index].role.mustProtectIndex;
     let targetName = players[targetIndex].name;
 
     flex_text.body.text += "⚔️ Kamu bisa protect " + targetName + " ";
     flex_text.body.text += players[index].role.protection + " kali lagi";
-    
+
     flex_text.footer = {
       buttons: [
         {
@@ -760,7 +786,7 @@ module.exports = {
 
     return this.replyFlex(flex_text);
   },
-  
+
   protectCommand: function() {
     let index = this.indexOfPlayer();
     let players = this.group_session.players;
@@ -777,11 +803,13 @@ module.exports = {
     }
 
     if (players[index].role.protection === 0) {
-      return this.replyText("💡 Kamu sudah tidak memiliki protection yang tersisa");
+      return this.replyText(
+        "💡 Kamu sudah tidak memiliki protection yang tersisa"
+      );
     }
-    
+
     let targetIndex = this.group_session.players[index].role.mustProtectIndex;
-    
+
     this.group_session.players[index].target.index = targetIndex;
 
     let text = "";
