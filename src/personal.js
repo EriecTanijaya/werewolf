@@ -516,7 +516,7 @@ module.exports = {
 
     if (player.status === "death" || player.willSuicide) {
       /// Yang bisa skill walaupun dah mati
-      if (roleName !== "jester" || roleName !== "guardian-angel") {
+      if (roleName !== "jester" && roleName !== "guardian-angel") {
         return this.replyFlex(flex_text);
       }
     }

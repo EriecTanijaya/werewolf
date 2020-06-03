@@ -344,6 +344,19 @@ module.exports = {
     let townKillings = ["veteran", "vigilante"];
     roles.push(this.random(townKillings));
 
+    let randomMafia = ["framer", "consort", "consigliere", "disguiser"];
+    roles.push(this.random(randomMafia));
+    
+    let neutralKillings = [
+      "arsonist",
+      "serial-killer",
+      "werewolf",
+      "juggernaut"
+    ];
+    roles.push(this.random(neutralKillings));
+    
+    roles.push("spy");
+    
     let randomTowns = [
       "doctor",
       "bodyguard",
@@ -359,20 +372,7 @@ module.exports = {
     roles.push(this.random(randomTowns));
 
     roles.push(this.random(randomTowns));
-
-    let randomMafia = ["framer", "consort", "consigliere", "disguiser"];
-    roles.push(this.random(randomMafia));
-
-    roles.push("spy");
-
-    let neutralKillings = [
-      "arsonist",
-      "serial-killer",
-      "werewolf",
-      "juggernaut"
-    ];
-    roles.push(this.random(neutralKillings));
-
+    
     roles.push(this.random(randomTowns));
 
     roles.push(this.random(randomMafia));

@@ -1,5 +1,12 @@
 TODO
 
+Update note starts from 03/06/2020
+- fix jester can't use skill bug
+- set proper value for afkCounter
+- add new setting command : /set show_role
+- misc optimization
+- add some command for city of bedburg group turnament event
+
 - test terus changes yang ada sebelumnya
   - role baru,
   - double executioner dan double amne

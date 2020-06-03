@@ -1,5 +1,8 @@
 const fs = require("fs");
 const helper = require("/app/helper");
+const personal = require("/app/src/personal");
+const main = require("/app/src/main");
+const idle = require("/app/src/idle");
 
 // game storage
 const group_sessions = {};
@@ -83,7 +86,6 @@ module.exports = {
     } else if (userData.state === "active") {
       return this.searchGroup(userData, userData.groupId);
     } else {
-      const idle = require("/app/src/idle");
       return idle.receive(
         this.client,
         this.event,
@@ -120,6 +122,7 @@ module.exports = {
         time_default: 0,
         time: 300,
         mode: "classic",
+        isShowRole: true,
         players: []
       };
       group_sessions[groupId] = newGroup;
@@ -151,7 +154,6 @@ module.exports = {
 
   forwardProcess: function(user_session, group_session) {
     if (this.event.source.type === "user") {
-      const personal = require("/app/src/personal");
       return personal.receive(
         this.client,
         this.event,
@@ -161,7 +163,6 @@ module.exports = {
         group_session
       );
     } else {
-      const main = require("/app/src/main");
       return main.receive(
         this.client,
         this.event,
