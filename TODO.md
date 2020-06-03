@@ -6,6 +6,10 @@ Update note starts from 03/06/2020
 - add new setting command : /set show_role
 - misc optimization
 - add some command for city of bedburg group turnament event
+- retributionist only can revive town member now
+- fix some derp, add multicast to tell game is started
+
+- untuk command event group, pas dh selesai turnamen baru di cleanup kan, baru update
 
 - test terus changes yang ada sebelumnya
   - role baru,

@@ -14,7 +14,7 @@ module.exports = {
     this.rawArgs = rawArgs;
     this.user_session = user_session;
     this.group_session = group_session;
-    
+
     if (!this.rawArgs.startsWith("/")) {
       let time = this.group_session.time;
       let state = this.group_session.state;
@@ -41,7 +41,6 @@ module.exports = {
           let players = this.group_session.players;
           let index = this.indexOfPlayer();
           if (index !== -1) {
-            
             // cp deathtalk
             if (players[index].status === "death") {
               this.replyText(
@@ -217,7 +216,14 @@ module.exports = {
       let text = "Reported Player" + "\n";
       for (let i = 0; i < groupData.reported.length; i++) {
         let member = groupData.reported[i];
-        text += "* " + member.name + " di report oleh " + member.reporter + " dengan alasan " + member.reason + "\n";
+        text +=
+          "* " +
+          member.name +
+          " di report oleh " +
+          member.reporter +
+          " dengan alasan " +
+          member.reason +
+          "\n";
       }
 
       return this.replyText(text.trim());
@@ -450,7 +456,7 @@ module.exports = {
     }
 
     bodyText += "🕹️ Game mode : " + this.group_session.mode + "\n\n";
-    
+
     bodyText += "✉️ Show role : " + this.group_session.isShowRole + "\n\n";
 
     let roomHostIndex = this.getPlayerIndexById(this.group_session.roomHostId);
@@ -580,7 +586,7 @@ module.exports = {
       text += "game selesai dengan '/set show_role yes'";
       return this.replyText(text);
     }
-    
+
     let roles = this.group_session.roles;
     let flex_text = {
       header: {
@@ -720,7 +726,7 @@ module.exports = {
 
       if (process.env.TEST === "true") {
         // cp
-        // for (let i = 0; i < 8; i++) {
+        // for (let i = 0; i < 4; i++) {
         //   let dummy = JSON.parse(JSON.stringify(this.user_session));
         //   dummy.name += " " + helper.getRandomInt(1, 99);
         //   let newPlayer = this.createNewPlayer(dummy);
@@ -1012,26 +1018,13 @@ module.exports = {
       roles = ["vigilante", "vampire"];
     }
 
-    // this.group_session.players = helper.shuffleArray(
-    //   this.group_session.players
-    // );
-
     this.group_session.players.forEach((item, index) => {
       if (index <= roles.length - 1) {
         item.role.name = roles[index];
       }
 
       item.role = this.getRoleData(item.role.name);
-
-      // disini bagi role pake pushMessage
-      // if (this.group_session.groupId === process.env.TEST_GROUP) {
-      //   // this.client.pushMessage();
-      // }
     });
-
-    // this.group_session.players = helper.shuffleArray(
-    //   this.group_session.players
-    // );
 
     this.group_session.players.forEach((item, index) => {
       /// init private prop special role
@@ -1054,6 +1047,23 @@ module.exports = {
 
     // set roles list
     this.group_session.roles = this.getRoleList();
+
+    // kasih tau kalo game dh mulai
+    
+    let text = "🔔 Hai! Game nya sudah dimulai ya!" + "\n\n";
+    text += "Ketik '/role' untuk melihat rolemu, ";
+    text += "ketik '/info <nama-role>' untuk info role!";
+    
+    let text_obj = {
+      type: 'text',
+      text: text
+    }
+
+    let playersUserId = players.map(p => {
+      return p.id;
+    });
+
+    this.client.multicast(playersUserId, [text_obj]);
 
     this.night(null);
   },
@@ -1157,9 +1167,8 @@ module.exports = {
     this.group_session.time_default = this.getTimeDefault(alivePlayersCount);
     this.group_session.time = this.group_session.time_default;
 
-    
     let announcement = "";
-    
+
     if (this.group_session.isShowRole) {
       announcement +=
         "📣 Role yang ada di game ini bisa cek di '/roles'. " + "\n\n";

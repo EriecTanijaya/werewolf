@@ -75,6 +75,12 @@ module.exports = {
     if (this.group_session.state === "new") {
       return this.replyText("💡 Game belum dimulai");
     }
+    
+    if (!this.group_session.isShowRole) {
+      let text = "💡 Tidak dapat melihat role list ";
+      text += "karena settingan show role pada group di non-aktifkan!";
+      return this.replyText(text);
+    }
 
     let roles = this.group_session.roles;
     let flex_text = {

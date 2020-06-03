@@ -370,7 +370,7 @@ module.exports = {
             "Pada bulan purnama ia dapat penglihatan 2 orang dan salah satu nya adalah orang baik. ";
           flex_text.body.text +=
             "Jika tidak bulan purnama, ia dapat penglihatan 3 orang dan salah satunya adalah orang jahat. ";
-          flex_text.body.text += "Orang baik adalah sesama warga dan survivor"; //amnesac, guardian angle juga baik
+          flex_text.body.text += "Orang baik adalah sesama warga, Survivor, Amnesiac dan Guardian Angel";
           break;
 
         case "amnesiac":
