@@ -1,6 +1,3 @@
-const fs = require("fs");
-const baseUserPath = "/app/.data/users/";
-const database = require("/app/src/database");
 const helper = require("/app/helper");
 
 // const datas = require("/app/src/data");
@@ -12,114 +9,10 @@ module.exports = {
     this.args = args;
 
     switch (this.args[0]) {
-      case "/me":
-      case "/stats":
-      case "/stat":
-        return this.meCommand();
-      case "/rank":
-        return this.rankCommand();
       case "/status":
         // game online ada berapa
         return this.statusCommand();
-      case "/reset":
-        return this.resetAllCommand();
     }
-  },
-
-  meCommand: function() {
-    let team = this.args[1];
-
-    let flex_text = {
-      header: {
-        text: "📜 "
-      },
-      body: {
-        text: ""
-      }
-    };
-
-    let whatStat = " Summary Stat";
-    if (team) {
-      let availableTeam = [
-        "werewolf",
-        "villager",
-        "vampire",
-        "jester",
-        "serial-killer",
-        "arsonist",
-        "survivor",
-        "executioner"
-      ];
-      if (!availableTeam.includes(team)) {
-        let text = "💡 Tidak ada ditemukan team '" + team + "', ";
-        text += "team yang ada : " + availableTeam.join(", ");
-        return this.replyText(text);
-      }
-      whatStat = " " + team.toUpperCase() + " Stat";
-    }
-
-    database.getAllUser(team, users => {
-      if (!users.length) return this.replyText("💡Belum ada data usernya, main 1 game dlu");
-      
-      users = this.rank_sort(users);
-      for (let i = 0; i < users.length; i++) {
-        if (users[i].id === this.event.source.userId) {
-          let whatRank = i + 1;
-          let totalGame = users[i].totalGame;
-          let winRate = users[i].winRate;
-
-          let text = "⭐ Points : " + users[i].points + " ";
-          text += "📊 WR : " + winRate + "\n";
-          text += "🎮 Game : " + totalGame + " ";
-          text += "🏆 Rank : " + whatRank;
-
-          flex_text.header.text += users[i].name;
-          flex_text.header.text += "\n" + whatStat;
-          flex_text.body.text += text;
-
-          return this.replyFlex(flex_text);
-        }
-      }
-    });
-  },
-
-  rankCommand: function() {
-    let headerText = "🏆 ";
-    let team = this.args[1];
-    let availableTeam = [
-      "villager",
-      "werewolf",
-      "jester",
-      "serial-killer",
-      "arsonist",
-      "vampire",
-      "survivor",
-      "executioner"
-    ];
-    if (this.args[1] && !availableTeam.includes(team)) {
-      let text =
-        "💡 Tidak ada team " +
-        team +
-        ", team yang ada : " +
-        availableTeam.join(", ");
-      return this.replyText(text);
-    }
-
-    let whatStat = " Global Rank";
-    if (team) {
-      whatStat = team.toUpperCase() + " Rank";
-    }
-    headerText += whatStat;
-
-    database.getAllUser(team, users => {
-      if (!users.length) return this.replyText("💡 Belum ada data usernya");
-
-      users = this.rank_sort(users);
-      users.length = 10;
-
-      let flex_text = this.getTableFlex(users, headerText, team);
-      return this.replyFlex(flex_text);
-    });
   },
 
   statusCommand: function() {

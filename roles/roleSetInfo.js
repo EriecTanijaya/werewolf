@@ -1,7 +1,7 @@
 const helper = require("/app/helper");
 
 module.exports = {
-  receive: function(client, event, args) {
+  receive: function(client, event, args, groupState) {
     this.client = client;
     this.event = event;
     this.args = args;
@@ -50,7 +50,7 @@ module.exports = {
 
       case "classic":
       case "3":
-        flex_text.header.text = "👨‍🌾🐺 Classic Mode";
+        flex_text.header.text = "👨‍🌾🤵 Classic Mode";
         flex_text.body.text += "Mode ID: 3" + "\n\n";
         flex_text.body.text += "Mode normal, cocok untuk pemula. ";
         modeId = 3;
@@ -67,10 +67,10 @@ module.exports = {
 
       case "killing wars":
       case "5":
-        flex_text.header.text = "🐺🔥 Killing Wars Mode";
+        flex_text.header.text = "🤵🔥 Killing Wars Mode";
         flex_text.body.text += "Mode ID: 5" + "\n\n";
         flex_text.body.text +=
-          "Warga telah binasa, sekarang Werewolf masih menghadapi ancaman yang lain!";
+          "Warga telah binasa, sekarang Mafia masih menghadapi ancaman yang lain!";
         modeId = 5;
         break;
 
@@ -86,10 +86,10 @@ module.exports = {
 
       case "trust issue":
       case "7":
-        flex_text.header.text = "🎞️🔮 Trust Issue Mode";
+        flex_text.header.text = "🎞️🔍 Trust Issue Mode";
         flex_text.body.text += "Mode ID: 7" + "\n\n";
         flex_text.body.text +=
-          "Warga di buat kesal, karena salah menggantung orang yang dikira Werewolf. ";
+          "Warga di buat kesal, karena salah menggantung orang yang dikira Mafia. ";
         flex_text.body.text += "Padahal role nya adalah Sheriff. ";
         flex_text.body.text +=
           "Seer yang sebelumnya dipercayai warga, telah membuat para warga kecewa. ";
@@ -112,9 +112,9 @@ module.exports = {
         flex_text.header.text = "🔪 New Threat Mode";
         flex_text.body.text += "Mode ID: 9" + "\n\n";
         flex_text.body.text +=
-          "Warga senang sekali setelah berhasil membasmi Werewolf, ";
+          "Warga senang sekali setelah berhasil membasmi Mafia, ";
         flex_text.body.text +=
-          "Namun mereka tidak sadar bahwa ada bahaya yang mengintai selain Werewolf..";
+          "Namun mereka tidak sadar bahwa ada bahaya yang mengintai selain Mafia..";
         modeId = 9;
         break;
 
@@ -128,6 +128,24 @@ module.exports = {
           "apa benar?";
         modeId = 10;
         break;
+        
+      case "amnesiac chaos":
+      case "11":
+        flex_text.header.text = "🤕 Amnesiac Chaos Mode";
+        flex_text.body.text += "Mode ID: 11" + "\n\n";
+        flex_text.body.text +=
+          "Dengan tiba tiba, banyak orang yang hilang ingatan sejak Agent K menggunakan Memory Eraser di kota Bedburg"
+        modeId = 11;
+        break;
+        
+      case "friday 13":
+      case "12":
+        flex_text.header.text = "🔪 Friday 13th Mode";
+        flex_text.body.text += "Mode ID: 12" + "\n\n";
+        flex_text.body.text +=
+          "Kunci pintu rumah kalian, kunci jendela, jangan sampai Jason datang dan membunuh kalian!";
+        modeId = 12;
+        break;
 
       default:
         let text =
@@ -139,15 +157,17 @@ module.exports = {
     }
 
     if (this.event.source.type !== "user") {
-      flex_text.footer = {
-        buttons: [
-          {
-            action: "postback",
-            label: "set mode ini",
-            data: "/set mode " + modeId
-          }
-        ]
-      };
+      if (groupState === "idle" || groupState === "new") {
+        flex_text.footer = {
+          buttons: [
+            {
+              action: "postback",
+              label: "set mode ini",
+              data: "/set mode " + modeId
+            }
+          ]
+        };
+      }
     }
 
     return this.replyFlex(flex_text);

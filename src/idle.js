@@ -1,4 +1,6 @@
+const flex = require("/app/message/flex");
 const helper = require("/app/helper");
+const rolesData = require("/app/roles/rolesData");
 
 module.exports = {
   receive: function(client, event, args, rawArgs, user_session) {
@@ -12,7 +14,8 @@ module.exports = {
       return Promise.resolve(null);
     }
 
-    switch (this.args[0]) {
+    let input = this.args[0].toLowerCase();
+    switch (input) {
       case "/help":
         return this.helpCommand();
       case "/cmd":
@@ -22,12 +25,7 @@ module.exports = {
       case "/info":
       case "/rolelist":
         return this.infoCommand();
-      case "/rank":
-      case "/me":
       case "/status":
-      case "/stat":
-      case "/stats":
-      case "/reset":
         return this.statCommand();
       case "/tutorial":
         return this.tutorialCommand();
@@ -46,7 +44,7 @@ module.exports = {
         return this.invalidCommand();
     }
   },
-  
+
   forumCommand: function() {
     let flex_text = {
       header: {
@@ -100,8 +98,6 @@ module.exports = {
       "/help : bantuan game",
       "/about : tentang bot",
       "/info : list role",
-      "/me : statistik user",
-      "/rank : cek rank",
       "/tutorial : tutorial menggunakan bot ini",
       "/forum : link ke openchat",
       "/status : untuk melihat berapa yang online"
@@ -172,7 +168,7 @@ module.exports = {
       iconUrl: ""
     };
 
-    let roles = require("/app/roles/rolesData").map(role => {
+    let senderEmojiRoles = rolesData.map(role => {
       let roleName = role.name[0].toUpperCase() + role.name.substring(1);
       return {
         name: roleName,
@@ -180,12 +176,11 @@ module.exports = {
       };
     });
 
-    let role = helper.random(roles);
+    let role = helper.random(senderEmojiRoles);
 
     sender.name = role.name;
     sender.iconUrl = role.iconUrl;
 
-    const flex = require("/app/message/flex");
     return flex.receive(
       this.client,
       this.event,
@@ -205,7 +200,7 @@ module.exports = {
       iconUrl: ""
     };
 
-    let roles = require("/app/roles/rolesData").map(role => {
+    let roles = rolesData.map(role => {
       let roleName = role.name[0].toUpperCase() + role.name.substring(1);
       return {
         name: roleName,

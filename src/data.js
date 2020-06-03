@@ -1,6 +1,5 @@
 const fs = require("fs");
 const helper = require("/app/helper");
-const CronJob = require("cron").CronJob;
 
 // game storage
 const group_sessions = {};
@@ -53,40 +52,7 @@ module.exports = {
         id: id,
         name: "",
         state: "inactive",
-        groupId: "",
-        points: 0,
-        villagerStats: {
-          win: 0,
-          lose: 0
-        },
-        werewolfStats: {
-          win: 0,
-          lose: 0
-        },
-        vampireStats: {
-          win: 0,
-          lose: 0
-        },
-        jesterStats: {
-          win: 0,
-          lose: 0
-        },
-        serialKillerStats: {
-          win: 0,
-          lose: 0
-        },
-        arsonistStats: {
-          win: 0,
-          lose: 0
-        },
-        survivorStats: {
-          win: 0,
-          lose: 0
-        },
-        executionerStats: {
-          win: 0,
-          lose: 0
-        }
+        groupId: ""
       };
       user_sessions[id] = newUser;
     }
@@ -195,8 +161,8 @@ module.exports = {
         group_session
       );
     } else {
-      const werewolf = require("/app/src/werewolf");
-      return werewolf.receive(
+      const main = require("/app/src/main");
+      return main.receive(
         this.client,
         this.event,
         this.args,
@@ -291,82 +257,14 @@ module.exports = {
 
   /** save data func **/
 
-  saveUserData: function(user_session) {
-    let path = "/app/.data/users/" + user_session.id + "_user.json";
-    let data = JSON.stringify(user_session, null, 2);
-    fs.writeFile(path, data, err => {
-      if (err) throw err;
-      this.resetUser(user_session.id);
-    });
-  },
-
-  getUserData: function(id, newUserData) {
-    const baseUserPath = "/app/.data/users/";
-    let userPath = baseUserPath + id + "_user.json";
-    let user_session = {};
-    fs.readFile(userPath, "utf8", (err, data) => {
-      if (err) {
-        // use the apa adanya user_session
-        this.saveUserData(newUserData);
-      } else {
-        user_session = JSON.parse(data);
-        this.updateUserData(user_session, newUserData);
-      }
-    });
-  },
-
-  updateUserData: function(oldUserData, newUserData) {
-    oldUserData.name = newUserData.name;
-
-    oldUserData.points += newUserData.points;
-    if (oldUserData.points < 0) {
-      oldUserData.points = 0;
-    }
-
-    oldUserData.villagerStats.win += newUserData.villagerStats.win;
-    oldUserData.villagerStats.lose += newUserData.villagerStats.lose;
-
-    oldUserData.werewolfStats.win += newUserData.werewolfStats.win;
-    oldUserData.werewolfStats.lose += newUserData.werewolfStats.lose;
-
-    oldUserData.vampireStats.win += newUserData.vampireStats.win;
-    oldUserData.vampireStats.lose += newUserData.vampireStats.lose;
-
-    oldUserData.jesterStats.win += newUserData.jesterStats.win;
-    oldUserData.jesterStats.lose += newUserData.jesterStats.lose;
-
-    oldUserData.serialKillerStats.win += newUserData.serialKillerStats.win;
-    oldUserData.serialKillerStats.lose += newUserData.serialKillerStats.lose;
-
-    oldUserData.arsonistStats.win += newUserData.arsonistStats.win;
-    oldUserData.arsonistStats.lose += newUserData.arsonistStats.lose;
-
-    oldUserData.survivorStats.win += newUserData.survivorStats.win;
-    oldUserData.survivorStats.lose += newUserData.survivorStats.lose;
-
-    oldUserData.executionerStats.win += newUserData.executionerStats.win;
-    oldUserData.executionerStats.lose += newUserData.executionerStats.lose;
-
-    this.saveUserData(oldUserData);
-  },
-
   resetAllPlayers: function(players, groupId) {
     players.forEach(item => {
       let reset_player = {
         id: item.id,
-        name: item.name,
-        points: item.points,
-        villagerStats: item.villagerStats,
-        werewolfStats: item.werewolfStats,
-        vampireStats: item.vampireStats,
-        jesterStats: item.jesterStats,
-        serialKillerStats: item.serialKillerStats,
-        arsonistStats: item.arsonistStats,
-        survivorStats: item.survivorStats,
-        executionerStats: item.executionerStats
+        name: item.name
       };
 
-      this.getUserData(item.id, reset_player);
+      this.resetUser(item.id);
     });
     //this.resetRoom(groupId);
   },

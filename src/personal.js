@@ -1,5 +1,7 @@
 const skillText = require("/app/message/skill");
+const flex = require("/app/message/flex");
 const helper = require("/app/helper");
+const rolesData = require("/app/roles/rolesData");
 
 module.exports = {
   receive: function(client, event, args, rawArgs, user_session, group_session) {
@@ -23,7 +25,8 @@ module.exports = {
       return Promise.resolve(null);
     }
 
-    switch (this.args[0]) {
+    let input = this.args[0].toLowerCase();
+    switch (input) {
       case "/role":
         return this.roleCommand();
       case "/announce":
@@ -43,9 +46,8 @@ module.exports = {
         return this.alertCommand();
       case "/vest":
         return this.vestCommand();
-      case "/rank":
-      case "/me":
-      case "/stat":
+      case "/protect":
+        return this.protectCommand();
       case "/status":
         return this.statCommand();
       case "/dnote":
@@ -216,16 +218,14 @@ module.exports = {
     let roleName = players[index].role.name;
     let roleTeam = players[index].role.team;
 
-    let prohibited = ["villager", "veteran", "survivor", "executioner"];
+    let prohibited = ["villager", "veteran", "survivor", "executioner", "psychic"];
 
     if (prohibited.includes(roleName)) {
       return this.replyText("💡 Jangan pernah kau coba untuk");
     }
 
-    // buat if role.name === jester & isLynched true
+    /// special role yg bisa skill pas mati
     if (players[index].status === "death") {
-      /// special role yg bisa skill pas mati
-
       // Jester
       if (roleName !== "jester") {
         return this.replyText("💡 Kamu sudah mati");
@@ -236,6 +236,21 @@ module.exports = {
           );
         } else if (players[index].role.hasRevenged) {
           return this.replyText("💡 Kamu sudah balas dendam mu kepada warga");
+        }
+      }
+    }
+
+    /// khusus role yang ada limited skill pas full moon
+    if (!this.group_session.isFullMoon) {
+      if (roleName === "werewolf") {
+        return this.replyText(
+          "💡 Kamu hanya bisa berubah menjadi Werewolf pada bulan purnama"
+        );
+      } else if (roleName === "juggernaut") {
+        if (players[index].role.skillLevel === 0) {
+          return this.replyText(
+            "💡 Kamu hanya bisa menyerang pada bulan purnama"
+          );
         }
       }
     }
@@ -262,6 +277,11 @@ module.exports = {
 
       if (players[targetIndex].status === "alive") {
         return this.replyText("💡 Targetmu masih hidup");
+      }
+    } else if (roleName === "amnesiac") {
+      if (players[targetIndex].status === "alive") {
+        let text = "💡 Kamu hanya bisa mengingat pemain yang telah mati";
+        return this.replyText(text);
       }
     } else {
       if (players[targetIndex].status === "death") {
@@ -340,7 +360,7 @@ module.exports = {
     }
 
     //need system for it
-    if (roleTeam === "vampire" || roleTeam === "werewolf") {
+    if (roleTeam === "vampire" || roleTeam === "mafia") {
       if (players[targetIndex].role.team === roleTeam) {
         return this.replyText(
           "💡 Target yang kamu pilih adalah sesama team " + roleTeam
@@ -375,12 +395,12 @@ module.exports = {
       value: 1
     };
 
-    if (roleName === "alpha-werewolf") {
+    if (roleName === "godfather") {
       this.group_session.players[index].target.value++;
     }
 
     /// Special role communication
-    if (roleTeam === "werewolf" || roleTeam === "vampire") {
+    if (roleTeam === "mafia" || roleTeam === "vampire") {
       let chatBox = [];
       let text = skillText.response(doer, true);
       let message = {
@@ -388,9 +408,9 @@ module.exports = {
         text: text
       };
 
-      if (roleTeam === "werewolf") {
-        chatBox = this.group_session.werewolfChat;
-        this.group_session.werewolfChat.push(message);
+      if (roleTeam === "mafia") {
+        chatBox = this.group_session.mafiaChat;
+        this.group_session.mafiaChat.push(message);
       } else if (roleTeam === "vampire") {
         chatBox = this.group_session.vampireChat;
         this.group_session.vampireChat.push(message);
@@ -468,11 +488,11 @@ module.exports = {
       }
     };
 
-    if (roleTeam === "werewolf" || roleTeam === "vampire") {
+    if (roleTeam === "mafia" || roleTeam === "vampire") {
       let nightNews =
         "\n\n" + "📣 Yang berada di team " + roleTeam + " : " + "\n";
       let teammates = "";
-      if (roleTeam === "werewolf") {
+      if (roleTeam === "mafia") {
         // untuk role team yg ada banyak role name
         teammates = this.getNamesByTeam(roleTeam, true);
       } else {
@@ -484,8 +504,8 @@ module.exports = {
     }
 
     if (player.status === "death" || player.willSuicide) {
-      /// sejauh ini hanya jester yg bisa pake skill pas mati
-      if (roleName !== "jester") {
+      /// Yang bisa skill walaupun dah mati
+      if (roleName !== "jester" || roleName !== "guardian-angel") {
         return this.replyFlex(flex_text);
       }
     }
@@ -509,7 +529,7 @@ module.exports = {
     if (state !== "day" && state !== "vote") {
       let text = "";
       /// Special Role Personal chat reminder
-      if (roleTeam === "werewolf" || roleTeam === "vampire") {
+      if (roleTeam === "mafia" || roleTeam === "vampire") {
         text +=
           "💡 Kamu bisa chat sama sesama team dengan cmd '/c <kata-yang ingin disampaikan>'" +
           "\n";
@@ -519,7 +539,7 @@ module.exports = {
           "💡 Kamu bisa dengar vampire chat-an, gunakan cmd '/r' secara berkala";
       }
 
-      let noNightSkill = ["villager", "executioner", "mayor"];
+      let noNightSkill = ["villager", "executioner", "mayor", "psychic"];
 
       if (noNightSkill.includes(roleName)) {
         return this.replyFlex(flex_text, text);
@@ -546,7 +566,7 @@ module.exports = {
         }
       } else if (roleName === "vigilante") {
         if (player.role.isLoadBullet) {
-          text += "🧳 Kamu masih menyiapkan senjata mu";
+          text += "💼 Kamu masih menyiapkan senjata mu";
           return this.replyFlex(flex_text, text);
         }
       } else if (roleName === "jester") {
@@ -570,6 +590,30 @@ module.exports = {
             vampireConvertCooldown +
             " malam untuk gigit orang";
           return this.replyFlex(flex_text, [text, infoText]);
+        }
+      } else if (roleName === "werewolf") {
+        if (!this.group_session.isFullMoon) {
+          text += "🌓 Masih belum bulan purnama, kamu tidur seperti biasa.";
+          return this.replyFlex(flex_text, text);
+        }
+      } else if (roleName === "juggernaut") {
+        let skillLevel = players[index].role.skillLevel;
+        if (skillLevel === 0 && !this.group_session.isFullMoon) {
+          text +=
+            "🌓 Masih belum bulan purnama, kamu tidak membunuh pada malam ini.";
+          return this.replyFlex(flex_text, text);
+        }
+      } else if (roleName === "amnesiac") {
+        if (this.isSomeoneDeath()) {
+          return this.amnesiacSkill(flex_text);
+        } else {
+          return this.replyFlex(flex_text);
+        }
+      } else if (roleName === "guardian-angel") {
+        if (player.role.protection > 0) {
+          return this.guardianAngelSkill(flex_text);
+        } else {
+          return this.replyFlex(flex_text);
         }
       }
 
@@ -613,6 +657,60 @@ module.exports = {
         flex_text.footer.buttons.push(button[index]);
       }
     });
+
+    return this.replyFlex(flex_text);
+  },
+  
+  amnesiacSkill: function(flex_text) {
+    let skillText = this.getRoleSkillText("amnesiac");
+    let players = this.group_session.players;
+    let cmdText = this.getRoleCmdText("amnesiac");
+
+    flex_text.body.text += "\n\n" + skillText;
+
+    flex_text.footer = {
+      buttons: []
+    };
+
+    let button = {};
+    players.forEach((item, index) => {
+      if (item.status === "death") {
+        button[index] = {
+          action: "postback",
+          label: item.name,
+          data: cmdText + " " + index
+        };
+
+        flex_text.footer.buttons.push(button[index]);
+      }
+    });
+
+    return this.replyFlex(flex_text);
+  },
+  
+  guardianAngelSkill: function(flex_text) {
+    let skillText = this.getRoleSkillText("guardian-angel");
+    let players = this.group_session.players;
+    let cmdText = this.getRoleCmdText("guardian-angel");
+    let index = this.indexOfPlayer();
+
+    flex_text.body.text += "\n\n" + skillText + "\n\n";
+    
+    let targetIndex = players[index].role.mustProtectIndex;
+    let targetName = players[targetIndex].name;
+
+    flex_text.body.text += "⚔️ Kamu bisa protect " + targetName + " ";
+    flex_text.body.text += players[index].role.protection + " kali lagi";
+    
+    flex_text.footer = {
+      buttons: [
+        {
+          action: "postback",
+          label: "Protect dia!",
+          data: cmdText
+        }
+      ]
+    };
 
     return this.replyFlex(flex_text);
   },
@@ -661,6 +759,45 @@ module.exports = {
     };
 
     return this.replyFlex(flex_text);
+  },
+  
+  protectCommand: function() {
+    let index = this.indexOfPlayer();
+    let players = this.group_session.players;
+    let state = this.group_session.state;
+
+    if (state === "day") {
+      return this.replyText("💡 Bukan saatnya menggunakan skill");
+    }
+
+    let roleName = players[index].role.name;
+
+    if (roleName !== "guardian-angel") {
+      return this.replyText("💡 Role mu bukan Guardian Angel");
+    }
+
+    if (players[index].role.protection === 0) {
+      return this.replyText("💡 Kamu sudah tidak memiliki protection yang tersisa");
+    }
+    
+    let targetIndex = this.group_session.players[index].role.mustProtectIndex;
+    
+    this.group_session.players[index].target.index = targetIndex;
+
+    let text = "";
+    let msg = [];
+
+    let doer = {
+      name: players[index].name,
+      roleName: roleName,
+      targetName: players[targetIndex].name,
+      selfTarget: false,
+      changeTarget: false
+    };
+    text = skillText.response(doer, null);
+    msg = [text];
+
+    return this.replyText(msg);
   },
 
   alertCommand: function() {
@@ -853,7 +990,7 @@ module.exports = {
       return this.replyText("💡 Kamu sudah mati");
     }
 
-    if (roleTeam !== "werewolf" && roleTeam !== "vampire") {
+    if (roleTeam !== "mafia" && roleTeam !== "vampire") {
       if (roleName !== "vampire-hunter") {
         return this.replyText(
           "💡 Team " + roleTeam + " gak ada komunikasi malam"
@@ -863,8 +1000,8 @@ module.exports = {
 
     let chatBox = [];
 
-    if (roleTeam === "werewolf") {
-      chatBox = this.group_session.werewolfChat;
+    if (roleTeam === "mafia") {
+      chatBox = this.group_session.mafiaChat;
     } else if (roleTeam === "vampire") {
       chatBox = this.group_session.vampireChat;
     } else if (roleName === "vampire-hunter") {
@@ -904,7 +1041,7 @@ module.exports = {
     let roleTeam = players[index].role.team;
     let roleName = players[index].role.name;
 
-    if (roleTeam !== "werewolf" && roleTeam !== "vampire") {
+    if (roleTeam !== "mafia" && roleTeam !== "vampire") {
       return this.replyText("💡 " + roleTeam + " gak ada komunikasi malam");
     }
 
@@ -923,14 +1060,17 @@ module.exports = {
       text: helper.parseToText(this.args)
     };
 
-    if (roleTeam === "werewolf") {
-      this.group_session.werewolfChat.push(message);
+    if (roleTeam === "mafia") {
+      this.group_session.mafiaChat.push(message);
     } else if (roleTeam === "vampire") {
       this.group_session.vampireChat.push(message);
 
       // for vampire hunter
-      message.name = "Vampire";
-      this.group_session.vampireHunterChat.push(message);
+      let toVampireHunterMsg = {
+        name: "Vampire",
+        text: helper.parseToText(this.args)
+      };
+      this.group_session.vampireHunterChat.push(toVampireHunterMsg);
     }
 
     return this.replyText("💡 Pesan terkirim! Check chat dengan '/r'");
@@ -1000,11 +1140,11 @@ module.exports = {
     let can = false;
 
     let cantTargetItSelf = [
-      "alpha-werewolf",
-      "werewolf-cub",
+      "godfather",
+      "mafioso",
       "escort",
-      "sorcerer",
-      "seer",
+      "consigliere",
+      "investigator",
       "vampire",
       "vampire-hunter",
       "vigilante",
@@ -1017,7 +1157,10 @@ module.exports = {
       "spy",
       "tracker",
       "disguiser",
-      "framer"
+      "framer",
+      "juggernaut",
+      "amnesiac",
+      "guardian-angel"
     ];
 
     if (cantTargetItSelf.includes(roleName)) {
@@ -1070,19 +1213,17 @@ module.exports = {
   },
 
   getRoleSkillText: function(roleName) {
-    const roles = require("/app/roles/rolesData");
-    for (let i = 0; i < roles.length; i++) {
-      if (roleName === roles[i].name) {
-        return roles[i].skillText;
+    for (let i = 0; i < rolesData.length; i++) {
+      if (roleName === rolesData[i].name) {
+        return rolesData[i].skillText;
       }
     }
   },
 
   getRoleCmdText: function(roleName) {
-    const roles = require("/app/roles/rolesData");
-    for (let i = 0; i < roles.length; i++) {
-      if (roleName === roles[i].name) {
-        return roles[i].cmdText;
+    for (let i = 0; i < rolesData.length; i++) {
+      if (roleName === rolesData[i].name) {
+        return rolesData[i].cmdText;
       }
     }
   },
@@ -1156,7 +1297,7 @@ module.exports = {
         opt_texts.push(reminder_text);
       }
     } else {
-      let roles = require("/app/roles/rolesData").map(role => {
+      let roles = rolesData.map(role => {
         let roleName = role.name[0].toUpperCase() + role.name.substring(1);
         return {
           name: roleName,
@@ -1170,7 +1311,6 @@ module.exports = {
       sender.iconUrl = role.iconUrl;
     }
 
-    const flex = require("/app/message/flex");
     return flex.receive(
       this.client,
       this.event,
@@ -1198,7 +1338,7 @@ module.exports = {
       sender.iconUrl =
         "https://cdn.glitch.com/fc7de31a-faeb-4c50-8a38-834ec153f590%2F%E2%80%94Pngtree%E2%80%94microphone%20vector%20icon_3725450.png?v=1587456628843";
     } else {
-      let roles = require("/app/roles/rolesData").map(role => {
+      let roles = rolesData.map(role => {
         let roleName = role.name[0].toUpperCase() + role.name.substring(1);
         return {
           name: roleName,

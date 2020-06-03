@@ -1,4 +1,145 @@
 module.exports = {
+  getPsychicResult: function(players, psychicIndex, isFullMoon) {
+    let text = "🔮 ";
+
+    let goodTeamList = ["villager", "guardian-angel", "amnesiac"];
+    let allAlivePlayers = [];
+    players.forEach((item, index) => {
+      // krna di main.js, itu include juga yg will_death
+      if (item.status !== "death" && index !== psychicIndex) {
+        let player = {
+          name: item.name,
+          team: item.role.team
+        };
+        allAlivePlayers.push(player);
+      }
+    });
+
+    if (allAlivePlayers.length === 2) {
+      if (!isFullMoon) {
+        text +=
+          "Kota ini terlalu kecil untuk menemukan siapa yang jahat dengan akurat";
+        return text;
+      }
+    }
+
+    allAlivePlayers = this.shuffleArray(allAlivePlayers);
+
+    let goodCount = 0;
+    allAlivePlayers.forEach(item => {
+      if (goodTeamList.includes(item.team)) {
+        goodCount++;
+      }
+    });
+
+    if (goodCount === 0) {
+      text += "Kota ini sudah terlalu jahat untuk menemukan siapa yang baik";
+      return text;
+    }
+
+    let result = [];
+    let goodCountNeeded = 1;
+    let evilCountNeeded = 1;
+
+    if (!isFullMoon) goodCountNeeded++;
+
+    for (let i = 0; i < allAlivePlayers.length; i++) {
+      let player = allAlivePlayers[i];
+      if (goodTeamList.includes(player.team)) {
+        if (goodCountNeeded) {
+          result.push(player.name);
+          goodCountNeeded--;
+        }
+      } else {
+        if (evilCountNeeded) {
+          result.push(player.name);
+          evilCountNeeded--;
+        }
+      }
+
+      let totalNeeded = evilCountNeeded + goodCountNeeded;
+      if (totalNeeded === 0) {
+        text += "Salah satu dari " + result.join(", ");
+
+        if (isFullMoon) {
+          text += " adalah orang baik";
+        } else {
+          text += " adalah orang jahat";
+        }
+
+        return text;
+      }
+    }
+  },
+
+  getInvestigatorResult: function(roleName) {
+    let text = "🕵️ ";
+    let pairList = [
+      {
+        desc: "Targetmu memiliki senjata!",
+        items: ["vigilante", "veteran", "mafioso"]
+      },
+      { desc: "Targetmu berurusan dengan mayat!", items: ["retributionist"] },
+      {
+        desc: "Targetmu suka menutup diri!",
+        items: ["survivor", "vampire-hunter", "psychic"]
+      },
+      {
+        desc: "Targetmu mengetahui rahasia terbesarmu!",
+        items: ["spy", "guardian-angel"]
+      },
+      {
+        desc: "Targetmu menunggu waktu yang tepat untuk beraksi!",
+        items: ["sheriff", "executioner", "werewolf"]
+      },
+      {
+        desc: "Targetmu mungkin tidak seperti yang dilihat!",
+        items: ["framer", "vampire", "jester"]
+      },
+      {
+        desc: "Targetmu diam didalam bayangan!",
+        items: ["lookout", "amnesiac"]
+      },
+      {
+        desc: "Targetmu ahli dalam mengganggu yang lain!",
+        items: ["escort", "consort"]
+      },
+      {
+        desc: "Targetmu berlumuran darah!",
+        items: ["doctor", "serial-killer", "disguiser"]
+      },
+      {
+        desc: "Targetmu memiliki rahasia yang terpendam!",
+        items: ["investigator", "consigliere", "mayor", "tracker"]
+      },
+      {
+        desc: "Targetmu tidak takut kotor!",
+        items: ["bodyguard", "godfather", "arsonist"]
+      },
+      {
+        desc: "Targetmu sifatnya sangat bengis!",
+        items: ["juggernaut"]
+      }
+    ];
+
+    for (let i = 0; i < pairList.length; i++) {
+      for (let u = 0; u < pairList[i].items.length; u++) {
+        if (roleName === pairList[i].items[u]) {
+          text += pairList[i].desc + " Targetmu bisa jadi adalah "; //kasih \n\n ?
+          pairList[i].items.forEach((item, index) => {
+            text += item;
+            if (index == pairList[i].items.length - 2) {
+              text += " atau ";
+            } else if (index != pairList[i].items.length - 1) {
+              text += ", ";
+            }
+          });
+          return text;
+        }
+      }
+    }
+  },
+
   getModeList: function() {
     let modeList = [
       "vampire",
@@ -10,9 +151,87 @@ module.exports = {
       "trust-issue",
       "who-are-you",
       "new-threat",
-      "clown-town"
+      "clown-town",
+      "amnesiac-chaos",
+      "friday-13"
     ];
     return modeList;
+  },
+
+  getAmnesiacChaos: function(playersLength) {
+    let roles = ["mafioso", "amnesiac"];
+
+    let randomTowns = [
+      "doctor",
+      "bodyguard",
+      "investigator",
+      "lookout",
+      "sheriff",
+      "vigilante",
+      "escort",
+      "retributionist",
+      "tracker",
+      "psychic"
+    ];
+
+    roles.push(this.random(randomTowns));
+
+    let townKillings = ["veteran", "vigilante"];
+    roles.push(this.random(townKillings));
+
+    let neutralEvils = ["jester", "executioner"];
+    roles.push(this.random(neutralEvils));
+
+    roles.push("amnesiac");
+
+    let neutralKillings = [
+      "arsonist",
+      "serial-killer",
+      "werewolf",
+      "juggernaut"
+    ];
+    roles.push(this.random(neutralKillings));
+
+    roles.push(this.random(randomTowns));
+
+    roles.push("godfather");
+
+    roles.push("sheriff", "amnesiac", "jester");
+
+    let randomMafia = ["framer", "consort", "consigliere", "disguiser"];
+    roles.push(this.random(randomMafia));
+
+    roles.push(this.random(randomTowns));
+
+    roles.length = playersLength;
+    roles = this.shuffleArray(roles);
+    return roles;
+  },
+
+  getFriday13RoleSet: function(playersLength) {
+    let roles = [
+      "serial-killer",
+      "escort",
+      "escort",
+      "vigilante",
+      "escort",
+      "mafioso",
+      "doctor",
+      "consort",
+      "escort",
+      "sheriff",
+      "consort",
+      "escort",
+      "consort",
+      "escort"
+    ];
+
+    let neutrals = ["survivor", "amnesiac", "executioner"];
+    roles.push(this.random(neutrals));
+
+    roles.length = playersLength;
+    roles = this.shuffleArray(roles);
+    return roles;
   },
 
   getVampireRoleSet: function(playersLength) {
@@ -28,7 +247,7 @@ module.exports = {
     let townSupport = this.random(townSupports);
     roles.push(townSupport);
 
-    roles.push("vampire", "seer", "vigilante", "vampire");
+    roles.push("vampire", "investigator", "vigilante", "vampire");
 
     let townProtectors = ["doctor", "bodyguard"];
     let townProtector = this.random(townProtectors);
@@ -52,13 +271,13 @@ module.exports = {
 
   getClassicRoleSet: function(playersLength) {
     let roles = [
-      "alpha-werewolf",
+      "godfather",
       "doctor",
-      "seer",
+      "investigator",
       "escort",
       "jester",
       "lookout",
-      "werewolf-cub",
+      "mafioso",
       "sheriff",
       "executioner"
     ];
@@ -70,19 +289,28 @@ module.exports = {
     let remainingTowns = [
       "doctor",
       "bodyguard",
-      "seer",
+      "investigator",
       "lookout",
       "sheriff",
       "vigilante",
       "escort",
       "retributionist",
-      "tracker"
+      "tracker",
+      "psychic"
     ];
 
     let randomTown = this.random(remainingTowns);
     roles.push(randomTown);
 
-    roles.push("serial-killer", "framer", "spy");
+    let neutralKillings = [
+      "arsonist",
+      "serial-killer",
+      "werewolf",
+      "juggernaut"
+    ];
+    roles.push(this.random(neutralKillings));
+
+    roles.push("framer", "spy");
 
     let lastRandomTown = this.random(remainingTowns);
     roles.push(lastRandomTown);
@@ -95,9 +323,9 @@ module.exports = {
   },
 
   getChaosRoleSet: function(playersLength) {
-    let roles = ["alpha-werewolf"];
+    let roles = ["godfather"];
 
-    let townInvestigates = ["seer", "lookout"];
+    let townInvestigates = ["investigator", "lookout", "psychic"];
     roles.push(this.random(townInvestigates));
 
     let townProtectors = ["doctor", "bodyguard"];
@@ -111,7 +339,7 @@ module.exports = {
 
     roles.push(this.random(townInvestigates));
 
-    roles.push("werewolf-cub");
+    roles.push("mafioso");
 
     let townKillings = ["veteran", "vigilante"];
     roles.push(this.random(townKillings));
@@ -119,29 +347,35 @@ module.exports = {
     let randomTowns = [
       "doctor",
       "bodyguard",
-      "seer",
+      "investigator",
       "lookout",
       "sheriff",
       "vigilante",
       "escort",
       "retributionist",
-      "tracker"
+      "tracker",
+      "psychic"
     ];
     roles.push(this.random(randomTowns));
 
     roles.push(this.random(randomTowns));
 
-    let randomWerewolves = ["framer", "consort", "sorcerer", "disguiser"];
-    roles.push(this.random(randomWerewolves));
+    let randomMafia = ["framer", "consort", "consigliere", "disguiser"];
+    roles.push(this.random(randomMafia));
 
     roles.push("spy");
 
-    let neutralKillings = ["arsonist", "serial-killer"];
+    let neutralKillings = [
+      "arsonist",
+      "serial-killer",
+      "werewolf",
+      "juggernaut"
+    ];
     roles.push(this.random(neutralKillings));
 
     roles.push(this.random(randomTowns));
 
-    roles.push(this.random(randomWerewolves));
+    roles.push(this.random(randomMafia));
 
     roles.length = playersLength;
     roles = this.shuffleArray(roles);
@@ -149,7 +383,7 @@ module.exports = {
   },
 
   getSurviveRoleSet: function(playersLength) {
-    let roles = ["seer", "seer", "alpha-werewolf"];
+    let roles = ["investigator", "investigator", "godfather"];
 
     let survivorNeededCount = playersLength - 3;
 
@@ -162,24 +396,32 @@ module.exports = {
   },
 
   getKillingWarsRoleSet: function(playersLength) {
-    let werewolves = ["sorcerer", "disguiser", "consort"];
+    let mafias = ["consigliere", "disguiser", "consort"];
     let roles = [
-      "alpha-werewolf",
-      "werewolf-cub",
+      "godfather",
+      "mafioso",
       "jester",
       "serial-killer",
       "survivor",
       "arsonist",
-      "sorcerer",
+      "consigliere",
       "serial-killer"
     ];
 
-    roles.push(this.random(werewolves));
+    roles.push(this.random(mafias));
     roles.push("arsonist");
     roles.push("jester");
-    roles.push(this.random(werewolves));
-    roles.push("serial-killer");
-    roles.push(this.random(werewolves));
+    roles.push(this.random(mafias));
+
+    let neutralKillings = [
+      "arsonist",
+      "serial-killer",
+      "werewolf",
+      "juggernaut"
+    ];
+    roles.push(this.random(neutralKillings));
+
+    roles.push(this.random(mafias));
     roles.push("survivor");
 
     roles.length = playersLength;
@@ -190,10 +432,10 @@ module.exports = {
   getWhosThereRoleSet: function(playersLength) {
     let roles = [
       "escort",
-      "alpha-werewolf",
+      "godfather",
       "escort",
       "escort",
-      "werewolf-cub",
+      "mafioso",
       "sheriff",
       "escort",
       "escort",
@@ -213,20 +455,20 @@ module.exports = {
 
   getTrustIssueRoleSet: function(playersLength) {
     let roles = [
-      "alpha-werewolf",
+      "godfather",
       "veteran",
       "sheriff",
-      "seer",
+      "investigator",
       "framer",
       "sheriff",
       "sheriff",
-      "seer",
+      "investigator",
       "framer",
-      "seer",
+      "investigator",
       "sheriff",
-      "seer",
+      "investigator",
       "framer",
-      "seer",
+      "investigator",
       "sheriff"
     ];
 
@@ -237,11 +479,11 @@ module.exports = {
 
   getWhoAreYou: function(playersLength) {
     let roles = [
-      "alpha-werewolf",
+      "godfather",
       "doctor",
       "bodyguard",
       "doctor",
-      "seer",
+      "investigator",
       "disguiser",
       "vigilante",
       "bodyguard",
@@ -251,7 +493,7 @@ module.exports = {
       "vigilante",
       "escort",
       "lookout",
-      "seer"
+      "investigator"
     ];
 
     roles.length = playersLength;
@@ -260,9 +502,17 @@ module.exports = {
   },
 
   getNewThreat: function(playersLength) {
-    let roles = ["serial-killer"];
+    let neutralKillings = [
+      "arsonist",
+      "serial-killer",
+      "werewolf",
+      "juggernaut"
+    ];
 
-    let townInvestigates = ["seer", "lookout"];
+    let roles = [];
+    roles.push(this.random(neutralKillings));
+
+    let townInvestigates = ["investigator", "lookout"];
     roles.push(this.random(townInvestigates));
 
     let townProtectors = ["doctor", "bodyguard"];
@@ -271,7 +521,7 @@ module.exports = {
     let randomTowns = [
       "doctor",
       "bodyguard",
-      "seer",
+      "investigator",
       "lookout",
       "sheriff",
       "vigilante",
@@ -281,7 +531,7 @@ module.exports = {
     ];
     roles.push(this.random(randomTowns));
 
-    roles.push("arsonist");
+    roles.push(this.random(neutralKillings));
 
     roles.push(this.random(townProtectors));
 
@@ -289,10 +539,11 @@ module.exports = {
 
     roles.push(this.random(townInvestigates));
 
-    roles.push("serial-killer");
+    roles.push(this.random(neutralKillings));
 
     roles.push(this.random(randomTowns));
 
+    let neutrals;
     roles.push("survivor");
 
     roles.push(this.random(randomTowns));
@@ -306,20 +557,20 @@ module.exports = {
 
   getClownTown: function(playersLength) {
     let roles = [
-      "alpha-werewolf",
+      "godfather",
       "jester",
-      "seer",
+      "investigator",
       "sheriff",
-      "seer",
+      "investigator",
       "framer",
       "jester",
-      "seer",
-      "seer",
+      "investigator",
+      "investigator",
       "jester",
-      "seer",
+      "investigator",
       "jester",
       "framer",
-      "seer",
+      "investigator",
       "jester"
     ];
 
@@ -372,8 +623,8 @@ module.exports = {
   },
 
   getAbout: function() {
-    let text = "Bot semi automatic yang ada campuran elemen dari ";
-    text += "Town Of Salem dan Werewolf Board Game. ";
+    let text = "Bot semi automatic yang terinspirasi dari ";
+    text += "Town Of Salem. ";
     text +=
       "Thanks buat grup Avalon City, LOW, Where Wolf(?), Random, RND Twins dan semua adders!" +
       "\n";
@@ -455,9 +706,9 @@ module.exports = {
         from: "00:00:00",
         to: "03:59:59",
         color: {
-          main: "#202b58",
-          secondary: "#202b58",
-          background: "#121212",
+          main: "#162447",
+          secondary: "#162447",
+          background: "#000000",
           text: "#ffffff"
         }
       },
@@ -508,7 +759,16 @@ module.exports = {
     for (let i = 0; i < times.length; i++) {
       let time = timestamp[times[i]];
       if (today >= time.from && today <= time.to) {
-        color = time.color;
+        //color = time.color;
+        
+        /// Black lives matter
+        color = {
+          main: "#0f4c75",
+          secondary: "#0f4c75",
+          background: "#1b262c",
+          text: "#ffffff"
+        };
+        
         return color;
       }
     }
@@ -558,21 +818,16 @@ module.exports = {
     let m = 0; //counter
     let item; //to store item with maximum frequency
     let obj = {}; //object to return
-    for (
-      let i = 0;
-      i < array.length;
-      i++ //select element (current element)
-    ) {
-      for (
-        let j = i;
-        j < array.length;
-        j++ //loop through next elements in array to compare calculate frequency of current element
-      ) {
-        if (array[i] == array[j])
-          //see if element occurs again in the array
-          m++; //increment counter if it does
+
+    //select element (current element)
+    for (let i = 0; i < array.length; i++) {
+      //loop through next elements in array to compare calculate frequency of current element
+      for (let j = i; j < array.length; j++) {
+        //see if element occurs again in the array
+        if (array[i] == array[j]) m++; //increment counter if it does
+
+        //compare current items frequency with maximum frequency
         if (mf < m) {
-          //compare current items frequency with maximum frequency
           mf = m; //if m>mf store m in mf for upcoming elements
           item = array[i]; // store the current element.
         }

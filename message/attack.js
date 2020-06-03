@@ -33,9 +33,12 @@ module.exports = {
 
     attackersRoleName.forEach((item, index) => {
       switch (item) {
-        case "alpha-werewolf":
-        case "werewolf-cub":
-          text += "🐺 Dia sebelumnya tercakar werewolf. ";
+        case "werewolf":
+          text += "🐺 Dia sebelumnya diterkam Werewolf. ";
+          break;
+        case "godfather":
+        case "mafioso":
+          text += "🤵 Dia sebelumnya dibunuh Mafia. ";
           break;
         case "vigilante":
         case "veteran":
@@ -56,6 +59,9 @@ module.exports = {
           break;
         case "bodyguard":
           text += "🛡️ Dia sebelumnya diserang " + item + ". ";
+          break;
+        case "juggernaut":
+          text += "💪 Dia sebelumnya diserang " + item + ". ";
           break;
       }
     });
