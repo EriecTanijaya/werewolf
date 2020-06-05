@@ -271,20 +271,18 @@ module.exports = {
 
   getClassicRoleSet: function(playersLength) {
     let roles = [
-      "godfather",
+      "mafioso",
       "doctor",
-      "investigator",
+      "sheriff",
       "escort",
       "jester",
-      "lookout",
-      "mafioso",
-      "sheriff",
-      "executioner"
     ];
 
     let townKillings = ["veteran", "vigilante"];
     let townKilling = this.random(townKillings);
     roles.push(townKilling);
+
+    roles.push("godfather", "investigator", "executioner", "lookout");
 
     let remainingTowns = [
       "doctor",
@@ -306,7 +304,8 @@ module.exports = {
       "arsonist",
       "serial-killer",
       "werewolf",
-      "juggernaut"
+      "juggernaut",
+      "plaguebearer"
     ];
     roles.push(this.random(neutralKillings));
 
@@ -323,9 +322,9 @@ module.exports = {
   },
 
   getChaosRoleSet: function(playersLength) {
-    let roles = ["godfather"];
+    let roles = ["mafioso"];
 
-    let townInvestigates = ["investigator", "lookout", "psychic"];
+    let townInvestigates = ["investigator", "lookout", "psychic", "sheriff"];
     roles.push(this.random(townInvestigates));
 
     let townProtectors = ["doctor", "bodyguard"];
@@ -337,9 +336,9 @@ module.exports = {
     let neutralEvils = ["jester", "executioner"];
     roles.push(this.random(neutralEvils));
 
-    roles.push(this.random(townInvestigates));
+    roles.push("godfather");
 
-    roles.push("mafioso");
+    roles.push(this.random(townInvestigates));
 
     let townKillings = ["veteran", "vigilante"];
     roles.push(this.random(townKillings));
@@ -351,7 +350,8 @@ module.exports = {
       "arsonist",
       "serial-killer",
       "werewolf",
-      "juggernaut"
+      "juggernaut",
+      "plaguebearer"
     ];
     roles.push(this.random(neutralKillings));
     
@@ -383,7 +383,7 @@ module.exports = {
   },
 
   getSurviveRoleSet: function(playersLength) {
-    let roles = ["investigator", "investigator", "godfather"];
+    let roles = ["sheriff", "investigator", "godfather"];
 
     let survivorNeededCount = playersLength - 3;
 
@@ -417,7 +417,8 @@ module.exports = {
       "arsonist",
       "serial-killer",
       "werewolf",
-      "juggernaut"
+      "juggernaut",
+      "plaguebearer"
     ];
     roles.push(this.random(neutralKillings));
 
@@ -506,7 +507,8 @@ module.exports = {
       "arsonist",
       "serial-killer",
       "werewolf",
-      "juggernaut"
+      "juggernaut",
+      "plaguebearer"
     ];
 
     let roles = [];
