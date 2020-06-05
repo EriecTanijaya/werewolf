@@ -15,6 +15,8 @@ module.exports = {
     switch (this.args[1]) {
       case "mode":
         return this.setModeCommand();
+      case "show_role":
+        return this.setShowRoleCommand();
       default:
         return this.invalidCommand();
     }
@@ -31,7 +33,8 @@ module.exports = {
 
     let cmds = [
       "/set mode : untuk lihat mode game yang ada",
-      "/set mode <nama mode> : untuk set ke mode yang diinginkan"
+      "/set mode <nama mode> : untuk set ke mode yang diinginkan",
+      "/set show_role <yes/no> : untuk set apakah ingin tampilkan list tipe role yang ada di suatu game",
     ];
 
     cmds.forEach((item, index) => {
@@ -47,6 +50,28 @@ module.exports = {
       }
     };
     return this.replyFlex(flex_text);
+  },
+  
+  setShowRoleCommand: function() {
+    if (!this.args[2]) {
+      let text = "📜 Jika show_role no, maka tidak bisa akses cmd '/roles' pada game";
+      return this.replyText(text);
+    }
+    
+    let input = this.args[2].toLowerCase();
+    
+    let text = "✉️ ";
+    if (input === "yes") {
+      this.group_session.isShowRole = true;
+      text += "Show role diaktifkan!";
+    } else if (input === "no") {
+      this.group_session.isShowRole = false;
+      text += "Show role di non-aktifkan!";
+    } else {
+      return this.replyText("💡 Gunakan /set show_role yes atau no");
+    }
+    
+    return this.replyText(text);
   },
 
   setModeCommand: function() {

@@ -344,6 +344,19 @@ module.exports = {
     let townKillings = ["veteran", "vigilante"];
     roles.push(this.random(townKillings));
 
+    let randomMafia = ["framer", "consort", "consigliere", "disguiser"];
+    roles.push(this.random(randomMafia));
+    
+    let neutralKillings = [
+      "arsonist",
+      "serial-killer",
+      "werewolf",
+      "juggernaut"
+    ];
+    roles.push(this.random(neutralKillings));
+    
+    roles.push("spy");
+    
     let randomTowns = [
       "doctor",
       "bodyguard",
@@ -359,20 +372,7 @@ module.exports = {
     roles.push(this.random(randomTowns));
 
     roles.push(this.random(randomTowns));
-
-    let randomMafia = ["framer", "consort", "consigliere", "disguiser"];
-    roles.push(this.random(randomMafia));
-
-    roles.push("spy");
-
-    let neutralKillings = [
-      "arsonist",
-      "serial-killer",
-      "werewolf",
-      "juggernaut"
-    ];
-    roles.push(this.random(neutralKillings));
-
+    
     roles.push(this.random(randomTowns));
 
     roles.push(this.random(randomMafia));
@@ -760,12 +760,11 @@ module.exports = {
       let time = timestamp[times[i]];
       if (today >= time.from && today <= time.to) {
         //color = time.color;
-        
         /// Black lives matter
         color = {
           main: "#0f4c75",
           secondary: "#0f4c75",
-          background: "#1b262c",
+          background: "#000000",
           text: "#ffffff"
         };
         

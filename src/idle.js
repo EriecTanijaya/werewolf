@@ -9,7 +9,7 @@ module.exports = {
     this.args = args;
     this.rawArgs = rawArgs;
     this.user_session = user_session;
-
+    
     if (!this.rawArgs.startsWith("/")) {
       return Promise.resolve(null);
     }

@@ -6,6 +6,14 @@ const punishment = require("/app/message/punishment");
 const flex = require("/app/message/flex");
 const rolesData = require("/app/roles/rolesData");
 
+// cp juri
+const juri = [
+  "U0b35f1990875ed0e3eb7ab3951795cb1",
+  "Uaa0c116405d3f0032f25feee64f5fc2f",
+  "U83caf7c21caa4cb90f5c616e0ef85e3a",
+  "Ue6ec78cae9127d17efa3b60cde7fe7bc"
+];
+
 module.exports = {
   receive: function(client, event, args, rawArgs, user_session, group_session) {
     this.client = client;
@@ -21,10 +29,37 @@ module.exports = {
 
       if (state !== "idle") {
         if (state !== "new") {
+          if (time <= 10 && time > 0) {
+            if (this.group_session.deadlineCheckChance === 0) {
+              return Promise.resolve(null);
+            } else {
+              this.group_session.deadlineCheckChance--;
+            }
+            let reminder = "💡 Waktu tersisa " + time;
+            reminder += " detik lagi, nanti ketik '/cek' ";
+            reminder += "saat waktu sudah habis untuk lanjutkan proses";
+            return this.replyText(reminder);
+          } else if (time === 0) {
+            if (this.indexOfPlayer() !== -1) {
+              return this.checkCommand();
+            }
+          }
+
           // special role yang bisa trigger lewat text biasa
           let players = this.group_session.players;
           let index = this.indexOfPlayer();
           if (index !== -1) {
+            // cp deathtalk detol
+            if (players[index].status === "death") {
+              if (players[index].detolChance > 0) {
+                players[index].detolChance--;
+              }
+
+              this.replyText(
+                "💡 " + players[index].name + ", heh gak boleh deathtalk!"
+              );
+            }
+
             if (state === "day" || state === "vote") {
               let roleName = players[index].role.name;
               if (roleName === "mayor" && players[index].status === "alive") {
@@ -53,22 +88,6 @@ module.exports = {
                   }
                 }
               }
-            }
-          }
-
-          if (time <= 10 && time > 0) {
-            if (this.group_session.deadlineCheckChance === 0) {
-              return Promise.resolve(null);
-            } else {
-              this.group_session.deadlineCheckChance--;
-            }
-            let reminder = "💡 Waktu tersisa " + time;
-            reminder += " detik lagi, nanti ketik '/cek' ";
-            reminder += "saat waktu sudah habis untuk lanjutkan proses";
-            return this.replyText(reminder);
-          } else if (time === 0) {
-            if (this.indexOfPlayer() !== -1) {
-              return this.checkCommand();
             }
           }
         } else {
@@ -170,9 +189,305 @@ module.exports = {
       case "/oc":
       case "/openchat":
         return this.forumCommand();
+      case "/report":
+        return this.reportCommand();
+      case "/register":
+      case "/regis":
+        return this.registerCommand();
+      case "/rank":
+        return this.rankCommand();
+      case "/me":
+        return this.meCommand();
+      case "/reported":
+        return this.reportedCommand();
+      case "/del_report":
+        return this.deleteReportCommand();
       default:
         return this.invalidCommand();
     }
+  },
+
+  deleteReportCommand() {
+    if (!juri.includes(this.user_session.id)) {
+      return this.replyText("Hanya juri yang bisa gunain command ini");
+    }
+
+    if (this.args.length < 2) {
+      return this.replyText("cara: '/del_report idnya'");
+    }
+
+    let toDeleteReportId = this.args[1];
+
+    let path = "/app/.data/bedburg.json";
+
+    fs.readFile(path, (err, data) => {
+      let groupData = JSON.parse(data);
+
+      // check exists atau engga
+      let targetIndex = -1;
+      for (let i = 0; i < groupData.reported.length; i++) {
+        if (groupData.reported[i].id == toDeleteReportId) {
+          targetIndex = i;
+        }
+      }
+
+      if (targetIndex === -1) {
+        return this.replyText(
+          "id " + toDeleteReportId + " tidak ditemukan. cek '/reported'"
+        );
+      }
+
+      let name = groupData.reported[targetIndex].name;
+
+      helper.cutFromArray(groupData.reported, targetIndex);
+
+      fs.writeFile(path, JSON.stringify(groupData, null, 2), err => {
+        if (err) throw err;
+        let text = "Report " + name + " berhasil di hapus";
+        return this.replyText(text);
+      });
+    });
+  },
+
+  reportedCommand: function() {
+    if (this.group_session.groupId !== "Ccd79756ab45c8b1ea5fbfa4d59c0ff5f") {
+      return this.invalidCommand();
+    }
+
+    if (!juri.includes(this.user_session.id)) {
+      return this.replyText("Hanya juri yang bisa gunain command ini");
+    }
+
+    //return this.replyText("WIP");
+
+    let state = this.group_session.state;
+
+    if (state !== "idle" && state !== "new") {
+      return this.replyText("ntr abis game siap");
+    }
+
+    let path = "/app/.data/bedburg.json";
+    fs.readFile(path, (err, data) => {
+      let groupData = JSON.parse(data);
+
+      if (groupData.reported.length === 0)
+        return this.replyText("belum ada yg direport");
+
+      let text = "Reported Player" + "\n";
+      for (let i = 0; i < groupData.reported.length; i++) {
+        let member = groupData.reported[i];
+        text +=
+          "* [# " +
+          member.id +
+          "]" +
+          member.name +
+          " di report oleh " +
+          member.reporter +
+          " dengan alasan " +
+          member.reason +
+          "\n";
+      }
+
+      return this.replyText(text.trim());
+    });
+  },
+
+  reportCommand: function() {
+    if (this.group_session.groupId !== "Ccd79756ab45c8b1ea5fbfa4d59c0ff5f") {
+      return this.invalidCommand();
+    }
+
+    if (!juri.includes(this.user_session.id)) {
+      return this.replyText("Hanya juri yang bisa gunain command ini");
+    }
+
+    function parseToText(arr) {
+      let text = "";
+      arr.forEach(function(item, index) {
+        if (index !== 0 && index !== 1) {
+          //ini untuk tidak parse text command '/command'
+          if (index !== 2) {
+            text += " ";
+          }
+          text += item;
+        }
+      });
+      return text;
+    }
+
+    //return this.replyText("WIP");
+
+    if (this.args.length < 3) {
+      return this.replyText("cara: '/report idnya apa alasannya'");
+    }
+
+    let willReportedId = this.args[1];
+    let reason = parseToText(this.args);
+
+    let path = "/app/.data/bedburg.json";
+
+    fs.readFile(path, (err, data) => {
+      let groupData = JSON.parse(data);
+
+      // check exists atau engga
+      let isExists = false;
+      for (let i = 0; i < groupData.member.length; i++) {
+        if (groupData.member[i].id == willReportedId) {
+          isExists = true;
+        }
+      }
+
+      if (!isExists) {
+        return this.replyText("id " + willReportedId + " tidak ditemukan");
+      }
+
+      //{ member: [], banned: [], reported: [] }
+
+      for (let i = 0; i < groupData.reported.length; i++) {
+        if (groupData.reported[i].id == willReportedId) {
+          return this.replyText(groupData.reported[i] + " sudah di report");
+        }
+      }
+
+      for (let i = 0; i < groupData.member.length; i++) {
+        if (groupData.member[i].id == willReportedId) {
+          groupData.member[i].reason = reason;
+          groupData.member[i].reporter = this.user_session.name;
+          groupData.reported.push(groupData.member[i]);
+
+          fs.writeFile(path, JSON.stringify(groupData, null, 2), err => {
+            if (err) throw err;
+            let text = groupData.member[i].name + " berhasil di report oleh ";
+            text += this.user_session.name + " dengan alasan : " + reason;
+            return this.replyText(text);
+          });
+
+          break;
+        }
+      }
+    });
+  },
+
+  registerCommand: function() {
+    if (this.group_session.groupId !== "Ccd79756ab45c8b1ea5fbfa4d59c0ff5f") {
+      return this.invalidCommand();
+    }
+
+    //return this.replyText("WIP");
+
+    let state = this.group_session.state;
+
+    if (state !== "idle" && state !== "new") {
+      return this.replyText("regis pas game nya dh siap dlu bos");
+    }
+
+    let path = "/app/.data/bedburg.json";
+
+    fs.readFile(path, (err, data) => {
+      let groupData = JSON.parse(data);
+
+      // check exists atau engga
+      for (let i = 0; i < groupData.member.length; i++) {
+        if (groupData.member[i].userId === this.user_session.id) {
+          return this.replyText(this.user_session.name + ", kamu sudah daftar");
+        }
+      }
+
+      let newMember = {
+        userId: this.user_session.id,
+        id: groupData.member.length + 1,
+        name: this.user_session.name,
+        points: 0
+      };
+
+      groupData.member.push(newMember);
+
+      fs.writeFile(path, JSON.stringify(groupData, null, 2), err => {
+        if (err) throw err;
+        return this.replyText(
+          this.user_session.name + " terdaftar dengan id " + newMember.id
+        );
+      });
+    });
+  },
+
+  rankCommand: function() {
+    if (this.group_session.groupId !== "Ccd79756ab45c8b1ea5fbfa4d59c0ff5f") {
+      return this.invalidCommand();
+    }
+
+    //return this.replyText("WIP");
+
+    let state = this.group_session.state;
+
+    if (state !== "idle" && state !== "new") {
+      return this.replyText("cek rank pas gamenya dh siap dulu bos");
+    }
+
+    let path = "/app/.data/bedburg.json";
+
+    fs.readFile(path, (err, data) => {
+      let groupData = JSON.parse(data);
+
+      if (groupData.member.length === 0) return this.replyText("ga ada data");
+
+      function rank_sort(array) {
+        return array.sort((person1, person2) => {
+          return person2.points - person1.points;
+        });
+      }
+
+      let memberData = rank_sort(groupData.member);
+
+      let text = "Ranking " + "\n";
+      let num = 1;
+      for (let i = 0; i < memberData.length; i++) {
+        let member = memberData[i];
+        text +=
+          num +
+          ". [#" +
+          member.id +
+          "] " +
+          member.name +
+          " (" +
+          member.points +
+          " points)" +
+          "\n";
+        num++;
+      }
+
+      return this.replyText(text.trim());
+    });
+  },
+
+  meCommand: function() {
+    if (this.group_session.groupId !== "Ccd79756ab45c8b1ea5fbfa4d59c0ff5f") {
+      return this.invalidCommand();
+    }
+
+    //return this.replyText("WIP");
+
+    let state = this.group_session.state;
+
+    if (state !== "idle" && state !== "new") {
+      return this.replyText("cek stat pas gamenya dh siap dulu bos");
+    }
+
+    let path = "/app/.data/bedburg.json";
+
+    fs.readFile(path, (err, data) => {
+      let groupData = JSON.parse(data);
+
+      for (let i = 0; i < groupData.member.length; i++) {
+        if (groupData.member[i].userId === this.user_session.id) {
+          let text = "Data " + groupData.member[i].name + "\n";
+          text += "Points : " + groupData.member[i].points;
+          return this.replyText(text);
+        }
+      }
+
+      return this.replyText("data tidak ditemukan");
+    });
   },
 
   forumCommand: function() {
@@ -207,6 +522,8 @@ module.exports = {
     }
 
     bodyText += "🕹️ Game mode : " + this.group_session.mode + "\n\n";
+
+    bodyText += "✉️ Show role : " + this.group_session.isShowRole + "\n\n";
 
     let roomHostIndex = this.getPlayerIndexById(this.group_session.roomHostId);
     let roomHostName = players[roomHostIndex].name;
@@ -327,6 +644,13 @@ module.exports = {
       return this.replyText("💡 Belum ada game yang dibuat, ketik '/new'");
     } else if (this.group_session.state === "new") {
       return this.replyText("💡 Game belum dimulai");
+    }
+
+    if (!this.group_session.isShowRole) {
+      let text = "💡 Tidak dapat melihat role list! ";
+      text += "Untuk aktifkan lagi bisa dilakukan setelah ";
+      text += "game selesai dengan '/set show_role yes'";
+      return this.replyText(text);
     }
 
     let roles = this.group_session.roles;
@@ -468,7 +792,7 @@ module.exports = {
 
       if (process.env.TEST === "true") {
         // cp
-        // for (let i = 0; i < 8; i++) {
+        // for (let i = 0; i < 4; i++) {
         //   let dummy = JSON.parse(JSON.stringify(this.user_session));
         //   dummy.name += " " + helper.getRandomInt(1, 99);
         //   let newPlayer = this.createNewPlayer(dummy);
@@ -740,10 +1064,15 @@ module.exports = {
       return this.replyText(text);
     }
 
-    if (players.length < 5) {
-      let text = "💡 Game belum bisa dimulai, minimal memiliki 5 pemain";
+    let minPlayers = 8;
+    if (players.length < minPlayers) {
+      let text = "💡 Game belum bisa dimulai, minimal memiliki ";
+      text += minPlayers + " pemain";
       return this.replyText(text);
     }
+
+    //cp always not show role
+    this.group_session.isShowRole = false;
 
     this.group_session.punishment = helper.random(punishment);
 
@@ -757,16 +1086,8 @@ module.exports = {
 
     /// test specific role cp
     if (process.env.TEST === "true") {
-      roles = [
-        "amnesiac",
-        "arsonist",
-        "escort"
-      ];
+      roles = ["executioner", "executioner", "guardian-angel", "werewolf"];
     }
-
-    // this.group_session.players = helper.shuffleArray(
-    //   this.group_session.players
-    // );
 
     this.group_session.players.forEach((item, index) => {
       if (index <= roles.length - 1) {
@@ -774,16 +1095,7 @@ module.exports = {
       }
 
       item.role = this.getRoleData(item.role.name);
-
-      // disini bagi role pake pushMessage
-      // if (this.group_session.groupId === process.env.TEST_GROUP) {
-      //   // this.client.pushMessage();
-      // }
     });
-
-    // this.group_session.players = helper.shuffleArray(
-    //   this.group_session.players
-    // );
 
     this.group_session.players.forEach((item, index) => {
       /// init private prop special role
@@ -806,6 +1118,23 @@ module.exports = {
 
     // set roles list
     this.group_session.roles = this.getRoleList();
+
+    // kasih tau kalo game dh mulai
+
+    let text = "🔔 Hai! Game nya sudah dimulai ya!" + "\n\n";
+    text += "Ketik '/role' untuk melihat rolemu, ";
+    text += "ketik '/info <nama-role>' untuk info role!";
+
+    let text_obj = {
+      type: "text",
+      text: text
+    };
+
+    let playersUserId = players.map(p => {
+      return p.id;
+    });
+
+    this.client.multicast(playersUserId, [text_obj]);
 
     this.night(null);
   },
@@ -909,10 +1238,12 @@ module.exports = {
     this.group_session.time_default = this.getTimeDefault(alivePlayersCount);
     this.group_session.time = this.group_session.time_default;
 
-    //tell available role
     let announcement = "";
-    announcement +=
-      "📣 Role yang ada di game ini bisa cek di '/roles'. " + "\n\n";
+
+    if (this.group_session.isShowRole) {
+      announcement +=
+        "📣 Role yang ada di game ini bisa cek di '/roles'. " + "\n\n";
+    }
 
     if (this.group_session.nightCounter === 1) {
       announcement +=
@@ -1623,6 +1954,9 @@ module.exports = {
               "🧛 Kamu didatangi Vampire!" + "\n\n";
 
             let targetRoleName = target.role.name;
+
+            if (target.role.isDisguiseAs) targetRoleName = "disguiser";
+
             let targetRoleTeam = target.role.team;
 
             let immuneToVampireBite = [
@@ -2912,7 +3246,7 @@ module.exports = {
         if (isAttacked || isVampireBited) {
           this.group_session.players[i].damage = attackers.length;
 
-          if (!isBurned && !isHaunted && !willSuicide && afkCounter < 6) {
+          if (!isBurned && !isHaunted && !willSuicide && afkCounter < 3) {
             for (let x = 0; x < attackers.length; x++) {
               let attacker = attackers[x];
 
@@ -3048,7 +3382,7 @@ module.exports = {
                 this.group_session.players[protector.index].message +=
                   "💡 " + players[i].name + " diserang semalam!" + "\n\n";
 
-                if (isHaunted || willSuicide || afkCounter >= 6) {
+                if (isHaunted || willSuicide || afkCounter >= 3) {
                   this.group_session.players[protector.index].message +=
                     "💡 " + players[i].name + " gagal dilindungi!" + "\n\n";
 
@@ -3081,13 +3415,13 @@ module.exports = {
               }
             }
 
-            if (!isHaunted && !willSuicide && afkCounter < 6) {
+            if (!isHaunted && !willSuicide && afkCounter < 3) {
               continue;
             }
           }
 
           this.group_session.players[i].status = "will_death";
-        } else if (willSuicide || afkCounter >= 6) {
+        } else if (willSuicide || afkCounter >= 3) {
           this.group_session.players[i].status = "will_death";
         }
       }
@@ -3360,7 +3694,7 @@ module.exports = {
 
         if (attackersRole.length > 0) {
           //
-        } else if (players[i].afkCounter >= 6) {
+        } else if (players[i].afkCounter >= 3) {
           isAfk = true;
         } else if (willSuicide) {
           isSuicide = true;
@@ -3916,7 +4250,7 @@ module.exports = {
                 ].role.mustProtectIndex = neededTargetIndex;
               }
             }
-            
+
             let roleData = this.getRoleData(targetRoleName);
             this.group_session.players[i].role = roleData;
 
@@ -4256,7 +4590,7 @@ module.exports = {
     // executioner
     for (let i = 0; i < players.length; i++) {
       if (players[i].role.name === "executioner") {
-        if (players[i].role.targetLynchIndex === lynchTarget.index) {
+        if (players[i].role.targetLynchIndex == lynchTarget.index) {
           this.group_session.players[i].role.isTargetLynched = true;
         }
       }
@@ -4265,7 +4599,7 @@ module.exports = {
     // guardian angel
     for (let i = 0; i < players.length; i++) {
       if (players[i].role.name === "guardian-angel") {
-        if (players[i].role.mustProtectIndex === lynchTarget.index) {
+        if (players[i].role.mustProtectIndex == lynchTarget.index) {
           let roleData = this.getRoleData("survivor");
           this.group_session.players[i].role = roleData;
           this.group_session.players[i].role.vest = 0;
@@ -4338,106 +4672,140 @@ module.exports = {
 
     let table_body = {};
 
-    let num = 1;
-    for (let i = 0; i < players.length; i++) {
-      table_body[i] = {
-        type: "box",
-        layout: "horizontal",
-        contents: [
-          {
-            type: "text",
-            text: ""
-          },
-          {
-            type: "text",
-            text: "",
-            flex: 3,
-            wrap: true
-          },
-          {
-            type: "text",
-            text: "",
-            flex: 2,
-            align: "center"
-          },
-          {
-            type: "text",
-            text: "",
-            flex: 2,
-            align: "center",
-            wrap: true
-          }
-        ],
-        margin: "sm"
-      };
+    //cp start of data
+    let path = "/app/.data/bedburg.json";
 
-      let roleTeam = players[i].role.team;
-      let roleName = players[i].role.name;
+    fs.readFile(path, (err, data) => {
+      let groupData = JSON.parse(data);
 
-      table_body[i].contents[0].text += num + ".";
-      table_body[i].contents[1].text += players[i].name;
+      let num = 1;
+      for (let i = 0; i < players.length; i++) {
+        table_body[i] = {
+          type: "box",
+          layout: "horizontal",
+          contents: [
+            {
+              type: "text",
+              text: ""
+            },
+            {
+              type: "text",
+              text: "",
+              flex: 3,
+              wrap: true
+            },
+            {
+              type: "text",
+              text: "",
+              flex: 2,
+              align: "center"
+            },
+            {
+              type: "text",
+              text: "",
+              flex: 2,
+              align: "center",
+              wrap: true
+            }
+          ],
+          margin: "sm"
+        };
 
-      if (players[i].status === "death") {
-        table_body[i].contents[1].text += " (💀)";
-      } else {
-        table_body[i].contents[1].text += " (😃)";
-      }
+        let roleTeam = players[i].role.team;
+        let roleName = players[i].role.name;
 
-      if (roleTeam === whoWin) {
-        table_body[i].contents[2].text = "win";
-      } else {
-        /// check the win condition of some role
-        if (roleName === "jester") {
-          this.handleJesterWin(i, table_body[i].contents[2], surviveTeam);
-        } else if (roleName === "survivor") {
-          this.handleSurvivorWin(i, table_body[i].contents[2], surviveTeam);
-        } else if (roleName === "amnesiac") {
-          this.handleAmnesiacWin(i, table_body[i].contents[2], surviveTeam);
-        } else if (roleName === "executioner") {
-          this.handleExecutionerWin(i, table_body[i].contents[2], surviveTeam);
-        } else if (roleName === "guardian-angel") {
-          this.handleGuardianAngelWin(
-            i,
-            table_body[i].contents[2],
-            surviveTeam
-          );
-        } else if (whoWin === "draw") {
-          table_body[i].contents[2].text = "draw";
+        table_body[i].contents[0].text += num + ".";
+        table_body[i].contents[1].text += players[i].name;
+
+        if (players[i].status === "death") {
+          table_body[i].contents[1].text += " (💀)";
         } else {
-          table_body[i].contents[2].text = "lose";
+          table_body[i].contents[1].text += " (😃)";
         }
+
+        if (roleTeam === whoWin) {
+          table_body[i].contents[2].text = "win";
+        } else {
+          if (players[i].afkCounter >= 3) {
+            table_body[i].contents[2].text = "lose";
+          } else if (roleName === "jester") {
+            /// check the win condition of some role
+            this.handleJesterWin(i, table_body[i].contents[2], surviveTeam);
+          } else if (roleName === "survivor") {
+            this.handleSurvivorWin(i, table_body[i].contents[2], surviveTeam);
+          } else if (roleName === "amnesiac") {
+            this.handleAmnesiacWin(i, table_body[i].contents[2], surviveTeam);
+          } else if (roleName === "executioner") {
+            this.handleExecutionerWin(
+              i,
+              table_body[i].contents[2],
+              surviveTeam
+            );
+          } else if (roleName === "guardian-angel") {
+            this.handleGuardianAngelWin(
+              i,
+              table_body[i].contents[2],
+              surviveTeam
+            );
+          } else if (whoWin === "draw") {
+            table_body[i].contents[2].text = "draw";
+          } else {
+            table_body[i].contents[2].text = "lose";
+          }
+        }
+
+        // cp kasih point buat yang win dan cek detol
+
+        if (players[i].detolChance === 0) {
+          table_body[i].contents[2].text += " (DETOL)";
+        } else if (players[i].afkCounter >= 3) {
+          table_body[i].contents[2].text += " (AFK)";
+        }
+
+        for (let j = 0; j < groupData.member.length; j++) {
+          if (groupData.member[j].userId == players[i].id) {
+            if (table_body[i].contents[2].text === "win") {
+              groupData.member[j].points++;
+            }
+          }
+        }
+
+        table_body[i].contents[3].text += roleName;
+
+        num++;
+
+        newFlex_text.table.body.push(table_body[i]);
       }
 
-      // let teamEmoji = helper.getRoleTeamEmoji(roleTeam);
-      table_body[i].contents[3].text += roleName;
+      //cp end
+      fs.writeFile(path, JSON.stringify(groupData, null, 2), err => {
+        if (err) throw err;
 
-      num++;
+        /// cp original
+        if (whoWin !== "draw") {
+          let emoji = helper.getRoleTeamEmoji(whoWin) + " ";
+          headerText = "🎉 " + emoji + whoWin.toUpperCase() + " win! 🎉";
+        } else if (surviveTeam.length > 0) {
+          let surviveTeamList = surviveTeam.join(", ");
+          headerText = "🎉 " + surviveTeamList.toUpperCase() + " win! 🎉";
+        } else {
+          headerText = "😶 Draw Game 😶";
+        }
 
-      newFlex_text.table.body.push(table_body[i]);
-    }
+        newFlex_text.header.text = headerText;
 
-    if (whoWin !== "draw") {
-      let emoji = helper.getRoleTeamEmoji(whoWin) + " ";
-      headerText = "🎉 " + emoji + whoWin.toUpperCase() + " win! 🎉";
-    } else if (surviveTeam.length > 0) {
-      let surviveTeamList = surviveTeam.join(", ");
-      headerText = "🎉 " + surviveTeamList.toUpperCase() + " win! 🎉";
-    } else {
-      headerText = "😶 Draw Game 😶";
-    }
+        this.group_session.time = 300; // reset to init time
+        this.group_session.state = "idle";
 
-    newFlex_text.header.text = headerText;
+        this.resetAllPlayers();
 
-    this.group_session.time = 300; // reset to init time
-    this.group_session.state = "idle";
-
-    this.resetAllPlayers();
-
-    if (!flex_texts) {
-      return this.replyFlex(newFlex_text);
-    } else {
-      return this.replyFlex(flex_texts, null, newFlex_text);
-    }
+        if (!flex_texts) {
+          return this.replyFlex(newFlex_text);
+        } else {
+          return this.replyFlex(flex_texts, null, newFlex_text);
+        }
+      });
+    });
   },
 
   commandCommand: function() {
@@ -4704,7 +5072,8 @@ module.exports = {
       deathNote: "",
       willSuicide: false,
       doused: false,
-      burned: false
+      burned: false,
+      detolChance: 3
     };
     return newPlayer;
   },
@@ -5262,7 +5631,7 @@ module.exports = {
       sender.name = role.name;
       sender.iconUrl = role.iconUrl;
     }
-    
+
     return flex.receive(
       this.client,
       this.event,
