@@ -11,6 +11,7 @@ Update note starts from 03/06/2020
 - fix bug executioner bug and guardian angel bug pas targetnya mati di hukum
 
 NOTEE
+
 - buat semua org yg ga immune udah dikasih tau dari awal kalau kena roleblock
 
 - share secreto ntr pas update
