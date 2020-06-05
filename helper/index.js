@@ -188,7 +188,8 @@ module.exports = {
       "arsonist",
       "serial-killer",
       "werewolf",
-      "juggernaut"
+      "juggernaut",
+      "plaguebearer"
     ];
     roles.push(this.random(neutralKillings));
 
@@ -508,7 +509,6 @@ module.exports = {
       "serial-killer",
       "werewolf",
       "juggernaut",
-      "plaguebearer"
     ];
 
     let roles = [];
@@ -541,7 +541,7 @@ module.exports = {
 
     roles.push(this.random(townInvestigates));
 
-    roles.push(this.random(neutralKillings));
+    roles.push("plaguebearer");
 
     roles.push(this.random(randomTowns));
 

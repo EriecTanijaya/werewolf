@@ -411,6 +411,8 @@ module.exports = {
             "Dokter korup yang kesal dengan Mayor, dan memutuskan menginfeksi semua orang dan ";
           flex_text.body.text +=
             "membunuh mereka dengan penyakit sampar. ";
+          flex_text.body.text +=
+            "Infeksi bisa ditularkan dan yang terinfeksi tidak akan tau jika dia terinfeksi. "
           break;
 
         case "pestilence":

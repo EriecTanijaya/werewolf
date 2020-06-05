@@ -5,7 +5,6 @@ Update note starts from 03/06/2020
 - set proper value for afkCounter
 - add new setting command : /set show_role
 - misc optimization
-- add some command for city of bedburg group turnament event
 - retributionist only can revive town member now
 - fix some derp, add multicast to tell game is started
 - fix bug executioner bug and guardian angel bug pas targetnya mati di hukum
@@ -20,7 +19,7 @@ NOTEE
   - keknya pas pemain 5 org gitu, sheriff, lalu musuh mafioso aja deh, investigator dan gf itu pas pemain udah rame
   - cara itung balance or not, itungnya kalo bisa mendekati 0 [role value](https://town-of-salem.fandom.com/wiki/Town_of_Salem_Card_Game#How_to_Play)
   
-  
+
 - role set trick or treat (ada di tos punya fandom wiki) buat halloween ntr
 
 - susah ini , ada sistem buat cek visitor, cek visitor attack atau engga.

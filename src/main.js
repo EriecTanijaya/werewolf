@@ -3313,6 +3313,8 @@ module.exports = {
                 }
 
                 this.group_session.players[i].doused = false;
+                this.group_session.players[i].framed = false;
+                this.group_session.players[i].infected = false;
 
                 this.group_session.players[protector.index].message +=
                   "💡 " + players[i].name + " berhasil dilindungi!" + "\n\n";
