@@ -815,7 +815,10 @@ module.exports = {
       return p.id;
     });
 
-    this.client.multicast(playersUserId, [text_obj]);
+    this.client.multicast(playersUserId, [text_obj])
+      .catch((err) => {
+        console.error("error pada multicast", err);
+      })
 
     this.night(null);
   },
