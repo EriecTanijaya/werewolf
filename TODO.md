@@ -11,14 +11,8 @@ Update note starts from 03/06/2020
 - fix bug executioner bug and guardian angel bug pas targetnya mati di hukum
 
 NOTEE
+- buat semua org yg ga immune udah dikasih tau dari awal kalau kena roleblock
 
-- di startCommand: untuk isShowRole di ilangin, itu di ilangin ntr
-- checker untuk detol ntr ilangin juga
-- di endGame func banyak itu, ntr abis turney ilangin
-- di func createNewPlayer, prop detolChance ntr ilangin
-- minimal player balikin ke 8 lagi
-- untuk other.js, pas joinResponse nanti abis turney udah boleh
-- untuk command event group, pas dh selesai turnamen baru di cleanup kan, baru update
 - share secreto ntr pas update
 
 - refactor role set

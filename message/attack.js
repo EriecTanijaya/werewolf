@@ -63,6 +63,9 @@ module.exports = {
         case "juggernaut":
           text += "💪 Dia sebelumnya diserang " + item + ". ";
           break;
+        case "pestilence":
+          text += "☣️ Dia sebelumnya terinfeksi " + item + ". ";
+          break;
       }
     });
 

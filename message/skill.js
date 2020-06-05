@@ -452,6 +452,24 @@ module.exports = {
         text += "⚔️ " + subjectText;
         text += " memutuskan untuk menjaga " + targetName;
         break;
+
+      case "plaguebearer":
+        if (isChangeTarget) {
+          text +=
+            "☣️ " +
+            subjectText +
+            " berubah pikiran dan memutuskan untuk menginfeksi " +
+            targetName +
+            " saja";
+        } else {
+          text +=
+            "☣️ " +
+            subjectText +
+            " memutuskan untuk menginfeksi " +
+            targetName;
+        }
+      break;
+
     }
 
     return text;

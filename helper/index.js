@@ -110,7 +110,7 @@ module.exports = {
       },
       {
         desc: "Targetmu memiliki rahasia yang terpendam!",
-        items: ["investigator", "consigliere", "mayor", "tracker"]
+        items: ["investigator", "consigliere", "mayor", "tracker", "plaguebearer"]
       },
       {
         desc: "Targetmu tidak takut kotor!",

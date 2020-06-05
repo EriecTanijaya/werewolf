@@ -3694,7 +3694,12 @@ module.exports = {
             this.group_session.players[i].message +=
               "👣 Kamu ke rumah " + target.name + "\n\n";
 
-            mafiaAnnouncement += `✒️ Role ${target.name} adalah ${target.role.name}\n\n`;
+            let targetRoleName = target.role.name;
+            if (targetRoleName === "plaguebearer" && target.role.isPestilence) {
+              targetRoleName = "pestilence";
+            }
+
+            mafiaAnnouncement += `✒️ Role ${target.name} adalah ${targetRoleName}\n\n`;
 
             spyMafiaVisitInfo += `🤵 ${target.name} dikunjungi anggota Mafia\n\n`;
           }
