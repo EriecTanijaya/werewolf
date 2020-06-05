@@ -476,7 +476,7 @@ module.exports = {
 
       if (process.env.TEST === "true") {
         // cp
-        for (let i = 0; i < 4; i++) {
+        for (let i = 0; i < 7; i++) {
           let dummy = JSON.parse(JSON.stringify(this.user_session));
           dummy.name += " " + helper.getRandomInt(1, 99);
           let newPlayer = this.createNewPlayer(dummy);
@@ -4167,7 +4167,7 @@ module.exports = {
 
       if (doer.role.name === "plaguebearer" && doer.status === "alive") {
         this.group_session.players[i].message +=
-          plaguebearerAnnouncement + "\n\n";
+          plaguebearerAnnouncement + "\n";
 
         let alivePlayersCount = 0;
         let infectedCount = 0;
