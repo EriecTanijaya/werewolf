@@ -76,6 +76,7 @@ function getMemoryUsage() {
 - sekarang udah bisa custom, jadi di getRandomRoleSet bnyak tugas nih
 
 - ROLE YG JANGAN DUPLICATE
+  - plaguebearer
   - VETERAN
   - vampire hunter hanya ada saat ada vampire
   - sheriff ada kalau ada list yg bisa di suspiciouskan

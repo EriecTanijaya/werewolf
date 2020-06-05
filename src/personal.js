@@ -279,7 +279,7 @@ module.exports = {
       return this.roleCommand();
     }
 
-    /// special role with private prop
+    /// special role with private prop for death
     if (roleName === "retributionist") {
       if (players[index].role.revive === 0) {
         return this.replyText(
@@ -306,11 +306,22 @@ module.exports = {
       }
     }
 
+    /// special role checker
     if (roleName === "vigilante") {
       if (players[index].role.bullet === 0) {
         return this.replyText(
           "💡 Kamu sudah tidak memiliki peluru yang tersisa"
         );
+      }
+    } else if (roleName === "arsonist") {
+      if (players[targetIndex].doused) {
+        return this.replyText("💡 Target yang kamu pilih sudah disirami bensin!");
+      }
+    } else if (roleName === "plaguebearer") {
+      let isInfected = players[targetIndex].infected;
+      let isPestilence = players[index].role.isPestilence;
+      if (!isPestilence && isInfected) {
+        return this.replyText("💡 Target yang kamu pilih sudah terinfeksi!");
       }
     }
 
@@ -394,6 +405,13 @@ module.exports = {
       selfTarget: false,
       changeTarget: false
     };
+
+    // khusus plaguebearer yang udah pestilence
+    if (doer.roleName === "plaguebearer") {
+      if (players[index].role.isPestilence) {
+        doer.roleName = "pestilence";
+      }
+    }
 
     let playerTargetIndex = players[index].target.index;
     if (playerTargetIndex === -1) {

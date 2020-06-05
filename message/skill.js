@@ -470,6 +470,23 @@ module.exports = {
         }
       break;
 
+      case "pestilence":
+        if (isChangeTarget) {
+          text +=
+            "☣️ " +
+            subjectText +
+            " berubah pikiran dan memutuskan untuk RAMPAGE di rumah " +
+            targetName +
+            " saja";
+        } else {
+          text +=
+            "☣️ " +
+            subjectText +
+            " memutuskan untuk RAMPAGE di rumah " +
+            targetName;
+        }
+      break;
+
     }
 
     return text;
