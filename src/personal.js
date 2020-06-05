@@ -682,7 +682,7 @@ module.exports = {
 
       // special role untuk arsonist dan plaguebearer //cp
       if (roleName === "arsonist") {
-        text += "Doused List : " + "\n\n";
+        text += "🛢️ Doused List : " + "\n\n";
 
         let num = 1;
         let isExists = false;
@@ -697,7 +697,7 @@ module.exports = {
         text = text.trim();
         if (!isExists) text = "";
       } else if (roleName === "plaguebearer") {
-        text += "Infected List : " + "\n\n";
+        text += "☣️ Infected List : " + "\n\n";
 
         let num = 1;
         let isExists = false;
