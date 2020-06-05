@@ -537,7 +537,7 @@ module.exports = {
         text += " sudah digantung! Sekarang tinggal sit back and relax";
       } else {
         text = "🪓 Target kamu adalah " + exeTarget.name + ". Kamu harus bisa ";
-        text += "menghasut warga untuk gantung dia";
+        text += "menghasut warga untuk gantung dia supaya kamu menang";
       }
 
       return this.replyFlex(flex_text, text);

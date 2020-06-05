@@ -6,6 +6,14 @@ const punishment = require("/app/message/punishment");
 const flex = require("/app/message/flex");
 const rolesData = require("/app/roles/rolesData");
 
+// cp juri
+const juri = [
+  "U0b35f1990875ed0e3eb7ab3951795cb1",
+  "Uaa0c116405d3f0032f25feee64f5fc2f",
+  "U83caf7c21caa4cb90f5c616e0ef85e3a",
+  "Ue6ec78cae9127d17efa3b60cde7fe7bc"
+];
+
 module.exports = {
   receive: function(client, event, args, rawArgs, user_session, group_session) {
     this.client = client;
@@ -41,8 +49,12 @@ module.exports = {
           let players = this.group_session.players;
           let index = this.indexOfPlayer();
           if (index !== -1) {
-            // cp deathtalk
+            // cp deathtalk detol
             if (players[index].status === "death") {
+              if (players[index].detolChance > 0) {
+                players[index].detolChance--;
+              }
+
               this.replyText(
                 "💡 " + players[index].name + ", heh gak boleh deathtalk!"
               );
@@ -188,14 +200,62 @@ module.exports = {
         return this.meCommand();
       case "/reported":
         return this.reportedCommand();
+      case "/del_report":
+        return this.deleteReportCommand();
       default:
         return this.invalidCommand();
     }
   },
 
+  deleteReportCommand() {
+    if (!juri.includes(this.user_session.id)) {
+      return this.replyText("Hanya juri yang bisa gunain command ini");
+    }
+
+    if (this.args.length < 2) {
+      return this.replyText("cara: '/del_report idnya'");
+    }
+
+    let toDeleteReportId = this.args[1];
+
+    let path = "/app/.data/bedburg.json";
+
+    fs.readFile(path, (err, data) => {
+      let groupData = JSON.parse(data);
+
+      // check exists atau engga
+      let targetIndex = -1;
+      for (let i = 0; i < groupData.reported.length; i++) {
+        if (groupData.reported[i].id == toDeleteReportId) {
+          targetIndex = i;
+        }
+      }
+
+      if (targetIndex === -1) {
+        return this.replyText(
+          "id " + toDeleteReportId + " tidak ditemukan. cek '/reported'"
+        );
+      }
+
+      let name = groupData.reported[targetIndex].name;
+
+      helper.cutFromArray(groupData.reported, targetIndex);
+
+      fs.writeFile(path, JSON.stringify(groupData, null, 2), err => {
+        if (err) throw err;
+        let text = "Report " + name + " berhasil di hapus";
+        return this.replyText(text);
+      });
+    });
+  },
+
   reportedCommand: function() {
     if (this.group_session.groupId !== "Ccd79756ab45c8b1ea5fbfa4d59c0ff5f") {
       return this.invalidCommand();
+    }
+
+    if (!juri.includes(this.user_session.id)) {
+      return this.replyText("Hanya juri yang bisa gunain command ini");
     }
 
     //return this.replyText("WIP");
@@ -217,7 +277,9 @@ module.exports = {
       for (let i = 0; i < groupData.reported.length; i++) {
         let member = groupData.reported[i];
         text +=
-          "* " +
+          "* [# " +
+          member.id +
+          "]" +
           member.name +
           " di report oleh " +
           member.reporter +
@@ -233,6 +295,10 @@ module.exports = {
   reportCommand: function() {
     if (this.group_session.groupId !== "Ccd79756ab45c8b1ea5fbfa4d59c0ff5f") {
       return this.invalidCommand();
+    }
+
+    if (!juri.includes(this.user_session.id)) {
+      return this.replyText("Hanya juri yang bisa gunain command ini");
     }
 
     function parseToText(arr) {
@@ -998,10 +1064,15 @@ module.exports = {
       return this.replyText(text);
     }
 
-    if (players.length < 5) {
-      let text = "💡 Game belum bisa dimulai, minimal memiliki 5 pemain";
+    let minPlayers = 8;
+    if (players.length < minPlayers) {
+      let text = "💡 Game belum bisa dimulai, minimal memiliki ";
+      text += minPlayers + " pemain";
       return this.replyText(text);
     }
+
+    //cp always not show role
+    this.group_session.isShowRole = false;
 
     this.group_session.punishment = helper.random(punishment);
 
@@ -1015,7 +1086,7 @@ module.exports = {
 
     /// test specific role cp
     if (process.env.TEST === "true") {
-      roles = ["vigilante", "vampire"];
+      roles = ["executioner", "executioner", "guardian-angel", "werewolf"];
     }
 
     this.group_session.players.forEach((item, index) => {
@@ -1049,15 +1120,15 @@ module.exports = {
     this.group_session.roles = this.getRoleList();
 
     // kasih tau kalo game dh mulai
-    
+
     let text = "🔔 Hai! Game nya sudah dimulai ya!" + "\n\n";
     text += "Ketik '/role' untuk melihat rolemu, ";
     text += "ketik '/info <nama-role>' untuk info role!";
-    
+
     let text_obj = {
-      type: 'text',
+      type: "text",
       text: text
-    }
+    };
 
     let playersUserId = players.map(p => {
       return p.id;
@@ -3175,7 +3246,7 @@ module.exports = {
         if (isAttacked || isVampireBited) {
           this.group_session.players[i].damage = attackers.length;
 
-          if (!isBurned && !isHaunted && !willSuicide && afkCounter < 5) {
+          if (!isBurned && !isHaunted && !willSuicide && afkCounter < 3) {
             for (let x = 0; x < attackers.length; x++) {
               let attacker = attackers[x];
 
@@ -3311,7 +3382,7 @@ module.exports = {
                 this.group_session.players[protector.index].message +=
                   "💡 " + players[i].name + " diserang semalam!" + "\n\n";
 
-                if (isHaunted || willSuicide || afkCounter >= 5) {
+                if (isHaunted || willSuicide || afkCounter >= 3) {
                   this.group_session.players[protector.index].message +=
                     "💡 " + players[i].name + " gagal dilindungi!" + "\n\n";
 
@@ -3344,13 +3415,13 @@ module.exports = {
               }
             }
 
-            if (!isHaunted && !willSuicide && afkCounter < 5) {
+            if (!isHaunted && !willSuicide && afkCounter < 3) {
               continue;
             }
           }
 
           this.group_session.players[i].status = "will_death";
-        } else if (willSuicide || afkCounter >= 5) {
+        } else if (willSuicide || afkCounter >= 3) {
           this.group_session.players[i].status = "will_death";
         }
       }
@@ -3623,7 +3694,7 @@ module.exports = {
 
         if (attackersRole.length > 0) {
           //
-        } else if (players[i].afkCounter >= 5) {
+        } else if (players[i].afkCounter >= 3) {
           isAfk = true;
         } else if (willSuicide) {
           isSuicide = true;
@@ -4519,7 +4590,7 @@ module.exports = {
     // executioner
     for (let i = 0; i < players.length; i++) {
       if (players[i].role.name === "executioner") {
-        if (players[i].role.targetLynchIndex === lynchTarget.index) {
+        if (players[i].role.targetLynchIndex == lynchTarget.index) {
           this.group_session.players[i].role.isTargetLynched = true;
         }
       }
@@ -4528,7 +4599,7 @@ module.exports = {
     // guardian angel
     for (let i = 0; i < players.length; i++) {
       if (players[i].role.name === "guardian-angel") {
-        if (players[i].role.mustProtectIndex === lynchTarget.index) {
+        if (players[i].role.mustProtectIndex == lynchTarget.index) {
           let roleData = this.getRoleData("survivor");
           this.group_session.players[i].role = roleData;
           this.group_session.players[i].role.vest = 0;
@@ -4655,8 +4726,10 @@ module.exports = {
         if (roleTeam === whoWin) {
           table_body[i].contents[2].text = "win";
         } else {
-          /// check the win condition of some role
-          if (roleName === "jester") {
+          if (players[i].afkCounter >= 3) {
+            table_body[i].contents[2].text = "lose";
+          } else if (roleName === "jester") {
+            /// check the win condition of some role
             this.handleJesterWin(i, table_body[i].contents[2], surviveTeam);
           } else if (roleName === "survivor") {
             this.handleSurvivorWin(i, table_body[i].contents[2], surviveTeam);
@@ -4681,7 +4754,14 @@ module.exports = {
           }
         }
 
-        // check exists atau engga
+        // cp kasih point buat yang win dan cek detol
+
+        if (players[i].detolChance === 0) {
+          table_body[i].contents[2].text += " (DETOL)";
+        } else if (players[i].afkCounter >= 3) {
+          table_body[i].contents[2].text += " (AFK)";
+        }
+
         for (let j = 0; j < groupData.member.length; j++) {
           if (groupData.member[j].userId == players[i].id) {
             if (table_body[i].contents[2].text === "win") {
@@ -4992,7 +5072,8 @@ module.exports = {
       deathNote: "",
       willSuicide: false,
       doused: false,
-      burned: false
+      burned: false,
+      detolChance: 3
     };
     return newPlayer;
   },
