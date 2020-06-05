@@ -61,10 +61,10 @@ module.exports = {
     let input = this.args[2].toLowerCase();
     
     let text = "✉️ ";
-    if (input === "yes") {
+    if (input === "yes" || input === "y") {
       this.group_session.isShowRole = true;
       text += "Show role diaktifkan!";
-    } else if (input === "no") {
+    } else if (input === "no" || input === "n") {
       this.group_session.isShowRole = false;
       text += "Show role di non-aktifkan!";
     } else {
