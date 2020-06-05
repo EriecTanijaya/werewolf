@@ -1,4 +1,3 @@
-const fs = require("fs");
 const helper = require("/app/helper");
 const attackedMsg = require("/app/message/attack");
 const peaceMsg = require("/app/message/peace");
@@ -6,16 +5,8 @@ const punishment = require("/app/message/punishment");
 const flex = require("/app/message/flex");
 const rolesData = require("/app/roles/rolesData");
 
-// cp juri
-const juri = [
-  "U0b35f1990875ed0e3eb7ab3951795cb1",
-  "Uaa0c116405d3f0032f25feee64f5fc2f",
-  "U83caf7c21caa4cb90f5c616e0ef85e3a",
-  "Ue6ec78cae9127d17efa3b60cde7fe7bc"
-];
-
 module.exports = {
-  receive: function(client, event, args, rawArgs, user_session, group_session) {
+  receive: function (client, event, args, rawArgs, user_session, group_session) {
     this.client = client;
     this.event = event;
     this.args = args;
@@ -49,17 +40,6 @@ module.exports = {
           let players = this.group_session.players;
           let index = this.indexOfPlayer();
           if (index !== -1) {
-            // cp deathtalk detol
-            if (players[index].status === "death") {
-              if (players[index].detolChance > 0) {
-                players[index].detolChance--;
-              }
-
-              this.replyText(
-                "💡 " + players[index].name + ", heh gak boleh deathtalk!"
-              );
-            }
-
             if (state === "day" || state === "vote") {
               let roleName = players[index].role.name;
               if (roleName === "mayor" && players[index].status === "alive") {
@@ -189,308 +169,12 @@ module.exports = {
       case "/oc":
       case "/openchat":
         return this.forumCommand();
-      case "/report":
-        return this.reportCommand();
-      case "/register":
-      case "/regis":
-        return this.registerCommand();
-      case "/rank":
-        return this.rankCommand();
-      case "/me":
-        return this.meCommand();
-      case "/reported":
-        return this.reportedCommand();
-      case "/del_report":
-        return this.deleteReportCommand();
       default:
         return this.invalidCommand();
     }
   },
 
-  deleteReportCommand() {
-    if (!juri.includes(this.user_session.id)) {
-      return this.replyText("Hanya juri yang bisa gunain command ini");
-    }
-
-    if (this.args.length < 2) {
-      return this.replyText("cara: '/del_report idnya'");
-    }
-
-    let toDeleteReportId = this.args[1];
-
-    let path = "/app/.data/bedburg.json";
-
-    fs.readFile(path, (err, data) => {
-      let groupData = JSON.parse(data);
-
-      // check exists atau engga
-      let targetIndex = -1;
-      for (let i = 0; i < groupData.reported.length; i++) {
-        if (groupData.reported[i].id == toDeleteReportId) {
-          targetIndex = i;
-        }
-      }
-
-      if (targetIndex === -1) {
-        return this.replyText(
-          "id " + toDeleteReportId + " tidak ditemukan. cek '/reported'"
-        );
-      }
-
-      let name = groupData.reported[targetIndex].name;
-
-      helper.cutFromArray(groupData.reported, targetIndex);
-
-      fs.writeFile(path, JSON.stringify(groupData, null, 2), err => {
-        if (err) throw err;
-        let text = "Report " + name + " berhasil di hapus";
-        return this.replyText(text);
-      });
-    });
-  },
-
-  reportedCommand: function() {
-    if (this.group_session.groupId !== "Ccd79756ab45c8b1ea5fbfa4d59c0ff5f") {
-      return this.invalidCommand();
-    }
-
-    if (!juri.includes(this.user_session.id)) {
-      return this.replyText("Hanya juri yang bisa gunain command ini");
-    }
-
-    //return this.replyText("WIP");
-
-    let state = this.group_session.state;
-
-    if (state !== "idle" && state !== "new") {
-      return this.replyText("ntr abis game siap");
-    }
-
-    let path = "/app/.data/bedburg.json";
-    fs.readFile(path, (err, data) => {
-      let groupData = JSON.parse(data);
-
-      if (groupData.reported.length === 0)
-        return this.replyText("belum ada yg direport");
-
-      let text = "Reported Player" + "\n";
-      for (let i = 0; i < groupData.reported.length; i++) {
-        let member = groupData.reported[i];
-        text +=
-          "* [# " +
-          member.id +
-          "]" +
-          member.name +
-          " di report oleh " +
-          member.reporter +
-          " dengan alasan " +
-          member.reason +
-          "\n";
-      }
-
-      return this.replyText(text.trim());
-    });
-  },
-
-  reportCommand: function() {
-    if (this.group_session.groupId !== "Ccd79756ab45c8b1ea5fbfa4d59c0ff5f") {
-      return this.invalidCommand();
-    }
-
-    if (!juri.includes(this.user_session.id)) {
-      return this.replyText("Hanya juri yang bisa gunain command ini");
-    }
-
-    function parseToText(arr) {
-      let text = "";
-      arr.forEach(function(item, index) {
-        if (index !== 0 && index !== 1) {
-          //ini untuk tidak parse text command '/command'
-          if (index !== 2) {
-            text += " ";
-          }
-          text += item;
-        }
-      });
-      return text;
-    }
-
-    //return this.replyText("WIP");
-
-    if (this.args.length < 3) {
-      return this.replyText("cara: '/report idnya apa alasannya'");
-    }
-
-    let willReportedId = this.args[1];
-    let reason = parseToText(this.args);
-
-    let path = "/app/.data/bedburg.json";
-
-    fs.readFile(path, (err, data) => {
-      let groupData = JSON.parse(data);
-
-      // check exists atau engga
-      let isExists = false;
-      for (let i = 0; i < groupData.member.length; i++) {
-        if (groupData.member[i].id == willReportedId) {
-          isExists = true;
-        }
-      }
-
-      if (!isExists) {
-        return this.replyText("id " + willReportedId + " tidak ditemukan");
-      }
-
-      //{ member: [], banned: [], reported: [] }
-
-      for (let i = 0; i < groupData.reported.length; i++) {
-        if (groupData.reported[i].id == willReportedId) {
-          return this.replyText(groupData.reported[i] + " sudah di report");
-        }
-      }
-
-      for (let i = 0; i < groupData.member.length; i++) {
-        if (groupData.member[i].id == willReportedId) {
-          groupData.member[i].reason = reason;
-          groupData.member[i].reporter = this.user_session.name;
-          groupData.reported.push(groupData.member[i]);
-
-          fs.writeFile(path, JSON.stringify(groupData, null, 2), err => {
-            if (err) throw err;
-            let text = groupData.member[i].name + " berhasil di report oleh ";
-            text += this.user_session.name + " dengan alasan : " + reason;
-            return this.replyText(text);
-          });
-
-          break;
-        }
-      }
-    });
-  },
-
-  registerCommand: function() {
-    if (this.group_session.groupId !== "Ccd79756ab45c8b1ea5fbfa4d59c0ff5f") {
-      return this.invalidCommand();
-    }
-
-    //return this.replyText("WIP");
-
-    let state = this.group_session.state;
-
-    if (state !== "idle" && state !== "new") {
-      return this.replyText("regis pas game nya dh siap dlu bos");
-    }
-
-    let path = "/app/.data/bedburg.json";
-
-    fs.readFile(path, (err, data) => {
-      let groupData = JSON.parse(data);
-
-      // check exists atau engga
-      for (let i = 0; i < groupData.member.length; i++) {
-        if (groupData.member[i].userId === this.user_session.id) {
-          return this.replyText(this.user_session.name + ", kamu sudah daftar");
-        }
-      }
-
-      let newMember = {
-        userId: this.user_session.id,
-        id: groupData.member.length + 1,
-        name: this.user_session.name,
-        points: 0
-      };
-
-      groupData.member.push(newMember);
-
-      fs.writeFile(path, JSON.stringify(groupData, null, 2), err => {
-        if (err) throw err;
-        return this.replyText(
-          this.user_session.name + " terdaftar dengan id " + newMember.id
-        );
-      });
-    });
-  },
-
-  rankCommand: function() {
-    if (this.group_session.groupId !== "Ccd79756ab45c8b1ea5fbfa4d59c0ff5f") {
-      return this.invalidCommand();
-    }
-
-    //return this.replyText("WIP");
-
-    let state = this.group_session.state;
-
-    if (state !== "idle" && state !== "new") {
-      return this.replyText("cek rank pas gamenya dh siap dulu bos");
-    }
-
-    let path = "/app/.data/bedburg.json";
-
-    fs.readFile(path, (err, data) => {
-      let groupData = JSON.parse(data);
-
-      if (groupData.member.length === 0) return this.replyText("ga ada data");
-
-      function rank_sort(array) {
-        return array.sort((person1, person2) => {
-          return person2.points - person1.points;
-        });
-      }
-
-      let memberData = rank_sort(groupData.member);
-
-      let text = "Ranking " + "\n";
-      let num = 1;
-      for (let i = 0; i < memberData.length; i++) {
-        let member = memberData[i];
-        text +=
-          num +
-          ". [#" +
-          member.id +
-          "] " +
-          member.name +
-          " (" +
-          member.points +
-          " points)" +
-          "\n";
-        num++;
-      }
-
-      return this.replyText(text.trim());
-    });
-  },
-
-  meCommand: function() {
-    if (this.group_session.groupId !== "Ccd79756ab45c8b1ea5fbfa4d59c0ff5f") {
-      return this.invalidCommand();
-    }
-
-    //return this.replyText("WIP");
-
-    let state = this.group_session.state;
-
-    if (state !== "idle" && state !== "new") {
-      return this.replyText("cek stat pas gamenya dh siap dulu bos");
-    }
-
-    let path = "/app/.data/bedburg.json";
-
-    fs.readFile(path, (err, data) => {
-      let groupData = JSON.parse(data);
-
-      for (let i = 0; i < groupData.member.length; i++) {
-        if (groupData.member[i].userId === this.user_session.id) {
-          let text = "Data " + groupData.member[i].name + "\n";
-          text += "Points : " + groupData.member[i].points;
-          return this.replyText(text);
-        }
-      }
-
-      return this.replyText("data tidak ditemukan");
-    });
-  },
-
-  forumCommand: function() {
+  forumCommand: function () {
     let flex_text = {
       header: {
         text: "💬 Forum"
@@ -512,7 +196,7 @@ module.exports = {
     return this.replyFlex(flex_text);
   },
 
-  gameStatCommand: function() {
+  gameStatCommand: function () {
     let state = this.group_session.state;
     let players = this.group_session.players;
 
@@ -564,12 +248,12 @@ module.exports = {
     return this.replyFlex(flex_text);
   },
 
-  tutorialCommand: function() {
+  tutorialCommand: function () {
     let flex_text = helper.getTutorial();
     return this.replyFlex(flex_text);
   },
 
-  skillCommand: function() {
+  skillCommand: function () {
     if (this.user_session.id !== process.env.DEV_ID) {
       return this.invalidCommand();
     }
@@ -584,7 +268,7 @@ module.exports = {
     this.group_session.players[doerIndex].target.index = targetIndex;
   },
 
-  settingCommand: function() {
+  settingCommand: function () {
     let state = this.group_session.state;
     if (state !== "idle" && state !== "new") {
       let text = "💡 " + this.user_session.name;
@@ -602,7 +286,7 @@ module.exports = {
     );
   },
 
-  kickCommand: function() {
+  kickCommand: function () {
     let groupId = this.group_session.groupId;
     let text = "👋 Selamat tinggal!";
     this.replyText(text);
@@ -613,7 +297,7 @@ module.exports = {
     }
   },
 
-  extendCommand: function() {
+  extendCommand: function () {
     if (this.group_session.state !== "new") {
       let text = "";
       if (this.group_session.state === "idle") {
@@ -639,7 +323,7 @@ module.exports = {
     return this.replyText(remind);
   },
 
-  roleListCommand: function() {
+  roleListCommand: function () {
     if (this.group_session.state === "idle") {
       return this.replyText("💡 Belum ada game yang dibuat, ketik '/new'");
     } else if (this.group_session.state === "new") {
@@ -665,19 +349,19 @@ module.exports = {
     return this.replyFlex(flex_text);
   },
 
-  personalCommand: function() {
+  personalCommand: function () {
     let text = "💡 " + this.user_session.name + ", perintah ";
     text += this.args[0] + " harusnya digunakan di personal chat bot";
     return this.replyText(text);
   },
 
-  infoCommand: function() {
+  infoCommand: function () {
     const roles = require("/app/roles/rolesInfo");
     let groupState = this.group_session.state;
     return roles.receive(this.client, this.event, this.args, groupState);
   },
 
-  helpCommand: function() {
+  helpCommand: function () {
     const helpFlex = require("/app/message/help");
     let state = this.group_session.state;
     let help = helpFlex.getHelp(state);
@@ -694,7 +378,7 @@ module.exports = {
     return this.replyFlex(flex_text);
   },
 
-  statCommand: function() {
+  statCommand: function () {
     if (this.group_session.state !== "idle") {
       let text = "💡 Cek stat bisa dilakukan di pc bot atau ";
       text += "disaat sedang tidak ada room game yang aktif";
@@ -705,12 +389,12 @@ module.exports = {
     stats.receive(this.client, this.event, this.args);
   },
 
-  aboutCommand: function() {
+  aboutCommand: function () {
     let flex_text = helper.getAbout();
     return this.replyFlex(flex_text);
   },
 
-  revokeCommand: function() {
+  revokeCommand: function () {
     let state = this.group_session.state;
     if (state !== "vote") {
       let text = "";
@@ -753,7 +437,7 @@ module.exports = {
     return this.replyText(text);
   },
 
-  newCommand: function() {
+  newCommand: function () {
     if (this.group_session.state !== "idle") {
       let text = "";
       if (this.group_session.state === "new") {
@@ -807,7 +491,7 @@ module.exports = {
     }
   },
 
-  joinCommand: function() {
+  joinCommand: function () {
     if (this.group_session.state !== "new") {
       let text = "";
       if (this.group_session.state === "idle") {
@@ -871,7 +555,7 @@ module.exports = {
     return this.replyText(text);
   },
 
-  playersCommand: function() {
+  playersCommand: function () {
     if (this.group_session.state === "idle") {
       return this.replyText("💡 Belum ada game yang dibuat, ketik '/new'");
     }
@@ -973,7 +657,7 @@ module.exports = {
     return this.replyFlex(flex_text);
   },
 
-  cancelCommand: function() {
+  cancelCommand: function () {
     if (this.group_session.state !== "new") {
       let text = "";
       if (this.group_session.state === "idle") {
@@ -1013,7 +697,7 @@ module.exports = {
     return this.replyText(text);
   },
 
-  stopCommand: function() {
+  stopCommand: function () {
     if (this.group_session.state === "idle") {
       return this.replyText("💡 Belum ada game yang dibuat, ketik '/new'");
     }
@@ -1044,7 +728,7 @@ module.exports = {
     return this.replyText(text);
   },
 
-  startCommand: function() {
+  startCommand: function () {
     if (this.group_session.state !== "new") {
       let text = "";
       if (this.group_session.state === "idle") {
@@ -1064,22 +748,19 @@ module.exports = {
       return this.replyText(text);
     }
 
-    let minPlayers = 8;
+    let minPlayers = 5;
     if (players.length < minPlayers) {
       let text = "💡 Game belum bisa dimulai, minimal memiliki ";
       text += minPlayers + " pemain";
       return this.replyText(text);
     }
 
-    //cp always not show role
-    this.group_session.isShowRole = false;
-
     this.group_session.punishment = helper.random(punishment);
 
     this.randomRoles();
   },
 
-  randomRoles: function() {
+  randomRoles: function () {
     let players = this.group_session.players;
     let playersLength = players.length;
     let roles = this.getRandomRoleSet(playersLength);
@@ -1139,7 +820,7 @@ module.exports = {
     this.night(null);
   },
 
-  getRandomRoleSet: function(playersLength) {
+  getRandomRoleSet: function (playersLength) {
     let mode = this.group_session.mode;
     let roles = [];
 
@@ -1172,7 +853,7 @@ module.exports = {
     return roles;
   },
 
-  night: function(flex_texts) {
+  night: function (flex_texts) {
     this.group_session.nightCounter++;
 
     this.group_session.state = "night";
@@ -1286,7 +967,7 @@ module.exports = {
     }
   },
 
-  checkCommand: function() {
+  checkCommand: function () {
     let state = this.group_session.state;
     let time = this.group_session.time;
     let name = this.user_session.name;
@@ -1362,7 +1043,7 @@ module.exports = {
     }
   },
 
-  autoVote: function() {
+  autoVote: function () {
     let players = this.group_session.players;
     let voteNeeded = Math.round(this.getAlivePlayersCount() / 2);
 
@@ -1415,7 +1096,7 @@ module.exports = {
     }
   },
 
-  day: function() {
+  day: function () {
     /// BUAT MASING" SYSTEM UNTUK DAY FUNC
     let flex_texts = [];
     this.group_session.state = "day";
@@ -4392,7 +4073,7 @@ module.exports = {
     }
   },
 
-  votingCommand: function() {
+  votingCommand: function () {
     let index = this.indexOfPlayer();
     let players = this.group_session.players;
 
@@ -4465,7 +4146,7 @@ module.exports = {
     return this.replyFlex(flex_texts);
   },
 
-  voteCommand: function() {
+  voteCommand: function () {
     if (this.group_session.state !== "vote") {
       return Promise.resolve(null);
     }
@@ -4557,7 +4238,7 @@ module.exports = {
     }
   },
 
-  lynch: function(flex_texts) {
+  lynch: function (flex_texts) {
     let players = this.group_session.players;
     let lynchTarget = {};
     let candidates = this.getVoteCandidates();
@@ -4623,7 +4304,7 @@ module.exports = {
     return this.replyFlex(flex_texts);
   },
 
-  postLynch: function() {
+  postLynch: function () {
     let players = this.group_session.players;
     let lynched = this.group_session.lynched;
 
@@ -4641,7 +4322,7 @@ module.exports = {
     }
   },
 
-  endGame: function(flex_texts, whoWin) {
+  endGame: function (flex_texts, whoWin) {
     // console.log("whoWin: " + whoWin);
     /// for draw situation
     // check for remaining neutral role
@@ -4672,143 +4353,112 @@ module.exports = {
 
     let table_body = {};
 
-    //cp start of data
-    let path = "/app/.data/bedburg.json";
-
-    fs.readFile(path, (err, data) => {
-      let groupData = JSON.parse(data);
-
-      let num = 1;
-      for (let i = 0; i < players.length; i++) {
-        table_body[i] = {
-          type: "box",
-          layout: "horizontal",
-          contents: [
-            {
-              type: "text",
-              text: ""
-            },
-            {
-              type: "text",
-              text: "",
-              flex: 3,
-              wrap: true
-            },
-            {
-              type: "text",
-              text: "",
-              flex: 2,
-              align: "center"
-            },
-            {
-              type: "text",
-              text: "",
-              flex: 2,
-              align: "center",
-              wrap: true
-            }
-          ],
-          margin: "sm"
-        };
-
-        let roleTeam = players[i].role.team;
-        let roleName = players[i].role.name;
-
-        table_body[i].contents[0].text += num + ".";
-        table_body[i].contents[1].text += players[i].name;
-
-        if (players[i].status === "death") {
-          table_body[i].contents[1].text += " (💀)";
-        } else {
-          table_body[i].contents[1].text += " (😃)";
-        }
-
-        if (roleTeam === whoWin) {
-          table_body[i].contents[2].text = "win";
-        } else {
-          if (players[i].afkCounter >= 3) {
-            table_body[i].contents[2].text = "lose";
-          } else if (roleName === "jester") {
-            /// check the win condition of some role
-            this.handleJesterWin(i, table_body[i].contents[2], surviveTeam);
-          } else if (roleName === "survivor") {
-            this.handleSurvivorWin(i, table_body[i].contents[2], surviveTeam);
-          } else if (roleName === "amnesiac") {
-            this.handleAmnesiacWin(i, table_body[i].contents[2], surviveTeam);
-          } else if (roleName === "executioner") {
-            this.handleExecutionerWin(
-              i,
-              table_body[i].contents[2],
-              surviveTeam
-            );
-          } else if (roleName === "guardian-angel") {
-            this.handleGuardianAngelWin(
-              i,
-              table_body[i].contents[2],
-              surviveTeam
-            );
-          } else if (whoWin === "draw") {
-            table_body[i].contents[2].text = "draw";
-          } else {
-            table_body[i].contents[2].text = "lose";
+    let num = 1;
+    for (let i = 0; i < players.length; i++) {
+      table_body[i] = {
+        type: "box",
+        layout: "horizontal",
+        contents: [
+          {
+            type: "text",
+            text: ""
+          },
+          {
+            type: "text",
+            text: "",
+            flex: 3,
+            wrap: true
+          },
+          {
+            type: "text",
+            text: "",
+            flex: 2,
+            align: "center"
+          },
+          {
+            type: "text",
+            text: "",
+            flex: 2,
+            align: "center",
+            wrap: true
           }
-        }
+        ],
+        margin: "sm"
+      };
 
-        // cp kasih point buat yang win dan cek detol
+      let roleTeam = players[i].role.team;
+      let roleName = players[i].role.name;
 
-        if (players[i].detolChance === 0) {
-          table_body[i].contents[2].text += " (DETOL)";
-        } else if (players[i].afkCounter >= 3) {
-          table_body[i].contents[2].text += " (AFK)";
-        }
+      table_body[i].contents[0].text += num + ".";
+      table_body[i].contents[1].text += players[i].name;
 
-        for (let j = 0; j < groupData.member.length; j++) {
-          if (groupData.member[j].userId == players[i].id) {
-            if (table_body[i].contents[2].text === "win") {
-              groupData.member[j].points++;
-            }
-          }
-        }
-
-        table_body[i].contents[3].text += roleName;
-
-        num++;
-
-        newFlex_text.table.body.push(table_body[i]);
+      if (players[i].status === "death") {
+        table_body[i].contents[1].text += " (💀)";
+      } else {
+        table_body[i].contents[1].text += " (😃)";
       }
 
-      //cp end
-      fs.writeFile(path, JSON.stringify(groupData, null, 2), err => {
-        if (err) throw err;
-
-        /// cp original
-        if (whoWin !== "draw") {
-          let emoji = helper.getRoleTeamEmoji(whoWin) + " ";
-          headerText = "🎉 " + emoji + whoWin.toUpperCase() + " win! 🎉";
-        } else if (surviveTeam.length > 0) {
-          let surviveTeamList = surviveTeam.join(", ");
-          headerText = "🎉 " + surviveTeamList.toUpperCase() + " win! 🎉";
+      if (roleTeam === whoWin) {
+        table_body[i].contents[2].text = "win";
+      } else {
+        /// check the win condition of some role
+        if (roleName === "jester") {
+          this.handleJesterWin(i, table_body[i].contents[2], surviveTeam);
+        } else if (roleName === "survivor") {
+          this.handleSurvivorWin(i, table_body[i].contents[2], surviveTeam);
+        } else if (roleName === "amnesiac") {
+          this.handleAmnesiacWin(i, table_body[i].contents[2], surviveTeam);
+        } else if (roleName === "executioner") {
+          this.handleExecutionerWin(
+            i,
+            table_body[i].contents[2],
+            surviveTeam
+          );
+        } else if (roleName === "guardian-angel") {
+          this.handleGuardianAngelWin(
+            i,
+            table_body[i].contents[2],
+            surviveTeam
+          );
+        } else if (whoWin === "draw") {
+          table_body[i].contents[2].text = "draw";
         } else {
-          headerText = "😶 Draw Game 😶";
+          table_body[i].contents[2].text = "lose";
         }
+      }
 
-        newFlex_text.header.text = headerText;
+      table_body[i].contents[3].text += roleName;
 
-        this.group_session.time = 300; // reset to init time
-        this.group_session.state = "idle";
+      num++;
 
-        this.resetAllPlayers();
+      newFlex_text.table.body.push(table_body[i]);
+    }
 
-        if (!flex_texts) {
-          return this.replyFlex(newFlex_text);
-        } else {
-          return this.replyFlex(flex_texts, null, newFlex_text);
-        }
-      });
-    });
+    if (whoWin !== "draw") {
+      let emoji = helper.getRoleTeamEmoji(whoWin) + " ";
+      headerText = "🎉 " + emoji + whoWin.toUpperCase() + " win! 🎉";
+    } else if (surviveTeam.length > 0) {
+      let surviveTeamList = surviveTeam.join(", ");
+      headerText = "🎉 " + surviveTeamList.toUpperCase() + " win! 🎉";
+    } else {
+      headerText = "😶 Draw Game 😶";
+    }
+
+    newFlex_text.header.text = headerText;
+
+    this.group_session.time = 300; // reset to init time
+    this.group_session.state = "idle";
+
+    this.resetAllPlayers();
+
+    if (!flex_texts) {
+      return this.replyFlex(newFlex_text);
+    } else {
+      return this.replyFlex(flex_texts, null, newFlex_text);
+    }
   },
 
-  commandCommand: function() {
+  commandCommand: function () {
     let text = "";
     let cmds = [
       "/new : main game",
@@ -4843,7 +4493,7 @@ module.exports = {
     return this.replyFlex(flex_text);
   },
 
-  invalidCommand: function() {
+  invalidCommand: function () {
     const invalid = require("/app/message/invalid");
     let text = invalid.getResponse(this.args, this.user_session.name);
     return this.replyText(text);
@@ -4851,7 +4501,7 @@ module.exports = {
 
   /** helper func **/
 
-  substituteMafia: function(checkTarget) {
+  substituteMafia: function (checkTarget) {
     let players = this.group_session.players;
     // check mafia killing yang mati
     if (checkTarget.role.type === "Mafia Killing") {
@@ -4880,7 +4530,7 @@ module.exports = {
     }
   },
 
-  handleJesterWin: function(index, tableColumn, surviveTeam) {
+  handleJesterWin: function (index, tableColumn, surviveTeam) {
     if (this.group_session.players[index].role.isLynched) {
       tableColumn.text = "win";
       surviveTeam.push("jester 🃏");
@@ -4889,7 +4539,7 @@ module.exports = {
     }
   },
 
-  handleSurvivorWin: function(index, tableColumn, surviveTeam) {
+  handleSurvivorWin: function (index, tableColumn, surviveTeam) {
     if (this.group_session.players[index].status === "alive") {
       tableColumn.text = "win";
       surviveTeam.push("survivor 🏳️");
@@ -4898,7 +4548,7 @@ module.exports = {
     }
   },
 
-  handleAmnesiacWin: function(index, tableColumn, surviveTeam) {
+  handleAmnesiacWin: function (index, tableColumn, surviveTeam) {
     if (this.group_session.players[index].status === "alive") {
       tableColumn.text = "win";
       surviveTeam.push("amnesiac 🤕");
@@ -4907,7 +4557,7 @@ module.exports = {
     }
   },
 
-  handleExecutionerWin: function(index, tableColumn, surviveTeam) {
+  handleExecutionerWin: function (index, tableColumn, surviveTeam) {
     if (this.group_session.players[index].role.isTargetLynched) {
       tableColumn.text = "win";
       surviveTeam.push("executioner 🪓");
@@ -4916,12 +4566,12 @@ module.exports = {
     }
   },
 
-  handleGuardianAngelWin: function(index, tableColumn, surviveTeam) {
+  handleGuardianAngelWin: function (index, tableColumn, surviveTeam) {
     tableColumn.text = "win";
     surviveTeam.push("guardian angel 😇");
   },
 
-  getExecutionerTargetIndex: function(exeIndex, isAmnesiac) {
+  getExecutionerTargetIndex: function (exeIndex, isAmnesiac) {
     let players = this.group_session.players;
     let maxIndex = players.length - 1;
 
@@ -4954,7 +4604,7 @@ module.exports = {
     }
   },
 
-  getGuardianAngelTargetIndex: function(guardianAngelIndex, isAmnesiac) {
+  getGuardianAngelTargetIndex: function (guardianAngelIndex, isAmnesiac) {
     let players = this.group_session.players;
     let maxIndex = players.length - 1;
 
@@ -4994,7 +4644,7 @@ module.exports = {
     }
   },
 
-  getJesterTargetIndex: function(jesterId) {
+  getJesterTargetIndex: function (jesterId) {
     let players = this.group_session.players;
     let maxIndex = players.length - 1;
 
@@ -5007,7 +4657,7 @@ module.exports = {
     }
   },
 
-  resetCheckChance: function() {
+  resetCheckChance: function () {
     this.group_session.checkChance = 2;
     if (this.group_session.players.length > 7) {
       this.group_session.checkChance += 2;
@@ -5015,7 +4665,7 @@ module.exports = {
     this.group_session.deadlineCheckChance = 1;
   },
 
-  getVoteCandidates: function() {
+  getVoteCandidates: function () {
     let candidates = [];
     this.group_session.players.forEach(item => {
       if (item.status === "alive" && item.targetVoteIndex !== -1) {
@@ -5029,7 +4679,7 @@ module.exports = {
     return candidates;
   },
 
-  getRoleList: function() {
+  getRoleList: function () {
     let roles = this.group_session.players.map(player => {
       return player.role.type;
     });
@@ -5056,7 +4706,7 @@ module.exports = {
     return list;
   },
 
-  createNewPlayer: function(user_session) {
+  createNewPlayer: function (user_session) {
     // di sini set prop yang ga bisa di reset tiap malam, dan bisa persistent sepanjang game
     let newPlayer = {
       id: user_session.id,
@@ -5072,17 +4722,16 @@ module.exports = {
       deathNote: "",
       willSuicide: false,
       doused: false,
-      burned: false,
-      detolChance: 3
+      burned: false
     };
     return newPlayer;
   },
 
-  addPlayer: function(player) {
+  addPlayer: function (player) {
     this.group_session.players.push(player);
   },
 
-  getGroupId: function() {
+  getGroupId: function () {
     let groupId = "";
     if (this.event.source.type === "group") {
       groupId = this.event.source.groupId;
@@ -5092,7 +4741,7 @@ module.exports = {
     return groupId;
   },
 
-  checkVote: function(voteNeeded) {
+  checkVote: function (voteNeeded) {
     let response = {
       status: "no_candidate",
       lynchTarget: {}
@@ -5115,7 +4764,7 @@ module.exports = {
     return response;
   },
 
-  getTimeDefault: function(playersLength) {
+  getTimeDefault: function (playersLength) {
     let time = 0;
 
     if (playersLength === 3) {
@@ -5135,7 +4784,7 @@ module.exports = {
     return time;
   },
 
-  getNewStateFlex: function() {
+  getNewStateFlex: function () {
     let infoText = "🕹️ Mode : " + this.group_session.mode;
     let flex_text = {
       header: {
@@ -5157,7 +4806,7 @@ module.exports = {
     return flex_text;
   },
 
-  getNightStateFlex: function(text) {
+  getNightStateFlex: function (text) {
     //set flex
     let flex_text = {
       header: {
@@ -5186,7 +4835,7 @@ module.exports = {
     return flex_text;
   },
 
-  getDayStateFlex: function() {
+  getDayStateFlex: function () {
     let time = this.group_session.time;
     let timerText =
       "💬 Sisa waktu untuk warga diskusi sisa " + time + " detik lagi" + "\n";
@@ -5217,7 +4866,7 @@ module.exports = {
     return flex_text;
   },
 
-  checkVictory: function() {
+  checkVictory: function () {
     let someoneWin = "";
     let players = this.group_session.players;
     let alivePeople = 0;
@@ -5329,7 +4978,7 @@ module.exports = {
     return someoneWin;
   },
 
-  checkMorphingRole: function(fromMorphRole, triggerRole, toMorphRole) {
+  checkMorphingRole: function (fromMorphRole, triggerRole, toMorphRole) {
     /*
       fromMorphRole, role yang mau di cek, ini yang mau di ubah
       triggerRole, role yang jika tak ada, maka fromMoprhRole menjadi toMorphRole
@@ -5361,7 +5010,7 @@ module.exports = {
     }
   },
 
-  getNamesByTeam: function(teamName) {
+  getNamesByTeam: function (teamName) {
     let names = [];
     this.group_session.players.forEach((item, index) => {
       if (item.role.team === teamName) {
@@ -5371,7 +5020,7 @@ module.exports = {
     return names.join(", ");
   },
 
-  getRoleData: function(roleName) {
+  getRoleData: function (roleName) {
     for (let i = 0; i < rolesData.length; i++) {
       if (roleName === rolesData[i].name) {
         let roleData = JSON.parse(JSON.stringify(rolesData[i]));
@@ -5380,7 +5029,7 @@ module.exports = {
     }
   },
 
-  getTableFlex: function(alivePlayers, text, headerText, opt_buttons) {
+  getTableFlex: function (alivePlayers, text, headerText, opt_buttons) {
     let players = this.group_session.players;
     let flex_text = {
       header: {
@@ -5462,7 +5111,7 @@ module.exports = {
     return flex_text;
   },
 
-  getNotVotePlayers: function() {
+  getNotVotePlayers: function () {
     let notVote = [];
     this.group_session.players.forEach(item => {
       if (item.status === "alive" && item.targetVoteIndex === -1) {
@@ -5472,7 +5121,7 @@ module.exports = {
     return notVote;
   },
 
-  getAlivePlayers: function() {
+  getAlivePlayers: function () {
     let alivePlayers = [];
     this.group_session.players.forEach(item => {
       if (item.status === "alive") {
@@ -5482,7 +5131,7 @@ module.exports = {
     return alivePlayers;
   },
 
-  getAlivePlayersCount: function() {
+  getAlivePlayersCount: function () {
     let count = 0;
     this.group_session.players.forEach(item => {
       if (item.status === "alive") {
@@ -5492,7 +5141,7 @@ module.exports = {
     return count;
   },
 
-  checkExistsRole: function(roleName) {
+  checkExistsRole: function (roleName) {
     let players = this.group_session.players;
     let found = false;
     for (let i = 0; i < players.length; i++) {
@@ -5504,7 +5153,7 @@ module.exports = {
     return found;
   },
 
-  getPlayerIdByRole: function(roleName) {
+  getPlayerIdByRole: function (roleName) {
     for (let i = 0; i < this.group_session.players.length; i++) {
       if (this.group_session.players[i].role.name === roleName) {
         return this.group_session.players[i].id;
@@ -5512,7 +5161,7 @@ module.exports = {
     }
   },
 
-  getPlayerIndexById: function(id) {
+  getPlayerIndexById: function (id) {
     let targetIndex = -1;
     for (let i = 0; i < this.group_session.players.length; i++) {
       if (id === this.group_session.players[i].id) {
@@ -5523,7 +5172,7 @@ module.exports = {
     return targetIndex;
   },
 
-  getPlayerIndexByRole: function(roleName) {
+  getPlayerIndexByRole: function (roleName) {
     let targetIndex = -1;
     let players = this.group_session.players;
     for (let i = 0; i < players.length; i++) {
@@ -5535,7 +5184,7 @@ module.exports = {
     return targetIndex;
   },
 
-  indexOfPlayer: function() {
+  indexOfPlayer: function () {
     let found = -1;
     for (let i = 0; i < this.group_session.players.length; i++) {
       if (this.group_session.players[i].id === this.user_session.id) {
@@ -5546,7 +5195,7 @@ module.exports = {
     return found;
   },
 
-  runTimer: function() {
+  runTimer: function () {
     /// set time default
     this.group_session.time = this.group_session.time_default;
     //this.group_session.time = 20;
@@ -5556,7 +5205,7 @@ module.exports = {
 
   /** message func **/
 
-  replyFlex: function(flex_raws, text_raws, newFlex_raws) {
+  replyFlex: function (flex_raws, text_raws, newFlex_raws) {
     flex_raws = Array.isArray(flex_raws) ? flex_raws : [flex_raws];
     let flex_texts = flex_raws.map(flex_raw => ({
       header: flex_raw.header,
@@ -5643,7 +5292,7 @@ module.exports = {
     );
   },
 
-  replyText: function(texts = []) {
+  replyText: function (texts = []) {
     let state = this.group_session.state;
     texts = Array.isArray(texts) ? texts : [texts];
 
@@ -5689,12 +5338,12 @@ module.exports = {
 
   /** save data func **/
 
-  resetUser: function() {
+  resetUser: function () {
     const data = require("/app/src/data");
     data.resetUser(this.user_session.id);
   },
 
-  resetAllPlayers: function() {
+  resetAllPlayers: function () {
     const data = require("/app/src/data");
     data.resetAllPlayers(
       this.group_session.players,

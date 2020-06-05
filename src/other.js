@@ -44,32 +44,15 @@ module.exports = {
   },
 
   joinResponse: function(groupId) {
-    // cp sementara aj
-    if (groupId !== process.env.TEST_GROUP) {
-      return this.client
-        .replyMessage(this.event.replyToken, {
-          type: "image",
-          originalContentUrl: "https://i.kym-cdn.com/entries/icons/original/000/030/967/spongebob.jpg",
-          previewImageUrl: "https://i.kym-cdn.com/entries/icons/original/000/030/967/spongebob.jpg"
-        })
-        .then(() => {
-          if (this.event.source.type === "group") {
-            return this.client.leaveGroup(groupId);
-          } else {
-            return this.client.leaveRoom(groupId);
-          }
-        }).catch(err => {
-          return console.error(err.stack);
-      })
-    }
-
+    let text = "Thanks udah undang bot ini 😃, ketik '/help' atau '/cmd' untuk bantuan, ";
+    text += "dan ketik '/tutorial' untuk cara menggunakan bot!";
     let flex_text = {
       header: {
         text: "👋 Hai semuaa"
       },
       body: {
         text:
-          "Thanks udah undang bot ini 😃, ketik '/help' atau '/cmd' untuk bantuan"
+          text
       }
     };
     return this.replyFlex(flex_text);
