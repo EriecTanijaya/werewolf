@@ -4,7 +4,7 @@ const helper = require("/app/helper");
 const rolesData = require("/app/roles/rolesData");
 
 module.exports = {
-  receive: function(client, event, args, rawArgs, user_session, group_session) {
+  receive: function (client, event, args, rawArgs, user_session, group_session) {
     this.client = client;
     this.event = event;
     this.args = args;
@@ -71,9 +71,15 @@ module.exports = {
     }
   },
 
-  roleListCommand: function() {
+  roleListCommand: function () {
     if (this.group_session.state === "new") {
       return this.replyText("💡 Game belum dimulai");
+    }
+
+    if (!this.group_session.isShowRole) {
+      let text = "💡 Tidak dapat melihat role list ";
+      text += "karena settingan show role pada group di non-aktifkan!";
+      return this.replyText(text);
     }
 
     let roles = this.group_session.roles;
@@ -88,7 +94,7 @@ module.exports = {
     return this.replyFlex(flex_text);
   },
 
-  cancelCommand: function() {
+  cancelCommand: function () {
     if (this.group_session.state !== "new") {
       return this.replyText("💡 Game sedang berjalan. ");
     }
@@ -118,12 +124,12 @@ module.exports = {
     return this.replyText(text);
   },
 
-  statCommand: function() {
+  statCommand: function () {
     const stats = require("/app/src/stats");
     stats.receive(this.client, this.event, this.args);
   },
 
-  notIdleCommand: function() {
+  notIdleCommand: function () {
     let text = "";
 
     if (this.group_session.state === "new") {
@@ -142,7 +148,7 @@ module.exports = {
     return this.replyText(text);
   },
 
-  revokeCommand: function() {
+  revokeCommand: function () {
     let state = this.group_session.state;
     if (state === "new") {
       return this.replyText("💡 Game belum dimulai");
@@ -167,7 +173,7 @@ module.exports = {
     return this.replyText("💡 Kamu batal menggunakan skill");
   },
 
-  deathNoteCommand: function() {
+  deathNoteCommand: function () {
     if (this.group_session.state === "new") {
       return this.replyText("💡 Game belum dimulai");
     }
@@ -202,7 +208,7 @@ module.exports = {
     return this.replyText(text);
   },
 
-  targetCommand: function() {
+  targetCommand: function () {
     if (this.group_session.state === "new") {
       return this.replyText("💡 Game belum dimulai");
     }
@@ -218,7 +224,13 @@ module.exports = {
     let roleName = players[index].role.name;
     let roleTeam = players[index].role.team;
 
-    let prohibited = ["villager", "veteran", "survivor", "executioner", "psychic"];
+    let prohibited = [
+      "villager",
+      "veteran",
+      "survivor",
+      "executioner",
+      "psychic"
+    ];
 
     if (prohibited.includes(roleName)) {
       return this.replyText("💡 Jangan pernah kau coba untuk");
@@ -267,7 +279,7 @@ module.exports = {
       return this.roleCommand();
     }
 
-    /// special role with private prop
+    /// special role with private prop for death
     if (roleName === "retributionist") {
       if (players[index].role.revive === 0) {
         return this.replyText(
@@ -278,6 +290,11 @@ module.exports = {
       if (players[targetIndex].status === "alive") {
         return this.replyText("💡 Targetmu masih hidup");
       }
+
+      if (players[targetIndex].role.team !== "villager") {
+        return this.replyText("💡 Kamu hanya bisa bangkitin sesama warga");
+      }
+
     } else if (roleName === "amnesiac") {
       if (players[targetIndex].status === "alive") {
         let text = "💡 Kamu hanya bisa mengingat pemain yang telah mati";
@@ -289,11 +306,22 @@ module.exports = {
       }
     }
 
+    /// special role checker
     if (roleName === "vigilante") {
       if (players[index].role.bullet === 0) {
         return this.replyText(
           "💡 Kamu sudah tidak memiliki peluru yang tersisa"
         );
+      }
+    } else if (roleName === "arsonist") {
+      if (players[targetIndex].doused) {
+        return this.replyText("💡 Target yang kamu pilih sudah disirami bensin!");
+      }
+    } else if (roleName === "plaguebearer") {
+      let isInfected = players[targetIndex].infected;
+      let isPestilence = players[index].role.isPestilence;
+      if (!isPestilence && isInfected) {
+        return this.replyText("💡 Target yang kamu pilih sudah terinfeksi!");
       }
     }
 
@@ -378,6 +406,13 @@ module.exports = {
       changeTarget: false
     };
 
+    // khusus plaguebearer yang udah pestilence
+    if (doer.roleName === "plaguebearer") {
+      if (players[index].role.isPestilence) {
+        doer.roleName = "pestilence";
+      }
+    }
+
     let playerTargetIndex = players[index].target.index;
     if (playerTargetIndex === -1) {
       if (targetIndex == index) {
@@ -426,13 +461,31 @@ module.exports = {
     return this.replyText(msg);
   },
 
-  roleSkill: function(flex_text, index, text) {
+  roleSkill: function (flex_text, index, text) {
     let players = this.group_session.players;
     let role = players[index].role;
+    
     let skillText = this.getRoleSkillText(role.name);
 
     let cmdText = this.getRoleCmdText(role.name);
     let canSelfTarget = this.canSelfTarget(role.name);
+
+    /// special role yang bisa berubah selfTarget
+
+    // Juggernaut yang skillLevel udah 3 keatas
+    if (role.name === "juggernaut") {
+      if (players[index].role.skillLevel >= 3) {
+        canSelfTarget = true;
+      }
+    }
+
+    // special role plaguebearer yang udah pestilence
+    if (role.name === "plaguebearer") {
+      if (players[index].role.isPestilence) {
+        skillText = "Plagubearer, pilih rumah siapa yang ingin kamu serang dengan penyakit sampar!";
+        canSelfTarget = true;
+      }
+    }
 
     flex_text.body.text += "\n\n" + skillText;
 
@@ -464,7 +517,7 @@ module.exports = {
     }
   },
 
-  roleCommand: function() {
+  roleCommand: function () {
     if (this.group_session.state === "new") {
       return this.replyText("💡 Game belum dimulai");
     }
@@ -505,7 +558,7 @@ module.exports = {
 
     if (player.status === "death" || player.willSuicide) {
       /// Yang bisa skill walaupun dah mati
-      if (roleName !== "jester" || roleName !== "guardian-angel") {
+      if (roleName !== "jester" && roleName !== "guardian-angel") {
         return this.replyFlex(flex_text);
       }
     }
@@ -520,7 +573,7 @@ module.exports = {
         text += " sudah digantung! Sekarang tinggal sit back and relax";
       } else {
         text = "🪓 Target kamu adalah " + exeTarget.name + ". Kamu harus bisa ";
-        text += "menghasut warga untuk gantung dia";
+        text += "menghasut warga untuk gantung dia supaya kamu menang";
       }
 
       return this.replyFlex(flex_text, text);
@@ -627,6 +680,39 @@ module.exports = {
         text += "🦺 Kamu memiliki " + players[index].role.vest + " vest";
       }
 
+      // special role untuk arsonist dan plaguebearer //cp
+      if (roleName === "arsonist") {
+        text += "Doused List : " + "\n\n";
+
+        let num = 1;
+        let isExists = false;
+        players.forEach(item => {
+          if (item.status === "alive" && item.doused) {
+            isExists = true;
+            text += num + ". " + item.name + "\n";
+            num++;
+          }
+        })
+
+        text = text.trim();
+        if (!isExists) text = "";
+      } else if (roleName === "plaguebearer") {
+        text += "Infected List : " + "\n\n";
+
+        let num = 1;
+        let isExists = false;
+        players.forEach(item => {
+          if (item.status === "alive" && item.infected) {
+            isExists = true;
+            text += num + ". " + item.name + "\n";
+            num++;
+          }
+        })
+        
+        text = text.trim();
+        if (!isExists) text = "";
+      }
+
       return this.roleSkill(flex_text, index, text);
     } else {
       // state yang pagi tapi ga ada skill pagi
@@ -634,7 +720,7 @@ module.exports = {
     }
   },
 
-  retributionistSkill: function(flex_text) {
+  retributionistSkill: function (flex_text) {
     let skillText = this.getRoleSkillText("retributionist");
     let players = this.group_session.players;
     let cmdText = this.getRoleCmdText("retributionist");
@@ -644,6 +730,21 @@ module.exports = {
     flex_text.footer = {
       buttons: []
     };
+
+    // check for townies only death
+    let isTownieDeath = false;
+
+    for (let i = 0; i < players.length; i++) {
+      let player = players[i];
+      if (player.status === "death" && player.role.team === "villager") {
+        isTownieDeath = true;
+        break;
+      }
+    }
+
+    if (!isTownieDeath) {
+      return this.replyFlex(flex_text);
+    }
 
     let button = {};
     players.forEach((item, index) => {
@@ -660,8 +761,8 @@ module.exports = {
 
     return this.replyFlex(flex_text);
   },
-  
-  amnesiacSkill: function(flex_text) {
+
+  amnesiacSkill: function (flex_text) {
     let skillText = this.getRoleSkillText("amnesiac");
     let players = this.group_session.players;
     let cmdText = this.getRoleCmdText("amnesiac");
@@ -687,21 +788,21 @@ module.exports = {
 
     return this.replyFlex(flex_text);
   },
-  
-  guardianAngelSkill: function(flex_text) {
+
+  guardianAngelSkill: function (flex_text) {
     let skillText = this.getRoleSkillText("guardian-angel");
     let players = this.group_session.players;
     let cmdText = this.getRoleCmdText("guardian-angel");
     let index = this.indexOfPlayer();
 
     flex_text.body.text += "\n\n" + skillText + "\n\n";
-    
+
     let targetIndex = players[index].role.mustProtectIndex;
     let targetName = players[targetIndex].name;
 
     flex_text.body.text += "⚔️ Kamu bisa protect " + targetName + " ";
     flex_text.body.text += players[index].role.protection + " kali lagi";
-    
+
     flex_text.footer = {
       buttons: [
         {
@@ -715,7 +816,7 @@ module.exports = {
     return this.replyFlex(flex_text);
   },
 
-  veteranSkill: function(flex_text) {
+  veteranSkill: function (flex_text) {
     let skillText = this.getRoleSkillText("veteran");
     let players = this.group_session.players;
     let cmdText = this.getRoleCmdText("veteran");
@@ -738,7 +839,7 @@ module.exports = {
     return this.replyFlex(flex_text);
   },
 
-  survivorSkill: function(flex_text) {
+  survivorSkill: function (flex_text) {
     let skillText = this.getRoleSkillText("survivor");
     let players = this.group_session.players;
     let cmdText = this.getRoleCmdText("survivor");
@@ -760,8 +861,8 @@ module.exports = {
 
     return this.replyFlex(flex_text);
   },
-  
-  protectCommand: function() {
+
+  protectCommand: function () {
     let index = this.indexOfPlayer();
     let players = this.group_session.players;
     let state = this.group_session.state;
@@ -777,11 +878,13 @@ module.exports = {
     }
 
     if (players[index].role.protection === 0) {
-      return this.replyText("💡 Kamu sudah tidak memiliki protection yang tersisa");
+      return this.replyText(
+        "💡 Kamu sudah tidak memiliki protection yang tersisa"
+      );
     }
-    
+
     let targetIndex = this.group_session.players[index].role.mustProtectIndex;
-    
+
     this.group_session.players[index].target.index = targetIndex;
 
     let text = "";
@@ -800,7 +903,7 @@ module.exports = {
     return this.replyText(msg);
   },
 
-  alertCommand: function() {
+  alertCommand: function () {
     let index = this.indexOfPlayer();
     let players = this.group_session.players;
     let state = this.group_session.state;
@@ -853,7 +956,7 @@ module.exports = {
     return this.replyText(msg);
   },
 
-  vestCommand: function() {
+  vestCommand: function () {
     let index = this.indexOfPlayer();
     let players = this.group_session.players;
     let state = this.group_session.state;
@@ -894,7 +997,7 @@ module.exports = {
     return this.replyText(msg);
   },
 
-  announceCommand: function() {
+  announceCommand: function () {
     if (this.group_session.state === "new") {
       return this.replyText("💡 Game belum dimulai");
     }
@@ -941,7 +1044,7 @@ module.exports = {
     }
   },
 
-  journalCommand: function() {
+  journalCommand: function () {
     if (this.group_session.state === "new") {
       return this.replyText("💡 Game belum dimulai");
     }
@@ -972,7 +1075,7 @@ module.exports = {
     return this.replyFlex(flex_texts);
   },
 
-  refreshCommand: function() {
+  refreshCommand: function () {
     if (this.group_session.state !== "night") {
       if (this.group_session.state === "new") {
         return this.replyText("💡 Game belum dimulai");
@@ -1027,7 +1130,7 @@ module.exports = {
     return this.replyText(text);
   },
 
-  chatCommand: function() {
+  chatCommand: function () {
     if (this.group_session.state !== "night") {
       if (this.group_session.state === "new") {
         return this.replyText("💡 Game belum dimulai");
@@ -1076,18 +1179,18 @@ module.exports = {
     return this.replyText("💡 Pesan terkirim! Check chat dengan '/r'");
   },
 
-  infoCommand: function() {
+  infoCommand: function () {
     const roles = require("/app/roles/rolesInfo");
     return roles.receive(this.client, this.event, this.args);
   },
 
-  invalidCommand: function() {
+  invalidCommand: function () {
     const invalid = require("/app/message/invalid");
     let text = invalid.getResponse(this.args, this.user_session.name);
     return this.replyText(text);
   },
 
-  helpCommand: function() {
+  helpCommand: function () {
     const helpFlex = require("/app/message/help");
     let state = this.group_session.state;
     let help = helpFlex.getHelp(state);
@@ -1104,7 +1207,7 @@ module.exports = {
     return this.replyFlex(flex_text);
   },
 
-  commandCommand: function() {
+  commandCommand: function () {
     let text = "";
     let cmds = [
       "/news : cek berita (malam dibunuh siapa, dll)",
@@ -1136,7 +1239,7 @@ module.exports = {
 
   /** helper func **/
 
-  canSelfTarget: function(roleName) {
+  canSelfTarget: function (roleName) {
     let can = false;
 
     let cantTargetItSelf = [
@@ -1160,7 +1263,8 @@ module.exports = {
       "framer",
       "juggernaut",
       "amnesiac",
-      "guardian-angel"
+      "guardian-angel",
+      "plaguebearer"
     ];
 
     if (cantTargetItSelf.includes(roleName)) {
@@ -1171,7 +1275,7 @@ module.exports = {
     }
   },
 
-  isSomeoneDeath: function() {
+  isSomeoneDeath: function () {
     let found = false;
     let players = this.group_session.players;
     for (let i = 0; i < players.length; i++) {
@@ -1187,7 +1291,7 @@ module.exports = {
   teamName string nama team
   withRoleName bool kasih roleName juga
   */
-  getNamesByTeam: function(teamName, withRoleName) {
+  getNamesByTeam: function (teamName, withRoleName) {
     let names = [];
     this.group_session.players.forEach((item, index) => {
       if (item.status === "alive" && item.role.team === teamName) {
@@ -1201,7 +1305,7 @@ module.exports = {
     return names.join(", ");
   },
 
-  indexOfPlayer: function() {
+  indexOfPlayer: function () {
     let found = -1;
     for (let i = 0; i < this.group_session.players.length; i++) {
       if (this.group_session.players[i].id === this.user_session.id) {
@@ -1212,7 +1316,7 @@ module.exports = {
     return found;
   },
 
-  getRoleSkillText: function(roleName) {
+  getRoleSkillText: function (roleName) {
     for (let i = 0; i < rolesData.length; i++) {
       if (roleName === rolesData[i].name) {
         return rolesData[i].skillText;
@@ -1220,7 +1324,7 @@ module.exports = {
     }
   },
 
-  getRoleCmdText: function(roleName) {
+  getRoleCmdText: function (roleName) {
     for (let i = 0; i < rolesData.length; i++) {
       if (roleName === rolesData[i].name) {
         return rolesData[i].cmdText;
@@ -1234,7 +1338,7 @@ module.exports = {
   flex_raws dan newFlexRaws sama aja
   text_raws sama seperti param di replyText func
   */
-  replyFlex: function(flex_raws, text_raws, newFlex_raws) {
+  replyFlex: function (flex_raws, text_raws, newFlex_raws) {
     flex_raws = Array.isArray(flex_raws) ? flex_raws : [flex_raws];
     let flex_texts = flex_raws.map(flex_raw => ({
       header: flex_raw.header,
@@ -1322,7 +1426,7 @@ module.exports = {
     );
   },
 
-  replyText: function(texts = []) {
+  replyText: function (texts = []) {
     texts = Array.isArray(texts) ? texts : [texts];
 
     let time = this.group_session.time;

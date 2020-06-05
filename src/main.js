@@ -1,4 +1,3 @@
-const fs = require("fs");
 const helper = require("/app/helper");
 const attackedMsg = require("/app/message/attack");
 const peaceMsg = require("/app/message/peace");
@@ -7,7 +6,7 @@ const flex = require("/app/message/flex");
 const rolesData = require("/app/roles/rolesData");
 
 module.exports = {
-  receive: function(client, event, args, rawArgs, user_session, group_session) {
+  receive: function (client, event, args, rawArgs, user_session, group_session) {
     this.client = client;
     this.event = event;
     this.args = args;
@@ -21,6 +20,22 @@ module.exports = {
 
       if (state !== "idle") {
         if (state !== "new") {
+          if (time <= 10 && time > 0) {
+            if (this.group_session.deadlineCheckChance === 0) {
+              return Promise.resolve(null);
+            } else {
+              this.group_session.deadlineCheckChance--;
+            }
+            let reminder = "💡 Waktu tersisa " + time;
+            reminder += " detik lagi, nanti ketik '/cek' ";
+            reminder += "saat waktu sudah habis untuk lanjutkan proses";
+            return this.replyText(reminder);
+          } else if (time === 0) {
+            if (this.indexOfPlayer() !== -1) {
+              return this.checkCommand();
+            }
+          }
+
           // special role yang bisa trigger lewat text biasa
           let players = this.group_session.players;
           let index = this.indexOfPlayer();
@@ -53,22 +68,6 @@ module.exports = {
                   }
                 }
               }
-            }
-          }
-
-          if (time <= 10 && time > 0) {
-            if (this.group_session.deadlineCheckChance === 0) {
-              return Promise.resolve(null);
-            } else {
-              this.group_session.deadlineCheckChance--;
-            }
-            let reminder = "💡 Waktu tersisa " + time;
-            reminder += " detik lagi, nanti ketik '/cek' ";
-            reminder += "saat waktu sudah habis untuk lanjutkan proses";
-            return this.replyText(reminder);
-          } else if (time === 0) {
-            if (this.indexOfPlayer() !== -1) {
-              return this.checkCommand();
             }
           }
         } else {
@@ -175,7 +174,7 @@ module.exports = {
     }
   },
 
-  forumCommand: function() {
+  forumCommand: function () {
     let flex_text = {
       header: {
         text: "💬 Forum"
@@ -197,7 +196,7 @@ module.exports = {
     return this.replyFlex(flex_text);
   },
 
-  gameStatCommand: function() {
+  gameStatCommand: function () {
     let state = this.group_session.state;
     let players = this.group_session.players;
 
@@ -207,6 +206,8 @@ module.exports = {
     }
 
     bodyText += "🕹️ Game mode : " + this.group_session.mode + "\n\n";
+
+    bodyText += "✉️ Show role : " + this.group_session.isShowRole + "\n\n";
 
     let roomHostIndex = this.getPlayerIndexById(this.group_session.roomHostId);
     let roomHostName = players[roomHostIndex].name;
@@ -247,12 +248,12 @@ module.exports = {
     return this.replyFlex(flex_text);
   },
 
-  tutorialCommand: function() {
+  tutorialCommand: function () {
     let flex_text = helper.getTutorial();
     return this.replyFlex(flex_text);
   },
 
-  skillCommand: function() {
+  skillCommand: function () {
     if (this.user_session.id !== process.env.DEV_ID) {
       return this.invalidCommand();
     }
@@ -267,7 +268,7 @@ module.exports = {
     this.group_session.players[doerIndex].target.index = targetIndex;
   },
 
-  settingCommand: function() {
+  settingCommand: function () {
     let state = this.group_session.state;
     if (state !== "idle" && state !== "new") {
       let text = "💡 " + this.user_session.name;
@@ -285,7 +286,7 @@ module.exports = {
     );
   },
 
-  kickCommand: function() {
+  kickCommand: function () {
     let groupId = this.group_session.groupId;
     let text = "👋 Selamat tinggal!";
     this.replyText(text);
@@ -296,7 +297,7 @@ module.exports = {
     }
   },
 
-  extendCommand: function() {
+  extendCommand: function () {
     if (this.group_session.state !== "new") {
       let text = "";
       if (this.group_session.state === "idle") {
@@ -322,11 +323,18 @@ module.exports = {
     return this.replyText(remind);
   },
 
-  roleListCommand: function() {
+  roleListCommand: function () {
     if (this.group_session.state === "idle") {
       return this.replyText("💡 Belum ada game yang dibuat, ketik '/new'");
     } else if (this.group_session.state === "new") {
       return this.replyText("💡 Game belum dimulai");
+    }
+
+    if (!this.group_session.isShowRole) {
+      let text = "💡 Tidak dapat melihat role list! ";
+      text += "Untuk aktifkan lagi bisa dilakukan setelah ";
+      text += "game selesai dengan '/set show_role yes'";
+      return this.replyText(text);
     }
 
     let roles = this.group_session.roles;
@@ -341,19 +349,19 @@ module.exports = {
     return this.replyFlex(flex_text);
   },
 
-  personalCommand: function() {
+  personalCommand: function () {
     let text = "💡 " + this.user_session.name + ", perintah ";
     text += this.args[0] + " harusnya digunakan di personal chat bot";
     return this.replyText(text);
   },
 
-  infoCommand: function() {
+  infoCommand: function () {
     const roles = require("/app/roles/rolesInfo");
     let groupState = this.group_session.state;
     return roles.receive(this.client, this.event, this.args, groupState);
   },
 
-  helpCommand: function() {
+  helpCommand: function () {
     const helpFlex = require("/app/message/help");
     let state = this.group_session.state;
     let help = helpFlex.getHelp(state);
@@ -370,7 +378,7 @@ module.exports = {
     return this.replyFlex(flex_text);
   },
 
-  statCommand: function() {
+  statCommand: function () {
     if (this.group_session.state !== "idle") {
       let text = "💡 Cek stat bisa dilakukan di pc bot atau ";
       text += "disaat sedang tidak ada room game yang aktif";
@@ -381,12 +389,12 @@ module.exports = {
     stats.receive(this.client, this.event, this.args);
   },
 
-  aboutCommand: function() {
+  aboutCommand: function () {
     let flex_text = helper.getAbout();
     return this.replyFlex(flex_text);
   },
 
-  revokeCommand: function() {
+  revokeCommand: function () {
     let state = this.group_session.state;
     if (state !== "vote") {
       let text = "";
@@ -429,7 +437,7 @@ module.exports = {
     return this.replyText(text);
   },
 
-  newCommand: function() {
+  newCommand: function () {
     if (this.group_session.state !== "idle") {
       let text = "";
       if (this.group_session.state === "new") {
@@ -468,7 +476,7 @@ module.exports = {
 
       if (process.env.TEST === "true") {
         // cp
-        // for (let i = 0; i < 8; i++) {
+        // for (let i = 0; i < 4; i++) {
         //   let dummy = JSON.parse(JSON.stringify(this.user_session));
         //   dummy.name += " " + helper.getRandomInt(1, 99);
         //   let newPlayer = this.createNewPlayer(dummy);
@@ -483,7 +491,7 @@ module.exports = {
     }
   },
 
-  joinCommand: function() {
+  joinCommand: function () {
     if (this.group_session.state !== "new") {
       let text = "";
       if (this.group_session.state === "idle") {
@@ -547,7 +555,7 @@ module.exports = {
     return this.replyText(text);
   },
 
-  playersCommand: function() {
+  playersCommand: function () {
     if (this.group_session.state === "idle") {
       return this.replyText("💡 Belum ada game yang dibuat, ketik '/new'");
     }
@@ -649,7 +657,7 @@ module.exports = {
     return this.replyFlex(flex_text);
   },
 
-  cancelCommand: function() {
+  cancelCommand: function () {
     if (this.group_session.state !== "new") {
       let text = "";
       if (this.group_session.state === "idle") {
@@ -689,7 +697,7 @@ module.exports = {
     return this.replyText(text);
   },
 
-  stopCommand: function() {
+  stopCommand: function () {
     if (this.group_session.state === "idle") {
       return this.replyText("💡 Belum ada game yang dibuat, ketik '/new'");
     }
@@ -720,7 +728,7 @@ module.exports = {
     return this.replyText(text);
   },
 
-  startCommand: function() {
+  startCommand: function () {
     if (this.group_session.state !== "new") {
       let text = "";
       if (this.group_session.state === "idle") {
@@ -740,8 +748,10 @@ module.exports = {
       return this.replyText(text);
     }
 
-    if (players.length < 5) {
-      let text = "💡 Game belum bisa dimulai, minimal memiliki 5 pemain";
+    let minPlayers = 5;
+    if (players.length < minPlayers) {
+      let text = "💡 Game belum bisa dimulai, minimal memiliki ";
+      text += minPlayers + " pemain";
       return this.replyText(text);
     }
 
@@ -750,23 +760,15 @@ module.exports = {
     this.randomRoles();
   },
 
-  randomRoles: function() {
+  randomRoles: function () {
     let players = this.group_session.players;
     let playersLength = players.length;
     let roles = this.getRandomRoleSet(playersLength);
 
     /// test specific role cp
     if (process.env.TEST === "true") {
-      roles = [
-        "amnesiac",
-        "arsonist",
-        "escort"
-      ];
+      roles = ["executioner", "executioner", "guardian-angel", "werewolf"];
     }
-
-    // this.group_session.players = helper.shuffleArray(
-    //   this.group_session.players
-    // );
 
     this.group_session.players.forEach((item, index) => {
       if (index <= roles.length - 1) {
@@ -774,16 +776,7 @@ module.exports = {
       }
 
       item.role = this.getRoleData(item.role.name);
-
-      // disini bagi role pake pushMessage
-      // if (this.group_session.groupId === process.env.TEST_GROUP) {
-      //   // this.client.pushMessage();
-      // }
     });
-
-    // this.group_session.players = helper.shuffleArray(
-    //   this.group_session.players
-    // );
 
     this.group_session.players.forEach((item, index) => {
       /// init private prop special role
@@ -807,10 +800,30 @@ module.exports = {
     // set roles list
     this.group_session.roles = this.getRoleList();
 
+    // kasih tau kalo game dh mulai
+
+    let text = "🔔 Hai! Game nya sudah dimulai ya!" + "\n\n";
+    text += "Ketik '/role' untuk melihat rolemu, ";
+    text += "ketik '/info <nama-role>' untuk info role!";
+
+    let text_obj = {
+      type: "text",
+      text: text
+    };
+
+    let playersUserId = players.map(p => {
+      return p.id;
+    });
+
+    this.client.multicast(playersUserId, [text_obj])
+      .catch((err) => {
+        console.error("error pada multicast", err);
+      })
+
     this.night(null);
   },
 
-  getRandomRoleSet: function(playersLength) {
+  getRandomRoleSet: function (playersLength) {
     let mode = this.group_session.mode;
     let roles = [];
 
@@ -843,7 +856,7 @@ module.exports = {
     return roles;
   },
 
-  night: function(flex_texts) {
+  night: function (flex_texts) {
     this.group_session.nightCounter++;
 
     this.group_session.state = "night";
@@ -909,10 +922,12 @@ module.exports = {
     this.group_session.time_default = this.getTimeDefault(alivePlayersCount);
     this.group_session.time = this.group_session.time_default;
 
-    //tell available role
     let announcement = "";
-    announcement +=
-      "📣 Role yang ada di game ini bisa cek di '/roles'. " + "\n\n";
+
+    if (this.group_session.isShowRole) {
+      announcement +=
+        "📣 Role yang ada di game ini bisa cek di '/roles'. " + "\n\n";
+    }
 
     if (this.group_session.nightCounter === 1) {
       announcement +=
@@ -955,7 +970,7 @@ module.exports = {
     }
   },
 
-  checkCommand: function() {
+  checkCommand: function () {
     let state = this.group_session.state;
     let time = this.group_session.time;
     let name = this.user_session.name;
@@ -1031,7 +1046,7 @@ module.exports = {
     }
   },
 
-  autoVote: function() {
+  autoVote: function () {
     let players = this.group_session.players;
     let voteNeeded = Math.round(this.getAlivePlayersCount() / 2);
 
@@ -1084,7 +1099,7 @@ module.exports = {
     }
   },
 
-  day: function() {
+  day: function () {
     /// BUAT MASING" SYSTEM UNTUK DAY FUNC
     let flex_texts = [];
     this.group_session.state = "day";
@@ -1131,6 +1146,7 @@ module.exports = {
     let allAnnouncement = "";
     let vampireAnnouncement = "";
     let mafiaAnnouncement = "";
+    let plaguebearerAnnouncement = "";
 
     /// Veteran targetIndexes
     let veteranTargetIndexes = [];
@@ -1332,90 +1348,120 @@ module.exports = {
       }
     }
 
+    /// Not use skill message
+    let basicNotUseSkillRole = [
+      "disguiser", "escort", "consort", "veteran", "arsonist",
+      "retributionist", "guardian-angel", "doctor", "bodyguard",
+      "survivor", "vampire-hunter", "vigilante", "serial-killer",
+      "arsonist", "framer", "investigator", "consigliere",
+      "sheriff", "spy", "tracker", "lookout", "amnesiac"
+    ];
+
+    for (let i = 0; i < players.length; i++) {
+      let player = players[i];
+      let targetIndex = player.target.index;
+      if (player.status === "alive" && targetIndex === -1) {
+        if (basicNotUseSkillRole.includes(player.role.name)) {
+          this.group_session.player[i].message +=
+            "💡 Kamu tidak menggunakan skill mu" + "\n\n";
+        }
+      }
+    }
+
     /// Escort Action
     for (let i = 0; i < players.length; i++) {
       let doer = players[i];
 
       if (doer.role.name === "escort" && doer.status === "alive") {
-        if (doer.target.index === -1) {
-          this.group_session.players[i].message +=
-            "💡 Kamu tidak menggunakan skill mu" + "\n\n";
 
+        if (doer.target.index === -1 || doer.attacked) {
           continue;
-        } else {
-          if (doer.blocked === true) {
-            this.group_session.players[i].message +=
-              "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." +
+        }
+
+        let targetIndex = doer.target.index;
+        let target = players[targetIndex];
+
+        this.group_session.players[i].message +=
+          "👣 Kamu ke rumah " + target.name + "\n\n";
+
+        let visitor = {
+          index: i,
+          name: doer.name,
+          role: doer.role
+        };
+        this.group_session.players[targetIndex].visitors.push(visitor);
+
+        // infection
+        let isDoerInfected = players[i].infected;
+        let isTargetInfected = players[targetIndex].infected;
+
+        if (isDoerInfected && !isTargetInfected) {
+          this.group_session.players[targetIndex].infected = true;
+          plaguebearerAnnouncement += `☣️ ${target.name} telah terinfeksi!\n`;
+        } else if (isTargetInfected && !isDoerInfected) {
+          this.group_session.players[i].infected = true;
+          plaguebearerAnnouncement += `☣️ ${doer.name} telah terinfeksi!\n`;
+        }
+
+        let immuneToRoleBlock = ["escort", "consort", "veteran"];
+
+        if (players[targetIndex].role.name === "plaguebearer") {
+          if (players[targetIndex].role.isPestilence) {
+            immuneToRoleBlock.push("plaguebearer");
+          }
+        }
+
+        if (this.group_session.isFullMoon) {
+          immuneToRoleBlock.push("werewolf");
+        }
+
+        if (target.role.name === "serial-killer") {
+          this.group_session.players[i].message +=
+            "💡 Target kamu immune!" + "\n\n";
+
+          this.group_session.players[targetIndex].message +=
+            "💡 Ada yang berusaha role block kamu!" + "\n\n";
+
+          this.group_session.players[targetIndex].intercepted = true;
+
+          this.group_session.players[targetIndex].target.index = i;
+
+          if (players[targetIndex].bugged) {
+            spyBuggedInfo[targetIndex] +=
+              "🔍 Ada yang mencoba roleblock Target kamu, hingga Targetmu menyerang nya!" +
               "\n\n";
+          }
+        } else if (immuneToRoleBlock.includes(target.role.name)) {
+          this.group_session.players[i].message +=
+            "💡 Target kamu immune!" + "\n\n";
 
-            continue;
-          } else if (!doer.attacked) {
-            let targetIndex = doer.target.index;
-            let target = players[targetIndex];
+          this.group_session.players[targetIndex].message +=
+            "💡 Ada yang berusaha role block kamu!" + "\n\n";
 
-            this.group_session.players[i].message +=
-              "👣 Kamu ke rumah " + target.name + "\n\n";
+          if (players[targetIndex].bugged) {
+            spyBuggedInfo[targetIndex] +=
+              "🔍 Ada yang mencoba roleblock Target kamu tapi targetmu immune dari roleblock!" +
+              "\n\n";
+          }
+        } else {
+          this.group_session.players[targetIndex].blocked = true;
 
-            let visitor = {
-              name: doer.name,
-              role: doer.role
-            };
-            this.group_session.players[targetIndex].visitors.push(visitor);
+          if (players[targetIndex].bugged) {
+            spyBuggedInfo[targetIndex] +=
+              "🔍 Target kamu di roleblock sehingga dia diam dirumah saja!" +
+              "\n\n";
+          }
 
-            let immuneToRoleBlock = ["escort", "consort", "veteran"];
-
-            if (this.group_session.isFullMoon) {
-              immuneToRoleBlock.push("werewolf");
-            }
-
-            if (target.role.name === "serial-killer") {
-              this.group_session.players[i].message +=
-                "💡 Target kamu immune!" + "\n\n";
-
-              this.group_session.players[targetIndex].message +=
-                "💡 Ada yang berusaha role block kamu!" + "\n\n";
-
-              this.group_session.players[targetIndex].intercepted = true;
-
-              this.group_session.players[targetIndex].target.index = i;
-
-              if (players[targetIndex].bugged) {
-                spyBuggedInfo[targetIndex] +=
-                  "🔍 Ada yang mencoba roleblock Target kamu, hingga Targetmu menyerang nya!" +
-                  "\n\n";
-              }
-            } else if (immuneToRoleBlock.includes(target.role.name)) {
-              this.group_session.players[i].message +=
-                "💡 Target kamu immune!" + "\n\n";
-
-              this.group_session.players[targetIndex].message +=
-                "💡 Ada yang berusaha role block kamu!" + "\n\n";
-
-              if (players[targetIndex].bugged) {
-                spyBuggedInfo[targetIndex] +=
-                  "🔍 Ada yang mencoba roleblock Target kamu tapi targetmu immune dari roleblock!" +
-                  "\n\n";
-              }
-            } else {
-              this.group_session.players[targetIndex].blocked = true;
-
-              if (players[targetIndex].bugged) {
-                spyBuggedInfo[targetIndex] +=
-                  "🔍 Target kamu di roleblock sehingga dia diam dirumah saja!" +
-                  "\n\n";
-              }
-
-              /// langsung kasih pesannya aja
-              if (targetIndex === mafiaDoerIndex) {
-                if (isBackupMafiaUseSkill) {
-                  this.group_session.players[mafiaDoerIndex].message +=
-                    "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." +
-                    "\n\n";
-                }
-              }
+          /// langsung kasih pesannya aja
+          if (targetIndex === mafiaDoerIndex) {
+            if (isBackupMafiaUseSkill) {
+              this.group_session.players[mafiaDoerIndex].message +=
+                "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." +
+                "\n\n";
             }
           }
         }
+
       }
     }
 
@@ -1424,89 +1470,99 @@ module.exports = {
       let doer = players[i];
 
       if (doer.role.name === "consort" && doer.status === "alive") {
-        if (doer.target.index === -1) {
-          this.group_session.players[i].message +=
-            "💡 Kamu tidak menggunakan skill mu" + "\n\n";
 
+        if (doer.target.index === -1 || doer.attacked) {
           continue;
-        } else {
-          if (doer.blocked === true) {
-            this.group_session.players[i].message +=
-              "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." +
+        }
+
+        let targetIndex = doer.target.index;
+        let target = players[targetIndex];
+
+        this.group_session.players[i].message +=
+          "👣 Kamu ke rumah " + target.name + "\n\n";
+
+        mafiaAnnouncement += `🚷 ${doer.name} berencana block skill ${target.name}\n\n`;
+
+        let visitor = {
+          index: i,
+          name: doer.name,
+          role: doer.role
+        };
+        this.group_session.players[targetIndex].visitors.push(visitor);
+
+        // infection
+        let isDoerInfected = players[i].infected;
+        let isTargetInfected = players[targetIndex].infected;
+
+        if (isDoerInfected && !isTargetInfected) {
+          this.group_session.players[targetIndex].infected = true;
+          plaguebearerAnnouncement += `☣️ ${target.name} telah terinfeksi!\n`;
+        } else if (isTargetInfected && !isDoerInfected) {
+          this.group_session.players[i].infected = true;
+          plaguebearerAnnouncement += `☣️ ${doer.name} telah terinfeksi!\n`;
+        }
+
+        let immuneToRoleBlock = ["escort", "consort", "veteran"];
+
+        if (players[targetIndex].role.name === "plaguebearer") {
+          if (players[targetIndex].role.isPestilence) {
+            immuneToRoleBlock.push("plaguebearer");
+          }
+        }
+
+        if (this.group_session.isFullMoon) {
+          immuneToRoleBlock.push("werewolf");
+        }
+
+        if (target.role.name === "serial-killer") {
+          this.group_session.players[i].message +=
+            "💡 Target kamu immune!" + "\n\n";
+
+          this.group_session.players[targetIndex].message +=
+            "💡 Ada yang berusaha role block kamu!" + "\n\n";
+
+          this.group_session.players[targetIndex].intercepted = true;
+
+          this.group_session.players[targetIndex].target.index = i;
+
+          if (players[targetIndex].bugged) {
+            spyBuggedInfo[targetIndex] +=
+              "🔍 Ada yang mencoba roleblock Target kamu, hingga Targetmu menyerang nya!" +
               "\n\n";
+          }
+        } else if (immuneToRoleBlock.includes(target.role.name)) {
+          this.group_session.players[i].message +=
+            "💡 Target kamu immune!" + "\n\n";
 
-            continue;
-          } else if (!doer.attacked) {
-            let targetIndex = doer.target.index;
-            let target = players[targetIndex];
+          this.group_session.players[targetIndex].message +=
+            "💡 Ada yang berusaha role block kamu!" + "\n\n";
 
-            this.group_session.players[i].message +=
-              "👣 Kamu ke rumah " + target.name + "\n\n";
+          if (players[targetIndex].bugged) {
+            spyBuggedInfo[targetIndex] +=
+              "🔍 Ada yang mencoba roleblock Target kamu tapi targetmu immune dari roleblock!" +
+              "\n\n";
+          }
+        } else {
+          this.group_session.players[targetIndex].blocked = true;
 
-            mafiaAnnouncement += `🚷 ${doer.name} berencana block skill ${target.name}\n\n`;
+          spyMafiaVisitInfo += `🤵 ${target.name} dikunjungi anggota Mafia\n\n`;
 
-            let visitor = {
-              name: doer.name,
-              role: doer.role
-            };
-            this.group_session.players[targetIndex].visitors.push(visitor);
+          if (players[targetIndex].bugged) {
+            spyBuggedInfo[targetIndex] +=
+              "🔍 Target kamu di roleblock sehingga dia diam dirumah saja!" +
+              "\n\n";
+          }
 
-            let immuneToRoleBlock = ["escort", "consort", "veteran"];
-
-            if (this.group_session.isFullMoon) {
-              immuneToRoleBlock.push("werewolf");
-            }
-
-            if (target.role.name === "serial-killer") {
-              this.group_session.players[i].message +=
-                "💡 Target kamu immune!" + "\n\n";
-
-              this.group_session.players[targetIndex].message +=
-                "💡 Ada yang berusaha role block kamu!" + "\n\n";
-
-              this.group_session.players[targetIndex].intercepted = true;
-
-              this.group_session.players[targetIndex].target.index = i;
-
-              if (players[targetIndex].bugged) {
-                spyBuggedInfo[targetIndex] +=
-                  "🔍 Ada yang mencoba roleblock Target kamu, hingga Targetmu menyerang nya!" +
-                  "\n\n";
-              }
-            } else if (immuneToRoleBlock.includes(target.role.name)) {
-              this.group_session.players[i].message +=
-                "💡 Target kamu immune!" + "\n\n";
-
-              this.group_session.players[targetIndex].message +=
-                "💡 Ada yang berusaha role block kamu!" + "\n\n";
-
-              if (players[targetIndex].bugged) {
-                spyBuggedInfo[targetIndex] +=
-                  "🔍 Ada yang mencoba roleblock Target kamu tapi targetmu immune dari roleblock!" +
-                  "\n\n";
-              }
-            } else {
-              this.group_session.players[targetIndex].blocked = true;
-
-              spyMafiaVisitInfo += `🤵 ${target.name} dikunjungi anggota Mafia\n\n`;
-
-              if (players[targetIndex].bugged) {
-                spyBuggedInfo[targetIndex] +=
-                  "🔍 Target kamu di roleblock sehingga dia diam dirumah saja!" +
-                  "\n\n";
-              }
-
-              /// langsung kasih pesannya aja
-              if (targetIndex === mafiaDoerIndex) {
-                if (isBackupMafiaUseSkill) {
-                  this.group_session.players[mafiaDoerIndex].message +=
-                    "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." +
-                    "\n\n";
-                }
-              }
+          /// langsung kasih pesannya aja
+          if (targetIndex === mafiaDoerIndex) {
+            if (isBackupMafiaUseSkill) {
+              this.group_session.players[mafiaDoerIndex].message +=
+                "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." +
+                "\n\n";
             }
           }
         }
+
       }
     }
 
@@ -1515,7 +1571,6 @@ module.exports = {
       let wasMafiaDoer = players[mafiaDoerIndex];
       if (wasMafiaDoer.blocked) {
         let pastTargetIndex = wasMafiaDoer.target.index;
-        let pastTarget = players[pastTargetIndex];
 
         if (isBackupMafiaUseSkill && mafiaDoerBackupIndex !== -1) {
           mafiaDoerIndex = mafiaDoerBackupIndex;
@@ -1526,49 +1581,64 @@ module.exports = {
       }
     }
 
+    /// Role Blocked message
+    for (let i = 0; i < players.length; i++) {
+      if (players[i].status === "alive" && players[i].blocked) {
+        this.group_session.player[i].message +=
+          "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." +
+          "\n\n";
+      }
+    }
+
     /// Disguiser Action
     // jangan dipindah di bawah veteran
     for (let i = 0; i < players.length; i++) {
       let doer = players[i];
 
+      if (doer.blocked) continue;
+
       if (doer.role.name === "disguiser" && doer.status === "alive") {
-        if (doer.target.index === -1) {
-          this.group_session.players[i].message +=
-            "💡 Kamu tidak menggunakan skill mu" + "\n\n";
 
+        if (doer.target.index === -1 || doer.attacked) {
           continue;
-        } else {
-          if (doer.blocked === true) {
-            this.group_session.players[i].message +=
-              "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." +
-              "\n\n";
-
-            continue;
-          } else if (!doer.attacked) {
-            let targetIndex = doer.target.index;
-            let target = players[targetIndex];
-
-            this.group_session.players[i].message +=
-              "👣 Kamu ke rumah " + target.name + "\n\n";
-
-            mafiaAnnouncement += `🎭 ${doer.name} akan mengimitasi role ${target.name}\n\n`;
-
-            // hax for check if the target was veteran
-            if (target.role.name === "veteran" && target.target.index !== -1) {
-              continue;
-            }
-
-            let visitor = {
-              name: doer.name,
-              role: doer.role
-            };
-            this.group_session.players[targetIndex].visitors.push(visitor);
-
-            this.group_session.players[i].role.disguiseAs = target.role.name;
-
-            spyMafiaVisitInfo += `🤵 ${target.name} dikunjungi anggota Mafia\n\n`;
-          }
         }
+
+        let targetIndex = doer.target.index;
+        let target = players[targetIndex];
+
+        this.group_session.players[i].message +=
+          "👣 Kamu ke rumah " + target.name + "\n\n";
+
+        mafiaAnnouncement += `🎭 ${doer.name} akan mengimitasi role ${target.name}\n\n`;
+
+        // hax for check if the target was veteran
+        if (target.role.name === "veteran" && target.target.index !== -1) {
+          continue;
+        }
+
+        let visitor = {
+          index: i,
+          name: doer.name,
+          role: doer.role
+        };
+        this.group_session.players[targetIndex].visitors.push(visitor);
+
+        // infection
+        let isDoerInfected = players[i].infected;
+        let isTargetInfected = players[targetIndex].infected;
+
+        if (isDoerInfected && !isTargetInfected) {
+          this.group_session.players[targetIndex].infected = true;
+          plaguebearerAnnouncement += `☣️ ${target.name} telah terinfeksi!\n`;
+        } else if (isTargetInfected && !isDoerInfected) {
+          this.group_session.players[i].infected = true;
+          plaguebearerAnnouncement += `☣️ ${doer.name} telah terinfeksi!\n`;
+        }
+
+        this.group_session.players[i].role.disguiseAs = target.role.name;
+
+        spyMafiaVisitInfo += `🤵 ${target.name} dikunjungi anggota Mafia\n\n`;
+
       }
     }
 
@@ -1577,15 +1647,10 @@ module.exports = {
     for (let i = 0; i < players.length; i++) {
       if (vampireDoerIndex === i) {
         let doer = players[i];
-        let roleName = doer.role.name;
         let status = doer.status;
         let targetIndex = doer.target.index;
 
-        if (
-          roleName === "vampire" &&
-          status === "alive" &&
-          targetIndex !== -1
-        ) {
+        if (status === "alive" && targetIndex !== -1) {
           if (doer.blocked === true) {
             this.group_session.players[i].message +=
               "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." +
@@ -1601,10 +1666,23 @@ module.exports = {
             }
 
             let visitor = {
+              index: i,
               name: doer.name,
               role: doer.role
             };
             this.group_session.players[targetIndex].visitors.push(visitor);
+
+            // infection
+            let isDoerInfected = players[i].infected;
+            let isTargetInfected = players[targetIndex].infected;
+
+            if (isDoerInfected && !isTargetInfected) {
+              this.group_session.players[targetIndex].infected = true;
+              plaguebearerAnnouncement += `☣️ ${target.name} telah terinfeksi!\n`;
+            } else if (isTargetInfected && !isDoerInfected) {
+              this.group_session.players[i].infected = true;
+              plaguebearerAnnouncement += `☣️ ${doer.name} telah terinfeksi!\n`;
+            }
 
             vampireAnnouncement += `🧛 Target Vampire adalah ${target.name}\n\n`;
 
@@ -1623,6 +1701,9 @@ module.exports = {
               "🧛 Kamu didatangi Vampire!" + "\n\n";
 
             let targetRoleName = target.role.name;
+
+            if (target.role.isDisguiseAs) targetRoleName = "disguiser";
+
             let targetRoleTeam = target.role.team;
 
             let immuneToVampireBite = [
@@ -1709,6 +1790,89 @@ module.exports = {
       }
     }
 
+    /// Plaguebearer action : Pestilence
+    for (let i = 0; i < players.length; i++) {
+      let doer = players[i];
+      let roleName = doer.role.name;
+      let status = doer.status;
+      let targetIndex = doer.target.index;
+
+      if (doer.blocked) continue;
+
+      if (roleName === "plaguebearer" && status === "alive") {
+        if (!doer.role.isPestilence) continue;
+
+        let pestilenceRampageTargetIndexes = [];
+        let rampagePlaceIndex = targetIndex;
+
+        if (targetIndex != -1) {
+          pestilenceRampageTargetIndexes.push(targetIndex);
+
+          this.group_session.players[i].message +=
+            "👣 Kamu ke rumah " +
+            players[targetIndex].name +
+            " dan RAMPAGE di rumahnya" +
+            "\n\n";
+
+        } else if (targetIndex == i || targetIndex === -1) {
+          rampagePlaceIndex = i;
+          this.group_session.players[i].message +=
+            "👣 Kamu diam di rumah dan akan menyerang siapa yang datang" +
+            "\n\n";
+        }
+
+        for (let i = 0; i < players.length; i++) {
+          let visitor = players[i];
+
+          if (visitor == doer) continue;
+
+          if (visitor.status !== "alive") continue;
+
+          if (visitor.blocked) continue;
+
+          if (
+            visitor.target.index !== -1 &&
+            visitor.target.index === rampagePlaceIndex
+          ) {
+            // hax mafia kalo yang pergi itu mafioso
+            if (visitor.role.name === "godfather") {
+              if (mafiaDoerIndex !== i) continue;
+            }
+
+            pestilenceRampageTargetIndexes.push(i);
+          }
+        }
+
+        // Plaguebearer Killing Action
+        for (let u = 0; u < pestilenceRampageTargetIndexes.length; u++) {
+          let targetIndex = pestilenceRampageTargetIndexes[u];
+
+          this.group_session.players[i].message +=
+            "💡 Kamu menyerang seseorang!" + "\n\n";
+
+          if (players[targetIndex].bugged) {
+            spyBuggedInfo[targetIndex] +=
+              "🔍 Target kamu merasakan kesakitan karena terinfeksi!" + "\n\n";
+          }
+
+          this.group_session.players[targetIndex].message +=
+            "☣️ Kamu merasa sakit, dan sepertinya terinfeksi!" + "\n\n";
+
+          this.group_session.players[targetIndex].attacked = true;
+
+          let attacker = {
+            index: i,
+            name: doer.name,
+            role: doer.role,
+            deathNote: doer.deathNote,
+            countered: false
+          };
+
+          this.group_session.players[targetIndex].attackers.push(attacker);
+        }
+      }
+    }
+
     /// Juggernaut Action
     for (let i = 0; i < players.length; i++) {
       let doer = players[i];
@@ -1730,10 +1894,23 @@ module.exports = {
 
         if (doer.target.index !== -1) {
           let visitor = {
+            index: i,
             name: doer.name,
             role: doer.role
           };
           this.group_session.players[targetIndex].visitors.push(visitor);
+
+          // infection
+          let isDoerInfected = players[i].infected;
+          let isTargetInfected = players[targetIndex].infected;
+
+          if (isDoerInfected && !isTargetInfected) {
+            this.group_session.players[targetIndex].infected = true;
+            plaguebearerAnnouncement += `☣️ ${target.name} telah terinfeksi!\n`;
+          } else if (isTargetInfected && !isDoerInfected) {
+            this.group_session.players[i].infected = true;
+            plaguebearerAnnouncement += `☣️ ${doer.name} telah terinfeksi!\n`;
+          }
 
           this.group_session.players[i].message +=
             "👣 Kamu ke rumah " + players[targetIndex].name;
@@ -1811,86 +1988,87 @@ module.exports = {
           let juggernautRampageTargetIndexes = [];
           let rampagePlaceIndex = targetIndex;
 
-          if (targetIndex === -1) {
+          if (targetIndex != -1) {
+            juggernautRampageTargetIndexes.push(targetIndex);
+          } else if (targetIndex == i || targetIndex === -1) {
+            rampagePlaceIndex = i;
             this.group_session.players[i].message +=
               "👣 Kamu diam di rumah dan akan menyerang siapa yang datang" +
               "\n\n";
-          } else {
-            let juggernautRampageTargetIndexes = [targetIndex];
-            let rampagePlaceIndex = targetIndex;
+          }
 
-            for (let i = 0; i < players.length; i++) {
-              let visitor = players[i];
+          for (let i = 0; i < players.length; i++) {
+            let visitor = players[i];
 
-              if (visitor == doer) continue;
+            if (visitor == doer) continue;
 
-              if (visitor.status !== "alive") continue;
+            if (visitor.status !== "alive") continue;
 
-              if (visitor.blocked) continue;
+            if (visitor.blocked) continue;
 
-              if (
-                visitor.target.index !== -1 &&
-                visitor.target.index === rampagePlaceIndex
-              ) {
-                // hax mafia kalo yang pergi itu mafioso
-                if (visitor.role.name === "godfather") {
-                  if (mafiaDoerIndex !== i) continue;
-                }
-
-                juggernautRampageTargetIndexes.push(i);
-              }
-            }
-
-            // Juggernaut Killing Action
-            for (let u = 0; u < juggernautRampageTargetIndexes.length; u++) {
-              let targetIndex = juggernautRampageTargetIndexes[u];
-              let targetRoleName = players[targetIndex].role.name;
-
-              if (skillLevel < 4) {
-                if (
-                  immuneToBasicAttack.includes(players[targetIndex].role.name)
-                ) {
-                  this.group_session.players[i].message +=
-                    "💡 Kamu menyerang seseorang tapi dia immune dari serangan!" +
-                    "\n\n";
-
-                  this.group_session.players[targetIndex].message +=
-                    "💡 Ada yang menyerang kamu tapi kamu immune dari serangan!" +
-                    "\n\n";
-
-                  if (players[targetIndex].bugged) {
-                    spyBuggedInfo[targetIndex] +=
-                      "🔍 Target kamu di serang tapi serangan tersebut tidak mempan!" +
-                      "\n\n";
-                  }
-                  continue;
-                }
+            if (
+              visitor.target.index !== -1 &&
+              visitor.target.index === rampagePlaceIndex
+            ) {
+              // hax mafia kalo yang pergi itu mafioso
+              if (visitor.role.name === "godfather") {
+                if (mafiaDoerIndex !== i) continue;
               }
 
-              this.group_session.players[i].message +=
-                "💡 Kamu menyerang seseorang!" + "\n\n";
-
-              if (players[targetIndex].bugged) {
-                spyBuggedInfo[targetIndex] +=
-                  "🔍 Target kamu di serang Juggernaut!" + "\n\n";
-              }
-
-              this.group_session.players[targetIndex].message +=
-                "💪 Kamu diserang " + roleName + "!" + "\n\n";
-
-              this.group_session.players[targetIndex].attacked = true;
-
-              let attacker = {
-                index: i,
-                name: doer.name,
-                role: doer.role,
-                deathNote: doer.deathNote,
-                countered: false
-              };
-
-              this.group_session.players[targetIndex].attackers.push(attacker);
+              juggernautRampageTargetIndexes.push(i);
             }
           }
+
+          // Juggernaut Killing Action
+          for (let u = 0; u < juggernautRampageTargetIndexes.length; u++) {
+            let targetIndex = juggernautRampageTargetIndexes[u];
+            let targetRoleName = players[targetIndex].role.name;
+
+            if (skillLevel < 4) {
+              if (
+                immuneToBasicAttack.includes(players[targetIndex].role.name)
+              ) {
+                this.group_session.players[i].message +=
+                  "💡 Kamu menyerang seseorang tapi dia immune dari serangan!" +
+                  "\n\n";
+
+                this.group_session.players[targetIndex].message +=
+                  "💡 Ada yang menyerang kamu tapi kamu immune dari serangan!" +
+                  "\n\n";
+
+                if (players[targetIndex].bugged) {
+                  spyBuggedInfo[targetIndex] +=
+                    "🔍 Target kamu di serang tapi serangan tersebut tidak mempan!" +
+                    "\n\n";
+                }
+                continue;
+              }
+            }
+
+            this.group_session.players[i].message +=
+              "💡 Kamu menyerang seseorang!" + "\n\n";
+
+            if (players[targetIndex].bugged) {
+              spyBuggedInfo[targetIndex] +=
+                "🔍 Target kamu di serang Juggernaut!" + "\n\n";
+            }
+
+            this.group_session.players[targetIndex].message +=
+              "💪 Kamu diserang " + roleName + "!" + "\n\n";
+
+            this.group_session.players[targetIndex].attacked = true;
+
+            let attacker = {
+              index: i,
+              name: doer.name,
+              role: doer.role,
+              deathNote: doer.deathNote,
+              countered: false
+            };
+
+            this.group_session.players[targetIndex].attackers.push(attacker);
+          }
+
         }
       }
     }
@@ -1911,17 +2089,31 @@ module.exports = {
         if (i != targetIndex && targetIndex != -1) {
           werewolfRampageTargetIndexes.push(targetIndex);
           let visitor = {
+            index: i,
             name: doer.name,
             role: doer.role
           };
           this.group_session.players[targetIndex].visitors.push(visitor);
+
+          // infection
+          let isDoerInfected = players[i].infected;
+          let isTargetInfected = players[targetIndex].infected;
+
+          if (isDoerInfected && !isTargetInfected) {
+            this.group_session.players[targetIndex].infected = true;
+            plaguebearerAnnouncement += `☣️ ${target.name} telah terinfeksi!\n`;
+          } else if (isTargetInfected && !isDoerInfected) {
+            this.group_session.players[i].infected = true;
+            plaguebearerAnnouncement += `☣️ ${doer.name} telah terinfeksi!\n`;
+          }
 
           this.group_session.players[i].message +=
             "👣 Kamu ke rumah " +
             players[targetIndex].name +
             " dan RAMPAGE di rumahnya" +
             "\n\n";
-        } else {
+        } else if (targetIndex == i || targetIndex === -1) {
+          rampagePlaceIndex = i;
           this.group_session.players[i].message +=
             "👣 Kamu diam di rumah dan akan menyerang siapa yang datang" +
             "\n\n";
@@ -1997,6 +2189,10 @@ module.exports = {
             continue;
           }
 
+          if (doer.role.name === "plaguebearer") {
+            if (doer.role.isPestilence) continue;
+          }
+
           // hax untuk Mafia yang tukang bunuh bukan godfather, tapi mafioso
           if (target.role.name === "veteran") {
             if (doer.role.name === "godfather") {
@@ -2026,10 +2222,7 @@ module.exports = {
 
       if (roleName === "veteran" && status === "alive") {
         if (!isUseSkill) {
-          this.group_session.players[i].message +=
-            "💡 Kamu tidak menggunakan skill mu" + "\n\n";
-
-          break;
+          continue;
         } else {
           let targetIndexes = veteranTargetIndexes;
 
@@ -2052,10 +2245,23 @@ module.exports = {
                   "👣 Kamu ke rumah " + doer.name + "\n\n";
 
                 let visitor = {
+                  index: i,
                   name: target.name,
                   role: target.role
                 };
                 this.group_session.players[i].visitors.push(visitor);
+
+                // infection
+                let isDoerInfected = players[i].infected;
+                let isTargetInfected = players[targetIndex].infected;
+
+                if (isDoerInfected && !isTargetInfected) {
+                  this.group_session.players[targetIndex].infected = true;
+                  plaguebearerAnnouncement += `☣️ ${target.name} telah terinfeksi!\n`;
+                } else if (isTargetInfected && !isDoerInfected) {
+                  this.group_session.players[i].infected = true;
+                  plaguebearerAnnouncement += `☣️ ${doer.name} telah terinfeksi!\n`;
+                }
               }
             }
 
@@ -2079,8 +2285,6 @@ module.exports = {
 
             this.group_session.players[targetIndex].attackers.push(attacker);
           }
-
-          break;
         }
       }
     }
@@ -2092,44 +2296,86 @@ module.exports = {
       let status = doer.status;
       let targetIndex = doer.target.index;
 
+      if (doer.blocked) continue;
+
       if (roleName === "arsonist" && status === "alive") {
-        if (doer.target.index === -1) {
-          this.group_session.players[i].message +=
-            "💡 Kamu tidak menggunakan skill mu" + "\n\n";
 
+        if (doer.target.index === -1 || doer.attacked) {
           continue;
-        } else if (parseInt(targetIndex) !== parseInt(i)) {
-          if (doer.blocked === true) {
-            this.group_session.players[i].message +=
-              "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." +
-              "\n\n";
-
-            continue;
-          } else if (!doer.attacked) {
-            let target = players[targetIndex];
-
-            this.group_session.players[targetIndex].doused = true;
-
-            if (players[targetIndex].bugged) {
-              spyBuggedInfo[targetIndex] +=
-                "🔍 Target kamu disiram bensin oleh Arsonist!" + "\n\n";
-            }
-
-            this.group_session.players[i].message +=
-              "👣 Kamu ke rumah " + target.name + "\n\n";
-
-            let visitor = {
-              name: doer.name,
-              role: doer.role
-            };
-            this.group_session.players[targetIndex].visitors.push(visitor);
-
-            this.group_session.players[i].message +=
-              "⛽ Kamu diam diam menyiram bensin ke rumah " +
-              target.name +
-              "\n\n";
-          }
         }
+
+        if (targetIndex == i) continue;
+
+        let target = players[targetIndex];
+
+        this.group_session.players[targetIndex].doused = true;
+
+        if (players[targetIndex].bugged) {
+          spyBuggedInfo[targetIndex] +=
+            "🔍 Target kamu disiram bensin oleh Arsonist!" + "\n\n";
+        }
+
+        this.group_session.players[i].message +=
+          "👣 Kamu ke rumah " + target.name + "\n\n";
+
+        let visitor = {
+          index: i,
+          name: doer.name,
+          role: doer.role
+        };
+        this.group_session.players[targetIndex].visitors.push(visitor);
+
+        // infection
+        let isDoerInfected = players[i].infected;
+        let isTargetInfected = players[targetIndex].infected;
+
+        if (isDoerInfected && !isTargetInfected) {
+          this.group_session.players[targetIndex].infected = true;
+          plaguebearerAnnouncement += `☣️ ${target.name} telah terinfeksi!\n`;
+        } else if (isTargetInfected && !isDoerInfected) {
+          this.group_session.players[i].infected = true;
+          plaguebearerAnnouncement += `☣️ ${doer.name} telah terinfeksi!\n`;
+        }
+
+        this.group_session.players[i].message +=
+          "⛽ Kamu diam diam menyiram bensin ke rumah " +
+          target.name +
+          "\n\n";
+
+      }
+    }
+
+    /// Plaguebearer action : infect
+    for (let i = 0; i < players.length; i++) {
+      let doer = players[i];
+      let roleName = doer.role.name;
+      let status = doer.status;
+      let targetIndex = doer.target.index;
+
+      if (doer.blocked) continue;
+
+      if (roleName === "plaguebearer" && status === "alive") {
+        if (doer.role.isPestilence) continue;
+
+        if (doer.target.index === -1 || doer.attacked) {
+          continue;
+        }
+
+        let target = players[targetIndex];
+
+        this.group_session.players[targetIndex].infected = true;
+
+        this.group_session.players[i].message +=
+          "👣 Kamu ke rumah " + target.name + "\n\n";
+
+        let visitor = {
+          index: i,
+          name: doer.name,
+          role: doer.role
+        };
+        this.group_session.players[targetIndex].visitors.push(visitor);
+
+        this.group_session.players[i].message += `☣️ Kamu akan menginfeksi ${target.name}\n\n`;
       }
     }
 
@@ -2189,77 +2435,71 @@ module.exports = {
     for (let i = 0; i < players.length; i++) {
       let doer = players[i];
 
+      if (doer.blocked) continue;
+
       if (doer.role.name === "retributionist" && doer.status === "alive") {
+
         if (doer.target.index === -1) {
-          this.group_session.players[i].message +=
-            "💡 Kamu tidak menggunakan skill mu" + "\n\n";
-
           continue;
-        } else {
-          if (doer.blocked === true) {
-            this.group_session.players[i].message +=
-              "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." +
-              "\n\n";
-
-            continue;
-          } else {
-            let targetIndex = doer.target.index;
-            let target = players[targetIndex];
-
-            this.group_session.players[i].message +=
-              "👣 Kamu ke rumah " + target.name + "\n\n";
-
-            let visitor = {
-              name: doer.name,
-              role: doer.role
-            };
-            this.group_session.players[targetIndex].visitors.push(visitor);
-
-            this.group_session.players[i].role.revive--;
-
-            this.group_session.players[targetIndex].status = "alive";
-            this.group_session.players[targetIndex].attacked = false;
-            this.group_session.players[targetIndex].attackers = [];
-            this.group_session.players[targetIndex].vampireBited = false;
-            this.group_session.players[targetIndex].message = "";
-            this.group_session.players[targetIndex].healed = false;
-            this.group_session.players[targetIndex].bugged = false;
-            this.group_session.players[targetIndex].vested = false;
-            this.group_session.players[targetIndex].visitors = [];
-            this.group_session.players[targetIndex].blocked = false;
-            this.group_session.players[targetIndex].targetVoteIndex = -1;
-            this.group_session.players[targetIndex].intercepted = false;
-            this.group_session.players[targetIndex].target = {
-              index: -1,
-              value: 1
-            };
-            this.group_session.players[targetIndex].willSuicide = false;
-            this.group_session.players[targetIndex].framed = false;
-            this.group_session.players[targetIndex].protectors = [];
-            this.group_session.players[targetIndex].guarded = false;
-            this.group_session.players[targetIndex].selfHeal = false;
-            this.group_session.players[targetIndex].damage = 0;
-
-            let targetRoleName = target.role.name;
-
-            if (target.role.disguiseAs) {
-              targetRoleName = target.role.disguiseAs;
-            }
-
-            this.group_session.players[i].message +=
-              "⚰️ Kamu berhasil membangkitkan " +
-              target.name +
-              " (" +
-              targetRoleName +
-              ")" +
-              "\n\n";
-
-            this.group_session.players[targetIndex].message +=
-              "⚰️ Kamu berhasil dibangkitkan Retributionist!" + "\n\n";
-
-            allAnnouncement += `⚰️ ${target.name} (${targetRoleName}) bangkit dari kematian!\n\n`;
-          }
         }
+
+        let targetIndex = doer.target.index;
+        let target = players[targetIndex];
+
+        this.group_session.players[i].message +=
+          "👣 Kamu ke rumah " + target.name + "\n\n";
+
+        let visitor = {
+          index: i,
+          name: doer.name,
+          role: doer.role
+        };
+        this.group_session.players[targetIndex].visitors.push(visitor);
+
+        this.group_session.players[i].role.revive--;
+
+        this.group_session.players[targetIndex].status = "alive";
+        this.group_session.players[targetIndex].attacked = false;
+        this.group_session.players[targetIndex].attackers = [];
+        this.group_session.players[targetIndex].vampireBited = false;
+        this.group_session.players[targetIndex].message = "";
+        this.group_session.players[targetIndex].healed = false;
+        this.group_session.players[targetIndex].bugged = false;
+        this.group_session.players[targetIndex].vested = false;
+        this.group_session.players[targetIndex].visitors = [];
+        this.group_session.players[targetIndex].blocked = false;
+        this.group_session.players[targetIndex].targetVoteIndex = -1;
+        this.group_session.players[targetIndex].intercepted = false;
+        this.group_session.players[targetIndex].target = {
+          index: -1,
+          value: 1
+        };
+        this.group_session.players[targetIndex].willSuicide = false;
+        this.group_session.players[targetIndex].framed = false;
+        this.group_session.players[targetIndex].protectors = [];
+        this.group_session.players[targetIndex].guarded = false;
+        this.group_session.players[targetIndex].selfHeal = false;
+        this.group_session.players[targetIndex].damage = 0;
+
+        let targetRoleName = target.role.name;
+
+        if (target.role.disguiseAs) {
+          targetRoleName = target.role.disguiseAs;
+        }
+
+        this.group_session.players[i].message +=
+          "⚰️ Kamu berhasil membangkitkan " +
+          target.name +
+          " (" +
+          targetRoleName +
+          ")" +
+          "\n\n";
+
+        this.group_session.players[targetIndex].message +=
+          "⚰️ Kamu berhasil dibangkitkan Retributionist!" + "\n\n";
+
+        allAnnouncement += `⚰️ ${target.name} (${targetRoleName}) bangkit dari kematian!\n\n`;
+
       }
     }
 
@@ -2267,42 +2507,32 @@ module.exports = {
     for (let i = 0; i < players.length; i++) {
       let doer = players[i];
 
+      if (doer.blocked) continue;
+
       if (doer.role.name === "guardian-angel") {
+
+        if (doer.target.index === -1) continue;
+
         let protection = doer.role.protection;
 
         if (protection > 0) {
-          if (doer.target.index === -1) {
-            this.group_session.players[i].message +=
-              "💡 Kamu tidak menggunakan skill mu" + "\n\n";
+          let targetIndex = doer.target.index;
+          let target = players[targetIndex];
+          let targetName = target.name;
 
-            continue;
-          } else {
-            if (doer.blocked) {
-              this.group_session.players[i].message +=
-                "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." +
-                "\n\n";
+          this.group_session.players[i].role.protection--;
 
-              continue;
-            } else {
-              let targetIndex = doer.target.index;
-              let target = players[targetIndex];
-              let targetName = target.name;
+          this.group_session.players[targetIndex].protected = true;
 
-              this.group_session.players[i].role.protection--;
+          let protector = {
+            index: i,
+            roleName: doer.role.name,
+            used: false
+          };
 
-              this.group_session.players[targetIndex].protected = true;
-
-              let protector = {
-                index: i,
-                roleName: doer.role.name,
-                used: false
-              };
-
-              this.group_session.players[targetIndex].protectors.push(
-                protector
-              );
-            }
-          }
+          this.group_session.players[targetIndex].protectors.push(
+            protector
+          );
         }
       }
     }
@@ -2311,57 +2541,62 @@ module.exports = {
     for (let i = 0; i < players.length; i++) {
       let doer = players[i];
 
+      if (doer.blocked) continue;
+
       if (doer.role.name === "doctor" && doer.status === "alive") {
-        if (doer.target.index === -1) {
-          this.group_session.players[i].message +=
-            "💡 Kamu tidak menggunakan skill mu" + "\n\n";
 
+        if (doer.target.index === -1 || doer.attacked) {
           continue;
+        }
+
+        let targetIndex = doer.target.index;
+        let target = players[targetIndex];
+        let targetName = target.name;
+
+        if (parseInt(targetIndex) === parseInt(i)) {
+          targetName = "diri sendiri";
+
+          this.group_session.players[i].message +=
+            "🏠 Kamu memilih diam di rumah dan jaga-jaga" + "\n\n";
+
+          this.group_session.players[i].role.selfHeal--;
+
+          this.group_session.players[i].selfHeal = true;
         } else {
-          if (doer.blocked === true) {
-            this.group_session.players[i].message +=
-              "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." +
-              "\n\n";
+          let visitor = {
+            index: i,
+            name: doer.name,
+            role: doer.role
+          };
 
-            continue;
-          } else {
-            let targetIndex = doer.target.index;
-            let target = players[targetIndex];
-            let targetName = target.name;
+          this.group_session.players[targetIndex].visitors.push(visitor);
 
-            if (parseInt(targetIndex) === parseInt(i)) {
-              targetName = "diri sendiri";
+          // infection
+          let isDoerInfected = players[i].infected;
+          let isTargetInfected = players[targetIndex].infected;
 
-              this.group_session.players[i].message +=
-                "🏠 Kamu memilih diam di rumah dan jaga-jaga" + "\n\n";
-
-              this.group_session.players[i].role.selfHeal--;
-
-              this.group_session.players[i].selfHeal = true;
-            } else {
-              let visitor = {
-                name: doer.name,
-                role: doer.role
-              };
-
-              this.group_session.players[targetIndex].visitors.push(visitor);
-
-              this.group_session.players[i].message +=
-                "👣 Kamu ke rumah " + target.name + "\n\n";
-
-              this.group_session.players[targetIndex].healed = true;
-
-              let protector = {
-                index: i,
-                roleName: doer.role.name,
-                used: false
-              };
-
-              this.group_session.players[targetIndex].protectors.push(
-                protector
-              );
-            }
+          if (isDoerInfected && !isTargetInfected) {
+            this.group_session.players[targetIndex].infected = true;
+            plaguebearerAnnouncement += `☣️ ${target.name} telah terinfeksi!\n`;
+          } else if (isTargetInfected && !isDoerInfected) {
+            this.group_session.players[i].infected = true;
+            plaguebearerAnnouncement += `☣️ ${doer.name} telah terinfeksi!\n`;
           }
+
+          this.group_session.players[i].message +=
+            "👣 Kamu ke rumah " + target.name + "\n\n";
+
+          this.group_session.players[targetIndex].healed = true;
+
+          let protector = {
+            index: i,
+            roleName: doer.role.name,
+            used: false
+          };
+
+          this.group_session.players[targetIndex].protectors.push(
+            protector
+          );
         }
       }
     }
@@ -2370,56 +2605,60 @@ module.exports = {
     for (let i = 0; i < players.length; i++) {
       let doer = players[i];
 
+      if (doer.blocked) continue;
+
       if (doer.role.name === "bodyguard" && doer.status === "alive") {
-        if (doer.target.index === -1) {
-          this.group_session.players[i].message +=
-            "💡 Kamu tidak menggunakan skill mu" + "\n\n";
 
+        if (doer.target.index === -1 || doer.attacked) {
           continue;
+        }
+
+        let targetIndex = doer.target.index;
+        let target = players[targetIndex];
+
+        if (parseInt(targetIndex) === parseInt(i)) {
+          targetName = "diri sendiri";
+
+          this.group_session.players[i].message +=
+            "🦺 Kamu memilih diam di rumah dan menggunakan vest" + "\n\n";
+
+          this.group_session.players[i].role.vest--;
+          this.group_session.players[i].vested = true;
         } else {
-          if (doer.blocked === true) {
-            this.group_session.players[i].message +=
-              "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." +
-              "\n\n";
+          let visitor = {
+            index: i,
+            name: doer.name,
+            role: doer.role
+          };
 
-            continue;
-          } else {
-            let targetIndex = doer.target.index;
-            let target = players[targetIndex];
-            let targetName = target.name;
+          this.group_session.players[targetIndex].visitors.push(visitor);
 
-            if (parseInt(targetIndex) === parseInt(i)) {
-              targetName = "diri sendiri";
+          // infection
+          let isDoerInfected = players[i].infected;
+          let isTargetInfected = players[targetIndex].infected;
 
-              this.group_session.players[i].message +=
-                "🦺 Kamu memilih diam di rumah dan menggunakan vest" + "\n\n";
-
-              this.group_session.players[i].role.vest--;
-              this.group_session.players[i].vested = true;
-            } else {
-              let visitor = {
-                name: doer.name,
-                role: doer.role
-              };
-
-              this.group_session.players[targetIndex].visitors.push(visitor);
-
-              this.group_session.players[i].message +=
-                "👣 Kamu ke rumah " + target.name + "\n\n";
-
-              this.group_session.players[targetIndex].guarded = true;
-
-              let protector = {
-                index: i,
-                roleName: doer.role.name,
-                used: false
-              };
-
-              this.group_session.players[targetIndex].protectors.push(
-                protector
-              );
-            }
+          if (isDoerInfected && !isTargetInfected) {
+            this.group_session.players[targetIndex].infected = true;
+            plaguebearerAnnouncement += `☣️ ${target.name} telah terinfeksi!\n`;
+          } else if (isTargetInfected && !isDoerInfected) {
+            this.group_session.players[i].infected = true;
+            plaguebearerAnnouncement += `☣️ ${doer.name} telah terinfeksi!\n`;
           }
+
+          this.group_session.players[i].message +=
+            "👣 Kamu ke rumah " + target.name + "\n\n";
+
+          this.group_session.players[targetIndex].guarded = true;
+
+          let protector = {
+            index: i,
+            roleName: doer.role.name,
+            used: false
+          };
+
+          this.group_session.players[targetIndex].protectors.push(
+            protector
+          );
         }
       }
     }
@@ -2434,22 +2673,11 @@ module.exports = {
         isUseSkill = true;
       }
 
+      if (!isUseSkill || doer.blocked) continue;
+
       if (roleName === "survivor" && status === "alive") {
-        if (doer.blocked === true) {
-          this.group_session.players[i].message +=
-            "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." +
-            "\n\n";
-
-          continue;
-        }
-
-        if (!isUseSkill) {
-          this.group_session.players[i].message +=
-            "💡 Kamu tidak menggunakan skill mu" + "\n\n";
-        } else {
-          this.group_session.players[i].role.vest--;
-          this.group_session.players[i].vested = true;
-        }
+        this.group_session.players[i].role.vest--;
+        this.group_session.players[i].vested = true;
       }
     }
 
@@ -2457,73 +2685,78 @@ module.exports = {
     for (let i = 0; i < players.length; i++) {
       let doer = players[i];
 
+      if (doer.blocked) continue;
+
       if (doer.role.name === "vampire-hunter" && doer.status === "alive") {
-        if (doer.target.index === -1) {
-          this.group_session.players[i].message +=
-            "💡 Kamu tidak menggunakan skill mu" + "\n\n";
 
+        if (doer.target.index === -1 || doer.attacked) {
           continue;
+        }
+
+        let targetIndex = doer.target.index;
+        let target = players[targetIndex];
+
+        if (doer.intercepted) {
+          this.group_session.players[i].message +=
+            "💡 Kamu tercegat oleh " + target.role.name + "\n\n";
         } else {
-          if (doer.blocked === true) {
-            this.group_session.players[i].message +=
-              "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." +
-              "\n\n";
+          this.group_session.players[i].message +=
+            "👣 Kamu ke rumah " + target.name + "\n\n";
 
-            continue;
-          } else if (!doer.attacked) {
-            let targetIndex = doer.target.index;
-            let target = players[targetIndex];
+          let visitor = {
+            index: i,
+            name: doer.name,
+            role: doer.role
+          };
+          this.group_session.players[targetIndex].visitors.push(visitor);
 
-            if (doer.intercepted) {
-              this.group_session.players[i].message +=
-                "💡 Kamu tercegat oleh " + target.role.name + "\n\n";
-            } else {
-              this.group_session.players[i].message +=
-                "👣 Kamu ke rumah " + target.name + "\n\n";
+          // infection
+          let isDoerInfected = players[i].infected;
+          let isTargetInfected = players[targetIndex].infected;
 
-              let visitor = {
-                name: doer.name,
-                role: doer.role
-              };
-              this.group_session.players[targetIndex].visitors.push(visitor);
+          if (isDoerInfected && !isTargetInfected) {
+            this.group_session.players[targetIndex].infected = true;
+            plaguebearerAnnouncement += `☣️ ${target.name} telah terinfeksi!\n`;
+          } else if (isTargetInfected && !isDoerInfected) {
+            this.group_session.players[i].infected = true;
+            plaguebearerAnnouncement += `☣️ ${doer.name} telah terinfeksi!\n`;
+          }
+        }
+
+        if (target.role.team === "vampire") {
+          this.group_session.players[i].message +=
+            "🗡️ " + target.name + " adalah seorang Vampire!" + "\n\n";
+
+          this.group_session.players[targetIndex].message +=
+            "🗡️ Kamu diserang " + doer.role.name + "!" + "\n\n";
+
+          if (doer.intercepted) {
+            if (players[targetIndex].bugged) {
+              spyBuggedInfo[targetIndex] +=
+                "🔍 Target kamu di serang Vampire Hunter yang dia kunjungi!" +
+                "\n\n";
             }
-
-            if (target.role.team === "vampire") {
-              this.group_session.players[i].message +=
-                "🗡️ " + target.name + " adalah seorang Vampire!" + "\n\n";
-
-              this.group_session.players[targetIndex].message +=
-                "🗡️ Kamu diserang " + doer.role.name + "!" + "\n\n";
-
-              if (doer.intercepted) {
-                if (players[targetIndex].bugged) {
-                  spyBuggedInfo[targetIndex] +=
-                    "🔍 Target kamu di serang Vampire Hunter yang dia kunjungi!" +
-                    "\n\n";
-                }
-              } else {
-                if (players[targetIndex].bugged) {
-                  spyBuggedInfo[targetIndex] +=
-                    "🔍 Target kamu di serang Vampire Hunter!" + "\n\n";
-                }
-              }
-
-              this.group_session.players[targetIndex].attacked = true;
-
-              let attacker = {
-                index: i,
-                name: doer.name,
-                role: doer.role,
-                deathNote: doer.deathNote,
-                countered: false
-              };
-
-              this.group_session.players[targetIndex].attackers.push(attacker);
-            } else {
-              this.group_session.players[i].message +=
-                "💡 " + target.name + " bukan seorang Vampire" + "\n\n";
+          } else {
+            if (players[targetIndex].bugged) {
+              spyBuggedInfo[targetIndex] +=
+                "🔍 Target kamu di serang Vampire Hunter!" + "\n\n";
             }
           }
+
+          this.group_session.players[targetIndex].attacked = true;
+
+          let attacker = {
+            index: i,
+            name: doer.name,
+            role: doer.role,
+            deathNote: doer.deathNote,
+            countered: false
+          };
+
+          this.group_session.players[targetIndex].attackers.push(attacker);
+        } else {
+          this.group_session.players[i].message +=
+            "💡 " + target.name + " bukan seorang Vampire" + "\n\n";
         }
       }
     }
@@ -2532,86 +2765,90 @@ module.exports = {
     for (let i = 0; i < players.length; i++) {
       let doer = players[i];
 
+      if (doer.blocked) continue;
+
       if (doer.role.name === "vigilante" && doer.status === "alive") {
         if (doer.willSuicide) {
           continue;
         }
 
-        if (doer.target.index === -1) {
-          this.group_session.players[i].message +=
-            "💡 Kamu tidak menggunakan skill mu" + "\n\n";
-
+        if (doer.target.index === -1 || doer.attacked) {
           continue;
-        } else {
-          if (doer.blocked === true) {
-            this.group_session.players[i].message +=
-              "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." +
+        }
+
+        let targetIndex = doer.target.index;
+        let target = players[targetIndex];
+
+        this.group_session.players[i].role.bullet--;
+
+        this.group_session.players[i].message +=
+          "👣 Kamu ke rumah " + target.name + "\n\n";
+
+        let visitor = {
+          index: i,
+          name: doer.name,
+          role: doer.role
+        };
+        this.group_session.players[targetIndex].visitors.push(visitor);
+
+        // infection
+        let isDoerInfected = players[i].infected;
+        let isTargetInfected = players[targetIndex].infected;
+
+        if (isDoerInfected && !isTargetInfected) {
+          this.group_session.players[targetIndex].infected = true;
+          plaguebearerAnnouncement += `☣️ ${target.name} telah terinfeksi!\n`;
+        } else if (isTargetInfected && !isDoerInfected) {
+          this.group_session.players[i].infected = true;
+          plaguebearerAnnouncement += `☣️ ${doer.name} telah terinfeksi!\n`;
+        }
+
+        let immuneToBasicAttack = [
+          "serial-killer",
+          "arsonist",
+          "godfather",
+          "executioner"
+        ];
+
+        if (this.group_session.isFullMoon) {
+          immuneToBasicAttack.push("werewolf");
+        }
+
+        if (immuneToBasicAttack.includes(target.role.name)) {
+          this.group_session.players[i].message +=
+            "💡 Target kamu immune dari serangan!" + "\n\n";
+          this.group_session.players[targetIndex].message +=
+            "💡 Ada yang menyerang kamu tapi kamu immune dari serangan!" +
+            "\n\n";
+
+          if (players[targetIndex].bugged) {
+            spyBuggedInfo[targetIndex] +=
+              "🔍 Target kamu di serang tapi serangan tersebut tidak mempan!" +
               "\n\n";
-
-            continue;
-          } else if (!doer.attacked) {
-            let targetIndex = doer.target.index;
-            let target = players[targetIndex];
-
-            this.group_session.players[i].role.bullet--;
-
-            this.group_session.players[i].message +=
-              "👣 Kamu ke rumah " + target.name + "\n\n";
-
-            let visitor = {
-              name: doer.name,
-              role: doer.role
-            };
-            this.group_session.players[targetIndex].visitors.push(visitor);
-
-            let immuneToBasicAttack = [
-              "serial-killer",
-              "arsonist",
-              "godfather",
-              "executioner"
-            ];
-
-            if (this.group_session.isFullMoon) {
-              immuneToBasicAttack.push("werewolf");
-            }
-
-            if (immuneToBasicAttack.includes(target.role.name)) {
-              this.group_session.players[i].message +=
-                "💡 Target kamu immune dari serangan!" + "\n\n";
-              this.group_session.players[targetIndex].message +=
-                "💡 Ada yang menyerang kamu tapi kamu immune dari serangan!" +
-                "\n\n";
-
-              if (players[targetIndex].bugged) {
-                spyBuggedInfo[targetIndex] +=
-                  "🔍 Target kamu di serang tapi serangan tersebut tidak mempan!" +
-                  "\n\n";
-              }
-            } else {
-              this.group_session.players[i].message +=
-                "💡 Kamu menyerang " + target.name + "\n\n";
-
-              this.group_session.players[targetIndex].message +=
-                "🔫 Kamu diserang " + doer.role.name + "!" + "\n\n";
-
-              if (players[targetIndex].bugged) {
-                spyBuggedInfo[targetIndex] +=
-                  "🔍 Target kamu di serang Vigilante!" + "\n\n";
-              }
-
-              this.group_session.players[targetIndex].attacked = true;
-
-              let attacker = {
-                index: i,
-                name: doer.name,
-                role: doer.role,
-                deathNote: doer.deathNote,
-                countered: false
-              };
-
-              this.group_session.players[targetIndex].attackers.push(attacker);
-            }
           }
+        } else {
+          this.group_session.players[i].message +=
+            "💡 Kamu menyerang " + target.name + "\n\n";
+
+          this.group_session.players[targetIndex].message +=
+            "🔫 Kamu diserang " + doer.role.name + "!" + "\n\n";
+
+          if (players[targetIndex].bugged) {
+            spyBuggedInfo[targetIndex] +=
+              "🔍 Target kamu di serang Vigilante!" + "\n\n";
+          }
+
+          this.group_session.players[targetIndex].attacked = true;
+
+          let attacker = {
+            index: i,
+            name: doer.name,
+            role: doer.role,
+            deathNote: doer.deathNote,
+            countered: false
+          };
+
+          this.group_session.players[targetIndex].attackers.push(attacker);
         }
       }
     }
@@ -2621,94 +2858,103 @@ module.exports = {
       let doer = players[i];
 
       if (doer.role.name === "serial-killer" && doer.status === "alive") {
-        if (doer.target.index === -1) {
-          this.group_session.players[i].message +=
-            "💡 Kamu tidak menggunakan skill mu" + "\n\n";
 
+        if (doer.target.index === -1 || doer.attacked) {
           continue;
+        }
+
+        let targetIndex = doer.target.index;
+        let target = players[targetIndex];
+
+        if (doer.intercepted) {
+          this.group_session.players[i].message +=
+            "💡 Kamu tercegat oleh " + target.name + "\n\n";
         } else {
-          if (!doer.attacked) {
-            let targetIndex = doer.target.index;
-            let target = players[targetIndex];
+          this.group_session.players[i].message +=
+            "👣 Kamu ke rumah " + target.name + "\n\n";
 
-            if (doer.intercepted) {
-              this.group_session.players[i].message +=
-                "💡 Kamu tercegat oleh " + target.name + "\n\n";
-            } else {
-              this.group_session.players[i].message +=
-                "👣 Kamu ke rumah " + target.name + "\n\n";
+          let visitor = {
+            index: i,
+            name: doer.name,
+            role: doer.role
+          };
+          this.group_session.players[targetIndex].visitors.push(visitor);
 
-              let visitor = {
-                name: doer.name,
-                role: doer.role
-              };
-              this.group_session.players[targetIndex].visitors.push(visitor);
+          // infection
+          let isDoerInfected = players[i].infected;
+          let isTargetInfected = players[targetIndex].infected;
+
+          if (isDoerInfected && !isTargetInfected) {
+            this.group_session.players[targetIndex].infected = true;
+            plaguebearerAnnouncement += `☣️ ${target.name} telah terinfeksi!\n`;
+          } else if (isTargetInfected && !isDoerInfected) {
+            this.group_session.players[i].infected = true;
+            plaguebearerAnnouncement += `☣️ ${doer.name} telah terinfeksi!\n`;
+          }
+        }
+
+        let immuneToBasicAttack = [
+          "serial-killer",
+          "arsonist",
+          "godfather",
+          "executioner"
+        ];
+
+        if (immuneToBasicAttack.includes(target.role.name)) {
+          this.group_session.players[i].message +=
+            "💡 Target kamu immune dari serangan!" + "\n\n";
+          this.group_session.players[targetIndex].message +=
+            "💡 Ada yang menyerang kamu tapi kamu immune dari serangan!" +
+            "\n\n";
+
+          if (players[targetIndex].bugged) {
+            spyBuggedInfo[targetIndex] +=
+              "🔍 Target kamu diserang tapi serangan tersebut tidak mempan!" +
+              "\n\n";
+          }
+        } else {
+          this.group_session.players[i].message +=
+            "💡 Kamu menyerang " + target.name + "\n\n";
+
+          if (doer.intercepted) {
+            this.group_session.players[targetIndex].message +=
+              "🔪 Kamu diserang " +
+              doer.role.name +
+              " yang kamu kunjungi!" +
+              "\n\n";
+
+            if (players[targetIndex].bugged) {
+              spyBuggedInfo[targetIndex] +=
+                "🔍 Target kamu di serang Serial Killer yang dia kunjungi!" +
+                "\n\n";
             }
 
-            let immuneToBasicAttack = [
-              "serial-killer",
-              "arsonist",
-              "godfather",
-              "executioner"
-            ];
-
-            if (immuneToBasicAttack.includes(target.role.name)) {
-              this.group_session.players[i].message +=
-                "💡 Target kamu immune dari serangan!" + "\n\n";
-              this.group_session.players[targetIndex].message +=
-                "💡 Ada yang menyerang kamu tapi kamu immune dari serangan!" +
+            if (players[i].bugged) {
+              spyBuggedInfo[targetIndex] +=
+                "🔍 Ada yang berusaha role block Targetmu, tetapi Targetmu menyerang balik!" +
                 "\n\n";
+            }
+          } else {
+            this.group_session.players[targetIndex].message +=
+              "🔪 Kamu diserang " + doer.role.name + "!" + "\n\n";
 
-              if (players[targetIndex].bugged) {
-                spyBuggedInfo[targetIndex] +=
-                  "🔍 Target kamu diserang tapi serangan tersebut tidak mempan!" +
-                  "\n\n";
-              }
-            } else {
-              this.group_session.players[i].message +=
-                "💡 Kamu menyerang " + target.name + "\n\n";
-
-              if (doer.intercepted) {
-                this.group_session.players[targetIndex].message +=
-                  "🔪 Kamu diserang " +
-                  doer.role.name +
-                  " yang kamu kunjungi!" +
-                  "\n\n";
-
-                if (players[targetIndex].bugged) {
-                  spyBuggedInfo[targetIndex] +=
-                    "🔍 Target kamu di serang Serial Killer yang dia kunjungi!" +
-                    "\n\n";
-                }
-
-                if (players[i].bugged) {
-                  spyBuggedInfo[targetIndex] +=
-                    "🔍 Ada yang berusaha role block Targetmu, tetapi Targetmu menyerang balik!" +
-                    "\n\n";
-                }
-              } else {
-                this.group_session.players[targetIndex].message +=
-                  "🔪 Kamu diserang " + doer.role.name + "!" + "\n\n";
-
-                if (players[targetIndex].bugged) {
-                  spyBuggedInfo[targetIndex] +=
-                    "🔍 Target kamu di serang Serial Killer!" + "\n\n";
-                }
-              }
-
-              this.group_session.players[targetIndex].attacked = true;
-
-              let attacker = {
-                index: i,
-                name: doer.name,
-                role: doer.role,
-                deathNote: doer.deathNote,
-                countered: false
-              };
-
-              this.group_session.players[targetIndex].attackers.push(attacker);
+            if (players[targetIndex].bugged) {
+              spyBuggedInfo[targetIndex] +=
+                "🔍 Target kamu di serang Serial Killer!" + "\n\n";
             }
           }
+
+          this.group_session.players[targetIndex].attacked = true;
+
+          let attacker = {
+            index: i,
+            name: doer.name,
+            role: doer.role,
+            deathNote: doer.deathNote,
+            countered: false
+          };
+
+          this.group_session.players[targetIndex].attackers.push(attacker);
         }
       }
     }
@@ -2720,61 +2966,55 @@ module.exports = {
       let status = doer.status;
       let targetIndex = doer.target.index;
 
+      if (doer.blocked) continue;
+
       if (roleName === "arsonist" && status === "alive") {
-        if (doer.target.index === -1) {
-          this.group_session.players[i].message +=
-            "💡 Kamu tidak menggunakan skill mu" + "\n\n";
 
+        if (doer.target.index === -1 || doer.attacked) {
           continue;
-        } else if (parseInt(targetIndex) === parseInt(i)) {
-          if (doer.blocked === true) {
-            this.group_session.players[i].message +=
-              "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." +
-              "\n\n";
+        }
 
-            continue;
-          } else if (!doer.attacked) {
-            let targetIndexes = players.map((p, idx) => {
-              if (p.doused && p.status === "alive") {
-                return idx;
-              }
-            });
+        if (targetIndex != i) continue;
 
-            for (let u = 0; u < targetIndexes.length; u++) {
-              let targetIndex = targetIndexes[u];
-
-              if (targetIndex === undefined) {
-                continue;
-              }
-
-              let target = players[targetIndex];
-
-              this.group_session.players[i].message +=
-                "💡 Kamu bakar rumah " + target.name + "\n\n";
-
-              this.group_session.players[targetIndex].message +=
-                "🔥 Rumah kamu dibakar " + doer.role.name + "!" + "\n\n";
-
-              if (players[targetIndex].bugged) {
-                spyBuggedInfo[targetIndex] +=
-                  "🔍 Target kamu di bakar Arsonist!" + "\n\n";
-              }
-
-              this.group_session.players[targetIndex].burned = true;
-
-              this.group_session.players[targetIndex].attacked = true;
-
-              let attacker = {
-                index: i,
-                name: doer.name,
-                role: doer.role,
-                deathNote: doer.deathNote,
-                countered: false
-              };
-
-              this.group_session.players[targetIndex].attackers.push(attacker);
-            }
+        let targetIndexes = players.map((p, idx) => {
+          if (p.doused && p.status === "alive") {
+            return idx;
           }
+        });
+
+        for (let u = 0; u < targetIndexes.length; u++) {
+          let targetIndex = targetIndexes[u];
+
+          if (targetIndex === undefined) {
+            continue;
+          }
+
+          let target = players[targetIndex];
+
+          this.group_session.players[i].message +=
+            "💡 Kamu bakar rumah " + target.name + "\n\n";
+
+          this.group_session.players[targetIndex].message +=
+            "🔥 Rumah kamu dibakar " + doer.role.name + "!" + "\n\n";
+
+          if (players[targetIndex].bugged) {
+            spyBuggedInfo[targetIndex] +=
+              "🔍 Target kamu di bakar Arsonist!" + "\n\n";
+          }
+
+          this.group_session.players[targetIndex].burned = true;
+
+          this.group_session.players[targetIndex].attacked = true;
+
+          let attacker = {
+            index: i,
+            name: doer.name,
+            role: doer.role,
+            deathNote: doer.deathNote,
+            countered: false
+          };
+
+          this.group_session.players[targetIndex].attackers.push(attacker);
         }
       }
     }
@@ -2813,10 +3053,23 @@ module.exports = {
               let target = players[targetIndex];
 
               let visitor = {
+                index: i,
                 name: doer.name,
                 role: doer.role
               };
               this.group_session.players[targetIndex].visitors.push(visitor);
+
+              // infection
+              let isDoerInfected = players[i].infected;
+              let isTargetInfected = players[targetIndex].infected;
+
+              if (isDoerInfected && !isTargetInfected) {
+                this.group_session.players[targetIndex].infected = true;
+                plaguebearerAnnouncement += `☣️ ${target.name} telah terinfeksi!\n`;
+              } else if (isTargetInfected && !isDoerInfected) {
+                this.group_session.players[i].infected = true;
+                plaguebearerAnnouncement += `☣️ ${doer.name} telah terinfeksi!\n`;
+              }
 
               if (doer.role.name === "godfather") {
                 this.group_session.players[i].message +=
@@ -2912,7 +3165,7 @@ module.exports = {
         if (isAttacked || isVampireBited) {
           this.group_session.players[i].damage = attackers.length;
 
-          if (!isBurned && !isHaunted && !willSuicide && afkCounter < 6) {
+          if (!isBurned && !isHaunted && !willSuicide && afkCounter < 3) {
             for (let x = 0; x < attackers.length; x++) {
               let attacker = attackers[x];
 
@@ -2934,6 +3187,11 @@ module.exports = {
                   if (protector.roleName === "bodyguard") {
                     // bodyguard tidak lindungi yang diserang veteran alert
                     if (attacker.role.name === "veteran") {
+                      continue;
+                    }
+
+                    // bodyguard tidak lindungi yang kena pestilence
+                    if (attacker.role.name === "plaguebearer") {
                       continue;
                     }
 
@@ -3036,8 +3294,6 @@ module.exports = {
 
           if (isProtected) {
             for (let x = 0; x < attackers.length; x++) {
-              let attacker = attackers[x];
-
               for (let u = 0; u < protectors.length; u++) {
                 let protector = protectors[u];
 
@@ -3048,7 +3304,7 @@ module.exports = {
                 this.group_session.players[protector.index].message +=
                   "💡 " + players[i].name + " diserang semalam!" + "\n\n";
 
-                if (isHaunted || willSuicide || afkCounter >= 6) {
+                if (isHaunted || willSuicide || afkCounter >= 3) {
                   this.group_session.players[protector.index].message +=
                     "💡 " + players[i].name + " gagal dilindungi!" + "\n\n";
 
@@ -3060,6 +3316,8 @@ module.exports = {
                 }
 
                 this.group_session.players[i].doused = false;
+                this.group_session.players[i].framed = false;
+                this.group_session.players[i].infected = false;
 
                 this.group_session.players[protector.index].message +=
                   "💡 " + players[i].name + " berhasil dilindungi!" + "\n\n";
@@ -3081,13 +3339,24 @@ module.exports = {
               }
             }
 
-            if (!isHaunted && !willSuicide && afkCounter < 6) {
+            if (!isHaunted && !willSuicide && afkCounter < 3) {
               continue;
             }
           }
 
           this.group_session.players[i].status = "will_death";
-        } else if (willSuicide || afkCounter >= 6) {
+
+          // Pestilence is invicible!
+          if (players[i].role.name === "plaguebearer") {
+            if (players[i].role.isPestilence) {
+              this.group_session.players[i].status = "alive";
+
+              this.group_session.players[i].message +=
+                "💡 Walaupun diserang, kamu tidak akan mati!" + "\n\n";
+            }
+          }
+
+        } else if (willSuicide || afkCounter >= 3) {
           this.group_session.players[i].status = "will_death";
         }
       }
@@ -3274,19 +3543,13 @@ module.exports = {
     for (let i = 0; i < players.length; i++) {
       let doer = players[i];
 
+      if (doer.blocked) continue;
+
       if (doer.role.name === "psychic" && doer.status === "alive") {
-        if (doer.blocked === true) {
-          this.group_session.players[i].message +=
-            "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." +
-            "\n\n";
+        let isFullMoon = this.group_session.isFullMoon;
+        let psychicResult = helper.getPsychicResult(players, i, isFullMoon);
 
-          continue;
-        } else {
-          let isFullMoon = this.group_session.isFullMoon;
-          let psychicResult = helper.getPsychicResult(players, i, isFullMoon);
-
-          this.group_session.players[i].message += psychicResult + "\n\n";
-        }
+        this.group_session.players[i].message += psychicResult + "\n\n";
       }
     }
 
@@ -3360,7 +3623,7 @@ module.exports = {
 
         if (attackersRole.length > 0) {
           //
-        } else if (players[i].afkCounter >= 6) {
+        } else if (players[i].afkCounter >= 3) {
           isAfk = true;
         } else if (willSuicide) {
           isSuicide = true;
@@ -3493,46 +3756,49 @@ module.exports = {
     for (let i = 0; i < players.length; i++) {
       let doer = players[i];
 
+      if (doer.blocked) continue;
+
       if (doer.role.name === "framer" && doer.status === "alive") {
-        if (doer.target.index === -1) {
-          this.group_session.players[i].message +=
-            "💡 Kamu tidak menggunakan skill mu" + "\n\n";
 
-          continue;
-        } else {
-          if (doer.blocked === true) {
-            this.group_session.players[i].message +=
-              "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." +
-              "\n\n";
+        if (doer.target.index === -1) continue;
 
-            continue;
-          } else {
-            let targetIndex = doer.target.index;
-            let target = players[targetIndex];
+        let targetIndex = doer.target.index;
+        let target = players[targetIndex];
 
-            let visitor = {
-              name: doer.name,
-              role: doer.role
-            };
+        let visitor = {
+          index: i,
+          name: doer.name,
+          role: doer.role
+        };
 
-            this.group_session.players[targetIndex].visitors.push(visitor);
+        this.group_session.players[targetIndex].visitors.push(visitor);
 
-            this.group_session.players[i].message +=
-              "👣 Kamu ke rumah " + target.name + "\n\n";
+        // infection
+        let isDoerInfected = players[i].infected;
+        let isTargetInfected = players[targetIndex].infected;
 
-            this.group_session.players[i].message +=
-              "🎞️ Kamu menjebak " +
-              target.name +
-              " agar terlihat bersalah" +
-              "\n\n";
-
-            mafiaAnnouncement += `🎞️ ${doer.name} menjebak ${target.name}\n\n`;
-
-            spyMafiaVisitInfo += `🤵 ${target.name} dikunjungi anggota Mafia\n\n`;
-
-            this.group_session.players[targetIndex].framed = true;
-          }
+        if (isDoerInfected && !isTargetInfected) {
+          this.group_session.players[targetIndex].infected = true;
+          plaguebearerAnnouncement += `☣️ ${target.name} telah terinfeksi!\n`;
+        } else if (isTargetInfected && !isDoerInfected) {
+          this.group_session.players[i].infected = true;
+          plaguebearerAnnouncement += `☣️ ${doer.name} telah terinfeksi!\n`;
         }
+
+        this.group_session.players[i].message +=
+          "👣 Kamu ke rumah " + target.name + "\n\n";
+
+        this.group_session.players[i].message +=
+          "🎞️ Kamu menjebak " +
+          target.name +
+          " agar terlihat bersalah" +
+          "\n\n";
+
+        mafiaAnnouncement += `🎞️ ${doer.name} menjebak ${target.name}\n\n`;
+
+        spyMafiaVisitInfo += `🤵 ${target.name} dikunjungi anggota Mafia\n\n`;
+
+        this.group_session.players[targetIndex].framed = true;
       }
     }
 
@@ -3540,57 +3806,60 @@ module.exports = {
     for (let i = 0; i < players.length; i++) {
       let doer = players[i];
 
+      if (doer.blocked) continue;
+
       if (doer.role.name === "sheriff" && doer.status === "alive") {
-        if (doer.target.index === -1) {
+
+        if (doer.target.index === -1) continue;
+
+        let targetIndex = doer.target.index;
+        let target = players[targetIndex];
+
+        let visitor = {
+          index: i,
+          name: doer.name,
+          role: doer.role
+        };
+
+        this.group_session.players[targetIndex].visitors.push(visitor);
+
+        // infection
+        let isDoerInfected = players[i].infected;
+        let isTargetInfected = players[targetIndex].infected;
+
+        if (isDoerInfected && !isTargetInfected) {
+          this.group_session.players[targetIndex].infected = true;
+          plaguebearerAnnouncement += `☣️ ${target.name} telah terinfeksi!\n`;
+        } else if (isTargetInfected && !isDoerInfected) {
+          this.group_session.players[i].infected = true;
+          plaguebearerAnnouncement += `☣️ ${doer.name} telah terinfeksi!\n`;
+        }
+
+        this.group_session.players[i].message +=
+          "👣 Kamu ke rumah " + target.name + "\n\n";
+
+        let suspiciousList = [
+          "mafioso",
+          "consigliere",
+          "consort",
+          "serial-killer",
+          "framer",
+          "disguiser"
+        ];
+
+        if (this.group_session.isFullMoon) {
+          suspiciousList.push("werewolf");
+        }
+
+        if (target.framed || suspiciousList.includes(target.role.name)) {
           this.group_session.players[i].message +=
-            "💡 Kamu tidak menggunakan skill mu" + "\n\n";
-
-          continue;
+            "👮 " + target.name + " mencurigakan" + "\n\n";
         } else {
-          if (doer.blocked === true) {
-            this.group_session.players[i].message +=
-              "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." +
-              "\n\n";
-
-            continue;
-          } else {
-            let targetIndex = doer.target.index;
-            let target = players[targetIndex];
-
-            let visitor = {
-              name: doer.name,
-              role: doer.role
-            };
-
-            this.group_session.players[targetIndex].visitors.push(visitor);
-
-            this.group_session.players[i].message +=
-              "👣 Kamu ke rumah " + target.name + "\n\n";
-
-            let suspiciousList = [
-              "mafioso",
-              "consigliere",
-              "consort",
-              "serial-killer",
-              "framer",
-              "disguiser"
-            ];
-
-            if (this.group_session.isFullMoon) {
-              suspiciousList.push("werewolf");
-            }
-
-            if (target.framed || suspiciousList.includes(target.role.name)) {
-              this.group_session.players[i].message +=
-                "👮 " + target.name + " mencurigakan" + "\n\n";
-            } else {
-              this.group_session.players[i].message +=
-                "👮 Kamu tidak menemukan bukti kesalahan target. Tampaknya " +
-                target.name +
-                " tidak bersalah" +
-                "\n\n";
-            }
-          }
+          this.group_session.players[i].message +=
+            "👮 Kamu tidak menemukan bukti kesalahan target. Tampaknya " +
+            target.name +
+            " tidak bersalah" +
+            "\n\n";
         }
       }
     }
@@ -3599,52 +3868,55 @@ module.exports = {
     for (let i = 0; i < players.length; i++) {
       let doer = players[i];
 
+      if (doer.blocked) continue;
+
       if (doer.role.name === "investigator" && doer.status === "alive") {
-        if (doer.target.index === -1) {
-          this.group_session.players[i].message +=
-            "💡 Kamu tidak menggunakan skill mu" + "\n\n";
 
-          continue;
-        } else {
-          if (doer.blocked === true) {
-            this.group_session.players[i].message +=
-              "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." +
-              "\n\n";
+        if (doer.target.index === -1) continue;
 
-            continue;
-          } else {
-            let targetIndex = doer.target.index;
-            let target = players[targetIndex];
+        let targetIndex = doer.target.index;
+        let target = players[targetIndex];
 
-            let visitor = {
-              name: doer.name,
-              role: doer.role
-            };
+        let visitor = {
+          index: i,
+          name: doer.name,
+          role: doer.role
+        };
 
-            this.group_session.players[targetIndex].visitors.push(visitor);
+        this.group_session.players[targetIndex].visitors.push(visitor);
 
-            let targetRoleName = target.role.name;
+        // infection
+        let isDoerInfected = players[i].infected;
+        let isTargetInfected = players[targetIndex].infected;
 
-            if (target.framed) {
-              targetRoleName = "framer";
-            }
-
-            if (target.doused) {
-              targetRoleName = "arsonist";
-            }
-
-            if (target.role.disguiseAs) {
-              targetRoleName = target.role.disguiseAs;
-            }
-
-            this.group_session.players[i].message +=
-              "👣 Kamu ke rumah " + target.name + "\n\n";
-
-            let guessResult = helper.getInvestigatorResult(targetRoleName);
-
-            this.group_session.players[i].message += guessResult + "\n\n";
-          }
+        if (isDoerInfected && !isTargetInfected) {
+          this.group_session.players[targetIndex].infected = true;
+          plaguebearerAnnouncement += `☣️ ${target.name} telah terinfeksi!\n`;
+        } else if (isTargetInfected && !isDoerInfected) {
+          this.group_session.players[i].infected = true;
+          plaguebearerAnnouncement += `☣️ ${doer.name} telah terinfeksi!\n`;
         }
+
+        let targetRoleName = target.role.name;
+
+        if (target.framed) {
+          targetRoleName = "framer";
+        }
+
+        if (target.doused) {
+          targetRoleName = "arsonist";
+        }
+
+        if (target.role.disguiseAs) {
+          targetRoleName = target.role.disguiseAs;
+        }
+
+        this.group_session.players[i].message +=
+          "👣 Kamu ke rumah " + target.name + "\n\n";
+
+        let guessResult = helper.getInvestigatorResult(targetRoleName);
+
+        this.group_session.players[i].message += guessResult + "\n\n";
       }
     }
 
@@ -3652,38 +3924,46 @@ module.exports = {
     for (let i = 0; i < players.length; i++) {
       let doer = players[i];
 
+      if (doer.blocked) continue;
+
       if (doer.role.name === "consigliere" && doer.status === "alive") {
-        if (doer.target.index === -1) {
-          this.group_session.players[i].message +=
-            "💡 Kamu tidak menggunakan skill mu" + "\n\n";
 
-          continue;
-        } else {
-          if (doer.blocked === true) {
-            this.group_session.players[i].message +=
-              "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." +
-              "\n\n";
+        if (doer.target.index === -1) continue;
 
-            continue;
-          } else {
-            let targetIndex = doer.target.index;
-            let target = players[targetIndex];
+        let targetIndex = doer.target.index;
+        let target = players[targetIndex];
 
-            let visitor = {
-              name: doer.name,
-              role: doer.role
-            };
+        let visitor = {
+          index: i,
+          name: doer.name,
+          role: doer.role
+        };
 
-            this.group_session.players[targetIndex].visitors.push(visitor);
+        this.group_session.players[targetIndex].visitors.push(visitor);
 
-            this.group_session.players[i].message +=
-              "👣 Kamu ke rumah " + target.name + "\n\n";
+        // infection
+        let isDoerInfected = players[i].infected;
+        let isTargetInfected = players[targetIndex].infected;
 
-            mafiaAnnouncement += `✒️ Role ${target.name} adalah ${target.role.name}\n\n`;
-
-            spyMafiaVisitInfo += `🤵 ${target.name} dikunjungi anggota Mafia\n\n`;
-          }
+        if (isDoerInfected && !isTargetInfected) {
+          this.group_session.players[targetIndex].infected = true;
+          plaguebearerAnnouncement += `☣️ ${target.name} telah terinfeksi!\n`;
+        } else if (isTargetInfected && !isDoerInfected) {
+          this.group_session.players[i].infected = true;
+          plaguebearerAnnouncement += `☣️ ${doer.name} telah terinfeksi!\n`;
         }
+
+        this.group_session.players[i].message +=
+          "👣 Kamu ke rumah " + target.name + "\n\n";
+
+        let targetRoleName = target.role.name;
+        if (targetRoleName === "plaguebearer" && target.role.isPestilence) {
+          targetRoleName = "pestilence";
+        }
+
+        mafiaAnnouncement += `✒️ Role ${target.name} adalah ${targetRoleName}\n\n`;
+
+        spyMafiaVisitInfo += `🤵 ${target.name} dikunjungi anggota Mafia\n\n`;
       }
     }
 
@@ -3691,45 +3971,48 @@ module.exports = {
     for (let i = 0; i < players.length; i++) {
       let doer = players[i];
 
+      if (doer.blocked) continue;
+
       if (doer.role.name === "spy" && doer.status === "alive") {
+
         if (!doer.blocked) {
           this.group_session.players[i].message += spyMafiaVisitInfo;
         }
 
-        if (doer.target.index === -1) {
+        if (doer.target.index === -1) continue;
+
+        let targetIndex = doer.target.index;
+        let target = players[targetIndex];
+
+        let visitor = {
+          index: i,
+          name: doer.name,
+          role: doer.role
+        };
+
+        this.group_session.players[targetIndex].visitors.push(visitor);
+
+        // infection
+        let isDoerInfected = players[i].infected;
+        let isTargetInfected = players[targetIndex].infected;
+
+        if (isDoerInfected && !isTargetInfected) {
+          this.group_session.players[targetIndex].infected = true;
+          plaguebearerAnnouncement += `☣️ ${target.name} telah terinfeksi!\n`;
+        } else if (isTargetInfected && !isDoerInfected) {
+          this.group_session.players[i].infected = true;
+          plaguebearerAnnouncement += `☣️ ${doer.name} telah terinfeksi!\n`;
+        }
+
+        this.group_session.players[i].message +=
+          "👣 Kamu ke rumah " + target.name + "\n\n";
+
+        if (spyBuggedInfo[targetIndex]) {
           this.group_session.players[i].message +=
-            "💡 Kamu tidak menggunakan skill mu" + "\n\n";
-
-          continue;
+            spyBuggedInfo[targetIndex];
         } else {
-          if (doer.blocked === true) {
-            this.group_session.players[i].message +=
-              "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." +
-              "\n\n";
-
-            continue;
-          } else {
-            let targetIndex = doer.target.index;
-            let target = players[targetIndex];
-
-            let visitor = {
-              name: doer.name,
-              role: doer.role
-            };
-
-            this.group_session.players[targetIndex].visitors.push(visitor);
-
-            this.group_session.players[i].message +=
-              "👣 Kamu ke rumah " + target.name + "\n\n";
-
-            if (spyBuggedInfo[targetIndex]) {
-              this.group_session.players[i].message +=
-                spyBuggedInfo[targetIndex];
-            } else {
-              this.group_session.players[i].message +=
-                "🔍 " + target.name + " tidak terkena apa apa" + "\n\n";
-            }
-          }
+          this.group_session.players[i].message +=
+            "🔍 " + target.name + " tidak terkena apa apa" + "\n\n";
         }
       }
     }
@@ -3739,34 +4022,37 @@ module.exports = {
     for (let i = 0; i < players.length; i++) {
       let doer = players[i];
 
+      if (doer.blocked) continue;
+
       if (doer.role.name === "tracker" && doer.status === "alive") {
-        if (doer.target.index === -1) {
-          this.group_session.players[i].message +=
-            "💡 Kamu tidak menggunakan skill mu" + "\n\n";
 
-          continue;
-        } else {
-          if (doer.blocked === true) {
-            this.group_session.players[i].message +=
-              "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." +
-              "\n\n";
+        if (doer.target.index === -1) continue;
 
-            continue;
-          } else {
-            let targetIndex = doer.target.index;
-            let target = players[targetIndex];
+        let targetIndex = doer.target.index;
+        let target = players[targetIndex];
 
-            let visitor = {
-              name: doer.name,
-              role: doer.role
-            };
+        let visitor = {
+          index: i,
+          name: doer.name,
+          role: doer.role
+        };
 
-            this.group_session.players[targetIndex].visitors.push(visitor);
+        this.group_session.players[targetIndex].visitors.push(visitor);
 
-            this.group_session.players[i].message +=
-              "👣 Kamu ke rumah " + target.name + "\n\n";
-          }
+        // infection
+        let isDoerInfected = players[i].infected;
+        let isTargetInfected = players[targetIndex].infected;
+
+        if (isDoerInfected && !isTargetInfected) {
+          this.group_session.players[targetIndex].infected = true;
+          plaguebearerAnnouncement += `☣️ ${target.name} telah terinfeksi!\n`;
+        } else if (isTargetInfected && !isDoerInfected) {
+          this.group_session.players[i].infected = true;
+          plaguebearerAnnouncement += `☣️ ${doer.name} telah terinfeksi!\n`;
         }
+
+        this.group_session.players[i].message +=
+          "👣 Kamu ke rumah " + target.name + "\n\n";
       }
     }
 
@@ -3774,63 +4060,66 @@ module.exports = {
     for (let i = 0; i < players.length; i++) {
       let doer = players[i];
 
+      if (doer.blocked) continue;
+
       if (doer.role.name === "lookout" && doer.status === "alive") {
-        if (doer.target.index === -1) {
-          this.group_session.players[i].message +=
-            "💡 Kamu tidak menggunakan skill mu" + "\n\n";
 
-          continue;
-        } else {
-          if (doer.blocked === true) {
-            this.group_session.players[i].message +=
-              "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." +
-              "\n\n";
+        if (doer.target.index === -1) continue;
 
-            continue;
-          } else {
-            let targetIndex = doer.target.index;
-            let target = players[targetIndex];
-            let targetName = target.name;
+        let targetIndex = doer.target.index;
+        let target = players[targetIndex];
+        let targetName = target.name;
 
-            this.group_session.players[i].message +=
-              "👣 Kamu ke rumah " + target.name + "\n\n";
+        this.group_session.players[i].message +=
+          "👣 Kamu ke rumah " + target.name + "\n\n";
 
-            let visitor = {
-              name: doer.name,
-              role: doer.role
-            };
-            this.group_session.players[targetIndex].visitors.push(visitor);
+        let visitor = {
+          index: i,
+          name: doer.name,
+          role: doer.role
+        };
+        this.group_session.players[targetIndex].visitors.push(visitor);
 
-            if (target.visitors.length > 1) {
-              let targetVisitors = "";
-              let visitors = target.visitors.map(v => {
-                return v.name;
-              });
+        // infection
+        let isDoerInfected = players[i].infected;
+        let isTargetInfected = players[targetIndex].infected;
 
-              for (let i = 0; i < visitors.length; i++) {
-                if (visitors[i] === doer.name) {
-                  visitors.splice(i, 1);
-                }
-              }
+        if (isDoerInfected && !isTargetInfected) {
+          this.group_session.players[targetIndex].infected = true;
+          plaguebearerAnnouncement += `☣️ ${target.name} telah terinfeksi!\n`;
+        } else if (isTargetInfected && !isDoerInfected) {
+          this.group_session.players[i].infected = true;
+          plaguebearerAnnouncement += `☣️ ${doer.name} telah terinfeksi!\n`;
+        }
 
-              targetVisitors = visitors.join(", ");
+        if (target.visitors.length > 1) {
+          let targetVisitors = "";
+          let visitors = target.visitors.map(v => {
+            return v.name;
+          });
 
-              this.group_session.players[i].message +=
-                "👀 Rumah " +
-                players[targetIndex].name +
-                " dikunjungi " +
-                targetVisitors +
-                " semalam" +
-                "\n\n";
-            } else {
-              // pasti ada 1 visitor, yaitu lookout sndiri
-              this.group_session.players[i].message +=
-                "👀 Rumah " +
-                players[targetIndex].name +
-                " tidak didatangi siapa siapa" +
-                "\n\n";
+          for (let i = 0; i < visitors.length; i++) {
+            if (visitors[i] === doer.name) {
+              visitors.splice(i, 1);
             }
           }
+
+          targetVisitors = visitors.join(", ");
+
+          this.group_session.players[i].message +=
+            "👀 Rumah " +
+            players[targetIndex].name +
+            " dikunjungi " +
+            targetVisitors +
+            " semalam" +
+            "\n\n";
+        } else {
+          // pasti ada 1 visitor, yaitu lookout sndiri
+          this.group_session.players[i].message +=
+            "👀 Rumah " +
+            players[targetIndex].name +
+            " tidak didatangi siapa siapa" +
+            "\n\n";
         }
       }
     }
@@ -3839,32 +4128,29 @@ module.exports = {
     for (let i = 0; i < players.length; i++) {
       let doer = players[i];
 
+      if (doer.blocked) continue;
+
       if (doer.role.name === "tracker" && doer.status === "alive") {
-        if (doer.target.index === -1) {
-          continue;
+
+        if (doer.target.index === -1) continue;
+
+        let targetIndex = doer.target.index;
+        let target = players[targetIndex];
+
+        let result = "";
+        if (
+          target.intercepted ||
+          target.blocked ||
+          target.target.index === -1 ||
+          target.target.index === targetIndex
+        ) {
+          result += "👣 Targetmu diam dirumah saja" + "\n\n";
         } else {
-          if (doer.blocked === true) {
-            continue;
-          } else {
-            let targetIndex = doer.target.index;
-            let target = players[targetIndex];
-
-            let result = "";
-            if (
-              target.intercepted ||
-              target.blocked ||
-              target.target.index === -1 ||
-              target.target.index === targetIndex
-            ) {
-              result += "👣 Targetmu diam dirumah saja" + "\n\n";
-            } else {
-              let targetTargetName = players[target.target.index].name;
-              result += "👣 Target mu ke rumah " + targetTargetName + "\n\n";
-            }
-
-            this.group_session.players[i].message += result;
-          }
+          let targetTargetName = players[target.target.index].name;
+          result += "👣 Target mu ke rumah " + targetTargetName + "\n\n";
         }
+
+        this.group_session.players[i].message += result;
       }
     }
 
@@ -3872,67 +4158,87 @@ module.exports = {
     for (let i = 0; i < players.length; i++) {
       let doer = players[i];
 
+      if (doer.blocked) continue;
+
       if (doer.role.name === "amnesiac" && doer.status === "alive") {
-        if (doer.target.index === -1) {
-          this.group_session.players[i].message +=
-            "💡 Kamu tidak menggunakan skill mu" + "\n\n";
 
-          continue;
-        } else {
-          if (doer.blocked === true) {
-            this.group_session.players[i].message +=
-              "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." +
-              "\n\n";
+        if (doer.target.index === -1) continue;
 
-            continue;
+        let targetIndex = doer.target.index;
+        let target = players[targetIndex];
+        let targetRoleName = target.role.name;
+
+        if (target.role.isDisguiseAs) {
+          targetRoleName = "disguiser";
+        }
+
+        if (targetRoleName === "executioner") {
+          let neededTargetIndex = this.getExecutionerTargetIndex(i, true);
+          if (neededTargetIndex === -1) {
+            targetRoleName = "jester";
           } else {
-            let targetIndex = doer.target.index;
-            let target = players[targetIndex];
-            let targetRoleName = target.role.name;
+            this.group_session.players[
+              i
+            ].role.targetLynchIndex = neededTargetIndex;
+            this.group_session.players[i].role.isTargetLynched = false;
+          }
+        } else if (targetRoleName === "guardian-angel") {
+          let neededTargetIndex = this.getGuardianAngelTargetIndex(i, true);
 
-            if (target.role.isDisguiseAs) {
-              targetRoleName = "disguiser";
-            }
-
-            if (targetRoleName === "executioner") {
-              let neededTargetIndex = this.getExecutionerTargetIndex(i, true);
-              if (neededTargetIndex === -1) {
-                targetRoleName = "jester";
-              } else {
-                this.group_session.players[
-                  i
-                ].role.targetLynchIndex = neededTargetIndex;
-                this.group_session.players[i].role.isTargetLynched = false;
-              }
-            } else if (targetRoleName === "guardian-angel") {
-              let neededTargetIndex = this.getGuardianAngelTargetIndex(i, true);
-
-              if (neededTargetIndex === -1) {
-                targetRoleName = "survivor";
-                this.group_session.players[i].role.vest = 0;
-              } else {
-                this.group_session.players[
-                  i
-                ].role.mustProtectIndex = neededTargetIndex;
-              }
-            }
-            
-            let roleData = this.getRoleData(targetRoleName);
-            this.group_session.players[i].role = roleData;
-
-            this.group_session.players[i].message +=
-              "🤕 Kamu ingat bahwa kamu adalah seorang " +
-              targetRoleName +
-              "!" +
-              "\n\n";
-
-            allAnnouncement +=
-              "🤕 Amnesiac mengingat bahwa dia adalah " +
-              targetRoleName +
-              "!" +
-              "\n\n";
+          if (neededTargetIndex === -1) {
+            targetRoleName = "survivor";
+            this.group_session.players[i].role.vest = 0;
+          } else {
+            this.group_session.players[
+              i
+            ].role.mustProtectIndex = neededTargetIndex;
           }
         }
+
+        let roleData = this.getRoleData(targetRoleName);
+        this.group_session.players[i].role = roleData;
+
+        this.group_session.players[i].message +=
+          "🤕 Kamu ingat bahwa kamu adalah seorang " +
+          targetRoleName +
+          "!" +
+          "\n\n";
+
+        allAnnouncement +=
+          "🤕 Amnesiac mengingat bahwa dia adalah " +
+          targetRoleName +
+          "!" +
+          "\n\n";
+      }
+    }
+
+    /// Plaguebearer action infect data
+    for (let i = 0; i < players.length; i++) {
+      let doer = players[i];
+
+      if (doer.role.name === "plaguebearer" && doer.status === "alive") {
+        this.group_session.players[i].message += plaguebearerAnnouncement + "\n\n";
+
+        let alivePlayersCount = 0;
+        let infectedCount = 0;
+        for (let j = 0; j < players.length; j++) {
+          if (players[j].status === "alive" && i != j) {
+            if (players[j].infected) infectedCount++;
+            alivePlayersCount++;
+          }
+        }
+
+        if (infectedCount === alivePlayersCount) {
+          this.group_session.players[i].message +=
+            "☣️ Kamu telah menginfeksi seluruh orang! " +
+            "Kamu akan menjadi Pestilence!";
+
+          this.group_session.players[i].role.isPestilence = true;
+          this.group_session.players[i].role.canKill = true;
+
+          allAnnouncement += "☣️ Penyakit sampar telah menyerang kota ini!" + "\n\n";
+        }
+
       }
     }
 
@@ -4058,7 +4364,7 @@ module.exports = {
     }
   },
 
-  votingCommand: function() {
+  votingCommand: function () {
     let index = this.indexOfPlayer();
     let players = this.group_session.players;
 
@@ -4131,7 +4437,7 @@ module.exports = {
     return this.replyFlex(flex_texts);
   },
 
-  voteCommand: function() {
+  voteCommand: function () {
     if (this.group_session.state !== "vote") {
       return Promise.resolve(null);
     }
@@ -4223,7 +4529,7 @@ module.exports = {
     }
   },
 
-  lynch: function(flex_texts) {
+  lynch: function (flex_texts) {
     let players = this.group_session.players;
     let lynchTarget = {};
     let candidates = this.getVoteCandidates();
@@ -4256,7 +4562,7 @@ module.exports = {
     // executioner
     for (let i = 0; i < players.length; i++) {
       if (players[i].role.name === "executioner") {
-        if (players[i].role.targetLynchIndex === lynchTarget.index) {
+        if (players[i].role.targetLynchIndex == lynchTarget.index) {
           this.group_session.players[i].role.isTargetLynched = true;
         }
       }
@@ -4265,7 +4571,7 @@ module.exports = {
     // guardian angel
     for (let i = 0; i < players.length; i++) {
       if (players[i].role.name === "guardian-angel") {
-        if (players[i].role.mustProtectIndex === lynchTarget.index) {
+        if (players[i].role.mustProtectIndex == lynchTarget.index) {
           let roleData = this.getRoleData("survivor");
           this.group_session.players[i].role = roleData;
           this.group_session.players[i].role.vest = 0;
@@ -4289,7 +4595,7 @@ module.exports = {
     return this.replyFlex(flex_texts);
   },
 
-  postLynch: function() {
+  postLynch: function () {
     let players = this.group_session.players;
     let lynched = this.group_session.lynched;
 
@@ -4307,7 +4613,7 @@ module.exports = {
     }
   },
 
-  endGame: function(flex_texts, whoWin) {
+  endGame: function (flex_texts, whoWin) {
     // console.log("whoWin: " + whoWin);
     /// for draw situation
     // check for remaining neutral role
@@ -4394,7 +4700,11 @@ module.exports = {
         } else if (roleName === "amnesiac") {
           this.handleAmnesiacWin(i, table_body[i].contents[2], surviveTeam);
         } else if (roleName === "executioner") {
-          this.handleExecutionerWin(i, table_body[i].contents[2], surviveTeam);
+          this.handleExecutionerWin(
+            i,
+            table_body[i].contents[2],
+            surviveTeam
+          );
         } else if (roleName === "guardian-angel") {
           this.handleGuardianAngelWin(
             i,
@@ -4408,7 +4718,6 @@ module.exports = {
         }
       }
 
-      // let teamEmoji = helper.getRoleTeamEmoji(roleTeam);
       table_body[i].contents[3].text += roleName;
 
       num++;
@@ -4440,7 +4749,7 @@ module.exports = {
     }
   },
 
-  commandCommand: function() {
+  commandCommand: function () {
     let text = "";
     let cmds = [
       "/new : main game",
@@ -4475,7 +4784,7 @@ module.exports = {
     return this.replyFlex(flex_text);
   },
 
-  invalidCommand: function() {
+  invalidCommand: function () {
     const invalid = require("/app/message/invalid");
     let text = invalid.getResponse(this.args, this.user_session.name);
     return this.replyText(text);
@@ -4483,7 +4792,7 @@ module.exports = {
 
   /** helper func **/
 
-  substituteMafia: function(checkTarget) {
+  substituteMafia: function (checkTarget) {
     let players = this.group_session.players;
     // check mafia killing yang mati
     if (checkTarget.role.type === "Mafia Killing") {
@@ -4512,7 +4821,7 @@ module.exports = {
     }
   },
 
-  handleJesterWin: function(index, tableColumn, surviveTeam) {
+  handleJesterWin: function (index, tableColumn, surviveTeam) {
     if (this.group_session.players[index].role.isLynched) {
       tableColumn.text = "win";
       surviveTeam.push("jester 🃏");
@@ -4521,7 +4830,7 @@ module.exports = {
     }
   },
 
-  handleSurvivorWin: function(index, tableColumn, surviveTeam) {
+  handleSurvivorWin: function (index, tableColumn, surviveTeam) {
     if (this.group_session.players[index].status === "alive") {
       tableColumn.text = "win";
       surviveTeam.push("survivor 🏳️");
@@ -4530,7 +4839,7 @@ module.exports = {
     }
   },
 
-  handleAmnesiacWin: function(index, tableColumn, surviveTeam) {
+  handleAmnesiacWin: function (index, tableColumn, surviveTeam) {
     if (this.group_session.players[index].status === "alive") {
       tableColumn.text = "win";
       surviveTeam.push("amnesiac 🤕");
@@ -4539,7 +4848,7 @@ module.exports = {
     }
   },
 
-  handleExecutionerWin: function(index, tableColumn, surviveTeam) {
+  handleExecutionerWin: function (index, tableColumn, surviveTeam) {
     if (this.group_session.players[index].role.isTargetLynched) {
       tableColumn.text = "win";
       surviveTeam.push("executioner 🪓");
@@ -4548,12 +4857,12 @@ module.exports = {
     }
   },
 
-  handleGuardianAngelWin: function(index, tableColumn, surviveTeam) {
+  handleGuardianAngelWin: function (index, tableColumn, surviveTeam) {
     tableColumn.text = "win";
     surviveTeam.push("guardian angel 😇");
   },
 
-  getExecutionerTargetIndex: function(exeIndex, isAmnesiac) {
+  getExecutionerTargetIndex: function (exeIndex, isAmnesiac) {
     let players = this.group_session.players;
     let maxIndex = players.length - 1;
 
@@ -4586,7 +4895,7 @@ module.exports = {
     }
   },
 
-  getGuardianAngelTargetIndex: function(guardianAngelIndex, isAmnesiac) {
+  getGuardianAngelTargetIndex: function (guardianAngelIndex, isAmnesiac) {
     let players = this.group_session.players;
     let maxIndex = players.length - 1;
 
@@ -4626,7 +4935,7 @@ module.exports = {
     }
   },
 
-  getJesterTargetIndex: function(jesterId) {
+  getJesterTargetIndex: function (jesterId) {
     let players = this.group_session.players;
     let maxIndex = players.length - 1;
 
@@ -4639,7 +4948,7 @@ module.exports = {
     }
   },
 
-  resetCheckChance: function() {
+  resetCheckChance: function () {
     this.group_session.checkChance = 2;
     if (this.group_session.players.length > 7) {
       this.group_session.checkChance += 2;
@@ -4647,7 +4956,7 @@ module.exports = {
     this.group_session.deadlineCheckChance = 1;
   },
 
-  getVoteCandidates: function() {
+  getVoteCandidates: function () {
     let candidates = [];
     this.group_session.players.forEach(item => {
       if (item.status === "alive" && item.targetVoteIndex !== -1) {
@@ -4661,7 +4970,7 @@ module.exports = {
     return candidates;
   },
 
-  getRoleList: function() {
+  getRoleList: function () {
     let roles = this.group_session.players.map(player => {
       return player.role.type;
     });
@@ -4688,7 +4997,7 @@ module.exports = {
     return list;
   },
 
-  createNewPlayer: function(user_session) {
+  createNewPlayer: function (user_session) {
     // di sini set prop yang ga bisa di reset tiap malam, dan bisa persistent sepanjang game
     let newPlayer = {
       id: user_session.id,
@@ -4704,16 +5013,17 @@ module.exports = {
       deathNote: "",
       willSuicide: false,
       doused: false,
-      burned: false
+      burned: false,
+      infected: false
     };
     return newPlayer;
   },
 
-  addPlayer: function(player) {
+  addPlayer: function (player) {
     this.group_session.players.push(player);
   },
 
-  getGroupId: function() {
+  getGroupId: function () {
     let groupId = "";
     if (this.event.source.type === "group") {
       groupId = this.event.source.groupId;
@@ -4723,7 +5033,7 @@ module.exports = {
     return groupId;
   },
 
-  checkVote: function(voteNeeded) {
+  checkVote: function (voteNeeded) {
     let response = {
       status: "no_candidate",
       lynchTarget: {}
@@ -4746,7 +5056,7 @@ module.exports = {
     return response;
   },
 
-  getTimeDefault: function(playersLength) {
+  getTimeDefault: function (playersLength) {
     let time = 0;
 
     if (playersLength === 3) {
@@ -4766,7 +5076,7 @@ module.exports = {
     return time;
   },
 
-  getNewStateFlex: function() {
+  getNewStateFlex: function () {
     let infoText = "🕹️ Mode : " + this.group_session.mode;
     let flex_text = {
       header: {
@@ -4788,7 +5098,7 @@ module.exports = {
     return flex_text;
   },
 
-  getNightStateFlex: function(text) {
+  getNightStateFlex: function (text) {
     //set flex
     let flex_text = {
       header: {
@@ -4817,7 +5127,7 @@ module.exports = {
     return flex_text;
   },
 
-  getDayStateFlex: function() {
+  getDayStateFlex: function () {
     let time = this.group_session.time;
     let timerText =
       "💬 Sisa waktu untuk warga diskusi sisa " + time + " detik lagi" + "\n";
@@ -4848,7 +5158,7 @@ module.exports = {
     return flex_text;
   },
 
-  checkVictory: function() {
+  checkVictory: function () {
     let someoneWin = "";
     let players = this.group_session.players;
     let alivePeople = 0;
@@ -4960,7 +5270,7 @@ module.exports = {
     return someoneWin;
   },
 
-  checkMorphingRole: function(fromMorphRole, triggerRole, toMorphRole) {
+  checkMorphingRole: function (fromMorphRole, triggerRole, toMorphRole) {
     /*
       fromMorphRole, role yang mau di cek, ini yang mau di ubah
       triggerRole, role yang jika tak ada, maka fromMoprhRole menjadi toMorphRole
@@ -4992,7 +5302,7 @@ module.exports = {
     }
   },
 
-  getNamesByTeam: function(teamName) {
+  getNamesByTeam: function (teamName) {
     let names = [];
     this.group_session.players.forEach((item, index) => {
       if (item.role.team === teamName) {
@@ -5002,7 +5312,7 @@ module.exports = {
     return names.join(", ");
   },
 
-  getRoleData: function(roleName) {
+  getRoleData: function (roleName) {
     for (let i = 0; i < rolesData.length; i++) {
       if (roleName === rolesData[i].name) {
         let roleData = JSON.parse(JSON.stringify(rolesData[i]));
@@ -5011,7 +5321,7 @@ module.exports = {
     }
   },
 
-  getTableFlex: function(alivePlayers, text, headerText, opt_buttons) {
+  getTableFlex: function (alivePlayers, text, headerText, opt_buttons) {
     let players = this.group_session.players;
     let flex_text = {
       header: {
@@ -5093,7 +5403,7 @@ module.exports = {
     return flex_text;
   },
 
-  getNotVotePlayers: function() {
+  getNotVotePlayers: function () {
     let notVote = [];
     this.group_session.players.forEach(item => {
       if (item.status === "alive" && item.targetVoteIndex === -1) {
@@ -5103,7 +5413,7 @@ module.exports = {
     return notVote;
   },
 
-  getAlivePlayers: function() {
+  getAlivePlayers: function () {
     let alivePlayers = [];
     this.group_session.players.forEach(item => {
       if (item.status === "alive") {
@@ -5113,7 +5423,7 @@ module.exports = {
     return alivePlayers;
   },
 
-  getAlivePlayersCount: function() {
+  getAlivePlayersCount: function () {
     let count = 0;
     this.group_session.players.forEach(item => {
       if (item.status === "alive") {
@@ -5123,7 +5433,7 @@ module.exports = {
     return count;
   },
 
-  checkExistsRole: function(roleName) {
+  checkExistsRole: function (roleName) {
     let players = this.group_session.players;
     let found = false;
     for (let i = 0; i < players.length; i++) {
@@ -5135,7 +5445,7 @@ module.exports = {
     return found;
   },
 
-  getPlayerIdByRole: function(roleName) {
+  getPlayerIdByRole: function (roleName) {
     for (let i = 0; i < this.group_session.players.length; i++) {
       if (this.group_session.players[i].role.name === roleName) {
         return this.group_session.players[i].id;
@@ -5143,7 +5453,7 @@ module.exports = {
     }
   },
 
-  getPlayerIndexById: function(id) {
+  getPlayerIndexById: function (id) {
     let targetIndex = -1;
     for (let i = 0; i < this.group_session.players.length; i++) {
       if (id === this.group_session.players[i].id) {
@@ -5154,7 +5464,7 @@ module.exports = {
     return targetIndex;
   },
 
-  getPlayerIndexByRole: function(roleName) {
+  getPlayerIndexByRole: function (roleName) {
     let targetIndex = -1;
     let players = this.group_session.players;
     for (let i = 0; i < players.length; i++) {
@@ -5166,7 +5476,7 @@ module.exports = {
     return targetIndex;
   },
 
-  indexOfPlayer: function() {
+  indexOfPlayer: function () {
     let found = -1;
     for (let i = 0; i < this.group_session.players.length; i++) {
       if (this.group_session.players[i].id === this.user_session.id) {
@@ -5177,7 +5487,7 @@ module.exports = {
     return found;
   },
 
-  runTimer: function() {
+  runTimer: function () {
     /// set time default
     this.group_session.time = this.group_session.time_default;
     //this.group_session.time = 20;
@@ -5187,7 +5497,7 @@ module.exports = {
 
   /** message func **/
 
-  replyFlex: function(flex_raws, text_raws, newFlex_raws) {
+  replyFlex: function (flex_raws, text_raws, newFlex_raws) {
     flex_raws = Array.isArray(flex_raws) ? flex_raws : [flex_raws];
     let flex_texts = flex_raws.map(flex_raw => ({
       header: flex_raw.header,
@@ -5262,7 +5572,7 @@ module.exports = {
       sender.name = role.name;
       sender.iconUrl = role.iconUrl;
     }
-    
+
     return flex.receive(
       this.client,
       this.event,
@@ -5274,7 +5584,7 @@ module.exports = {
     );
   },
 
-  replyText: function(texts = []) {
+  replyText: function (texts = []) {
     let state = this.group_session.state;
     texts = Array.isArray(texts) ? texts : [texts];
 
@@ -5320,12 +5630,12 @@ module.exports = {
 
   /** save data func **/
 
-  resetUser: function() {
+  resetUser: function () {
     const data = require("/app/src/data");
     data.resetUser(this.user_session.id);
   },
 
-  resetAllPlayers: function() {
+  resetAllPlayers: function () {
     const data = require("/app/src/data");
     data.resetAllPlayers(
       this.group_session.players,

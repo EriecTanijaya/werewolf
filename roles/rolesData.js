@@ -503,6 +503,23 @@ const roles = [
     iconUrl:
       "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/smiling-face-with-halo_1f607.png"
   },
+  {
+    name: "plaguebearer",
+    description:
+      "Kamu adalah dokter korup yang ingin semua orang terinfeksi",
+    skillText: "Plaguebearer, pilih siapa yang mau kamu infeksi",
+    cmdText: "/skill",
+    team: "plaguebearer",
+    canKill: false,
+    emoji: {
+      team: "☣️",
+      self: "☣️"
+    },
+    isPestilence: false,
+    type: "Neutral Killing",
+    iconUrl:
+      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/biohazard_2623.png"
+  },
 ];
 
 module.exports = roles;

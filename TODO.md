@@ -1,18 +1,24 @@
 TODO
 
-- test terus changes yang ada sebelumnya
-  - role baru,
-  - double executioner dan double amne
-  - kalau semua udah aman, refactor role set
+Update note starts from 03/06/2020
+- fix jester can't use skill bug
+- set proper value for afkCounter
+- add new setting command : /set show_role
+- misc optimization
+- retributionist only can revive town member now
+- fix some derp, add multicast to tell game is started
+- fix bug executioner bug and guardian angel bug pas targetnya mati di hukum
+- add role plaguebearer
 
-- Role set baru
-  - friday 13
-  - amnesiac chaos
+NOTEE
+- share secreto ntr pas update
+
+- refactor role set
+  - [official mode](https://town-of-salem.fandom.com/wiki/Game_Modes#:~:text=In%20the%20base%20content%20of,Dracula's%20Palace%20and%20Town%20Traitor.)
+  - [unofficial mode](https://town-of-salem.fandom.com/wiki/Custom_Setups_(Classic))
+  - keknya pas pemain 5 org gitu, sheriff, lalu musuh mafioso aja deh, investigator dan gf itu pas pemain udah rame
+  - cara itung balance or not, itungnya kalo bisa mendekati 0 [role value](https://town-of-salem.fandom.com/wiki/Town_of_Salem_Card_Game#How_to_Play)
   
-- Note push commit
-  - initial psychic role (31/05/2020)
-  - inital amnesiac role (31/05/2020)
-  - initial guardian angel role (31/05/2020)
 
 - role set trick or treat (ada di tos punya fandom wiki) buat halloween ntr
 
@@ -53,6 +59,7 @@ function getMemoryUsage() {
 - sekarang udah bisa custom, jadi di getRandomRoleSet bnyak tugas nih
 
 - ROLE YG JANGAN DUPLICATE
+  - plaguebearer
   - VETERAN
   - vampire hunter hanya ada saat ada vampire
   - sheriff ada kalau ada list yg bisa di suspiciouskan

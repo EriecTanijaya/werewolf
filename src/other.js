@@ -44,13 +44,15 @@ module.exports = {
   },
 
   joinResponse: function(groupId) {
+    let text = "Thanks udah undang bot ini 😃, ketik '/help' atau '/cmd' untuk bantuan, ";
+    text += "dan ketik '/tutorial' untuk cara menggunakan bot!";
     let flex_text = {
       header: {
         text: "👋 Hai semuaa"
       },
       body: {
         text:
-          "Thanks udah undang bot ini 😃, ketik '/help' atau '/cmd' untuk bantuan"
+          text
       }
     };
     return this.replyFlex(flex_text);
