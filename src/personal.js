@@ -464,10 +464,28 @@ module.exports = {
   roleSkill: function (flex_text, index, text) {
     let players = this.group_session.players;
     let role = players[index].role;
+    
     let skillText = this.getRoleSkillText(role.name);
 
     let cmdText = this.getRoleCmdText(role.name);
     let canSelfTarget = this.canSelfTarget(role.name);
+
+    /// special role yang bisa berubah selfTarget
+
+    // Juggernaut yang skillLevel udah 3 keatas
+    if (role.name === "juggernaut") {
+      if (players[index].role.skillLevel >= 3) {
+        canSelfTarget = true;
+      }
+    }
+
+    // special role plaguebearer yang udah pestilence
+    if (role.name === "plaguebearer") {
+      if (players[index].role.isPestilence) {
+        skillText = "Plagubearer, pilih rumah siapa yang ingin kamu serang dengan penyakit sampar!";
+        canSelfTarget = true;
+      }
+    }
 
     flex_text.body.text += "\n\n" + skillText;
 

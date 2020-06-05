@@ -1811,7 +1811,7 @@ module.exports = {
             " dan RAMPAGE di rumahnya" +
             "\n\n";
 
-        } else if (targetIndex === -1) {
+        } else if (targetIndex == i || targetIndex === -1) {
           rampagePlaceIndex = i;
           this.group_session.players[i].message +=
             "👣 Kamu diam di rumah dan akan menyerang siapa yang datang" +
@@ -1849,7 +1849,7 @@ module.exports = {
 
           if (players[targetIndex].bugged) {
             spyBuggedInfo[targetIndex] +=
-              "🔍 Target kamu mati terinfeksi!" + "\n\n";
+              "🔍 Target kamu merasakan kesakitan karena terinfeksi!" + "\n\n";
           }
 
           this.group_session.players[targetIndex].message +=
@@ -4229,6 +4229,7 @@ module.exports = {
             "Kamu akan menjadi Pestilence!";
 
           this.group_session.players[i].role.isPestilence = true;
+          this.group_session.players[i].role.canKill = true;
 
           allAnnouncement += "☣️ Penyakit sampar telah menyerang kota ini!" + "\n\n";
         }
