@@ -408,7 +408,7 @@ module.exports = {
           flex_text.header.text = "☣️ Plaguebearer";
           flex_text.body.text += "Type: Neutral Killing" + "\n\n";
           flex_text.body.text +=
-            "Dokter korup yang kesal dengan Mayor, dan memutuskan menginfeksi semua orang dan ";
+            "Dokter korup yang kesal dengan Mayor, yang memutuskan untuk menginfeksi semua orang dan ";
           flex_text.body.text +=
             "membunuh mereka dengan penyakit sampar. ";
           flex_text.body.text +=

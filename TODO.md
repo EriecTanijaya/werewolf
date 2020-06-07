@@ -18,7 +18,149 @@ NOTEE
   - [unofficial mode](https://town-of-salem.fandom.com/wiki/Custom_Setups_(Classic))
   - keknya pas pemain 5 org gitu, sheriff, lalu musuh mafioso aja deh, investigator dan gf itu pas pemain udah rame
   - cara itung balance or not, itungnya kalo bisa mendekati 0 [role value](https://town-of-salem.fandom.com/wiki/Town_of_Salem_Card_Game#How_to_Play)
-  
+
+```
+let roles = [
+  {
+    name: "bodyguard",
+    value: 4
+  },
+  {
+    name: "doctor",
+    value: 4
+  },
+  {
+    name: "investigator",
+    value: 8
+  },
+  {
+    name: "mayor",
+    value: 8
+  },
+  {
+    name: "sheriff",
+    value: 7
+  },
+  {
+    name: "survivor",
+    value: 4
+  },
+  {
+    name: "veteran",
+    value: 3
+  },
+  {
+    name: "vigilante",
+    value: 5
+  },
+  {
+    name: "consigliere",
+    value: -10
+  },
+  {
+    name: "godfather",
+    value: -8
+  },
+  {
+    name: "mafioso",
+    value: -6
+  },
+  {
+    name: "amnesiac",
+    value: 0
+  },
+  {
+    name: "executioner",
+    value: -4
+  },
+  {
+    name: "jester",
+    value: -1
+  },
+  {
+    name: "serial-killer",
+    value: -8
+  },
+  {
+    name: "werewolf",
+    value: -9
+  },
+  {
+    name: "consort",
+    value: -8
+  },
+  {
+    name: "vampire",
+    value: -7
+  },
+  {
+    name: "vampire-hunter",
+    value: 7
+  },
+  {
+    name: "lookout",
+    value: 7
+  },
+  {
+    name: "escort",
+    value: 5
+  },
+  {
+    name: "retributionist",
+    value: 8
+  },
+  {
+    name: "arsonist",
+    value: -7
+  },
+  {
+    name: "spy",
+    value: 6
+  },
+  {
+    name: "tracker",
+    value: 7
+  },
+  {
+    name: "framer",
+    value: -6
+  },
+  {
+    name: "disguiser",
+    value: -7
+  },
+  {
+    name: "juggernaut",
+    value: -8
+  },
+  {
+    name: "pyschic",
+    value: 9
+  },
+  {
+    name: "guardian-angel",
+    value: 0
+  },
+  {
+    name: "plaguebearer",
+    value: -8
+  }
+]
+
+let measure = 0;
+let arr = ["sheriff", "mafioso", "escort", "doctor", "executioner"];
+
+for (let i = 0; i < roles.length; i++) {
+  for (let u = 0; u < arr.length; u++) {
+    if (arr[u] === roles[i].name) {
+      console.log(roles[i]);
+      measure += roles[i].value;
+    }
+  }
+}
+
+console.log(measure);
+```
 
 - role set trick or treat (ada di tos punya fandom wiki) buat halloween ntr
 
@@ -26,8 +168,6 @@ NOTEE
 - role that will added if possible :
   - trapper masih belum tau gimana mechanismnya
   - ambusher, passive visit(anjir skip) ini buat visitor di attack, susah cok
-
-- jangan lupa rm rf data di .data/users, gak di pake lagi
 
 ```
 check stat
