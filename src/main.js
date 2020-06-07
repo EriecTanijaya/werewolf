@@ -767,7 +767,7 @@ module.exports = {
 
     /// test specific role cp
     if (process.env.TEST === "true") {
-      roles = ["plaguebearer", "lookout", "sheriff", "escort", "juggernaut"];
+      roles = ["mafioso", "godfather", "vampire", "vampire", "escort", "vigilante"];
     }
 
     this.group_session.players.forEach((item, index) => {
@@ -1654,8 +1654,12 @@ module.exports = {
         let doer = players[i];
         let status = doer.status;
         let targetIndex = doer.target.index;
+        let target = players[targetIndex];
 
         if (status === "alive" && targetIndex !== -1) {
+          
+          vampireAnnouncement += `🧛 ${doer.name} yang akan ke rumah ${target.name}\n\n`;
+          
           if (doer.blocked === true) {
             this.group_session.players[i].message +=
               "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." +
@@ -1663,7 +1667,6 @@ module.exports = {
 
             break;
           } else if (!doer.attacked) {
-            let target = players[targetIndex];
 
             // hax for check if the target was veteran
             if (target.role.name === "veteran" && target.target.index !== -1) {
