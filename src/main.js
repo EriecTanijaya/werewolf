@@ -935,8 +935,8 @@ module.exports = {
         "💡 Jangan lupa ketik '/role' di pc bot untuk menggunakan skill" +
         "\n\n";
 
-      const firstDayNaration = require("/app/message/firstDay");
-      announcement += firstDayNaration + "\n\n";
+      let modeNarration = helper.getModeNarration(this.group_session.mode);
+      announcement += modeNarration + "\n\n";
     } else {
       announcement +=
         "🏘️ 🛏️ Setiap warga kembali kerumah masing-masing" + "\n\n";
@@ -947,8 +947,9 @@ module.exports = {
         "🌕 Bulan terlihat indah malam ini, bulan purnama!" + "\n\n";
     }
 
-    announcement +=
-      "⏳ Waktu yang diberikan " + this.group_session.time_default + " detik";
+    announcement += "⏳ Warga diberi waktu ";
+    announcement += this.group_session.time_default + " detik ";
+    announcement += "untuk menjalankan aksinya";
 
     let newFlex_text = this.getNightStateFlex(announcement);
 
