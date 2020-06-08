@@ -11,7 +11,9 @@ Update note starts from 03/06/2020
 - add role plaguebearer
 
 NOTEE
-- share secreto ntr pas update
+- env.test jadiin false
+- un comment multicast
+- make random role set option
 
 - refactor role set
   - [official mode](https://town-of-salem.fandom.com/wiki/Game_Modes#:~:text=In%20the%20base%20content%20of,Dracula's%20Palace%20and%20Town%20Traitor.)

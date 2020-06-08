@@ -153,7 +153,7 @@ module.exports = {
       "new-threat",
       "clown-town",
       "amnesiac-chaos",
-      "friday-13"
+      "friday-13",
     ];
     return modeList;
   },
