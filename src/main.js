@@ -4454,7 +4454,7 @@ module.exports = {
 
     let time = this.group_session.time;
 
-    let checkVote = this.checkVote();
+    let checkVote = this.checkVote(voteNeeded);
 
     if (checkVote.status !== "enough_vote") {
       let voteFlex = "💡 Ketik '/cek' untuk munculin flex vote. ";
