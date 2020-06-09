@@ -44,7 +44,9 @@ module.exports = {
   },
 
   joinResponse: function(groupId) {
-    if (process.env.MAINTENANCE === "true") {
+    let maintenance = process.env.MAINTENANCE;
+    let isTestGroup = groupId === process.env.TEST_GROUP ? true : false;
+    if (maintenance === "true" && !isTestGroup) {
       let text = "👋 Sorry, botnya sedang maintenance. ";
       text += "💡 Untuk info lebih lanjut bisa cek di http://bit.ly/openchatww";
       return this.client
