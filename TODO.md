@@ -1,8 +1,9 @@
 TODO
 
 NOTEE
-- env.test jadiin false
+- env.test jadiin false, env.maintenance false in juga
 - un comment multicast
+- push ke github, lalu pull update ke heroku juga
 
 - refactor role set
   - [official mode](https://town-of-salem.fandom.com/wiki/Game_Modes#:~:text=In%20the%20base%20content%20of,Dracula's%20Palace%20and%20Town%20Traitor.)
@@ -159,29 +160,6 @@ console.log(measure);
 - role that will added if possible :
   - trapper masih belum tau gimana mechanismnya
   - ambusher, passive visit(anjir skip) ini buat visitor di attack, susah cok
-
-```
-check stat
-
-/sys/fs/cgroup/memory/memory.soft_limit_in_bytes
-/sys/fs/cgroup/memory/memory.stat
-/sys/fs/cgroup/cpu/cpu.cfs_quota_us
-/sys/fs/cgroup/cpu/cpu.cfs_period_us
-/sys/fs/cgroup/cpu/cpuacct.usage
-
-buatkan async function sendiri pake readFile
-
-cth memory (todo ubah ke async)
-let memory = getMemoryUsage();
-
-let string = `Here is my memory: ${memory}/512 MB (${Math.round((memory * 100)/ 512 )}%)`
-
-
-function getMemoryUsage() {
-  let total_rss = require('fs').readFileSync("/sys/fs/cgroup/memory/memory.stat", "utf8").split("\n").filter(l => l.startsWith("total_rss"))[0].split(" ")[1]; 
-  return Math.round( Number(total_rss) / 1e6 ) - 60;
-}
-```
 
 - buat database beneran, data user store di mongodb freakin' hard tho
 - kalau role udah bsa multi gitu,

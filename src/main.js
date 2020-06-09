@@ -28,7 +28,8 @@ module.exports = {
             }
             let reminder = "💡 Waktu tersisa " + time;
             reminder += " detik lagi, nanti ketik '/cek' ";
-            reminder += "saat waktu sudah habis untuk lanjutkan proses";
+            reminder += "saat waktu sudah habis untuk lanjutkan proses. ";
+            reminder += "💡 Gunakan '/extend' untuk perpanjang waktu."
             return this.replyText(reminder);
           } else if (time === 0) {
             if (this.indexOfPlayer() !== -1) {
@@ -79,7 +80,7 @@ module.exports = {
           let playersLength = this.group_session.players.length;
 
           if (playersLength < 5) {
-            if (time <= 40 && time > 0) {
+            if (time <= 50 && time > 0) {
               this.group_session.deadlineCheckChance--;
               let reminder = "💡 Waktu tersisa " + time;
               reminder +=
@@ -316,7 +317,8 @@ module.exports = {
 
     if (this.group_session.time > 90) {
       let minute = Math.round(this.group_session.time / 60);
-      remind += minute + " menit lagi";
+      remind += minute + " menit lagi. ";
+      remind += "💡 Game akan di berhentikan jika waktu telah habis. ";
     } else {
       remind += this.group_session.time + " detik lagi";
     }
