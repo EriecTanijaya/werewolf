@@ -43,6 +43,7 @@ module.exports = {
             if (state === "day" || state === "vote") {
               let roleName = players[index].role.name;
               if (roleName === "mayor" && players[index].status === "alive") {
+                if (players[index].role.revealed) return Promise.resolve(null);
                 let string = this.args.join(" ");
                 string = string.toLowerCase();
                 if (string.includes("mayor")) {
@@ -476,12 +477,12 @@ module.exports = {
 
       if (process.env.TEST === "true") {
         // cp
-        for (let i = 0; i < 7; i++) {
-          let dummy = JSON.parse(JSON.stringify(this.user_session));
-          dummy.name += " " + helper.getRandomInt(1, 99);
-          let newPlayer = this.createNewPlayer(dummy);
-          this.addPlayer(newPlayer);
-        }
+        // for (let i = 0; i < 7; i++) {
+        //   let dummy = JSON.parse(JSON.stringify(this.user_session));
+        //   dummy.name += " " + helper.getRandomInt(1, 99);
+        //   let newPlayer = this.createNewPlayer(dummy);
+        //   this.addPlayer(newPlayer);
+        // }
       }
 
       let text = "💡 " + this.user_session.name + " berhasil bergabung!";
@@ -767,7 +768,7 @@ module.exports = {
 
     /// test specific role cp
     if (process.env.TEST === "true") {
-      roles = ["mafioso", "godfather", "vampire", "vampire", "escort", "vigilante"];
+      roles = ["plaguebearer", "sheriff", "vigilante", "mafioso", "veteran"];
     }
 
     this.group_session.players.forEach((item, index) => {
@@ -815,10 +816,10 @@ module.exports = {
       return p.id;
     });
 
-    /**this.client.multicast(playersUserId, [text_obj])
-      .catch((err) => {
-        console.error("error pada multicast", err);
-      })**/
+    // cp
+    // this.client.multicast(playersUserId, [text_obj]).catch(err => {
+    //   console.error("error pada multicast", err);
+    // });
 
     this.night(null);
   },
@@ -934,8 +935,8 @@ module.exports = {
         "💡 Jangan lupa ketik '/role' di pc bot untuk menggunakan skill" +
         "\n\n";
 
-      const firstDayNaration = require("/app/message/firstDay");
-      announcement += firstDayNaration + "\n\n";
+      let modeNarration = helper.getModeNarration(this.group_session.mode);
+      announcement += modeNarration + "\n\n";
     } else {
       announcement +=
         "🏘️ 🛏️ Setiap warga kembali kerumah masing-masing" + "\n\n";
@@ -946,8 +947,9 @@ module.exports = {
         "🌕 Bulan terlihat indah malam ini, bulan purnama!" + "\n\n";
     }
 
-    announcement +=
-      "⏳ Waktu yang diberikan " + this.group_session.time_default + " detik";
+    announcement += "⏳ Warga diberi waktu ";
+    announcement += this.group_session.time_default + " detik ";
+    announcement += "untuk menjalankan aksinya";
 
     let newFlex_text = this.getNightStateFlex(announcement);
 
@@ -1657,9 +1659,8 @@ module.exports = {
         let target = players[targetIndex];
 
         if (status === "alive" && targetIndex !== -1) {
-          
           vampireAnnouncement += `🧛 ${doer.name} yang akan ke rumah ${target.name}\n\n`;
-          
+
           if (doer.blocked === true) {
             this.group_session.players[i].message +=
               "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." +
@@ -1667,7 +1668,6 @@ module.exports = {
 
             break;
           } else if (!doer.attacked) {
-
             // hax for check if the target was veteran
             if (target.role.name === "veteran" && target.target.index !== -1) {
               break;
@@ -4454,7 +4454,7 @@ module.exports = {
 
     let time = this.group_session.time;
 
-    let checkVote = this.checkVote();
+    let checkVote = this.checkVote(voteNeeded);
 
     if (checkVote.status !== "enough_vote") {
       let voteFlex = "💡 Ketik '/cek' untuk munculin flex vote. ";

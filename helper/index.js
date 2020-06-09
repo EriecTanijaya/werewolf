@@ -110,7 +110,13 @@ module.exports = {
       },
       {
         desc: "Targetmu memiliki rahasia yang terpendam!",
-        items: ["investigator", "consigliere", "mayor", "tracker", "plaguebearer"]
+        items: [
+          "investigator",
+          "consigliere",
+          "mayor",
+          "tracker",
+          "plaguebearer"
+        ]
       },
       {
         desc: "Targetmu tidak takut kotor!",
@@ -156,6 +162,60 @@ module.exports = {
       "friday-13"
     ];
     return modeList;
+  },
+  
+  getModeNarration: function(modeName) {
+    let text = "";
+    switch(modeName) {
+      case "vampire":
+        text = "🧛 Kota Bedburg telah disusupi Vampire! Para warga harus menyelamatkan kota ini dari serbuan Vampire!";
+        break;
+        
+      case "chaos":
+        text = "🔥 Telah di curigai kota Bedburg dengan sangat banyak kriminal yang berpura pura seperti warga";
+        break;
+        
+      case "classic":
+        text = "☁️ Kota Bedburg sedang diambang kehancuran, para warga harus menyelamatkan kota ini dari serangan Mafia!";
+        break;
+        
+      case "survive":
+        text = "🏳️ Telah banyak korban berjatuhan di Kota Bedburg, sehingga para warga hanya ingin tetap hidup saja";
+        break;
+        
+      case "killing-wars":
+        text = "🤵 Para warga kota Bedburg semuanya telah mati, Mafia sekarang masih tetap menghadapi ancaman dari luar";
+        break;
+        
+      case "who's-there":
+        text = "💋 Banyaknya Escort pada kota Bedburg terkadang menghambat kinerja warga untuk menangkap kriminal";
+        break;
+        
+      case "trust-issue":
+        text = "🎞️ Warga salah membunuh korban yang diduga Mafia. Ternyata mereka termakan Hoax!";
+        break
+        
+      case "who-are-you":
+        text = "🎭 Kota Bedburg sedang diambang kehancuran yang disebabkan kebanyakan drama";
+        break;
+        
+      case "new-threat":
+        text = "🔪 Warga telah berhasil membasmi Mafia, namun ternyata masih ada sosok yang harus mereka basmi!";
+        break;
+        
+      case "clown-town":
+        text = "🃏 Kerusuhan terjadi di Kota Bedburg disebabkan oleh satu orang yang dikenal sebagai Joker";
+        break;
+        
+      case "amensiac-chaos":
+        text = "🤕 Sejak Agen K menggunakan alat penghapus ingatan, beberapa warga menjadi lupa dengan diri mereka sendiri";
+        break;
+        
+      case "friday-13":
+        text = "🔪 Banyak warga yang hilang akhir akhir ini tanpa jejak. Diduga ada pembunuh berantai diantara para warga";
+        break;
+    }
+    return text;
   },
 
   getAmnesiacChaos: function(playersLength) {
@@ -271,13 +331,7 @@ module.exports = {
   },
 
   getClassicRoleSet: function(playersLength) {
-    let roles = [
-      "mafioso",
-      "doctor",
-      "sheriff",
-      "escort",
-      "jester",
-    ];
+    let roles = ["mafioso", "doctor", "sheriff", "escort", "jester"];
 
     let townKillings = ["veteran", "vigilante"];
     let townKilling = this.random(townKillings);
@@ -346,7 +400,7 @@ module.exports = {
 
     let randomMafia = ["framer", "consort", "consigliere", "disguiser"];
     roles.push(this.random(randomMafia));
-    
+
     let neutralKillings = [
       "arsonist",
       "serial-killer",
@@ -355,9 +409,9 @@ module.exports = {
       "plaguebearer"
     ];
     roles.push(this.random(neutralKillings));
-    
+
     roles.push("spy");
-    
+
     let randomTowns = [
       "doctor",
       "bodyguard",
@@ -373,7 +427,7 @@ module.exports = {
     roles.push(this.random(randomTowns));
 
     roles.push(this.random(randomTowns));
-    
+
     roles.push(this.random(randomTowns));
 
     roles.push(this.random(randomMafia));
@@ -508,7 +562,7 @@ module.exports = {
       "arsonist",
       "serial-killer",
       "werewolf",
-      "juggernaut",
+      "juggernaut"
     ];
 
     let roles = [];
@@ -769,7 +823,7 @@ module.exports = {
           background: "#000000",
           text: "#ffffff"
         };
-        
+
         return color;
       }
     }

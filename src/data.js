@@ -97,24 +97,6 @@ module.exports = {
   },
 
   searchGroup: function(user_session, groupId) {
-    /// for maintenance
-    if (this.rawArgs.startsWith("/")) {
-      // logging
-      if (process.env.TEST === "true") {
-        let logText = user_session.name + " // ";
-        logText += groupId + " : ";
-        logText += this.args;
-        //console.log(logText);
-      }
-
-      if (user_session.id !== process.env.DEV_ID) {
-        // semua grup ga bisa
-        if (process.env.TEST === "true") {
-          return this.maintenanceRespond();
-        }
-      }
-    }
-
     if (!group_sessions[groupId]) {
       let newGroup = {
         groupId: groupId,
@@ -193,29 +175,6 @@ module.exports = {
       return this.replyText(text);
     } catch (err) {
       console.log("notAddError error", err.originalError.response.data);
-    }
-  },
-
-  maintenanceRespond: async function() {
-    let groupId = "";
-    let userId = this.event.source.userId;
-    let text = "👋 Sorry ";
-    let addonText =
-      "💡 Untuk info lebih lanjut bisa cek di http://bit.ly/openchatww";
-    try {
-      if (this.event.source.type === "group") {
-        let groupId = this.event.source.groupId;
-        let profile = await this.client.getGroupMemberProfile(groupId, userId);
-        text += profile.displayName;
-      } else if (this.event.source.type === "room") {
-        let groupId = this.event.source.roomId;
-        let profile = await this.client.getRoomMemberProfile(groupId, userId);
-        text += profile.displayName;
-      }
-      text += ", botnya sedang maintenance. " + addonText;
-      return this.replyText(text);
-    } catch (err) {
-      console.log("maintenanceRespond error", err.originalError.response.data);
     }
   },
 
