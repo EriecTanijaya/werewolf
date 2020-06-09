@@ -122,8 +122,7 @@ module.exports = {
   },
 
   invalidCommand: function() {
-    const invalid = require("/app/message/invalid");
-    let text = invalid.getResponse(this.args, this.user_session.name);
+    let text = `💡 Tidak ditemukan perintah '${this.args[0]}'. Cek daftar perintah yang ada di '/cmd'`;
     return this.replyText(text);
   },
 
