@@ -24,10 +24,9 @@ const getDurationInMilliseconds = start => {
 };
 
 app.use((req, res, next) => {
-  
   if (process.env.TEST === "true")
     console.log(`${req.method} ${req.originalUrl} [STARTED]`);
-  
+
   const start = process.hrtime();
 
   res.on("finish", () => {

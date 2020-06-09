@@ -44,15 +44,32 @@ module.exports = {
   },
 
   joinResponse: function(groupId) {
-    let text = "Thanks udah undang bot ini 😃, ketik '/help' atau '/cmd' untuk bantuan, ";
+    if (process.env.MAINTENANCE === "true") {
+      let text = "👋 Sorry, botnya sedang maintenance. ";
+      text += "💡 Untuk info lebih lanjut bisa cek di http://bit.ly/openchatww";
+      return this.client
+        .replyMessage(this.event.replyToken, {
+          type: "text",
+          text: text
+        })
+        .then(() => {
+          if (this.event.source.type === "group") {
+            return this.client.leaveGroup(groupId);
+          } else {
+            return this.client.leaveRoom(groupId);
+          }
+        });
+    }
+
+    let text =
+      "Thanks udah undang bot ini 😃, ketik '/help' atau '/cmd' untuk bantuan, ";
     text += "dan ketik '/tutorial' untuk cara menggunakan bot!";
     let flex_text = {
       header: {
         text: "👋 Hai semuaa"
       },
       body: {
-        text:
-          text
+        text: text
       }
     };
     return this.replyFlex(flex_text);

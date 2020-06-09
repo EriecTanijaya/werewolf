@@ -34,6 +34,7 @@ module.exports = {
     let cmds = [
       "/set mode : untuk lihat mode game yang ada",
       "/set mode <nama mode> : untuk set ke mode yang diinginkan",
+      "/set mode random : untuk set game mode secara random",
       "/set show_role <yes/no> : untuk set apakah ingin tampilkan list tipe role yang ada di suatu game"
     ];
 
