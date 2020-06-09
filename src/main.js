@@ -29,7 +29,7 @@ module.exports = {
             let reminder = "💡 Waktu tersisa " + time;
             reminder += " detik lagi, nanti ketik '/cek' ";
             reminder += "saat waktu sudah habis untuk lanjutkan proses. ";
-            reminder += "💡 Gunakan '/extend' untuk perpanjang waktu."
+            reminder += "💡 Gunakan '/extend' untuk perpanjang waktu.";
             return this.replyText(reminder);
           } else if (time === 0) {
             if (this.indexOfPlayer() !== -1) {
@@ -3609,7 +3609,7 @@ module.exports = {
         );
 
         allAnnouncement += attackedAnnouncement + "\n";
-        allAnnouncement += "✉️ Role nya adalah " + roleName + "\n\n";
+        allAnnouncement += `✉️ Role nya adalah ${roleName} ${players[i].role.emoji.self}\n\n`;
 
         //Thanks to
         //https://stackoverflow.com/questions/24806772/how-to-skip-over-an-element-in-map/24806827
@@ -4736,7 +4736,9 @@ module.exports = {
   },
 
   invalidCommand: function() {
-    let text = `💡 Tidak ditemukan perintah '${this.args[0]}'. Cek daftar perintah yang ada di '/cmd'`;
+    let text = `💡 Tidak ditemukan perintah '${
+      this.args[0]
+    }'. Cek daftar perintah yang ada di '/cmd'`;
     return this.replyText(text);
   },
 

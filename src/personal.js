@@ -1215,7 +1215,7 @@ module.exports = {
     let cmds = [
       "/news : cek berita (malam dibunuh siapa, dll)",
       "/role : cek role",
-      "/info : list role",
+      "/info : info role",
       "/help : bantuan game",
       "/journal : cek journal kamu",
       "/revoke: untuk batal menggunakan skill",

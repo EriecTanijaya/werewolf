@@ -97,7 +97,7 @@ module.exports = {
     let cmds = [
       "/help : bantuan game",
       "/about : tentang bot",
-      "/info : list role",
+      "/info : info role",
       "/tutorial : tutorial menggunakan bot ini",
       "/forum : link ke openchat",
       "/status : untuk melihat berapa yang online"
