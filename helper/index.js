@@ -1,4 +1,99 @@
 module.exports = {
+  getUpdates: function() {
+    // show last 10 updates
+    // header text ganti nomor aja
+    // body text isi aja yg penting sama emoji apa
+    // buttons, ganti aja prop data nya
+
+    let flex_text = {};
+    let flex_texts = [];
+    let updates = [
+      {
+        version: "1.2.1 🆕", //ini yg lastest aja
+        majorChanges: "☣️ New Plaguebearer role!",
+        link:
+          "https://timeline.line.me/post/_dew_dlek6Q7X8WLzhe1qWvEjXko3000-cqsirfM/1159179246308071639"
+      },
+      {
+        version: "1.2.0",
+        majorChanges: "💪 Rebase to new mechanism",
+        link:
+          "https://timeline.line.me/post/_dew_dlek6Q7X8WLzhe1qWvEjXko3000-cqsirfM/1159110856708070799"
+      },
+      {
+        version: "1.1.9",
+        majorChanges: "🎩 New Mayor role!",
+        link:
+          "https://timeline.line.me/post/_dew_dlek6Q7X8WLzhe1qWvEjXko3000-cqsirfM/1159013388808076236"
+      },
+      {
+        version: "1.1.8",
+        majorChanges: "🎞️ Rework game mode",
+        link:
+          "https://timeline.line.me/post/_dew_dlek6Q7X8WLzhe1qWvEjXko3000-cqsirfM/1158988006208077687"
+      },
+      {
+        version: "1.1.7",
+        majorChanges: "🕹️ Add '/gamestat' cmd",
+        link:
+          "https://timeline.line.me/post/_dew_dlek6Q7X8WLzhe1qWvEjXko3000-cqsirfM/1158918791608077924"
+      },
+      {
+        version: "1.1.6",
+        majorChanges: "🗡️ Nerf Vampire Hunter",
+        link:
+          "https://timeline.line.me/post/_dew_dlek6Q7X8WLzhe1qWvEjXko3000-cqsirfM/1158769010508073732"
+      },
+      {
+        version: "1.1.5",
+        majorChanges: "🛡️ New Bodyguard role!",
+        link:
+          "https://timeline.line.me/post/_dew_dlek6Q7X8WLzhe1qWvEjXko3000-cqsirfM/1158736961208072579"
+      },
+      {
+        version: "1.1.4",
+        majorChanges: "🎭 Add new Mafia Deception role!",
+        link:
+          "https://timeline.line.me/post/_dew_dlek6Q7X8WLzhe1qWvEjXko3000-cqsirfM/1158701410208078540"
+      },
+      {
+        version: "1.1.3",
+        majorChanges: "🪓 Add alot of role",
+        link:
+          "https://timeline.line.me/post/_dew_dlek6Q7X8WLzhe1qWvEjXko3000-cqsirfM/1158641478608078170"
+      },
+      {
+        version: "1.1.2",
+        majorChanges: "📜 Adjustment '/cek' cmd",
+        link:
+          "https://timeline.line.me/post/_dew_dlek6Q7X8WLzhe1qWvEjXko3000-cqsirfM/1158554530708073635"
+      }
+    ];
+
+    updates.forEach((item, index) => {
+      flex_text[index] = {
+        header: {
+          text: "🎉 Versi " + item.version
+        },
+        body: {
+          text: item.majorChanges
+        },
+        footer: {
+          buttons: [
+            {
+              action: "uri",
+              label: "👆 check",
+              data: item.link
+            }
+          ]
+        }
+      };
+      flex_texts.push(flex_text[index]);
+    });
+
+    return flex_texts;
+  },
+
   getPsychicResult: function(players, psychicIndex, isFullMoon) {
     let text = "🔮 ";
 
@@ -163,56 +258,68 @@ module.exports = {
     ];
     return modeList;
   },
-  
+
   getModeNarration: function(modeName) {
     let text = "";
-    switch(modeName) {
+    switch (modeName) {
       case "vampire":
-        text = "🧛 Kota Bedburg telah disusupi Vampire! Para warga harus menyelamatkan kota ini dari serbuan Vampire!";
+        text =
+          "🧛 Kota Bedburg telah disusupi Vampire! Para warga harus menyelamatkan kota ini dari serbuan Vampire!";
         break;
-        
+
       case "chaos":
-        text = "🔥 Telah di curigai kota Bedburg dengan sangat banyak kriminal yang berpura pura seperti warga";
+        text =
+          "🔥 Telah di curigai kota Bedburg dengan sangat banyak kriminal yang berpura pura seperti warga";
         break;
-        
+
       case "classic":
-        text = "☁️ Kota Bedburg sedang diambang kehancuran, para warga harus menyelamatkan kota ini dari serangan Mafia!";
+        text =
+          "☁️ Kota Bedburg sedang diambang kehancuran, para warga harus menyelamatkan kota ini dari serangan Mafia!";
         break;
-        
+
       case "survive":
-        text = "🏳️ Telah banyak korban berjatuhan di Kota Bedburg, sehingga para warga hanya ingin tetap hidup saja";
+        text =
+          "🏳️ Telah banyak korban berjatuhan di Kota Bedburg, sehingga para warga hanya ingin tetap hidup saja";
         break;
-        
+
       case "killing-wars":
-        text = "🤵 Para warga kota Bedburg semuanya telah mati, Mafia sekarang masih tetap menghadapi ancaman dari luar";
+        text =
+          "🤵 Para warga kota Bedburg semuanya telah mati, Mafia sekarang masih tetap menghadapi ancaman dari luar";
         break;
-        
+
       case "who's-there":
-        text = "💋 Banyaknya Escort pada kota Bedburg terkadang menghambat kinerja warga untuk menangkap kriminal";
+        text =
+          "💋 Banyaknya Escort pada kota Bedburg terkadang menghambat kinerja warga untuk menangkap kriminal";
         break;
-        
+
       case "trust-issue":
-        text = "🎞️ Warga salah membunuh korban yang diduga Mafia. Ternyata mereka termakan Hoax!";
-        break
-        
+        text =
+          "🎞️ Warga salah membunuh korban yang diduga Mafia. Ternyata mereka termakan Hoax!";
+        break;
+
       case "who-are-you":
-        text = "🎭 Kota Bedburg sedang diambang kehancuran yang disebabkan kebanyakan drama";
+        text =
+          "🎭 Kota Bedburg sedang diambang kehancuran yang disebabkan kebanyakan drama";
         break;
-        
+
       case "new-threat":
-        text = "🔪 Warga telah berhasil membasmi Mafia, namun ternyata masih ada sosok yang harus mereka basmi!";
+        text =
+          "🔪 Warga telah berhasil membasmi Mafia, namun ternyata masih ada sosok yang harus mereka basmi!";
         break;
-        
+
       case "clown-town":
-        text = "🃏 Kerusuhan terjadi di Kota Bedburg disebabkan oleh satu orang yang dikenal sebagai Joker";
+        text =
+          "🃏 Kerusuhan terjadi di Kota Bedburg disebabkan oleh satu orang yang dikenal sebagai Joker";
         break;
-        
+
       case "amensiac-chaos":
-        text = "🤕 Sejak Agen K menggunakan alat penghapus ingatan, beberapa warga menjadi lupa dengan diri mereka sendiri";
+        text =
+          "🤕 Sejak Agen K menggunakan alat penghapus ingatan, beberapa warga menjadi lupa dengan diri mereka sendiri";
         break;
-        
+
       case "friday-13":
-        text = "🔪 Banyak warga yang hilang akhir akhir ini tanpa jejak. Diduga ada pembunuh berantai diantara para warga";
+        text =
+          "🔪 Banyak warga yang hilang akhir akhir ini tanpa jejak. Diduga ada pembunuh berantai diantara para warga";
         break;
     }
     return text;

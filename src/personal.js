@@ -66,9 +66,17 @@ module.exports = {
         return this.cancelCommand();
       case "/roles":
         return this.roleListCommand();
+      case "/update":
+      case "/updates":
+        return this.showUpdatesCommand();
       default:
         return this.invalidCommand();
     }
+  },
+  
+  showUpdatesCommand: function() {
+    const updates = helper.getUpdates();
+    return this.replyFlex(updates);
   },
 
   roleListCommand: function() {
@@ -1236,7 +1244,8 @@ module.exports = {
       "/help : bantuan game",
       "/journal : cek journal kamu",
       "/revoke: untuk batal menggunakan skill",
-      "/roles : tampilin role list"
+      "/roles : tampilin role list",
+      "/updates : untuk melihat 5 update terakhir bot"
     ];
 
     cmds.forEach((item, index) => {
