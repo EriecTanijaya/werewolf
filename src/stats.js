@@ -1,5 +1,7 @@
 const helper = require("/app/helper");
 
+// const datas = require("/app/src/data");
+
 module.exports = {
   receive: function(client, event, args) {
     this.client = client;
@@ -49,6 +51,83 @@ module.exports = {
       }
     };
     return this.replyFlex(flex_text);
+  },
+
+  /* Helper Func */
+
+  rank_sort: function(array) {
+    //Thanks to
+    //https://coderwall.com/p/ebqhca/javascript-sort-by-two-fields
+
+    // descending
+    return array.sort((person1, person2) => {
+      let person1_winRate = person1.winRate.match(/\d+/);
+      let person2_winRate = person2.winRate.match(/\d+/);
+      return (
+        person2.points - person1.points || person2_winRate - person1_winRate
+      );
+    });
+  },
+
+  getTableFlex: function(users, headerText, team) {
+    let flex_text = {
+      header: {
+        text: headerText
+      }
+    };
+
+    flex_text.table = {
+      header: {
+        addon: "Win Rate"
+      },
+      body: []
+    };
+
+    let table_body = {};
+
+    let num = 1;
+    users.forEach((item, index) => {
+      table_body[index] = {
+        type: "box",
+        layout: "horizontal",
+        contents: [
+          {
+            type: "text",
+            text: ""
+          },
+          {
+            type: "text",
+            text: "",
+            flex: 3
+          },
+          {
+            type: "text",
+            text: "",
+            flex: 2,
+            align: "center"
+          },
+          {
+            type: "text",
+            text: "",
+            flex: 2,
+            align: "center",
+            wrap: true
+          }
+        ],
+        margin: "sm"
+      };
+
+      table_body[index].contents[0].text += num + ".";
+      table_body[index].contents[1].text += item.name;
+      table_body[index].contents[2].text += item.points;
+      table_body[index].contents[3].text += item.winRate;
+
+      num++;
+
+      flex_text.table.body.push(table_body[index]);
+    });
+
+    return flex_text;
   },
 
   /* Message Func */

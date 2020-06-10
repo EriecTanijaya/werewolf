@@ -97,7 +97,7 @@ module.exports = {
     let cmds = [
       "/help : bantuan game",
       "/about : tentang bot",
-      "/info : info role",
+      "/info : list role",
       "/tutorial : tutorial menggunakan bot ini",
       "/forum : link ke openchat",
       "/status : untuk melihat berapa yang online"
@@ -122,7 +122,8 @@ module.exports = {
   },
 
   invalidCommand: function() {
-    let text = `💡 Tidak ditemukan perintah '${this.args[0]}'. Cek daftar perintah yang ada di '/cmd'`;
+    const invalid = require("/app/message/invalid");
+    let text = invalid.getResponse(this.args, this.user_session.name);
     return this.replyText(text);
   },
 

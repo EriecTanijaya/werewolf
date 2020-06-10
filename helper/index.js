@@ -815,15 +815,7 @@ module.exports = {
     for (let i = 0; i < times.length; i++) {
       let time = timestamp[times[i]];
       if (today >= time.from && today <= time.to) {
-        //color = time.color;
-        /// Black lives matter
-        color = {
-          main: "#0f4c75",
-          secondary: "#0f4c75",
-          background: "#000000",
-          text: "#ffffff"
-        };
-
+        color = time.color;
         return color;
       }
     }
