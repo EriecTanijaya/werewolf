@@ -752,7 +752,7 @@ module.exports = {
 
     let button = {};
     players.forEach((item, index) => {
-      if (item.status === "death") {
+      if (item.status === "death" && item.role.team === "villager") {
         button[index] = {
           action: "postback",
           label: item.name,
