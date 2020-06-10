@@ -122,7 +122,9 @@ module.exports = {
   },
 
   invalidCommand: function() {
-    let text = `💡 Tidak ditemukan perintah '${this.args[0]}'. Cek daftar perintah yang ada di '/cmd'`;
+    let text = `💡 Tidak ditemukan perintah '${
+      this.args[0]
+    }'. Cek daftar perintah yang ada di '/cmd'`;
     return this.replyText(text);
   },
 

@@ -1,4 +1,4 @@
-# City Of Bedburg 
+# City Of Bedburg
 
 A LINE Messenger bot to play game similiar with Town Of Salem. 
 

@@ -51,6 +51,22 @@ module.exports = {
     return this.replyFlex(flex_text);
   },
 
+  /* Helper Func */
+
+  rank_sort: function(array) {
+    //Thanks to
+    //https://coderwall.com/p/ebqhca/javascript-sort-by-two-fields
+
+    // descending
+    return array.sort((person1, person2) => {
+      let person1_winRate = person1.winRate.match(/\d+/);
+      let person2_winRate = person2.winRate.match(/\d+/);
+      return (
+        person2.points - person1.points || person2_winRate - person1_winRate
+      );
+    });
+  },
+
   /* Message Func */
 
   replyFlex: function(flex_raws, text_raws, newFlex_raws) {

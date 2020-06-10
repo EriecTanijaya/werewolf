@@ -819,9 +819,9 @@ module.exports = {
     });
 
     // cp
-    // this.client.multicast(playersUserId, [text_obj]).catch(err => {
-    //   console.error("error pada multicast", err);
-    // });
+    this.client.multicast(playersUserId, [text_obj]).catch(err => {
+      console.error("error pada multicast", err);
+    });
 
     this.night(null);
   },
@@ -3133,7 +3133,7 @@ module.exports = {
         if (isAttacked || isVampireBited) {
           this.group_session.players[i].damage = attackers.length;
 
-          if (!isBurned && !isHaunted && !willSuicide && afkCounter < 3) {
+          if (!willSuicide && afkCounter < 3) {
             for (let x = 0; x < attackers.length; x++) {
               let attacker = attackers[x];
 
@@ -3143,6 +3143,13 @@ module.exports = {
 
                   this.group_session.players[protector.index].message +=
                     "💡 " + players[i].name + " diserang semalam!" + "\n\n";
+
+                  if (isBurned || isHaunted) {
+                    this.group_session.players[protector.index].message +=
+                      "💡 Namun kamu gagal melindunginya" + "\n\n";
+
+                    continue;
+                  }
 
                   if (attacker.countered) {
                     continue;
@@ -3340,6 +3347,8 @@ module.exports = {
         if (attackerIndex !== -1) {
           let isAttackerHealed = players[attackerIndex].healed;
           let isHealed = players[i].healed;
+          let isAttackerProtected = players[attackerIndex].protected;
+          let isProtected = players[i].protected;
 
           this.group_session.players[i].message +=
             "💡 Kamu melawan penyerang " +
@@ -3376,7 +3385,10 @@ module.exports = {
               }
 
               this.group_session.players[protector.index].message +=
-                "💡 " + players[i].name + " diserang semalam!" + "\n\n";
+                "💡 " +
+                players[attackerIndex].name +
+                " diserang semalam!" +
+                "\n\n";
 
               if (protector.roleName === "doctor") {
                 if (players[protector.index].bugged) {
@@ -3391,6 +3403,50 @@ module.exports = {
               }
 
               this.group_session.players[attackerIndex].damage--;
+            }
+          }
+
+          if (isAttackerProtected) {
+            let attackerProtectors = players[attackerIndex].protectors;
+            for (let u = 0; u < attackerProtectors.length; u++) {
+              let protector = attackerProtectors[u];
+              if (!protector.roleName === "guardian-angel") {
+                continue;
+              }
+
+              this.group_session.players[protector.index].message +=
+                "💡 " +
+                players[attackerIndex].name +
+                " diserang semalam!" +
+                "\n\n";
+
+              this.group_session.players[attackerIndex].doused = false;
+              this.group_session.players[attackerIndex].framed = false;
+              this.group_session.players[attackerIndex].infected = false;
+
+              this.group_session.players[protector.index].message +=
+                "💡 " +
+                players[attackerIndex].name +
+                " berhasil dilindungi!" +
+                "\n\n";
+
+              if (players[attackerIndex].bugged) {
+                spyBuggedInfo[i] +=
+                  "🔍 Target kamu selamat karena dilindungi Guardian Angel!" +
+                  "\n\n";
+              }
+
+              this.group_session.players[attackerIndex].message +=
+                "⚔️ Kamu selamat karena dilindungi Guardian Angel!" + "\n\n";
+
+              allAnnouncement +=
+                "⚔️ Guardian Angel berhasil melindungi " +
+                players[attackerIndex].name +
+                " semalam!" +
+                "\n\n";
+
+              // langsung sehat
+              this.group_session.players[attackerIndex].damage = 0;
             }
           }
 
@@ -3462,6 +3518,44 @@ module.exports = {
             }
           }
 
+          if (isProtected) {
+            let protectors = players[attackerIndex].protectors;
+            for (let u = 0; u < protectors.length; u++) {
+              let protector = protectors[u];
+              if (!protector.roleName === "guardian-angel") {
+                continue;
+              }
+
+              this.group_session.players[protector.index].message +=
+                "💡 " + players[i].name + " diserang semalam!" + "\n\n";
+
+              this.group_session.players[i].doused = false;
+              this.group_session.players[i].framed = false;
+              this.group_session.players[i].infected = false;
+
+              this.group_session.players[protector.index].message +=
+                "💡 " + players[i].name + " berhasil dilindungi!" + "\n\n";
+
+              if (players[i].bugged) {
+                spyBuggedInfo[i] +=
+                  "🔍 Target kamu selamat karena dilindungi Guardian Angel!" +
+                  "\n\n";
+              }
+
+              this.group_session.players[i].message +=
+                "⚔️ Kamu selamat karena dilindungi Guardian Angel!" + "\n\n";
+
+              allAnnouncement +=
+                "⚔️ Guardian Angel berhasil melindungi " +
+                players[i].name +
+                " semalam!" +
+                "\n\n";
+
+              // langsung sehat
+              this.group_session.players[i].damage = 0;
+            }
+          }
+
           if (this.group_session.players[i].damage <= 0) {
             //saved
             if (isHealed) {
@@ -3485,7 +3579,7 @@ module.exports = {
 
             // hax jika kenak effect rampage werewolf atau juggernaut
             // soalnya pas rampage udah ada dimasukin obj attacker
-            let rampageRole = ["werewolf", "juggernaut"];
+            let rampageRole = ["werewolf"];
 
             if (!rampageRole.includes(players[attackerIndex].role.name)) {
               // check juggernaut juga
