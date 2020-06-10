@@ -819,9 +819,9 @@ module.exports = {
     });
 
     // cp
-    // this.client.multicast(playersUserId, [text_obj]).catch(err => {
-    //   console.error("error pada multicast", err);
-    // });
+    this.client.multicast(playersUserId, [text_obj]).catch(err => {
+      console.error("error pada multicast", err);
+    });
 
     this.night(null);
   },
