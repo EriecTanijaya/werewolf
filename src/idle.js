@@ -33,6 +33,9 @@ module.exports = {
       case "/oc":
       case "/openchat":
         return this.forumCommand();
+      case "/update":
+      case "/updates":
+        return this.showUpdatesCommand();
       case "/role":
       case "/news":
       case "/jurnal":
@@ -43,6 +46,11 @@ module.exports = {
       default:
         return this.invalidCommand();
     }
+  },
+  
+  showUpdatesCommand: function() {
+    const updates = helper.getUpdates();
+    return this.replyFlex(updates);
   },
 
   forumCommand: function() {
@@ -100,7 +108,8 @@ module.exports = {
       "/info : info role",
       "/tutorial : tutorial menggunakan bot ini",
       "/forum : link ke openchat",
-      "/status : untuk melihat berapa yang online"
+      "/status : untuk melihat berapa yang online",
+      "/updates : untuk melihat 5 update terakhir bot"
     ];
 
     cmds.forEach((item, index) => {

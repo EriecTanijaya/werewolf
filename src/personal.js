@@ -66,9 +66,17 @@ module.exports = {
         return this.cancelCommand();
       case "/roles":
         return this.roleListCommand();
+      case "/update":
+      case "/updates":
+        return this.showUpdatesCommand();
       default:
         return this.invalidCommand();
     }
+  },
+  
+  showUpdatesCommand: function() {
+    const updates = helper.getUpdates();
+    return this.replyFlex(updates);
   },
 
   roleListCommand: function() {
@@ -502,6 +510,21 @@ module.exports = {
           continue;
         }
 
+        /// exception on some role for their button
+        if (role.team === "mafia") {
+          if (players[i].role.team === "mafia") continue;
+        } else if (role.team === "vampire") {
+          if (players[i].role.team === "vampire") continue;
+        } else if (role.name === "doctor") {
+          if (players[i].role.name === "mayor" && players[i].role.revealed) {
+            continue;
+          }
+
+          if (index == i && !players[i].role.selfHeal) continue;
+        } else if (role.name === "bodyguard") {
+          if (index == i && !players[i].role.vest) continue;
+        }
+
         button[i] = {
           action: "postback",
           label: players[i].name,
@@ -752,7 +775,7 @@ module.exports = {
 
     let button = {};
     players.forEach((item, index) => {
-      if (item.status === "death") {
+      if (item.status === "death" && item.role.team === "villager") {
         button[index] = {
           action: "postback",
           label: item.name,
@@ -1221,7 +1244,8 @@ module.exports = {
       "/help : bantuan game",
       "/journal : cek journal kamu",
       "/revoke: untuk batal menggunakan skill",
-      "/roles : tampilin role list"
+      "/roles : tampilin role list",
+      "/updates : untuk melihat 5 update terakhir bot"
     ];
 
     cmds.forEach((item, index) => {

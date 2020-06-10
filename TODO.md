@@ -157,15 +157,8 @@ console.log(measure);
 - role set trick or treat (ada di tos punya fandom wiki) buat halloween ntr
 
 - susah ini , ada sistem buat cek visitor, cek visitor attack atau engga.
-- role that will added if possible :
-  - trapper masih belum tau gimana mechanismnya
-  - ambusher, passive visit(anjir skip) ini buat visitor di attack, susah cok
 
 - buat database beneran, data user store di mongodb freakin' hard tho
-- kalau role udah bsa multi gitu,
-  - bisa ada role amnesiac
-  - sekarang neutral dh bisa multiple, tapi mereka ga tau siapa sesama mereka
-- sekarang udah bisa custom, jadi di getRandomRoleSet bnyak tugas nih
 
 - ROLE YG JANGAN DUPLICATE
   - plaguebearer
