@@ -1189,8 +1189,9 @@ module.exports = {
   },
 
   invalidCommand: function() {
-    const invalid = require("/app/message/invalid");
-    let text = invalid.getResponse(this.args, this.user_session.name);
+    let text = `💡 Tidak ditemukan perintah '${
+      this.args[0]
+    }'. Cek daftar perintah yang ada di '/cmd'`;
     return this.replyText(text);
   },
 
@@ -1216,7 +1217,7 @@ module.exports = {
     let cmds = [
       "/news : cek berita (malam dibunuh siapa, dll)",
       "/role : cek role",
-      "/info : list role",
+      "/info : info role",
       "/help : bantuan game",
       "/journal : cek journal kamu",
       "/revoke: untuk batal menggunakan skill",

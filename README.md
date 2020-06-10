@@ -1,6 +1,6 @@
-# werewolf
+# City Of Bedburg
 
-A simple LINE Messenger bot made with NodeJS
+A LINE Messenger bot to play game similiar with Town Of Salem. 
 
 ## Getting Started
 
