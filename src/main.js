@@ -178,7 +178,7 @@ module.exports = {
         return this.invalidCommand();
     }
   },
-  
+
   showUpdatesCommand: function() {
     const updates = helper.getUpdates();
     return this.replyFlex(updates);
@@ -1430,16 +1430,16 @@ module.exports = {
         let isTargetInfected = players[targetIndex].infected;
 
         if (target.role.name === "plaguebearer") {
-                if (!isDoerInfected) {
-                  this.group_session.players[i].justInfected = true;
-                }
-              } else {
-                if (isDoerInfected && !isTargetInfected) {
-                  this.group_session.players[targetIndex].justInfected = true;
-                } else if (isTargetInfected && !isDoerInfected) {
-                  this.group_session.players[i].justInfected = true;
-                }
-              }
+          if (!isDoerInfected) {
+            this.group_session.players[i].justInfected = true;
+          }
+        } else {
+          if (isDoerInfected && !isTargetInfected) {
+            this.group_session.players[targetIndex].justInfected = true;
+          } else if (isTargetInfected && !isDoerInfected) {
+            this.group_session.players[i].justInfected = true;
+          }
+        }
 
         let immuneToRoleBlock = ["escort", "consort", "veteran"];
 
@@ -1531,16 +1531,16 @@ module.exports = {
         let isTargetInfected = players[targetIndex].infected;
 
         if (target.role.name === "plaguebearer") {
-                if (!isDoerInfected) {
-                  this.group_session.players[i].justInfected = true;
-                }
-              } else {
-                if (isDoerInfected && !isTargetInfected) {
-                  this.group_session.players[targetIndex].justInfected = true;
-                } else if (isTargetInfected && !isDoerInfected) {
-                  this.group_session.players[i].justInfected = true;
-                }
-              }
+          if (!isDoerInfected) {
+            this.group_session.players[i].justInfected = true;
+          }
+        } else {
+          if (isDoerInfected && !isTargetInfected) {
+            this.group_session.players[targetIndex].justInfected = true;
+          } else if (isTargetInfected && !isDoerInfected) {
+            this.group_session.players[i].justInfected = true;
+          }
+        }
 
         let immuneToRoleBlock = ["escort", "consort", "veteran"];
 
@@ -1666,16 +1666,16 @@ module.exports = {
         let isTargetInfected = players[targetIndex].infected;
 
         if (target.role.name === "plaguebearer") {
-                if (!isDoerInfected) {
-                  this.group_session.players[i].justInfected = true;
-                }
-              } else {
-                if (isDoerInfected && !isTargetInfected) {
-                  this.group_session.players[targetIndex].justInfected = true;
-                } else if (isTargetInfected && !isDoerInfected) {
-                  this.group_session.players[i].justInfected = true;
-                }
-              }
+          if (!isDoerInfected) {
+            this.group_session.players[i].justInfected = true;
+          }
+        } else {
+          if (isDoerInfected && !isTargetInfected) {
+            this.group_session.players[targetIndex].justInfected = true;
+          } else if (isTargetInfected && !isDoerInfected) {
+            this.group_session.players[i].justInfected = true;
+          }
+        }
 
         this.group_session.players[i].role.disguiseAs = target.role.name;
 
@@ -1719,16 +1719,16 @@ module.exports = {
             let isTargetInfected = players[targetIndex].infected;
 
             if (target.role.name === "plaguebearer") {
-                if (!isDoerInfected) {
-                  this.group_session.players[i].justInfected = true;
-                }
-              } else {
-                if (isDoerInfected && !isTargetInfected) {
-                  this.group_session.players[targetIndex].justInfected = true;
-                } else if (isTargetInfected && !isDoerInfected) {
-                  this.group_session.players[i].justInfected = true;
-                }
+              if (!isDoerInfected) {
+                this.group_session.players[i].justInfected = true;
               }
+            } else {
+              if (isDoerInfected && !isTargetInfected) {
+                this.group_session.players[targetIndex].justInfected = true;
+              } else if (isTargetInfected && !isDoerInfected) {
+                this.group_session.players[i].justInfected = true;
+              }
+            }
 
             vampireAnnouncement += `🧛 Target Vampire adalah ${target.name}\n\n`;
 
@@ -1949,18 +1949,18 @@ module.exports = {
           let isDoerInfected = players[i].infected;
           let isTargetInfected = players[targetIndex].infected;
           let target = players[targetIndex];
-          
+
           if (target.role.name === "plaguebearer") {
-                if (!isDoerInfected) {
-                  this.group_session.players[i].justInfected = true;
-                }
-              } else {
-                if (isDoerInfected && !isTargetInfected) {
-                  this.group_session.players[targetIndex].justInfected = true;
-                } else if (isTargetInfected && !isDoerInfected) {
-                  this.group_session.players[i].justInfected = true;
-                }
-              }
+            if (!isDoerInfected) {
+              this.group_session.players[i].justInfected = true;
+            }
+          } else {
+            if (isDoerInfected && !isTargetInfected) {
+              this.group_session.players[targetIndex].justInfected = true;
+            } else if (isTargetInfected && !isDoerInfected) {
+              this.group_session.players[i].justInfected = true;
+            }
+          }
 
           this.group_session.players[i].message +=
             "👣 Kamu ke rumah " + players[targetIndex].name;
@@ -2150,16 +2150,16 @@ module.exports = {
           let target = players[targetIndex];
 
           if (target.role.name === "plaguebearer") {
-                if (!isDoerInfected) {
-                  this.group_session.players[i].justInfected = true;
-                }
-              } else {
-                if (isDoerInfected && !isTargetInfected) {
-                  this.group_session.players[targetIndex].justInfected = true;
-                } else if (isTargetInfected && !isDoerInfected) {
-                  this.group_session.players[i].justInfected = true;
-                }
-              }
+            if (!isDoerInfected) {
+              this.group_session.players[i].justInfected = true;
+            }
+          } else {
+            if (isDoerInfected && !isTargetInfected) {
+              this.group_session.players[targetIndex].justInfected = true;
+            } else if (isTargetInfected && !isDoerInfected) {
+              this.group_session.players[i].justInfected = true;
+            }
+          }
 
           this.group_session.players[i].message +=
             "👣 Kamu ke rumah " +
@@ -2310,16 +2310,16 @@ module.exports = {
                 let isTargetInfected = players[targetIndex].infected;
 
                 if (target.role.name === "plaguebearer") {
-                if (!isDoerInfected) {
-                  this.group_session.players[i].justInfected = true;
+                  if (!isDoerInfected) {
+                    this.group_session.players[i].justInfected = true;
+                  }
+                } else {
+                  if (isDoerInfected && !isTargetInfected) {
+                    this.group_session.players[targetIndex].justInfected = true;
+                  } else if (isTargetInfected && !isDoerInfected) {
+                    this.group_session.players[i].justInfected = true;
+                  }
                 }
-              } else {
-                if (isDoerInfected && !isTargetInfected) {
-                  this.group_session.players[targetIndex].justInfected = true;
-                } else if (isTargetInfected && !isDoerInfected) {
-                  this.group_session.players[i].justInfected = true;
-                }
-              }
               }
             }
 
@@ -2387,16 +2387,16 @@ module.exports = {
         let isTargetInfected = players[targetIndex].infected;
 
         if (target.role.name === "plaguebearer") {
-                if (!isDoerInfected) {
-                  this.group_session.players[i].justInfected = true;
-                }
-              } else {
-                if (isDoerInfected && !isTargetInfected) {
-                  this.group_session.players[targetIndex].justInfected = true;
-                } else if (isTargetInfected && !isDoerInfected) {
-                  this.group_session.players[i].justInfected = true;
-                }
-              }
+          if (!isDoerInfected) {
+            this.group_session.players[i].justInfected = true;
+          }
+        } else {
+          if (isDoerInfected && !isTargetInfected) {
+            this.group_session.players[targetIndex].justInfected = true;
+          } else if (isTargetInfected && !isDoerInfected) {
+            this.group_session.players[i].justInfected = true;
+          }
+        }
 
         this.group_session.players[i].message +=
           "⛽ Kamu diam diam menyiram bensin ke rumah " + target.name + "\n\n";
@@ -2630,16 +2630,16 @@ module.exports = {
           let isTargetInfected = players[targetIndex].infected;
 
           if (target.role.name === "plaguebearer") {
-                if (!isDoerInfected) {
-                  this.group_session.players[i].justInfected = true;
-                }
-              } else {
-                if (isDoerInfected && !isTargetInfected) {
-                  this.group_session.players[targetIndex].justInfected = true;
-                } else if (isTargetInfected && !isDoerInfected) {
-                  this.group_session.players[i].justInfected = true;
-                }
-              }
+            if (!isDoerInfected) {
+              this.group_session.players[i].justInfected = true;
+            }
+          } else {
+            if (isDoerInfected && !isTargetInfected) {
+              this.group_session.players[targetIndex].justInfected = true;
+            } else if (isTargetInfected && !isDoerInfected) {
+              this.group_session.players[i].justInfected = true;
+            }
+          }
 
           this.group_session.players[i].message +=
             "👣 Kamu ke rumah " + target.name + "\n\n";
@@ -2691,16 +2691,16 @@ module.exports = {
           let isTargetInfected = players[targetIndex].infected;
 
           if (target.role.name === "plaguebearer") {
-                if (!isDoerInfected) {
-                  this.group_session.players[i].justInfected = true;
-                }
-              } else {
-                if (isDoerInfected && !isTargetInfected) {
-                  this.group_session.players[targetIndex].justInfected = true;
-                } else if (isTargetInfected && !isDoerInfected) {
-                  this.group_session.players[i].justInfected = true;
-                }
-              }
+            if (!isDoerInfected) {
+              this.group_session.players[i].justInfected = true;
+            }
+          } else {
+            if (isDoerInfected && !isTargetInfected) {
+              this.group_session.players[targetIndex].justInfected = true;
+            } else if (isTargetInfected && !isDoerInfected) {
+              this.group_session.players[i].justInfected = true;
+            }
+          }
 
           this.group_session.players[i].message +=
             "👣 Kamu ke rumah " + target.name + "\n\n";
@@ -2769,16 +2769,16 @@ module.exports = {
           let isTargetInfected = players[targetIndex].infected;
 
           if (target.role.name === "plaguebearer") {
-                if (!isDoerInfected) {
-                  this.group_session.players[i].justInfected = true;
-                }
-              } else {
-                if (isDoerInfected && !isTargetInfected) {
-                  this.group_session.players[targetIndex].justInfected = true;
-                } else if (isTargetInfected && !isDoerInfected) {
-                  this.group_session.players[i].justInfected = true;
-                }
-              }
+            if (!isDoerInfected) {
+              this.group_session.players[i].justInfected = true;
+            }
+          } else {
+            if (isDoerInfected && !isTargetInfected) {
+              this.group_session.players[targetIndex].justInfected = true;
+            } else if (isTargetInfected && !isDoerInfected) {
+              this.group_session.players[i].justInfected = true;
+            }
+          }
         }
 
         if (target.role.team === "vampire") {
@@ -2854,16 +2854,16 @@ module.exports = {
         let isTargetInfected = players[targetIndex].infected;
 
         if (target.role.name === "plaguebearer") {
-                if (!isDoerInfected) {
-                  this.group_session.players[i].justInfected = true;
-                }
-              } else {
-                if (isDoerInfected && !isTargetInfected) {
-                  this.group_session.players[targetIndex].justInfected = true;
-                } else if (isTargetInfected && !isDoerInfected) {
-                  this.group_session.players[i].justInfected = true;
-                }
-              }
+          if (!isDoerInfected) {
+            this.group_session.players[i].justInfected = true;
+          }
+        } else {
+          if (isDoerInfected && !isTargetInfected) {
+            this.group_session.players[targetIndex].justInfected = true;
+          } else if (isTargetInfected && !isDoerInfected) {
+            this.group_session.players[i].justInfected = true;
+          }
+        }
 
         let immuneToBasicAttack = [
           "serial-killer",
@@ -2946,16 +2946,16 @@ module.exports = {
           let isTargetInfected = players[targetIndex].infected;
 
           if (target.role.name === "plaguebearer") {
-                if (!isDoerInfected) {
-                  this.group_session.players[i].justInfected = true;
-                }
-              } else {
-                if (isDoerInfected && !isTargetInfected) {
-                  this.group_session.players[targetIndex].justInfected = true;
-                } else if (isTargetInfected && !isDoerInfected) {
-                  this.group_session.players[i].justInfected = true;
-                }
-              }
+            if (!isDoerInfected) {
+              this.group_session.players[i].justInfected = true;
+            }
+          } else {
+            if (isDoerInfected && !isTargetInfected) {
+              this.group_session.players[targetIndex].justInfected = true;
+            } else if (isTargetInfected && !isDoerInfected) {
+              this.group_session.players[i].justInfected = true;
+            }
+          }
         }
 
         let immuneToBasicAttack = [
@@ -3943,16 +3943,16 @@ module.exports = {
         let isTargetInfected = players[targetIndex].infected;
 
         if (target.role.name === "plaguebearer") {
-                if (!isDoerInfected) {
-                  this.group_session.players[i].justInfected = true;
-                }
-              } else {
-                if (isDoerInfected && !isTargetInfected) {
-                  this.group_session.players[targetIndex].justInfected = true;
-                } else if (isTargetInfected && !isDoerInfected) {
-                  this.group_session.players[i].justInfected = true;
-                }
-              }
+          if (!isDoerInfected) {
+            this.group_session.players[i].justInfected = true;
+          }
+        } else {
+          if (isDoerInfected && !isTargetInfected) {
+            this.group_session.players[targetIndex].justInfected = true;
+          } else if (isTargetInfected && !isDoerInfected) {
+            this.group_session.players[i].justInfected = true;
+          }
+        }
 
         this.group_session.players[i].message +=
           "👣 Kamu ke rumah " + target.name + "\n\n";
@@ -3996,16 +3996,16 @@ module.exports = {
         let isTargetInfected = players[targetIndex].infected;
 
         if (target.role.name === "plaguebearer") {
-                if (!isDoerInfected) {
-                  this.group_session.players[i].justInfected = true;
-                }
-              } else {
-                if (isDoerInfected && !isTargetInfected) {
-                  this.group_session.players[targetIndex].justInfected = true;
-                } else if (isTargetInfected && !isDoerInfected) {
-                  this.group_session.players[i].justInfected = true;
-                }
-              }
+          if (!isDoerInfected) {
+            this.group_session.players[i].justInfected = true;
+          }
+        } else {
+          if (isDoerInfected && !isTargetInfected) {
+            this.group_session.players[targetIndex].justInfected = true;
+          } else if (isTargetInfected && !isDoerInfected) {
+            this.group_session.players[i].justInfected = true;
+          }
+        }
 
         this.group_session.players[i].message +=
           "👣 Kamu ke rumah " + target.name + "\n\n";
@@ -4061,16 +4061,16 @@ module.exports = {
         let isTargetInfected = players[targetIndex].infected;
 
         if (target.role.name === "plaguebearer") {
-                if (!isDoerInfected) {
-                  this.group_session.players[i].justInfected = true;
-                }
-              } else {
-                if (isDoerInfected && !isTargetInfected) {
-                  this.group_session.players[targetIndex].justInfected = true;
-                } else if (isTargetInfected && !isDoerInfected) {
-                  this.group_session.players[i].justInfected = true;
-                }
-              }
+          if (!isDoerInfected) {
+            this.group_session.players[i].justInfected = true;
+          }
+        } else {
+          if (isDoerInfected && !isTargetInfected) {
+            this.group_session.players[targetIndex].justInfected = true;
+          } else if (isTargetInfected && !isDoerInfected) {
+            this.group_session.players[i].justInfected = true;
+          }
+        }
 
         let targetRoleName = target.role.name;
 
@@ -4120,16 +4120,16 @@ module.exports = {
         let isTargetInfected = players[targetIndex].infected;
 
         if (target.role.name === "plaguebearer") {
-                if (!isDoerInfected) {
-                  this.group_session.players[i].justInfected = true;
-                }
-              } else {
-                if (isDoerInfected && !isTargetInfected) {
-                  this.group_session.players[targetIndex].justInfected = true;
-                } else if (isTargetInfected && !isDoerInfected) {
-                  this.group_session.players[i].justInfected = true;
-                }
-              }
+          if (!isDoerInfected) {
+            this.group_session.players[i].justInfected = true;
+          }
+        } else {
+          if (isDoerInfected && !isTargetInfected) {
+            this.group_session.players[targetIndex].justInfected = true;
+          } else if (isTargetInfected && !isDoerInfected) {
+            this.group_session.players[i].justInfected = true;
+          }
+        }
 
         this.group_session.players[i].message +=
           "👣 Kamu ke rumah " + target.name + "\n\n";
@@ -4174,16 +4174,16 @@ module.exports = {
         let isTargetInfected = players[targetIndex].infected;
 
         if (target.role.name === "plaguebearer") {
-                if (!isDoerInfected) {
-                  this.group_session.players[i].justInfected = true;
-                }
-              } else {
-                if (isDoerInfected && !isTargetInfected) {
-                  this.group_session.players[targetIndex].justInfected = true;
-                } else if (isTargetInfected && !isDoerInfected) {
-                  this.group_session.players[i].justInfected = true;
-                }
-              }
+          if (!isDoerInfected) {
+            this.group_session.players[i].justInfected = true;
+          }
+        } else {
+          if (isDoerInfected && !isTargetInfected) {
+            this.group_session.players[targetIndex].justInfected = true;
+          } else if (isTargetInfected && !isDoerInfected) {
+            this.group_session.players[i].justInfected = true;
+          }
+        }
 
         this.group_session.players[i].message +=
           "👣 Kamu ke rumah " + target.name + "\n\n";
@@ -4223,16 +4223,16 @@ module.exports = {
         let isTargetInfected = players[targetIndex].infected;
 
         if (target.role.name === "plaguebearer") {
-                if (!isDoerInfected) {
-                  this.group_session.players[i].justInfected = true;
-                }
-              } else {
-                if (isDoerInfected && !isTargetInfected) {
-                  this.group_session.players[targetIndex].justInfected = true;
-                } else if (isTargetInfected && !isDoerInfected) {
-                  this.group_session.players[i].justInfected = true;
-                }
-              }
+          if (!isDoerInfected) {
+            this.group_session.players[i].justInfected = true;
+          }
+        } else {
+          if (isDoerInfected && !isTargetInfected) {
+            this.group_session.players[targetIndex].justInfected = true;
+          } else if (isTargetInfected && !isDoerInfected) {
+            this.group_session.players[i].justInfected = true;
+          }
+        }
 
         this.group_session.players[i].message +=
           "👣 Kamu ke rumah " + target.name + "\n\n";
@@ -4267,16 +4267,16 @@ module.exports = {
         let isTargetInfected = players[targetIndex].infected;
 
         if (target.role.name === "plaguebearer") {
-                if (!isDoerInfected) {
-                  this.group_session.players[i].justInfected = true;
-                }
-              } else {
-                if (isDoerInfected && !isTargetInfected) {
-                  this.group_session.players[targetIndex].justInfected = true;
-                } else if (isTargetInfected && !isDoerInfected) {
-                  this.group_session.players[i].justInfected = true;
-                }
-              }
+          if (!isDoerInfected) {
+            this.group_session.players[i].justInfected = true;
+          }
+        } else {
+          if (isDoerInfected && !isTargetInfected) {
+            this.group_session.players[targetIndex].justInfected = true;
+          } else if (isTargetInfected && !isDoerInfected) {
+            this.group_session.players[i].justInfected = true;
+          }
+        }
 
         if (target.visitors.length > 1) {
           let targetVisitors = "";
