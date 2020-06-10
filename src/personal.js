@@ -502,6 +502,21 @@ module.exports = {
           continue;
         }
 
+        /// exception on some role for their button
+        if (role.team === "mafia") {
+          if (players[i].role.team === "mafia") continue;
+        } else if (role.team === "vampire") {
+          if (players[i].role.team === "vampire") continue;
+        } else if (role.name === "doctor") {
+          if (players[i].role.name === "mayor" && players[i].role.revealed) {
+            continue;
+          }
+
+          if (index == i && !players[i].role.selfHeal) continue;
+        } else if (role.name === "bodyguard") {
+          if (index == i && !players[i].role.vest) continue;
+        }
+
         button[i] = {
           action: "postback",
           label: players[i].name,
