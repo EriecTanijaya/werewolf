@@ -3133,7 +3133,7 @@ module.exports = {
         if (isAttacked || isVampireBited) {
           this.group_session.players[i].damage = attackers.length;
 
-          if (!isBurned && !isHaunted && !willSuicide && afkCounter < 3) {
+          if (!willSuicide && afkCounter < 3) {
             for (let x = 0; x < attackers.length; x++) {
               let attacker = attackers[x];
 
@@ -3143,6 +3143,13 @@ module.exports = {
 
                   this.group_session.players[protector.index].message +=
                     "💡 " + players[i].name + " diserang semalam!" + "\n\n";
+                  
+                  if (isBurned || isHaunted) {
+                    this.group_session.players[protector.index].message +=
+                      "💡 Namun kamu gagal melindunginya" + "\n\n";
+                    
+                    continue;
+                  }
 
                   if (attacker.countered) {
                     continue;
