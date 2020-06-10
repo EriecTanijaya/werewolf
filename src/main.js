@@ -29,7 +29,6 @@ module.exports = {
             let reminder = "💡 Waktu tersisa " + time;
             reminder += " detik lagi, nanti ketik '/cek' ";
             reminder += "saat waktu sudah habis untuk lanjutkan proses. ";
-            reminder += "💡 Gunakan '/extend' untuk perpanjang waktu.";
             return this.replyText(reminder);
           } else if (time === 0) {
             if (this.indexOfPlayer() !== -1) {
