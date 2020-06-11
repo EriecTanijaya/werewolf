@@ -3807,7 +3807,9 @@ module.exports = {
         );
 
         allAnnouncement += attackedAnnouncement + "\n";
-        allAnnouncement += `✉️ Role nya adalah ${roleName} ${players[i].role.emoji.self}\n\n`;
+
+        let emoji = helper.getRoleNameEmoji(roleName);
+        allAnnouncement += `✉️ Role nya adalah ${roleName} ${emoji}\n\n`;
 
         //Thanks to
         //https://stackoverflow.com/questions/24806772/how-to-skip-over-an-element-in-map/24806827
@@ -4744,7 +4746,8 @@ module.exports = {
     announcement +=
       lynchedName + " dengan jumlah " + lynchTarget.count + " vote";
 
-    announcement += "\n\n" + "✉️ Role nya adalah " + roleName;
+    let emoji = helper.getRoleNameEmoji(roleName);
+    announcement += `\n\n✉️ Role nya adalah ${roleName} ${emoji}`;
 
     /// Set special role trigger when lynch
     // khususnya jester dan executioner
