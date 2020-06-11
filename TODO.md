@@ -1,9 +1,6 @@
 TODO
 
 NOTEE
-- env.test jadiin false, env.maintenance false in juga
-- un comment multicast
-- push ke github, lalu pull update ke heroku juga
 
 - refactor role set
   - [official mode](https://town-of-salem.fandom.com/wiki/Game_Modes#:~:text=In%20the%20base%20content%20of,Dracula's%20Palace%20and%20Town%20Traitor.)
