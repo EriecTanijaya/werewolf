@@ -312,7 +312,7 @@ module.exports = {
           "🃏 Kerusuhan terjadi di Kota Bedburg disebabkan oleh satu orang yang dikenal sebagai Joker";
         break;
 
-      case "amensiac-chaos":
+      case "amnesiac-chaos":
         text =
           "🤕 Sejak Agen K menggunakan alat penghapus ingatan, beberapa warga menjadi lupa dengan diri mereka sendiri";
         break;
