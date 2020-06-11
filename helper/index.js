@@ -93,8 +93,6 @@ module.exports = {
 
     return flex_texts;
   },
-  
-  
 
   getPsychicResult: function(players, psychicIndex, isFullMoon) {
     let text = "🔮 ";
