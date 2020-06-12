@@ -5139,8 +5139,14 @@ module.exports = {
   },
 
   handleGuardianAngelWin: function(index, tableColumn, surviveTeam) {
-    tableColumn.text = "win";
-    surviveTeam.push("guardian angel 😇");
+    let guardianAngel = this.group_session.players[index];
+    let targetIndex = guardianAngel.role.mustProtectIndex;
+    if (this.group_session.players[targetIndex].status === "alive") {
+      tableColumn.text = "win";
+      surviveTeam.push("guardian angel 😇");
+    } else {
+      tableColumn.text = "lose";
+    }
   },
 
   getExecutionerTargetIndex: function(exeIndex, isAmnesiac) {
