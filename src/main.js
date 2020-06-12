@@ -1960,14 +1960,14 @@ module.exports = {
 
         if (doer.target.index !== -1) {
           let target = players[targetIndex];
-          
+
           if (skillLevel < 3) {
             // hax for check if the target was veteran
             if (target.role.name === "veteran" && target.target.index !== -1) {
               continue;
             }
           }
-          
+
           let visitor = {
             index: i,
             name: doer.name,
@@ -4852,7 +4852,8 @@ module.exports = {
 
     // executioner
     for (let i = 0; i < players.length; i++) {
-      if (players[i].role.name === "executioner") {
+      let status = players[i].status;
+      if (players[i].role.name === "executioner" && status === "alive") {
         if (players[i].role.targetLynchIndex == lynchTarget.index) {
           this.group_session.players[i].role.isTargetLynched = true;
         }
@@ -4861,7 +4862,8 @@ module.exports = {
 
     // guardian angel
     for (let i = 0; i < players.length; i++) {
-      if (players[i].role.name === "guardian-angel") {
+      let status = players[i].status;
+      if (players[i].role.name === "guardian-angel" && status === "alive") {
         if (players[i].role.mustProtectIndex == lynchTarget.index) {
           let roleData = this.getRoleData("survivor");
           this.group_session.players[i].role = roleData;
