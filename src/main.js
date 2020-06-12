@@ -1959,6 +1959,15 @@ module.exports = {
         }
 
         if (doer.target.index !== -1) {
+          let target = players[targetIndex];
+          
+          if (skillLevel < 3) {
+            // hax for check if the target was veteran
+            if (target.role.name === "veteran" && target.target.index !== -1) {
+              continue;
+            }
+          }
+          
           let visitor = {
             index: i,
             name: doer.name,
@@ -1969,7 +1978,6 @@ module.exports = {
           // infection
           let isDoerInfected = players[i].infected;
           let isTargetInfected = players[targetIndex].infected;
-          let target = players[targetIndex];
 
           if (target.role.name === "plaguebearer") {
             if (!isDoerInfected) {
