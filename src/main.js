@@ -859,9 +859,11 @@ module.exports = {
       roles = helper.getFriday13RoleSet(playersLength);
     } else if (mode === "amnesiac-chaos") {
       roles = helper.getAmnesiacChaos(playersLength);
+    } else if (mode === "chaos") {
+      roles = helper.getChaosRoleSet(playersLength);
     } else {
-      // classic & chaos
-      roles = helper.generateRoles(playersLength, mode);
+      // classic
+      roles = helper.generateRoles(playersLength);
     }
 
     return roles;
@@ -4494,9 +4496,8 @@ module.exports = {
       let doer = players[i];
 
       if (doer.role.name === "plaguebearer" && doer.status === "alive") {
-        
         if (doer.role.isPestilence) continue;
-        
+
         this.group_session.players[i].message +=
           plaguebearerAnnouncement + "\n";
 

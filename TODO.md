@@ -160,7 +160,7 @@ let roles = [
     value: -8
   },
   {
-    name: "pyschic",
+    name: "psychic",
     value: 9
   },
   {

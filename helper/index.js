@@ -1,43 +1,26 @@
 module.exports = {
-  generateRoles: function(playersLength, mode) {
-    // let antagonist = mode === "classic" ? "mafia" : "neutral-killing";
+  generateRoles: function(playersLength) {
+    if (playersLength < 7) {
+      let roles = [];
+      let mafia = ["investigator", "mafioso", "vigilante", "jester"];
+      let sk = ["serial-killer", "investigator", "doctor", "jester"];
+
+      roles = this.random([mafia, sk]);
+
+      roles = this.shuffleArray(roles);
+      return roles;
+    }
 
     let roles = [
       {
         name: "bodyguard",
         value: 4,
-        pair: [
-          "doctor",
-          "bodyguard",
-          "investigator",
-          "sheriff",
-          "mayor",
-          "vigilante",
-          "lookout",
-          "escort",
-          "spy",
-          "tracker",
-          "psychic",
-          "vampire-hunter"
-        ]
+        allFriendly: true
       },
       {
         name: "doctor",
         value: 4,
-        pair: [
-          "doctor",
-          "bodyguard",
-          "investigator",
-          "sheriff",
-          "mayor",
-          "vigilante",
-          "lookout",
-          "escort",
-          "spy",
-          "tracker",
-          "psychic",
-          "vampire-hunter"
-        ]
+        allFriendly: true
       },
       {
         name: "investigator",
@@ -257,23 +240,27 @@ module.exports = {
 
     roles = this.shuffleArray(roles);
 
-    let measure = -3;
+    let measure = 0;
 
-    // const villagerPercentage = 60;
-    // const antagonistPercentage = mode === "classic" ? 20 : 25;
-    // const neutralKillingPercentage = 10;
-    // const neutralPercentage =
-    //   100 -
-    //   villagerPercentage -
-    //   antagonistPercentage -
-    //   neutralKillingPercentage;
+    let generated = ["mafioso", "sheriff"];
 
-    let generated = ["sheriff", "mafioso", "executioner"];
+    let neutralLimit = 1;
+    let neutralKillingLimit = 1;
 
-    // let villagerCount = playersLength * (villagerPercentage / 100);
-    // let antagonistCount = playersLength * (antagonistPercentage / 100);
-    // let neutralKillingCount = playersLength * (neutralKillingPercentage / 100);
-    // let neutralCount = playersLength * (neutralPercentage / 100);
+    let neutral = [
+      "amnesiac",
+      "survivor",
+      "guardian-angel",
+      "jester",
+      "executioner"
+    ];
+
+    let neutralKilling = [
+      "arsonist",
+      "serial-killer",
+      "juggernaut",
+      "plaguebearer"
+    ];
 
     for (let i = 0; i < roles.length; i++) {
       if (generated.length === playersLength) break;
@@ -283,15 +270,29 @@ module.exports = {
       for (let u = 0; u < generated.length; u++) {
         if (generated.length === playersLength) break;
 
-        // let toIncludeRole = "";
-
         if (role.allFriendly) {
           if (!generated.includes(role.name)) {
             let currentMeasure = measure;
-            if (currentMeasure < 0) {
-              if (role.value < 0) continue;
-            } else if (currentMeasure > 0) {
-              if (role.value > 0) continue;
+            if (currentMeasure < -4) {
+              if (role.value < 5) continue;
+            } else if (currentMeasure > 4) {
+              if (role.value > 4) continue;
+            }
+
+            if (neutral.includes(role.name)) {
+              if (neutralLimit) {
+                neutralLimit--;
+              } else {
+                continue;
+              }
+            }
+
+            if (neutralKilling.includes(role.name)) {
+              if (neutralKillingLimit) {
+                neutralKillingLimit--;
+              } else {
+                continue;
+              }
             }
 
             generated.push(role.name);
@@ -305,10 +306,26 @@ module.exports = {
             if (generated[u] === role.pair[j]) {
               if (!generated.includes(role.name)) {
                 let currentMeasure = measure;
-                if (currentMeasure < 0) {
-                  if (role.value < 0) continue;
-                } else if (currentMeasure > 0) {
-                  if (role.value > 0) continue;
+                if (currentMeasure < -4) {
+                  if (role.value < 5) continue;
+                } else if (currentMeasure > 4) {
+                  if (role.value > 4) continue;
+                }
+
+                if (neutral.includes(role.name)) {
+                  if (neutralLimit) {
+                    neutralLimit--;
+                  } else {
+                    continue;
+                  }
+                }
+
+                if (neutralKilling.includes(role.name)) {
+                  if (neutralKillingLimit) {
+                    neutralKillingLimit--;
+                  } else {
+                    continue;
+                  }
                 }
 
                 generated.push(role.name);
@@ -320,6 +337,11 @@ module.exports = {
           }
         }
       }
+    }
+
+    if (measure > 10) {
+      generated.pop();
+      generated.push("villager");
     }
 
     console.log(`generated role : ${generated.join(", ")}`);
@@ -768,53 +790,8 @@ module.exports = {
     return roles;
   },
 
-  getClassicRoleSet: function(playersLength) {
-    let roles = ["mafioso", "doctor", "sheriff", "escort", "jester"];
-
-    let townKillings = ["veteran", "vigilante"];
-    let townKilling = this.random(townKillings);
-    roles.push(townKilling);
-
-    roles.push("godfather", "investigator", "executioner", "lookout");
-
-    let remainingTowns = [
-      "doctor",
-      "bodyguard",
-      "investigator",
-      "lookout",
-      "sheriff",
-      "vigilante",
-      "escort",
-      "retributionist",
-      "tracker",
-      "psychic"
-    ];
-
-    let randomTown = this.random(remainingTowns);
-    roles.push(randomTown);
-
-    let neutralKillings = [
-      "arsonist",
-      "serial-killer",
-      "werewolf",
-      "juggernaut",
-      "plaguebearer"
-    ];
-    roles.push(this.random(neutralKillings));
-
-    roles.push("framer", "spy");
-
-    let lastRandomTown = this.random(remainingTowns);
-    roles.push(lastRandomTown);
-
-    roles.length = playersLength;
-
-    roles = this.shuffleArray(roles);
-
-    return roles;
-  },
-
   getChaosRoleSet: function(playersLength) {
+    // clean up or save dulu
     let roles = ["mafioso"];
 
     let townInvestigates = ["investigator", "lookout", "psychic", "sheriff"];
