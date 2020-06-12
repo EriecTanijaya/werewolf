@@ -1,4 +1,41 @@
 TODO
+- buat list role yang ada ini, butuh itu cth :
+  - ada sheriff kalau ada yang bisa di curigain
+    - ada sk, ada mafia selain godfather
+    - ada framer,
+    - ada investigator dan executioner buat spicy
+    - werewolf juga bisa spicy kan
+  - ada vigilante kalau ada non villager yang bisa di dor
+    - semua mafia kecuali gf
+    - jester
+    - vampire
+    - werewolf (karna kalo ga full moon ga bisa attack)
+  - ada exe kalau ada villager
+  - ada arso kalo ada investigator (buat efek douse)
+  - ada framer kalao ada sheriff atau dan investigator
+  - ada spy kalo ada role selain mafia killing (mafia deception dan mafia support) ini lebih ke town buff nya
+  - ada lookout juga kalo ada role selain mafia killing, ini lebih mild
+  - vampire hunter kalo ada vampire
+  - ada psychic kalo ada town dan non town
+  - ada serial killer kalo ada escort atau dan consort
+  
+  yang ga di sebut, itu udah ga ada depensi, jadi khusus memang buat gitu gituan
+  
+  untuk measure point, itu ada berapa persen jumlah warga, dan berapa persen jumlah neutral dan mafia
+  
+  15 pemain = 9 warga, 3 mafia, 1 neutral killing, 2 neutral selain vampire (mostly) kecuali chaos mode
+  
+  warga 60 persen, mafia 20 persen, nk 6,6 persen, neutral 13 persen
+  
+  atau
+  
+  warga 60 persen, mafia 25 persen, nk 6,6 persen, neutral 6,6 persen
+  
+  hampir semua official mode formatnya sama, 60 persen warga
+  
+  yang beda hanya porsi non town nya itu mafia atau vampire 25 persen atau 20 persen
+  
+  sisa nya neutral killing 1 atau kalau porsi penjahat 20 persen, tambah 1 neutral lagi
 
 NOTEE
 
@@ -32,11 +69,11 @@ let roles = [
   },
   {
     name: "survivor",
-    value: 4
+    value: 0
   },
   {
     name: "veteran",
-    value: 3
+    value: 4
   },
   {
     name: "vigilante",
@@ -142,13 +179,17 @@ let arr = ["sheriff", "mafioso", "escort", "doctor", "executioner"];
 for (let i = 0; i < roles.length; i++) {
   for (let u = 0; u < arr.length; u++) {
     if (arr[u] === roles[i].name) {
-      console.log(roles[i]);
       measure += roles[i].value;
     }
   }
 }
 
-console.log(measure);
+let playersLength = arr.length;
+let measurePoint = measure;
+
+console.log(`${playersLength} players with ${measurePoint} point`);
+console.log(`roles : ${arr.join(", ")}`)
+
 ```
 
 - role set trick or treat (ada di tos punya fandom wiki) buat halloween ntr

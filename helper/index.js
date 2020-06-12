@@ -1,4 +1,335 @@
 module.exports = {
+  generateRoles: function(playersLength, mode) {
+    // let antagonist = mode === "classic" ? "mafia" : "neutral-killing";
+
+    let roles = [
+      {
+        name: "bodyguard",
+        value: 4,
+        pair: [
+          "doctor",
+          "bodyguard",
+          "investigator",
+          "sheriff",
+          "mayor",
+          "vigilante",
+          "lookout",
+          "escort",
+          "spy",
+          "tracker",
+          "psychic",
+          "vampire-hunter"
+        ]
+      },
+      {
+        name: "doctor",
+        value: 4,
+        pair: [
+          "doctor",
+          "bodyguard",
+          "investigator",
+          "sheriff",
+          "mayor",
+          "vigilante",
+          "lookout",
+          "escort",
+          "spy",
+          "tracker",
+          "psychic",
+          "vampire-hunter"
+        ]
+      },
+      {
+        name: "investigator",
+        value: 8,
+        allFriendly: true
+      },
+      {
+        name: "mayor",
+        value: 8,
+        pair: ["bodyguard", "vampire", "doctor"]
+      },
+      {
+        name: "sheriff",
+        value: 7,
+        pair: [
+          "mafioso",
+          "framer",
+          "disguiser",
+          "consort",
+          "consigliere",
+          "serial-killer",
+          "executioner",
+          "werewolf",
+          "investigator"
+        ]
+      },
+      {
+        name: "survivor",
+        value: 0,
+        allFriendly: true
+      },
+      {
+        name: "veteran",
+        value: 4,
+        pair: [
+          "mafioso",
+          "serial-killer",
+          "arsonist",
+          "framer",
+          "consort",
+          "consigliere",
+          "plaguebearer",
+          "werewolf",
+          "juggernaut",
+          "godfather"
+        ]
+      },
+      {
+        name: "vigilante",
+        value: 5,
+        pair: [
+          "mafioso",
+          "consort",
+          "consigliere",
+          "framer",
+          "jester",
+          "werewolf",
+          "juggernaut",
+          "plaguebearer"
+        ]
+      },
+      {
+        name: "consigliere",
+        value: -10,
+        pair: [
+          "serial-killer",
+          "arsonist",
+          "plaguebearer",
+          "jester",
+          "vampire",
+          "werewolf",
+          "juggernaut",
+          "executioner"
+        ]
+      },
+      {
+        name: "godfather",
+        value: -8,
+        pair: ["mafioso"]
+      },
+      {
+        name: "mafioso",
+        value: -6,
+        allFriendly: true
+      },
+      {
+        name: "amnesiac",
+        value: 0,
+        allFriendly: true
+      },
+      {
+        name: "executioner",
+        value: -4,
+        allFriendly: true
+      },
+      {
+        name: "jester",
+        value: -1,
+        allFriendly: true
+      },
+      {
+        name: "serial-killer",
+        value: -8,
+        pair: [
+          "consort",
+          "escort",
+          "sheriff",
+          "doctor",
+          "disguiser",
+          "investigator"
+        ]
+      },
+      {
+        name: "werewolf",
+        value: -9,
+        pair: ["sheriff", "executioner", "investigator", "bodyguard"]
+      },
+      {
+        name: "consort",
+        value: -8,
+        pair: ["serial-killer", "veteran", "escort"]
+      },
+      // {
+      //   name: "vampire",
+      //   value: -7,
+      //   pair: [
+      //     "vampire-hunter",
+      //     "mayor",
+      //     "lookout",
+      //     "tracker",
+      //     "investigator",
+      //     "sheriff",
+      //     "framer",
+      //     "jester"
+      //   ]
+      // },
+      // {
+      //   name: "vampire-hunter",
+      //   value: 7,
+      //   pair: ["vampire"]
+      // },
+      {
+        name: "lookout",
+        value: 7,
+        pair: [
+          "framer",
+          "consigliere",
+          "mafioso",
+          "disguiser",
+          "consort",
+          "plaguebearer",
+          "arsonist"
+        ]
+      },
+      {
+        name: "escort",
+        value: 5,
+        pair: ["serial-killer", "consort", "veteran"]
+      },
+      {
+        name: "retributionist",
+        value: 8,
+        allFriendly: true
+      },
+      {
+        name: "arsonist",
+        value: -7,
+        pair: ["bodyguard", "investigator", "godfather"]
+      },
+      {
+        name: "spy",
+        value: 6,
+        pair: ["framer", "disguiser", "consigliere", "consort"]
+      },
+      {
+        name: "tracker",
+        value: 7,
+        allFriendly: true
+      },
+      {
+        name: "framer",
+        value: -6,
+        pair: ["sheriff", "investigator"]
+      },
+      {
+        name: "disguiser",
+        value: -7,
+        pair: [
+          "vigilante",
+          "sheriff",
+          "investigator",
+          "doctor",
+          "serial-killer"
+        ]
+      },
+      {
+        name: "juggernaut",
+        value: -8,
+        allFriendly: true
+      },
+      {
+        name: "psychic",
+        value: 9,
+        pair: ["jester", "executioner"]
+      },
+      {
+        name: "guardian-angel",
+        value: 0,
+        allFriendly: true
+      },
+      {
+        name: "plaguebearer",
+        value: -8,
+        pair: ["lookout", "tracker"]
+      }
+    ];
+
+    roles = this.shuffleArray(roles);
+
+    let measure = -3;
+
+    // const villagerPercentage = 60;
+    // const antagonistPercentage = mode === "classic" ? 20 : 25;
+    // const neutralKillingPercentage = 10;
+    // const neutralPercentage =
+    //   100 -
+    //   villagerPercentage -
+    //   antagonistPercentage -
+    //   neutralKillingPercentage;
+
+    let generated = ["sheriff", "mafioso", "executioner"];
+
+    // let villagerCount = playersLength * (villagerPercentage / 100);
+    // let antagonistCount = playersLength * (antagonistPercentage / 100);
+    // let neutralKillingCount = playersLength * (neutralKillingPercentage / 100);
+    // let neutralCount = playersLength * (neutralPercentage / 100);
+
+    for (let i = 0; i < roles.length; i++) {
+      if (generated.length === playersLength) break;
+
+      let role = roles[i];
+
+      for (let u = 0; u < generated.length; u++) {
+        if (generated.length === playersLength) break;
+
+        // let toIncludeRole = "";
+
+        if (role.allFriendly) {
+          if (!generated.includes(role.name)) {
+            let currentMeasure = measure;
+            if (currentMeasure < 0) {
+              if (role.value < 0) continue;
+            } else if (currentMeasure > 0) {
+              if (role.value > 0) continue;
+            }
+
+            generated.push(role.name);
+            measure += role.value;
+          }
+        } else {
+          role.pair = this.shuffleArray(role.pair);
+          for (let j = 0; j < role.pair.length; j++) {
+            if (generated.length === playersLength) break;
+
+            if (generated[u] === role.pair[j]) {
+              if (!generated.includes(role.name)) {
+                let currentMeasure = measure;
+                if (currentMeasure < 0) {
+                  if (role.value < 0) continue;
+                } else if (currentMeasure > 0) {
+                  if (role.value > 0) continue;
+                }
+
+                generated.push(role.name);
+                measure += role.value;
+
+                break;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    console.log(`generated role : ${generated.join(", ")}`);
+    console.log(`measure point : ${measure}`);
+
+    generated = this.shuffleArray(generated);
+
+    return generated;
+  },
+
   getUpdates: function() {
     // show last 10 updates
     // header text ganti nomor aja
@@ -380,7 +711,7 @@ module.exports = {
     let roles = [
       "serial-killer",
       "escort",
-      "escort",
+      "veteran",
       "vigilante",
       "escort",
       "mafioso",
