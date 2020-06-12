@@ -30,7 +30,7 @@ module.exports = {
       {
         name: "mayor",
         value: 8,
-        pair: ["bodyguard", "vampire", "doctor"]
+        pair: ["bodyguard", "vampire", "doctor", "lookout"]
       },
       {
         name: "sheriff",
@@ -143,25 +143,6 @@ module.exports = {
         value: -8,
         pair: ["serial-killer", "veteran", "escort"]
       },
-      // {
-      //   name: "vampire",
-      //   value: -7,
-      //   pair: [
-      //     "vampire-hunter",
-      //     "mayor",
-      //     "lookout",
-      //     "tracker",
-      //     "investigator",
-      //     "sheriff",
-      //     "framer",
-      //     "jester"
-      //   ]
-      // },
-      // {
-      //   name: "vampire-hunter",
-      //   value: 7,
-      //   pair: ["vampire"]
-      // },
       {
         name: "lookout",
         value: 7,
@@ -259,7 +240,8 @@ module.exports = {
       "arsonist",
       "serial-killer",
       "juggernaut",
-      "plaguebearer"
+      "plaguebearer",
+      "werewolf",
     ];
 
     for (let i = 0; i < roles.length; i++) {
