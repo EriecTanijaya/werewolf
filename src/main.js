@@ -777,13 +777,9 @@ module.exports = {
 
     /// test specific role cp
     if (process.env.TEST === "true") {
-      roles = [
-        "plaguebearer",
-        "sheriff",
-        "vigilante",
-        "lookout",
-        "investigator"
-      ];
+      roles = helper.generateRoles(playersLength, "classic");
+
+      roles = helper.shuffleArray(roles);
     }
 
     this.group_session.players.forEach((item, index) => {
@@ -843,11 +839,7 @@ module.exports = {
     let mode = this.group_session.mode;
     let roles = [];
 
-    if (mode === "classic") {
-      roles = helper.getClassicRoleSet(playersLength);
-    } else if (mode === "chaos") {
-      roles = helper.getChaosRoleSet(playersLength);
-    } else if (mode === "vampire") {
+    if (mode === "vampire") {
       roles = helper.getVampireRoleSet(playersLength);
     } else if (mode === "survive") {
       roles = helper.getSurviveRoleSet(playersLength);
@@ -867,6 +859,11 @@ module.exports = {
       roles = helper.getFriday13RoleSet(playersLength);
     } else if (mode === "amnesiac-chaos") {
       roles = helper.getAmnesiacChaos(playersLength);
+    } else if (mode === "chaos") {
+      roles = helper.getChaosRoleSet(playersLength);
+    } else {
+      // classic
+      roles = helper.generateRoles(playersLength);
     }
 
     return roles;
@@ -1757,7 +1754,8 @@ module.exports = {
               "serial-killer",
               "arsonist",
               "executioner",
-              "werewolf"
+              "werewolf",
+              "plaguebearer"
             ];
 
             let canAttacked = [
@@ -1765,12 +1763,17 @@ module.exports = {
               "consigliere",
               "consort",
               "framer",
-              "disguiser"
+              "disguiser",
+              "juggernaut"
             ];
 
             if (immuneToVampireBite.includes(targetRoleName)) {
               this.group_session.players[i].message +=
                 "💡 Target kamu kebal dari gigitan!" + "\n\n";
+
+              this.group_session.players[targetIndex].message +=
+                "💡 Ada yang menyerang kamu tapi kamu immune dari serangan!" +
+                "\n\n";
 
               if (players[targetIndex].bugged) {
                 spyBuggedInfo[targetIndex] +=
@@ -1787,6 +1790,25 @@ module.exports = {
               canAttacked.includes(targetRoleName) ||
               vampireAttackMode
             ) {
+              if (target.role.name === "juggernaut") {
+                if (target.role.skillLevel >= 2) {
+                  this.group_session.players[i].message +=
+                    "💡 Target kamu kebal dari gigitan!" + "\n\n";
+
+                  this.group_session.players[targetIndex].message +=
+                    "💡 Ada yang menyerang kamu tapi kamu immune dari serangan!" +
+                    "\n\n";
+
+                  if (players[targetIndex].bugged) {
+                    spyBuggedInfo[targetIndex] +=
+                      "🔍 Target kamu diserang tapi serangan tersebut tidak mempan!" +
+                      "\n\n";
+                  }
+
+                  break;
+                }
+              }
+
               this.group_session.players[i].message +=
                 "💡 Kamu menyerang " + target.name + "\n\n";
 
@@ -2888,6 +2910,25 @@ module.exports = {
               "\n\n";
           }
         } else {
+          if (target.role.name === "juggernaut") {
+            if (target.role.skillLevel >= 2) {
+              this.group_session.players[i].message +=
+                "💡 Target kamu kebal dari gigitan!" + "\n\n";
+
+              this.group_session.players[targetIndex].message +=
+                "💡 Ada yang menyerang kamu tapi kamu immune dari serangan!" +
+                "\n\n";
+
+              if (players[targetIndex].bugged) {
+                spyBuggedInfo[targetIndex] +=
+                  "🔍 Target kamu diserang tapi serangan tersebut tidak mempan!" +
+                  "\n\n";
+              }
+
+              continue;
+            }
+          }
+
           this.group_session.players[i].message +=
             "💡 Kamu menyerang " + target.name + "\n\n";
 
@@ -2964,6 +3005,10 @@ module.exports = {
           "executioner"
         ];
 
+        if (this.group_session.isFullMoon) {
+          immuneToBasicAttack.push("werewolf");
+        }
+
         if (immuneToBasicAttack.includes(target.role.name)) {
           this.group_session.players[i].message +=
             "💡 Target kamu immune dari serangan!" + "\n\n";
@@ -2973,10 +3018,29 @@ module.exports = {
 
           if (players[targetIndex].bugged) {
             spyBuggedInfo[targetIndex] +=
-              "🔍 Target kamu diserang tapi serangan tersebut tidak mempan!" +
+              "🔍 Target kamu di serang tapi serangan tersebut tidak mempan!" +
               "\n\n";
           }
         } else {
+          if (target.role.name === "juggernaut") {
+            if (target.role.skillLevel >= 2) {
+              this.group_session.players[i].message +=
+                "💡 Target kamu kebal dari gigitan!" + "\n\n";
+
+              this.group_session.players[targetIndex].message +=
+                "💡 Ada yang menyerang kamu tapi kamu immune dari serangan!" +
+                "\n\n";
+
+              if (players[targetIndex].bugged) {
+                spyBuggedInfo[targetIndex] +=
+                  "🔍 Target kamu diserang tapi serangan tersebut tidak mempan!" +
+                  "\n\n";
+              }
+
+              continue;
+            }
+          }
+
           this.group_session.players[i].message +=
             "💡 Kamu menyerang " + target.name + "\n\n";
 
@@ -3173,6 +3237,25 @@ module.exports = {
                     "\n\n";
                 }
               } else {
+                if (target.role.name === "juggernaut") {
+                  if (target.role.skillLevel >= 2) {
+                    this.group_session.players[i].message +=
+                      "💡 Target kamu kebal dari gigitan!" + "\n\n";
+
+                    this.group_session.players[targetIndex].message +=
+                      "💡 Ada yang menyerang kamu tapi kamu immune dari serangan!" +
+                      "\n\n";
+
+                    if (players[targetIndex].bugged) {
+                      spyBuggedInfo[targetIndex] +=
+                        "🔍 Target kamu diserang tapi serangan tersebut tidak mempan!" +
+                        "\n\n";
+                    }
+
+                    continue;
+                  }
+                }
+
                 this.group_session.players[i].message +=
                   "💡 Kamu menyerang " + target.name + "\n\n";
 
@@ -4413,6 +4496,8 @@ module.exports = {
       let doer = players[i];
 
       if (doer.role.name === "plaguebearer" && doer.status === "alive") {
+        if (doer.role.isPestilence) continue;
+
         this.group_session.players[i].message +=
           plaguebearerAnnouncement + "\n";
 
