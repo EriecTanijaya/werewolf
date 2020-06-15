@@ -5405,7 +5405,7 @@ module.exports = {
       headerText = "🌙 ";
     }
 
-    headerText += " Malam - " + this.group_session.nightCounter;
+    headerText += "Malam - " + this.group_session.nightCounter;
 
     let flex_text = {
       header: {
