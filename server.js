@@ -58,7 +58,7 @@ app.post("/callback", (req, res) => {
     });
 });
 
-async function handleEvent(event) {
+async function handleEvent(event) {  
   //Note: should return! So Promise.all could catch the error
   if (event.type === "postback") {
     let rawArgs = event.postback.data;
