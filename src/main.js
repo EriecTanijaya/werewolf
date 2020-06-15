@@ -2921,7 +2921,7 @@ module.exports = {
           if (target.role.name === "juggernaut") {
             if (target.role.skillLevel >= 2) {
               this.group_session.players[i].message +=
-                "💡 Target kamu kebal dari gigitan!" + "\n\n";
+                "💡 Target kamu immune dari serangan!" + "\n\n";
 
               this.group_session.players[targetIndex].message +=
                 "💡 Ada yang menyerang kamu tapi kamu immune dari serangan!" +
@@ -3033,7 +3033,7 @@ module.exports = {
           if (target.role.name === "juggernaut") {
             if (target.role.skillLevel >= 2) {
               this.group_session.players[i].message +=
-                "💡 Target kamu kebal dari gigitan!" + "\n\n";
+                "💡 Target kamu immune dari serangan!" + "\n\n";
 
               this.group_session.players[targetIndex].message +=
                 "💡 Ada yang menyerang kamu tapi kamu immune dari serangan!" +
@@ -3248,7 +3248,7 @@ module.exports = {
                 if (target.role.name === "juggernaut") {
                   if (target.role.skillLevel >= 2) {
                     this.group_session.players[i].message +=
-                      "💡 Target kamu kebal dari gigitan!" + "\n\n";
+                      "💡 Target kamu immune dari serangan!" + "\n\n";
 
                     this.group_session.players[targetIndex].message +=
                       "💡 Ada yang menyerang kamu tapi kamu immune dari serangan!" +
@@ -5397,10 +5397,19 @@ module.exports = {
   },
 
   getNightStateFlex: function(text) {
-    //set flex
+    let headerText = "";
+
+    if (this.group_session.isFullMoon) {
+      headerText = "🌕 ";
+    } else {
+      headerText = "🌙 ";
+    }
+
+    headerText += " Malam - " + this.group_session.nightCounter;
+
     let flex_text = {
       header: {
-        text: "🌙 Malam - " + this.group_session.nightCounter
+        text: headerText
       },
       body: {
         text: text
