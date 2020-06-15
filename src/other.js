@@ -43,7 +43,7 @@ module.exports = {
     return this.replyFlex(flex_text);
   },
 
-  joinResponse: function(groupId) {
+  joinResponse: async function(groupId) {
     let isMaintenance = process.env.MAINTENANCE === "true" ? true : false;
     let isTestGroup = groupId === process.env.TEST_GROUP ? true : false;
     if (isMaintenance && !isTestGroup) {
@@ -63,12 +63,40 @@ module.exports = {
         });
     }
 
-    let text =
-      "Thanks udah undang bot ini 😃, ketik '/help' atau '/cmd' untuk bantuan, ";
-    text += "dan ketik '/tutorial' untuk cara menggunakan bot!";
+    let membersCount = await this.getMembersCount(groupId);
+    if (!isTestGroup && membersCount < 5) {
+      let text =
+        "🙏 Maaf, undang kembali jika jumlah member sudah minimal 5 orang. ";
+      text += "🌕 Game hanya bisa dimainkan dengan jumlah minimal 5 orang";
+      return this.client
+        .replyMessage(this.event.replyToken, {
+          type: "text",
+          text: text
+        })
+        .then(() => {
+          if (this.event.source.type === "group") {
+            return this.client.leaveGroup(groupId);
+          } else {
+            return this.client.leaveRoom(groupId);
+          }
+        });
+    }
+    
+    let text = "";
+
+    if (this.event.source.type === "group") {
+      let groupSummary = await this.getGroupData(groupId);
+      text = "Thanks udah diundang ke " + groupSummary.groupName + "! ";
+    } else {
+      text = "Thanks udah diundang ke room ini! ";
+    }
+
+    text += "😃 Ketik '/tutorial' atau '/cmd' untuk bantuan. ";
+    text += "😕 Jika masih bingung, boleh ke '/forum'";
+
     let flex_text = {
       header: {
-        text: "👋 Hai semuaa"
+        text: "👋 Hai semua!"
       },
       body: {
         text: text
@@ -92,6 +120,9 @@ module.exports = {
         newMemberId
       );
       text += profile.displayName;
+
+      let groupSummary = await this.getGroupData(groupId);
+      text += " di " + groupSummary.groupName + "!";
     } else if (this.event.source.type === "room") {
       let profile = await this.client.getRoomMemberProfile(
         groupId,
@@ -99,9 +130,27 @@ module.exports = {
       );
       text += profile.displayName;
     }
-    text += ", maen yok";
 
     return this.replyText(text);
+  },
+
+  /** Helper func **/
+
+  getGroupData: async function(groupId) {
+    let groupData = await this.client.getGroupSummary(groupId);
+    return groupData;
+  },
+
+  getMembersCount: async function(groupId) {
+    let count = 0;
+    if (this.event.source.type === "group") {
+      let res = await this.client.getGroupMembersCount(groupId);
+      count = res.count;
+    } else {
+      let res = await this.client.getRoomMembersCount(groupId);
+      count = res.count;
+    }
+    return count;
   },
 
   /** message func **/

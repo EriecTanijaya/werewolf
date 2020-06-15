@@ -295,15 +295,29 @@ module.exports = {
     );
   },
 
-  kickCommand: function() {
+  kickCommand: async function() {
     let groupId = this.group_session.groupId;
-    let text = "👋 Selamat tinggal!";
-    this.replyText(text);
+    let text = "👋 Selamat tinggal";
+
     if (this.event.source.type === "group") {
-      this.client.leaveGroup(groupId);
+      let res = await this.client.getGroupSummary(groupId);
+      text += " " + res.groupName + "!";
     } else {
-      this.client.leaveRoom(groupId);
+      text += "!";
     }
+
+    return this.client
+      .replyMessage(this.event.replyToken, {
+        type: "text",
+        text: text
+      })
+      .then(() => {
+        if (this.event.source.type === "group") {
+          return this.client.leaveGroup(groupId);
+        } else {
+          return this.client.leaveRoom(groupId);
+        }
+      });
   },
 
   extendCommand: function() {
