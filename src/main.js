@@ -4184,12 +4184,12 @@ module.exports = {
           targetRoleName = "framer";
         }
 
-        if (target.doused) {
-          targetRoleName = "arsonist";
-        }
-
         if (target.role.disguiseAs) {
           targetRoleName = target.role.disguiseAs;
+        }
+        
+        if (target.doused) {
+          targetRoleName = "arsonist";
         }
 
         this.group_session.players[i].message +=
