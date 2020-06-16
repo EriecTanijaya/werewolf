@@ -1,6 +1,9 @@
 const flex = require("/app/message/flex");
 const helper = require("/app/helper");
 const rolesData = require("/app/roles/rolesData");
+const rolesInfo = require("/app/roles/rolesInfo");
+const stats = require("/app/src/stats");
+const helpFlex = require("/app/message/help");
 
 module.exports = {
   receive: function(client, event, args, rawArgs, user_session) {
@@ -9,7 +12,7 @@ module.exports = {
     this.args = args;
     this.rawArgs = rawArgs;
     this.user_session = user_session;
-    
+
     if (!this.rawArgs.startsWith("/")) {
       return Promise.resolve(null);
     }
@@ -47,7 +50,7 @@ module.exports = {
         return this.invalidCommand();
     }
   },
-  
+
   showUpdatesCommand: function() {
     const updates = helper.getUpdates();
     return this.replyFlex(updates);
@@ -81,7 +84,6 @@ module.exports = {
   },
 
   statCommand: function() {
-    const stats = require("/app/src/stats");
     stats.receive(this.client, this.event, this.args);
   },
 
@@ -96,8 +98,7 @@ module.exports = {
   },
 
   infoCommand: function() {
-    const roles = require("/app/roles/rolesInfo");
-    return roles.receive(this.client, this.event, this.args);
+    return rolesInfo.receive(this.client, this.event, this.args);
   },
 
   commandCommand: function() {
@@ -138,7 +139,6 @@ module.exports = {
   },
 
   helpCommand: function() {
-    const helpFlex = require("/app/message/help");
     let state = null;
     let help = helpFlex.getHelp(state);
 

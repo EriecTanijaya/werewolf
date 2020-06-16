@@ -1,4 +1,7 @@
 const helper = require("/app/helper");
+const data = require("/app/src/data");
+const roles = require("/app/roles/rolesData");
+const flex = require("/app/message/flex");
 
 module.exports = {
   receive: function(client, event, args) {
@@ -14,7 +17,6 @@ module.exports = {
   },
 
   statusCommand: function() {
-    const data = require("/app/src/data");
     let usersOnlineCount = data.getOnlineUsers();
     let groupsOnlineCount = data.getOnlineGroups();
 
@@ -104,7 +106,7 @@ module.exports = {
       iconUrl: ""
     };
 
-    let roles = require("/app/roles/rolesData").map(role => {
+    roles.map(role => {
       let roleName = role.name[0].toUpperCase() + role.name.substring(1);
       return {
         name: roleName,
@@ -117,7 +119,6 @@ module.exports = {
     sender.name = role.name;
     sender.iconUrl = role.iconUrl;
 
-    const flex = require("/app/message/flex");
     return flex.receive(
       this.client,
       this.event,
@@ -137,7 +138,7 @@ module.exports = {
       iconUrl: ""
     };
 
-    let roles = require("/app/roles/rolesData").map(role => {
+    roles.map(role => {
       let roleName = role.name[0].toUpperCase() + role.name.substring(1);
       return {
         name: roleName,

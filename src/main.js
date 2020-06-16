@@ -4,6 +4,11 @@ const peaceMsg = require("/app/message/peace");
 const punishment = require("/app/message/punishment");
 const flex = require("/app/message/flex");
 const rolesData = require("/app/roles/rolesData");
+const setting = require("/app/src/setting");
+const rolesInfo = require("/app/roles/rolesInfo");
+const helpFlex = require("/app/message/help");
+const stats = require("/app/src/stats");
+const data = require("/app/src/data");
 
 module.exports = {
   receive: function(client, event, args, rawArgs, user_session, group_session) {
@@ -285,7 +290,6 @@ module.exports = {
       return this.replyText(text);
     }
 
-    const setting = require("/app/src/setting");
     return setting.receive(
       this.client,
       this.event,
@@ -380,13 +384,11 @@ module.exports = {
   },
 
   infoCommand: function() {
-    const roles = require("/app/roles/rolesInfo");
     let groupState = this.group_session.state;
-    return roles.receive(this.client, this.event, this.args, groupState);
+    return rolesInfo.receive(this.client, this.event, this.args, groupState);
   },
 
   helpCommand: function() {
-    const helpFlex = require("/app/message/help");
     let state = this.group_session.state;
     let help = helpFlex.getHelp(state);
 
@@ -409,7 +411,6 @@ module.exports = {
       return this.replyText(text);
     }
 
-    const stats = require("/app/src/stats");
     stats.receive(this.client, this.event, this.args);
   },
 
@@ -4187,7 +4188,7 @@ module.exports = {
         if (target.role.disguiseAs) {
           targetRoleName = target.role.disguiseAs;
         }
-        
+
         if (target.doused) {
           targetRoleName = "arsonist";
         }
@@ -5957,12 +5958,10 @@ module.exports = {
   /** save data func **/
 
   resetUser: function() {
-    const data = require("/app/src/data");
     data.resetUser(this.user_session.id);
   },
 
   resetAllPlayers: function() {
-    const data = require("/app/src/data");
     data.resetAllPlayers(
       this.group_session.players,
       this.group_session.groupId
