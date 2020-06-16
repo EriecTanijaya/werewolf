@@ -508,6 +508,7 @@ module.exports = {
     this.group_session.roomHostId = this.user_session.id;
     this.user_session.state = "active";
     this.user_session.groupId = this.group_session.groupId;
+    this.user_session.groupName = this.group_session.name;
 
     let newPlayer = this.createNewPlayer(this.user_session);
     this.addPlayer(newPlayer);
