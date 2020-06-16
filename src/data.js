@@ -1,4 +1,3 @@
-const fs = require("fs");
 const helper = require("/app/helper");
 const personal = require("/app/src/personal");
 const main = require("/app/src/main");
@@ -36,7 +35,12 @@ module.exports = {
     this.event = event;
     this.rawArgs = rawArgs;
 
-    if (!this.event.source.hasOwnProperty("userId")) {
+    this.args = this.rawArgs.split(" ");
+    this.searchUser(this.event.source.userId);
+  },
+
+  searchUser: async function(id) {
+    if (!id) {
       if (!this.rawArgs.startsWith("/")) {
         return Promise.resolve(null);
       } else {
@@ -46,11 +50,6 @@ module.exports = {
       }
     }
 
-    this.args = this.rawArgs.split(" ");
-    this.searchUser(this.event.source.userId);
-  },
-
-  searchUser: async function(id) {
     if (!user_sessions[id]) {
       let newUser = {
         id: id,
@@ -238,12 +237,12 @@ module.exports = {
 
   /** save data func **/
 
-  resetAllPlayers: function(players, groupId) {
+  resetAllPlayers: function(players) {
     players.forEach(item => {
-      let reset_player = {
-        id: item.id,
-        name: item.name
-      };
+      // let reset_player = {
+      //   id: item.id,
+      //   name: item.name
+      // };
 
       this.resetUser(item.id);
     });

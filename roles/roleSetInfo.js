@@ -27,6 +27,10 @@ module.exports = {
     }
     input = input.toLowerCase();
 
+    let errorText = "💡 Tidak ada ditemukan info mode '";
+    errorText += this.args[2] + "' pada mode list. ";
+    errorText += "Cek info mode yang ada dengan cmd '/info mode'";
+
     /// check untuk role
     let modeId = -1;
     switch (input) {
@@ -128,16 +132,16 @@ module.exports = {
           "apa benar?";
         modeId = 10;
         break;
-        
+
       case "amnesiac chaos":
       case "11":
         flex_text.header.text = "🤕 Amnesiac Chaos Mode";
         flex_text.body.text += "Mode ID: 11" + "\n\n";
         flex_text.body.text +=
-          "Dengan tiba tiba, banyak orang yang hilang ingatan sejak Agent K menggunakan Memory Eraser di kota Bedburg"
+          "Dengan tiba tiba, banyak orang yang hilang ingatan sejak Agent K menggunakan Memory Eraser di kota Bedburg";
         modeId = 11;
         break;
-        
+
       case "friday 13":
       case "12":
         flex_text.header.text = "🔪 Friday 13th Mode";
@@ -148,12 +152,7 @@ module.exports = {
         break;
 
       default:
-        let text =
-          "💡 Tidak ada ditemukan info mode '" +
-          this.args[2] +
-          "' pada mode list. ";
-        text += "Cek info mode yang ada dengan cmd '/info mode'";
-        return this.replyText(text);
+        return this.replyText(errorText);
     }
 
     if (this.event.source.type !== "user") {

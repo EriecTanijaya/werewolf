@@ -40,7 +40,7 @@ module.exports = {
       "/set show_role <yes/no> : untuk set apakah ingin tampilkan list tipe role yang ada di suatu game"
     ];
 
-    cmds.forEach((item, index) => {
+    cmds.forEach(item => {
       text += "- " + item + "\n";
     });
 

@@ -31,7 +31,7 @@ module.exports = {
       text += "bunuh diri di rumahnya (AFK). ";
     }
 
-    attackersRoleName.forEach((item, index) => {
+    attackersRoleName.forEach(item => {
       switch (item) {
         case "werewolf":
           text += "🐺 Dia sebelumnya diterkam Werewolf. ";

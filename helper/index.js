@@ -996,7 +996,6 @@ module.exports = {
 
     roles.push(this.random(randomTowns));
 
-    let neutrals;
     roles.push("survivor");
 
     roles.push(this.random(randomTowns));
