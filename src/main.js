@@ -473,6 +473,21 @@ module.exports = {
       }
       return this.replyText(text);
     }
+    
+    if (this.user_session.state === "active") {
+      let errorText = `💡 ${this.user_session.name}, `;
+      errorText += "kamu masih berada didalam game ";
+      
+      let groupName = this.group_session.name;
+      
+      if (!groupName) {
+        errorText += "room lain";
+      } else {
+        errorText += `group ${groupName}`;
+      }
+      
+      return this.replyText(errorText);
+    }
 
     this.group_session.state = "new";
     this.group_session.players.length = 0;
