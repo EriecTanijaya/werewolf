@@ -35,7 +35,7 @@ module.exports = {
         name = "Room " + shortRoomId;
       }
 
-      text += num + ". " + name + "\n";
+      text += `${num}. ${name} (${item.players.length})\n`;
       num++;
     });
     text = text.trim();
@@ -44,10 +44,11 @@ module.exports = {
 
   usersListCommand: async function(usersData) {
     if (!usersData.length) return this.replyText("ga ada user yang online");
+    
     let text = `Users (${usersData.length}) : \n`;
     let num = 1;
     usersData.forEach(item => {
-      text += num + ". " + item.name + "\n";
+      text += `${num}. ${item.name} (${item.groupName})\n`;
       num++;
     });
     text = text.trim();
