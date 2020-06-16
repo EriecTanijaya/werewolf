@@ -4,7 +4,6 @@ const helper = require("/app/helper");
 const rolesData = require("/app/roles/rolesData");
 const rolesInfo = require("/app/roles/rolesInfo");
 const helpFlex = require("/app/message/help");
-const data = require("/app/src/data");
 const stats = require("/app/src/stats");
 
 module.exports = {
@@ -132,6 +131,7 @@ module.exports = {
       }
     }
 
+    const data = require("/app/src/data");
     data.resetUser(this.user_session.id);
 
     return this.replyText(text);
