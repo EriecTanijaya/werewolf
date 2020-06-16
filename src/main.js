@@ -8,7 +8,6 @@ const setting = require("/app/src/setting");
 const rolesInfo = require("/app/roles/rolesInfo");
 const helpFlex = require("/app/message/help");
 const stats = require("/app/src/stats");
-const data = require("/app/src/data");
 
 module.exports = {
   receive: function(client, event, args, rawArgs, user_session, group_session) {
@@ -515,12 +514,12 @@ module.exports = {
 
     if (process.env.TEST === "true") {
       // cp
-      // for (let i = 0; i < 7; i++) {
-      //   let dummy = JSON.parse(JSON.stringify(this.user_session));
-      //   dummy.name += " " + helper.getRandomInt(1, 99);
-      //   let newPlayer = this.createNewPlayer(dummy);
-      //   this.addPlayer(newPlayer);
-      // }
+      for (let i = 0; i < 7; i++) {
+        let dummy = JSON.parse(JSON.stringify(this.user_session));
+        dummy.name += " " + helper.getRandomInt(1, 99);
+        let newPlayer = this.createNewPlayer(dummy);
+        this.addPlayer(newPlayer);
+      }
     }
 
     let text = "💡 " + this.user_session.name + " berhasil bergabung!";
@@ -5951,10 +5950,12 @@ module.exports = {
   /** save data func **/
 
   resetUser: function() {
+    const data = require("/app/src/data");
     data.resetUser(this.user_session.id);
   },
 
   resetAllPlayers: function() {
+    const data = require("/app/src/data");
     data.resetAllPlayers(
       this.group_session.players,
       this.group_session.groupId
