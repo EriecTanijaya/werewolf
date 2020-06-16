@@ -1,5 +1,5 @@
 const helper = require("/app/helper");
-const roles = require("/app/roles/rolesData");
+const rolesData = require("/app/roles/rolesData");
 const flex = require("/app/message/flex");
 
 module.exports = {
@@ -132,7 +132,7 @@ module.exports = {
       iconUrl: ""
     };
 
-    roles.map(role => {
+    let roles = rolesData.map(role => {
       let roleName = role.name[0].toUpperCase() + role.name.substring(1);
       return {
         name: roleName,
@@ -183,7 +183,7 @@ module.exports = {
       iconUrl: ""
     };
 
-    roles.map(role => {
+    let roles = rolesData.map(role => {
       let roleName = role.name[0].toUpperCase() + role.name.substring(1);
       return {
         name: roleName,

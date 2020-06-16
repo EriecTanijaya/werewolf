@@ -3,7 +3,7 @@ const helper = require("/app/helper");
 const personal = require("/app/src/personal");
 const main = require("/app/src/main");
 const idle = require("/app/src/idle");
-const roles = require("/app/roles/rolesData");
+const rolesData = require("/app/roles/rolesData");
 
 // game storage
 const group_sessions = {};
@@ -207,7 +207,7 @@ module.exports = {
       iconUrl: ""
     };
 
-    roles.map(role => {
+    let roles = rolesData.map(role => {
       let roleName = role.name[0].toUpperCase() + role.name.substring(1);
       return {
         name: roleName,
