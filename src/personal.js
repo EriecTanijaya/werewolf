@@ -2,6 +2,10 @@ const skillText = require("/app/message/skill");
 const flex = require("/app/message/flex");
 const helper = require("/app/helper");
 const rolesData = require("/app/roles/rolesData");
+const rolesInfo = require("/app/roles/rolesInfo");
+const helpFlex = require("/app/message/help");
+const data = require("/app/src/data");
+const stats = require("/app/src/stats");
 
 module.exports = {
   receive: function(client, event, args, rawArgs, user_session, group_session) {
@@ -49,6 +53,8 @@ module.exports = {
       case "/protect":
         return this.protectCommand();
       case "/status":
+      case "/groups":
+      case "/users":
         return this.statCommand();
       case "/dnote":
       case "/dn":
@@ -73,7 +79,7 @@ module.exports = {
         return this.invalidCommand();
     }
   },
-  
+
   showUpdatesCommand: function() {
     const updates = helper.getUpdates();
     return this.replyFlex(updates);
@@ -126,14 +132,12 @@ module.exports = {
       }
     }
 
-    const data = require("/app/src/data");
     data.resetUser(this.user_session.id);
 
     return this.replyText(text);
   },
 
   statCommand: function() {
-    const stats = require("/app/src/stats");
     stats.receive(this.client, this.event, this.args);
   },
 
@@ -445,7 +449,6 @@ module.exports = {
 
     /// Special role communication
     if (roleTeam === "mafia" || roleTeam === "vampire") {
-      let chatBox = [];
       let text = skillText.response(doer, true);
       let message = {
         name: players[index].name,
@@ -453,10 +456,8 @@ module.exports = {
       };
 
       if (roleTeam === "mafia") {
-        chatBox = this.group_session.mafiaChat;
         this.group_session.mafiaChat.push(message);
       } else if (roleTeam === "vampire") {
-        chatBox = this.group_session.vampireChat;
         this.group_session.vampireChat.push(message);
       }
     }
@@ -1150,7 +1151,7 @@ module.exports = {
 
     let text = "💬 " + roleTeam.toUpperCase() + " Chat" + "\n\n";
 
-    chatBox.forEach((item, index) => {
+    chatBox.forEach(item => {
       text += item.name + " : " + item.text + "\n";
     });
 
@@ -1169,7 +1170,6 @@ module.exports = {
     let index = this.indexOfPlayer();
     let players = this.group_session.players;
     let roleTeam = players[index].role.team;
-    let roleName = players[index].role.name;
 
     if (roleTeam !== "mafia" && roleTeam !== "vampire") {
       return this.replyText("💡 " + roleTeam + " gak ada komunikasi malam");
@@ -1207,8 +1207,7 @@ module.exports = {
   },
 
   infoCommand: function() {
-    const roles = require("/app/roles/rolesInfo");
-    return roles.receive(this.client, this.event, this.args);
+    return rolesInfo.receive(this.client, this.event, this.args);
   },
 
   invalidCommand: function() {
@@ -1219,7 +1218,6 @@ module.exports = {
   },
 
   helpCommand: function() {
-    const helpFlex = require("/app/message/help");
     let state = this.group_session.state;
     let help = helpFlex.getHelp(state);
 
@@ -1322,7 +1320,7 @@ module.exports = {
   */
   getNamesByTeam: function(teamName, withRoleName) {
     let names = [];
-    this.group_session.players.forEach((item, index) => {
+    this.group_session.players.forEach(item => {
       if (item.status === "alive" && item.role.team === teamName) {
         let name = item.name;
         if (withRoleName) {
@@ -1458,7 +1456,6 @@ module.exports = {
   replyText: function(texts = []) {
     texts = Array.isArray(texts) ? texts : [texts];
 
-    let time = this.group_session.time;
     let state = this.group_session.state;
 
     let sender = {

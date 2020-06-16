@@ -1,4 +1,6 @@
 const helper = require("/app/helper");
+const rolesData = require("/app/roles/rolesData");
+const flex = require("/app/message/flex");
 
 module.exports = {
   receive: function(client, event, args) {
@@ -6,17 +8,55 @@ module.exports = {
     this.event = event;
     this.args = args;
 
+    const data = require("/app/src/data");
+    let usersData = data.getOnlineUsers();
+    let groupsData = data.getOnlineGroups();
+
     switch (this.args[0]) {
       case "/status":
-        // game online ada berapa
-        return this.statusCommand();
+        return this.statusCommand(usersData, groupsData);
+      case "/groups":
+        return this.groupsListCommand(groupsData);
+      case "/users":
+        return this.usersListCommand(usersData);
     }
   },
 
-  statusCommand: function() {
-    const data = require("/app/src/data");
-    let usersOnlineCount = data.getOnlineUsers();
-    let groupsOnlineCount = data.getOnlineGroups();
+  groupsListCommand: async function(groupsData) {
+    if (!groupsData.length) return this.replyText("ga ada group yang online");
+
+    let text = `Groups (${groupsData.length}) : \n`;
+    let num = 1;
+    groupsData.forEach(item => {
+      let name = item.name;
+
+      if (!name) {
+        let shortRoomId = item.groupId.substr(item.groupId.length - 4);
+        name = "Room " + shortRoomId;
+      }
+
+      text += num + ". " + name + "\n";
+      num++;
+    });
+    text = text.trim();
+    return this.replyText(text);
+  },
+
+  usersListCommand: async function(usersData) {
+    if (!usersData.length) return this.replyText("ga ada user yang online");
+    let text = `Users (${usersData.length}) : \n`;
+    let num = 1;
+    usersData.forEach(item => {
+      text += num + ". " + item.name + "\n";
+      num++;
+    });
+    text = text.trim();
+    return this.replyText(text);
+  },
+
+  statusCommand: function(usersData, groupsData) {
+    let usersOnlineCount = usersData.length;
+    let groupsOnlineCount = groupsData.length;
 
     let statusText = "";
 
@@ -104,7 +144,7 @@ module.exports = {
       iconUrl: ""
     };
 
-    let roles = require("/app/roles/rolesData").map(role => {
+    let roles = rolesData.map(role => {
       let roleName = role.name[0].toUpperCase() + role.name.substring(1);
       return {
         name: roleName,
@@ -117,7 +157,6 @@ module.exports = {
     sender.name = role.name;
     sender.iconUrl = role.iconUrl;
 
-    const flex = require("/app/message/flex");
     return flex.receive(
       this.client,
       this.event,
@@ -137,7 +176,7 @@ module.exports = {
       iconUrl: ""
     };
 
-    let roles = require("/app/roles/rolesData").map(role => {
+    let roles = rolesData.map(role => {
       let roleName = role.name[0].toUpperCase() + role.name.substring(1);
       return {
         name: roleName,

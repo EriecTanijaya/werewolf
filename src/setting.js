@@ -1,4 +1,6 @@
 const helper = require("/app/helper");
+const rolesData = require("/app/roles/rolesData");
+const flex = require("/app/message/flex");
 
 module.exports = {
   receive: function(client, event, args, group_session, user_session) {
@@ -38,7 +40,7 @@ module.exports = {
       "/set show_role <yes/no> : untuk set apakah ingin tampilkan list tipe role yang ada di suatu game"
     ];
 
-    cmds.forEach((item, index) => {
+    cmds.forEach(item => {
       text += "- " + item + "\n";
     });
 
@@ -130,7 +132,7 @@ module.exports = {
       iconUrl: ""
     };
 
-    let roles = require("/app/roles/rolesData").map(role => {
+    let roles = rolesData.map(role => {
       let roleName = role.name[0].toUpperCase() + role.name.substring(1);
       return {
         name: roleName,
@@ -153,7 +155,7 @@ module.exports = {
 
     return this.client.replyMessage(this.event.replyToken, msg).catch(err => {
       console.log(
-        "err di replyText di rolesInfo.js",
+        "err di replyText di setting.js",
         err.originalError.response.data
       );
     });
@@ -181,7 +183,7 @@ module.exports = {
       iconUrl: ""
     };
 
-    let roles = require("/app/roles/rolesData").map(role => {
+    let roles = rolesData.map(role => {
       let roleName = role.name[0].toUpperCase() + role.name.substring(1);
       return {
         name: roleName,
@@ -194,7 +196,6 @@ module.exports = {
     sender.name = role.name;
     sender.iconUrl = role.iconUrl;
 
-    const flex = require("/app/message/flex");
     return flex.receive(
       this.client,
       this.event,

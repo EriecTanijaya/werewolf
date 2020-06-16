@@ -4,6 +4,11 @@ const peaceMsg = require("/app/message/peace");
 const punishment = require("/app/message/punishment");
 const flex = require("/app/message/flex");
 const rolesData = require("/app/roles/rolesData");
+const setting = require("/app/src/setting");
+const rolesInfo = require("/app/roles/rolesInfo");
+const helpFlex = require("/app/message/help");
+const stats = require("/app/src/stats");
+const data = require("/app/src/data");
 
 module.exports = {
   receive: function(client, event, args, rawArgs, user_session, group_session) {
@@ -285,7 +290,6 @@ module.exports = {
       return this.replyText(text);
     }
 
-    const setting = require("/app/src/setting");
     return setting.receive(
       this.client,
       this.event,
@@ -380,13 +384,11 @@ module.exports = {
   },
 
   infoCommand: function() {
-    const roles = require("/app/roles/rolesInfo");
     let groupState = this.group_session.state;
-    return roles.receive(this.client, this.event, this.args, groupState);
+    return rolesInfo.receive(this.client, this.event, this.args, groupState);
   },
 
   helpCommand: function() {
-    const helpFlex = require("/app/message/help");
     let state = this.group_session.state;
     let help = helpFlex.getHelp(state);
 
@@ -409,7 +411,6 @@ module.exports = {
       return this.replyText(text);
     }
 
-    const stats = require("/app/src/stats");
     stats.receive(this.client, this.event, this.args);
   },
 
@@ -473,6 +474,21 @@ module.exports = {
       return this.replyText(text);
     }
 
+    if (this.user_session.state === "active") {
+      let errorText = "💡 " + this.user_session.name + ", ";
+      errorText += "kamu masih berada didalam game ";
+
+      let groupName = this.user_session.groupName;
+
+      if (!groupName) {
+        errorText += "room lain";
+      } else {
+        errorText += "group " + groupName;
+      }
+
+      return this.replyText(errorText);
+    }
+
     this.group_session.state = "new";
     this.group_session.players.length = 0;
     this.group_session.nightCounter = 0;
@@ -489,30 +505,26 @@ module.exports = {
     let remindText = "⏳ Jika jumlah pemain kurang dari 5 dalam 10 menit, ";
     remindText += "game akan diberhentikan";
 
-    /// nambah user auto
-    if (this.user_session.state === "inactive") {
-      this.group_session.roomHostId = this.user_session.id;
-      this.user_session.state = "active";
-      this.user_session.groupId = this.group_session.groupId;
+    this.group_session.roomHostId = this.user_session.id;
+    this.user_session.state = "active";
+    this.user_session.groupId = this.group_session.groupId;
+    this.user_session.groupName = this.group_session.name;
 
-      let newPlayer = this.createNewPlayer(this.user_session);
-      this.addPlayer(newPlayer);
+    let newPlayer = this.createNewPlayer(this.user_session);
+    this.addPlayer(newPlayer);
 
-      if (process.env.TEST === "true") {
-        // cp
-        // for (let i = 0; i < 7; i++) {
-        //   let dummy = JSON.parse(JSON.stringify(this.user_session));
-        //   dummy.name += " " + helper.getRandomInt(1, 99);
-        //   let newPlayer = this.createNewPlayer(dummy);
-        //   this.addPlayer(newPlayer);
-        // }
-      }
-
-      let text = "💡 " + this.user_session.name + " berhasil bergabung!";
-      return this.replyFlex(flex_text, [text, remindText]);
-    } else {
-      return this.replyFlex(flex_text, remindText);
+    if (process.env.TEST === "true") {
+      // cp
+      // for (let i = 0; i < 7; i++) {
+      //   let dummy = JSON.parse(JSON.stringify(this.user_session));
+      //   dummy.name += " " + helper.getRandomInt(1, 99);
+      //   let newPlayer = this.createNewPlayer(dummy);
+      //   this.addPlayer(newPlayer);
+      // }
     }
+
+    let text = "💡 " + this.user_session.name + " berhasil bergabung!";
+    return this.replyFlex(flex_text, [text, remindText]);
   },
 
   joinCommand: function() {
@@ -534,7 +546,15 @@ module.exports = {
         text += ", kamu sudah bergabung kedalam game";
       } else {
         text += "💡 " + this.user_session.name;
-        text += ", kamu masih berada didalam game grup lain";
+        text += ", kamu masih berada didalam game ";
+
+        let groupName = this.user_session.groupName;
+
+        if (!groupName) {
+          text += " room lain";
+        } else {
+          text += "group " + groupName;
+        }
       }
       return this.replyText(text);
     }
@@ -551,6 +571,7 @@ module.exports = {
 
     this.user_session.state = "active";
     this.user_session.groupId = this.group_session.groupId;
+    this.user_session.groupName = this.group_session.name;
 
     let newPlayer = this.createNewPlayer(this.user_session);
 
@@ -900,7 +921,7 @@ module.exports = {
     this.group_session.vampireHunterChat = [];
 
     // set prop yang reset tiap malamnya (TEMPORARY prop)
-    this.group_session.players.forEach((item, index) => {
+    this.group_session.players.forEach(item => {
       // all player regardless alive or not
       item.message = "";
       item.blocked = false;
@@ -1033,7 +1054,6 @@ module.exports = {
         } else {
           return this.day();
         }
-        break;
 
       case "day":
         return this.votingCommand();
@@ -1045,7 +1065,6 @@ module.exports = {
         } else {
           return this.autoVote();
         }
-        break;
 
       case "lynch":
         if (time === 0) {
@@ -1054,18 +1073,7 @@ module.exports = {
         break;
 
       case "new":
-        let text = "⏳ " + name + ", sisa waktu ";
-        if (time > 90) {
-          let minute = Math.round(time / 60);
-          text += minute + " menit lagi ";
-        } else {
-          text += time + " detik lagi ";
-        }
-        text += "untuk memulai game";
-
-        let flex_text = this.getNewStateFlex();
-
-        return this.replyFlex(flex_text, text);
+        return this.gameStatCommand();
 
       default:
         return this.replyText(
@@ -1075,7 +1083,6 @@ module.exports = {
   },
 
   autoVote: function() {
-    let players = this.group_session.players;
     let voteNeeded = Math.round(this.getAlivePlayersCount() / 2);
 
     let headerText = "";
@@ -1760,8 +1767,6 @@ module.exports = {
 
             if (target.role.isDisguiseAs) targetRoleName = "disguiser";
 
-            let targetRoleTeam = target.role.team;
-
             let immuneToVampireBite = [
               "godfather",
               "vampire-hunter",
@@ -2115,7 +2120,6 @@ module.exports = {
           // Juggernaut Killing Action
           for (let u = 0; u < juggernautRampageTargetIndexes.length; u++) {
             let targetIndex = juggernautRampageTargetIndexes[u];
-            let targetRoleName = players[targetIndex].role.name;
 
             if (skillLevel < 4) {
               if (
@@ -2241,7 +2245,6 @@ module.exports = {
         // Werewolf Killing Action
         for (let u = 0; u < werewolfRampageTargetIndexes.length; u++) {
           let targetIndex = werewolfRampageTargetIndexes[u];
-          let targetRoleName = players[targetIndex].role.name;
 
           this.group_session.players[i].message +=
             "💡 Kamu menyerang seseorang!" + "\n\n";
@@ -2485,7 +2488,6 @@ module.exports = {
     /// Jester Haunt Action
     for (let i = 0; i < players.length; i++) {
       let doer = players[i];
-      let roleName = doer.role.name;
 
       if (doer.role.name === "jester") {
         if (doer.role.isLynched && !doer.role.hasRevenged) {
@@ -2617,8 +2619,6 @@ module.exports = {
 
         if (protection > 0) {
           let targetIndex = doer.target.index;
-          let target = players[targetIndex];
-          let targetName = target.name;
 
           this.group_session.players[i].role.protection--;
 
@@ -2648,11 +2648,8 @@ module.exports = {
 
         let targetIndex = doer.target.index;
         let target = players[targetIndex];
-        let targetName = target.name;
 
         if (parseInt(targetIndex) === parseInt(i)) {
-          targetName = "diri sendiri";
-
           this.group_session.players[i].message +=
             "🏠 Kamu memilih diam di rumah dan jaga-jaga" + "\n\n";
 
@@ -3925,7 +3922,7 @@ module.exports = {
             }
             return true;
           })
-          .map((atkr, idx) => {
+          .map(atkr => {
             let note = atkr.deathNote + "\n\n";
 
             if (atkr.role.type === "Mafia Killing") {
@@ -4184,12 +4181,12 @@ module.exports = {
           targetRoleName = "framer";
         }
 
-        if (target.doused) {
-          targetRoleName = "arsonist";
-        }
-
         if (target.role.disguiseAs) {
           targetRoleName = target.role.disguiseAs;
+        }
+
+        if (target.doused) {
+          targetRoleName = "arsonist";
         }
 
         this.group_session.players[i].message +=
@@ -4356,7 +4353,6 @@ module.exports = {
 
         let targetIndex = doer.target.index;
         let target = players[targetIndex];
-        let targetName = target.name;
 
         this.group_session.players[i].message +=
           "👣 Kamu ke rumah " + target.name + "\n\n";
@@ -4576,7 +4572,7 @@ module.exports = {
     }
 
     /// untuk announcement certain role
-    this.group_session.players.forEach((item, index) => {
+    this.group_session.players.forEach(item => {
       /// Vampire Announcement
       if (item.role.team === "vampire" && item.status === "alive") {
         item.message += vampireAnnouncement;
@@ -4669,7 +4665,6 @@ module.exports = {
   },
 
   votingCommand: function() {
-    let index = this.indexOfPlayer();
     let players = this.group_session.players;
 
     let text = "";
@@ -4903,7 +4898,6 @@ module.exports = {
   },
 
   postLynch: function() {
-    let players = this.group_session.players;
     let lynched = this.group_session.lynched;
 
     if (!lynched) {
@@ -5073,7 +5067,7 @@ module.exports = {
       "/updates : untuk melihat 5 update terakhir bot"
     ];
 
-    cmds.forEach((item, index) => {
+    cmds.forEach(item => {
       text += "- " + item + "\n";
     });
 
@@ -5630,7 +5624,7 @@ module.exports = {
 
   getNamesByTeam: function(teamName) {
     let names = [];
-    this.group_session.players.forEach((item, index) => {
+    this.group_session.players.forEach(item => {
       if (item.role.team === teamName) {
         names.push(item.name);
       }
@@ -5665,7 +5659,7 @@ module.exports = {
       flex_text.footer = {
         buttons: []
       };
-      opt_buttons.forEach((item, index) => {
+      opt_buttons.forEach(item => {
         flex_text.footer.buttons.push(item);
       });
     }
@@ -5957,12 +5951,10 @@ module.exports = {
   /** save data func **/
 
   resetUser: function() {
-    const data = require("/app/src/data");
     data.resetUser(this.user_session.id);
   },
 
   resetAllPlayers: function() {
-    const data = require("/app/src/data");
     data.resetAllPlayers(
       this.group_session.players,
       this.group_session.groupId

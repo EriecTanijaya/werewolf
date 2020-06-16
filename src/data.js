@@ -1,8 +1,8 @@
-const fs = require("fs");
 const helper = require("/app/helper");
 const personal = require("/app/src/personal");
 const main = require("/app/src/main");
 const idle = require("/app/src/idle");
+const rolesData = require("/app/roles/rolesData");
 
 // game storage
 const group_sessions = {};
@@ -35,7 +35,12 @@ module.exports = {
     this.event = event;
     this.rawArgs = rawArgs;
 
-    if (!this.event.source.hasOwnProperty("userId")) {
+    this.args = this.rawArgs.split(" ");
+    this.searchUser(this.event.source.userId);
+  },
+
+  searchUser: async function(id) {
+    if (!id) {
       if (!this.rawArgs.startsWith("/")) {
         return Promise.resolve(null);
       } else {
@@ -45,17 +50,13 @@ module.exports = {
       }
     }
 
-    this.args = this.rawArgs.split(" ");
-    this.searchUser(this.event.source.userId);
-  },
-
-  searchUser: async function(id) {
     if (!user_sessions[id]) {
       let newUser = {
         id: id,
         name: "",
         state: "inactive",
-        groupId: ""
+        groupId: "",
+        groupName: ""
       };
       user_sessions[id] = newUser;
     }
@@ -96,7 +97,7 @@ module.exports = {
     }
   },
 
-  searchGroup: function(user_session, groupId) {
+  searchGroup: async function(user_session, groupId) {
     /// maintenance
     let isMaintenance = process.env.MAINTENANCE === "true" ? true : false;
     let isTestGroup = groupId === process.env.TEST_GROUP ? true : false;
@@ -120,6 +121,7 @@ module.exports = {
     if (!group_sessions[groupId]) {
       let newGroup = {
         groupId: groupId,
+        name: "",
         state: "idle",
         time_default: 0,
         time: 300,
@@ -133,7 +135,7 @@ module.exports = {
     if (group_sessions[groupId].state === "inactive") {
       let text = "👋 Sistem mendeteksi tidak ada permainan dalam 5 menit. ";
       text += "Undang kembali jika mau main ya!";
-      this.client
+      return this.client
         .replyMessage(this.event.replyToken, {
           type: "text",
           text: text
@@ -145,8 +147,18 @@ module.exports = {
             this.client.leaveRoom(groupId);
           }
         });
+    }
+    
+    if (this.event.source.type === "room") {
+      return this.searchGroupCallback(user_session, group_sessions[groupId]);
+    }
+    
+    if (group_sessions[groupId].name === "") {
+      let groupData = await this.client.getGroupSummary(groupId);
+      group_sessions[groupId].name = groupData.groupName;
+      return this.searchGroupCallback(user_session, group_sessions[groupId]);
     } else {
-      this.searchGroupCallback(user_session, group_sessions[groupId]);
+      return this.searchGroupCallback(user_session, group_sessions[groupId]);
     }
   },
 
@@ -206,7 +218,7 @@ module.exports = {
       iconUrl: ""
     };
 
-    let roles = require("/app/roles/rolesData").map(role => {
+    let roles = rolesData.map(role => {
       let roleName = role.name[0].toUpperCase() + role.name.substring(1);
       return {
         name: roleName,
@@ -237,12 +249,12 @@ module.exports = {
 
   /** save data func **/
 
-  resetAllPlayers: function(players, groupId) {
+  resetAllPlayers: function(players) {
     players.forEach(item => {
-      let reset_player = {
-        id: item.id,
-        name: item.name
-      };
+      // let reset_player = {
+      //   id: item.id,
+      //   name: item.name
+      // };
 
       this.resetUser(item.id);
     });
@@ -275,24 +287,24 @@ module.exports = {
   },
 
   getOnlineUsers: function() {
-    let onlineUsersCount = 0;
+    let onlineUsers = [];
     Object.keys(user_sessions).forEach(key => {
       let user = user_sessions[key];
       if (user && user.state === "active") {
-        onlineUsersCount++;
+        onlineUsers.push(user);
       }
     });
-    return onlineUsersCount;
+    return onlineUsers;
   },
 
   getOnlineGroups: function() {
-    let onlineGroupsCount = 0;
+    let onlineGroups = [];
     Object.keys(group_sessions).forEach(key => {
       let group = group_sessions[key];
       if (group && group.state !== "idle" && group.state !== "inactive") {
-        onlineGroupsCount++;
+        onlineGroups.push(group);
       }
     });
-    return onlineGroupsCount;
+    return onlineGroups;
   }
 };

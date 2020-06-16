@@ -1,10 +1,10 @@
-// server.js
-// where your node app starts
-
-// init project
 const line = require("@line/bot-sdk");
 const express = require("express");
 const app = express();
+
+// initialize module
+const data = require("/app/src/data");
+const other = require("/app/src/other");
 
 // line config
 const config = {
@@ -58,25 +58,22 @@ app.post("/callback", (req, res) => {
     });
 });
 
-async function handleEvent(event) {  
+async function handleEvent(event) {
   //Note: should return! So Promise.all could catch the error
   if (event.type === "postback") {
     let rawArgs = event.postback.data;
-    const data = require("/app/src/data");
     return data.receive(client, event, rawArgs);
   }
 
   if (event.type !== "message" || event.message.type !== "text") {
     let otherEvents = ["join", "follow", "leave", "memberJoined", "memberLeft"];
     if (otherEvents.includes(event.type)) {
-      const other = require("/app/src/other");
       return other.receive(client, event);
     }
     return Promise.resolve(null);
   }
 
   let rawArgs = event.message.text;
-  const data = require("/app/src/data");
   return data.receive(client, event, rawArgs);
 }
 

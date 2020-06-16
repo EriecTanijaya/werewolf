@@ -1,3 +1,6 @@
+const data = require("/app/src/data");
+const flex = require("/app/message/flex");
+
 module.exports = {
   receive: function(client, event) {
     this.client = client;
@@ -26,7 +29,6 @@ module.exports = {
 
   memberLeftResponse: function() {
     let userId = this.event.left.members[0].userId;
-    const data = require("/app/src/data");
     data.handleLeftUser(userId);
   },
 
@@ -81,7 +83,7 @@ module.exports = {
           }
         });
     }
-    
+
     let text = "";
 
     if (this.event.source.type === "group") {
@@ -106,7 +108,6 @@ module.exports = {
   },
 
   leaveResponse: function(groupId) {
-    const data = require("/app/src/data");
     data.resetAllUsers(groupId);
   },
 
@@ -164,7 +165,6 @@ module.exports = {
       table: flex_raw.table
     }));
 
-    const flex = require("/app/message/flex");
     return flex.receive(this.client, this.event, flex_texts, [], null);
   },
 

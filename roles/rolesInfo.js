@@ -1,7 +1,7 @@
 const helper = require("/app/helper");
 
 module.exports = {
-  receive: function (client, event, args, groupState) {
+  receive: function(client, event, args, groupState) {
     this.client = client;
     this.event = event;
     this.args = args;
@@ -55,12 +55,18 @@ module.exports = {
         }
       }
 
+      let errorText = "💡 Tidak ada ditemukan role '";
+      errorText += this.args[1] + "' pada role list. ";
+      errorText += "Cek info role yang ada dengan cmd '/info'";
+
       /// check untuk role
       switch (input) {
         case "mafia":
           flex_text.header.text = "🤵 Mafia";
-          flex_text.body.text += "Sekelompok organisasi yang ingin menguasai kota Bedburg. ";
-          flex_text.body.text += "Dimana Godfather adalah kepala dari organisasi tersebut. "
+          flex_text.body.text +=
+            "Sekelompok organisasi yang ingin menguasai kota Bedburg. ";
+          flex_text.body.text +=
+            "Dimana Godfather adalah kepala dari organisasi tersebut. ";
           flex_text.body.text += "Mafia adalah musuh bebuyutan Villager.";
           break;
 
@@ -82,8 +88,10 @@ module.exports = {
         case "warga":
         case "town":
           flex_text.header.text = "👨‍🌾 Villager";
-          flex_text.body.text += "Villager atau Town, adalah kelompok warga yang memiliki misi ";
-          flex_text.body.text += "untuk menghukum orang yang membawa malapetaka di Kota Bedburg. ";
+          flex_text.body.text +=
+            "Villager atau Town, adalah kelompok warga yang memiliki misi ";
+          flex_text.body.text +=
+            "untuk menghukum orang yang membawa malapetaka di Kota Bedburg. ";
           break;
 
         case "investigator":
@@ -375,7 +383,8 @@ module.exports = {
             "Pada bulan purnama ia dapat penglihatan 2 orang dan salah satu nya adalah orang baik. ";
           flex_text.body.text +=
             "Jika tidak bulan purnama, ia dapat penglihatan 3 orang dan salah satunya adalah orang jahat. ";
-          flex_text.body.text += "Orang baik adalah sesama warga, Survivor, Amnesiac dan Guardian Angel";
+          flex_text.body.text +=
+            "Orang baik adalah sesama warga, Survivor, Amnesiac dan Guardian Angel";
           break;
 
         case "amnesiac":
@@ -409,25 +418,21 @@ module.exports = {
           flex_text.body.text += "Type: Neutral Killing" + "\n\n";
           flex_text.body.text +=
             "Dokter korup yang kesal dengan Mayor, yang memutuskan untuk menginfeksi semua orang dan ";
+          flex_text.body.text += "membunuh mereka dengan penyakit sampar. ";
           flex_text.body.text +=
-            "membunuh mereka dengan penyakit sampar. ";
-          flex_text.body.text +=
-            "Infeksi bisa ditularkan dan yang terinfeksi tidak akan tau jika dia terinfeksi. "
+            "Infeksi bisa ditularkan dan yang terinfeksi tidak akan tau jika dia terinfeksi. ";
           break;
 
         case "pestilence":
           flex_text.header.text = "☣️ Pestilence";
-          flex_text.body.text += "Pestilence adalah status dari Plaguebearer jika berhasil menginfeksi ";
-          flex_text.body.text += "semua orang yang hidup. Pestilence tidak dapat di bunuh oleh siapapun pada malam hari"
+          flex_text.body.text +=
+            "Pestilence adalah status dari Plaguebearer jika berhasil menginfeksi ";
+          flex_text.body.text +=
+            "semua orang yang hidup. Pestilence tidak dapat di bunuh oleh siapapun pada malam hari";
           break;
 
         default:
-          let text =
-            "💡 Tidak ada ditemukan role '" +
-            this.args[1] +
-            "' pada role list. ";
-          text += "Cek info role yang ada dengan cmd '/info'";
-          return this.replyText(text);
+          return this.replyText(errorText);
       }
 
       return this.replyFlex(flex_text);
@@ -436,7 +441,7 @@ module.exports = {
 
   /** Command func **/
 
-  commandCommand: function () {
+  commandCommand: function() {
     let text = "";
     let cmds = [
       "/info :  tampilin list command info",
@@ -448,7 +453,7 @@ module.exports = {
       "/info mode <nama-mode> : deskripsi mode tersebut"
     ];
 
-    cmds.forEach((item, index) => {
+    cmds.forEach(item => {
       text += "- " + item + "\n";
     });
 
@@ -463,7 +468,7 @@ module.exports = {
     return this.replyFlex(flex_text);
   },
 
-  roleListCommand: function () {
+  roleListCommand: function() {
     let allRoleName = require("/app/roles/rolesData").map(role => {
       return role.name;
     });
@@ -485,7 +490,7 @@ module.exports = {
     return this.replyFlex(flex_text);
   },
 
-  roleTypeCommand: function () {
+  roleTypeCommand: function() {
     let allRoleType = require("/app/roles/rolesData").map(role => {
       return role.type;
     });
@@ -510,7 +515,7 @@ module.exports = {
   },
 
   /** Helper Func **/
-  getListOfType: function (typeName) {
+  getListOfType: function(typeName) {
     let rolesData = require("/app/roles/rolesData");
     let selectedType = rolesData
       .filter(role => {
@@ -524,7 +529,7 @@ module.exports = {
 
   /** message func **/
 
-  replyText: function (texts) {
+  replyText: function(texts) {
     texts = Array.isArray(texts) ? texts : [texts];
 
     let sender = {
@@ -561,7 +566,7 @@ module.exports = {
     });
   },
 
-  replyFlex: function (flex_raws, text_raws) {
+  replyFlex: function(flex_raws, text_raws) {
     flex_raws = Array.isArray(flex_raws) ? flex_raws : [flex_raws];
     let flex_texts = flex_raws.map(flex_raw => ({
       header: flex_raw.header,

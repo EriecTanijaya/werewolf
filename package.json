@@ -4,14 +4,14 @@
   "description": "Bot Werewolf untuk line messenger",
   "main": "server.js",
   "scripts": {
-    "/// redis mode-on": "ini kalau mau pake redis",
-    "// start": "/app/bin/redis-server /app/redis.conf & node server.js",
-    "start": "node server.js"
+    "start": "node server.js",
+    "//start": "eslint . && node server.js"
   },
   "dependencies": {
     "@line/bot-sdk": "^7.0.0",
     "cron": "^1.8.2",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "eslint": "^7.2.0"
   },
   "engines": {
     "node": "12.x"

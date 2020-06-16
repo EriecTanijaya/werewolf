@@ -1,5 +1,9 @@
 ### TODO
 
+- kalau mau run lint, di `package.json` ganti comment yang ada lint
+  untuk production gausah ada lint
+- buat readme yang baik
+
 untuk measure point, itu ada berapa persen jumlah warga, dan berapa persen jumlah neutral dan mafia
 
 15 pemain = 9 warga, 3 mafia, 1 neutral killing, 2 neutral selain vampire (mostly) kecuali chaos mode
