@@ -28,7 +28,14 @@ module.exports = {
     let text = `Groups (${groupsData.length}) : \n`;
     let num = 1;
     groupsData.forEach(item => {
-      text += num + ". " + item.name + "\n";
+      let name = item.name;
+
+      if (!name) {
+        let shortRoomId = item.groupId.substr(item.groupId.length - 4);
+        name = "Room " + shortRoomId;
+      }
+
+      text += num + ". " + name + "\n";
       num++;
     });
     text = text.trim();

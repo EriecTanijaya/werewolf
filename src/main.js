@@ -473,19 +473,19 @@ module.exports = {
       }
       return this.replyText(text);
     }
-    
+
     if (this.user_session.state === "active") {
-      let errorText = `💡 ${this.user_session.name}, `;
+      let errorText = "💡 " + this.user_session.name + ", ";
       errorText += "kamu masih berada didalam game ";
-      
-      let groupName = this.group_session.name;
-      
+
+      let groupName = this.user_session.groupName;
+
       if (!groupName) {
         errorText += "room lain";
       } else {
-        errorText += `group ${groupName}`;
+        errorText += "group " + groupName;
       }
-      
+
       return this.replyText(errorText);
     }
 
@@ -505,30 +505,25 @@ module.exports = {
     let remindText = "⏳ Jika jumlah pemain kurang dari 5 dalam 10 menit, ";
     remindText += "game akan diberhentikan";
 
-    /// nambah user auto
-    if (this.user_session.state === "inactive") {
-      this.group_session.roomHostId = this.user_session.id;
-      this.user_session.state = "active";
-      this.user_session.groupId = this.group_session.groupId;
+    this.group_session.roomHostId = this.user_session.id;
+    this.user_session.state = "active";
+    this.user_session.groupId = this.group_session.groupId;
 
-      let newPlayer = this.createNewPlayer(this.user_session);
-      this.addPlayer(newPlayer);
+    let newPlayer = this.createNewPlayer(this.user_session);
+    this.addPlayer(newPlayer);
 
-      if (process.env.TEST === "true") {
-        // cp
-        // for (let i = 0; i < 7; i++) {
-        //   let dummy = JSON.parse(JSON.stringify(this.user_session));
-        //   dummy.name += " " + helper.getRandomInt(1, 99);
-        //   let newPlayer = this.createNewPlayer(dummy);
-        //   this.addPlayer(newPlayer);
-        // }
-      }
-
-      let text = "💡 " + this.user_session.name + " berhasil bergabung!";
-      return this.replyFlex(flex_text, [text, remindText]);
-    } else {
-      return this.replyFlex(flex_text, remindText);
+    if (process.env.TEST === "true") {
+      // cp
+      // for (let i = 0; i < 7; i++) {
+      //   let dummy = JSON.parse(JSON.stringify(this.user_session));
+      //   dummy.name += " " + helper.getRandomInt(1, 99);
+      //   let newPlayer = this.createNewPlayer(dummy);
+      //   this.addPlayer(newPlayer);
+      // }
     }
+
+    let text = "💡 " + this.user_session.name + " berhasil bergabung!";
+    return this.replyFlex(flex_text, [text, remindText]);
   },
 
   joinCommand: function() {
@@ -550,7 +545,15 @@ module.exports = {
         text += ", kamu sudah bergabung kedalam game";
       } else {
         text += "💡 " + this.user_session.name;
-        text += ", kamu masih berada didalam game grup lain";
+        text += ", kamu masih berada didalam game ";
+
+        let groupName = this.user_session.groupName;
+
+        if (!groupName) {
+          text += " room lain";
+        } else {
+          text += "group " + groupName;
+        }
       }
       return this.replyText(text);
     }
@@ -567,6 +570,7 @@ module.exports = {
 
     this.user_session.state = "active";
     this.user_session.groupId = this.group_session.groupId;
+    this.user_session.groupName = this.group_session.name;
 
     let newPlayer = this.createNewPlayer(this.user_session);
 

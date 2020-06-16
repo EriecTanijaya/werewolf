@@ -55,7 +55,8 @@ module.exports = {
         id: id,
         name: "",
         state: "inactive",
-        groupId: ""
+        groupId: "",
+        groupName: ""
       };
       user_sessions[id] = newUser;
     }
@@ -147,11 +148,11 @@ module.exports = {
           }
         });
     }
-
+    
     if (this.event.source.type === "room") {
       return this.searchGroupCallback(user_session, group_sessions[groupId]);
     }
-
+    
     if (group_sessions[groupId].name === "") {
       let groupData = await this.client.getGroupSummary(groupId);
       group_sessions[groupId].name = groupData.groupName;
