@@ -53,6 +53,8 @@ module.exports = {
       case "/protect":
         return this.protectCommand();
       case "/status":
+      case "/groups":
+      case "/users":
         return this.statCommand();
       case "/dnote":
       case "/dn":

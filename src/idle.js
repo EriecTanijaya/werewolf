@@ -29,6 +29,8 @@ module.exports = {
       case "/rolelist":
         return this.infoCommand();
       case "/status":
+      case "/groups":
+      case "/users":
         return this.statCommand();
       case "/tutorial":
         return this.tutorialCommand();

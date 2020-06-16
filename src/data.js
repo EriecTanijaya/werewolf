@@ -96,7 +96,7 @@ module.exports = {
     }
   },
 
-  searchGroup: function(user_session, groupId) {
+  searchGroup: async function(user_session, groupId) {
     /// maintenance
     let isMaintenance = process.env.MAINTENANCE === "true" ? true : false;
     let isTestGroup = groupId === process.env.TEST_GROUP ? true : false;
@@ -120,6 +120,7 @@ module.exports = {
     if (!group_sessions[groupId]) {
       let newGroup = {
         groupId: groupId,
+        name: "",
         state: "idle",
         time_default: 0,
         time: 300,
@@ -133,7 +134,7 @@ module.exports = {
     if (group_sessions[groupId].state === "inactive") {
       let text = "👋 Sistem mendeteksi tidak ada permainan dalam 5 menit. ";
       text += "Undang kembali jika mau main ya!";
-      this.client
+      return this.client
         .replyMessage(this.event.replyToken, {
           type: "text",
           text: text
@@ -145,9 +146,16 @@ module.exports = {
             this.client.leaveRoom(groupId);
           }
         });
+    }
+    
+    if (group_sessions[groupId].name === "") {
+      let groupData = await this.client.getGroupSummary(groupId);
+      group_sessions[groupId].name = groupData.groupName;
+      this.searchGroupCallback(user_session, group_sessions[groupId]);
     } else {
       this.searchGroupCallback(user_session, group_sessions[groupId]);
     }
+    
   },
 
   searchGroupCallback: function(user_session, group_session) {
@@ -275,24 +283,24 @@ module.exports = {
   },
 
   getOnlineUsers: function() {
-    let onlineUsersCount = 0;
+    let onlineUsers = [];
     Object.keys(user_sessions).forEach(key => {
       let user = user_sessions[key];
       if (user && user.state === "active") {
-        onlineUsersCount++;
+        onlineUsers.push(user);
       }
     });
-    return onlineUsersCount;
+    return onlineUsers;
   },
 
   getOnlineGroups: function() {
-    let onlineGroupsCount = 0;
+    let onlineGroups = [];
     Object.keys(group_sessions).forEach(key => {
       let group = group_sessions[key];
       if (group && group.state !== "idle" && group.state !== "inactive") {
-        onlineGroupsCount++;
+        onlineGroups.push(group);
       }
     });
-    return onlineGroupsCount;
+    return onlineGroups;
   }
 };

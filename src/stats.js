@@ -8,17 +8,48 @@ module.exports = {
     this.event = event;
     this.args = args;
 
+    const data = require("/app/src/data");
+    let usersData = data.getOnlineUsers();
+    let groupsData = data.getOnlineGroups();
+
     switch (this.args[0]) {
       case "/status":
-        // game online ada berapa
-        return this.statusCommand();
+        return this.statusCommand(usersData, groupsData);
+      case "/groups":
+        return this.groupsListCommand(groupsData);
+      case "/users":
+        return this.usersListCommand(usersData);
     }
   },
 
-  statusCommand: function() {
-    const data = require("/app/src/data");
-    let usersOnlineCount = data.getOnlineUsers();
-    let groupsOnlineCount = data.getOnlineGroups();
+  groupsListCommand: async function(groupsData) {
+    if (!groupsData.length) return this.replyText("ga ada group yang online");
+
+    let text = `Groups (${groupsData.length}) : \n`;
+    let num = 1;
+    groupsData.forEach(item => {
+      text += num + ". " + item.name + "\n";
+      num++;
+    });
+    text = text.trim();
+    return this.replyText(text);
+  },
+
+  usersListCommand: async function(usersData) {
+    if (!usersData.length) return this.replyText("ga ada user yang online");
+    let text = `Users (${usersData.length}) : \n`;
+    let num = 1;
+    usersData.forEach(item => {
+      text += num + ". " + item.name + "\n";
+      num++;
+    });
+    text = text.trim();
+    return this.replyText(text);
+  },
+
+  statusCommand: function(usersData, groupsData) {
+    let usersOnlineCount = usersData.length;
+    let groupsOnlineCount = groupsData.length;
 
     let statusText = "";
 
