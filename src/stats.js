@@ -1,5 +1,4 @@
 const helper = require("/app/helper");
-const data = require("/app/src/data");
 const rolesData = require("/app/roles/rolesData");
 const flex = require("/app/message/flex");
 
@@ -17,6 +16,7 @@ module.exports = {
   },
 
   statusCommand: function() {
+    const data = require("/app/src/data");
     let usersOnlineCount = data.getOnlineUsers();
     let groupsOnlineCount = data.getOnlineGroups();
 
