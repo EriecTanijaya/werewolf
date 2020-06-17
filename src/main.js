@@ -2086,20 +2086,7 @@ module.exports = {
           let rampagePlaceIndex = targetIndex;
 
           if (targetIndex != -1) {
-            // hax veteran
-            if (skillLevel < 4) {
-              let target = players[targetIndex];
-              if (
-                target.role.name === "veteran" &&
-                target.target.index !== -1
-              ) {
-                //
-              } else {
-                juggernautRampageTargetIndexes.push(targetIndex);
-              }
-            } else {
-              juggernautRampageTargetIndexes.push(targetIndex);
-            }
+            juggernautRampageTargetIndexes.push(targetIndex);
           } else if (targetIndex == i || targetIndex === -1) {
             rampagePlaceIndex = i;
             this.group_session.players[i].message +=
@@ -2116,10 +2103,7 @@ module.exports = {
 
             if (visitor.blocked) continue;
 
-            if (
-              visitor.target.index !== -1 &&
-              visitor.target.index === rampagePlaceIndex
-            ) {
+            if (visitor.target.index === rampagePlaceIndex) {
               // hax mafia kalo yang pergi itu mafioso
               if (visitor.role.name === "godfather") {
                 if (mafiaDoerIndex !== i) continue;
@@ -2134,9 +2118,20 @@ module.exports = {
             let targetIndex = juggernautRampageTargetIndexes[u];
 
             if (skillLevel < 4) {
-              if (
-                immuneToBasicAttack.includes(players[targetIndex].role.name)
-              ) {
+              let targetRoleName = players[targetIndex].role.name;
+
+              let isAlertVeteran = false;
+              if (players[targetIndex].role.name === "veteran") {
+                if (players[targetIndex].target.index !== -1) {
+                  isAlertVeteran = true;
+                }
+              }
+
+              let isTargetImmune = immuneToBasicAttack.includes(targetRoleName)
+                ? true
+                : false;
+
+              if (isTargetImmune || isAlertVeteran) {
                 this.group_session.players[i].message +=
                   "💡 Kamu menyerang seseorang tapi dia immune dari serangan!" +
                   "\n\n";
