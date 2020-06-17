@@ -2086,7 +2086,20 @@ module.exports = {
           let rampagePlaceIndex = targetIndex;
 
           if (targetIndex != -1) {
-            juggernautRampageTargetIndexes.push(targetIndex);
+            // hax veteran
+            if (skillLevel < 4) {
+              let target = players[targetIndex];
+              if (
+                target.role.name === "veteran" &&
+                target.target.index !== -1
+              ) {
+                //
+              } else {
+                juggernautRampageTargetIndexes.push(targetIndex);
+              }
+            } else {
+              juggernautRampageTargetIndexes.push(targetIndex);
+            }
           } else if (targetIndex == i || targetIndex === -1) {
             rampagePlaceIndex = i;
             this.group_session.players[i].message +=
@@ -4787,7 +4800,7 @@ module.exports = {
     } else {
       text += " mengganti vote ke ";
     }
-    
+
     this.group_session.players[index].afkCounter = 0;
 
     this.group_session.players[index].targetVoteIndex = targetIndex;
