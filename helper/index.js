@@ -345,9 +345,9 @@ module.exports = {
     let updates = [
       {
         version: "1.2.2 🆕", //ini yg lastest aja
-        majorChanges: "",
+        majorChanges: "💪 Major cleanup & bugfixes",
         link:
-          "https://timeline.line.me/post/_dew_dlek6Q7X8WLzhe1qWvEjXko3000-cqsirfM/"
+          "https://timeline.line.me/post/_dew_dlek6Q7X8WLzhe1qWvEjXko3000-cqsirfM/1159235795708072516"
       },
       {
         version: "1.2.1",
