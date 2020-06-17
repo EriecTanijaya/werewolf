@@ -23,6 +23,9 @@ module.exports = {
   },
 
   groupsListCommand: async function(groupsData) {
+    let userId = this.event.source.userId;
+    if (userId !== process.env.DEV_ID) return this.invalidCommand();
+    
     if (!groupsData.length) return this.replyText("ga ada group yang online");
 
     let text = `Groups (${groupsData.length}) : \n`;
@@ -43,6 +46,9 @@ module.exports = {
   },
 
   usersListCommand: async function(usersData) {
+    let userId = this.event.source.userId;
+    if (userId !== process.env.DEV_ID) return this.invalidCommand();
+    
     if (!usersData.length) return this.replyText("ga ada user yang online");
     
     let text = `Users (${usersData.length}) : \n`;
@@ -90,6 +96,13 @@ module.exports = {
       }
     };
     return this.replyFlex(flex_text);
+  },
+  
+  invalidCommand: function() {
+    let text = `💡 Tidak ditemukan perintah '${
+      this.args[0]
+    }'. Cek daftar perintah yang ada di '/cmd'`;
+    return this.replyText(text);
   },
 
   /* Helper Func */
