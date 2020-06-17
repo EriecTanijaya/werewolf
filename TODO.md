@@ -1,5 +1,7 @@
 ### TODO
 
+- nanti env maintenance di bot utama sama backup di ubah ke false
+
 - kalau mau run lint, di `package.json` ganti comment yang ada lint
   untuk production gausah ada lint
 - buat readme yang baik

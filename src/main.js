@@ -4787,6 +4787,8 @@ module.exports = {
     } else {
       text += " mengganti vote ke ";
     }
+    
+    this.group_session.players[index].afkCounter = 0;
 
     this.group_session.players[index].targetVoteIndex = targetIndex;
 
