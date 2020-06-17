@@ -344,7 +344,13 @@ module.exports = {
     let flex_texts = [];
     let updates = [
       {
-        version: "1.2.1 🆕", //ini yg lastest aja
+        version: "1.2.2 🆕", //ini yg lastest aja
+        majorChanges: "",
+        link:
+          "https://timeline.line.me/post/_dew_dlek6Q7X8WLzhe1qWvEjXko3000-cqsirfM/"
+      },
+      {
+        version: "1.2.1",
         majorChanges: "☣️ New Plaguebearer role!",
         link:
           "https://timeline.line.me/post/_dew_dlek6Q7X8WLzhe1qWvEjXko3000-cqsirfM/1159179246308071639"
@@ -396,12 +402,6 @@ module.exports = {
         majorChanges: "🪓 Add alot of role",
         link:
           "https://timeline.line.me/post/_dew_dlek6Q7X8WLzhe1qWvEjXko3000-cqsirfM/1158641478608078170"
-      },
-      {
-        version: "1.1.2",
-        majorChanges: "📜 Adjustment '/cek' cmd",
-        link:
-          "https://timeline.line.me/post/_dew_dlek6Q7X8WLzhe1qWvEjXko3000-cqsirfM/1158554530708073635"
       }
     ];
 

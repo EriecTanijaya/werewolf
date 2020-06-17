@@ -2103,10 +2103,7 @@ module.exports = {
 
             if (visitor.blocked) continue;
 
-            if (
-              visitor.target.index !== -1 &&
-              visitor.target.index === rampagePlaceIndex
-            ) {
+            if (visitor.target.index === rampagePlaceIndex) {
               // hax mafia kalo yang pergi itu mafioso
               if (visitor.role.name === "godfather") {
                 if (mafiaDoerIndex !== i) continue;
@@ -2121,9 +2118,20 @@ module.exports = {
             let targetIndex = juggernautRampageTargetIndexes[u];
 
             if (skillLevel < 4) {
-              if (
-                immuneToBasicAttack.includes(players[targetIndex].role.name)
-              ) {
+              let targetRoleName = players[targetIndex].role.name;
+
+              let isAlertVeteran = false;
+              if (players[targetIndex].role.name === "veteran") {
+                if (players[targetIndex].target.index !== -1) {
+                  isAlertVeteran = true;
+                }
+              }
+
+              let isTargetImmune = immuneToBasicAttack.includes(targetRoleName)
+                ? true
+                : false;
+
+              if (isTargetImmune || isAlertVeteran) {
                 this.group_session.players[i].message +=
                   "💡 Kamu menyerang seseorang tapi dia immune dari serangan!" +
                   "\n\n";
@@ -4787,6 +4795,8 @@ module.exports = {
     } else {
       text += " mengganti vote ke ";
     }
+
+    this.group_session.players[index].afkCounter = 0;
 
     this.group_session.players[index].targetVoteIndex = targetIndex;
 
