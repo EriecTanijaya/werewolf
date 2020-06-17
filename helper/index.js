@@ -555,6 +555,10 @@ module.exports = {
       {
         desc: "Targetmu sifatnya sangat bengis!",
         items: ["juggernaut"]
+      },
+      {
+        desc: "Targetmu adalah orang biasa",
+        items: ["villager"]
       }
     ];
 
