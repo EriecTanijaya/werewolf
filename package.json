@@ -5,13 +5,14 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "//start": "eslint . && node server.js"
+    "//start": "eslint . && node server.js",
+    "now-build": "node server.js"
   },
   "dependencies": {
     "@line/bot-sdk": "^7.0.0",
     "cron": "^1.8.2",
     "express": "^4.17.1",
-    "eslint": "^7.2.0"
+    "eslint": "^7.3.1"
   },
   "engines": {
     "node": "12.x"
