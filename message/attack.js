@@ -31,6 +31,8 @@ module.exports = {
       text += "bunuh diri di rumahnya (AFK). ";
     }
 
+    const capitalize = str => `${str.charAt(0).toUpperCase()}${str.slice(1)}`;
+      
     attackersRoleName.forEach(item => {
       switch (item) {
         case "werewolf":
@@ -42,26 +44,26 @@ module.exports = {
           break;
         case "vigilante":
         case "veteran":
-          text += "💥 Dia sebelumnya tertembak " + item + ". ";
+          text += "💥 Dia sebelumnya tertembak " + capitalize(item) + ". ";
           break;
         case "serial-killer":
         case "vampire-hunter":
-          text += "🔪 Dia sebelumnya di tikam " + item + ". ";
+          text += "🔪 Dia sebelumnya di tikam " + capitalize(item) + ". ";
           break;
         case "arsonist":
-          text += "🔥 Dia sebelumnya dibakar " + item + ". ";
+          text += "🔥 Dia sebelumnya dibakar Arsonist. ";
           break;
         case "vampire":
-          text += "🧛 Dia sebelumnya digigit " + item + ". ";
+          text += "🧛 Dia sebelumnya digigit Vampire. ";
           break;
         case "jester":
-          text += "👻 Dia sebelumnya dihantui " + item + ". ";
+          text += "👻 Dia sebelumnya dihantui Jester. ";
           break;
         case "bodyguard":
-          text += "🛡️ Dia sebelumnya diserang " + item + ". ";
+          text += "🛡️ Dia sebelumnya diserang Bodyguard. ";
           break;
         case "juggernaut":
-          text += "💪 Dia sebelumnya diserang " + item + ". ";
+          text += "💪 Dia sebelumnya diserang Juggernaut. ";
           break;
         case "plaguebearer":
           text += "☣️ Dia sebelumnya mati terinfeksi. ";
