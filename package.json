@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "//start": "eslint . && node server.js"
+    "//start": "eslint . && node server.js",
+    "now-build": "node server.js"
   },
   "dependencies": {
     "@line/bot-sdk": "^7.0.0",
