@@ -39,7 +39,7 @@ module.exports = {
       },
       body: {
         text:
-          "Thanks udah add bot ini 😃, undang bot ini ke group kamu untuk bermain!\n📚 Untuk bantuan bisa ketik '/help' atau '/cmd'"
+          "Thanks udah add bot ini 😃, undang bot ini ke group kamu untuk bermain!\n📚 Untuk bantuan bisa ketik '/tutorial' atau '/cmd'"
       }
     };
     return this.replyFlex(flex_text);
