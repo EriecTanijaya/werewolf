@@ -1,5 +1,4 @@
 // di + punishment
-// meng + punishment
 const punishment = [
   "gantung 🦥",
   "gelitik 🐙",
@@ -14,7 +13,8 @@ const punishment = [
   "cubit 🤏",
   "panah 🏹",
   "gulai 🍛",
-  "friendzone 👍"
+  "friendzone 👍",
+  "setrum ⚡"
 ];
 
 module.exports = punishment;

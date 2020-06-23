@@ -241,7 +241,7 @@ module.exports = {
       "serial-killer",
       "juggernaut",
       "plaguebearer",
-      "werewolf",
+      "werewolf"
     ];
 
     for (let i = 0; i < roles.length; i++) {

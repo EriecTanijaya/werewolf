@@ -1,26 +1,5 @@
 ### TODO
 
-- nanti env maintenance di bot utama sama backup di ubah ke false
-
-- kalau mau run lint, di `package.json` ganti comment yang ada lint
-  untuk production gausah ada lint
-- buat readme yang baik
-
-untuk measure point, itu ada berapa persen jumlah warga, dan berapa persen jumlah neutral dan mafia
-
-15 pemain = 9 warga, 3 mafia, 1 neutral killing, 2 neutral selain vampire (mostly) kecuali chaos mode
-
-warga 60 persen, mafia 20 persen, nk 6,6 persen, neutral 13 persen
-
-atau
-
-warga 60 persen, mafia 25 persen, nk 6,6 persen, neutral 6,6 persen
-
-hampir semua official mode formatnya sama, 60 persen warga
-
-yang beda hanya porsi non town nya itu mafia atau vampire 25 persen atau 20 persen
-
-sisa nya neutral killing 1 atau kalau porsi penjahat 20 persen, tambah 1 neutral lagi
 
 ### NOTEE
 
