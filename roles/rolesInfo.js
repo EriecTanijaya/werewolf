@@ -200,7 +200,7 @@ module.exports = {
           break;
 
         case "jester":
-          flex_text.header.text = "🃏 Jester";
+          flex_text.header.text = "🤡 Jester";
           flex_text.body.text += "Type: Neutral" + "\n\n";
           flex_text.body.text += "Jester menang jika dia berhasil digantung. ";
           flex_text.body.text +=

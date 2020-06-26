@@ -2512,7 +2512,7 @@ module.exports = {
           }
 
           this.group_session.players[targetIndex].message +=
-            "👻 SURPRISEEE!! Kamu didatangi 🃏 Jester yang mati itu" + "\n\n";
+            "👻 SURPRISEEE!! Kamu didatangi 🤡 Jester yang mati itu" + "\n\n";
 
           if (players[targetIndex].bugged) {
             spyBuggedInfo[targetIndex] +=
@@ -5132,7 +5132,7 @@ module.exports = {
   handleJesterWin: function(index, tableColumn, surviveTeam) {
     if (this.group_session.players[index].role.isLynched) {
       tableColumn.text = "win";
-      surviveTeam.push("jester 🃏");
+      surviveTeam.push("jester 🤡");
     } else {
       tableColumn.text = "lose";
     }

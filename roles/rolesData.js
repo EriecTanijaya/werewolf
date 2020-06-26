@@ -184,8 +184,8 @@ const roles = [
     cmdText: "/skill",
     canKill: false,
     emoji: {
-      team: "🃏",
-      self: "🃏"
+      team: "🤡",
+      self: "🤡"
     },
     isLynched: false,
     hasRevenged: false,
