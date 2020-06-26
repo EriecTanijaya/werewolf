@@ -45,7 +45,7 @@ module.exports = {
 
       case "chaos":
       case "2":
-        flex_text.header.text = "🃏🪓 Chaos Mode";
+        flex_text.header.text = "🤡🪓 Chaos Mode";
         flex_text.body.text += "Mode ID: 2" + "\n\n";
         flex_text.body.text +=
           "Sesuai namanya, role role yang ada beneran buat chaos. ";
