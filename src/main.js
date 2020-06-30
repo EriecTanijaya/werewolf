@@ -333,6 +333,13 @@ module.exports = {
       }
       return this.replyText(text);
     }
+    
+    if (this.group_session.time >= 600) {
+      let minute = Math.round(this.group_session.time / 60);
+      let text = "💡 Belum bisa menambah waktu tunggu. ";
+      text += "⏳ Waktu masih tersisa " + minute + " menit";
+      return this.replyText(text);
+    }
 
     this.group_session.time += 60;
 
