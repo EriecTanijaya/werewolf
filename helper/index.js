@@ -332,8 +332,8 @@ module.exports = {
       generated.push("villager");
     }
 
-    console.log(`generated role : ${generated.join(", ")}`);
-    console.log(`measure point : ${measure}`);
+    // console.log(`generated role : ${generated.join(", ")}`);
+    // console.log(`measure point : ${measure}`);
 
     generated = this.shuffleArray(generated);
 
@@ -350,7 +350,13 @@ module.exports = {
     let flex_texts = [];
     let updates = [
       {
-        version: "1.2.2 🆕", //ini yg lastest aja
+        version: "1.2.3 🆕", //ini yg lastest aja
+        majorChanges: "📜 New Custom mode command",
+        link:
+          "https://timeline.line.me/post/_dew_dlek6Q7X8WLzhe1qWvEjXko3000-cqsirfM/1159358047608073922"
+      },
+      {
+        version: "1.2.2",
         majorChanges: "💪 Major cleanup & bugfixes",
         link:
           "https://timeline.line.me/post/_dew_dlek6Q7X8WLzhe1qWvEjXko3000-cqsirfM/1159235795708072516"
@@ -402,12 +408,6 @@ module.exports = {
         majorChanges: "🎭 Add new Mafia Deception role!",
         link:
           "https://timeline.line.me/post/_dew_dlek6Q7X8WLzhe1qWvEjXko3000-cqsirfM/1158701410208078540"
-      },
-      {
-        version: "1.1.3",
-        majorChanges: "🪓 Add alot of role",
-        link:
-          "https://timeline.line.me/post/_dew_dlek6Q7X8WLzhe1qWvEjXko3000-cqsirfM/1158641478608078170"
       }
     ];
 
