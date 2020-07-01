@@ -111,7 +111,7 @@ module.exports = {
     if (errors.length > 0) {
       let text = errors.join("\n");
 
-      text += "\n\n" + "📜 Cek list role yang ada di bot ini dengan '/info role'" + "\n";
+      text += `\n\n📜 Cek list role yang ada di bot ini dengan '/info role'\n`;
 
       return this.replyText(text);
     }
@@ -175,7 +175,7 @@ module.exports = {
         "🎲 Game mode di ubah ke " + randomMode + " secara random!"
       );
     }
-    
+
     if (this.args[2] === "custom") {
       let text = "📜 Untuk set custom role contohnya seperti ini : " + "\n";
       text += "'/set role mafioso sheriff serial-killer bodyguard'" + "\n\n";

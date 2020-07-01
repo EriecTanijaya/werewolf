@@ -219,10 +219,10 @@ module.exports = {
     }
 
     bodyText += "🕹️ Game mode : " + this.group_session.mode + "\n\n";
-    
+
     if (this.group_session.mode === "custom") {
       let customRoles = this.group_session.customRoles;
-     bodyText += "📜 Roles : " + customRoles.join(", ") + "\n\n";
+      bodyText += "📜 Roles : " + customRoles.join(", ") + "\n\n";
     }
 
     bodyText += "✉️ Show role : " + this.group_session.isShowRole + "\n\n";
@@ -3995,11 +3995,9 @@ module.exports = {
           // guardian angel
           for (let j = 0; j < players.length; j++) {
             let roleName = players[j].role.name;
+            let status = players[j].status;
 
-            if (
-              roleName === "guardian-angel" &&
-              players[j].status === "alive"
-            ) {
+            if (roleName === "guardian-angel" && status === "alive") {
               if (players[j].role.mustProtectIndex === i) {
                 let roleData = this.getRoleData("survivor");
                 this.group_session.players[i].role = roleData;
@@ -5433,12 +5431,12 @@ module.exports = {
 
   getNewStateFlex: function() {
     let infoText = "🕹️ Mode : " + this.group_session.mode;
-    
+
     if (this.group_session.mode === "custom") {
       let customRoles = this.group_session.customRoles;
-      infoText += "\n" + "📜 Roles : " + customRoles.join(", ")
+      infoText += "\n" + "📜 Roles : " + customRoles.join(", ");
     }
-    
+
     let flex_text = {
       header: {
         text: "🎮 Game Baru"

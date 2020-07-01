@@ -666,6 +666,11 @@ module.exports = {
         text =
           "🔪 Banyak warga yang hilang akhir akhir ini tanpa jejak. Diduga ada pembunuh berantai diantara para warga";
         break;
+        
+      case "custom":
+        text =
+          "🌙 Malam telah tiba, setiap warga kembali ke rumah masing-masing";
+        break;
     }
     return text;
   },
