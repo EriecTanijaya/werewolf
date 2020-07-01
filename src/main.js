@@ -811,6 +811,15 @@ module.exports = {
       return this.replyText(text);
     }
 
+    if (this.group_session.mode === "custom") {
+      let customRolesCount = this.group_session.customRoles.length;
+      if (customRolesCount > players.length) {
+        return this.replyText(
+          "💡 Game tidak dapat dimulai karena jumlah Custom Roles yang telah di atur melebihi jumlah pemain!"
+        );
+      }
+    }
+
     this.group_session.punishment = helper.random(punishment);
 
     this.randomRoles();
