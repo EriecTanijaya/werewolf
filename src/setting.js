@@ -66,6 +66,12 @@ module.exports = {
       return this.replyText(text);
     }
 
+    if (this.group_session.roomHostId !== this.user_session.id) {
+      return this.replyText(
+        "💡 Hanya pembuat room game saja yang bisa atur Custom Role!"
+      );
+    }
+
     this.args.splice(0, 2);
 
     let customRoles = this.args;
