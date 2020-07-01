@@ -35,6 +35,10 @@ module.exports = {
     this.event = event;
     this.rawArgs = rawArgs;
 
+    if (this.rawArgs.startsWith("/")) {
+      this.rawArgs = this.rawArgs.trim();
+    }
+    
     this.args = this.rawArgs.split(" ");
     this.searchUser(this.event.source.userId);
   },

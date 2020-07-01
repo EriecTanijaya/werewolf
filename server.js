@@ -73,7 +73,7 @@ async function handleEvent(event) {
     return Promise.resolve(null);
   }
 
-  let rawArgs = event.message.text.trim();
+  let rawArgs = event.message.text;
   return data.receive(client, event, rawArgs);
 }
 

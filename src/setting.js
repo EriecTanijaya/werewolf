@@ -92,10 +92,22 @@ module.exports = {
     });
 
     let teams = [];
+    let neutrals = [
+      "executioner",
+      "jester",
+      "survivor",
+      "amnesiac",
+      "guardian-angel"
+    ];
+
     for (let i = 0; i < customRoles.length; i++) {
       for (let u = 0; u < knownRoles.length; u++) {
         let knownRoleName = knownRoles[u].name;
         if (knownRoleName === customRoles[i]) {
+          if (neutrals.includes(customRoles[i])) {
+            continue;
+          }
+
           if (!teams.includes(knownRoles[u].team)) {
             teams.push(knownRoles[u].team);
           }
@@ -104,7 +116,7 @@ module.exports = {
     }
 
     if (teams.length < 2) {
-      errors.push("💡 Masukkan minimal 2 team yang berbeda dalam 1 game.");
+      errors.push("💡 Masukkan minimal 2 team yang berlawanan dalam 1 game.");
     }
 
     // kasih tau kesalahan
@@ -124,7 +136,7 @@ module.exports = {
 
     let flex_text = {
       header: {
-        text: "📣 Custom Roles added!"
+        text: "📣 Custom Roles Set!"
       },
       body: {
         text: text
