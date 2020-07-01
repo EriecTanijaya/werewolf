@@ -19,6 +19,8 @@ module.exports = {
         return this.setModeCommand();
       case "show_role":
         return this.setShowRoleCommand();
+      case "role":
+        return this.setRoleCommand();
       default:
         return this.invalidCommand();
     }
@@ -37,7 +39,8 @@ module.exports = {
       "/set mode : untuk lihat mode game yang ada",
       "/set mode <nama mode> : untuk set ke mode yang diinginkan",
       "/set mode random : untuk set game mode secara random",
-      "/set show_role <yes/no> : untuk set apakah ingin tampilkan list tipe role yang ada di suatu game"
+      "/set show_role <yes/no> : untuk set apakah ingin tampilkan list tipe role yang ada di suatu game",
+      "/set role : untuk set custom role"
     ];
 
     cmds.forEach(item => {
@@ -52,6 +55,82 @@ module.exports = {
         text: text
       }
     };
+    return this.replyFlex(flex_text);
+  },
+
+  setRoleCommand: function() {
+    if (!this.args[2]) {
+      let text = "📜 Untuk set custom role contohnya seperti ini : " + "\n";
+      text += "'/set role mafioso sheriff serial-killer bodyguard'" + "\n\n";
+      text += "💡 Setiap role dipisahkan dengan spasi";
+      return this.replyText(text);
+    }
+
+    this.args.splice(0, 2);
+
+    let customRoles = this.args;
+
+    let errors = [];
+
+    // check unknown role
+    let knownRoleNames = rolesData.map(role => {
+      return role.name;
+    });
+
+    customRoles.forEach(item => {
+      if (!knownRoleNames.includes(item)) {
+        errors.push(`💡 Tidak ditemukan '${item}' pada daftar role`);
+      }
+    });
+
+    // check needed team
+    let knownRoles = rolesData.map(role => {
+      return {
+        name: role.name,
+        team: role.team
+      };
+    });
+
+    let teams = [];
+    for (let i = 0; i < customRoles.length; i++) {
+      for (let u = 0; u < knownRoles.length; u++) {
+        let knownRoleName = knownRoles[u].name;
+        if (knownRoleName === customRoles[i]) {
+          if (!teams.includes(knownRoles[u].team)) {
+            teams.push(knownRoles[u].team);
+          }
+        }
+      }
+    }
+
+    if (teams.length < 2) {
+      errors.push("💡 Masukkan minimal 2 team yang berbeda dalam 1 game.");
+    }
+
+    // kasih tau kesalahan
+    if (errors.length > 0) {
+      let text = errors.join("\n");
+
+      text += "\n\n" + "📜 Cek list role yang ada di bot ini dengan '/info role'" + "\n";
+
+      return this.replyText(text);
+    }
+
+    this.group_session.customRoles = customRoles;
+    this.group_session.mode = "custom";
+
+    let text = "📜 Roles : " + customRoles.join(", ") + "\n\n";
+    text += "💡 Untuk meggunakan mode yang lain bisa dengan cmd '/set mode'";
+
+    let flex_text = {
+      header: {
+        text: "📣 Custom Roles added!"
+      },
+      body: {
+        text: text
+      }
+    };
+
     return this.replyFlex(flex_text);
   },
 
@@ -95,6 +174,13 @@ module.exports = {
       return this.replyText(
         "🎲 Game mode di ubah ke " + randomMode + " secara random!"
       );
+    }
+    
+    if (this.args[2] === "custom") {
+      let text = "📜 Untuk set custom role contohnya seperti ini : " + "\n";
+      text += "'/set role mafioso sheriff serial-killer bodyguard'" + "\n\n";
+      text += "💡 Setiap role dipisahkan dengan spasi";
+      return this.replyText(text);
     }
 
     for (let i = 0; i < modeList.length; i++) {

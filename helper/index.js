@@ -1,4 +1,10 @@
 module.exports = {
+  generateCustomRoles: function(playersLength, customRoles) {
+    let roles = this.shuffleArray(customRoles);
+    if (roles.length > playersLength) roles.length = playersLength;
+    return roles;
+  },
+  
   generateRoles: function(playersLength) {
     if (playersLength < 7) {
       let roles = [];

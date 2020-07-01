@@ -127,6 +127,7 @@ module.exports = {
         time: 300,
         mode: "classic",
         isShowRole: true,
+        customRoles: [],
         players: []
       };
       group_sessions[groupId] = newGroup;
