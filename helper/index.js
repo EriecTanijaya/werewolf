@@ -1,4 +1,10 @@
 module.exports = {
+  generateCustomRoles: function(playersLength, customRoles) {
+    let roles = this.shuffleArray(customRoles);
+    if (roles.length > playersLength) roles.length = playersLength;
+    return roles;
+  },
+  
   generateRoles: function(playersLength) {
     if (playersLength < 7) {
       let roles = [];
@@ -659,6 +665,11 @@ module.exports = {
       case "friday-13":
         text =
           "🔪 Banyak warga yang hilang akhir akhir ini tanpa jejak. Diduga ada pembunuh berantai diantara para warga";
+        break;
+        
+      case "custom":
+        text =
+          "🌙 Malam telah tiba, setiap warga kembali ke rumah masing-masing";
         break;
     }
     return text;

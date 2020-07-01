@@ -220,6 +220,11 @@ module.exports = {
 
     bodyText += "🕹️ Game mode : " + this.group_session.mode + "\n\n";
 
+    if (this.group_session.mode === "custom") {
+      let customRoles = this.group_session.customRoles;
+      bodyText += "📜 Roles : " + customRoles.join(", ") + "\n\n";
+    }
+
     bodyText += "✉️ Show role : " + this.group_session.isShowRole + "\n\n";
 
     let roomHostIndex = this.getPlayerIndexById(this.group_session.roomHostId);
@@ -333,7 +338,7 @@ module.exports = {
       }
       return this.replyText(text);
     }
-    
+
     if (this.group_session.time >= 600) {
       let minute = Math.round(this.group_session.time / 60);
       let text = "💡 Belum bisa menambah waktu tunggu. ";
@@ -902,9 +907,11 @@ module.exports = {
       roles = helper.getAmnesiacChaos(playersLength);
     } else if (mode === "chaos") {
       roles = helper.getChaosRoleSet(playersLength);
-    } else {
-      // classic
+    } else if (mode === "classic") {
       roles = helper.generateRoles(playersLength);
+    } else if (mode === "custom") {
+      let customRoles = this.group_session.customRoles;
+      roles = helper.generateCustomRoles(playersLength, customRoles);
     }
 
     return roles;
@@ -3988,11 +3995,9 @@ module.exports = {
           // guardian angel
           for (let j = 0; j < players.length; j++) {
             let roleName = players[j].role.name;
+            let status = players[j].status;
 
-            if (
-              roleName === "guardian-angel" &&
-              players[j].status === "alive"
-            ) {
+            if (roleName === "guardian-angel" && status === "alive") {
               if (players[j].role.mustProtectIndex === i) {
                 let roleData = this.getRoleData("survivor");
                 this.group_session.players[i].role = roleData;
@@ -5063,7 +5068,9 @@ module.exports = {
   },
 
   commandCommand: function() {
-    let text = "";
+    let flex_texts = [];
+    let firstText = "";
+    let secondText = "";
     let cmds = [
       "/new : main game",
       "/cancel : keluar game",
@@ -5076,26 +5083,41 @@ module.exports = {
       "/revoke : untuk batal voting",
       "/extend : untuk menambah 1 menit saat baru membuat room game",
       "/kick : untuk mengeluarkan bot dari group atau room chat",
-      "/set : untuk setting game",
+      "/setting : untuk melihat pengaturan game",
       "/tutorial : tutorial menggunakan bot ini",
       "/gamestat : status game yang berjalan di grup ini",
       "/forum : link ke openchat",
       "/updates : untuk melihat 5 update terakhir bot"
     ];
 
-    cmds.forEach(item => {
-      text += "- " + item + "\n";
-    });
-
-    let flex_text = {
-      header: {
-        text: "📚 Daftar Perintah"
-      },
-      body: {
-        text: text
+    for (let i = 0; i < cmds.length; i++) {
+      if (i > 7) {
+        secondText += "- " + cmds[i] + "\n";
+      } else {
+        firstText += "- " + cmds[i] + "\n";
       }
-    };
-    return this.replyFlex(flex_text);
+    }
+
+    for (let i = 0; i < 2; i++) {
+      let flex_text = {
+        header: {
+          text: "📚 Daftar Perintah"
+        },
+        body: {
+          text: ""
+        }
+      };
+
+      if (i === 0) {
+        flex_text.body.text = firstText;
+      } else {
+        flex_text.body.text = secondText;
+      }
+
+      flex_texts.push(flex_text);
+    }
+
+    return this.replyFlex(flex_texts);
   },
 
   invalidCommand: function() {
@@ -5293,8 +5315,17 @@ module.exports = {
 
   getRoleList: function() {
     let roles = this.group_session.players.map(player => {
-      return player.role.type;
+      if (this.group_session.mode === "custom") {
+        return player.role.name;
+      } else {
+        return player.role.type;
+      }
     });
+
+    if (this.group_session.mode === "custom") {
+      roles = helper.shuffleArray(roles);
+      return roles;
+    }
 
     // Thanks to https://stackoverflow.com/questions/5667888/counting-the-occurrences-frequency-of-array-elements
     let counts = {};
@@ -5400,6 +5431,12 @@ module.exports = {
 
   getNewStateFlex: function() {
     let infoText = "🕹️ Mode : " + this.group_session.mode;
+
+    if (this.group_session.mode === "custom") {
+      let customRoles = this.group_session.customRoles;
+      infoText += "\n" + "📜 Roles : " + customRoles.join(", ");
+    }
+
     let flex_text = {
       header: {
         text: "🎮 Game Baru"

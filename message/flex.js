@@ -47,7 +47,7 @@ module.exports = {
     //console.log(flex_texts[0]);
     let flex_msg = {
       type: "flex",
-      altText: "📣 ada pesan untuk kamu!",
+      altText: "📣 Ada pesan untuk kamu!",
       contents: {
         type: "carousel",
         contents: []

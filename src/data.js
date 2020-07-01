@@ -35,6 +35,10 @@ module.exports = {
     this.event = event;
     this.rawArgs = rawArgs;
 
+    if (this.rawArgs.startsWith("/")) {
+      this.rawArgs = this.rawArgs.trim();
+    }
+    
     this.args = this.rawArgs.split(" ");
     this.searchUser(this.event.source.userId);
   },
@@ -127,6 +131,7 @@ module.exports = {
         time: 300,
         mode: "classic",
         isShowRole: true,
+        customRoles: [],
         players: []
       };
       group_sessions[groupId] = newGroup;
