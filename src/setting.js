@@ -119,6 +119,98 @@ module.exports = {
       errors.push("💡 Masukkan minimal 2 team yang berlawanan dalam 1 game.");
     }
 
+    // check special role
+    function has(roleName) {
+      for (let i = 0; i < customRoles.length; i++) {
+        if (customRoles[i] === roleName) {
+          return true;
+        }
+      }
+      return false;
+    }
+
+    function hasVillager() {
+      for (let i = 0; i < teams.length; i++) {
+        if (teams[i] === "villager") {
+          return true;
+        }
+      }
+      return false;
+    }
+
+    // executioner
+    if (has("executioner") && !hasVillager()) {
+      errors.push(
+        "💡 Masukkan setidaknya 1 warga jika ingin menggunakan role Executioner"
+      );
+    }
+
+    // vampire hunter
+    if (has("vampire-hunter")) {
+      let hasVampire = false;
+      for (let i = 0; i < teams.length; i++) {
+        if (teams[i] === "vampire") {
+          hasVampire = true;
+          break;
+        }
+      }
+
+      if (!hasVampire) {
+        errors.push(
+          "💡 Masukkan role Vampire jika ingin menggunakan role Vampire Hunter"
+        );
+      }
+    }
+
+    // sheriff
+    if (has("sheriff")) {
+      let suspiciousList = [
+        "mafioso",
+        "consigliere",
+        "consort",
+        "serial-killer",
+        "framer",
+        "disguiser"
+      ];
+
+      let isSomeoneSuspicious = false;
+      for (let i = 0; i < customRoles.length; i++) {
+        if (suspiciousList.includes(customRoles[i])) {
+          isSomeoneSuspicious = true;
+          break;
+        }
+      }
+
+      if (!isSomeoneSuspicious) {
+        errors.push(
+          "💡 Masukkan setidaknya role yang bisa dicek bersalah oleh role Sheriff, yaitu anggota Mafia (selain Godfather) atau Serial Killer"
+        );
+      }
+    }
+
+    // retributionist
+    if (has("retributionist") && !hasVillager()) {
+      errors.push(
+        "💡 Masukkan setidaknya 1 warga jika ingin menggunakan role Retributionist"
+      );
+    }
+
+    // check duplicate special role
+
+    // thanks to
+    // https://stackoverflow.com/questions/40305789/check-if-element-is-in-array-twice-time
+    function countInArray(what) {
+      return customRoles.filter(item => item == what).length;
+    }
+
+    let uniqRole = ["plaguebearer", "veteran", "mayor"];
+
+    uniqRole.forEach(item => {
+      if (countInArray(item) > 1) {
+        errors.push(`💡 Role ${item} hanya boleh 1 saja`);
+      }
+    });
+
     // kasih tau kesalahan
     if (errors.length > 0) {
       let text = errors.join("\n");
