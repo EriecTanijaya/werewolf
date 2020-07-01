@@ -65,6 +65,10 @@ module.exports = {
       text += "💡 Setiap role dipisahkan dengan spasi";
       return this.replyText(text);
     }
+    
+    if (this.group_session.state === "idle") {
+      return this.replyText("💡 Belum ada game yang dibuat, ketik '/new' untuk buat game baru");
+    }
 
     if (this.group_session.roomHostId !== this.user_session.id) {
       return this.replyText(
