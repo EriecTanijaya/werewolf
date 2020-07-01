@@ -194,7 +194,20 @@ module.exports = {
     let players = this.group_session.players;
 
     if (players[index].status === "death") {
-      return this.replyText("💡 Kamu sudah mati");
+      // special jester
+      if (players[index].role.name !== "jester") {
+        return this.replyText("💡 Kamu sudah mati");
+      }
+
+      let isLynched = players[index].role.isLynched;
+      let hasRevenged = players[index].role.hasRevenged;
+      if (!isLynched) {
+        return this.replyText("💡 Kamu sudah mati");
+      }
+
+      if (hasRevenged) {
+        return this.replyText("💡 Kamu sudah mati");
+      }
     }
 
     if (!players[index].role.canKill) {
