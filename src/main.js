@@ -220,7 +220,7 @@ module.exports = {
 
     bodyText += "🕹️ Game mode : " + this.group_session.mode + "\n\n";
 
-    if (this.group_session.mode === "custom") {
+    if (this.group_session.mode === "custom" && this.group_session.isShowRole) {
       let customRoles = this.group_session.customRoles;
       bodyText += "📜 Roles : " + customRoles.join(", ") + "\n\n";
     }
@@ -5441,7 +5441,7 @@ module.exports = {
   getNewStateFlex: function() {
     let infoText = "🕹️ Mode : " + this.group_session.mode;
 
-    if (this.group_session.mode === "custom") {
+    if (this.group_session.mode === "custom" && this.group_session.isShowRole) {
       let customRoles = this.group_session.customRoles;
       infoText += "\n" + "📜 Roles : " + customRoles.join(", ");
     }
