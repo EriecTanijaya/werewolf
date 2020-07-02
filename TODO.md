@@ -1,13 +1,21 @@
 ### TODO
 
-
-### NOTEE
-
 - role set trick or treat (ada di tos punya fandom wiki) buat halloween ntr
 
 - susah ini , ada sistem buat cek visitor, cek visitor attack atau engga.
 
 - buat database beneran, data user store di mongodb freakin' hard tho
+
+
+### NOTEE
+
+```
+warga 60 persen, mafia 20 persen, nk 6,6 persen, neutral 13 persen	
+
+atau	
+
+warga 60 persen, mafia 25 persen, nk 6,6 persen, neutral 6,6 persen
+```
 
 - ROLE YG JANGAN DUPLICATE
   - plaguebearer

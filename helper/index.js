@@ -4,7 +4,7 @@ module.exports = {
     if (roles.length > playersLength) roles.length = playersLength;
     return roles;
   },
-  
+
   generateRoles: function(playersLength) {
     if (playersLength < 7) {
       let roles = [];
@@ -666,7 +666,7 @@ module.exports = {
         text =
           "🔪 Banyak warga yang hilang akhir akhir ini tanpa jejak. Diduga ada pembunuh berantai diantara para warga";
         break;
-        
+
       case "custom":
         text =
           "🌙 Malam telah tiba, setiap warga kembali ke rumah masing-masing";
@@ -788,7 +788,6 @@ module.exports = {
   },
 
   getChaosRoleSet: function(playersLength) {
-    // clean up or save dulu
     let roles = ["mafioso"];
 
     let townInvestigates = ["investigator", "lookout", "psychic", "sheriff"];
@@ -803,27 +802,6 @@ module.exports = {
     let neutralEvils = ["jester", "executioner"];
     roles.push(this.random(neutralEvils));
 
-    roles.push("godfather");
-
-    roles.push(this.random(townInvestigates));
-
-    let townKillings = ["veteran", "vigilante"];
-    roles.push(this.random(townKillings));
-
-    let randomMafia = ["framer", "consort", "consigliere", "disguiser"];
-    roles.push(this.random(randomMafia));
-
-    let neutralKillings = [
-      "arsonist",
-      "serial-killer",
-      "werewolf",
-      "juggernaut",
-      "plaguebearer"
-    ];
-    roles.push(this.random(neutralKillings));
-
-    roles.push("spy");
-
     let randomTowns = [
       "doctor",
       "bodyguard",
@@ -836,13 +814,109 @@ module.exports = {
       "tracker",
       "psychic"
     ];
-    roles.push(this.random(randomTowns));
 
-    roles.push(this.random(randomTowns));
+    let neutralKillings = [
+      "arsonist",
+      "serial-killer",
+      "werewolf",
+      "juggernaut",
+      "plaguebearer"
+    ];
 
-    roles.push(this.random(randomTowns));
+    let randomMafia = ["framer", "consort", "consigliere", "disguiser"];
 
-    roles.push(this.random(randomMafia));
+    const getRandomEnemy = () => {
+      return this.random(["neutralKilling", "mafia", "vampire"]);
+    };
+
+    const addTownInvestigate = () => {
+      roles.push(this.random(townInvestigates));
+    };
+
+    const addTownKilling = () => {
+      let townKillings = ["veteran", "vigilante"];
+      roles.push(this.random(townKillings));
+    };
+
+    const addRandomTown = () => {
+      roles.push(this.random(randomTowns));
+    };
+
+    const addNeutralKilling = () => {
+      roles.push(this.random(neutralKillings));
+    };
+
+    const addMafia = () => {
+      roles.push(this.random(randomMafia));
+    };
+
+    const addVampire = () => {
+      roles.push("vampire");
+    };
+
+    const neutralKilling = () => {
+      addNeutralKilling();
+      addTownInvestigate();
+      addTownKilling();
+      addNeutralKilling();
+    };
+
+    const mafia = () => {
+      roles.push("godfather");
+      addTownInvestigate();
+      addTownKilling();
+      addMafia();
+    };
+
+    const vampire = () => {
+      addVampire();
+      roles.push("vampire-hunter");
+      isVampireHunterAdded = true;
+      addTownInvestigate();
+      addVampire();
+    };
+
+    let isVampireHunterAdded = false;
+
+    switch (getRandomEnemy()) {
+      case "neutralKilling":
+        neutralKilling();
+        break;
+
+      case "mafia":
+        mafia();
+        break;
+
+      case "vampire":
+        vampire();
+        break;
+    }
+
+    switch (getRandomEnemy()) {
+      case "neutralKilling":
+        addNeutralKilling();
+        addRandomTown();
+        break;
+
+      case "mafia":
+        addMafia();
+        roles.push("spy");
+        break;
+
+      case "vampire":
+        addVampire();
+        if (!isVampireHunterAdded) {
+          roles.push("vampire-hunter");
+        } else {
+          addRandomTown();
+        }
+        break;
+    }
+
+    addRandomTown();
+    addNeutralKilling();
+    addRandomTown();
+    addRandomTown();
 
     roles.length = playersLength;
     roles = this.shuffleArray(roles);

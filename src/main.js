@@ -832,9 +832,9 @@ module.exports = {
 
     /// test specific role cp
     if (process.env.TEST === "true") {
-      roles = helper.generateRoles(playersLength, "classic");
+      //roles = helper.generateRoles(playersLength, "classic");
 
-      roles = helper.shuffleArray(roles);
+      //roles = helper.shuffleArray(roles);
     }
 
     this.group_session.players.forEach((item, index) => {
