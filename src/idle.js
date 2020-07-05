@@ -31,6 +31,7 @@ module.exports = {
       case "/status":
       case "/groups":
       case "/users":
+      case "/view":
         return this.statCommand();
       case "/tutorial":
         return this.tutorialCommand();
