@@ -19,13 +19,47 @@ module.exports = {
         return this.groupsListCommand(groupsData);
       case "/users":
         return this.usersListCommand(usersData);
+      case "/view":
+        return this.viewCommand(groupsData);
     }
+  },
+
+  viewCommand: async function(groupsData) {
+    let userId = this.event.source.userId;
+    if (userId !== process.env.DEV_ID) return this.invalidCommand();
+
+    let targetIndex = this.args[1];
+    if (targetIndex === undefined) {
+      return this.replyText("masukin index dari group list");
+    }
+
+    if (!groupsData.length) return this.replyText("ga ada group yang online");
+
+    if (!groupsData[targetIndex])
+      return this.replyText("invalid, array mulai dari 0");
+
+    let group = groupsData[targetIndex];
+    let text = "";
+
+    if (group.name) {
+      text += `group name : ${group.name}\n`;
+    } else {
+      text += `room id : ${group.groupId}`
+    }
+    text += `state : ${group.state}\n`;
+    text += `time : ${group.time} sec\n`;
+    text += `mode : ${group.mode}\n`;
+    text += `night count : ${group.nightCounter}\n`;
+
+    if (group.state !== "new") text += `roles " ${group.roles.join(", ")}`;
+
+    return this.replyText(text);
   },
 
   groupsListCommand: async function(groupsData) {
     let userId = this.event.source.userId;
     if (userId !== process.env.DEV_ID) return this.invalidCommand();
-    
+
     if (!groupsData.length) return this.replyText("ga ada group yang online");
 
     let text = `Groups (${groupsData.length}) : \n`;
@@ -48,9 +82,9 @@ module.exports = {
   usersListCommand: async function(usersData) {
     let userId = this.event.source.userId;
     if (userId !== process.env.DEV_ID) return this.invalidCommand();
-    
+
     if (!usersData.length) return this.replyText("ga ada user yang online");
-    
+
     let text = `Users (${usersData.length}) : \n`;
     let num = 1;
     usersData.forEach(item => {
@@ -97,7 +131,7 @@ module.exports = {
     };
     return this.replyFlex(flex_text);
   },
-  
+
   invalidCommand: function() {
     let text = `💡 Tidak ditemukan perintah '${
       this.args[0]
