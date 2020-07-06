@@ -510,11 +510,9 @@ module.exports = {
       }
 
       if (i === allAlivePlayers.length - 1) {
-        if (totalNeeded > 0) {
-          text =
-            "Kota ini terlalu kecil untuk menemukan siapa yang jahat dengan akurat";
-          return text;
-        }
+        // ini kalau yang baik cman 1 (belum termasuk psychic itu sendiri)
+        text += `Salah satu dari ${result.join(", ")} adalah orang jahat`;
+        return text;
       }
     }
   },
