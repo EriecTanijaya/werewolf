@@ -44,14 +44,27 @@ module.exports = {
     if (group.name) {
       text += `group name : ${group.name}\n`;
     } else {
-      text += `room id : ${group.groupId}`
+      text += `room id : ${group.groupId}`;
     }
     text += `state : ${group.state}\n`;
     text += `time : ${group.time} sec\n`;
     text += `mode : ${group.mode}\n`;
     text += `night count : ${group.nightCounter}\n`;
 
-    if (group.state !== "new") text += `roles : ${group.roles.join(", ")}`;
+    if (group.state !== "new") {
+      let roles = [];
+      let alivePlayerCount = 0;
+
+      group.players.forEach(item => {
+        roles.push(item.role.name);
+        if (item.status === "alive") {
+          alivePlayerCount++;
+        }
+      });
+
+      text += `roles : ${roles.join(", ")}`;
+      text += `alive : ${alivePlayerCount}/${group.players.length}`;
+    }
 
     return this.replyText(text);
   },
