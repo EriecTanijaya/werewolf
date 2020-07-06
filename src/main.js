@@ -526,7 +526,7 @@ module.exports = {
 
     if (process.env.TEST === "true") {
       // cp
-      for (let i = 0; i < 7; i++) {
+      for (let i = 0; i < 4; i++) {
         let dummy = JSON.parse(JSON.stringify(this.user_session));
         dummy.name += " " + helper.getRandomInt(1, 99);
         let newPlayer = this.createNewPlayer(dummy);

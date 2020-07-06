@@ -51,7 +51,7 @@ module.exports = {
     text += `mode : ${group.mode}\n`;
     text += `night count : ${group.nightCounter}\n`;
 
-    if (group.state !== "new") text += `roles " ${group.roles.join(", ")}`;
+    if (group.state !== "new") text += `roles : ${group.roles.join(", ")}`;
 
     return this.replyText(text);
   },
