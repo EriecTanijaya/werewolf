@@ -62,8 +62,8 @@ module.exports = {
         }
       });
 
+      text += `alive players : ${alivePlayerCount}/${group.players.length}\n`;
       text += `roles : ${roles.join(", ")}`;
-      text += `alive : ${alivePlayerCount}/${group.players.length}`;
     }
 
     return this.replyText(text);
