@@ -477,7 +477,9 @@ module.exports = {
     let goodCountNeeded = 1;
     let evilCountNeeded = 1;
 
-    if (!isFullMoon) goodCountNeeded++;
+    if (!isFullMoon) {
+      goodCountNeeded++;
+    }
 
     for (let i = 0; i < allAlivePlayers.length; i++) {
       let player = allAlivePlayers[i];
@@ -494,6 +496,7 @@ module.exports = {
       }
 
       let totalNeeded = evilCountNeeded + goodCountNeeded;
+
       if (totalNeeded === 0) {
         text += "Salah satu dari " + result.join(", ");
 
@@ -503,6 +506,12 @@ module.exports = {
           text += " adalah orang jahat";
         }
 
+        return text;
+      }
+
+      if (i === allAlivePlayers.length - 1) {
+        // ini kalau yang baik cman 1 (belum termasuk psychic itu sendiri)
+        text += `Salah satu dari ${result.join(", ")} adalah orang jahat`;
         return text;
       }
     }

@@ -191,7 +191,7 @@ const roles = [
     hasRevenged: false,
     type: "Neutral",
     iconUrl:
-      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/joker_1f0cf.png"
+      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/clown-face_1f921.png"
   },
   {
     name: "lookout",
