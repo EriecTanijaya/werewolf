@@ -109,7 +109,7 @@ module.exports = {
     }
 
     if (usingCommand) {
-      if (userData.commandCount > 1 && userData.cooldown === 0) {
+      if (userData.commandCount > 2 && userData.cooldown === 0) {
         userData.spamCount++;
         let spamCooldown = userData.spamCount * 5;
         userData.cooldown += spamCooldown;
