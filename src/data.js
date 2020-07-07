@@ -27,18 +27,19 @@ setInterval(() => {
       }
     }
   }
-}, 1000);
 
-// reset commandCount
-setInterval(() => {
   for (let key in user_sessions) {
     if (user_sessions[key]) {
+      if (user_sessions[key].cooldown > 0) {
+        user_sessions[key].cooldown--;
+      }
+
       if (user_sessions[key].commandCount > 0) {
         user_sessions[key].commandCount = 0;
       }
     }
   }
-}, 1500);
+}, 1000);
 
 module.exports = {
   receive: function(client, event, rawArgs) {
@@ -72,7 +73,9 @@ module.exports = {
         state: "inactive",
         groupId: "",
         groupName: "",
-        commandCount: 0
+        commandCount: 0,
+        cooldown: 0,
+        spamCount: 0
       };
       user_sessions[id] = newUser;
     }
@@ -97,11 +100,22 @@ module.exports = {
 
   searchUserCallback: function(userData) {
     // rate limit command use
-    if (this.args[0].startsWith("/")) {
-      if (userData.commandCount > 1) {
-        return Promise.resolve(null);
-      } else {
-        userData.commandCount++;
+    let usingCommand = this.args[0].startsWith("/") ? true : false;
+
+    if (usingCommand) userData.commandCount++;
+
+    if (usingCommand && userData.cooldown > 0) {
+      return Promise.resolve(null);
+    }
+
+    if (usingCommand) {
+      if (userData.commandCount > 1 && userData.cooldown === 0) {
+        userData.spamCount++;
+        let spamCooldown = userData.spamCount * 5;
+        userData.cooldown += spamCooldown;
+        return this.replyText(
+          `💡 ${userData.name} melakukan spam! Kamu akan dicuekin bot selama ${userData.cooldown} detik!`
+        );
       }
     }
 
