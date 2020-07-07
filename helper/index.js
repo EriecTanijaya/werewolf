@@ -350,7 +350,13 @@ module.exports = {
     let flex_texts = [];
     let updates = [
       {
-        version: "1.2.3 🆕", //ini yg lastest aja
+        version: "1.2.4 🆕", //ini yg lastest aja
+        majorChanges: "⚠️ Spam prevention",
+        link:
+          "https://timeline.line.me/post/_dew_dlek6Q7X8WLzhe1qWvEjXko3000-cqsirfM/1159408622108073821"
+      },
+      {
+        version: "1.2.3",
         majorChanges: "📜 New Custom mode command",
         link:
           "https://timeline.line.me/post/_dew_dlek6Q7X8WLzhe1qWvEjXko3000-cqsirfM/1159358047608073922"
@@ -402,12 +408,6 @@ module.exports = {
         majorChanges: "🛡️ New Bodyguard role!",
         link:
           "https://timeline.line.me/post/_dew_dlek6Q7X8WLzhe1qWvEjXko3000-cqsirfM/1158736961208072579"
-      },
-      {
-        version: "1.1.4",
-        majorChanges: "🎭 Add new Mafia Deception role!",
-        link:
-          "https://timeline.line.me/post/_dew_dlek6Q7X8WLzhe1qWvEjXko3000-cqsirfM/1158701410208078540"
       }
     ];
 

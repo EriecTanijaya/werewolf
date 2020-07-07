@@ -206,14 +206,11 @@ module.exports = {
         "💡 Masukkan setidaknya 1 warga jika ingin menggunakan role Retributionist"
       );
     }
-    
+
     // framer
     if (has("framer")) {
-      let townInvestigate = [
-        "sheriff",
-        "investigator"
-      ]
-      
+      let townInvestigate = ["sheriff", "investigator"];
+
       let hasTownInvestigate = false;
       for (let i = 0; i < customRoles.length; i++) {
         if (townInvestigate.includes(customRoles[i])) {
@@ -221,9 +218,11 @@ module.exports = {
           break;
         }
       }
-      
+
       if (!hasTownInvestigate) {
-        errors.push("Masukkan setidaknya role Sheriff dan/atau Investigator agar Framer berguna!");
+        errors.push(
+          "Masukkan setidaknya role Sheriff dan/atau Investigator agar Framer berguna!"
+        );
       }
     }
 
