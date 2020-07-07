@@ -25,11 +25,6 @@ module.exports = {
       if (state !== "idle") {
         if (state !== "new") {
           if (time <= 10 && time > 0) {
-            if (this.group_session.deadlineCheckChance === 0) {
-              return Promise.resolve(null);
-            } else {
-              this.group_session.deadlineCheckChance--;
-            }
             let reminder = "💡 Waktu tersisa " + time;
             reminder += " detik lagi, nanti ketik '/cek' ";
             reminder += "saat waktu sudah habis untuk lanjutkan proses. ";
@@ -76,15 +71,10 @@ module.exports = {
             }
           }
         } else {
-          if (this.group_session.deadlineCheckChance === 0) {
-            return Promise.resolve(null);
-          }
-
           let playersLength = this.group_session.players.length;
 
           if (playersLength < 5) {
             if (time <= 50 && time > 0) {
-              this.group_session.deadlineCheckChance--;
               let reminder = "💡 Waktu tersisa " + time;
               reminder +=
                 " detik lagi. Jika tidak ada yang join, game akan dihentikan";
@@ -376,13 +366,13 @@ module.exports = {
       return this.replyText(text);
     }
 
-    let roles = this.group_session.roles;
+    let roles = this.group_session.roles.join(", ");
     let flex_text = {
       header: {
         text: "🤵 Role List 🕵️"
       },
       body: {
-        text: roles.join(", ")
+        text: `${roles}\n\n📜 Ex : '/info town investigate' untuk tau role apa aja dari tipe TI"`
       }
     };
     return this.replyFlex(flex_text);
@@ -505,8 +495,6 @@ module.exports = {
     this.group_session.nightCounter = 0;
     this.group_session.roomHostId = "";
     this.group_session.time = 600;
-    this.group_session.deadlineCheckChance = 1;
-    this.group_session.checkChance = 1;
     this.group_session.lynched = null;
     this.group_session.vampireConvertCooldown = 0;
     this.group_session.isFullMoon = false;
@@ -833,7 +821,6 @@ module.exports = {
     /// test specific role cp
     if (process.env.TEST === "true") {
       //roles = helper.generateRoles(playersLength, "classic");
-
       //roles = helper.shuffleArray(roles);
     }
 
@@ -1051,16 +1038,6 @@ module.exports = {
         let text = "💡 " + name + ", kamu belum join kedalam game";
         return this.replyText(text);
       }
-
-      if (time > 0) {
-        if (state !== "vote") {
-          if (this.group_session.checkChance === 0) {
-            return Promise.resolve(null);
-          } else {
-            this.group_session.checkChance--;
-          }
-        }
-      }
     }
 
     // console.log("state sebelumnya : " + state);
@@ -1069,9 +1046,7 @@ module.exports = {
       case "night":
         if (time > 0) {
           let remindText =
-            "⏳ Sisa waktu " + time + " detik lagi untuk menyambut mentari. ";
-          remindText +=
-            "💡 Kesempatan check : " + this.group_session.checkChance;
+            "⏳ Sisa waktu " + time + " detik lagi untuk menyambut mentari.";
           return this.replyText(remindText);
         } else {
           return this.day();
@@ -1145,7 +1120,6 @@ module.exports = {
     if (checkVote.status !== "enough_vote") {
       this.group_session.state = "lynch";
       this.group_session.time = 8;
-      this.resetCheckChance();
 
       flex_text.header.text = headerText;
       flex_text.body.text = text;
@@ -4703,8 +4677,7 @@ module.exports = {
         let remindText =
           "💡 " + this.user_session.name + ", belum saatnya voting" + "\n";
         remindText +=
-          "⏳ Sisa waktu " + time + " detik lagi untuk voting" + "\n";
-        remindText += "💡 Kesempatan check : " + this.group_session.checkChance;
+          "⏳ Sisa waktu " + time + " detik lagi untuk voting";
         return this.replyText(remindText);
       } else {
         // ini pertama kali votingCommand dipakai
@@ -4922,8 +4895,7 @@ module.exports = {
     this.group_session.state = "lynch";
     this.group_session.lynched = players[lynchTarget.index];
     this.group_session.time = 8;
-    this.resetCheckChance();
-
+    
     return this.replyFlex(flex_texts);
   },
 
@@ -5298,14 +5270,6 @@ module.exports = {
         return targetIndex;
       }
     }
-  },
-
-  resetCheckChance: function() {
-    this.group_session.checkChance = 2;
-    if (this.group_session.players.length > 7) {
-      this.group_session.checkChance += 2;
-    }
-    this.group_session.deadlineCheckChance = 1;
   },
 
   getVoteCandidates: function() {
@@ -5872,9 +5836,6 @@ module.exports = {
   runTimer: function() {
     /// set time default
     this.group_session.time = this.group_session.time_default;
-    //this.group_session.time = 20;
-
-    this.resetCheckChance();
   },
 
   /** message func **/

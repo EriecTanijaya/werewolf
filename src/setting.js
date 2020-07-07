@@ -207,6 +207,25 @@ module.exports = {
       );
     }
 
+    // framer
+    if (has("framer")) {
+      let townInvestigate = ["sheriff", "investigator"];
+
+      let hasTownInvestigate = false;
+      for (let i = 0; i < customRoles.length; i++) {
+        if (townInvestigate.includes(customRoles[i])) {
+          hasTownInvestigate = true;
+          break;
+        }
+      }
+
+      if (!hasTownInvestigate) {
+        errors.push(
+          "Masukkan setidaknya role Sheriff dan/atau Investigator agar Framer berguna!"
+        );
+      }
+    }
+
     // check duplicate special role
 
     // thanks to

@@ -27,6 +27,18 @@ setInterval(() => {
       }
     }
   }
+
+  for (let key in user_sessions) {
+    if (user_sessions[key]) {
+      if (user_sessions[key].cooldown > 0) {
+        user_sessions[key].cooldown--;
+      }
+
+      if (user_sessions[key].commandCount > 0) {
+        user_sessions[key].commandCount = 0;
+      }
+    }
+  }
 }, 1000);
 
 module.exports = {
@@ -38,7 +50,7 @@ module.exports = {
     if (this.rawArgs.startsWith("/")) {
       this.rawArgs = this.rawArgs.trim();
     }
-    
+
     this.args = this.rawArgs.split(" ");
     this.searchUser(this.event.source.userId);
   },
@@ -60,7 +72,10 @@ module.exports = {
         name: "",
         state: "inactive",
         groupId: "",
-        groupName: ""
+        groupName: "",
+        commandCount: 0,
+        cooldown: 0,
+        spamCount: 0
       };
       user_sessions[id] = newUser;
     }
@@ -84,6 +99,26 @@ module.exports = {
   },
 
   searchUserCallback: function(userData) {
+    // rate limit command use
+    let usingCommand = this.args[0].startsWith("/") ? true : false;
+
+    if (usingCommand) userData.commandCount++;
+
+    if (usingCommand && userData.cooldown > 0) {
+      return Promise.resolve(null);
+    }
+
+    if (usingCommand) {
+      if (userData.commandCount > 1 && userData.cooldown === 0) {
+        userData.spamCount++;
+        let spamCooldown = userData.spamCount * 5;
+        userData.cooldown += spamCooldown;
+        return this.replyText(
+          `💡 ${userData.name} melakukan spam! Kamu akan dicuekin bot selama ${userData.cooldown} detik!`
+        );
+      }
+    }
+
     if (this.event.source.type === "group") {
       return this.searchGroup(userData, this.event.source.groupId);
     } else if (this.event.source.type === "room") {
@@ -153,11 +188,11 @@ module.exports = {
           }
         });
     }
-    
+
     if (this.event.source.type === "room") {
       return this.searchGroupCallback(user_session, group_sessions[groupId]);
     }
-    
+
     if (group_sessions[groupId].name === "") {
       let groupData = await this.client.getGroupSummary(groupId);
       group_sessions[groupId].name = groupData.groupName;

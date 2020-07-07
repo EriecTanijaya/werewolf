@@ -96,13 +96,13 @@ module.exports = {
       return this.replyText(text);
     }
 
-    let roles = this.group_session.roles;
+    let roles = this.group_session.roles.join(", ");
     let flex_text = {
       header: {
         text: "🐺 Role List 🔮"
       },
       body: {
-        text: roles.join(", ")
+        text: `${roles}\n\n📜 Ex : '/info town investigate' untuk tau role apa aja dari tipe TI"`
       }
     };
     return this.replyFlex(flex_text);
