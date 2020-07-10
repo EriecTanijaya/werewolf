@@ -87,8 +87,8 @@ module.exports = {
     let text = "";
 
     if (this.event.source.type === "group") {
-      let groupSummary = await this.getGroupData(groupId);
-      text = "Thanks udah diundang ke " + groupSummary.groupName + "! ";
+      let { groupName } = await this.getGroupData(groupId);
+      text = "Thanks udah diundang ke " + groupName + "! ";
     } else {
       text = "Thanks udah diundang ke room ini! ";
     }
@@ -116,20 +116,20 @@ module.exports = {
     let text = "👋 Selamat datang ";
 
     if (this.event.source.type === "group") {
-      let profile = await this.client.getGroupMemberProfile(
+      let { displayName } = await this.client.getGroupMemberProfile(
         groupId,
         newMemberId
       );
-      text += profile.displayName;
+      text += displayName;
 
-      let groupSummary = await this.getGroupData(groupId);
-      text += " di " + groupSummary.groupName + "!";
+      let { groupName } = await this.getGroupData(groupId);
+      text += " di " + groupName + "!";
     } else if (this.event.source.type === "room") {
-      let profile = await this.client.getRoomMemberProfile(
+      let { displayName } = await this.client.getRoomMemberProfile(
         groupId,
         newMemberId
       );
-      text += profile.displayName;
+      text += displayName;
     }
 
     return this.replyText(text);

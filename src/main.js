@@ -1,13 +1,14 @@
-const helper = require("/app/helper");
-const attackedMsg = require("/app/message/attack");
-const peaceMsg = require("/app/message/peace");
-const punishment = require("/app/message/punishment");
-const flex = require("/app/message/flex");
-const rolesData = require("/app/roles/rolesData");
-const setting = require("/app/src/setting");
-const rolesInfo = require("/app/roles/rolesInfo");
-const helpFlex = require("/app/message/help");
-const stats = require("/app/src/stats");
+const client = require("./client");
+const helper = require("../helper");
+const attackedMsg = require("../message/attack");
+const peaceMsg = require("../message/peace");
+const punishment = require("../message/punishment");
+const flex = require("../message/flex");
+const rolesData = require("../roles/rolesData");
+const setting = require("../src/setting");
+const rolesInfo = require("../roles/rolesInfo");
+const helpFlex = require("../message/help");
+const stats = require("../src/stats");
 
 module.exports = {
   receive: function(client, event, args, rawArgs, user_session, group_session) {

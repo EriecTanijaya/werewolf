@@ -62,19 +62,19 @@ async function handleEvent(event) {
   //Note: should return! So Promise.all could catch the error
   if (event.type === "postback") {
     let rawArgs = event.postback.data;
-    return data.receive(client, event, rawArgs);
+    return data.receive(event, rawArgs);
   }
 
   if (event.type !== "message" || event.message.type !== "text") {
     let otherEvents = ["join", "follow", "leave", "memberJoined", "memberLeft"];
     if (otherEvents.includes(event.type)) {
-      return other.receive(client, event);
+      return other.receive(event);
     }
     return Promise.resolve(null);
   }
 
   let rawArgs = event.message.text;
-  return data.receive(client, event, rawArgs);
+  return data.receive(event, rawArgs);
 }
 
 // listen for requests :)
