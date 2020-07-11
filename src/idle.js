@@ -3,8 +3,9 @@ const flex = require("../message/flex");
 const util = require("../util");
 const rolesData = require("../roles/rolesData");
 const rolesInfo = require("../roles/rolesInfo");
-const stats = require("../src/stats");
-const helpFlex = require("../message/help");
+
+const info = require("./info");
+const stats = require("./stats");
 
 const receive = (event, args, rawArgs, user_sessions) => {
   this.event = event;
@@ -54,9 +55,50 @@ const receive = (event, args, rawArgs, user_sessions) => {
   }
 };
 
+const infoCommand = () => {
+  info.receive(this.event, this.args);
+}
+
+const aboutCommand = () => {
+  let flex_text = util.getAbout();
+  return replyFlex(flex_text);
+}
+
+const commandCommand = () => {
+  let text = "";
+  const cmds = [
+    "/help : bantuan game",
+    "/about : tentang bot",
+    "/info : info role, game mode, role type",
+    "/tutorial : tutorial menggunakan bot ini",
+    "/forum : link ke openchat",
+    "/status : untuk melihat berapa yang online",
+    "/updates : untuk melihat 5 update terakhir bot"
+  ];
+
+  cmds.forEach((item, index) => {
+    text += "- " + item;
+    if (index !== cmds.length - 1) {
+      text += "\n";
+    }
+  });
+
+  const flex_text = {
+    headerText: "📚 Daftar Perintah",
+    bodyText: text
+  };
+
+  return replyFlex(flex_text);
+};
+
+const helpCommand = () => {
+  const state = null;
+  const flex_text = util.getHelp(state);
+  return replyFlex(flex_text);
+};
+
 const showUpdatesCommand = () => {
   const updates = util.getUpdates();
-  console.log(updates);
   return replyFlex(updates);
 };
 
@@ -74,10 +116,13 @@ const replyFlex = flex_raw => {
   const msg = flex.build(flex_raw, sender);
   return client.replyMessage(this.event.replyToken, msg).catch(err => {
     console.log(JSON.stringify(msg));
-    console.error("err replyFlex di idle.js", err.originalError.response.data.message);
+    console.error(
+      "err replyFlex di idle.js",
+      err.originalError.response.data.message
+    );
   });
 };
 
 module.exports = {
   receive
-}
+};

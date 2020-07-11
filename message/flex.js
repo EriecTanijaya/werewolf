@@ -177,7 +177,7 @@ const build = (flex_raw, sender) => {
             label: item.buttons[i].label,
             data: item.buttons[i].data
           };
-        } else if (item.buttons[i].action === "postback") {
+        } else if (item.buttons[i].action === "uri") {
           data_button[i].action = {
             type: item.buttons[i].action,
             label: item.buttons[i].label,

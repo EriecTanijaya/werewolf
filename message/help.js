@@ -41,6 +41,12 @@ module.exports = {
         body += "Voting akan selesai jika waktu yang diberikan telah habis. ";
         body += "Ketik '/help' lagi untuk bantuan.";
         break;
+        
+      case "lynch":
+        header += "☠️ Penghukuman";
+        body += "Jika yang dihukum adalah warga, perhatikan siapa yang vote siapa, dan biasanya dari hasil vote itu ";
+        body += "bisa menemukan penjahatnya. ";
+        break;
 
       default:
         header += "🎮 Undang Bot";

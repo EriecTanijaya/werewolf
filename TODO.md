@@ -1,5 +1,11 @@
 ### TODO
 
+- untuk /info, itu buat universal aja, mirip wiki atau glosarium
+  - info role untuk list roles yang ada
+  - info mode list mode yg ada
+  - info type untuk type yang ada
+  - additional : mafia itu apa, vote apa
+
 - flex sistemnya ikutin yang di suit aja
 
 - leave sama memberLeft di pindah dari other.js
@@ -9,14 +15,18 @@
 - buat style folder roles/index.js -> isinya cuman require dari "./nama_role"
   - roles/namarole.js -> isinya mirip kek rolesData, tapi plus tambahan rolesInfo juga, (kalo bisa perbaiki selagi refactor)
   
+- 
+  
 - buat juga modes/index.js mirip kek roles nantik, ini nanti kita bbuat id per mode yang bisa dianuin pas /set mode
   - selain id, buat juga sekalian modeInfo disitu, sekaligus decomonize helper/index.js,
     bagi ke sini juga algoritma roles nya nantik
     
-- jadi unutk src/main.js, idle.js, dan personal.js, itu nanti load langsung user_sessions dan group_sessions dari data.js
+- jadi untuk src/main.js, idle.js, dan personal.js, itu nanti load langsung user_sessions dan group_sessions dari data.js
 - barulah, buat this.user_session dan this.group_session dari user_sessions[this.event.source.userId] gitulah
 
 - buat achivement kecil kecilan, ref: https://town-of-salem.fandom.com/wiki/Achievements
+
+- test SEMUA command di switch(input), di idle, main, personal
 
 - hapus dulu barang di .data
 
