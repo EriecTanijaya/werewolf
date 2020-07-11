@@ -3,8 +3,8 @@ const express = require("express");
 const app = express();
 
 // initialize module
-const data = require("/app/src/data");
-const other = require("/app/src/other");
+const data = require("./src/data");
+const other = require("./src/other");
 
 // line config
 const config = {

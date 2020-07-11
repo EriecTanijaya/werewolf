@@ -13,6 +13,8 @@ const receive = (event, args) => {
   if (!args[1]) {
     return commandCommand();
   }
+  
+  return invalidCommand()
 
   let input = this.args[1].toLowerCase();
   if (input === "role") {
@@ -37,8 +39,20 @@ const receive = (event, args) => {
     };
 
     return replyFlex(flex_text);
+  } else if (modes[input] !== undefined) {
+    
+  } else if (types[input] !== undefined) {
+    
+  } else {
+    return invalidCommand();
   }
 };
+
+const invalidCommand = () => {
+  let text = `💡 Tidak ditemukan '${this.args[1]}', apakah itu role, mode atau types? `;
+  text += `Cek '/info' untuk detail nya`;
+  return replyText(text);
+}
 
 const commandCommand = () => {
   const text = "";
@@ -65,6 +79,24 @@ const commandCommand = () => {
 };
 
 /** message func **/
+
+const replyText = texts => {
+  texts = Array.isArray(texts) ? texts : [texts];
+
+  const sender = util.getSender();
+
+  let msg = texts.map(text => {
+    return {
+      sender,
+      type: "text",
+      text: text.trim()
+    };
+  });
+
+  return client.replyMessage(this.event.replyToken, msg).catch(err => {
+    console.log("err di replyText di info.js", err.originalError.response.data);
+  });
+};
 
 const replyFlex = flex_raw => {
   const rolesData = require("../roles/rolesData");

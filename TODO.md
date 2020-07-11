@@ -15,7 +15,7 @@
 - buat style folder roles/index.js -> isinya cuman require dari "./nama_role"
   - roles/namarole.js -> isinya mirip kek rolesData, tapi plus tambahan rolesInfo juga, (kalo bisa perbaiki selagi refactor)
   
-- 
+- ubah roles_wip ke roles
   
 - buat juga modes/index.js mirip kek roles nantik, ini nanti kita bbuat id per mode yang bisa dianuin pas /set mode
   - selain id, buat juga sekalian modeInfo disitu, sekaligus decomonize helper/index.js,

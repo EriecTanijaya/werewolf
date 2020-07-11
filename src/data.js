@@ -206,23 +206,7 @@ const searchGroupCallback = groupId => {
 const replyText = texts => {
   texts = Array.isArray(texts) ? texts : [texts];
 
-  let sender = {
-    name: "",
-    iconUrl: ""
-  };
-
-  let roles = rolesData.map(role => {
-    let roleName = role.name[0].toUpperCase() + role.name.substring(1);
-    return {
-      name: roleName,
-      iconUrl: role.iconUrl
-    };
-  });
-
-  let { name, iconUrl } = util.random(roles);
-
-  sender.name = name;
-  sender.iconUrl = iconUrl;
+  const sender = util.getSender();
 
   let msg = texts.map(text => {
     return {

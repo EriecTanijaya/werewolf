@@ -1,3 +1,5 @@
+const roles = require("./roles_wip");
+
 const getUpdates = () => {
   // show last 10 updates
   // header text ganti nomor aja
@@ -87,6 +89,26 @@ const getUpdates = () => {
   return flex_texts;
 };
 
+const getSender = () => {  
+  const rolesData = Object.keys(roles).map(item => {
+    let { name, iconUrl } = roles[item].getData();
+    let roleName = name[0].toUpperCase() + name.substring(1);
+    return {
+      name: roleName,
+      iconUrl
+    };
+  });
+
+  let { name, iconUrl } = random(rolesData);
+
+  let sender = {
+    name: name,
+    iconUrl: iconUrl
+  };
+
+  return sender;
+};
+
 const getAbout = () => {
   let text = "Bot semi automatic yang terinspirasi dari ";
   text += "Town Of Salem. ";
@@ -94,7 +116,7 @@ const getAbout = () => {
     "Thanks buat grup Avalon City, LOW, Where Wolf(?), Random, RND Twins dan semua adders!" +
     "\n";
   text += "- Eriec (creator)";
-  
+
   const flex_text = {
     headerText: "🐺 City Of Bedburg 👨‍🌾",
     bodyText: text
@@ -262,5 +284,6 @@ module.exports = {
   leaveGroup,
   random,
   getUpdates,
-  getFlexColor
+  getFlexColor,
+  getSender
 };
