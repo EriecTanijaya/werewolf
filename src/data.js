@@ -1,6 +1,6 @@
 const client = require("./client");
 
-const helper = require("../helper");
+const util = require("../util");
 const rolesData = require("../roles/rolesData");
 
 const personal = require("./personal");
@@ -21,7 +21,8 @@ setInterval(() => {
         let state = group_sessions[key].state;
         let playersLength = group_sessions[key].players.length;
         if (playersLength < 5 && state === "new") {
-          helper.resetAllUsers(group_sessions, user_sessions, key);
+          group_sessions[key].state = "idle";
+          resetAllPlayers(group_sessions[key].players);
         } else if (state === "idle") {
           if (group_sessions[key].groupId !== process.env.TEST_GROUP) {
             group_sessions[key].state = "inactive";
@@ -144,7 +145,7 @@ const searchGroup = async groupId => {
   if (isMaintenance && !isTestGroup) {
     let text = "👋 Sorry, botnya sedang maintenance. ";
     text += "💡 Untuk info lebih lanjut bisa cek di http://bit.ly/openchatww";
-    return leaveGroup(groupId, text);
+    return util.leaveGroup(groupId, text);
   }
 
   if (!group_sessions[groupId]) {
@@ -165,7 +166,7 @@ const searchGroup = async groupId => {
   if (group_sessions[groupId].state === "inactive") {
     let text = "👋 Sistem mendeteksi tidak ada permainan dalam 5 menit. ";
     text += "Undang kembali jika mau main ya!";
-    return leaveGroup(groupId, text);
+    return util.leaveGroup(groupId, text);
   }
 
   if (this.event.source.type === "room") {
@@ -218,7 +219,7 @@ const replyText = texts => {
     };
   });
 
-  let { name, iconUrl } = helper.random(roles);
+  let { name, iconUrl } = util.random(roles);
 
   sender.name = name;
   sender.iconUrl = iconUrl;
@@ -257,21 +258,6 @@ const notAddError = async () => {
   }
 };
 
-const leaveGroup = (groupId, text) => {
-  return this.client
-    .replyMessage(this.event.replyToken, {
-      type: "text",
-      text: text
-    })
-    .then(() => {
-      if (this.event.source.type === "group") {
-        this.client.leaveGroup(groupId);
-      } else {
-        this.client.leaveRoom(groupId);
-      }
-    });
-};
-
 /** save data func **/
 
 const resetAllPlayers = players => {
@@ -280,9 +266,10 @@ const resetAllPlayers = players => {
     user_sessions[item.id].groupId = "";
     user_sessions[item.id].groupName = "";
   });
+  players.length = 0;
 };
 
 module.exports = {
   receive,
   resetAllPlayers
-}
+};
