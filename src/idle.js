@@ -176,7 +176,7 @@ const replyText = texts => {
 
   let msg = texts.map(text => {
     return {
-      sender: sender,
+      sender,
       type: "text",
       text: text.trim()
     };

@@ -337,5 +337,6 @@ module.exports = {
   random,
   getUpdates,
   getFlexColor,
-  getSender
+  getSender,
+  getGroupId
 };

@@ -139,3 +139,7 @@ const replyFlex = flex_raw => {
     );
   });
 };
+
+module.exports = {
+  receive
+}

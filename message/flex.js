@@ -1,6 +1,6 @@
 const util = require("../util");
 
-const build = (flex_raw, sender) => {
+const build = (flex_raw, sender, opt_text) => {
   const color = util.getFlexColor();
   flex_raw = Array.isArray(flex_raw) ? flex_raw : [flex_raw];
 
@@ -200,6 +200,10 @@ const build = (flex_raw, sender) => {
 
     flex_msg.contents.contents.push(bubble[index]);
   });
+  
+  if (opt_text) {
+    flex_msg = [flex_msg, opt_text];
+  }
 
   return flex_msg;
 };
