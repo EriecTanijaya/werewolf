@@ -71,6 +71,33 @@ const receive = (event, args, groupState = null) => {
   return replyFlex(flex_text);
 };
 
+const modeListCommand = () => {
+  const modeList = Object.keys(modes);
+  const flex_text = {
+    headerText: "💪 Mode List 🧛",
+    bodyText: modeList.join(", ")
+  };
+  return replyFlex(flex_text);
+}
+
+const typeListCommand = () => {
+  const typeList = Object.keys(types);
+  const flex_text = {
+    headerText: "👨‍🌾 Type List 🤵",
+    bodyText: typeList.join(", ")
+  };
+  return replyFlex(flex_text);
+}
+
+const roleListCommand = () => {
+  const roleList = Object.keys(roles);
+  const flex_text = {
+    headerText: "🐺 Role List 🔮",
+    bodyText: roleList.join(", ")
+  };
+  return replyFlex(flex_text);
+};
+
 const invalidCommand = () => {
   let text = `💡 Tidak ditemukan '${
     this.args[1]
