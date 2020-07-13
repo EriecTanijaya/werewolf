@@ -13,8 +13,6 @@ const receive = (event, args) => {
   if (!args[1]) {
     return commandCommand();
   }
-  
-  return invalidCommand()
 
   let input = this.args[1].toLowerCase();
   if (input === "role") {
@@ -26,6 +24,13 @@ const receive = (event, args) => {
   }
 
   // search thru all shit
+  // TODO : buat mekanisme yang bisa match pake spasic
+  // cth : bisa /info serial-killer, dan bisa /info serial killer
+  if (this.args[2]) {
+    this.args.shift();
+    input = this.args.join("-");
+  }
+  
   if (roles[input] !== undefined) {
     const role = roles[input];
     const { name, team, type, emoji, iconUrl } = role.getData();

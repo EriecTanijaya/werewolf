@@ -58,11 +58,16 @@ const receive = (event, rawArgs) => {
 
   if (rawArgs.startsWith("/")) {
     rawArgs = rawArgs.trim();
+    this.args = rawArgs.split(" ");
+    this.args = this.args.map(item => {
+      return item.toLowerCase();
+    });
+  } else {
+    this.args = rawArgs.split(" ");
   }
 
   this.event = event;
   this.rawArgs = rawArgs;
-  this.args = rawArgs.split(" ");
 
   searchUser();
 };
