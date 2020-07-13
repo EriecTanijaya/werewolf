@@ -45,6 +45,11 @@ setInterval(() => {
 }, 1000);
 
 const receive = (event, rawArgs) => {
+  // handle memberLeft and leave event
+  if (event.type === "leave" || event.type === "memberLeft") {
+    return handleLeaveEvent(event);
+  }
+
   if (!event.source.hasOwnProperty("userId")) {
     if (!rawArgs.startsWith("/")) {
       return Promise.resolve(null);
@@ -208,6 +213,22 @@ const searchGroupCallback = groupId => {
       user_sessions,
       group_sessions
     );
+  }
+};
+
+/** helper func **/
+
+const handleLeaveEvent = (event) => {
+  if (event.type === "memberLeft") {
+    const leftId = event.left.members[0].userId;
+    if (user_sessions[leftId] && user_sessions[leftId].state === "inactive") {
+      // do what
+    }
+  } else if (event.type === "leave") {
+    const groupId = util.getGroupId(event);
+    if (group_sessions[groupId] && group_sessions[groupId].players.length > 0) {
+      return resetAllPlayers(group_sessions[groupId].players);
+    }
   }
 };
 

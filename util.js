@@ -90,6 +90,14 @@ const getUpdates = () => {
   return flex_texts;
 };
 
+const getGroupId = event => {
+  if (event.source.type === "group") {
+    return event.source.groupId;
+  } else if (event.source.type === "room") {
+    return event.source.roomId;
+  }
+};
+
 const getForumInfo = () => {
   const flex_text = {
     headerText: "💬 Forum",
@@ -103,7 +111,7 @@ const getForumInfo = () => {
       }
     ]
   };
-  return flex_text
+  return flex_text;
 };
 
 const getTutorial = () => {

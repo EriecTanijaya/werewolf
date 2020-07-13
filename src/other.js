@@ -1,157 +1,141 @@
-const data = require("./data");
+const client = require("./client");
 const flex = require("../message/flex");
 const util = require("../util");
 
-module.exports = {
-  receive: function(client, event) {
-    this.client = client;
-    this.event = event;
+const receive = event => {
+  this.event = event;
 
-    let groupId = "";
-    if (this.event.source.type === "group") {
-      groupId = this.event.source.groupId;
-    } else if (this.event.source.type === "room") {
-      groupId = this.event.source.roomId;
-    }
-
-    switch (this.event.type) {
-      case "follow":
-        return this.followResponse();
-      case "join":
-        return this.joinResponse(groupId);
-      case "leave":
-        return this.leaveResponse(groupId);
-      case "memberJoined":
-        return this.memberJoinedResponse(groupId);
-      case "memberLeft":
-        return this.memberLeftResponse();
-    }
-  },
-
-  memberLeftResponse: function() {
-    let userId = this.event.left.members[0].userId;
-    data.handleLeftUser(userId);
-  },
-
-  followResponse: function() {
-    let flex_text = {
-      header: {
-        text: "👋 Haiii"
-      },
-      body: {
-        text:
-          "Thanks udah add bot ini 😃, undang bot ini ke group kamu untuk bermain!\n📚 Untuk bantuan bisa ketik '/tutorial' atau '/cmd'"
-      }
-    };
-    return this.replyFlex(flex_text);
-  },
-
-  joinResponse: async function(groupId) {
-    let isMaintenance = process.env.MAINTENANCE === "true" ? true : false;
-    let isTestGroup = groupId === process.env.TEST_GROUP ? true : false;
-    if (isMaintenance && !isTestGroup) {
-      let text = "👋 Sorry, botnya sedang maintenance. ";
-      text += "💡 Untuk info lebih lanjut bisa cek di http://bit.ly/openchatww";
-      util.leaveGroup(this.event, groupId, text);
-    }
-
-    let membersCount = await this.getMembersCount(groupId);
-    if (!isTestGroup && membersCount < 5) {
-      let text =
-        "🙏 Maaf, undang kembali jika jumlah member sudah minimal 5 orang. ";
-      text += "🌕 Game hanya bisa dimainkan dengan jumlah minimal 5 orang";
-      util.leaveGroup(this.event, groupId, text);
-    }
-
-    let text = "";
-
-    if (this.event.source.type === "group") {
-      let { groupName } = await this.getGroupData(groupId);
-      text = "Thanks udah diundang ke " + groupName + "! ";
-    } else {
-      text = "Thanks udah diundang ke room ini! ";
-    }
-
-    text += "😃 Ketik '/tutorial' atau '/cmd' untuk bantuan. ";
-    text += "😕 Jika masih bingung, boleh ke '/forum'";
-
-    let flex_text = {
-      header: {
-        text: "👋 Hai semua!"
-      },
-      body: {
-        text: text
-      }
-    };
-    return this.replyFlex(flex_text);
-  },
-
-  leaveResponse: function(groupId) {
-    data.resetAllUsers(groupId);
-  },
-
-  memberJoinedResponse: async function(groupId) {
-    let newMemberId = this.event.joined.members[0].userId;
-    let text = "👋 Selamat datang ";
-
-    if (this.event.source.type === "group") {
-      let { displayName } = await this.client.getGroupMemberProfile(
-        groupId,
-        newMemberId
-      );
-      text += displayName;
-
-      let { groupName } = await this.getGroupData(groupId);
-      text += " di " + groupName + "!";
-    } else if (this.event.source.type === "room") {
-      let { displayName } = await this.client.getRoomMemberProfile(
-        groupId,
-        newMemberId
-      );
-      text += displayName;
-    }
-
-    return this.replyText(text);
-  },
-
-  /** Helper func **/
-
-  getGroupData: async function(groupId) {
-    let groupData = await this.client.getGroupSummary(groupId);
-    return groupData;
-  },
-
-  getMembersCount: async function(groupId) {
-    let count = 0;
-    if (this.event.source.type === "group") {
-      let res = await this.client.getGroupMembersCount(groupId);
-      count = res.count;
-    } else {
-      let res = await this.client.getRoomMembersCount(groupId);
-      count = res.count;
-    }
-    return count;
-  },
-
-  /** message func **/
-
-  replyFlex: function(flex_raws) {
-    flex_raws = Array.isArray(flex_raws) ? flex_raws : [flex_raws];
-    let flex_texts = flex_raws.map(flex_raw => ({
-      header: flex_raw.header,
-      body: flex_raw.body,
-      footer: flex_raw.footer,
-      table: flex_raw.table
-    }));
-
-    return flex.receive(this.client, this.event, flex_texts, [], null);
-  },
-
-  replyText: function(texts) {
-    texts = Array.isArray(texts) ? texts : [texts];
-    return this.client.replyMessage(
-      this.event.replyToken,
-      texts.map(text => ({ type: "text", text }))
-    );
+  switch (event.type) {
+    case "follow":
+      return followResponse();
+    case "join":
+      return joinResponse();
+    case "memberJoined":
+      return memberJoinedResponse();
   }
+};
+
+const followResponse = () => {
+  const flex_text = {
+    headerText: "👋 Haiii",
+    bodyText:
+      "Thanks udah add bot ini 😃, undang bot ini ke group kamu untuk bermain!\n📚 Untuk bantuan bisa ketik '/tutorial' atau '/cmd'"
+  };
+  return replyFlex(flex_text);
+};
+
+const joinResponse = async () => {
+  const groupId = util.getGroupId(this.event);
+  const isMaintenance = process.env.MAINTENANCE === "true" ? true : false;
+  const isTestGroup = groupId === process.env.TEST_GROUP ? true : false;
+
+  if (isMaintenance && !isTestGroup) {
+    let text = "👋 Sorry, botnya sedang maintenance. ";
+    text += "💡 Untuk info lebih lanjut bisa cek di http://bit.ly/openchatww";
+    util.leaveGroup(this.event, groupId, text);
+  }
+
+  const membersCount = await getMembersCount(groupId);
+  if (!isTestGroup && membersCount < 5) {
+    let text =
+      "🙏 Maaf, undang kembali jika jumlah member sudah minimal 5 orang. ";
+    text += "🌕 Game hanya bisa dimainkan dengan jumlah minimal 5 orang";
+    util.leaveGroup(this.event, groupId, text);
+  }
+
+  let text = "";
+
+  if (this.event.source.type === "group") {
+    let { groupName } = await getGroupData(groupId);
+    text = "Thanks udah diundang ke " + groupName + "! ";
+  } else {
+    text = "Thanks udah diundang ke room ini! ";
+  }
+
+  text += "😃 Ketik '/tutorial' atau '/cmd' untuk bantuan. ";
+  text += "😕 Jika masih bingung, boleh ke '/forum'";
+
+  let flex_text = {
+    headerText: "👋 Hai semua!",
+    bodyText: text
+  };
+  return replyFlex(flex_text);
+};
+
+const memberJoinedResponse = async () => {
+  const groupId = util.getGroupId(this.event);
+  const newMemberId = this.event.joined.members[0].userId;
+  let text = "👋 Selamat datang ";
+
+  if (this.event.source.type === "group") {
+    let { displayName } = await client.getGroupMemberProfile(
+      groupId,
+      newMemberId
+    );
+    text += displayName;
+
+    let { groupName } = await getGroupData(groupId);
+    text += " di " + groupName + "!";
+  } else if (this.event.source.type === "room") {
+    let { displayName } = await client.getRoomMemberProfile(
+      groupId,
+      newMemberId
+    );
+    text += displayName;
+  }
+
+  return replyText(text);
+};
+
+/** helper func **/
+
+const getGroupData = async groupId => {
+  const groupData = await client.getGroupSummary(groupId);
+  return groupData;
+};
+
+const getMembersCount = async groupId => {
+  if (this.event.type === "group") {
+    const { count } = await client.getGroupMembersCount(groupId);
+    return count;
+  } else {
+    const { count } = await client.getRoomMembersCount(groupId);
+    return count;
+  }
+};
+
+/** message func **/
+
+const replyText = texts => {
+  texts = Array.isArray(texts) ? texts : [texts];
+
+  const sender = util.getSender();
+
+  let msg = texts.map(text => {
+    return {
+      sender: sender,
+      type: "text",
+      text: text.trim()
+    };
+  });
+
+  return client.replyMessage(this.event.replyToken, msg).catch(err => {
+    console.log(
+      "err di replyText di other.js",
+      err.originalError.response.data
+    );
+  });
+};
+
+const replyFlex = flex_raw => {
+  const sender = util.getSender();
+
+  const msg = flex.build(flex_raw, sender);
+  return client.replyMessage(this.event.replyToken, msg).catch(err => {
+    console.log(JSON.stringify(msg));
+    console.error(
+      "err replyFlex di other.js",
+      err.originalError.response.data.message
+    );
+  });
 };
