@@ -145,7 +145,7 @@ const searchGroup = async groupId => {
   if (isMaintenance && !isTestGroup) {
     let text = "👋 Sorry, botnya sedang maintenance. ";
     text += "💡 Untuk info lebih lanjut bisa cek di http://bit.ly/openchatww";
-    return util.leaveGroup(groupId, text);
+    return util.leaveGroup(this.event, groupId, text);
   }
 
   if (!group_sessions[groupId]) {
@@ -166,7 +166,7 @@ const searchGroup = async groupId => {
   if (group_sessions[groupId].state === "inactive") {
     let text = "👋 Sistem mendeteksi tidak ada permainan dalam 5 menit. ";
     text += "Undang kembali jika mau main ya!";
-    return util.leaveGroup(groupId, text);
+    return util.leaveGroup(this.event, groupId, text);
   }
 
   if (this.event.source.type === "room") {

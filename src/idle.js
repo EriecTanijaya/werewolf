@@ -57,12 +57,12 @@ const receive = (event, args, rawArgs, user_sessions) => {
 
 const infoCommand = () => {
   info.receive(this.event, this.args);
-}
+};
 
 const aboutCommand = () => {
   let flex_text = util.getAbout();
   return replyFlex(flex_text);
-}
+};
 
 const commandCommand = () => {
   let text = "";

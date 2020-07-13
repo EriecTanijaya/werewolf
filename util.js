@@ -1,3 +1,4 @@
+const client = require("./src/client");
 const roles = require("./roles_wip");
 
 const getUpdates = () => {
@@ -89,7 +90,7 @@ const getUpdates = () => {
   return flex_texts;
 };
 
-const getSender = () => {  
+const getSender = () => {
   const rolesData = Object.keys(roles).map(item => {
     let { name, iconUrl } = roles[item].getData();
     let roleName = name[0].toUpperCase() + name.substring(1);
@@ -191,17 +192,17 @@ const getHelp = state => {
   return helpMessage;
 };
 
-const leaveGroup = (groupId, text) => {
-  return this.client
-    .replyMessage(this.event.replyToken, {
+const leaveGroup = (event, groupId, text) => {
+  return client
+    .replyMessage(event.replyToken, {
       type: "text",
       text: text
     })
     .then(() => {
-      if (this.event.source.type === "group") {
-        this.client.leaveGroup(groupId);
+      if (event.source.type === "group") {
+        client.leaveGroup(groupId);
       } else {
-        this.client.leaveRoom(groupId);
+        client.leaveRoom(groupId);
       }
     });
 };

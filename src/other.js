@@ -1,5 +1,6 @@
-const data = require("/app/src/data");
-const flex = require("/app/message/flex");
+const data = require("./data");
+const flex = require("../message/flex");
+const util = require("../util");
 
 module.exports = {
   receive: function(client, event) {
@@ -51,18 +52,7 @@ module.exports = {
     if (isMaintenance && !isTestGroup) {
       let text = "👋 Sorry, botnya sedang maintenance. ";
       text += "💡 Untuk info lebih lanjut bisa cek di http://bit.ly/openchatww";
-      return this.client
-        .replyMessage(this.event.replyToken, {
-          type: "text",
-          text: text
-        })
-        .then(() => {
-          if (this.event.source.type === "group") {
-            return this.client.leaveGroup(groupId);
-          } else {
-            return this.client.leaveRoom(groupId);
-          }
-        });
+      util.leaveGroup(this.event, groupId, text);
     }
 
     let membersCount = await this.getMembersCount(groupId);
@@ -70,18 +60,7 @@ module.exports = {
       let text =
         "🙏 Maaf, undang kembali jika jumlah member sudah minimal 5 orang. ";
       text += "🌕 Game hanya bisa dimainkan dengan jumlah minimal 5 orang";
-      return this.client
-        .replyMessage(this.event.replyToken, {
-          type: "text",
-          text: text
-        })
-        .then(() => {
-          if (this.event.source.type === "group") {
-            return this.client.leaveGroup(groupId);
-          } else {
-            return this.client.leaveRoom(groupId);
-          }
-        });
+      util.leaveGroup(this.event, groupId, text);
     }
 
     let text = "";

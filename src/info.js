@@ -99,14 +99,7 @@ const replyText = texts => {
 };
 
 const replyFlex = flex_raw => {
-  const rolesData = require("../roles/rolesData");
-  const senderEmojiRoles = rolesData.map(role => {
-    let roleName = role.name[0].toUpperCase() + role.name.substring(1);
-    return { name: roleName, iconUrl: role.iconUrl };
-  });
-
-  const { name, iconUrl } = util.random(senderEmojiRoles);
-  const sender = { name, iconUrl };
+  const sender = util.getSender();
 
   const msg = flex.build(flex_raw, sender);
   return client.replyMessage(this.event.replyToken, msg).catch(err => {
