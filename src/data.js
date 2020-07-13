@@ -1,7 +1,6 @@
 const client = require("./client");
 
 const util = require("../util");
-const rolesData = require("../roles/rolesData");
 
 const personal = require("./personal");
 const main = require("./main");
@@ -140,7 +139,13 @@ const searchUserCallback = () => {
   } else if (user_sessions[userId].state === "active") {
     return searchGroup(user_sessions[userId].groupId);
   } else {
-    return idle.receive(this.event, this.args, this.rawArgs, user_sessions);
+    return idle.receive(
+      this.event,
+      this.args,
+      this.rawArgs,
+      user_sessions,
+      group_sessions
+    );
   }
 };
 

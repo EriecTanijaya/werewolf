@@ -4,9 +4,9 @@ const flex = require("../message/flex");
 
 const util = require("../util");
 
-const roles = require("../roles_wip");
-const modes = require("../modes_wip");
-const types = require("../types_wip");
+const roles = require("../roles");
+const modes = require("../modes");
+const types = require("../types");
 
 const receive = (event, args, groupState = null) => {
   this.event = event;

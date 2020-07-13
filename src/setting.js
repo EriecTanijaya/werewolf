@@ -1,6 +1,5 @@
-const helper = require("/app/helper");
-const rolesData = require("/app/roles/rolesData");
-const flex = require("/app/message/flex");
+const util = require("../util");
+const flex = require("../message/flex");
 
 module.exports = {
   receive: function(client, event, args, group_session, user_session) {

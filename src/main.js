@@ -4,9 +4,7 @@ const attackedMsg = require("../message/attack");
 const peaceMsg = require("../message/peace");
 const punishment = require("../message/punishment");
 const flex = require("../message/flex");
-const rolesData = require("../roles/rolesData");
 const setting = require("../src/setting");
-const rolesInfo = require("../roles/rolesInfo");
 const helpFlex = require("../message/help");
 const stats = require("../src/stats");
 

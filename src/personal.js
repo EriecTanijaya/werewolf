@@ -1,10 +1,8 @@
-const skillText = require("/app/message/skill");
-const flex = require("/app/message/flex");
-const helper = require("/app/helper");
-const rolesData = require("/app/roles/rolesData");
-const rolesInfo = require("/app/roles/rolesInfo");
-const helpFlex = require("/app/message/help");
-const stats = require("/app/src/stats");
+const skillText = require("../message/skill");
+const flex = require("../message/flex");
+const util = require("../util")
+const helpFlex = require("../message/help");
+const stats = require("../src/stats");
 
 module.exports = {
   receive: function(client, event, args, rawArgs, user_session, group_session) {

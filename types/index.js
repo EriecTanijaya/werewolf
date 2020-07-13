@@ -12,7 +12,7 @@ const types = {
   "Town Protector": []
 };
 
-const roles = require("../roles_wip");
+const roles = require("../roles");
 Object.keys(roles).forEach(role => {
   Object.keys(types).forEach(roleType => {
     let { name, type } = roles[role].getData();
