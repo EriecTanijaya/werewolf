@@ -5,11 +5,13 @@ const flex = require("../message/flex");
 const util = require("../util");
 
 const roles = require("../roles_wip");
+const modes = require("../modes_wip");
+const types = require("../types_wip");
 
-const receive = (event, args) => {
+const receive = (event, args, groupState = null) => {
   this.event = event;
   this.args = args;
-  
+
   if (!args[1]) {
     return commandCommand();
   }
@@ -30,7 +32,12 @@ const receive = (event, args) => {
     this.args.shift();
     input = this.args.join("-");
   }
-  
+
+  const flex_text = {
+    headerText: "",
+    bodyText: ""
+  };
+
   if (roles[input] !== undefined) {
     const role = roles[input];
     const { name, team, type, emoji, iconUrl } = role.getData();
@@ -38,26 +45,40 @@ const receive = (event, args) => {
 
     const goodName = name[0].toUpperCase() + name.substring(1);
 
-    const flex_text = {
-      headerText: `${emoji.self} ${goodName}`,
-      bodyText: `Type : ${type}\n\n${text}`
-    };
-
-    return replyFlex(flex_text);
+    flex_text.headerText = `${emoji.self} ${goodName}`;
+    flex_text.bodyText = `Type : ${type}\n\n${text}`;
   } else if (modes[input] !== undefined) {
-    
+    const mode = modes[input];
+
+    const { id, name, isShowRole, description } = mode.getData();
+
+    flex_text.headerText = name;
+    flex_text.bodyText = `${description}`;
+
+    if (groupState === "new" || groupState === "idle") {
+      flex_text.buttons = [
+        {
+          action: "postback",
+          label: "set mode ini",
+          data: `/set mode ${id}`
+        }
+      ];
+    }
   } else if (types[input] !== undefined) {
-    
   } else {
     return invalidCommand();
   }
+
+  return replyFlex(flex_text);
 };
 
 const invalidCommand = () => {
-  let text = `💡 Tidak ditemukan '${this.args[1]}', apakah itu role, mode atau types? `;
+  let text = `💡 Tidak ditemukan '${
+    this.args[1]
+  }', apakah itu role, mode atau types? `;
   text += `Cek '/info' untuk detail nya`;
   return replyText(text);
-}
+};
 
 const commandCommand = () => {
   const text = "";
