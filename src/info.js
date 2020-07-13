@@ -25,9 +25,6 @@ const receive = (event, args, groupState = null) => {
     return typeListCommand();
   }
 
-  // search thru all shit
-  // TODO : buat mekanisme yang bisa match pake spasic
-  // cth : bisa /info serial-killer, dan bisa /info serial killer
   if (this.args[2]) {
     this.args.shift();
     input = this.args.join("-");
@@ -65,6 +62,8 @@ const receive = (event, args, groupState = null) => {
       ];
     }
   } else if (types[input] !== undefined) {
+    flex_text.headerText = types[input].name;
+    flex_text.bodyText = types[input].list;
   } else {
     return invalidCommand();
   }
