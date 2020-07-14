@@ -1,10 +1,10 @@
 ### TODO
 
-- sisa main.js, setting.js, personal.js, roles, modes, types shit
+- sisa main.js, personal.js, roles, modes, types shit
     
 - new color flex
-- jadi untuk src/main.js, idle.js, dan personal.js, itu nanti load langsung user_sessions dan group_sessions dari data.js
-- barulah, buat this.user_session dan this.group_session dari user_sessions[this.event.source.userId] gitulah
+
+- buat win lose?
 
 - buat achivement kecil kecilan, ref: https://town-of-salem.fandom.com/wiki/Achievements
 

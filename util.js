@@ -90,6 +90,46 @@ const getUpdates = () => {
   return flex_texts;
 };
 
+const getMostFrequent = array => {
+  ///source : https://stackoverflow.com/questions/31227687/find-the-most-frequent-item-of-an-array-not-just-strings
+  let mf = 1; //default maximum frequency
+  let m = 0; //counter
+  let item; //to store item with maximum frequency
+  let obj = {}; //object to return
+
+  //select element (current element)
+  for (let i = 0; i < array.length; i++) {
+    //loop through next elements in array to compare calculate frequency of current element
+    for (let j = i; j < array.length; j++) {
+      //see if element occurs again in the array
+      if (array[i] == array[j]) m++; //increment counter if it does
+
+      //compare current items frequency with maximum frequency
+      if (mf < m) {
+        mf = m; //if m>mf store m in mf for upcoming elements
+        item = array[i]; // store the current element.
+      }
+    }
+    m = 0; // make counter 0 for next element.
+  }
+
+  //jika ada yang sama, maka akan pilih yang di pertama kali diisi di variable 'item'
+  obj = {
+    index: item,
+    count: mf
+  };
+
+  return obj;
+};
+
+const cutFromArray = (array, index) => {
+  for (let i = index; i < array.length - 1; i++) {
+    array[i] = array[parseInt(i) + 1];
+  }
+  array.pop();
+  return array;
+};
+
 const getGroupId = event => {
   if (event.source.type === "group") {
     return event.source.groupId;
@@ -332,6 +372,16 @@ const getFlexColor = () => {
   }
 };
 
+const getRoleNameEmoji = roleName => {
+  const rolesData = Object.keys(roles);
+  for (let i = 0; i < rolesData.length; i++) {
+    if (roleName === rolesData[i]) {
+      const { emoji } = roles[rolesData[i]].getData();
+      return emoji.self;
+    }
+  }
+};
+
 module.exports = {
   leaveGroup,
   random,
@@ -342,5 +392,7 @@ module.exports = {
   getForumInfo,
   getAbout,
   getHelp,
-  getTutorial
+  getTutorial,
+  cutFromArray,
+  getMostFrequent
 };
