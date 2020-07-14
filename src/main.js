@@ -1,13 +1,18 @@
 const client = require("./client");
+const flex = require("../message/flex");
 const util = require("../util");
+
 const attackedMsg = require("../message/attack");
 const peaceMsg = require("../message/peace");
 const punishment = require("../message/punishment");
-const flex = require("../message/flex");
-const setting = require("../src/setting");
 const helpFlex = require("../message/help");
+
+const setting = require("../src/setting");
 const stats = require("./stats");
 const info = require("./info");
+
+const modes = require("../modes");
+const rawRoles = require("../roles");
 
 const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
   this.event = event;
@@ -215,7 +220,8 @@ const startCommand = () => {
 const randomRoles = () => {
   const players = this.group_session.players;
   const playersLength = players.length;
-  let roles = getRandomRoleSet(playersLength); //TODO : logic nya ga perlu pake func ini lagi
+
+  let roles = modes[this.group_session.mode].generate(playersLength);
 
   /// test specific role cp
   if (process.env.TEST === "true") {
@@ -270,10 +276,231 @@ const randomRoles = () => {
 
   // cp
   this.client.multicast(playersUserId, [text_obj]).catch(err => {
-    console.error("error pada multicast", err.originalError.response.data.message);
+    console.error(
+      "error pada multicast",
+      err.originalError.response.data.message
+    );
   });
 
-  night(null);
+  night();
+};
+
+const night = () => {
+  this.group_session.nightCounter++;
+
+  this.group_session.state = "night";
+
+  if (this.group_session.nightCounter % 2 == 0) {
+    this.group_session.isFullMoon = true;
+  } else {
+    this.group_session.isFullMoon = false;
+  }
+
+  /// special role chat
+  this.group_session.mafiaChat = [];
+  this.group_session.vampireChat = [];
+  this.group_session.vampireHunterChat = [];
+
+  // set prop yang reset tiap malamnya (TEMPORARY prop)
+  this.group_session.players.forEach(item => {
+    // all player regardless alive or not
+    item.message = "";
+    item.blocked = false;
+
+    // only alive player
+    if (item.status === "alive") {
+      item.target = {
+        index: -1,
+        value: 1
+      };
+      item.attacked = false;
+      item.healed = false;
+      item.targetVoteIndex = -1;
+      item.vampireBited = false;
+      item.visitors = [];
+      item.attackers = [];
+      item.protectors = [];
+      item.intercepted = false;
+      item.vested = false;
+      item.guarded = false;
+      item.bugged = false;
+      item.framed = false;
+      item.selfHeal = false;
+      item.damage = 0;
+      item.protected = false;
+
+      //special role (vampire)
+      if (item.role.team === "vampire") {
+        item.role.age++;
+      }
+
+      if (item.role.name === "vigilante") {
+        if (this.group_session.nightCounter > 1 && item.role.isLoadBullet) {
+          item.role.isLoadBullet = false;
+        }
+      }
+    }
+  });
+
+  /// untuk role yang berubah-berubah
+
+  // vampire hunter to vigi
+  checkMorphingRole("vampire-hunter", "vampire", "vigilante");
+
+  const alivePlayersCount = getAlivePlayersCount();
+  this.group_session.time_default = getTimeDefault(alivePlayersCount);
+  this.group_session.time = this.group_session.time_default;
+
+  let announcement = "";
+
+  if (this.group_session.isShowRole) {
+    announcement +=
+      "📣 Role yang ada di game ini bisa cek di '/roles'. " + "\n\n";
+  }
+
+  if (this.group_session.nightCounter === 1) {
+    announcement +=
+      "💡 Jangan lupa ketik '/role' di pc bot untuk menggunakan skill" + "\n\n";
+
+    const { naration } = modes[this.group_session.mode].getData();
+    announcement += naration + "\n\n";
+  } else {
+    announcement += "🏘️ 🛏️ Setiap warga kembali kerumah masing-masing" + "\n\n";
+  }
+
+  if (this.group_session.isFullMoon) {
+    announcement +=
+      "🌕 Bulan terlihat indah malam ini, bulan purnama!" + "\n\n";
+  }
+
+  announcement += "⏳ Warga diberi waktu ";
+  announcement += this.group_session.time_default + " detik ";
+  announcement += "untuk menjalankan aksinya";
+
+  // const flex_text = getNightStateFlex(announcement);
+  let headerText = this.group_session.isFullMoon ? "🌕 " : "🌙 ";
+  headerText += "Malam - " + this.group_session.nightCounter;
+
+  const flex_text = {
+    headerText,
+    bodyText: announcement,
+    buttons: [
+      {
+        action: "uri",
+        label: "🚪 Role",
+        data: "https://line.me/R/oaMessage/" + process.env.BOT_ID + "/?%2Frole"
+      },
+      {
+        action: "postback",
+        label: "🔔 Check",
+        data: "/check"
+      }
+    ]
+  };
+
+  runTimer();
+
+  if (process.env.TEST === "true") {
+    let playersWithRole = this.group_session.players.map(i => {
+      return {
+        name: i.name,
+        roleName: i.role.name
+      };
+    });
+    console.table(playersWithRole);
+  }
+
+  return replyFlex(flex_text);
+};
+
+const getTimeDefault = (playersLength) => {
+  let time = 0;
+
+  if (playersLength === 3) {
+    time = 45;
+  } else if (playersLength > 10) {
+    time = 100;
+  } else {
+    // 4 - 9 players logic
+    let temp = playersLength;
+    while (temp) {
+      time += 0.95;
+      temp--;
+    }
+    time = Math.round(time) * 10;
+  }
+
+  return time;
+};
+
+const checkMorphingRole = (fromMorphRole, triggerRole, toMorphRole) => {
+  /*
+    fromMorphRole, role yang mau di cek, ini yang mau di ubah
+    triggerRole, role yang jika tak ada, maka fromMoprhRole menjadi toMorphRole
+    toMorphRole, role baru untuk fromMorphRole
+  */
+
+  if (checkExistsRole(fromMorphRole)) {
+    if (!checkExistsRole(triggerRole)) {
+      let willMorph = getPlayerIdByRole(fromMorphRole);
+      let index = getPlayerIndexById(willMorph);
+
+      let roleData = getRoleData(toMorphRole);
+
+      this.group_session.players[index].role = roleData;
+
+      /// special role morphing
+
+      // from vampire-hunter to vigilante
+      if (this.group_session.players[index].role.name === "vigilante") {
+        this.group_session.players[index].role.bullet = 1;
+        this.group_session.players[index].role.isLoadBullet = false;
+      }
+
+      this.group_session.players[index].addonMessage +=
+        "💡 Role kamu menjadi " +
+        toMorphRole +
+        " karena sudah tidak ada " +
+        triggerRole;
+    }
+  }
+};
+
+const getRoleData = roleName => {
+  const rolesData = Object.keys(rawRoles);
+  for (let i = 0; i < rolesData.length; i++) {
+    if (roleName === rolesData[i]) {
+      const roleData = rawRoles[rolesData[i]].getData();
+      return JSON.parse(JSON.stringify(roleData));
+    }
+  }
+};
+
+const getPlayerIndexById = id => {
+  for (let i = 0; i < this.group_session.players.length; i++) {
+    if (id === this.group_session.players[i].id) {
+      return i;
+    }
+  }
+  return -1;
+};
+
+const getPlayerIdByRole = roleName => {
+  for (let i = 0; i < this.group_session.players.length; i++) {
+    if (this.group_session.players[i].role.name === roleName) {
+      return this.group_session.players[i].id;
+    }
+  }
+};
+
+const checkExistsRole = roleName => {
+  const players = this.group_session.players;
+  for (let i = 0; i < players.length; i++) {
+    if (players[i].role.name === roleName && players[i].status === "alive") {
+      return true;
+    }
+  }
+  return false;
 };
 
 const checkCommand = () => {
