@@ -338,5 +338,9 @@ module.exports = {
   getUpdates,
   getFlexColor,
   getSender,
-  getGroupId
+  getGroupId,
+  getForumInfo,
+  getAbout,
+  getHelp,
+  getTutorial
 };

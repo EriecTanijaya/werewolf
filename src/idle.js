@@ -125,7 +125,7 @@ const infoCommand = () => {
 };
 
 const aboutCommand = () => {
-  let flex_text = util.getAbout();
+  const flex_text = util.getAbout();
   return replyFlex(flex_text);
 };
 

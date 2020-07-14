@@ -26,7 +26,7 @@ const build = (flex_raw, sender, opt_text) => {
           {
             type: "text",
             text: item.headerText,
-            color: color.background,
+            color: "#ffffff",
             weight: "bold",
             align: "center",
             wrap: true,

@@ -107,7 +107,7 @@ const invalidCommand = () => {
 };
 
 const commandCommand = () => {
-  const text = "";
+  let text = "";
   const cmds = [
     "/info :  tampilin list command info",
     "/info role : list role yang ada",

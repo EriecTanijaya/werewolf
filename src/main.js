@@ -7,6 +7,7 @@ const flex = require("../message/flex");
 const setting = require("../src/setting");
 const helpFlex = require("../message/help");
 const stats = require("./stats");
+const info = require("./info");
 
 const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
   this.event = event;
@@ -20,7 +21,7 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
 
   if (!rawArgs.startsWith("/")) {
     let time = this.group_session.time;
-    let state = this.group_session.state;
+    const state = this.group_session.state;
 
     if (state !== "idle") {
       if (state !== "new") {
@@ -30,23 +31,23 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
           reminder += "saat waktu sudah habis untuk lanjutkan proses. ";
           return replyText(reminder);
         } else if (time === 0) {
-          if (this.indexOfPlayer() !== -1) {
-            return this.checkCommand();
+          if (indexOfPlayer() !== -1) {
+            return checkCommand();
           }
         }
 
         // special role yang bisa trigger lewat text biasa
         let players = this.group_session.players;
-        let index = this.indexOfPlayer();
+        const index = indexOfPlayer();
         if (index !== -1) {
           if (state === "day" || state === "vote") {
             let roleName = players[index].role.name;
             if (roleName === "mayor" && players[index].status === "alive") {
               if (players[index].role.revealed) return Promise.resolve(null);
-              let string = this.args.join(" ");
+              let string = args.join(" ");
               string = string.toLowerCase();
               if (string.includes("mayor")) {
-                let subjects = ["aku", "ak", "gw", "gue", "gua", "saya"];
+                const subjects = ["aku", "ak", "gw", "gue", "gua", "saya"];
 
                 for (let i = 0; i < subjects.length; i++) {
                   if (string.indexOf(subjects[i]) !== -1) {
@@ -55,12 +56,8 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
                     text += " telah mengungkapkan dirinya sebagai Mayor!";
 
                     let flex_text = {
-                      header: {
-                        text: "📜 Info"
-                      },
-                      body: {
-                        text: text
-                      }
+                      headerText: "📜 Info",
+                      bodyText: text
                     };
 
                     return replyFlex(flex_text);
@@ -130,7 +127,7 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
     case "/about":
       return aboutCommand();
     case "/status":
-      return statCommand();
+      return statusCommand();
     case "/info":
       return infoCommand();
     case "/roles":
@@ -174,7 +171,131 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
 
 /// TODO : untuk commands, isi dulu yang static, baru settings, terakhir baru lah logic game
 
+const settingCommand = () => {
+  const state = this.group_session.state;
+  if (state !== "idle" && state !== "new") {
+    let text = "💡 " + this.user_session.name;
+    text += ", setting hanya bisa di atur saat game belum berjalan";
+    return replyText(text);
+  }
+
+  return setting.receive(
+    this.event,
+    this.args,
+    this.rawArgs,
+    this.group_sessions,
+    this.user_sessions
+  );
+};
+
+const commandCommand = () => {
+  const flex_texts = [];
+  let firstText = "";
+  let secondText = "";
+  const cmds = [
+    "/new : main game",
+    "/cancel : keluar game",
+    "/join : join game",
+    "/players : cek list pemain",
+    "/stop : stop game",
+    "/start : start game",
+    "/info : tampilin list role",
+    "/about : tentang bot",
+    "/revoke : untuk batal voting",
+    "/extend : untuk menambah 1 menit saat baru membuat room game",
+    "/kick : untuk mengeluarkan bot dari group atau room chat",
+    "/setting : untuk melihat pengaturan game",
+    "/tutorial : tutorial menggunakan bot ini",
+    "/gamestat : status game yang berjalan di grup ini",
+    "/forum : link ke openchat",
+    "/updates : untuk melihat 5 update terakhir bot"
+  ];
+
+  for (let i = 0; i < cmds.length; i++) {
+    if (i > 7) {
+      secondText += "- " + cmds[i] + "\n";
+    } else {
+      firstText += "- " + cmds[i] + "\n";
+    }
+  }
+
+  for (let i = 0; i < 2; i++) {
+    let flex_text = {
+      headerText: "📚 Daftar Perintah",
+      bodyText: ""
+    };
+
+    if (i === 0) {
+      flex_text.bodyText = firstText;
+    } else {
+      flex_text.bodyText = secondText;
+    }
+
+    flex_texts.push(flex_text);
+  }
+
+  return replyFlex(flex_texts);
+};
+
+const helpCommand = () => {
+  const state = this.group_session.state;
+  const flex_text = util.getHelp(state);
+  return replyFlex(flex_text);
+};
+
+const statusCommand = () => {
+  const msg = stats.statusCommand(this.user_sessions, this.group_sessions);
+  return replyFlex(msg);
+};
+
+const infoCommand = () => {
+  info.receive(this.event, this.args);
+};
+
+const tutorialCommand = () => {
+  const msg = util.getTutorial();
+  return replyFlex(msg);
+};
+
+const aboutCommand = () => {
+  const flex_text = util.getAbout();
+  return replyFlex(flex_text);
+};
+
+const personalCommand = () => {
+  const text = `💡 ${this.user_session.name}, commad ${
+    this.args[0]
+  } hanya boleh dilakukan di pc bot`;
+  return replyText(text);
+};
+
+const forumCommand = () => {
+  const msg = util.getForumInfo();
+  return replyFlex(msg);
+};
+
+const showUpdatesCommand = () => {
+  const updates = util.getUpdates();
+  return replyFlex(updates);
+};
+
+const invalidCommand = () => {
+  const text = `💡 Tidak ditemukan perintah '${
+    this.args[0]
+  }'. Cek daftar perintah yang ada di '/cmd'`;
+  return replyText(text);
+};
+
 /** helper func **/
+
+const indexOfPlayer = () => {
+  for (let i = 0; i < this.group_session.players.length; i++) {
+    if (this.group_session.players[i].id === this.user_session.id) {
+      return i;
+    }
+  }
+  return -1;
+};
 
 /** message func **/
 
@@ -203,7 +324,7 @@ const replyText = texts => {
   });
 
   return client.replyMessage(this.event.replyToken, msg).catch(err => {
-    console.log("err di replyText di idle.js", err.originalError.response.data);
+    console.log("err di replyText di main.js", err.originalError.response.data);
   });
 };
 
@@ -245,7 +366,7 @@ const replyFlex = flex_raw => {
   return client.replyMessage(this.event.replyToken, msg).catch(err => {
     console.log(JSON.stringify(msg));
     console.error(
-      "err replyFlex di idle.js",
+      "err replyFlex di main.js",
       err.originalError.response.data.message
     );
   });
@@ -253,4 +374,4 @@ const replyFlex = flex_raw => {
 
 module.exports = {
   receive
-}
+};
