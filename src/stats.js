@@ -59,7 +59,7 @@ const viewCommand = async (group_sessions, targetIndex) => {
     text += `roles : ${roles.join(", ")}`;
   }
 
-  return text
+  return text;
 };
 
 const groupsListCommand = async group_sessions => {
@@ -80,7 +80,7 @@ const groupsListCommand = async group_sessions => {
     text += `${num}. ${name} (${item.players.length})\n`;
     num++;
   });
-  
+
   return text;
 };
 
@@ -95,8 +95,8 @@ const usersListCommand = async user_sessions => {
     text += `${num}. ${item.name} (${item.groupName})\n`;
     num++;
   });
-  
-  return text
+
+  return text;
 };
 
 const statusCommand = (user_sessions, group_sessions) => {
@@ -129,7 +129,7 @@ const statusCommand = (user_sessions, group_sessions) => {
     headerText: "🌐 Status",
     bodyText: statusText
   };
-  
+
   return flex_text;
 };
 
@@ -138,4 +138,4 @@ module.exports = {
   usersListCommand,
   groupsListCommand,
   viewCommand
-}
+};

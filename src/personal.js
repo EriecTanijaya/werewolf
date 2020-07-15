@@ -523,9 +523,9 @@ const roleSkill = (flex_text, index, text) => {
   const players = this.group_session.players;
   const role = players[index].role;
 
-  const skillText = getRoleSkillText(role.name);
+  let skillText = getRoleSkillText(role.name);
   const cmdText = getRoleCmdText(role.name);
-  const isCanSelfTarget = canSelfTarget(role.name);
+  let isCanSelfTarget = canSelfTarget(role.name);
 
   /// special role yang bisa berubah selfTarget
 

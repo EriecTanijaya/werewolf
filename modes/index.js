@@ -3,4 +3,4 @@ module.exports = {
   chaos: require("./chaos"),
   vampire: require("./vampire"),
   custom: require("./custom")
-}
+};

@@ -200,10 +200,12 @@ const build = (flex_raw, sender, opt_texts = []) => {
 
     flex_msg.contents.contents.push(bubble[index]);
   });
-  
+
   if (opt_texts.length > 0) {
     flex_msg = [flex_msg];
-    opt_texts.forEach(item => { flex_msg.push(item) })
+    opt_texts.forEach(item => {
+      flex_msg.push(item);
+    });
   }
 
   return flex_msg;
@@ -211,4 +213,4 @@ const build = (flex_raw, sender, opt_texts = []) => {
 
 module.exports = {
   build
-}
+};

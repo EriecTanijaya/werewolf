@@ -37,7 +37,7 @@ const receive = (event, args, groupState = null) => {
 
   if (roles[input] !== undefined) {
     const role = roles[input];
-    const { name, team, type, emoji, iconUrl } = role.getData();
+    const { name, type, emoji } = role.getData();
     const text = role.getInfo();
 
     const goodName = name[0].toUpperCase() + name.substring(1);
@@ -47,7 +47,7 @@ const receive = (event, args, groupState = null) => {
   } else if (modes[input] !== undefined) {
     const mode = modes[input];
 
-    const { id, name, isShowRole, description } = mode.getData();
+    const { id, name, description } = mode.getData();
 
     flex_text.headerText = name;
     flex_text.bodyText = `${description}`;
@@ -106,7 +106,7 @@ const invalidCommand = () => {
   let text = `💡 Tidak ditemukan '${
     this.args[1]
   }', apakah itu role, mode atau types? `;
-  text += `Cek '/info' untuk detail nya`;
+  text += "Cek '/info' untuk detail ny";
   return replyText(text);
 };
 

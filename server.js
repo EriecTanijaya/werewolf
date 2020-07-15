@@ -11,7 +11,6 @@ const config = {
   channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN,
   channelSecret: process.env.CHANNEL_SECRET
 };
-const client = new line.Client(config);
 
 /// measure request time
 // Thanks to https://slao.io/blog/posts/request-duration/

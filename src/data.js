@@ -50,12 +50,13 @@ const receive = (event, rawArgs) => {
     return handleLeaveEvent(event);
   }
 
-  if (!event.source.hasOwnProperty("userId")) {
+  // eslint-disable-next-line no-prototype-builtins
+  if (!event.source.hasOwnProperty("userId")) { 
     if (!rawArgs.startsWith("/")) {
       return Promise.resolve(null);
     } else {
       return replyText(
-        `💡 Bot ini hanya dukung LINE versi 7.5.0 atau lebih tinggi.\nCoba update dulu LINE nya`
+        "💡 Bot ini hanya dukung LINE versi 7.5.0 atau lebih tinggi.\nCoba update dulu LINE nya"
       );
     }
   }
@@ -196,7 +197,7 @@ const searchGroup = async groupId => {
   searchGroupCallback();
 };
 
-const searchGroupCallback = groupId => {
+const searchGroupCallback = () => {
   if (this.event.source.type === "user") {
     personal.receive(
       this.event,

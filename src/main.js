@@ -3869,7 +3869,7 @@ const randomRoles = () => {
 };
 
 const getRoleList = () => {
-  const roles = this.group_session.players.map(player => {
+  let roles = this.group_session.players.map(player => {
     if (this.group_session.mode === "custom") {
       return player.role.name;
     } else {
@@ -4781,7 +4781,7 @@ const getTableFlex = (alivePlayers, text, headerText, opt_buttons) => {
   };
 
   let num = 1;
-  alivePlayers.forEach((voter, index) => {
+  alivePlayers.forEach(voter => {
     let table_data = [`${num}.`, voter.name];
 
     if (voter.targetVoteIndex === -1) {
@@ -5007,7 +5007,7 @@ const playersCommand = () => {
   };
 
   let num = 1;
-  players.forEach((item, index) => {
+  players.forEach(item => {
     let table_data = [`${num}.`, item.name];
 
     if (item.status === "death") {
