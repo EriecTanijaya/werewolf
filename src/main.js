@@ -44,6 +44,12 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
         let players = this.group_session.players;
         const index = indexOfPlayer();
         if (index !== -1) {
+          
+          // reset afk if chat on group
+          if (players[index].afkCounter > 0) {
+            this.group_session.players[index].afkCounter = 0;
+          }
+          
           if (state === "day" || state === "vote") {
             let roleName = players[index].role.name;
             if (roleName === "mayor" && players[index].status === "alive") {
