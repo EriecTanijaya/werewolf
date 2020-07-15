@@ -338,20 +338,9 @@ const invalidCommand = () => {
 /** message func **/
 
 const replyText = texts => {
-  let state = this.group_session.state;
   texts = Array.isArray(texts) ? texts : [texts];
 
-  let sender = {};
-
-  if (state !== "idle" && state !== "new") {
-    sender = {
-      name: "Moderator",
-      iconUrl:
-        "https://cdn.glitch.com/fc7de31a-faeb-4c50-8a38-834ec153f590%2F%E2%80%94Pngtree%E2%80%94microphone%20vector%20icon_3725450.png?v=1587456628843"
-    };
-  } else {
-    sender = util.getSender();
-  }
+  const sender = util.getSender();
 
   let msg = texts.map(text => {
     return {
@@ -362,48 +351,13 @@ const replyText = texts => {
   });
 
   return client.replyMessage(this.event.replyToken, msg).catch(err => {
-    console.log(
-      "err di replyText di setting.js",
-      err.originalError.response.data
-    );
+    console.log("err di replyText di setting.js", err.originalError.response.data);
   });
 };
 
 const replyFlex = flex_raw => {
-  let state = this.group_session.state;
-  let opt_text = null;
-  let sender = {};
-
-  if (state !== "idle" && state !== "new") {
-    sender = {
-      name: "Moderator",
-      iconUrl:
-        "https://cdn.glitch.com/fc7de31a-faeb-4c50-8a38-834ec153f590%2F%E2%80%94Pngtree%E2%80%94microphone%20vector%20icon_3725450.png?v=1587456628843"
-    };
-
-    const time = this.group_session.time;
-    if (time < 15) {
-      let reminder = "💡 ";
-
-      if (time < 1) {
-        reminder += "Waktu sudah habis, ketik '/cek' untuk lanjutkan proses";
-      } else {
-        reminder +=
-          "Waktu tersisa " +
-          time +
-          " detik lagi, nanti ketik '/cek' untuk lanjutkan proses";
-      }
-
-      opt_text = {
-        type: "text",
-        text: reminder
-      };
-    }
-  } else {
-    sender = util.getSender();
-  }
-
-  const msg = flex.build(flex_raw, sender, opt_text);
+  const sender = util.getSender();
+  const msg = flex.build(flex_raw, sender);
   return client.replyMessage(this.event.replyToken, msg).catch(err => {
     console.log(JSON.stringify(msg));
     console.error(

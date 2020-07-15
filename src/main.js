@@ -1750,7 +1750,7 @@ const day = () => {
     if (doer.blocked) continue;
 
     if (doer.role.name === "bodyguard" && doer.status === "alive") {
-      if (doer.target.index === -1 || doer.attacked) {
+      if (doer.target.index === -1) {
         continue;
       }
 
@@ -2410,6 +2410,14 @@ const day = () => {
                 // bodyguard tidak lindungi yang kena pestilence
                 if (attacker.role.name === "plaguebearer") {
                   continue;
+                }
+
+                // hax rampage nya werewolf / juggernaut
+                const rampagingRole = ["werewolf", "juggernaut"];
+                if (rampagingRole.includes(attacker.role.name)) {
+                  const attackerTargetIndex =
+                    players[attacker.index].target.index;
+                  if (attackerTargetIndex != i) continue;
                 }
 
                 // counter attack
@@ -3804,7 +3812,9 @@ const randomRoles = () => {
   const players = this.group_session.players;
   const playersLength = players.length;
 
-  let roles = modes[this.group_session.mode].generate(playersLength);
+  let roles = [];
+  let customRoles = this.group_session.customRoles;
+  roles = modes[this.group_session.mode].generate(playersLength, customRoles);
 
   /// test specific role cp
   if (process.env.TEST === "true") {

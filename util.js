@@ -312,7 +312,7 @@ const getFlexColor = () => {
     morning: {
       from: "04:00:00",
       to: "14:59:59",
-      colors: {
+      color: {
         main: "#24a19c",
         secondary: "#24a19c",
         background: "#e4e3e3",
@@ -350,6 +350,8 @@ const getFlexColor = () => {
       return color;
     }
   }
+  
+  return timestamp["night"].color;
 };
 
 const getRoleNameEmoji = roleName => {
