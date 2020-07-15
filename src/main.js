@@ -190,7 +190,7 @@ const day = () => {
       }
 
       // check afk
-      let noSkillRoles = [
+      const noSkillRoles = [
         "villager",
         "jester",
         "executioner",
@@ -251,7 +251,7 @@ const day = () => {
   /// Vampire Action
   // search the vampire that responsible to bite
   // note: the youngest
-  let vampireExists = this.checkExistsRole("vampire");
+  let vampireExists = checkExistsRole("vampire");
   let vampireAttackMode = false;
   let vampires = [];
   let vampireDoerIndex = -1;
@@ -3663,10 +3663,10 @@ const day = () => {
 
     timerText += "💀 Siapa yang mau di" + this.group_session.punishment;
 
-    flex_text.body.text += timerText;
+    flex_text.bodyText += timerText;
 
     if (this.group_session.nightCounter === 1) {
-      flex_text.body.text +=
+      flex_text.bodyText +=
         "\n\n" +
         "💡 Pengguna Skill jangan lupa gunakan commands '/news' di pc bot";
     }
@@ -3863,7 +3863,7 @@ const randomRoles = () => {
   });
 
   // cp
-  this.client.multicast(playersUserId, [text_obj]).catch(err => {
+  client.multicast(playersUserId, [text_obj]).catch(err => {
     console.error(
       "error pada multicast",
       err.originalError.response.data.message
@@ -4350,6 +4350,8 @@ const endGame = (flex_texts, whoWin) => {
   this.group_session.state = "idle";
 
   resetAllPlayers();
+  
+  console.log(this.group_session);
 
   if (!flex_texts) {
     return replyFlex(flex_text);

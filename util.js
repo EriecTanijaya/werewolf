@@ -575,6 +575,20 @@ const getRandomInt = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
+const parseToText = arr => {
+  let text = "";
+  arr.forEach(function(item, index) {
+    if (index !== 0) {
+      //ini untuk tidak parse text command '/command'
+      if (index !== 1) {
+        text += " ";
+      }
+      text += item;
+    }
+  });
+  return text;
+};
+
 module.exports = {
   leaveGroup,
   random,
@@ -593,5 +607,6 @@ module.exports = {
   shuffleArray,
   getPsychicResult,
   getInvestigatorResult,
-  getRandomInt
+  getRandomInt,
+  parseToText
 };
