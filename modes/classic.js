@@ -1,3 +1,5 @@
+const util = require("../util");
+
 const getData = () => {
   const data = {
     id: "1",
@@ -15,9 +17,9 @@ const generate = playersLength => {
     let mafia = ["investigator", "mafioso", "vigilante", "jester"];
     let sk = ["serial-killer", "investigator", "doctor", "jester"];
 
-    roles = this.random([mafia, sk]);
+    roles = util.random([mafia, sk]);
 
-    roles = this.shuffleArray(roles);
+    roles = util.shuffleArray(roles);
     return roles;
   }
 
@@ -223,7 +225,7 @@ const generate = playersLength => {
     }
   ];
 
-  roles = this.shuffleArray(roles);
+  roles = util.shuffleArray(roles);
 
   let measure = 0;
 
@@ -285,7 +287,7 @@ const generate = playersLength => {
           measure += role.value;
         }
       } else {
-        role.pair = this.shuffleArray(role.pair);
+        role.pair = util.shuffleArray(role.pair);
         for (let j = 0; j < role.pair.length; j++) {
           if (generated.length === playersLength) break;
 
@@ -333,7 +335,7 @@ const generate = playersLength => {
   // console.log(`generated role : ${generated.join(", ")}`);
   // console.log(`measure point : ${measure}`);
 
-  generated = this.shuffleArray(generated);
+  generated = util.shuffleArray(generated);
 
   return generated;
 };

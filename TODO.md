@@ -1,6 +1,6 @@
 ### TODO
 
-- sisa main.js(day js), checkVictory, substitue mafia, personal.js, roles, modes, types shit
+- roles, modes, types shit
     
 - new color flex
 

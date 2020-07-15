@@ -4350,7 +4350,7 @@ const endGame = (flex_texts, whoWin) => {
   this.group_session.state = "idle";
 
   resetAllPlayers();
-  
+
   console.log(this.group_session);
 
   if (!flex_texts) {
@@ -5258,10 +5258,10 @@ const newCommand = () => {
   if (process.env.TEST === "true") {
     // cp
     for (let i = 0; i < 4; i++) {
-      let dummy = JSON.parse(JSON.stringify(this.user_session));
-      dummy.name += ` ${i}`;
-      let newPlayer = createNewPlayer(dummy);
-      this.group_session.players.push(newPlayer);
+      // let dummy = JSON.parse(JSON.stringify(this.user_session));
+      // dummy.name += ` ${i}`;
+      // let newPlayer = createNewPlayer(dummy);
+      // this.group_session.players.push(newPlayer);
     }
   }
 
@@ -5341,13 +5341,13 @@ const helpCommand = () => {
   return replyFlex(flex_text);
 };
 
-const statusCommand = () => {
-  const msg = stats.statusCommand(this.user_sessions, this.group_sessions);
+const statusCommand = async () => {
+  const msg = await stats.statusCommand(this.user_sessions, this.group_sessions);
   return replyFlex(msg);
 };
 
 const infoCommand = () => {
-  info.receive(this.event, this.args);
+  info.receive(this.event, this.args, this.group_session.state);
 };
 
 const tutorialCommand = () => {

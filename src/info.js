@@ -64,6 +64,7 @@ const receive = (event, args, groupState = null) => {
   } else if (types[input] !== undefined) {
     flex_text.headerText = types[input].name;
     flex_text.bodyText = types[input].list;
+    flex_text.bodyText += "\n\n💡 Ketik '/info <nama-role>' untuk detailnya";
   } else {
     return invalidCommand();
   }
@@ -73,27 +74,30 @@ const receive = (event, args, groupState = null) => {
 
 const modeListCommand = () => {
   const modeList = Object.keys(modes);
+  const text = "\n\n💡 Ketik '/info <nama-mode>' untuk detailnya";
   const flex_text = {
     headerText: "💪 Mode List 🧛",
-    bodyText: modeList.join(", ")
+    bodyText: modeList.join(", ") + text
   };
   return replyFlex(flex_text);
-}
+};
 
 const typeListCommand = () => {
   const typeList = Object.keys(types);
+  const text = "\n\n💡 Ketik '/info <nama-type>' untuk detailnya";
   const flex_text = {
     headerText: "👨‍🌾 Type List 🤵",
-    bodyText: typeList.join(", ")
+    bodyText: typeList.join(", ") + text
   };
   return replyFlex(flex_text);
-}
+};
 
 const roleListCommand = () => {
   const roleList = Object.keys(roles);
+  const text = "\n\n💡 Ketik '/info <nama-role>' untuk detailnya";
   const flex_text = {
     headerText: "🐺 Role List 🔮",
-    bodyText: roleList.join(", ")
+    bodyText: roleList.join(", ") + text
   };
   return replyFlex(flex_text);
 };

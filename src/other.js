@@ -95,7 +95,7 @@ const getGroupData = async groupId => {
 };
 
 const getMembersCount = async groupId => {
-  if (this.event.type === "group") {
+  if (this.event.source.type === "group") {
     const { count } = await client.getGroupMembersCount(groupId);
     return count;
   } else {

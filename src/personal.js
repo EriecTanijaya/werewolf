@@ -1189,41 +1189,41 @@ const roleListCommand = () => {
   return replyFlex(flex_text);
 };
 
-const statusCommand = () => {
-  const msg = stats.statusCommand(this.user_sessions, this.group_sessions);
+const statusCommand = async () => {
+  const msg = await stats.statusCommand(this.user_sessions, this.group_sessions);
   return replyFlex(msg);
 };
 
-const groupsListCommand = () => {
+const groupsListCommand = async () => {
   if (this.user_session.id !== process.env.DEV_ID) {
     return invalidCommand();
   }
 
-  const msg = stats.groupsListCommand(this.group_sessions);
+  const msg = await stats.groupsListCommand(this.group_sessions);
 
   if (typeof msg === "string") return replyText(msg);
 
   return replyFlex(msg);
 };
 
-const usersListCommand = () => {
+const usersListCommand = async () => {
   if (this.user_session.id !== process.env.DEV_ID) {
     return invalidCommand();
   }
 
-  const msg = stats.usersListCommand(this.user_sessions);
+  const msg = await stats.usersListCommand(this.user_sessions);
 
   if (typeof msg === "string") return replyText(msg);
 
   return replyFlex(msg);
 };
 
-const viewCommand = () => {
+const viewCommand = async () => {
   if (this.user_session.id !== process.env.DEV_ID) {
     return invalidCommand();
   }
 
-  const msg = stats.viewCommand(this.group_sessions, this.args[1]);
+  const msg = await stats.viewCommand(this.group_sessions, this.args[1]);
 
   if (typeof msg === "string") return replyText(msg);
 
