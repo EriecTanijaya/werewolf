@@ -617,6 +617,10 @@ const roleCommand = () => {
     headerText,
     bodyText: roleDesc
   };
+  
+  if (players[index].afkCounter > 0) {
+    this.group_session.players[index].afkCounter = 0;
+  }
 
   if (roleTeam === "mafia" || roleTeam === "vampire") {
     // TODO : buat aja table di dalam flex

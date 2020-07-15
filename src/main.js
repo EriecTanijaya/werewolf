@@ -4620,7 +4620,9 @@ const voteCommand = () => {
     text += " mengganti vote ke ";
   }
 
-  this.group_session.players[index].afkCounter = 0;
+  if (players[index].afkCounter > 0) {
+    this.group_session.players[index].afkCounter = 0;
+  }
 
   this.group_session.players[index].targetVoteIndex = targetIndex;
 
