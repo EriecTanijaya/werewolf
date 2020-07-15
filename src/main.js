@@ -5,7 +5,6 @@ const util = require("../util");
 const attackedMsg = require("../message/attack");
 const peaceMsg = require("../message/peace");
 const punishment = require("../message/punishment");
-const helpFlex = require("../message/help");
 
 const setting = require("../src/setting");
 const stats = require("./stats");

@@ -309,54 +309,34 @@ const getFlexColor = () => {
     hour12: false
   });
   let timestamp = {
-    dawn: {
-      from: "00:00:00",
-      to: "03:59:59",
-      color: {
-        main: "#162447",
-        secondary: "#162447",
-        background: "#000000",
-        text: "#ffffff"
-      }
-    },
     morning: {
       from: "04:00:00",
-      to: "08:59:59",
-      color: {
-        main: "#5aa2e0",
-        secondary: "#5aa2e0",
-        background: "#ffffff",
-        text: "#000000"
-      }
-    },
-    noon: {
-      from: "09:00:00",
       to: "14:59:59",
-      color: {
-        main: "#f8aa27",
-        secondary: "#f8aa27",
-        background: "#ffffff",
-        text: "#263646"
+      colors: {
+        main: "#24a19c",
+        secondary: "#24a19c",
+        background: "#e4e3e3",
+        text: "#363636"
       }
     },
     evening: {
       from: "15:00:00",
       to: "18:29:59",
       color: {
-        main: "#f46a4e",
-        secondary: "#f46a4e",
-        background: "#ffffff",
-        text: "#000000"
+        main: "#fa744f",
+        secondary: "#fa744f",
+        background: "#fff3cd",
+        text: "#222831"
       }
     },
     night: {
       from: "18:30:00",
-      to: "23:59:59",
+      to: "03:59:59",
       color: {
-        main: "#004751",
-        secondary: "#004751",
-        background: "#272727",
-        text: "#ffffff"
+        main: "#00818a",
+        secondary: "#00818a",
+        background: "#232931",
+        text: "#eeeeee"
       }
     }
   };

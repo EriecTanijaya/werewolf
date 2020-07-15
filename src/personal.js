@@ -2,7 +2,6 @@ const client = require("./client");
 const skillText = require("../message/skill");
 const flex = require("../message/flex");
 const util = require("../util");
-const helpFlex = require("../message/help");
 
 const stats = require("./stats");
 const info = require("./info");
@@ -1239,7 +1238,7 @@ const infoCommand = () => {
 
 const helpCommand = () => {
   const state = this.group_session.state;
-  const flex_text = helpFlex.getHelp(state);
+  const flex_text = util.getHelp(state);
   return replyFlex(flex_text);
 };
 

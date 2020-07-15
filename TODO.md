@@ -1,14 +1,6 @@
-### TODO
-
-- roles, modes, types shit
-    
-- new color flex
-
-- buat win lose?
+### TODO    
 
 - buat achivement kecil kecilan, ref: https://town-of-salem.fandom.com/wiki/Achievements
-
-- test SEMUA command di switch(input), di idle, main, personal
 
 - hapus dulu barang di .data
 
