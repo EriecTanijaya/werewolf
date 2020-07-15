@@ -123,7 +123,9 @@ const setRoleCommand = () => {
 
   this.args.splice(0, 2);
 
-  let customRoles = this.args;
+  let customRoles = this.args.map(item => {
+    return item.toLowerCase();
+  });
 
   let errors = [];
 
