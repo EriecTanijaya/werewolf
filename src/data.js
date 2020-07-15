@@ -6,9 +6,33 @@ const personal = require("./personal");
 const main = require("./main");
 const idle = require("./idle");
 
+const getUserSessions = () => {
+  const fs = require("fs");
+  try {
+    const data = fs.readFileSync("/app/.data/user_sessions.json");
+    return JSON.parse(data);
+  } catch (err) {
+    console.error("err getUserSessions", err);
+    const data = {};
+    return data;
+  }
+};
+
+const getGroupSessions = () => {
+  const fs = require("fs");
+  try {
+    const data = fs.readFileSync("/app/.data/group_sessions.json");
+    return JSON.parse(data);
+  } catch (err) {
+    console.error("err getGroupSessions", err);
+    const data = {};
+    return data;
+  }
+};
+
 // game storage
-const group_sessions = {};
-const user_sessions = {};
+const group_sessions = getGroupSessions();
+const user_sessions = getUserSessions();
 
 // Update session
 setInterval(() => {
@@ -51,7 +75,7 @@ const receive = (event, rawArgs) => {
   }
 
   // eslint-disable-next-line no-prototype-builtins
-  if (!event.source.hasOwnProperty("userId")) { 
+  if (!event.source.hasOwnProperty("userId")) {
     if (!rawArgs.startsWith("/")) {
       return Promise.resolve(null);
     } else {
@@ -219,7 +243,7 @@ const searchGroupCallback = () => {
 
 /** helper func **/
 
-const handleLeaveEvent = (event) => {
+const handleLeaveEvent = event => {
   if (event.type === "memberLeft") {
     const leftId = event.left.members[0].userId;
     if (user_sessions[leftId] && user_sessions[leftId].state === "inactive") {
@@ -284,6 +308,21 @@ const resetAllPlayers = players => {
   });
   players.length = 0;
 };
+
+process.on("SIGTERM", () => {
+  const fs = require("fs");
+  const userPath = "/app/.data/user_sessions.json";
+  const groupPath = "/app/.data/group_sessions.json";
+
+  fs.writeFile(userPath, JSON.stringify(user_sessions), err => {
+    if (err) console.error("error save user_sessions");
+  });
+
+  fs.writeFile(groupPath, JSON.stringify(group_sessions), err => {
+    if (err) console.error("error save group_sessions");
+    process.exit(0);
+  });
+});
 
 module.exports = {
   receive,
