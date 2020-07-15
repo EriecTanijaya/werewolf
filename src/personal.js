@@ -504,7 +504,7 @@ const getRoleSkillText = roleName => {
   const rolesData = Object.keys(rawRoles);
   for (let i = 0; i < rolesData.length; i++) {
     if (roleName === rolesData[i]) {
-      const { skillText } = rolesData[i].getData();
+      const { skillText } = rawRoles[rolesData[i]].getData();
       return skillText;
     }
   }
@@ -514,7 +514,7 @@ const getRoleCmdText = roleName => {
   const rolesData = Object.keys(rawRoles);
   for (let i = 0; i < rolesData.length; i++) {
     if (roleName === rolesData[i]) {
-      const { cmdText } = rolesData[i].getData();
+      const { cmdText } = rawRoles[rolesData[i]].getData();
       return cmdText;
     }
   }
@@ -526,14 +526,14 @@ const roleSkill = (flex_text, index, text) => {
 
   const skillText = getRoleSkillText(role.name);
   const cmdText = getRoleCmdText(role.name);
-  const canSelfTarget = canSelfTarget(role.name);
+  const isCanSelfTarget = canSelfTarget(role.name);
 
   /// special role yang bisa berubah selfTarget
 
   // Juggernaut yang skillLevel udah 3 keatas
   if (role.name === "juggernaut") {
     if (players[index].role.skillLevel >= 3) {
-      canSelfTarget = true;
+      isCanSelfTarget = true;
     }
   }
 
@@ -542,7 +542,7 @@ const roleSkill = (flex_text, index, text) => {
     if (players[index].role.isPestilence) {
       skillText =
         "Plagubearer, pilih rumah siapa yang ingin kamu serang dengan penyakit sampar!";
-      canSelfTarget = true;
+      isCanSelfTarget = true;
     }
   }
 
@@ -553,7 +553,7 @@ const roleSkill = (flex_text, index, text) => {
   let button = {};
   for (let i = 0; i < players.length; i++) {
     if (players[i].status === "alive") {
-      if (!canSelfTarget && parseInt(index) === parseInt(i)) {
+      if (!isCanSelfTarget && parseInt(index) === parseInt(i)) {
         continue;
       }
 
@@ -616,7 +616,7 @@ const roleCommand = () => {
 
   let flex_text = {
     headerText,
-    bodytext: roleDesc
+    bodyText: roleDesc
   };
 
   if (roleTeam === "mafia" || roleTeam === "vampire") {
@@ -1190,7 +1190,10 @@ const roleListCommand = () => {
 };
 
 const statusCommand = async () => {
-  const msg = await stats.statusCommand(this.user_sessions, this.group_sessions);
+  const msg = await stats.statusCommand(
+    this.user_sessions,
+    this.group_sessions
+  );
   return replyFlex(msg);
 };
 
@@ -1282,7 +1285,7 @@ const invalidCommand = () => {
 /** helper func **/
 
 const canSelfTarget = roleName => {
-  const can = [
+  const canSelfTargetRoles = [
     "survivor",
     "veteran",
     "bodyguard",
@@ -1291,7 +1294,7 @@ const canSelfTarget = roleName => {
     "werewolf"
   ];
 
-  if (canSelfTarget.includes(roleName)) {
+  if (canSelfTargetRoles.includes(roleName)) {
     return true;
   } else {
     return false;
@@ -1368,16 +1371,17 @@ const replyFlex = (flex_raw, text_raw, new_flex_raw) => {
         type: "text",
         text: reminder
       };
-      opt_text.push(opt_text);
+      opt_texts.push(opt_text);
     }
   } else {
     sender = util.getSender();
   }
 
-  const msg = flex.build(flex_raw, sender, opt_texts);
+  let msg = flex.build(flex_raw, sender, opt_texts);
 
   if (new_flex_raw) {
     const addonMsg = flex.build(new_flex_raw, sender);
+    msg = [msg];
     msg.push(addonMsg);
   }
 

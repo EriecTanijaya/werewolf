@@ -1546,7 +1546,7 @@ const day = () => {
             "💡 Karena kamu tidak pilih target, kamu akan sembarangan menghantui orang" +
             "\n\n";
 
-          targetIndex = this.getJesterTargetIndex(doer.id);
+          targetIndex = getJesterTargetIndex(doer.id);
         } else {
           targetIndex = doer.target.index;
         }
@@ -2978,12 +2978,8 @@ const day = () => {
       let victimName = players[i].name;
       if (attackersDeathNote) {
         let deathFlex_text = {
-          header: {
-            text: "📝💀 Death Note " + victimName
-          },
-          body: {
-            text: attackersDeathNote
-          }
+          headerText: "📝💀 Death Note " + victimName,
+          bodyText: attackersDeathNote
         };
 
         flex_texts.push(deathFlex_text);
@@ -3775,7 +3771,7 @@ const startCommand = () => {
     return replyText(text);
   }
 
-  const index = this.indexOfPlayer();
+  const index = indexOfPlayer();
   const players = this.group_session.players;
 
   if (index === -1) {
@@ -3845,7 +3841,7 @@ const randomRoles = () => {
   checkMorphingRole("vampire-hunter", "vampire", "vigilante");
 
   // set roles list
-  this.group_session.roles = this.getRoleList();
+  this.group_session.roles = getRoleList();
 
   // kasih tau kalo game dh mulai
 
@@ -3871,6 +3867,55 @@ const randomRoles = () => {
   });
 
   night();
+};
+
+const getRoleList = () => {
+  const roles = this.group_session.players.map(player => {
+    if (this.group_session.mode === "custom") {
+      return player.role.name;
+    } else {
+      return player.role.type;
+    }
+  });
+
+  if (this.group_session.mode === "custom") {
+    roles = util.shuffleArray(roles);
+    return roles;
+  }
+
+  // Thanks to https://stackoverflow.com/questions/5667888/counting-the-occurrences-frequency-of-array-elements
+  let counts = {};
+  for (let i = 0; i < roles.length; i++) {
+    let num = roles[i];
+    counts[num] = counts[num] ? counts[num] + 1 : 1;
+  }
+
+  let list = [];
+  let filtered = Object.keys(counts);
+  for (let i = 0; i < filtered.length; i++) {
+    let role = filtered[i];
+    let cnt = counts[role];
+    if (cnt > 1) {
+      list.push(role + " (" + cnt + ")");
+    } else {
+      list.push(role);
+    }
+  }
+  util.shuffleArray(list);
+  return list;
+};
+
+const getJesterTargetIndex = jesterId => {
+  const players = this.group_session.players;
+  let maxIndex = players.length - 1;
+
+  while (true) {
+    let targetIndex = util.getRandomInt(0, maxIndex);
+    let targetId = players[targetIndex].id;
+    if (targetId !== jesterId && players[targetIndex].status === "alive") {
+      return targetIndex;
+    }
+  }
 };
 
 const night = () => {
@@ -4348,10 +4393,17 @@ const endGame = (flex_texts, whoWin) => {
 
   this.group_session.time = 300; // reset to init time
   this.group_session.state = "idle";
+  delete this.group_session.nightCounter;
+  delete this.group_session.lynched;
+  delete this.group_session.vampireConvertCooldown;
+  delete this.group_session.isFullMoon;
+  delete this.group_session.punishment;
+  delete this.group_session.roles;
+  delete this.group_session.mafiaChat;
+  delete this.group_session.vampireChat;
+  delete this.group_session.vampireHunterChat;
 
   resetAllPlayers();
-
-  console.log(this.group_session);
 
   if (!flex_texts) {
     return replyFlex(flex_text);
@@ -4481,7 +4533,7 @@ const lynch = flex_texts => {
     const status = players[i].status;
     if (players[i].role.name === "guardian-angel" && status === "alive") {
       if (players[i].role.mustProtectIndex == lynchTarget.index) {
-        let roleData = this.getRoleData("survivor");
+        let roleData = getRoleData("survivor");
         this.group_session.players[i].role = roleData;
         this.group_session.players[i].role.vest = 0;
       }
@@ -4506,7 +4558,7 @@ const voteCommand = () => {
     return Promise.resolve(null);
   }
 
-  const index = this.indexOfPlayer();
+  const index = indexOfPlayer();
   const players = this.group_session.players;
 
   if (index === -1) {
@@ -4560,7 +4612,7 @@ const voteCommand = () => {
   text +=
     players[targetIndex].name + " untuk di" + this.group_session.punishment;
 
-  const voteNeeded = Math.round(this.getAlivePlayersCount() / 2);
+  const voteNeeded = Math.round(getAlivePlayersCount() / 2);
 
   const headerText = "📣 Voting";
 
@@ -4613,8 +4665,8 @@ const votingCommand = () => {
     }
   }
 
-  const voteNeeded = Math.round(this.getAlivePlayersCount() / 2);
-  const voteNeededText = "\n" + "💡 Dibutuhkan " + voteNeeded;
+  const voteNeeded = Math.round(getAlivePlayersCount() / 2);
+  let voteNeededText = "\n" + "💡 Dibutuhkan " + voteNeeded;
   voteNeededText += " vote untuk " + this.group_session.punishment + " orang";
 
   let flexBodyText =
@@ -4725,7 +4777,7 @@ const getTableFlex = (alivePlayers, text, headerText, opt_buttons) => {
   }
 
   flex_text.table = {
-    headers: [],
+    headers: ["No.", "Name", "Status", "Vote"],
     contents: []
   };
 
@@ -4817,7 +4869,7 @@ const revokeCommand = () => {
     return replyText(text);
   }
 
-  const index = this.indexOfPlayer();
+  const index = indexOfPlayer();
 
   if (index === -1) {
     let text = "💡 " + this.user_session.name;
@@ -4902,7 +4954,7 @@ const gameStatCommand = () => {
 
   bodyText += "✉️ Show role : " + this.group_session.isShowRole + "\n\n";
 
-  const roomHostIndex = this.getPlayerIndexById(this.group_session.roomHostId);
+  const roomHostIndex = getPlayerIndexById(this.group_session.roomHostId);
   const roomHostName = players[roomHostIndex].name;
   bodyText += "👑 Room Host : " + roomHostName;
 
@@ -5058,7 +5110,7 @@ const stopCommand = () => {
 
   if (this.user_session.id !== this.group_session.roomHostId) {
     const currentRoomHostId = this.group_session.roomHostId;
-    const roomHostIndex = this.getPlayerIndexById(currentRoomHostId);
+    const roomHostIndex = getPlayerIndexById(currentRoomHostId);
     const players = this.group_session.players;
     let text = "💡 Yang bisa stop game hanya Host Room saja. ";
     text += "👑 Host Room : " + players[roomHostIndex].name;
@@ -5258,10 +5310,10 @@ const newCommand = () => {
   if (process.env.TEST === "true") {
     // cp
     for (let i = 0; i < 4; i++) {
-      // let dummy = JSON.parse(JSON.stringify(this.user_session));
-      // dummy.name += ` ${i}`;
-      // let newPlayer = createNewPlayer(dummy);
-      // this.group_session.players.push(newPlayer);
+      let dummy = JSON.parse(JSON.stringify(this.user_session));
+      dummy.name += ` ${i}`;
+      let newPlayer = createNewPlayer(dummy);
+      this.group_session.players.push(newPlayer);
     }
   }
 
@@ -5342,7 +5394,10 @@ const helpCommand = () => {
 };
 
 const statusCommand = async () => {
-  const msg = await stats.statusCommand(this.user_sessions, this.group_sessions);
+  const msg = await stats.statusCommand(
+    this.user_sessions,
+    this.group_sessions
+  );
   return replyFlex(msg);
 };
 
@@ -5498,16 +5553,17 @@ const replyFlex = (flex_raw, text_raw, new_flex_raw) => {
         type: "text",
         text: reminder
       };
-      opt_text.push(opt_text);
+      opt_texts.push(opt_text);
     }
   } else {
     sender = util.getSender();
   }
 
-  const msg = flex.build(flex_raw, sender, opt_texts);
+  let msg = flex.build(flex_raw, sender, opt_texts);
 
   if (new_flex_raw) {
     const addonMsg = flex.build(new_flex_raw, sender);
+    msg = [msg];
     msg.push(addonMsg);
   }
 

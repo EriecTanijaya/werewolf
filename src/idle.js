@@ -138,7 +138,7 @@ const commandCommand = () => {
     "/tutorial : tutorial menggunakan bot ini",
     "/forum : link ke openchat",
     "/status : untuk melihat berapa yang online",
-    "/updates : untuk melihat 5 update terakhir bot"
+    "/updates : untuk melihat 10 update terakhir bot"
   ];
 
   cmds.forEach((item, index) => {
