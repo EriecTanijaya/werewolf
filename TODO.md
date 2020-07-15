@@ -2,12 +2,6 @@
 
 - buat achivement kecil kecilan, ref: https://town-of-salem.fandom.com/wiki/Achievements
 
-- hapus dulu barang di .data
-
-- abis refactor, barulah buat sistem readFileSync di awal (ingat, pas readFile dan writeFile data dari .data, harus pake /app/.data)
-
-- jadi user_sessions dan group_sessions bisa persistent nantinya (walaupun kita edit)
-
 - baru eslint kan, abis tuh oke update
 
 - role set trick or treat (ada di tos punya fandom wiki) buat halloween ntr
