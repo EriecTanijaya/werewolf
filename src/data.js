@@ -1,12 +1,38 @@
-const helper = require("/app/helper");
-const personal = require("/app/src/personal");
-const main = require("/app/src/main");
-const idle = require("/app/src/idle");
-const rolesData = require("/app/roles/rolesData");
+const client = require("./client");
+
+const util = require("../util");
+
+const personal = require("./personal");
+const main = require("./main");
+const idle = require("./idle");
+
+const getUserSessions = () => {
+  const fs = require("fs");
+  try {
+    const data = fs.readFileSync("/app/.data/user_sessions.json");
+    return JSON.parse(data);
+  } catch (err) {
+    console.error("err getUserSessions", err);
+    const data = {};
+    return data;
+  }
+};
+
+const getGroupSessions = () => {
+  const fs = require("fs");
+  try {
+    const data = fs.readFileSync("/app/.data/group_sessions.json");
+    return JSON.parse(data);
+  } catch (err) {
+    console.error("err getGroupSessions", err);
+    const data = {};
+    return data;
+  }
+};
 
 // game storage
-const group_sessions = {};
-const user_sessions = {};
+const group_sessions = getGroupSessions();
+const user_sessions = getUserSessions();
 
 // Update session
 setInterval(() => {
@@ -18,7 +44,8 @@ setInterval(() => {
         let state = group_sessions[key].state;
         let playersLength = group_sessions[key].players.length;
         if (playersLength < 5 && state === "new") {
-          helper.resetAllUsers(group_sessions, user_sessions, key);
+          group_sessions[key].state = "idle";
+          resetAllPlayers(group_sessions[key].players);
         } else if (state === "idle") {
           if (group_sessions[key].groupId !== process.env.TEST_GROUP) {
             group_sessions[key].state = "inactive";
@@ -41,310 +68,263 @@ setInterval(() => {
   }
 }, 1000);
 
-module.exports = {
-  receive: function(client, event, rawArgs) {
-    this.client = client;
-    this.event = event;
-    this.rawArgs = rawArgs;
+const receive = (event, rawArgs) => {
+  // handle memberLeft and leave event
+  if (event.type === "leave" || event.type === "memberLeft") {
+    return handleLeaveEvent(event);
+  }
 
-    if (this.rawArgs.startsWith("/")) {
-      this.rawArgs = this.rawArgs.trim();
+  // eslint-disable-next-line no-prototype-builtins
+  if (!event.source.hasOwnProperty("userId")) {
+    if (!rawArgs.startsWith("/")) {
+      return Promise.resolve(null);
+    } else {
+      return replyText(
+        "💡 Bot ini hanya dukung LINE versi 7.5.0 atau lebih tinggi.\nCoba update dulu LINE nya"
+      );
     }
+  }
 
-    this.args = this.rawArgs.split(" ");
-    this.searchUser(this.event.source.userId);
-  },
+  if (rawArgs.startsWith("/")) {
+    rawArgs = rawArgs.trim();
+    this.args = rawArgs.split(" ");
+    this.args = this.args.map(item => {
+      return item.toLowerCase();
+    });
+  } else {
+    this.args = rawArgs.split(" ");
+  }
 
-  searchUser: async function(id) {
-    if (!id) {
+  this.event = event;
+  this.rawArgs = rawArgs;
+
+  searchUser();
+};
+
+const searchUser = async () => {
+  const userId = this.event.source.userId;
+
+  if (!user_sessions[userId]) {
+    let newUser = {
+      id: userId,
+      name: "",
+      state: "inactive",
+      groupId: "",
+      groupName: "",
+      commandCount: 0,
+      cooldown: 0,
+      spamCount: 0
+    };
+    user_sessions[userId] = newUser;
+  }
+
+  if (user_sessions[userId].name === "") {
+    try {
+      let { displayName } = await client.getProfile(userId);
+      user_sessions[userId].name = displayName;
+    } catch (err) {
       if (!this.rawArgs.startsWith("/")) {
         return Promise.resolve(null);
-      } else {
-        return this.replyText(
-          "💡 This bot only support LINE version 7.5.0 or higher.\nTry updating, block, and re-add this bot."
-        );
       }
+
+      return notAddError();
     }
+  }
 
-    if (!user_sessions[id]) {
-      let newUser = {
-        id: id,
-        name: "",
-        state: "inactive",
-        groupId: "",
-        groupName: "",
-        commandCount: 0,
-        cooldown: 0,
-        spamCount: 0
-      };
-      user_sessions[id] = newUser;
-    }
+  searchUserCallback();
+};
 
-    let userData = user_sessions[id];
+const searchUserCallback = () => {
+  let userId = this.event.source.userId;
 
-    if (userData.name === "") {
-      try {
-        let profile = await this.client.getProfile(userData.id);
-        userData.name = profile.displayName;
-        return this.searchUserCallback(userData);
-      } catch (err) {
-        if (!this.rawArgs.startsWith("/")) {
-          return Promise.resolve(null);
-        }
-        return this.notAddError(userData.id);
-      }
-    } else {
-      return this.searchUserCallback(user_sessions[id]);
-    }
-  },
+  let usingCommand = this.args[0].startsWith("/") ? true : false;
+  if (usingCommand) {
+    let cooldown = user_sessions[userId].cooldown;
 
-  searchUserCallback: function(userData) {
-    // rate limit command use
-    let usingCommand = this.args[0].startsWith("/") ? true : false;
+    user_sessions[userId].commandCount++;
 
-    if (usingCommand) userData.commandCount++;
-
-    if (usingCommand && userData.cooldown > 0) {
+    if (cooldown > 0) {
       return Promise.resolve(null);
     }
 
-    if (usingCommand) {
-      if (userData.commandCount > 2 && userData.cooldown === 0) {
-        userData.spamCount++;
-        let spamCooldown = userData.spamCount * 5;
-        userData.cooldown += spamCooldown;
-        return this.replyText(
-          `💡 ${userData.name} melakukan spam! Kamu akan dicuekin bot selama ${userData.cooldown} detik!`
-        );
-      }
-    }
+    let commandCount = user_sessions[userId].commandCount;
 
-    if (this.event.source.type === "group") {
-      return this.searchGroup(userData, this.event.source.groupId);
-    } else if (this.event.source.type === "room") {
-      return this.searchGroup(userData, this.event.source.roomId);
-    } else if (userData.state === "active") {
-      return this.searchGroup(userData, userData.groupId);
-    } else {
-      return idle.receive(
-        this.client,
-        this.event,
-        this.args,
-        this.rawArgs,
-        userData
+    if (commandCount > 2 && cooldown === 0) {
+      user_sessions[userId].spamCount++;
+      let spamCooldown = user_sessions[userId].spamCount * 5;
+      user_sessions[userId].cooldown += spamCooldown;
+
+      let { cooldown, name } = user_sessions[userId];
+
+      return replyText(
+        `💡 ${name} melakukan spam! Kamu akan dicuekin bot selama ${cooldown} detik!`
       );
     }
-  },
-
-  searchGroup: async function(user_session, groupId) {
-    /// maintenance
-    let isMaintenance = process.env.MAINTENANCE === "true" ? true : false;
-    let isTestGroup = groupId === process.env.TEST_GROUP ? true : false;
-    if (isMaintenance && !isTestGroup) {
-      let text = "👋 Sorry, botnya sedang maintenance. ";
-      text += "💡 Untuk info lebih lanjut bisa cek di http://bit.ly/openchatww";
-      return this.client
-        .replyMessage(this.event.replyToken, {
-          type: "text",
-          text: text
-        })
-        .then(() => {
-          if (this.event.source.type === "group") {
-            return this.client.leaveGroup(groupId);
-          } else {
-            return this.client.leaveRoom(groupId);
-          }
-        });
-    }
-
-    if (!group_sessions[groupId]) {
-      let newGroup = {
-        groupId: groupId,
-        name: "",
-        state: "idle",
-        time_default: 0,
-        time: 300,
-        mode: "classic",
-        isShowRole: true,
-        customRoles: [],
-        players: []
-      };
-      group_sessions[groupId] = newGroup;
-    }
-
-    if (group_sessions[groupId].state === "inactive") {
-      let text = "👋 Sistem mendeteksi tidak ada permainan dalam 5 menit. ";
-      text += "Undang kembali jika mau main ya!";
-      return this.client
-        .replyMessage(this.event.replyToken, {
-          type: "text",
-          text: text
-        })
-        .then(() => {
-          if (this.event.source.type === "group") {
-            this.client.leaveGroup(groupId);
-          } else {
-            this.client.leaveRoom(groupId);
-          }
-        });
-    }
-
-    if (this.event.source.type === "room") {
-      return this.searchGroupCallback(user_session, group_sessions[groupId]);
-    }
-
-    if (group_sessions[groupId].name === "") {
-      let groupData = await this.client.getGroupSummary(groupId);
-      group_sessions[groupId].name = groupData.groupName;
-      return this.searchGroupCallback(user_session, group_sessions[groupId]);
-    } else {
-      return this.searchGroupCallback(user_session, group_sessions[groupId]);
-    }
-  },
-
-  searchGroupCallback: function(user_session, group_session) {
-    return this.forwardProcess(user_session, group_session);
-  },
-
-  forwardProcess: function(user_session, group_session) {
-    if (this.event.source.type === "user") {
-      return personal.receive(
-        this.client,
-        this.event,
-        this.args,
-        this.rawArgs,
-        user_session,
-        group_session
-      );
-    } else {
-      return main.receive(
-        this.client,
-        this.event,
-        this.args,
-        this.rawArgs,
-        user_session,
-        group_session
-      );
-    }
-  },
-
-  /** message func **/
-
-  notAddError: async function(userId) {
-    let text = "";
-    try {
-      if (this.event.source.type === "group") {
-        let groupId = this.event.source.groupId;
-        let profile = await this.client.getGroupMemberProfile(groupId, userId);
-        text += "💡 " + profile.displayName;
-      } else if (this.event.source.type === "room") {
-        let groupId = this.event.source.roomId;
-        let profile = await this.client.getRoomMemberProfile(groupId, userId);
-        text += "💡 " + profile.displayName;
-      }
-      text += " gagal bergabung kedalam game, add dulu botnya" + "\n";
-      text += "https://line.me/R/ti/p/" + process.env.BOT_ID;
-      return this.replyText(text);
-    } catch (err) {
-      console.log("notAddError error", err.originalError.response.data);
-    }
-  },
-
-  replyText: function(texts) {
-    texts = Array.isArray(texts) ? texts : [texts];
-
-    let sender = {
-      name: "",
-      iconUrl: ""
-    };
-
-    let roles = rolesData.map(role => {
-      let roleName = role.name[0].toUpperCase() + role.name.substring(1);
-      return {
-        name: roleName,
-        iconUrl: role.iconUrl
-      };
-    });
-
-    let role = helper.random(roles);
-
-    sender.name = role.name;
-    sender.iconUrl = role.iconUrl;
-
-    let msg = texts.map(text => {
-      return {
-        sender: sender,
-        type: "text",
-        text: text.trim()
-      };
-    });
-
-    return this.client.replyMessage(this.event.replyToken, msg).catch(err => {
-      console.log(
-        "err di replyText di data.js",
-        err.originalError.response.data
-      );
-    });
-  },
-
-  /** save data func **/
-
-  resetAllPlayers: function(players) {
-    players.forEach(item => {
-      // let reset_player = {
-      //   id: item.id,
-      //   name: item.name
-      // };
-
-      this.resetUser(item.id);
-    });
-    //this.resetRoom(groupId);
-  },
-
-  resetRoom: function(groupId) {
-    group_sessions[groupId] = null;
-  },
-
-  resetUser: function(userId) {
-    user_sessions[userId] = null;
-  },
-
-  resetAllUsers: function(groupId) {
-    if (group_sessions[groupId]) {
-      group_sessions[groupId].players.forEach(item => {
-        this.resetUser(item.id);
-      });
-      this.resetRoom(groupId);
-    }
-  },
-
-  /** helper func **/
-
-  handleLeftUser: function(userId) {
-    if (user_sessions[userId] && user_sessions[userId].state === "inactive") {
-      this.resetUser(userId);
-    }
-  },
-
-  getOnlineUsers: function() {
-    let onlineUsers = [];
-    Object.keys(user_sessions).forEach(key => {
-      let user = user_sessions[key];
-      if (user && user.state === "active") {
-        onlineUsers.push(user);
-      }
-    });
-    return onlineUsers;
-  },
-
-  getOnlineGroups: function() {
-    let onlineGroups = [];
-    Object.keys(group_sessions).forEach(key => {
-      let group = group_sessions[key];
-      if (group && group.state !== "idle" && group.state !== "inactive") {
-        onlineGroups.push(group);
-      }
-    });
-    return onlineGroups;
   }
+
+  if (this.event.source.type === "group") {
+    return searchGroup(this.event.source.groupId);
+  } else if (this.event.source.type === "room") {
+    return searchGroup(this.event.source.roomId);
+  } else if (user_sessions[userId].state === "active") {
+    return searchGroup(user_sessions[userId].groupId);
+  } else {
+    return idle.receive(
+      this.event,
+      this.args,
+      this.rawArgs,
+      user_sessions,
+      group_sessions
+    );
+  }
+};
+
+const searchGroup = async groupId => {
+  let isMaintenance = process.env.MAINTENANCE === "true" ? true : false;
+  let isTestGroup = groupId === process.env.TEST_GROUP ? true : false;
+  if (isMaintenance && !isTestGroup) {
+    let text = "👋 Sorry, botnya sedang maintenance. ";
+    text += "💡 Untuk info lebih lanjut bisa cek di http://bit.ly/openchatww";
+    return util.leaveGroup(this.event, groupId, text);
+  }
+
+  if (!group_sessions[groupId]) {
+    let newGroup = {
+      groupId: groupId,
+      name: "",
+      state: "idle",
+      time_default: 0,
+      time: 300,
+      mode: "classic",
+      isShowRole: true,
+      customRoles: [],
+      players: []
+    };
+    group_sessions[groupId] = newGroup;
+  }
+
+  if (group_sessions[groupId].state === "inactive") {
+    let text = "👋 Sistem mendeteksi tidak ada permainan dalam 5 menit. ";
+    text += "Undang kembali jika mau main ya!";
+    return util.leaveGroup(this.event, groupId, text);
+  }
+
+  if (this.event.source.type === "room") {
+    return searchGroupCallback();
+  }
+
+  if (group_sessions[groupId].name === "") {
+    let { groupName } = await client.getGroupSummary(groupId);
+    group_sessions[groupId].name = groupName;
+  }
+
+  searchGroupCallback();
+};
+
+const searchGroupCallback = () => {
+  if (this.event.source.type === "user") {
+    personal.receive(
+      this.event,
+      this.args,
+      this.rawArgs,
+      user_sessions,
+      group_sessions
+    );
+  } else {
+    main.receive(
+      this.event,
+      this.args,
+      this.rawArgs,
+      user_sessions,
+      group_sessions
+    );
+  }
+};
+
+/** helper func **/
+
+const handleLeaveEvent = event => {
+  if (event.type === "memberLeft") {
+    const leftId = event.left.members[0].userId;
+    if (user_sessions[leftId] && user_sessions[leftId].state === "inactive") {
+      // do what
+    }
+  } else if (event.type === "leave") {
+    const groupId = util.getGroupId(event);
+    if (group_sessions[groupId] && group_sessions[groupId].players.length > 0) {
+      return resetAllPlayers(group_sessions[groupId].players);
+    }
+  }
+};
+
+/** message func **/
+
+const replyText = texts => {
+  texts = Array.isArray(texts) ? texts : [texts];
+
+  const sender = util.getSender();
+
+  let msg = texts.map(text => {
+    return {
+      sender,
+      type: "text",
+      text: text.trim()
+    };
+  });
+
+  return client.replyMessage(this.event.replyToken, msg).catch(err => {
+    console.log("err di replyText di data.js", err.originalError.response.data);
+  });
+};
+
+const notAddError = async () => {
+  let userId = this.event.source.userId;
+  let text = "";
+  try {
+    if (this.event.source.type === "group") {
+      let groupId = this.event.source.groupId;
+      let { displayName } = await client.getGroupMemberProfile(groupId, userId);
+      text += "💡 " + displayName;
+    } else if (this.event.source.type === "room") {
+      let groupId = this.event.source.roomId;
+      let { displayName } = await client.getRoomMemberProfile(groupId, userId);
+      text += "💡 " + displayName;
+    }
+    text += " gagal bergabung kedalam game, add dulu botnya" + "\n";
+    text += "https://line.me/R/ti/p/" + process.env.BOT_ID;
+    return replyText(text);
+  } catch (err) {
+    console.error("notAddError error", err.originalError.response.data.message);
+  }
+};
+
+/** save data func **/
+
+const resetAllPlayers = players => {
+  players.forEach(item => {
+    user_sessions[item.id].state = "inactive";
+    user_sessions[item.id].groupId = "";
+    user_sessions[item.id].groupName = "";
+  });
+  players.length = 0;
+};
+
+process.on("SIGTERM", () => {
+  const fs = require("fs");
+  const userPath = "/app/.data/user_sessions.json";
+  const groupPath = "/app/.data/group_sessions.json";
+
+  fs.writeFile(userPath, JSON.stringify(user_sessions), err => {
+    if (err) console.error("error save user_sessions");
+  });
+
+  fs.writeFile(groupPath, JSON.stringify(group_sessions), err => {
+    if (err) console.error("error save group_sessions");
+    process.exit(0);
+  });
+});
+
+module.exports = {
+  receive,
+  resetAllPlayers
 };

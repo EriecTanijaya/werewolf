@@ -1,4 +1,8 @@
-### TODO
+### TODO    
+
+- buat achivement kecil kecilan, ref: https://town-of-salem.fandom.com/wiki/Achievements
+
+- baru eslint kan, abis tuh oke update
 
 - role set trick or treat (ada di tos punya fandom wiki) buat halloween ntr
 
