@@ -382,6 +382,199 @@ const getRoleNameEmoji = roleName => {
   }
 };
 
+const getRoleTeamEmoji = roleTeam => {
+  const rolesData = Object.keys(roles);
+  for (let i = 0; i < rolesData.length; i++) {
+    const { team, emoji } = roles[rolesData[i]].getData();
+    if (roleTeam === team) {
+      return emoji.team;
+    }
+  }
+};
+
+const shuffleArray = array => {
+  // Thanks to
+  // https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+
+  let currentIndex = array.length,
+    temporaryValue,
+    randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+};
+
+const getPsychicResult = (players, psychicIndex, isFullMoon) => {
+  let text = "🔮 ";
+
+  const goodTeamList = ["villager", "guardian-angel", "amnesiac"];
+  const allAlivePlayers = [];
+  players.forEach((item, index) => {
+    // krna di main.js, itu include juga yg will_death
+    if (item.status !== "death" && index !== psychicIndex) {
+      let player = {
+        name: item.name,
+        team: item.role.team
+      };
+      allAlivePlayers.push(player);
+    }
+  });
+
+  if (allAlivePlayers.length === 2) {
+    if (!isFullMoon) {
+      text +=
+        "Kota ini terlalu kecil untuk menemukan siapa yang jahat dengan akurat";
+      return text;
+    }
+  }
+
+  allAlivePlayers = shuffleArray(allAlivePlayers);
+
+  let goodCount = 0;
+  allAlivePlayers.forEach(item => {
+    if (goodTeamList.includes(item.team)) {
+      goodCount++;
+    }
+  });
+
+  if (goodCount === 0) {
+    text += "Kota ini sudah terlalu jahat untuk menemukan siapa yang baik";
+    return text;
+  }
+
+  let result = [];
+  let goodCountNeeded = 1;
+  let evilCountNeeded = 1;
+
+  if (!isFullMoon) {
+    goodCountNeeded++;
+  }
+
+  for (let i = 0; i < allAlivePlayers.length; i++) {
+    let player = allAlivePlayers[i];
+    if (goodTeamList.includes(player.team)) {
+      if (goodCountNeeded) {
+        result.push(player.name);
+        goodCountNeeded--;
+      }
+    } else {
+      if (evilCountNeeded) {
+        result.push(player.name);
+        evilCountNeeded--;
+      }
+    }
+
+    const totalNeeded = evilCountNeeded + goodCountNeeded;
+
+    if (totalNeeded === 0) {
+      text += "Salah satu dari " + result.join(", ");
+
+      if (isFullMoon) {
+        text += " adalah orang baik";
+      } else {
+        text += " adalah orang jahat";
+      }
+
+      return text;
+    }
+
+    if (i === allAlivePlayers.length - 1) {
+      // ini kalau yang baik cman 1 (belum termasuk psychic itu sendiri)
+      text += `Salah satu dari ${result.join(", ")} adalah orang jahat`;
+      return text;
+    }
+  }
+};
+
+const getInvestigatorResult = roleName => {
+  let text = "🕵️ ";
+  const pairList = [
+    {
+      desc: "Targetmu memiliki senjata!",
+      items: ["vigilante", "veteran", "mafioso"]
+    },
+    { desc: "Targetmu berurusan dengan mayat!", items: ["retributionist"] },
+    {
+      desc: "Targetmu suka menutup diri!",
+      items: ["survivor", "vampire-hunter", "psychic"]
+    },
+    {
+      desc: "Targetmu mengetahui rahasia terbesarmu!",
+      items: ["spy", "guardian-angel"]
+    },
+    {
+      desc: "Targetmu menunggu waktu yang tepat untuk beraksi!",
+      items: ["sheriff", "executioner", "werewolf"]
+    },
+    {
+      desc: "Targetmu mungkin tidak seperti yang dilihat!",
+      items: ["framer", "vampire", "jester"]
+    },
+    {
+      desc: "Targetmu diam didalam bayangan!",
+      items: ["lookout", "amnesiac"]
+    },
+    {
+      desc: "Targetmu ahli dalam mengganggu yang lain!",
+      items: ["escort", "consort"]
+    },
+    {
+      desc: "Targetmu berlumuran darah!",
+      items: ["doctor", "serial-killer", "disguiser"]
+    },
+    {
+      desc: "Targetmu memiliki rahasia yang terpendam!",
+      items: ["investigator", "consigliere", "mayor", "tracker", "plaguebearer"]
+    },
+    {
+      desc: "Targetmu tidak takut kotor!",
+      items: ["bodyguard", "godfather", "arsonist"]
+    },
+    {
+      desc: "Targetmu sifatnya sangat bengis!",
+      items: ["juggernaut"]
+    },
+    {
+      desc: "Targetmu adalah orang biasa",
+      items: ["villager"]
+    }
+  ];
+
+  for (let i = 0; i < pairList.length; i++) {
+    for (let u = 0; u < pairList[i].items.length; u++) {
+      if (roleName === pairList[i].items[u]) {
+        text += pairList[i].desc + " Targetmu bisa jadi adalah ";
+        pairList[i].items.forEach((item, index) => {
+          text += item;
+          if (index == pairList[i].items.length - 2) {
+            text += " atau ";
+          } else if (index != pairList[i].items.length - 1) {
+            text += ", ";
+          }
+        });
+        return text;
+      }
+    }
+  }
+};
+
+const getRandomInt = (min, max) => {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
 module.exports = {
   leaveGroup,
   random,
@@ -394,5 +587,11 @@ module.exports = {
   getHelp,
   getTutorial,
   cutFromArray,
-  getMostFrequent
+  getMostFrequent,
+  getRoleNameEmoji,
+  getRoleTeamEmoji,
+  shuffleArray,
+  getPsychicResult,
+  getInvestigatorResult,
+  getRandomInt
 };
