@@ -27,9 +27,8 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
   if (!rawArgs.startsWith("/")) {
     rawArgs = rawArgs.toLowerCase();
     if (rawArgs.includes("bot")) {
-      
       if (args.length < 2) return replyText("apa manggil manggil");
-      
+
       rawArgs = rawArgs.replace(/apa itu/g, "info");
 
       if (rawArgs.match(/corona/gi)) {
@@ -40,7 +39,11 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
         this.args.splice(0, 2);
         return infoCommand();
       } else if (rawArgs.match(/gas/gi)) {
-        return startCommand()
+        return startCommand();
+      } else if (rawArgs.match(/susah/gi)) {
+        return replyText(
+          "Kamu bisa ke tanya tanya di '/forum' kalo ada yang bingung :)"
+        );
       }
     }
 
