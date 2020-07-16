@@ -11,12 +11,12 @@ const types = require("../types");
 const receive = (event, args, groupState = null) => {
   this.event = event;
   this.args = args;
-
+  
   if (!args[1]) {
     return commandCommand();
   }
 
-  let input = this.args[1].toLowerCase();
+  let input = args[1].toLowerCase();
   if (input === "role") {
     return roleListCommand();
   } else if (input === "mode") {
@@ -25,9 +25,9 @@ const receive = (event, args, groupState = null) => {
     return typeListCommand();
   }
 
-  if (this.args[2]) {
-    this.args.shift();
-    input = this.args.join("-");
+  if (args[2]) {
+    args.shift();
+    input = args.join("-");
   }
 
   const flex_text = {
@@ -106,7 +106,7 @@ const invalidCommand = () => {
   let text = `💡 Tidak ditemukan '${
     this.args[1]
   }', apakah itu role, mode atau types? `;
-  text += "Cek '/info' untuk detail ny";
+  text += "Cek '/info' untuk detail nya";
   return replyText(text);
 };
 

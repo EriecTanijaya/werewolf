@@ -253,6 +253,8 @@ const handleLeaveEvent = event => {
     }
   } else if (event.type === "leave") {
     const groupId = util.getGroupId(event);
+    group_sessions[groupId].state = "idle";
+    group_sessions[groupId].time = 300;
     if (group_sessions[groupId] && group_sessions[groupId].players.length > 0) {
       return resetAllPlayers(group_sessions[groupId].players);
     }

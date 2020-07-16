@@ -41,7 +41,6 @@ const generate = playersLength => {
   ];
 
   let neutralKillings = [
-    "arsonist",
     "serial-killer",
     "werewolf",
     "juggernaut",
@@ -83,7 +82,7 @@ const generate = playersLength => {
     addNeutralKilling();
     addTownInvestigate();
     addTownKilling();
-    addNeutralKilling();
+    roles.push("arsonist");
   };
 
   const mafia = () => {
