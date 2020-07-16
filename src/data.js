@@ -8,8 +8,10 @@ const idle = require("./idle");
 
 const getUserSessions = () => {
   const fs = require("fs");
+  const path = require("path");
+  let userPath = path.join(__dirname, "../.data/", "user_sessions.json");
   try {
-    const data = fs.readFileSync("/app/.data/user_sessions.json");
+    const data = fs.readFileSync(userPath);
     return JSON.parse(data);
   } catch (err) {
     console.error("err getUserSessions", err);
@@ -20,8 +22,10 @@ const getUserSessions = () => {
 
 const getGroupSessions = () => {
   const fs = require("fs");
+  const path = require("path");
+  let groupPath = path.join(__dirname, "../.data/", "group_sessions.json");
   try {
-    const data = fs.readFileSync("/app/.data/group_sessions.json");
+    const data = fs.readFileSync(groupPath);
     return JSON.parse(data);
   } catch (err) {
     console.error("err getGroupSessions", err);
@@ -113,7 +117,8 @@ const searchUser = async () => {
       groupName: "",
       commandCount: 0,
       cooldown: 0,
-      spamCount: 0
+      spamCount: 0,
+      achievements: []
     };
     user_sessions[userId] = newUser;
   }
@@ -197,6 +202,7 @@ const searchGroup = async groupId => {
       time: 300,
       mode: "classic",
       isShowRole: true,
+      gamePlayed: 0,
       customRoles: [],
       players: []
     };
@@ -251,6 +257,8 @@ const handleLeaveEvent = event => {
     }
   } else if (event.type === "leave") {
     const groupId = util.getGroupId(event);
+    group_sessions[groupId].state = "idle";
+    group_sessions[groupId].time = 300;
     if (group_sessions[groupId] && group_sessions[groupId].players.length > 0) {
       return resetAllPlayers(group_sessions[groupId].players);
     }

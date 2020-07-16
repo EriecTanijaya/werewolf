@@ -278,7 +278,7 @@ const setRoleCommand = () => {
     return customRoles.filter(item => item == what).length;
   }
 
-  let uniqRole = ["plaguebearer", "veteran", "mayor"];
+  let uniqRole = ["plaguebearer", "veteran", "mayor", "arsonist"];
 
   uniqRole.forEach(item => {
     if (countInArray(item) > 1) {
@@ -299,7 +299,7 @@ const setRoleCommand = () => {
   this.group_session.mode = "custom";
 
   let text = "📜 Roles : " + customRoles.join(", ") + "\n\n";
-  text += "💡 Untuk meggunakan mode yang lain bisa dengan cmd '/set mode'";
+  text += "💡 Untuk menggunakan mode yang lain bisa dengan cmd '/set mode'";
 
   let flex_text = {
     headerText: "📣 Custom Roles Set!",
@@ -353,7 +353,10 @@ const replyText = texts => {
   });
 
   return client.replyMessage(this.event.replyToken, msg).catch(err => {
-    console.log("err di replyText di setting.js", err.originalError.response.data);
+    console.log(
+      "err di replyText di setting.js",
+      err.originalError.response.data
+    );
   });
 };
 

@@ -68,7 +68,10 @@ async function handleEvent(event) {
     let otherEvents = ["join", "follow", "memberJoined"];
     if (otherEvents.includes(event.type)) {
       return other.receive(event);
+    } else if (event.type === "leave" || event.type === "memberLeft") {
+      return data.receive(event, "");
     }
+
     return Promise.resolve(null);
   }
 

@@ -6,7 +6,8 @@ const attackedMsg = require("../message/attack");
 const peaceMsg = require("../message/peace");
 const punishment = require("../message/punishment");
 
-const setting = require("../src/setting");
+const setting = require("./setting");
+
 const stats = require("./stats");
 const info = require("./info");
 
@@ -24,54 +25,73 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
   this.group_session = group_sessions[groupId];
 
   if (!rawArgs.startsWith("/")) {
+    rawArgs = rawArgs.toLowerCase();
+    if (rawArgs.includes("bot")) {
+      if (args.length < 2) return replyText("apa manggil manggil");
+
+      rawArgs = rawArgs.replace(/apa itu/g, "info");
+
+      if (rawArgs.match(/corona/gi)) {
+        return replyText("#dirumahaja");
+      } else if (rawArgs.match(/main/gi)) {
+        return newCommand();
+      } else if (rawArgs.match(/info/gi)) {
+        this.args.splice(0, 2);
+        return infoCommand();
+      } else if (rawArgs.match(/gas/gi)) {
+        return startCommand();
+      } else if (rawArgs.match(/susah/gi)) {
+        return replyText(
+          "Kamu bisa ke tanya tanya di '/forum' kalo ada yang bingung :)"
+        );
+      }
+    }
+
     let time = this.group_session.time;
     const state = this.group_session.state;
 
     if (state !== "idle") {
       if (state !== "new") {
+        const players = this.group_session.players;
+        const index = indexOfPlayer();
+
+        if (index === -1) return Promise.resolve(null);
+
+        if (time === 0) return checkCommand();
+
         if (time <= 10 && time > 0) {
           let reminder = "💡 Waktu tersisa " + time;
           reminder += " detik lagi, nanti ketik '/cek' ";
           reminder += "saat waktu sudah habis untuk lanjutkan proses. ";
           return replyText(reminder);
-        } else if (time === 0) {
-          if (indexOfPlayer() !== -1) {
-            return checkCommand();
-          }
         }
 
-        // special role yang bisa trigger lewat text biasa
-        let players = this.group_session.players;
-        const index = indexOfPlayer();
-        if (index !== -1) {
-          
-          // reset afk if chat on group
-          if (players[index].afkCounter > 0) {
-            this.group_session.players[index].afkCounter = 0;
-          }
-          
-          if (state === "day" || state === "vote") {
-            let roleName = players[index].role.name;
-            if (roleName === "mayor" && players[index].status === "alive") {
-              if (players[index].role.revealed) return Promise.resolve(null);
-              let string = args.join(" ");
-              string = string.toLowerCase();
-              if (string.includes("mayor")) {
-                const subjects = ["aku", "ak", "gw", "gue", "gua", "saya"];
+        // reset afk if chat on group
+        if (players[index].afkCounter > 0) {
+          this.group_session.players[index].afkCounter = 0;
+        }
 
-                for (let i = 0; i < subjects.length; i++) {
-                  if (string.indexOf(subjects[i]) !== -1) {
-                    this.group_session.players[index].role.revealed = true;
-                    let text = "🎩 " + players[index].name;
-                    text += " telah mengungkapkan dirinya sebagai Mayor!";
+        if (state === "day" || state === "vote") {
+          let roleName = players[index].role.name;
 
-                    let flex_text = {
-                      headerText: "📜 Info",
-                      bodyText: text
-                    };
+          // special role yang bisa trigger lewat text biasa
+          if (roleName === "mayor" && players[index].status === "alive") {
+            if (players[index].role.revealed) return Promise.resolve(null);
+            if (rawArgs.includes("mayor")) {
+              const subjects = ["aku", "ak", "gw", "gue", "gua", "saya"];
 
-                    return replyFlex(flex_text);
-                  }
+              for (let i = 0; i < subjects.length; i++) {
+                if (rawArgs.indexOf(subjects[i]) !== -1) {
+                  this.group_session.players[index].role.revealed = true;
+                  let text = "🎩 " + players[index].name;
+                  text += " telah mengungkapkan dirinya sebagai Mayor!";
+
+                  let flex_text = {
+                    headerText: "📜 Info",
+                    bodyText: text
+                  };
+
+                  return replyFlex(flex_text);
                 }
               }
             }
@@ -90,6 +110,7 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
         }
       }
     }
+
     return Promise.resolve(null);
   }
 
@@ -2399,13 +2420,9 @@ const day = () => {
                 continue;
               }
 
-              if (attacker.countered) {
-                continue;
-              }
+              if (attacker.countered) continue;
 
-              if (protector.used) {
-                continue;
-              }
+              if (protector.used) continue;
 
               if (protector.roleName === "bodyguard") {
                 // bodyguard tidak lindungi yang diserang veteran alert
@@ -2537,6 +2554,8 @@ const day = () => {
                 continue;
               }
 
+              if (protector.used) continue;
+
               this.group_session.players[protector.index].message +=
                 "💡 " + players[i].name + " diserang semalam!" + "\n\n";
 
@@ -2554,6 +2573,7 @@ const day = () => {
               this.group_session.players[i].doused = false;
               this.group_session.players[i].framed = false;
               this.group_session.players[i].infected = false;
+              this.group_session.players[i].vampireBited = false;
 
               this.group_session.players[protector.index].message +=
                 "💡 " + players[i].name + " berhasil dilindungi!" + "\n\n";
@@ -2572,6 +2592,8 @@ const day = () => {
                 players[i].name +
                 " semalam!" +
                 "\n\n";
+
+              protector.used = true;
             }
           }
 
@@ -4406,6 +4428,7 @@ const endGame = (flex_texts, whoWin) => {
 
   flex_text.headerText = headerText;
 
+  this.group_session.gamePlayed++;
   this.group_session.time = 300; // reset to init time
   this.group_session.state = "idle";
   delete this.group_session.nightCounter;
@@ -5326,7 +5349,7 @@ const newCommand = () => {
 
   if (process.env.TEST === "true") {
     // cp
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < 6; i++) {
       let dummy = JSON.parse(JSON.stringify(this.user_session));
       dummy.name += ` ${i}`;
       let newPlayer = createNewPlayer(dummy);
