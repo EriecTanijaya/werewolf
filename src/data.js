@@ -8,8 +8,10 @@ const idle = require("./idle");
 
 const getUserSessions = () => {
   const fs = require("fs");
+  const path = require("path");
+  let userPath = path.join(__dirname, "../.data/", "user_sessions.json");
   try {
-    const data = fs.readFileSync("/app/.data/user_sessions.json");
+    const data = fs.readFileSync(userPath);
     return JSON.parse(data);
   } catch (err) {
     console.error("err getUserSessions", err);
@@ -20,8 +22,10 @@ const getUserSessions = () => {
 
 const getGroupSessions = () => {
   const fs = require("fs");
+  const path = require("path");
+  let groupPath = path.join(__dirname, "../.data/", "group_sessions.json");
   try {
-    const data = fs.readFileSync("/app/.data/group_sessions.json");
+    const data = fs.readFileSync(groupPath);
     return JSON.parse(data);
   } catch (err) {
     console.error("err getGroupSessions", err);
