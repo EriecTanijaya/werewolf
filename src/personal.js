@@ -519,7 +519,7 @@ const getRoleCmdText = roleName => {
   }
 };
 
-const roleSkill = (flex_text, index, text) => {
+const roleSkill = (flex_texts, index, text) => {
   const players = this.group_session.players;
   const role = players[index].role;
 
@@ -545,9 +545,8 @@ const roleSkill = (flex_text, index, text) => {
     }
   }
 
-  flex_text.bodyText += "\n\n" + skillText;
-
-  flex_text.buttons = [];
+  flex_texts[0].bodyText += "\n\n" + skillText;
+  flex_texts[0].buttons = [];
 
   let button = {};
   for (let i = 0; i < players.length; i++) {
@@ -577,14 +576,14 @@ const roleSkill = (flex_text, index, text) => {
         data: cmdText + " " + i
       };
 
-      flex_text.buttons.push(button[i]);
+      flex_texts[0].buttons.push(button[i]);
     }
   }
 
   if (text) {
-    return replyFlex(flex_text, text);
+    return replyFlex(flex_texts, text);
   } else {
-    return replyFlex(flex_text);
+    return replyFlex(flex_texts);
   }
 };
 
@@ -613,18 +612,27 @@ const roleCommand = () => {
   const headerText =
     util.getRoleNameEmoji(roleName) + " " + roleName.toUpperCase();
 
+  let flex_texts = [];
+
   let flex_text = {
     headerText,
     bodyText: roleDesc
   };
-  
+
+  let addon_flex_text = {
+    headerText: ""
+  };
+
   if (players[index].afkCounter > 0) {
     this.group_session.players[index].afkCounter = 0;
   }
 
   if (roleTeam === "mafia" || roleTeam === "vampire") {
-    // TODO : buat aja table di dalam flex
-    flex_text.table = {
+    const teamEmoji = util.getRoleTeamEmoji(roleTeam);
+    const goodName = roleTeam[0].toUpperCase() + roleTeam.substring(1);
+    addon_flex_text.headerText = `${teamEmoji} ${goodName}`;
+
+    addon_flex_text.table = {
       headers: [],
       contents: []
     };
@@ -633,30 +641,33 @@ const roleCommand = () => {
 
     if (roleTeam === "mafia") {
       // untuk role team yg ada banyak role name
-      flex_text.table.headers.push("No.", "Name", "Role", "Status");
+      addon_flex_text.table.headers.push("No.", "Name", "Role", "Status");
       players.forEach(item => {
         if (item.role.team === "mafia") {
           const table_data = [num, item.name, item.role.name, item.status];
-          flex_text.table.contents.push(table_data);
+          addon_flex_text.table.contents.push(table_data);
           num++;
         }
       });
     } else {
       // untuk role team yg nama rolenya sama semua
-      flex_text.table.headers.push("No.", "Name", "Status");
+      addon_flex_text.table.headers.push("No.", "Name", "Status");
       players.forEach(item => {
         if (item.role.team === "vampire") {
-          flex_text.table.contents.push([num, item.name, item.status]);
+          addon_flex_text.table.contents.push([num, item.name, item.status]);
           num++;
         }
       });
     }
+
+    flex_texts.push(addon_flex_text);
   }
 
   if (player.status === "death" || player.willSuicide) {
     /// Yang bisa skill walaupun dah mati
     if (roleName !== "jester" && roleName !== "guardian-angel") {
-      return replyFlex(flex_text);
+      flex_texts.unshift(flex_text);
+      return replyFlex(flex_texts);
     }
   }
 
@@ -703,7 +714,7 @@ const roleCommand = () => {
 
     /// special role skill
     if (roleName === "retributionist") {
-      if (player.role.revive > 0 && this.isSomeoneDeath()) {
+      if (player.role.revive > 0 && isSomeoneDeath()) {
         return retributionistSkill(flex_text);
       } else {
         return replyFlex(flex_text);
@@ -778,43 +789,55 @@ const roleCommand = () => {
 
     // special role untuk arsonist dan plaguebearer //cp
     if (roleName === "arsonist") {
-      text += "🛢️ Doused List : " + "\n\n";
+      addon_flex_text.headerText = "🛢️ Doused List";
+
+      addon_flex_text.table = {
+        headers: [],
+        contents: []
+      };
 
       let num = 1;
       let isExists = false;
+      addon_flex_text.table.headers.push("No.", "Name");
       players.forEach(item => {
         if (item.status === "alive" && item.doused) {
           isExists = true;
-          text += num + ". " + item.name + "\n";
+          const table_data = [num, item.name];
+          addon_flex_text.table.contents.push(table_data);
           num++;
         }
       });
 
-      text = text.trim();
-      if (!isExists) text = "";
-    } else if (roleName === "plaguebearer") {
-      if (!player.role.isPestilence) {
-        text += "☣️ Infected List : " + "\n\n";
+      if (isExists) flex_texts.push(addon_flex_text);
+    } else if (roleName === "plaguebearer" && !player.role.isPestilence) {
+      addon_flex_text.headerText = "☣️ Infected List";
 
-        let num = 1;
-        let isExists = false;
-        players.forEach(item => {
-          if (item.status === "alive" && item.infected) {
-            isExists = true;
-            text += num + ". " + item.name + "\n";
-            num++;
-          }
-        });
+      addon_flex_text.table = {
+        headers: [],
+        contents: []
+      };
 
-        text = text.trim();
-        if (!isExists) text = "";
-      }
+      let num = 1;
+      let isExists = false;
+      addon_flex_text.table.headers.push("No.", "Name");
+      players.forEach(item => {
+        if (item.status === "alive" && item.infected) {
+          isExists = true;
+          const table_data = [num, item.name];
+          addon_flex_text.table.contents.push(table_data);
+          num++;
+        }
+      });
+
+      if (isExists) flex_texts.push(addon_flex_text);
     }
 
-    return roleSkill(flex_text, index, text);
+    flex_texts.unshift(flex_text);
+    return roleSkill(flex_texts, index, text);
   } else {
     // state yang pagi tapi ga ada skill pagi
-    return replyFlex(flex_text);
+    flex_texts.unshift(flex_text);
+    return replyFlex(flex_texts);
   }
 };
 
