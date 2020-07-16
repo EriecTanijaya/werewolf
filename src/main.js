@@ -4390,7 +4390,7 @@ const endGame = (flex_texts, whoWin) => {
       name += " (😃)";
     }
 
-    table_data.push(num, name, roleName);
+    table_data.push(`${num}.`, name, roleName);
 
     if (roleTeam === whoWin) {
       table_data.push("win");
@@ -4414,6 +4414,8 @@ const endGame = (flex_texts, whoWin) => {
     }
 
     flex_text.table.contents.push(table_data);
+
+    num++;
   }
 
   if (whoWin !== "draw") {
@@ -5047,6 +5049,10 @@ const playersCommand = () => {
     }
   };
 
+  if (this.group_session.state !== "new") {
+    flex_text.table.headers.push("Role");
+  }
+
   let num = 1;
   players.forEach(item => {
     let table_data = [`${num}.`, item.name];
@@ -5058,14 +5064,14 @@ const playersCommand = () => {
     }
 
     if (this.group_session.state !== "new") {
-      flex_text.table.headers.push("Role");
-
       if (item.status === "death") {
         if (item.role.disguiseAs) {
           table_data.push(item.role.disguiseAs);
         } else {
           table_data.push(item.role.name);
         }
+      } else {
+        table_data.push("???");
       }
     }
 
