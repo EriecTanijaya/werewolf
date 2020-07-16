@@ -44,12 +44,11 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
         let players = this.group_session.players;
         const index = indexOfPlayer();
         if (index !== -1) {
-          
           // reset afk if chat on group
           if (players[index].afkCounter > 0) {
             this.group_session.players[index].afkCounter = 0;
           }
-          
+
           if (state === "day" || state === "vote") {
             let roleName = players[index].role.name;
             if (roleName === "mayor" && players[index].status === "alive") {
@@ -2399,13 +2398,9 @@ const day = () => {
                 continue;
               }
 
-              if (attacker.countered) {
-                continue;
-              }
+              if (attacker.countered) continue;
 
-              if (protector.used) {
-                continue;
-              }
+              if (protector.used) continue;
 
               if (protector.roleName === "bodyguard") {
                 // bodyguard tidak lindungi yang diserang veteran alert
@@ -2537,6 +2532,8 @@ const day = () => {
                 continue;
               }
 
+              if (protector.used) continue;
+
               this.group_session.players[protector.index].message +=
                 "💡 " + players[i].name + " diserang semalam!" + "\n\n";
 
@@ -2554,6 +2551,7 @@ const day = () => {
               this.group_session.players[i].doused = false;
               this.group_session.players[i].framed = false;
               this.group_session.players[i].infected = false;
+              this.group_session.players[i].vampireBited = false;
 
               this.group_session.players[protector.index].message +=
                 "💡 " + players[i].name + " berhasil dilindungi!" + "\n\n";
@@ -2572,6 +2570,8 @@ const day = () => {
                 players[i].name +
                 " semalam!" +
                 "\n\n";
+
+              protector.used = true;
             }
           }
 
@@ -5326,7 +5326,7 @@ const newCommand = () => {
 
   if (process.env.TEST === "true") {
     // cp
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < 6; i++) {
       let dummy = JSON.parse(JSON.stringify(this.user_session));
       dummy.name += ` ${i}`;
       let newPlayer = createNewPlayer(dummy);

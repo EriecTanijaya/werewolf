@@ -113,7 +113,8 @@ const searchUser = async () => {
       groupName: "",
       commandCount: 0,
       cooldown: 0,
-      spamCount: 0
+      spamCount: 0,
+      achievements: []
     };
     user_sessions[userId] = newUser;
   }
@@ -197,6 +198,7 @@ const searchGroup = async groupId => {
       time: 300,
       mode: "classic",
       isShowRole: true,
+      gamePlayed: 0,
       customRoles: [],
       players: []
     };
