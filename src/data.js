@@ -73,6 +73,7 @@ setInterval(() => {
 }, 1000);
 
 const receive = (event, rawArgs) => {
+  console.log(group_sessions);
   // handle memberLeft and leave event
   if (event.type === "leave" || event.type === "memberLeft") {
     return handleLeaveEvent(event);

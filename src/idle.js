@@ -37,6 +37,8 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
       return usersListCommand();
     case "/view":
       return viewCommand();
+    case "/reset":
+      return resetCommand();
     case "/tutorial":
       return tutorialCommand();
     case "/forum":
@@ -73,7 +75,10 @@ const tutorialCommand = () => {
 };
 
 const statusCommand = async () => {
-  const msg = await stats.statusCommand(this.user_sessions, this.group_sessions);
+  const msg = await stats.statusCommand(
+    this.user_sessions,
+    this.group_sessions
+  );
   return replyFlex(msg);
 };
 
@@ -107,10 +112,33 @@ const viewCommand = async () => {
   }
 
   const msg = await stats.viewCommand(this.group_sessions, this.args[1]);
-  
+
   if (typeof msg === "string") return replyText(msg);
 
   return replyFlex(msg);
+};
+
+const resetCommand = () => {
+  if (this.user_session.id !== process.env.DEV_ID) {
+    return invalidCommand();
+  }
+
+  const fs = require("fs");
+  const reset_data = JSON.stringify({});
+
+  let path = "";
+  if (this.args[1] === "user") {
+    path = "/app/.data/user_sessions.json";
+  } else if (this.args[1] === "group") {
+    path = "/app/.data/group_sessions.json";
+  } else {
+    return replyText("/reset user atau group");
+  }
+
+  fs.writeFile(path, reset_data, err => {
+    if (err) return replyText("gagal reset");
+    process.exit(1);
+  });
 };
 
 const invalidCommand = () => {

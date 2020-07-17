@@ -5165,6 +5165,15 @@ const stopCommand = () => {
 
   this.group_session.state = "idle";
   this.group_session.time = 300; // reset to initial time
+  delete this.group_session.nightCounter;
+  delete this.group_session.lynched;
+  delete this.group_session.vampireConvertCooldown;
+  delete this.group_session.isFullMoon;
+  delete this.group_session.punishment;
+  delete this.group_session.roles;
+  delete this.group_session.mafiaChat;
+  delete this.group_session.vampireChat;
+  delete this.group_session.vampireHunterChat;
 
   resetAllPlayers();
 

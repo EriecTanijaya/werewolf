@@ -1,6 +1,4 @@
-### TODO    
-
-- buat achivement kecil kecilan, ref: https://town-of-salem.fandom.com/wiki/Achievements
+### TODO
 
 - baru eslint kan, abis tuh oke update
 
