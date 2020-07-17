@@ -65,7 +65,7 @@ const setModeCommand = () => {
         text += "game mode nya sudah di set ke " + name;
         return replyText(text);
       } else {
-        this.group_session.mode = name;
+        this.group_session.mode = modeList[i];
         return replyText("🕹️ Game mode berhasil diubah ke " + name + "!");
       }
     }
