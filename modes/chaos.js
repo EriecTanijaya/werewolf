@@ -44,7 +44,8 @@ const generate = playersLength => {
     "serial-killer",
     "werewolf",
     "juggernaut",
-    "plaguebearer"
+    "plaguebearer",
+    "arsonist"
   ];
 
   let randomMafia = ["framer", "consort", "consigliere", "disguiser"];
@@ -82,7 +83,7 @@ const generate = playersLength => {
     addNeutralKilling();
     addTownInvestigate();
     addTownKilling();
-    roles.push("arsonist");
+    addNeutralKilling();
   };
 
   const mafia = () => {

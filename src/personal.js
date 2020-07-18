@@ -360,16 +360,6 @@ const targetCommand = () => {
     if (players[index].role.bullet === 0) {
       return replyText("💡 Kamu sudah tidak memiliki peluru yang tersisa");
     }
-  } else if (roleName === "arsonist") {
-    if (players[targetIndex].doused) {
-      return replyText("💡 Target yang kamu pilih sudah disirami bensin!");
-    }
-  } else if (roleName === "plaguebearer") {
-    let isInfected = players[targetIndex].infected;
-    let isPestilence = players[index].role.isPestilence;
-    if (!isPestilence && isInfected) {
-      return replyText("💡 Target yang kamu pilih sudah terinfeksi!");
-    }
   }
 
   if (parseInt(targetIndex) === parseInt(index)) {
@@ -402,6 +392,19 @@ const targetCommand = () => {
 
     if (!canSelfTarget(roleName)) {
       return replyText("💡 Kamu tidak bisa pilih diri sendiri di role ini");
+    }
+  } else {
+    // pilih orang lain
+    if (roleName === "arsonist") {
+      if (players[targetIndex].doused) {
+        return replyText("💡 Target yang kamu pilih sudah disirami bensin!");
+      }
+    } else if (roleName === "plaguebearer") {
+      let isInfected = players[targetIndex].infected;
+      let isPestilence = players[index].role.isPestilence;
+      if (!isPestilence && isInfected) {
+        return replyText("💡 Target yang kamu pilih sudah terinfeksi!");
+      }
     }
   }
 
