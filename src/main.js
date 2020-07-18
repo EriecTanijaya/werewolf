@@ -5365,10 +5365,10 @@ const newCommand = () => {
   if (process.env.TEST === "true") {
     // cp
     for (let i = 0; i < 6; i++) {
-      let dummy = JSON.parse(JSON.stringify(this.user_session));
-      dummy.name += ` ${i}`;
-      let newPlayer = createNewPlayer(dummy);
-      this.group_session.players.push(newPlayer);
+      // let dummy = JSON.parse(JSON.stringify(this.user_session));
+      // dummy.name += ` ${i}`;
+      // let newPlayer = createNewPlayer(dummy);
+      // this.group_session.players.push(newPlayer);
     }
   }
 

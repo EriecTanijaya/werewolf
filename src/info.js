@@ -11,7 +11,7 @@ const types = require("../types");
 const receive = (event, args, groupState = null) => {
   this.event = event;
   this.args = args;
-  
+
   if (!args[1]) {
     return commandCommand();
   }
@@ -30,10 +30,11 @@ const receive = (event, args, groupState = null) => {
     input = args.join("-");
   }
 
-  const flex_text = {
-    headerText: "",
-    bodyText: ""
-  };
+  if (!roles[input] && !modes[input] && !types[input]) {
+    return invalidCommand();
+  }
+
+  const flex_texts = [];
 
   if (roles[input] !== undefined) {
     const role = roles[input];
@@ -42,15 +43,23 @@ const receive = (event, args, groupState = null) => {
 
     const goodName = name[0].toUpperCase() + name.substring(1);
 
-    flex_text.headerText = `${emoji.self} ${goodName}`;
-    flex_text.bodyText = `Type : ${type}\n\n${text}`;
-  } else if (modes[input] !== undefined) {
+    const flex_text = {
+      headerText: `${emoji.self} ${goodName}`,
+      bodyText: `Type : ${type}\n\n${text}`
+    };
+
+    flex_texts.push(flex_text);
+  }
+
+  if (modes[input] !== undefined) {
     const mode = modes[input];
 
     const { id, name, description } = mode.getData();
 
-    flex_text.headerText = name;
-    flex_text.bodyText = `${description}`;
+    const flex_text = {
+      headerText: `${name} Mode`,
+      bodyText: `${description}`
+    };
 
     if (groupState === "new" || groupState === "idle") {
       flex_text.buttons = [
@@ -61,15 +70,21 @@ const receive = (event, args, groupState = null) => {
         }
       ];
     }
-  } else if (types[input] !== undefined) {
-    flex_text.headerText = types[input].name;
-    flex_text.bodyText = types[input].list;
-    flex_text.bodyText += "\n\n💡 Ketik '/info <nama-role>' untuk detailnya";
-  } else {
-    return invalidCommand();
+
+    flex_texts.push(flex_text);
   }
 
-  return replyFlex(flex_text);
+  if (types[input] !== undefined) {
+    const flex_text = {
+      headerText: types[input].name,
+      bodyText:
+        types[input].list + "\n\n💡 Ketik '/info <nama-role>' untuk detailnya"
+    };
+
+    flex_texts.push(flex_text);
+  }
+
+  return replyFlex(flex_texts);
 };
 
 const modeListCommand = () => {
