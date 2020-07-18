@@ -973,6 +973,8 @@ const day = () => {
       }
 
       for (let i = 0; i < players.length; i++) {
+        if (i == targetIndex) continue;
+
         let visitor = players[i];
 
         if (visitor == doer) continue;
@@ -981,10 +983,7 @@ const day = () => {
 
         if (visitor.blocked) continue;
 
-        if (
-          visitor.target.index !== -1 &&
-          visitor.target.index === rampagePlaceIndex
-        ) {
+        if (visitor.target.index === rampagePlaceIndex) {
           // hax mafia kalo yang pergi itu mafioso
           if (visitor.role.name === "godfather") {
             if (mafiaDoerIndex !== i) continue;
@@ -1162,6 +1161,8 @@ const day = () => {
         }
 
         for (let i = 0; i < players.length; i++) {
+          if (i == targetIndex) continue;
+
           let visitor = players[i];
 
           if (visitor == doer) continue;
@@ -1294,6 +1295,8 @@ const day = () => {
       }
 
       for (let i = 0; i < players.length; i++) {
+        if (i == targetIndex) continue;
+
         let visitor = players[i];
 
         if (visitor == doer) continue;
@@ -1302,10 +1305,7 @@ const day = () => {
 
         if (visitor.blocked) continue;
 
-        if (
-          visitor.target.index !== -1 &&
-          visitor.target.index === rampagePlaceIndex
-        ) {
+        if (visitor.target.index === rampagePlaceIndex) {
           // hax mafia kalo yang pergi itu mafioso
           if (visitor.role.name === "godfather") {
             if (mafiaDoerIndex !== i) continue;
@@ -5365,10 +5365,10 @@ const newCommand = () => {
   if (process.env.TEST === "true") {
     // cp
     for (let i = 0; i < 6; i++) {
-      // let dummy = JSON.parse(JSON.stringify(this.user_session));
-      // dummy.name += ` ${i}`;
-      // let newPlayer = createNewPlayer(dummy);
-      // this.group_session.players.push(newPlayer);
+      let dummy = JSON.parse(JSON.stringify(this.user_session));
+      dummy.name += ` ${i}`;
+      let newPlayer = createNewPlayer(dummy);
+      this.group_session.players.push(newPlayer);
     }
   }
 

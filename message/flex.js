@@ -128,12 +128,15 @@ const build = (flex_raw, sender, opt_texts = []) => {
             color: color.text
           };
 
+          if (table_content[idx].text.length > 14) {
+            table_content[idx].wrap = false;
+          }
+
           // default header "Name"
           if (idx === 1) {
             table_content[idx].flex = 3;
           } else if (idx > 1) {
             table_content[idx].flex = 2;
-            table_content[idx].wrap = true;
             table_content[idx].align = "center";
           }
 

@@ -278,7 +278,7 @@ const setRoleCommand = () => {
     return customRoles.filter(item => item == what).length;
   }
 
-  let uniqRole = ["plaguebearer", "veteran", "mayor", "arsonist"];
+  let uniqRole = ["plaguebearer", "veteran", "mayor"];
 
   uniqRole.forEach(item => {
     if (countInArray(item) > 1) {
