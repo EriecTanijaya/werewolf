@@ -2988,6 +2988,21 @@ const day = () => {
       let emoji = util.getRoleNameEmoji(roleName);
       allAnnouncement += `✉️ Role nya adalah ${roleName} ${emoji}\n\n`;
 
+      if (this.group_session.nightCounter === 1) {
+        const lastFirstBloodIds = this.group_session.lastFirstBloodIds;
+        for (let x = 0; x < lastFirstBloodIds.length; x++) {
+          const lastId = lastFirstBloodIds[x];
+          console.log(`lastId ${lastId}`);
+          console.log(`players[i] ${players[i].id}`);
+          if (players[i].id === lastId) {
+            allAnnouncement += `☠️ ${players[i].name} kenak first blood lagi sejak game terakhir\n\n`;
+          }
+        }
+
+        this.group_session.lastFirstBloodIds.length = 0;
+        this.group_session.lastFirstBloodIds.push(players[i].id);
+      }
+
       //Thanks to
       //https://stackoverflow.com/questions/24806772/how-to-skip-over-an-element-in-map/24806827
       let attackersDeathNote = players[i].attackers

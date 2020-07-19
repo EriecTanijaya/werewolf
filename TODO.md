@@ -25,7 +25,6 @@ warga 60 persen, mafia 25 persen, nk 6,6 persen, neutral 6,6 persen
   - vampire hunter hanya ada saat ada vampire
   - sheriff ada kalau ada list yg bisa di suspiciouskan
   - mayor
-  - arsonist
 
 * buat module sendiri, untuk flex message, biar gampang dipake di bot lain
   - ini flexMessage table nya gampang di kostumisasi
