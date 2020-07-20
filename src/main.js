@@ -5343,7 +5343,7 @@ const newCommand = () => {
   }
 
   this.group_session.state = "new";
-  this.group_session.players.length = 0;
+  this.group_session.players = [];
   this.group_session.nightCounter = 0;
   this.group_session.roomHostId = "";
   this.group_session.time = 600;
@@ -5525,7 +5525,7 @@ const resetAllPlayers = () => {
     this.user_sessions[item.id].groupId = "";
     this.user_sessions[item.id].groupName = "";
   });
-  this.group_session.players.length = 0;
+  this.group_session.players = [];
 };
 
 const createNewPlayer = user_session => {

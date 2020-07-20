@@ -316,7 +316,7 @@ const resetAllPlayers = players => {
     user_sessions[item.id].groupId = "";
     user_sessions[item.id].groupName = "";
   });
-  players.length = 0;
+  players = [];
 };
 
 process.on("SIGTERM", () => {
