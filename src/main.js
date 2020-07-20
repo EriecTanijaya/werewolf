@@ -222,7 +222,7 @@ const promoteCommand = () => {
   }
 
   if (this.args.length < 2) {
-    return replyText("💡 Masukkan ID dari admin group! '/promote idadmin'");
+    return replyText("💡 Masukkan ID dari admin group!\n\nCth : '/promote tukiman y x g kuy'");
   }
 
   this.group_session.promoted = true;
