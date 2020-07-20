@@ -42,11 +42,12 @@ const user_sessions = getUserSessions();
 setInterval(() => {
   for (let key in group_sessions) {
     if (group_sessions[key]) {
-      if (group_sessions[key].time > 0) {
+      const time = group_sessions[key].time;
+      const state = group_sessions[key].state;
+      if (state !== "inactive" && time > 0) {
         group_sessions[key].time--;
       } else {
-        let state = group_sessions[key].state;
-        let playersLength = group_sessions[key].players.length;
+        const playersLength = group_sessions[key].players.length;
         if (playersLength < 5 && state === "new") {
           group_sessions[key].state = "idle";
           resetAllPlayers(group_sessions[key].players);
@@ -117,8 +118,7 @@ const searchUser = async () => {
       groupName: "",
       commandCount: 0,
       cooldown: 0,
-      spamCount: 0,
-      achievements: []
+      spamCount: 0
     };
     user_sessions[userId] = newUser;
   }
@@ -203,7 +203,12 @@ const searchGroup = async groupId => {
       mode: "classic",
       isShowRole: true,
       gamePlayed: 0,
+      promoted: false,
+      adminLink: "",
+      caption: "",
       customRoles: [],
+      lastFirstBloodIds: [],
+      currentFirstBloodIds: [],
       players: []
     };
     group_sessions[groupId] = newGroup;
@@ -314,7 +319,7 @@ const resetAllPlayers = players => {
     user_sessions[item.id].groupId = "";
     user_sessions[item.id].groupName = "";
   });
-  players.length = 0;
+  players = [];
 };
 
 process.on("SIGTERM", () => {

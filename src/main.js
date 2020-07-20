@@ -195,12 +195,58 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
     case "/update":
     case "/updates":
       return showUpdatesCommand();
+    case "/promote":
+      return promoteCommand();
+    case "/group":
+      return groupCommand();
     default:
       return invalidCommand();
   }
 };
 
-/// TODO : untuk commands, isi dulu yang static, baru settings, terakhir baru lah logic game
+const groupCommand = () => {
+  const msg = util.getPromotedGroup(this.group_sessions);
+
+  if (typeof msg === "string") return replyText(msg);
+
+  return replyFlex(msg);
+};
+
+const promoteCommand = () => {
+  if (this.event.source.type === "room") {
+    return replyText("💡 Maaf, untuk promote hanya tersedia pada group");
+  }
+
+  if (this.group_session.promoted) {
+    return replyText("💡 Group ini telah di promote!");
+  }
+
+  if (this.args.length < 2) {
+    return replyText("💡 Masukkan ID dari admin group! '/promote idadmin'");
+  }
+
+  this.group_session.promoted = true;
+  this.group_session.adminLink = "https://line.me/ti/p/~" + this.args[1];
+
+  function parseToText(arr) {
+    let text = "";
+    arr.forEach((item, index) => {
+      if (index !== 0) {
+        //ini untuk tidak parse text command '/command'
+        if (index !== 1 && index !== 2) {
+          text += " ";
+        }
+        text += item;
+      }
+    });
+  }
+
+  if (this.args.length > 2) {
+    this.group_session.caption = parseToText(this.args);
+  }
+
+  return replyText("📣 Group berhasil di promote, cek '/group' untuk listnya");
+};
 
 const day = () => {
   /// BUAT MASING" SYSTEM UNTUK DAY FUNC
@@ -2988,6 +3034,20 @@ const day = () => {
       let emoji = util.getRoleNameEmoji(roleName);
       allAnnouncement += `✉️ Role nya adalah ${roleName} ${emoji}\n\n`;
 
+      if (this.group_session.nightCounter === 1) {
+        const lastFirstBloodIds = this.group_session.lastFirstBloodIds;
+        for (let x = 0; x < lastFirstBloodIds.length; x++) {
+          const lastId = lastFirstBloodIds[x];
+          console.log(`lastId ${lastId}`);
+          console.log(`players[i].id ${players[i].id}`);
+          if (players[i].id === lastId) {
+            allAnnouncement += `☠️ ${players[i].name} kenak first blood lagi sejak game terakhir\n\n`;
+          }
+        }
+
+        this.group_session.currentFirstBloodIds.push(players[i].id);
+      }
+
       //Thanks to
       //https://stackoverflow.com/questions/24806772/how-to-skip-over-an-element-in-map/24806827
       let attackersDeathNote = players[i].attackers
@@ -3833,6 +3893,11 @@ const startCommand = () => {
 
   this.group_session.punishment = util.random(punishment);
 
+  this.group_session.lastFirstBloodIds = [
+    ...this.group_session.currentFirstBloodIds
+  ];
+  this.group_session.currentFirstBloodIds = [];
+
   randomRoles();
 };
 
@@ -3843,12 +3908,6 @@ const randomRoles = () => {
   let roles = [];
   let customRoles = this.group_session.customRoles;
   roles = modes[this.group_session.mode].generate(playersLength, customRoles);
-
-  /// test specific role cp
-  if (process.env.TEST === "true") {
-    //roles = helper.generateRoles(playersLength, "classic");
-    //roles = helper.shuffleArray(roles);
-  }
 
   this.group_session.players.forEach((item, index) => {
     if (index <= roles.length - 1) {
@@ -5324,7 +5383,7 @@ const newCommand = () => {
   }
 
   this.group_session.state = "new";
-  this.group_session.players.length = 0;
+  this.group_session.players = [];
   this.group_session.nightCounter = 0;
   this.group_session.roomHostId = "";
   this.group_session.time = 600;
@@ -5364,12 +5423,11 @@ const newCommand = () => {
 
   if (process.env.TEST === "true") {
     // cp
-    for (let i = 0; i < 6; i++) {
-      let dummy = JSON.parse(JSON.stringify(this.user_session));
-      dummy.name += ` ${i}`;
-      let newPlayer = createNewPlayer(dummy);
+    const dummies = util.getFakeData(5);
+    dummies.forEach(item => {
+      const newPlayer = createNewPlayer(item);
       this.group_session.players.push(newPlayer);
-    }
+    });
   }
 
   const text = "💡 " + this.user_session.name + " berhasil bergabung!";
@@ -5413,7 +5471,9 @@ const commandCommand = () => {
     "/tutorial : tutorial menggunakan bot ini",
     "/gamestat : status game yang berjalan di grup ini",
     "/forum : link ke openchat",
-    "/updates : untuk melihat 5 update terakhir bot"
+    "/updates : untuk melihat 5 update terakhir bot",
+    "/promote : open group dengan memberikan admin group",
+    "/group : melihat list group yang open"
   ];
 
   for (let i = 0; i < cmds.length; i++) {
@@ -5502,11 +5562,13 @@ const runTimer = () => {
 
 const resetAllPlayers = () => {
   this.group_session.players.forEach(item => {
-    this.user_sessions[item.id].state = "inactive";
-    this.user_sessions[item.id].groupId = "";
-    this.user_sessions[item.id].groupName = "";
+    if (this.user_sessions[item.id]) {
+      this.user_sessions[item.id].state = "inactive";
+      this.user_sessions[item.id].groupId = "";
+      this.user_sessions[item.id].groupName = "";
+    }
   });
-  this.group_session.players.length = 0;
+  this.group_session.players = [];
 };
 
 const createNewPlayer = user_session => {
