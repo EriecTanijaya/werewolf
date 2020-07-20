@@ -3863,12 +3863,6 @@ const randomRoles = () => {
   let customRoles = this.group_session.customRoles;
   roles = modes[this.group_session.mode].generate(playersLength, customRoles);
 
-  /// test specific role cp
-  if (process.env.TEST === "true") {
-    //roles = helper.generateRoles(playersLength, "classic");
-    //roles = helper.shuffleArray(roles);
-  }
-
   this.group_session.players.forEach((item, index) => {
     if (index <= roles.length - 1) {
       item.role.name = roles[index];
@@ -5383,12 +5377,11 @@ const newCommand = () => {
 
   if (process.env.TEST === "true") {
     // cp
-    for (let i = 0; i < 6; i++) {
-      // let dummy = JSON.parse(JSON.stringify(this.user_session));
-      // dummy.name += ` ${i}`;
-      // let newPlayer = createNewPlayer(dummy);
-      // this.group_session.players.push(newPlayer);
-    }
+    const dummies = util.getFakeData(5);
+    dummies.forEach(item => {
+      const newPlayer = createNewPlayer(item);
+      this.group_session.players.push(newPlayer);
+    });
   }
 
   const text = "💡 " + this.user_session.name + " berhasil bergabung!";
@@ -5521,9 +5514,11 @@ const runTimer = () => {
 
 const resetAllPlayers = () => {
   this.group_session.players.forEach(item => {
-    this.user_sessions[item.id].state = "inactive";
-    this.user_sessions[item.id].groupId = "";
-    this.user_sessions[item.id].groupName = "";
+    if (this.user_sessions[item.id]) {
+      this.user_sessions[item.id].state = "inactive";
+      this.user_sessions[item.id].groupId = "";
+      this.user_sessions[item.id].groupName = "";
+    }
   });
   this.group_session.players = [];
 };

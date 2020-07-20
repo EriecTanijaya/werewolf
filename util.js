@@ -350,7 +350,7 @@ const getFlexColor = () => {
       return color;
     }
   }
-  
+
   return timestamp["night"].color;
 };
 
@@ -571,6 +571,60 @@ const parseToText = arr => {
   return text;
 };
 
+const getFakeData = (length = 4) => {
+  const raw = [
+    {
+      userId: "121212",
+      name: "Jenny"
+    },
+    {
+      userId: "408040",
+      name: "Lala"
+    },
+    {
+      userId: "969696",
+      name: "Ron"
+    },
+    {
+      userId: "555555",
+      name: "Karen"
+    },
+    {
+      userId: "789878",
+      name: "Fongteng"
+    },
+    {
+      userId: "201220",
+      name: "Nasa"
+    },
+    {
+      userId: "794821",
+      name: "Tukiman"
+    },
+    {
+      userId: "326542",
+      name: "Mumu"
+    }
+  ];
+
+  const data = raw.map(item => {
+    const obj = {
+      id: item.userId,
+      name: item.name,
+      state: "inactive",
+      groupId: "",
+      groupName: "",
+      commandCount: 0,
+      cooldown: 0,
+      spamCount: 0
+    };
+    return obj
+  });
+
+  data.length = length;
+  return data;
+};
+
 module.exports = {
   leaveGroup,
   random,
@@ -590,5 +644,6 @@ module.exports = {
   getPsychicResult,
   getInvestigatorResult,
   getRandomInt,
-  parseToText
+  parseToText,
+  getFakeData
 };
