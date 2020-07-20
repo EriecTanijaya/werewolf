@@ -222,7 +222,7 @@ const promoteCommand = () => {
   }
 
   if (this.args.length < 2) {
-    return replyText("💡 Masukkan ID dari admin group! '/promote idadmin'");
+    return replyText("💡 Masukkan ID dari admin group!\n\nCth : '/promote tukiman y x g kuy'");
   }
 
   this.group_session.promoted = true;
@@ -231,21 +231,27 @@ const promoteCommand = () => {
   function parseToText(arr) {
     let text = "";
     arr.forEach((item, index) => {
-      if (index !== 0) {
+      if (index !== 0 && index !== 1) {
         //ini untuk tidak parse text command '/command'
-        if (index !== 1 && index !== 2) {
+        if (index !== 2) {
           text += " ";
         }
         text += item;
       }
     });
+
+    return text;
   }
 
   if (this.args.length > 2) {
     this.group_session.caption = parseToText(this.args);
   }
 
-  return replyText("📣 Group berhasil di promote, cek '/group' untuk listnya");
+  let text = "📣 Group berhasil di promote, cek '/group' untuk listnya. \n\n";
+  text += "Pastikan ID yang dimasukkan benar. ";
+  text += "Karena group yang telah didaftar tidak dapat di edit lagi. ";
+  text += "Group yang terdaftar akan direset dalam beberapa jam ";
+  return replyText(text);
 };
 
 const day = () => {

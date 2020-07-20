@@ -636,8 +636,7 @@ const getPromotedGroup = group_sessions => {
     if (promoted) {
       found = true;
       flex_text[index] = {
-        headerText: "🏘️ Open Group",
-        bodyText: "",
+        headerText: `🏘️ ${name}`,
         buttons: [
           {
             action: "uri",
@@ -647,11 +646,12 @@ const getPromotedGroup = group_sessions => {
         ]
       };
 
-      flex_text[index].bodyText += name;
       if (caption) {
-        flex_text[index].bodyText += `\n${caption}`;
+        flex_text[index].bodyText = `${caption}`;
+      } else {
+        flex_text[index].bodyText =
+          "📣 Chat admin group ini agar bisa diinvite ke group!";
       }
-      flex_text[index].bodyText += `\n\n`;
 
       flex_texts.push(flex_text[index]);
     }
