@@ -247,7 +247,11 @@ const promoteCommand = () => {
     this.group_session.caption = parseToText(this.args);
   }
 
-  return replyText("📣 Group berhasil di promote, cek '/group' untuk listnya");
+  let text = "📣 Group berhasil di promote, cek '/group' untuk listnya. \n\n";
+  text += "Pastikan ID yang dimasukkan benar. ";
+  text += "Karena group yang telah didaftar tidak dapat di edit lagi. ";
+  text += "Group yang terdaftar akan direset dalam beberapa jam ";
+  return replyText(text);
 };
 
 const day = () => {

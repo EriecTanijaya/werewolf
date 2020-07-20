@@ -648,6 +648,9 @@ const getPromotedGroup = group_sessions => {
 
       if (caption) {
         flex_text[index].bodyText = `${caption}`;
+      } else {
+        flex_text[index].bodyText =
+          "📣 Chat admin group ini agar bisa diinvite ke group!";
       }
 
       flex_texts.push(flex_text[index]);
