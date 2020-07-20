@@ -195,12 +195,58 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
     case "/update":
     case "/updates":
       return showUpdatesCommand();
+    case "/promote":
+      return promoteCommand();
+    case "/group":
+      return groupCommand();
     default:
       return invalidCommand();
   }
 };
 
-/// TODO : untuk commands, isi dulu yang static, baru settings, terakhir baru lah logic game
+const groupCommand = () => {
+  const msg = util.getPromotedGroup(this.group_sessions);
+
+  if (typeof msg === "string") return replyText(msg);
+
+  return replyFlex(msg);
+};
+
+const promoteCommand = () => {
+  if (this.event.source.type === "room") {
+    return replyText("💡 Maaf, untuk promote hanya tersedia pada group");
+  }
+
+  if (this.group_session.promoted) {
+    return replyText("💡 Group ini telah di promote!");
+  }
+
+  if (this.args.length < 2) {
+    return replyText("💡 Masukkan ID dari admin group! '/promote idadmin'");
+  }
+
+  this.group_session.promoted = true;
+  this.group_session.adminLink = "https://line.me/ti/p/~" + this.args[1];
+
+  function parseToText(arr) {
+    let text = "";
+    arr.forEach((item, index) => {
+      if (index !== 0) {
+        //ini untuk tidak parse text command '/command'
+        if (index !== 1 && index !== 2) {
+          text += " ";
+        }
+        text += item;
+      }
+    });
+  }
+
+  if (this.args.length > 2) {
+    this.group_session.caption = parseToText(this.args);
+  }
+
+  return replyText("📣 Group berhasil di promote, cek '/group' untuk listnya");
+};
 
 const day = () => {
   /// BUAT MASING" SYSTEM UNTUK DAY FUNC
@@ -5425,7 +5471,9 @@ const commandCommand = () => {
     "/tutorial : tutorial menggunakan bot ini",
     "/gamestat : status game yang berjalan di grup ini",
     "/forum : link ke openchat",
-    "/updates : untuk melihat 5 update terakhir bot"
+    "/updates : untuk melihat 5 update terakhir bot",
+    "/promote : open group dengan memberikan admin group",
+    "/group : melihat list group yang open"
   ];
 
   for (let i = 0; i < cmds.length; i++) {

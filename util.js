@@ -559,7 +559,7 @@ const getRandomInt = (min, max) => {
 
 const parseToText = arr => {
   let text = "";
-  arr.forEach(function(item, index) {
+  arr.forEach((item, index) => {
     if (index !== 0) {
       //ini untuk tidak parse text command '/command'
       if (index !== 1) {
@@ -618,11 +618,50 @@ const getFakeData = (length = 4) => {
       cooldown: 0,
       spamCount: 0
     };
-    return obj
+    return obj;
   });
 
   data.length = length;
   return data;
+};
+
+const getPromotedGroup = group_sessions => {
+  const flex_texts = [];
+  const flex_text = {};
+  let found = false;
+
+  Object.keys(group_sessions).forEach((item, index) => {
+    const { name, promoted, adminLink, caption } = group_sessions[item];
+
+    if (promoted) {
+      found = true;
+      flex_text[index] = {
+        headerText: "🏘️ Open Group",
+        bodyText: "",
+        buttons: [
+          {
+            action: "uri",
+            label: "🗨️ Chat Admin",
+            data: adminLink
+          }
+        ]
+      };
+
+      flex_text[index].bodyText += name;
+      if (caption) {
+        flex_text[index].bodyText += `\n${caption}`;
+      }
+      flex_text[index].bodyText += `\n\n`;
+
+      flex_texts.push(flex_text[index]);
+    }
+  });
+
+  if (!found) {
+    return "💡 Tidak ada group yang tersedia";
+  }
+
+  return flex_texts;
 };
 
 module.exports = {
@@ -645,5 +684,6 @@ module.exports = {
   getInvestigatorResult,
   getRandomInt,
   parseToText,
-  getFakeData
+  getFakeData,
+  getPromotedGroup
 };
