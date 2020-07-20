@@ -2993,14 +2993,13 @@ const day = () => {
         for (let x = 0; x < lastFirstBloodIds.length; x++) {
           const lastId = lastFirstBloodIds[x];
           console.log(`lastId ${lastId}`);
-          console.log(`players[i] ${players[i].id}`);
+          console.log(`players[i].id ${players[i].id}`);
           if (players[i].id === lastId) {
             allAnnouncement += `☠️ ${players[i].name} kenak first blood lagi sejak game terakhir\n\n`;
           }
         }
 
-        this.group_session.lastFirstBloodIds.length = 0;
-        this.group_session.lastFirstBloodIds.push(players[i].id);
+        this.group_session.currentFirstBloodIds.push(players[i].id);
       }
 
       //Thanks to
@@ -3847,6 +3846,11 @@ const startCommand = () => {
   }
 
   this.group_session.punishment = util.random(punishment);
+
+  this.group_session.lastFirstBloodIds = [
+    ...this.group_session.currentFirstBloodIds
+  ];
+  this.group_session.currentFirstBloodIds = [];
 
   randomRoles();
 };

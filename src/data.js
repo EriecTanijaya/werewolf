@@ -205,6 +205,7 @@ const searchGroup = async groupId => {
       gamePlayed: 0,
       customRoles: [],
       lastFirstBloodIds: [],
+      currentFirstBloodIds: [],
       players: []
     };
     group_sessions[groupId] = newGroup;
