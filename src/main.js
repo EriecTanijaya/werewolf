@@ -231,14 +231,16 @@ const promoteCommand = () => {
   function parseToText(arr) {
     let text = "";
     arr.forEach((item, index) => {
-      if (index !== 0) {
+      if (index !== 0 && index !== 1) {
         //ini untuk tidak parse text command '/command'
-        if (index !== 1 && index !== 2) {
+        if (index !== 2) {
           text += " ";
         }
         text += item;
       }
     });
+
+    return text;
   }
 
   if (this.args.length > 2) {
