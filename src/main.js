@@ -222,7 +222,9 @@ const promoteCommand = () => {
   }
 
   if (this.args.length < 2) {
-    return replyText("💡 Masukkan ID dari admin group!\n\nCth : '/promote tukiman y x g kuy'");
+    return replyText(
+      "💡 Masukkan ID dari admin group!\n\nCth : '/promote tukiman y x g kuy'"
+    );
   }
 
   this.group_session.promoted = true;
@@ -4510,10 +4512,22 @@ const endGame = (flex_texts, whoWin) => {
 
   resetAllPlayers();
 
+  const isGroup = this.event.source.type === "group" ? true : false;
+  const text =
+    "🏘️ Mungkin bisa dipertimbangkan untuk '/promote' group ini agar bisa bantu orang yang belum ada group";
+
   if (!flex_texts) {
-    return replyFlex(flex_text);
+    if (this.group_session.gamePlayed === 2 && isGroup) {
+      return replyFlex(flex_text, text);
+    } else {
+      return replyFlex(flex_text);
+    }
   } else {
-    return replyFlex(flex_texts, null, flex_text);
+    if (this.group_session.gamePlayed === 2 && isGroup) {
+      return replyFlex(flex_text, text, flex_text);
+    } else {
+      return replyFlex(flex_texts, null, flex_text);
+    }
   }
 };
 
