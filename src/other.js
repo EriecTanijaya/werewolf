@@ -21,7 +21,10 @@ const followResponse = () => {
     bodyText:
       "Thanks udah add bot ini 😃, undang bot ini ke group kamu untuk bermain!\n📚 Untuk bantuan bisa ketik '/tutorial' atau '/cmd'"
   };
-  return replyFlex(flex_text);
+  let text =
+    "🏘️ Untuk kamu yang belum ada group, bisa ketik '/group' atau nyari di '/forum'";
+
+  return replyFlex(flex_text, text);
 };
 
 const joinResponse = async () => {
@@ -127,10 +130,18 @@ const replyText = texts => {
   });
 };
 
-const replyFlex = flex_raw => {
+const replyFlex = (flex_raw, text_raw) => {
+  let opt_texts = [];
+  if (text_raw) {
+    text_raw = Array.isArray(text_raw) ? text_raw : [text_raw];
+    opt_texts = text_raw.map(item => {
+      return { type: "text", text: item };
+    });
+  }
+
   const sender = util.getSender();
 
-  const msg = flex.build(flex_raw, sender);
+  const msg = flex.build(flex_raw, sender, opt_texts);
   return client.replyMessage(this.event.replyToken, msg).catch(err => {
     console.log(JSON.stringify(msg));
     console.error(
