@@ -11,7 +11,13 @@ const getUpdates = () => {
   let flex_texts = [];
   let updates = [
     {
-      version: "1.2.4 🆕", //ini yg lastest aja
+      version: "1.3.0 🆕", //ini yg lastest aja
+      majorChanges: "📜 Rewrite bot",
+      link:
+        "https://timeline.line.me/post/_dew_dlek6Q7X8WLzhe1qWvEjXko3000-cqsirfM/1159530099008079190"
+    },
+    {
+      version: "1.2.4",
       majorChanges: "⚠️ Spam prevention",
       link:
         "https://timeline.line.me/post/_dew_dlek6Q7X8WLzhe1qWvEjXko3000-cqsirfM/1159408622108073821"
@@ -63,12 +69,6 @@ const getUpdates = () => {
       majorChanges: "🗡️ Nerf Vampire Hunter",
       link:
         "https://timeline.line.me/post/_dew_dlek6Q7X8WLzhe1qWvEjXko3000-cqsirfM/1158769010508073732"
-    },
-    {
-      version: "1.1.5",
-      majorChanges: "🛡️ New Bodyguard role!",
-      link:
-        "https://timeline.line.me/post/_dew_dlek6Q7X8WLzhe1qWvEjXko3000-cqsirfM/1158736961208072579"
     }
   ];
 

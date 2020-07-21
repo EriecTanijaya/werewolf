@@ -4526,7 +4526,7 @@ const endGame = (flex_texts, whoWin) => {
     if (this.group_session.gamePlayed === 2 && isGroup) {
       return replyFlex(flex_text, text, flex_text);
     } else {
-      return replyFlex(flex_texts, null, flex_text);
+      return replyFlex(flex_texts, text, flex_text);
     }
   }
 };
@@ -5700,7 +5700,7 @@ const replyFlex = (flex_raw, text_raw, new_flex_raw) => {
 
   if (new_flex_raw) {
     const addonMsg = flex.build(new_flex_raw, sender);
-    msg = [msg];
+    msg = Array.isArray(msg) ? msg : [msg];
     msg.push(addonMsg);
   }
 
