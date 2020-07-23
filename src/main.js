@@ -4449,12 +4449,12 @@ const endGame = (flex_texts, whoWin) => {
     let roleTeam = players[i].role.team;
     let roleName = players[i].role.name;
 
-    let name = players[i].name;
+    let name = "";
 
     if (players[i].status === "death") {
-      name += " (💀)";
+      name += "💀 " + players[i].name;
     } else {
-      name += " (😃)";
+      name += "😃 " + players[i].name;
     }
 
     table_data.push(`${num}.`, name, roleName);

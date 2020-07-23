@@ -1,6 +1,10 @@
 ### TODO
 
-- baru eslint kan, abis tuh oke update
+- dummy bot simple AI, bisa vote, skill, nuduh (suruh vote siapa), defense (kalo dituduh, dia bisa ngehindar)
+  - setiap bot ada trait
+    - ada yang baik (kalo jahat trus dituduh, dia pasrah aja)
+    - ada yang jahat (kalo dia jahat, lalu dituduh, dia malah bohong)
+      trus bisa nuduh orang dengan role yang sama dengannya (kalo jahat)
 
 - role set trick or treat (ada di tos punya fandom wiki) buat halloween ntr
 

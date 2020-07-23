@@ -658,7 +658,7 @@ const getPromotedGroup = group_sessions => {
   });
 
   if (!found) {
-    return "💡 Tidak ada group yang tersedia";
+    return "💡 Tidak ada group yang tersedia. Coba nyari di '/forum'";
   }
 
   return flex_texts;
