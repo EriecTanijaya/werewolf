@@ -38,7 +38,7 @@ const setModeCommand = () => {
     let list = modeList.join(", ");
     let text = "📜 Mode List : " + "\n";
     text += list + "\n\n";
-    text += "Cth: Untuk set mode bisa ketik '/set mode who's-there";
+    text += "Cth: Untuk set mode bisa ketik '/set mode chaos";
     return replyText(text);
   }
 

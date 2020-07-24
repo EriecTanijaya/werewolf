@@ -315,7 +315,7 @@ const getFlexColor = () => {
       color: {
         main: "#24a19c",
         secondary: "#24a19c",
-        background: "#e4e3e3",
+        background: "#eeeeee",
         text: "#363636"
       }
     },
