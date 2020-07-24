@@ -53,7 +53,7 @@ setInterval(() => {
           resetAllPlayers(group_sessions[key].players);
         } else if (state === "idle") {
           if (group_sessions[key].groupId !== process.env.TEST_GROUP) {
-            group_sessions[key].state = "inactive";
+            group_sessions[key].state = "get_out";
           }
         }
       }
@@ -215,7 +215,7 @@ const searchGroup = async groupId => {
     group_sessions[groupId] = newGroup;
   }
 
-  if (group_sessions[groupId].state === "inactive") {
+  if (group_sessions[groupId].state === "get_out") {
     let text = "👋 Sistem mendeteksi tidak ada permainan dalam 5 menit. ";
     text += "Undang kembali jika mau main ya!";
     return util.leaveGroup(this.event, groupId, text);
