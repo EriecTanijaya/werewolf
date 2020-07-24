@@ -1,4 +1,5 @@
 const client = require("./client");
+const flex = require("../message/flex");
 
 const util = require("../util");
 
@@ -44,7 +45,7 @@ setInterval(() => {
     if (group_sessions[key]) {
       const time = group_sessions[key].time;
       const state = group_sessions[key].state;
-      if (state !== "inactive" && time > 0) {
+      if (time > 0) {
         group_sessions[key].time--;
       } else {
         const playersLength = group_sessions[key].players.length;
@@ -53,7 +54,7 @@ setInterval(() => {
           resetAllPlayers(group_sessions[key].players);
         } else if (state === "idle") {
           if (group_sessions[key].groupId !== process.env.TEST_GROUP) {
-            group_sessions[key].state = "get_out";
+            group_sessions[key].state = "inactive";
           }
         }
       }
@@ -74,9 +75,12 @@ setInterval(() => {
 }, 1000);
 
 const receive = (event, rawArgs) => {
-  // handle memberLeft and leave event
-  if (event.type === "leave" || event.type === "memberLeft") {
-    return handleLeaveEvent(event);
+  this.event = event;
+
+  // handle other events
+  const otherEvents = ["follow", "memberJoined", "join", "leave", "memberLeft"];
+  if (otherEvents.includes(event.type)) {
+    return handleOtherEvent(event);
   }
 
   // eslint-disable-next-line no-prototype-builtins
@@ -100,7 +104,6 @@ const receive = (event, rawArgs) => {
     this.args = rawArgs.split(" ");
   }
 
-  this.event = event;
   this.rawArgs = rawArgs;
 
   searchUser();
@@ -215,7 +218,7 @@ const searchGroup = async groupId => {
     group_sessions[groupId] = newGroup;
   }
 
-  if (group_sessions[groupId].state === "get_out") {
+  if (group_sessions[groupId].state === "inactive") {
     let text = "👋 Sistem mendeteksi tidak ada permainan dalam 5 menit. ";
     text += "Undang kembali jika mau main ya!";
     return util.leaveGroup(this.event, groupId, text);
@@ -255,19 +258,126 @@ const searchGroupCallback = () => {
 
 /** helper func **/
 
-const handleLeaveEvent = event => {
-  if (event.type === "memberLeft") {
-    const leftId = event.left.members[0].userId;
-    if (user_sessions[leftId] && user_sessions[leftId].state === "inactive") {
-      // do what
-    }
-  } else if (event.type === "leave") {
-    const groupId = util.getGroupId(event);
-    group_sessions[groupId].state = "inactive";
-    group_sessions[groupId].time = 300;
-    if (group_sessions[groupId] && group_sessions[groupId].players.length > 0) {
-      return resetAllPlayers(group_sessions[groupId].players);
-    }
+const handleOtherEvent = () => {
+  switch (this.event.type) {
+    case "memberLeft":
+      return memberLeftResponse();
+    case "leave":
+      return leaveResponse();
+    case "join":
+      return joinResponse();
+    case "follow":
+      return followResponse();
+    case "memberJoined":
+      return memberJoinedResponse();
+  }
+};
+
+const leaveResponse = () => {
+  const groupId = util.getGroupId(this.event);
+  group_sessions[groupId].state = "inactive";
+  if (group_sessions[groupId] && group_sessions[groupId].players.length > 0) {
+    return resetAllPlayers(group_sessions[groupId].players);
+  }
+};
+
+const memberLeftResponse = () => {
+  const leftId = this.event.left.members[0].userId;
+  if (user_sessions[leftId] && user_sessions[leftId].state === "inactive") {
+    // do what
+  }
+};
+
+const joinResponse = async () => {
+  const groupId = util.getGroupId(this.event);
+  const isMaintenance = process.env.MAINTENANCE === "true" ? true : false;
+  const isTestGroup = groupId === process.env.TEST_GROUP ? true : false;
+
+  if (isMaintenance && !isTestGroup) {
+    let text = "👋 Sorry, botnya sedang maintenance. ";
+    text += "💡 Untuk info lebih lanjut bisa cek di http://bit.ly/openchatww";
+    util.leaveGroup(this.event, groupId, text);
+  }
+
+  const membersCount = await getMembersCount(groupId);
+  if (!isTestGroup && membersCount < 5) {
+    let text =
+      "🙏 Maaf, undang kembali jika jumlah member sudah minimal 5 orang. ";
+    text += "🌕 Game hanya bisa dimainkan dengan jumlah minimal 5 orang";
+    util.leaveGroup(this.event, groupId, text);
+  }
+
+  let text = "";
+
+  group_sessions[groupId].state = "idle";
+  group_sessions[groupId].time = 300;
+
+  if (this.event.source.type === "group") {
+    let { groupName } = await getGroupData(groupId);
+    text = "Thanks udah diundang ke " + groupName + "! ";
+  } else {
+    text = "Thanks udah diundang ke room ini! ";
+  }
+
+  text += "😃 Ketik '/tutorial' atau '/cmd' untuk bantuan. ";
+  text += "😕 Jika masih bingung, boleh ke '/forum'";
+
+  let flex_text = {
+    headerText: "👋 Hai semua!",
+    bodyText: text
+  };
+  return replyFlex(flex_text);
+};
+
+const followResponse = () => {
+  const flex_text = {
+    headerText: "👋 Haiii",
+    bodyText:
+      "Thanks udah add bot ini 😃, undang bot ini ke group kamu untuk bermain!\n📚 Untuk bantuan bisa ketik '/tutorial' atau '/cmd'"
+  };
+  let text =
+    "🏘️ Untuk kamu yang belum ada group, bisa ketik '/group' atau nyari di '/forum'";
+
+  return replyFlex(flex_text, text);
+};
+
+const memberJoinedResponse = async () => {
+  const groupId = util.getGroupId(this.event);
+  const newMemberId = this.event.joined.members[0].userId;
+  let text = "👋 Selamat datang ";
+
+  if (this.event.source.type === "group") {
+    let { displayName } = await client.getGroupMemberProfile(
+      groupId,
+      newMemberId
+    );
+    text += displayName;
+
+    let { groupName } = await getGroupData(groupId);
+    text += " di " + groupName + "!";
+  } else if (this.event.source.type === "room") {
+    let { displayName } = await client.getRoomMemberProfile(
+      groupId,
+      newMemberId
+    );
+    text += displayName;
+  }
+
+  return replyText(text);
+};
+
+const getGroupData = async groupId => {
+  const groupData = await client.getGroupSummary(groupId);
+  return groupData;
+};
+
+const getMembersCount = async groupId => {
+  if (this.event.source.type === "group") {
+    const { count } = await client.getGroupMembersCount(groupId);
+    return count;
+  } else {
+    const { count } = await client.getRoomMembersCount(groupId);
+    return count;
   }
 };
 
@@ -288,6 +398,27 @@ const replyText = texts => {
 
   return client.replyMessage(this.event.replyToken, msg).catch(err => {
     console.log("err di replyText di data.js", err.originalError.response.data);
+  });
+};
+
+const replyFlex = (flex_raw, text_raw) => {
+  let opt_texts = [];
+  if (text_raw) {
+    text_raw = Array.isArray(text_raw) ? text_raw : [text_raw];
+    opt_texts = text_raw.map(item => {
+      return { type: "text", text: item };
+    });
+  }
+
+  const sender = util.getSender();
+
+  const msg = flex.build(flex_raw, sender, opt_texts);
+  return client.replyMessage(this.event.replyToken, msg).catch(err => {
+    console.log(JSON.stringify(msg));
+    console.error(
+      "err replyFlex di data.js",
+      err.originalError.response.data.message
+    );
   });
 };
 

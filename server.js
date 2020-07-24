@@ -4,7 +4,6 @@ const app = express();
 
 // initialize module
 const data = require("./src/data");
-const other = require("./src/other");
 
 // line config
 const config = {
@@ -65,10 +64,8 @@ async function handleEvent(event) {
   }
 
   if (event.type !== "message" || event.message.type !== "text") {
-    let otherEvents = ["join", "follow", "memberJoined"];
+    const otherEvents = ["follow", "memberJoined", "join", "leave", "memberLeft"];
     if (otherEvents.includes(event.type)) {
-      return other.receive(event);
-    } else if (event.type === "leave" || event.type === "memberLeft") {
       return data.receive(event, "");
     }
 
