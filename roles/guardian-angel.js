@@ -26,10 +26,13 @@ const getInfo = () => {
   text +=
     "Jika targetnya mati, maka Guardian Angel akan berubah menjadi Survivor tanpa vest. ";
   text +=
-    "Protection dari Guardian Angel dapat melindungi nya dari serangan apapun dan ";
-  text += "bisa menghilangkan efek siraman bensin Arsonist. ";
+    "Protection dari Guardian Angel dapat melindungi nya dari serangan apapun ";
   text +=
-    "Saat Guardian Angel berhasil melidungi Targetnya, besoknya Target tersebut tidak bisa di vote. ";
+    "kecuali jika Targetnya di hantui Jester, AFK atau bunuh diri (Vigilante). ";
+  text +=
+    "Dia juga bisa menghilangkan efek siraman bensin Arsonist, efek virus Plaguebearer, efek gigitan Vampire, dan jebakan Framer. ";
+  text +=
+    "Saat Guardian Angel melidungi Targetnya, besoknya Target tersebut tidak bisa di vote. ";
   return text;
 };
 

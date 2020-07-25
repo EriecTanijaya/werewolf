@@ -3119,7 +3119,7 @@ const day = () => {
 
         // executioner
         for (let j = 0; j < players.length; j++) {
-          let roleName = players[j].role.name;
+          const roleName = players[j].role.name;
 
           if (roleName === "executioner" && players[j].status === "alive") {
             if (players[j].role.targetLynchIndex === i) {
@@ -3129,7 +3129,7 @@ const day = () => {
                 "💡 Targetmu mati pas malam dibunuh. Kamu menjadi Jester" +
                 "\n\n";
 
-              let roleData = getRoleData("jester");
+              const roleData = getRoleData("jester");
               this.group_session.players[j].role = roleData;
             }
           }
@@ -3137,14 +3137,14 @@ const day = () => {
 
         // guardian angel
         for (let j = 0; j < players.length; j++) {
-          let roleName = players[j].role.name;
-          let status = players[j].status;
+          const roleName = players[j].role.name;
+          const status = players[j].status;
 
           if (roleName === "guardian-angel" && status === "alive") {
             if (players[j].role.mustProtectIndex === i) {
-              let roleData = getRoleData("survivor");
-              this.group_session.players[i].role = roleData;
-              this.group_session.players[i].role.vest = 0;
+              const roleData = getRoleData("survivor");
+              this.group_session.players[j].role = roleData;
+              this.group_session.players[j].role.vest = 0;
 
               this.group_session.players[j].message +=
                 "💡 Targetmu mati, sekarang kamu hanyalah Survivor tanpa vest" +
@@ -4710,7 +4710,7 @@ const lynch = flex_texts => {
     const status = players[i].status;
     if (players[i].role.name === "guardian-angel" && status === "alive") {
       if (players[i].role.mustProtectIndex == lynchTarget.index) {
-        let roleData = getRoleData("survivor");
+        const roleData = getRoleData("survivor");
         this.group_session.players[i].role = roleData;
         this.group_session.players[i].role.vest = 0;
       }
