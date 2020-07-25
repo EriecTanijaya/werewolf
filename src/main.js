@@ -48,7 +48,7 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
     }
 
     if (rawArgs.includes("bot")) {
-      if (args.length < 2) return replyText("apa manggil manggil");
+      if (args.length < 2) return replyText("kenapa manggil");
 
       rawArgs = rawArgs.replace(/apa itu/g, "info");
 
