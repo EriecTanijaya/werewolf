@@ -4578,7 +4578,7 @@ const endGame = (flex_texts, whoWin) => {
     }
   } else {
     if (this.group_session.gamePlayed === 2 && isGroup) {
-      return replyFlex(flex_text, text, flex_text);
+      return replyFlex(flex_texts, text, flex_text);
     } else {
       return replyFlex(flex_texts, null, flex_text);
     }
