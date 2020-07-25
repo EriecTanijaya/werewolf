@@ -925,7 +925,8 @@ const day = () => {
             "consort",
             "framer",
             "disguiser",
-            "juggernaut"
+            "juggernaut",
+            "guardian-angel"
           ];
 
           if (immuneToVampireBite.includes(targetRoleName)) {
