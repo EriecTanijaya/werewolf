@@ -1768,9 +1768,15 @@ const day = () => {
       if (protection > 0) {
         let targetIndex = doer.target.index;
 
-        this.group_session.players[i].role.protection--;
+        const isHaunted = players[targetIndex].isHaunted;
+        const willSuicide = players[targetIndex].willSuicide;
+        const afkCounter = players[targetIndex].afkCounter;
 
+        this.group_session.players[i].role.protection--;
         this.group_session.players[targetIndex].protected = true;
+
+        this.group_session.players[targetIndex].message +=
+          "⚔️ Kamu diawasi oleh Guardian Angel!" + "\n\n";
 
         let protector = {
           index: i,
@@ -1779,6 +1785,10 @@ const day = () => {
         };
 
         this.group_session.players[targetIndex].protectors.push(protector);
+
+        if (!isHaunted && !willSuicide && afkCounter < 3) {
+          allAnnouncement += `⚔️ Guardian Angel melindungi ${players[i].name}!\n\n`;
+        }
       }
     }
   }
@@ -2661,12 +2671,6 @@ const day = () => {
 
               this.group_session.players[i].message +=
                 "⚔️ Kamu selamat karena dilindungi Guardian Angel!" + "\n\n";
-
-              allAnnouncement +=
-                "⚔️ Guardian Angel berhasil melindungi " +
-                players[i].name +
-                " semalam!" +
-                "\n\n";
 
               protector.used = true;
             }
