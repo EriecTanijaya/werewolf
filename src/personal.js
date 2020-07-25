@@ -714,6 +714,17 @@ const roleCommand = () => {
 
     return replyFlex(flex_text, text);
   }
+  
+  // special role villager cp
+  if (roleName === "villager") {
+    let villagerCode = this.group_session.villagerCode;
+    if (villagerCode !== "") {
+      let text = "👨‍🌾 Kamu tidak sendirian pada kota ini! ";
+      text += `✉️ Gunakan kode '${villagerCode}' untuk mengetahui sesama Villager. \n\n`;
+      text += `💡 Cara nya dengan menyisipkan kata '${villagerCode}' disaat kamu berdiskusi!`;
+      return replyFlex(flex_text, text);
+    }
+  }
 
   if (state !== "day" && state !== "vote") {
     let text = "";

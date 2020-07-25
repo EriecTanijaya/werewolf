@@ -26,8 +26,29 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
 
   if (!rawArgs.startsWith("/")) {
     rawArgs = rawArgs.toLowerCase();
+    let splittedWords = rawArgs.split(" ");
+
+    const wordList = this.group_session.words.map(item => {
+      return item.text;
+    });
+
+    for (let i = 0; i < splittedWords.length; i++) {
+      if (wordList.includes(splittedWords[i])) {
+        for (let j = 0; j < wordList.length; j++) {
+          if (wordList[j] === splittedWords[i]) {
+            this.group_session.words[j].value++;
+          }
+        }
+      } else if (splittedWords[i] !== "") {
+        this.group_session.words.push({
+          text: splittedWords[i],
+          value: 0
+        });
+      }
+    }
+
     if (rawArgs.includes("bot")) {
-      if (args.length < 2) return replyText("apa manggil manggil");
+      if (args.length < 2) return replyText("kenapa manggil");
 
       rawArgs = rawArgs.replace(/apa itu/g, "info");
 
@@ -3947,6 +3968,19 @@ const randomRoles = () => {
   // set roles list
   this.group_session.roles = getRoleList();
 
+  // villager code
+  this.group_session.villagerCode = "";
+  let cnt = 0;
+  for (let i = 0; i < this.group_session.players.length; i++) {
+    if (this.group_session.players[i].role.name === "villager") {
+      cnt++;
+    }
+  }
+
+  if (cnt > 1) {
+    this.group_session.villagerCode = getVillagerCode();
+  }
+
   // kasih tau kalo game dh mulai
 
   let text = "🔔 Hai! Game nya sudah dimulai ya!" + "\n\n";
@@ -4020,6 +4054,25 @@ const getJesterTargetIndex = jesterId => {
       return targetIndex;
     }
   }
+};
+
+const getVillagerCode = () => {
+  if (this.group_session.words.length === 0) {
+    return "curiga";
+  }
+
+  let tmp = 0;
+  let index = 0;
+  for (let i = 0; i < this.group_session.words.length; i++) {
+    if (this.group_session.words[i].value > tmp) {
+      tmp = this.group_session.words[i].value;
+      index = i;
+    }
+  }
+  console.log(tmp);
+  console.log(index);
+  console.log(this.group_session.words[index].text);
+  return this.group_session.words[index].text;
 };
 
 const night = () => {
@@ -4509,6 +4562,7 @@ const endGame = (flex_texts, whoWin) => {
   delete this.group_session.mafiaChat;
   delete this.group_session.vampireChat;
   delete this.group_session.vampireHunterChat;
+  delete this.group_session.villagerCode;
 
   resetAllPlayers();
 
@@ -4524,7 +4578,7 @@ const endGame = (flex_texts, whoWin) => {
     }
   } else {
     if (this.group_session.gamePlayed === 2 && isGroup) {
-      return replyFlex(flex_text, text, flex_text);
+      return replyFlex(flex_texts, text, flex_text);
     } else {
       return replyFlex(flex_texts, null, flex_text);
     }
@@ -5443,11 +5497,11 @@ const newCommand = () => {
 
   if (process.env.TEST === "true") {
     // cp
-    const dummies = util.getFakeData(5);
-    dummies.forEach(item => {
-      const newPlayer = createNewPlayer(item);
-      this.group_session.players.push(newPlayer);
-    });
+    // const dummies = util.getFakeData(5);
+    // dummies.forEach(item => {
+    //   const newPlayer = createNewPlayer(item);
+    //   this.group_session.players.push(newPlayer);
+    // });
   }
 
   const text = "💡 " + this.user_session.name + " berhasil bergabung!";

@@ -2,7 +2,7 @@ const getData = () => {
   const data = {
     name: "villager",
     description:
-      "Kamu adalah warga (luar)biasa, tugasmu itu menggantung penjahat",
+      "Kamu adalah warga (luar)biasa, tugasmu itu menggantung penjahat. Dan tolong, jangan micin",
     team: "villager",
     canKill: false,
     emoji: {
@@ -17,8 +17,11 @@ const getData = () => {
 };
 
 const getInfo = () => {
-  let text = "Villager atau Town, adalah kelompok warga yang memiliki misi ";
+  let text = "Villager atau Townie, adalah kelompok warga yang memiliki misi ";
   text += "untuk menghukum orang yang membawa malapetaka di Kota Bedburg. ";
+  text +=
+    "Jika ada lebih dari 1 Villager di kota, maka nanti akan diberi suatu kode ";
+  text += "agar Villager bisa mengetahui sesamanya";
   return text;
 };
 

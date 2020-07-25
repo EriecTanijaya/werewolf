@@ -16,19 +16,30 @@ const generate = playersLength => {
   let roles = ["vampire", "vampire-hunter", "doctor", "lookout", "mayor"];
 
   let townSupports = ["escort", "retributionist"];
-  let townSupport = util.random(townSupports);
-  roles.push(townSupport);
+
+  roles.push(util.random(townSupports));
 
   roles.push("vampire", "investigator", "vigilante", "vampire");
 
   let townProtectors = ["doctor", "bodyguard"];
-  let townProtector = util.random(townProtectors);
-  roles.push(townProtector);
+  roles.push(util.random(townProtectors));
 
   roles.push("vampire");
 
-  let anotherTownSupport = util.random(townSupports);
-  roles.push(anotherTownSupport);
+  let randomTowns = [
+    "doctor",
+    "bodyguard",
+    "investigator",
+    "lookout",
+    "sheriff",
+    "vigilante",
+    "escort",
+    "retributionist",
+    "tracker",
+    "psychic",
+    "villager"
+  ];
+  roles.push(util.random(randomTowns));
 
   roles.push("jester");
 
