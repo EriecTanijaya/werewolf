@@ -1775,6 +1775,11 @@ const day = () => {
         this.group_session.players[i].role.protection--;
         this.group_session.players[targetIndex].protected = true;
 
+        this.group_session.players[targetIndex].doused = false;
+        this.group_session.players[targetIndex].framed = false;
+        this.group_session.players[targetIndex].infected = false;
+        this.group_session.players[targetIndex].vampireBited = false;
+
         this.group_session.players[targetIndex].message +=
           "⚔️ Kamu diawasi oleh Guardian Angel!" + "\n\n";
 
@@ -2654,11 +2659,6 @@ const day = () => {
 
                 continue;
               }
-
-              this.group_session.players[i].doused = false;
-              this.group_session.players[i].framed = false;
-              this.group_session.players[i].infected = false;
-              this.group_session.players[i].vampireBited = false;
 
               this.group_session.players[protector.index].message +=
                 "💡 " + players[i].name + " berhasil dilindungi!" + "\n\n";
