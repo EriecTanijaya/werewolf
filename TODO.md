@@ -1,5 +1,7 @@
 ### TODO
 
+- kasih post update
+
 - di bot backup, reset group soalnya ada prop baru, words
 
 - role set trick or treat (ada di tos punya fandom wiki) buat halloween ntr
