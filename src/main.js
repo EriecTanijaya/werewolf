@@ -1793,7 +1793,7 @@ const day = () => {
         this.group_session.players[targetIndex].protectors.push(protector);
 
         if (!isHaunted && !willSuicide && afkCounter < 3) {
-          allAnnouncement += `⚔️ Guardian Angel melindungi ${players[i].name}!\n\n`;
+          allAnnouncement += `⚔️ Guardian Angel melindungi ${players[targetIndex].name}!\n\n`;
         }
       }
     }
