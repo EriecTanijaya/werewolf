@@ -19,8 +19,7 @@ const getData = () => {
 };
 
 const getInfo = () => {
-  let text =
-    "Warga yang bisa menyadap suatu pemain saat malam. Spy bisa tahu apa yang terjadi pada Targetnya. ";
+  let text = "Warga yang bisa menyadap suatu pemain saat malam. Spy bisa tahu apa yang terjadi pada Targetnya. ";
   text += "Spy juga bisa tahu Mafia ke rumah siapa saja saat malam. ";
   return text;
 };

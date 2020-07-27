@@ -5,8 +5,7 @@ const getData = () => {
     id: "custom",
     name: "🤵🔥 Custom",
     isShowRole: true,
-    description:
-      "Mode Custom bisa diatur dengan '/set role'",
+    description: "Mode Custom bisa diatur dengan '/set role'",
     naration: "🌙 Malam telah tiba, setiap warga kembali ke rumah masing-masing"
   };
   return data;

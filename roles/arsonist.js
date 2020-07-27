@@ -3,8 +3,7 @@ const getData = () => {
     name: "arsonist",
     description:
       "Kamu adalah orang gila yang ingin semua orang mati dibakar. Untuk membakar rumah target, gunakan skill ke diri sendiri. Pastikan sudah menyiram bensin ke rumah target-target",
-    skillText:
-      "Arsonist, pilih rumah siapa yang ingin kamu sirami dengan bensin.",
+    skillText: "Arsonist, pilih rumah siapa yang ingin kamu sirami dengan bensin.",
     cmdText: "/skill",
     team: "arsonist",
     canKill: true,
@@ -13,8 +12,7 @@ const getData = () => {
       self: "🔥"
     },
     type: "Neutral Killing",
-    iconUrl:
-      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/fire_1f525.png"
+    iconUrl: "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/fire_1f525.png"
   };
   return data;
 };

@@ -63,9 +63,9 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
 
 const groupCommand = () => {
   const msg = util.getPromotedGroup(this.group_sessions);
-  
+
   if (typeof msg === "string") return replyText(msg);
-  
+
   return replyFlex(msg);
 };
 
@@ -85,10 +85,7 @@ const tutorialCommand = () => {
 };
 
 const statusCommand = async () => {
-  const msg = await stats.statusCommand(
-    this.user_sessions,
-    this.group_sessions
-  );
+  const msg = await stats.statusCommand(this.user_sessions, this.group_sessions);
   return replyFlex(msg);
 };
 
@@ -152,9 +149,7 @@ const resetCommand = () => {
 };
 
 const invalidCommand = () => {
-  const text = `💡 Tidak ditemukan perintah '${
-    this.args[0]
-  }'. Cek daftar perintah yang ada di '/cmd'`;
+  const text = `💡 Tidak ditemukan perintah '${this.args[0]}'. Cek daftar perintah yang ada di '/cmd'`;
   return replyText(text);
 };
 
@@ -232,10 +227,7 @@ const replyFlex = flex_raw => {
   const msg = flex.build(flex_raw, sender);
   return client.replyMessage(this.event.replyToken, msg).catch(err => {
     console.log(JSON.stringify(msg));
-    console.error(
-      "err replyFlex di idle.js",
-      err.originalError.response.data.message
-    );
+    console.error("err replyFlex di idle.js", err.originalError.response.data.message);
   });
 };
 

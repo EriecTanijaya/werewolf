@@ -1,8 +1,7 @@
 const getData = () => {
   const data = {
     name: "jester",
-    description:
-      "Kamu menang jika berhasil digantung. Dan bisa bunuh siapa saja disaat sudah mati",
+    description: "Kamu menang jika berhasil digantung. Dan bisa bunuh siapa saja disaat sudah mati",
     team: "jester",
     skillText: "Jester, pilih siapa yang ingin dihantui",
     cmdText: "/skill",
@@ -14,8 +13,7 @@ const getData = () => {
     isLynched: false,
     hasRevenged: false,
     type: "Neutral",
-    iconUrl:
-      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/clown-face_1f921.png"
+    iconUrl: "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/clown-face_1f921.png"
   };
   return data;
 };

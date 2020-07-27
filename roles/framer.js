@@ -12,16 +12,14 @@ const getData = () => {
       self: "🎞️"
     },
     type: "Mafia Deception",
-    iconUrl:
-      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/film-frames_1f39e.png"
+    iconUrl: "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/film-frames_1f39e.png"
   };
   return data;
 };
 
 const getInfo = () => {
   let text = "Anggota Mafia yang bisa membuat suatu pemain tampak bersalah. ";
-  text +=
-    "Jika Target Framer di cek Sheriff, maka akan tampak bersalah walaupun ia adalah warga. ";
+  text += "Jika Target Framer di cek Sheriff, maka akan tampak bersalah walaupun ia adalah warga. ";
   return text;
 };
 

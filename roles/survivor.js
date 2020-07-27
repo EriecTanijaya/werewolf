@@ -13,17 +13,14 @@ const getData = () => {
     },
     vest: 4,
     type: "Neutral",
-    iconUrl:
-      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/white-flag_1f3f3.png"
+    iconUrl: "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/white-flag_1f3f3.png"
   };
   return data;
 };
 
 const getInfo = () => {
-  let text =
-    "Orang yang bisa menang dengan siapa saja, asalkan dia tidak mati hingga akhir game. ";
-  text +=
-    "Survivor dibekali 4 vest untuk melindungi diri dari serangan biasa. ";
+  let text = "Orang yang bisa menang dengan siapa saja, asalkan dia tidak mati hingga akhir game. ";
+  text += "Survivor dibekali 4 vest untuk melindungi diri dari serangan biasa. ";
   return text;
 };
 

@@ -83,30 +83,12 @@ const generate = playersLength => {
     {
       name: "vigilante",
       value: 5,
-      pair: [
-        "mafioso",
-        "consort",
-        "consigliere",
-        "framer",
-        "jester",
-        "werewolf",
-        "juggernaut",
-        "plaguebearer"
-      ]
+      pair: ["mafioso", "consort", "consigliere", "framer", "jester", "werewolf", "juggernaut", "plaguebearer"]
     },
     {
       name: "consigliere",
       value: -10,
-      pair: [
-        "serial-killer",
-        "arsonist",
-        "plaguebearer",
-        "jester",
-        "vampire",
-        "werewolf",
-        "juggernaut",
-        "executioner"
-      ]
+      pair: ["serial-killer", "arsonist", "plaguebearer", "jester", "vampire", "werewolf", "juggernaut", "executioner"]
     },
     {
       name: "godfather",
@@ -136,14 +118,7 @@ const generate = playersLength => {
     {
       name: "serial-killer",
       value: -8,
-      pair: [
-        "consort",
-        "escort",
-        "sheriff",
-        "doctor",
-        "disguiser",
-        "investigator"
-      ]
+      pair: ["consort", "escort", "sheriff", "doctor", "disguiser", "investigator"]
     },
     {
       name: "werewolf",
@@ -158,15 +133,7 @@ const generate = playersLength => {
     {
       name: "lookout",
       value: 7,
-      pair: [
-        "framer",
-        "consigliere",
-        "mafioso",
-        "disguiser",
-        "consort",
-        "plaguebearer",
-        "arsonist"
-      ]
+      pair: ["framer", "consigliere", "mafioso", "disguiser", "consort", "plaguebearer", "arsonist"]
     },
     {
       name: "escort",
@@ -234,21 +201,9 @@ const generate = playersLength => {
   let neutralLimit = 1;
   let neutralKillingLimit = 1;
 
-  let neutral = [
-    "amnesiac",
-    "survivor",
-    "guardian-angel",
-    "jester",
-    "executioner"
-  ];
+  let neutral = ["amnesiac", "survivor", "guardian-angel", "jester", "executioner"];
 
-  let neutralKilling = [
-    "arsonist",
-    "serial-killer",
-    "juggernaut",
-    "plaguebearer",
-    "werewolf"
-  ];
+  let neutralKilling = ["arsonist", "serial-killer", "juggernaut", "plaguebearer", "werewolf"];
 
   for (let i = 0; i < roles.length; i++) {
     if (generated.length === playersLength) break;

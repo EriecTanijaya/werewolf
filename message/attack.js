@@ -4,12 +4,7 @@ module.exports = {
     victimName string
     isDieFromGuilt bool
   */
-  getAttackResponse: function(
-    attackersRoleName,
-    victimName,
-    isDieFromGuilt,
-    isAfk
-  ) {
+  getAttackResponse: function(attackersRoleName, victimName, isDieFromGuilt, isAfk) {
     let text = "💀 " + victimName + " ditemukan mati ";
 
     let attackersCount = attackersRoleName.length;
@@ -32,7 +27,7 @@ module.exports = {
     }
 
     const capitalize = str => `${str.charAt(0).toUpperCase()}${str.slice(1)}`;
-      
+
     attackersRoleName.forEach(item => {
       switch (item) {
         case "werewolf":

@@ -12,17 +12,14 @@ const getData = () => {
       self: "👀"
     },
     type: "Town Investigate",
-    iconUrl:
-      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/eyes_1f440.png"
+    iconUrl: "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/eyes_1f440.png"
   };
   return data;
 };
 
 const getInfo = () => {
-  let text =
-    "Warga yang bisa memilih rumah siapa yang ingin dipantau pas malam. ";
-  text +=
-    "Lookout bisa mengetahui siapa saja pendatang rumah dari target yang dipantau. ";
+  let text = "Warga yang bisa memilih rumah siapa yang ingin dipantau pas malam. ";
+  text += "Lookout bisa mengetahui siapa saja pendatang rumah dari target yang dipantau. ";
   return text;
 };
 

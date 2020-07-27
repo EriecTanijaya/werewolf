@@ -191,9 +191,7 @@ const build = (flex_raw, sender, opt_texts = []) => {
         opt_button[i].contents.push(data_button[i]);
 
         if ((parseInt(i) + 1) % 2 === 0) {
-          bubble[index].footer.contents[parseInt(i) - temp].contents.push(
-            data_button[i]
-          );
+          bubble[index].footer.contents[parseInt(i) - temp].contents.push(data_button[i]);
           temp++;
         } else {
           bubble[index].footer.contents.push(opt_button[i]);

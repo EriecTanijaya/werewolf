@@ -12,17 +12,14 @@ const getData = () => {
       self: "🗡️"
     },
     type: "Town Killing",
-    iconUrl:
-      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/dagger_1f5e1.png"
+    iconUrl: "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/dagger_1f5e1.png"
   };
   return data;
 };
 
 const getInfo = () => {
-  let text =
-    "Warga yang berani melawan Vampire, disaat Vampire ke rumahnya, Vampire itu pasti mati. ";
-  text +=
-    "Mampu mendengar percakapan Vampire saat malam. Vampire Hunter akan berubah menjadi Vigilante ";
+  let text = "Warga yang berani melawan Vampire, disaat Vampire ke rumahnya, Vampire itu pasti mati. ";
+  text += "Mampu mendengar percakapan Vampire saat malam. Vampire Hunter akan berubah menjadi Vigilante ";
   text += "jika semua Vampire telah di basmi";
   return text;
 };

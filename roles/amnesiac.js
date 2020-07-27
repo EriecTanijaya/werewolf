@@ -21,10 +21,8 @@ const getData = () => {
 const getInfo = () => {
   let text =
     "Orang yang lupa dengan siapa dirinya. Dapat mengingat siapa dirinya dengan memilih orang yang telah mati. ";
-  text +=
-    "Jika Amnesiac telah ingat role nya, maka akan di beritahu secara publik. ";
-  text +=
-    "Jika Amnesiac mengingat seorang Disguiser yang sedang mengimitasi, maka dia akan menjadi Disguiser.";
+  text += "Jika Amnesiac telah ingat role nya, maka akan di beritahu secara publik. ";
+  text += "Jika Amnesiac mengingat seorang Disguiser yang sedang mengimitasi, maka dia akan menjadi Disguiser.";
   return text;
 };
 

@@ -13,62 +13,52 @@ const getUpdates = () => {
     {
       version: "1.3.0 🆕", //ini yg lastest aja
       majorChanges: "📜 Rewrite bot",
-      link:
-        "https://timeline.line.me/post/_dew_dlek6Q7X8WLzhe1qWvEjXko3000-cqsirfM/1159530099008079190"
+      link: "https://timeline.line.me/post/_dew_dlek6Q7X8WLzhe1qWvEjXko3000-cqsirfM/1159530099008079190"
     },
     {
       version: "1.2.4",
       majorChanges: "⚠️ Spam prevention",
-      link:
-        "https://timeline.line.me/post/_dew_dlek6Q7X8WLzhe1qWvEjXko3000-cqsirfM/1159408622108073821"
+      link: "https://timeline.line.me/post/_dew_dlek6Q7X8WLzhe1qWvEjXko3000-cqsirfM/1159408622108073821"
     },
     {
       version: "1.2.3",
       majorChanges: "📜 New Custom mode command",
-      link:
-        "https://timeline.line.me/post/_dew_dlek6Q7X8WLzhe1qWvEjXko3000-cqsirfM/1159358047608073922"
+      link: "https://timeline.line.me/post/_dew_dlek6Q7X8WLzhe1qWvEjXko3000-cqsirfM/1159358047608073922"
     },
     {
       version: "1.2.2",
       majorChanges: "💪 Major cleanup & bugfixes",
-      link:
-        "https://timeline.line.me/post/_dew_dlek6Q7X8WLzhe1qWvEjXko3000-cqsirfM/1159235795708072516"
+      link: "https://timeline.line.me/post/_dew_dlek6Q7X8WLzhe1qWvEjXko3000-cqsirfM/1159235795708072516"
     },
     {
       version: "1.2.1",
       majorChanges: "☣️ New Plaguebearer role!",
-      link:
-        "https://timeline.line.me/post/_dew_dlek6Q7X8WLzhe1qWvEjXko3000-cqsirfM/1159179246308071639"
+      link: "https://timeline.line.me/post/_dew_dlek6Q7X8WLzhe1qWvEjXko3000-cqsirfM/1159179246308071639"
     },
     {
       version: "1.2.0",
       majorChanges: "💪 Rebase to new mechanism",
-      link:
-        "https://timeline.line.me/post/_dew_dlek6Q7X8WLzhe1qWvEjXko3000-cqsirfM/1159110856708070799"
+      link: "https://timeline.line.me/post/_dew_dlek6Q7X8WLzhe1qWvEjXko3000-cqsirfM/1159110856708070799"
     },
     {
       version: "1.1.9",
       majorChanges: "🎩 New Mayor role!",
-      link:
-        "https://timeline.line.me/post/_dew_dlek6Q7X8WLzhe1qWvEjXko3000-cqsirfM/1159013388808076236"
+      link: "https://timeline.line.me/post/_dew_dlek6Q7X8WLzhe1qWvEjXko3000-cqsirfM/1159013388808076236"
     },
     {
       version: "1.1.8",
       majorChanges: "🎞️ Rework game mode",
-      link:
-        "https://timeline.line.me/post/_dew_dlek6Q7X8WLzhe1qWvEjXko3000-cqsirfM/1158988006208077687"
+      link: "https://timeline.line.me/post/_dew_dlek6Q7X8WLzhe1qWvEjXko3000-cqsirfM/1158988006208077687"
     },
     {
       version: "1.1.7",
       majorChanges: "🕹️ Add '/gamestat' cmd",
-      link:
-        "https://timeline.line.me/post/_dew_dlek6Q7X8WLzhe1qWvEjXko3000-cqsirfM/1158918791608077924"
+      link: "https://timeline.line.me/post/_dew_dlek6Q7X8WLzhe1qWvEjXko3000-cqsirfM/1158918791608077924"
     },
     {
       version: "1.1.6",
       majorChanges: "🗡️ Nerf Vampire Hunter",
-      link:
-        "https://timeline.line.me/post/_dew_dlek6Q7X8WLzhe1qWvEjXko3000-cqsirfM/1158769010508073732"
+      link: "https://timeline.line.me/post/_dew_dlek6Q7X8WLzhe1qWvEjXko3000-cqsirfM/1158769010508073732"
     }
   ];
 
@@ -204,9 +194,7 @@ const getSender = () => {
 const getAbout = () => {
   let text = "Bot semi automatic yang terinspirasi dari ";
   text += "Town Of Salem. ";
-  text +=
-    "Thanks buat grup Avalon City, LOW, Where Wolf(?), Random, RND Twins dan semua adders!" +
-    "\n";
+  text += "Thanks buat grup Avalon City, LOW, Where Wolf(?), Random, RND Twins dan semua adders!" + "\n";
   text += "- Eriec (creator)";
 
   const flex_text = {
@@ -238,8 +226,7 @@ const getHelp = state => {
 
     case "day":
       header += "⛅ Diskusi";
-      body +=
-        "Jangan lupa pc bot '/news' untuk mengetahui berita hasil skill. ";
+      body += "Jangan lupa pc bot '/news' untuk mengetahui berita hasil skill. ";
       body += "Diskusilah siapa yang akan di vote. ";
       body += "Ketik '/help' lagi untuk bantuan.";
       break;
@@ -248,9 +235,7 @@ const getHelp = state => {
       header += "🌙 Gunakan skill";
       body += "Gunakan skill dengan klik button 'role' di flex bot atau ";
       body += "pc bot dengan perintah '/role'. ";
-      body +=
-        "Jika bingung info peran, bisa gunakan perintah '/info <nama-role>'. " +
-        "\n";
+      body += "Jika bingung info peran, bisa gunakan perintah '/info <nama-role>'. " + "\n";
       body += "Contoh : /info serial-killer. ";
       body += "Ketik '/help' lagi untuk bantuan.";
       break;
@@ -264,8 +249,7 @@ const getHelp = state => {
 
     case "lynch":
       header += "☠️ Penghukuman";
-      body +=
-        "Jika yang dihukum adalah warga, perhatikan siapa yang vote siapa, dan biasanya dari hasil vote itu ";
+      body += "Jika yang dihukum adalah warga, perhatikan siapa yang vote siapa, dan biasanya dari hasil vote itu ";
       body += "bisa menemukan penjahatnya. ";
       break;
 
@@ -415,8 +399,7 @@ const getPsychicResult = (players, psychicIndex, isFullMoon) => {
 
   if (allAlivePlayers.length === 2) {
     if (!isFullMoon) {
-      text +=
-        "Kota ini terlalu kecil untuk menemukan siapa yang jahat dengan akurat";
+      text += "Kota ini terlalu kecil untuk menemukan siapa yang jahat dengan akurat";
       return text;
     }
   }
@@ -649,8 +632,7 @@ const getPromotedGroup = group_sessions => {
       if (caption) {
         flex_text[index].bodyText = `${caption}`;
       } else {
-        flex_text[index].bodyText =
-          "📣 Chat admin group ini agar bisa diinvite ke group!";
+        flex_text[index].bodyText = "📣 Chat admin group ini agar bisa diinvite ke group!";
       }
 
       flex_texts.push(flex_text[index]);

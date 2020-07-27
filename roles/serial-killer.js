@@ -12,19 +12,16 @@ const getData = () => {
       self: "🔪"
     },
     type: "Neutral Killing",
-    iconUrl:
-      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/kitchen-knife_1f52a.png"
+    iconUrl: "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/kitchen-knife_1f52a.png"
   };
   return data;
 };
 
 const getInfo = () => {
-  let text =
-    "Psikopat yang menang jika berhasil membunuh Team yang melawannya. ";
-  text +=
-    "Serial Killer kebal dari serangan biasa. Jika di role block, kamu akan bunuh yang ngerole block dan ";
+  let text = "Psikopat yang menang jika berhasil membunuh Team yang melawannya. ";
+  text += "Serial Killer kebal dari serangan biasa. Jika di role block, kamu akan bunuh yang ngerole block dan ";
   text += "mengabaikan target awalmu. ";
-  
+
   return text;
 };
 
