@@ -242,8 +242,7 @@ const alertCommand = () => {
   msg = [text];
 
   if (players[index].role.canKill && players[index].deathNote === "") {
-    let dnoteText =
-      "💡 Kamu belum buat death note, ketik '/dnote' <isi note kamu>";
+    let dnoteText = "💡 Kamu belum buat death note, ketik '/dnote' <isi note kamu>";
     msg.push(dnoteText);
   }
 
@@ -307,13 +306,7 @@ const targetCommand = () => {
   const roleName = players[index].role.name;
   const roleTeam = players[index].role.team;
 
-  const prohibited = [
-    "villager",
-    "veteran",
-    "survivor",
-    "executioner",
-    "psychic"
-  ];
+  const prohibited = ["villager", "veteran", "survivor", "executioner", "psychic"];
 
   if (prohibited.includes(roleName)) {
     return replyText("💡 Jangan pernah kau coba untuk");
@@ -336,9 +329,7 @@ const targetCommand = () => {
   /// khusus role yang ada limited skill pas full moon
   if (!this.group_session.isFullMoon) {
     if (roleName === "werewolf") {
-      return replyText(
-        "💡 Kamu hanya bisa berubah menjadi Werewolf pada bulan purnama"
-      );
+      return replyText("💡 Kamu hanya bisa berubah menjadi Werewolf pada bulan purnama");
     } else if (roleName === "juggernaut") {
       if (players[index].role.skillLevel === 0) {
         return replyText("💡 Kamu hanya bisa menyerang pada bulan purnama");
@@ -398,9 +389,7 @@ const targetCommand = () => {
         }
       });
       if (!dousedCount) {
-        return replyText(
-          "💡 Kamu belum bisa bakar-bakar, karena belum menyiram bensin ke siapa-siapa. "
-        );
+        return replyText("💡 Kamu belum bisa bakar-bakar, karena belum menyiram bensin ke siapa-siapa. ");
       }
     }
 
@@ -459,9 +448,7 @@ const targetCommand = () => {
   //need system for it
   if (roleTeam === "vampire" || roleTeam === "mafia") {
     if (players[targetIndex].role.team === roleTeam) {
-      return replyText(
-        "💡 Target yang kamu pilih adalah sesama team " + roleTeam
-      );
+      return replyText("💡 Target yang kamu pilih adalah sesama team " + roleTeam);
     }
   }
 
@@ -567,8 +554,7 @@ const roleSkill = (flex_texts, index, text) => {
   // special role plaguebearer yang udah pestilence
   if (role.name === "plaguebearer") {
     if (players[index].role.isPestilence) {
-      skillText =
-        "Plagubearer, pilih rumah siapa yang ingin kamu serang dengan penyakit sampar!";
+      skillText = "Plagubearer, pilih rumah siapa yang ingin kamu serang dengan penyakit sampar!";
       isCanSelfTarget = true;
     }
   }
@@ -637,8 +623,7 @@ const roleCommand = () => {
   const roleName = player.role.name;
   const roleTeam = player.role.team;
   const roleDesc = player.role.description;
-  const headerText =
-    util.getRoleNameEmoji(roleName) + " " + roleName.toUpperCase();
+  const headerText = util.getRoleNameEmoji(roleName) + " " + roleName.toUpperCase();
 
   let flex_texts = [];
 
@@ -714,7 +699,7 @@ const roleCommand = () => {
 
     return replyFlex(flex_text, text);
   }
-  
+
   // special role villager cp
   if (roleName === "villager") {
     let villagerCode = this.group_session.villagerCode;
@@ -730,13 +715,10 @@ const roleCommand = () => {
     let text = "";
     /// Special Role Personal chat reminder
     if (roleTeam === "mafia" || roleTeam === "vampire") {
-      text +=
-        "💡 Kamu bisa chat sama sesama team dengan cmd '/c <kata-yang ingin disampaikan>'" +
-        "\n";
+      text += "💡 Kamu bisa chat sama sesama team dengan cmd '/c <kata-yang ingin disampaikan>'" + "\n";
       text += "Gunakan cmd '/r' untuk load chat dari team";
     } else if (roleName === "vampire-hunter") {
-      text +=
-        "💡 Kamu bisa dengar vampire chat-an, gunakan cmd '/r' secara berkala";
+      text += "💡 Kamu bisa dengar vampire chat-an, gunakan cmd '/r' secara berkala";
     }
 
     const noNightSkill = ["villager", "executioner", "mayor", "psychic"];
@@ -785,10 +767,7 @@ const roleCommand = () => {
     } else if (roleName === "vampire") {
       let vampireConvertCooldown = this.group_session.vampireConvertCooldown;
       if (vampireConvertCooldown > 0) {
-        let infoText =
-          "🦇 Kamu harus menunggu " +
-          vampireConvertCooldown +
-          " malam untuk gigit orang";
+        let infoText = "🦇 Kamu harus menunggu " + vampireConvertCooldown + " malam untuk gigit orang";
         return replyFlex(flex_text, [text, infoText]);
       }
     } else if (roleName === "werewolf") {
@@ -799,8 +778,7 @@ const roleCommand = () => {
     } else if (roleName === "juggernaut") {
       let skillLevel = players[index].role.skillLevel;
       if (skillLevel === 0 && !this.group_session.isFullMoon) {
-        text +=
-          "🌓 Masih belum bulan purnama, kamu tidak membunuh pada malam ini.";
+        text += "🌓 Masih belum bulan purnama, kamu tidak membunuh pada malam ini.";
         return replyFlex(flex_text, text);
       }
     } else if (roleName === "amnesiac") {
@@ -1069,10 +1047,7 @@ const announceCommand = () => {
   const journals = players[index].journals;
 
   if (journals.length === 2) {
-    return replyFlex(
-      flex_texts,
-      "📓 Kamu bisa cek journal kamu dengan '/jurnal'"
-    );
+    return replyFlex(flex_texts, "📓 Kamu bisa cek journal kamu dengan '/jurnal'");
   } else {
     return replyFlex(flex_texts);
   }
@@ -1255,10 +1230,7 @@ const roleListCommand = () => {
 };
 
 const statusCommand = async () => {
-  const msg = await stats.statusCommand(
-    this.user_sessions,
-    this.group_sessions
-  );
+  const msg = await stats.statusCommand(this.user_sessions, this.group_sessions);
   return replyFlex(msg);
 };
 
@@ -1341,23 +1313,14 @@ const showUpdatesCommand = () => {
 };
 
 const invalidCommand = () => {
-  const text = `💡 Tidak ditemukan perintah '${
-    this.args[0]
-  }'. Cek daftar perintah yang ada di '/cmd'`;
+  const text = `💡 Tidak ditemukan perintah '${this.args[0]}'. Cek daftar perintah yang ada di '/cmd'`;
   return replyText(text);
 };
 
 /** helper func **/
 
 const canSelfTarget = roleName => {
-  const canSelfTargetRoles = [
-    "survivor",
-    "veteran",
-    "bodyguard",
-    "arsonist",
-    "doctor",
-    "werewolf"
-  ];
+  const canSelfTargetRoles = ["survivor", "veteran", "bodyguard", "arsonist", "doctor", "werewolf"];
 
   if (canSelfTargetRoles.includes(roleName)) {
     return true;
@@ -1393,10 +1356,7 @@ const replyText = texts => {
   });
 
   return client.replyMessage(this.event.replyToken, msg).catch(err => {
-    console.log(
-      "err di replyText di personal.js",
-      err.originalError.response.data
-    );
+    console.log("err di replyText di personal.js", err.originalError.response.data);
   });
 };
 
@@ -1426,10 +1386,7 @@ const replyFlex = (flex_raw, text_raw, new_flex_raw) => {
       if (time < 1) {
         reminder += "Waktu sudah habis, ketik '/cek' untuk lanjutkan proses";
       } else {
-        reminder +=
-          "Waktu tersisa " +
-          time +
-          " detik lagi, nanti ketik '/cek' untuk lanjutkan proses";
+        reminder += "Waktu tersisa " + time + " detik lagi, nanti ketik '/cek' untuk lanjutkan proses";
       }
 
       const opt_text = {
@@ -1452,10 +1409,7 @@ const replyFlex = (flex_raw, text_raw, new_flex_raw) => {
 
   return client.replyMessage(this.event.replyToken, msg).catch(err => {
     console.log(JSON.stringify(msg));
-    console.error(
-      "err replyFlex di personal.js",
-      err.originalError.response.data.message
-    );
+    console.error("err replyFlex di personal.js", err.originalError.response.data.message);
   });
 };
 

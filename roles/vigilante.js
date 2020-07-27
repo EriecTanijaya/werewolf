@@ -14,18 +14,15 @@ const getData = () => {
     isLoadBullet: true,
     bullet: 3,
     type: "Town Killing",
-    iconUrl:
-      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/pistol_1f52b.png"
+    iconUrl: "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/pistol_1f52b.png"
   };
   return data;
 };
 
 const getInfo = () => {
   let text = "Warga yang bisa menyerang orang lain saat malam. ";
-  text +=
-    "Tetapi jika dia membunuh sesama warga, dia akan bunuh diri keesokan harinya. ";
-  text +=
-    "Vigilante harus menunggu satu malam untuk menyiapkan senjatanya dan baru bisa menggunakan skill ";
+  text += "Tetapi jika dia membunuh sesama warga, dia akan bunuh diri keesokan harinya. ";
+  text += "Vigilante harus menunggu satu malam untuk menyiapkan senjatanya dan baru bisa menggunakan skill ";
   text += "keesokkan harinya. ";
   return text;
 };

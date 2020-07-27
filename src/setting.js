@@ -45,9 +45,7 @@ const setModeCommand = () => {
   if (this.args[2] === "random") {
     let randomMode = util.random(modeList);
     this.group_session.mode = randomMode;
-    return replyText(
-      "🎲 Game mode di ubah ke " + randomMode + " secara random!"
-    );
+    return replyText("🎲 Game mode di ubah ke " + randomMode + " secara random!");
   }
 
   if (this.args[2] === "custom") {
@@ -81,8 +79,7 @@ const setModeCommand = () => {
 
 const setShowRoleCommand = () => {
   if (!this.args[2]) {
-    const text =
-      "📜 Jika show_role no, maka tidak bisa akses cmd '/roles' pada game";
+    const text = "📜 Jika show_role no, maka tidak bisa akses cmd '/roles' pada game";
     return replyText(text);
   }
 
@@ -111,15 +108,11 @@ const setRoleCommand = () => {
   }
 
   if (this.group_session.state === "idle") {
-    return replyText(
-      "💡 Belum ada game yang dibuat, ketik '/new' untuk buat game baru"
-    );
+    return replyText("💡 Belum ada game yang dibuat, ketik '/new' untuk buat game baru");
   }
 
   if (this.group_session.roomHostId !== this.user_session.id) {
-    return replyText(
-      "💡 Hanya pembuat room game saja yang bisa atur Custom Role!"
-    );
+    return replyText("💡 Hanya pembuat room game saja yang bisa atur Custom Role!");
   }
 
   this.args.splice(0, 2);
@@ -149,13 +142,7 @@ const setRoleCommand = () => {
   });
 
   let teams = [];
-  let neutrals = [
-    "executioner",
-    "jester",
-    "survivor",
-    "amnesiac",
-    "guardian-angel"
-  ];
+  let neutrals = ["executioner", "jester", "survivor", "amnesiac", "guardian-angel"];
 
   for (let i = 0; i < customRoles.length; i++) {
     for (let u = 0; u < knownRoles.length; u++) {
@@ -197,9 +184,7 @@ const setRoleCommand = () => {
 
   // executioner
   if (has("executioner") && !hasVillager()) {
-    errors.push(
-      "💡 Masukkan setidaknya 1 warga jika ingin menggunakan role Executioner"
-    );
+    errors.push("💡 Masukkan setidaknya 1 warga jika ingin menggunakan role Executioner");
   }
 
   // vampire hunter
@@ -213,22 +198,13 @@ const setRoleCommand = () => {
     }
 
     if (!hasVampire) {
-      errors.push(
-        "💡 Masukkan role Vampire jika ingin menggunakan role Vampire Hunter"
-      );
+      errors.push("💡 Masukkan role Vampire jika ingin menggunakan role Vampire Hunter");
     }
   }
 
   // sheriff
   if (has("sheriff")) {
-    let suspiciousList = [
-      "mafioso",
-      "consigliere",
-      "consort",
-      "serial-killer",
-      "framer",
-      "disguiser"
-    ];
+    let suspiciousList = ["mafioso", "consigliere", "consort", "serial-killer", "framer", "disguiser"];
 
     let isSomeoneSuspicious = false;
     for (let i = 0; i < customRoles.length; i++) {
@@ -247,9 +223,7 @@ const setRoleCommand = () => {
 
   // retributionist
   if (has("retributionist") && !hasVillager()) {
-    errors.push(
-      "💡 Masukkan setidaknya 1 warga jika ingin menggunakan role Retributionist"
-    );
+    errors.push("💡 Masukkan setidaknya 1 warga jika ingin menggunakan role Retributionist");
   }
 
   // framer
@@ -265,9 +239,7 @@ const setRoleCommand = () => {
     }
 
     if (!hasTownInvestigate) {
-      errors.push(
-        "Masukkan setidaknya role Sheriff dan/atau Investigator agar Framer berguna!"
-      );
+      errors.push("Masukkan setidaknya role Sheriff dan/atau Investigator agar Framer berguna!");
     }
   }
 
@@ -354,10 +326,7 @@ const replyText = texts => {
   });
 
   return client.replyMessage(this.event.replyToken, msg).catch(err => {
-    console.log(
-      "err di replyText di setting.js",
-      err.originalError.response.data
-    );
+    console.log("err di replyText di setting.js", err.originalError.response.data);
   });
 };
 
@@ -366,10 +335,7 @@ const replyFlex = flex_raw => {
   const msg = flex.build(flex_raw, sender);
   return client.replyMessage(this.event.replyToken, msg).catch(err => {
     console.log(JSON.stringify(msg));
-    console.error(
-      "err replyFlex di setting.js",
-      err.originalError.response.data.message
-    );
+    console.error("err replyFlex di setting.js", err.originalError.response.data.message);
   });
 };
 

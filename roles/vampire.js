@@ -13,20 +13,16 @@ const getData = () => {
     },
     age: 0,
     type: "Neutral Chaos",
-    iconUrl:
-      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/vampire_1f9db.png"
+    iconUrl: "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/vampire_1f9db.png"
   };
   return data;
 };
 
 const getInfo = () => {
-  let text =
-    "Makhluk hidup yang membawa kerusuhan dengan bisa mengubah warga menjadi sejenisnya. ";
-  text +=
-    "Vampire jika berhasil mengubah seoranga warga menjadi Vampire, akan ada jeda untuk ";
+  let text = "Makhluk hidup yang membawa kerusuhan dengan bisa mengubah warga menjadi sejenisnya. ";
+  text += "Vampire jika berhasil mengubah seoranga warga menjadi Vampire, akan ada jeda untuk ";
   text += "menggigit target selanjutnya. ";
-  text +=
-    "Jika jumlah Vampire sudah 4 atau lebih, maka Vampire tidak lagi mengubah seorang warga ";
+  text += "Jika jumlah Vampire sudah 4 atau lebih, maka Vampire tidak lagi mengubah seorang warga ";
   text += "warga menjadi Vampire, tetapi menyerangnya. ";
   text += "Vampire tidak bisa gigit role yang bisa kebal dari serangan biasa. ";
   return text;

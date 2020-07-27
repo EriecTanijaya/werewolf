@@ -11,8 +11,7 @@ const getData = () => {
       self: "✒️"
     },
     type: "Mafia Support",
-    iconUrl:
-      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/black-nib_2712.png"
+    iconUrl: "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/black-nib_2712.png"
   };
   return data;
 };

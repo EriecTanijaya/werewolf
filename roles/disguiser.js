@@ -21,12 +21,10 @@ const getData = () => {
 
 const getInfo = () => {
   let text = "Anggota Mafia yang bisa meniru nama role seorang warga. ";
-  text +=
-    "Jika Disguiser mati, maka nama role yang ada di daftar pemain adalah nama role warga yang dia imitasi. ";
+  text += "Jika Disguiser mati, maka nama role yang ada di daftar pemain adalah nama role warga yang dia imitasi. ";
   text +=
     "Hasil cek Sheriff akan tetap mencurigakan, sedangkan Investigator hasil terawangnya adalah role yang di imitasi. ";
-  text +=
-    "Orang yang di imitasi Disguiser tidak tahu jika dirinya di imitasi. ";
+  text += "Orang yang di imitasi Disguiser tidak tahu jika dirinya di imitasi. ";
   return text;
 };
 

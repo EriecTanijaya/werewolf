@@ -88,9 +88,7 @@ const receive = (event, rawArgs) => {
     if (!rawArgs.startsWith("/")) {
       return Promise.resolve(null);
     } else {
-      return replyText(
-        "💡 Bot ini hanya dukung LINE versi 7.5.0 atau lebih tinggi.\nCoba update dulu LINE nya"
-      );
+      return replyText("💡 Bot ini hanya dukung LINE versi 7.5.0 atau lebih tinggi.\nCoba update dulu LINE nya");
     }
   }
 
@@ -164,9 +162,7 @@ const searchUserCallback = () => {
 
       let { cooldown, name } = user_sessions[userId];
 
-      return replyText(
-        `💡 ${name} melakukan spam! Kamu akan dicuekin bot selama ${cooldown} detik!`
-      );
+      return replyText(`💡 ${name} melakukan spam! Kamu akan dicuekin bot selama ${cooldown} detik!`);
     }
   }
 
@@ -177,13 +173,7 @@ const searchUserCallback = () => {
   } else if (user_sessions[userId].state === "active") {
     return searchGroup(user_sessions[userId].groupId);
   } else {
-    return idle.receive(
-      this.event,
-      this.args,
-      this.rawArgs,
-      user_sessions,
-      group_sessions
-    );
+    return idle.receive(this.event, this.args, this.rawArgs, user_sessions, group_sessions);
   }
 };
 
@@ -238,21 +228,9 @@ const searchGroup = async groupId => {
 
 const searchGroupCallback = () => {
   if (this.event.source.type === "user") {
-    personal.receive(
-      this.event,
-      this.args,
-      this.rawArgs,
-      user_sessions,
-      group_sessions
-    );
+    personal.receive(this.event, this.args, this.rawArgs, user_sessions, group_sessions);
   } else {
-    main.receive(
-      this.event,
-      this.args,
-      this.rawArgs,
-      user_sessions,
-      group_sessions
-    );
+    main.receive(this.event, this.args, this.rawArgs, user_sessions, group_sessions);
   }
 };
 
@@ -301,8 +279,7 @@ const joinResponse = async () => {
 
   const membersCount = await getMembersCount(groupId);
   if (!isTestGroup && membersCount < 5) {
-    let text =
-      "🙏 Maaf, undang kembali jika jumlah member sudah minimal 5 orang. ";
+    let text = "🙏 Maaf, undang kembali jika jumlah member sudah minimal 5 orang. ";
     text += "🌕 Game hanya bisa dimainkan dengan jumlah minimal 5 orang";
     util.leaveGroup(this.event, groupId, text);
   }
@@ -335,8 +312,7 @@ const followResponse = () => {
     bodyText:
       "Thanks udah add bot ini 😃, undang bot ini ke group kamu untuk bermain!\n📚 Untuk bantuan bisa ketik '/tutorial' atau '/cmd'"
   };
-  let text =
-    "🏘️ Untuk kamu yang belum ada group, bisa ketik '/group' atau nyari di '/forum'";
+  let text = "🏘️ Untuk kamu yang belum ada group, bisa ketik '/group' atau nyari di '/forum'";
 
   return replyFlex(flex_text, text);
 };
@@ -347,19 +323,13 @@ const memberJoinedResponse = async () => {
   let text = "👋 Selamat datang ";
 
   if (this.event.source.type === "group") {
-    let { displayName } = await client.getGroupMemberProfile(
-      groupId,
-      newMemberId
-    );
+    let { displayName } = await client.getGroupMemberProfile(groupId, newMemberId);
     text += displayName;
 
     let { groupName } = await getGroupData(groupId);
     text += " di " + groupName + "!";
   } else if (this.event.source.type === "room") {
-    let { displayName } = await client.getRoomMemberProfile(
-      groupId,
-      newMemberId
-    );
+    let { displayName } = await client.getRoomMemberProfile(groupId, newMemberId);
     text += displayName;
   }
 
@@ -415,10 +385,7 @@ const replyFlex = (flex_raw, text_raw) => {
   const msg = flex.build(flex_raw, sender, opt_texts);
   return client.replyMessage(this.event.replyToken, msg).catch(err => {
     console.log(JSON.stringify(msg));
-    console.error(
-      "err replyFlex di data.js",
-      err.originalError.response.data.message
-    );
+    console.error("err replyFlex di data.js", err.originalError.response.data.message);
   });
 };
 

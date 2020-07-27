@@ -12,15 +12,13 @@ const getData = () => {
       self: "💋"
     },
     type: "Town Support",
-    iconUrl:
-      "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/kiss-mark_1f48b.png"
+    iconUrl: "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/241/kiss-mark_1f48b.png"
   };
   return data;
 };
 
 const getInfo = () => {
-  let text =
-    "Warga yang bisa block skill orang lain, sehingga targetnya tidak bisa menggunakan skillnya. ";
+  let text = "Warga yang bisa block skill orang lain, sehingga targetnya tidak bisa menggunakan skillnya. ";
   text +=
     "Namun jika ke rumah Serial Killer, Escort ini bisa dibunuhnya dan Serial Killer akan mengabaikan target awalnya. ";
   text += "Escort juga immune dari role block. ";

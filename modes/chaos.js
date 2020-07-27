@@ -6,8 +6,7 @@ const getData = () => {
     name: "🤡🪓 Chaos",
     isShowRole: false,
     description: "Sesuai namanya, role role yang ada beneran buat chaos. ",
-    naration:
-      "🔥 Telah di curigai kota Bedburg dengan sangat banyak kriminal yang berpura pura seperti warga"
+    naration: "🔥 Telah di curigai kota Bedburg dengan sangat banyak kriminal yang berpura pura seperti warga"
   };
   return data;
 };
@@ -41,13 +40,7 @@ const generate = playersLength => {
     "villager"
   ];
 
-  let neutralKillings = [
-    "serial-killer",
-    "werewolf",
-    "juggernaut",
-    "plaguebearer",
-    "arsonist"
-  ];
+  let neutralKillings = ["serial-killer", "werewolf", "juggernaut", "plaguebearer", "arsonist"];
 
   let randomMafia = ["framer", "consort", "consigliere", "disguiser"];
 

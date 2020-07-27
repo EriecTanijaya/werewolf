@@ -6,8 +6,7 @@ const getData = () => {
     name: "🦇🧛 Vampire",
     isShowRole: true,
     description: "Disana Vampire, disini Vampire, dimana mana ada Vampire.",
-    naration:
-      "🧛 Kota Bedburg telah disusupi Vampire! Para warga harus menyelamatkan kota ini dari serbuan Vampire!"
+    naration: "🧛 Kota Bedburg telah disusupi Vampire! Para warga harus menyelamatkan kota ini dari serbuan Vampire!"
   };
   return data;
 };

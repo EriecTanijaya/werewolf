@@ -62,9 +62,7 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
       } else if (rawArgs.match(/gas/gi)) {
         return startCommand();
       } else if (rawArgs.match(/susah/gi)) {
-        return replyText(
-          "Kamu bisa ke tanya tanya di '/forum' kalo ada yang bingung :)"
-        );
+        return replyText("Kamu bisa ke tanya tanya di '/forum' kalo ada yang bingung :)");
       }
     }
 
@@ -124,8 +122,7 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
         if (playersLength < 5) {
           if (time <= 50 && time > 0) {
             let reminder = "💡 Waktu tersisa " + time;
-            reminder +=
-              " detik lagi. Jika tidak ada yang join, game akan dihentikan";
+            reminder += " detik lagi. Jika tidak ada yang join, game akan dihentikan";
             return replyText(reminder);
           }
         }
@@ -243,9 +240,7 @@ const promoteCommand = () => {
   }
 
   if (this.args.length < 2) {
-    return replyText(
-      "💡 Masukkan ID dari admin group!\n\nCth : '/promote tukiman y x g kuy'"
-    );
+    return replyText("💡 Masukkan ID dari admin group!\n\nCth : '/promote tukiman y x g kuy'");
   }
 
   this.group_session.promoted = true;
@@ -291,13 +286,7 @@ const day = () => {
       }
 
       // check afk
-      const noSkillRoles = [
-        "villager",
-        "jester",
-        "executioner",
-        "mayor",
-        "psychic"
-      ];
+      const noSkillRoles = ["villager", "jester", "executioner", "mayor", "psychic"];
 
       if (!noSkillRoles.includes(item.role.name)) {
         if (item.target.index === -1) {
@@ -389,11 +378,7 @@ const day = () => {
 
     let vampireCandidates = [];
     players.forEach(item => {
-      if (
-        item.role.name === "vampire" &&
-        item.status === "alive" &&
-        item.target.index !== -1
-      ) {
+      if (item.role.name === "vampire" && item.status === "alive" && item.target.index !== -1) {
         vampireCandidates.push(item.target.index);
         if (item.target.value > 1) {
           vampireCandidates.push(item.target.index);
@@ -414,14 +399,11 @@ const day = () => {
           vampireChosenTarget = {
             index: vampireCandidates[0]
           };
-          vampireAnnouncement +=
-            "Para Vampire memiliki target yang berbeda, sehingga random pilih" +
-            "\n";
+          vampireAnnouncement += "Para Vampire memiliki target yang berbeda, sehingga random pilih" + "\n";
         }
       }
 
-      this.group_session.players[vampireDoerIndex].target.index =
-        vampireChosenTarget.index;
+      this.group_session.players[vampireDoerIndex].target.index = vampireChosenTarget.index;
     } else {
       this.group_session.players[vampireDoerIndex].target.index = -1;
     }
@@ -430,8 +412,7 @@ const day = () => {
   /// Mafia Action
   // search the mafia that responsible to bite
   // note: the mafioso if possible, if there is none, godfather itself
-  let mafiaKillingExists =
-    checkExistsRole("godfather") || checkExistsRole("mafioso");
+  let mafiaKillingExists = checkExistsRole("godfather") || checkExistsRole("mafioso");
   let mafiaDoerIndex = -1;
 
   // ini biasa godfather langsung, soalnya bisa aja mafioso di block / MATI
@@ -478,8 +459,7 @@ const day = () => {
         let doer = players[i];
         let roleName = doer.role.name;
         if (roleName === "mafioso" || roleName === "godfather") {
-          this.group_session.players[i].message +=
-            "💡 Kamu tidak menggunakan skill mu" + "\n\n";
+          this.group_session.players[i].message += "💡 Kamu tidak menggunakan skill mu" + "\n\n";
         }
       }
     } else {
@@ -510,14 +490,11 @@ const day = () => {
             mafiaChosenTarget = {
               index: mafiaCandidates[0]
             };
-            mafiaAnnouncement +=
-              "Para Mafia memiliki target yang berbeda, sehingga random pilih" +
-              "\n";
+            mafiaAnnouncement += "Para Mafia memiliki target yang berbeda, sehingga random pilih" + "\n";
           }
         }
 
-        this.group_session.players[mafiaDoerIndex].target.index =
-          mafiaChosenTarget.index;
+        this.group_session.players[mafiaDoerIndex].target.index = mafiaChosenTarget.index;
 
         let doer = players[mafiaDoerIndex];
         let target = players[mafiaChosenTarget.index];
@@ -557,8 +534,7 @@ const day = () => {
     let targetIndex = player.target.index;
     if (player.status === "alive" && targetIndex === -1) {
       if (basicNotUseSkillRole.includes(player.role.name)) {
-        this.group_session.players[i].message +=
-          "💡 Kamu tidak menggunakan skill mu" + "\n\n";
+        this.group_session.players[i].message += "💡 Kamu tidak menggunakan skill mu" + "\n\n";
       }
     }
   }
@@ -575,8 +551,7 @@ const day = () => {
       let targetIndex = doer.target.index;
       let target = players[targetIndex];
 
-      this.group_session.players[i].message +=
-        "👣 Kamu ke rumah " + target.name + "\n\n";
+      this.group_session.players[i].message += "👣 Kamu ke rumah " + target.name + "\n\n";
 
       let visitor = {
         index: i,
@@ -614,11 +589,9 @@ const day = () => {
       }
 
       if (target.role.name === "serial-killer") {
-        this.group_session.players[i].message +=
-          "💡 Target kamu immune!" + "\n\n";
+        this.group_session.players[i].message += "💡 Target kamu immune!" + "\n\n";
 
-        this.group_session.players[targetIndex].message +=
-          "💡 Ada yang berusaha role block kamu!" + "\n\n";
+        this.group_session.players[targetIndex].message += "💡 Ada yang berusaha role block kamu!" + "\n\n";
 
         this.group_session.players[targetIndex].intercepted = true;
 
@@ -626,36 +599,29 @@ const day = () => {
 
         if (players[targetIndex].bugged) {
           spyBuggedInfo[targetIndex] +=
-            "🔍 Ada yang mencoba roleblock Target kamu, hingga Targetmu menyerang nya!" +
-            "\n\n";
+            "🔍 Ada yang mencoba roleblock Target kamu, hingga Targetmu menyerang nya!" + "\n\n";
         }
       } else if (immuneToRoleBlock.includes(target.role.name)) {
-        this.group_session.players[i].message +=
-          "💡 Target kamu immune!" + "\n\n";
+        this.group_session.players[i].message += "💡 Target kamu immune!" + "\n\n";
 
-        this.group_session.players[targetIndex].message +=
-          "💡 Ada yang berusaha role block kamu!" + "\n\n";
+        this.group_session.players[targetIndex].message += "💡 Ada yang berusaha role block kamu!" + "\n\n";
 
         if (players[targetIndex].bugged) {
           spyBuggedInfo[targetIndex] +=
-            "🔍 Ada yang mencoba roleblock Target kamu tapi targetmu immune dari roleblock!" +
-            "\n\n";
+            "🔍 Ada yang mencoba roleblock Target kamu tapi targetmu immune dari roleblock!" + "\n\n";
         }
       } else {
         this.group_session.players[targetIndex].blocked = true;
 
         if (players[targetIndex].bugged) {
-          spyBuggedInfo[targetIndex] +=
-            "🔍 Target kamu di roleblock sehingga dia diam dirumah saja!" +
-            "\n\n";
+          spyBuggedInfo[targetIndex] += "🔍 Target kamu di roleblock sehingga dia diam dirumah saja!" + "\n\n";
         }
 
         /// langsung kasih pesannya aja
         if (targetIndex === mafiaDoerIndex) {
           if (isBackupMafiaUseSkill) {
             this.group_session.players[mafiaDoerIndex].message +=
-              "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." +
-              "\n\n";
+              "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." + "\n\n";
           }
         }
       }
@@ -674,8 +640,7 @@ const day = () => {
       let targetIndex = doer.target.index;
       let target = players[targetIndex];
 
-      this.group_session.players[i].message +=
-        "👣 Kamu ke rumah " + target.name + "\n\n";
+      this.group_session.players[i].message += "👣 Kamu ke rumah " + target.name + "\n\n";
 
       mafiaAnnouncement += `🚷 ${doer.name} berencana block skill ${target.name}\n\n`;
 
@@ -715,11 +680,9 @@ const day = () => {
       }
 
       if (target.role.name === "serial-killer") {
-        this.group_session.players[i].message +=
-          "💡 Target kamu immune!" + "\n\n";
+        this.group_session.players[i].message += "💡 Target kamu immune!" + "\n\n";
 
-        this.group_session.players[targetIndex].message +=
-          "💡 Ada yang berusaha role block kamu!" + "\n\n";
+        this.group_session.players[targetIndex].message += "💡 Ada yang berusaha role block kamu!" + "\n\n";
 
         this.group_session.players[targetIndex].intercepted = true;
 
@@ -727,20 +690,16 @@ const day = () => {
 
         if (players[targetIndex].bugged) {
           spyBuggedInfo[targetIndex] +=
-            "🔍 Ada yang mencoba roleblock Target kamu, hingga Targetmu menyerang nya!" +
-            "\n\n";
+            "🔍 Ada yang mencoba roleblock Target kamu, hingga Targetmu menyerang nya!" + "\n\n";
         }
       } else if (immuneToRoleBlock.includes(target.role.name)) {
-        this.group_session.players[i].message +=
-          "💡 Target kamu immune!" + "\n\n";
+        this.group_session.players[i].message += "💡 Target kamu immune!" + "\n\n";
 
-        this.group_session.players[targetIndex].message +=
-          "💡 Ada yang berusaha role block kamu!" + "\n\n";
+        this.group_session.players[targetIndex].message += "💡 Ada yang berusaha role block kamu!" + "\n\n";
 
         if (players[targetIndex].bugged) {
           spyBuggedInfo[targetIndex] +=
-            "🔍 Ada yang mencoba roleblock Target kamu tapi targetmu immune dari roleblock!" +
-            "\n\n";
+            "🔍 Ada yang mencoba roleblock Target kamu tapi targetmu immune dari roleblock!" + "\n\n";
         }
       } else {
         this.group_session.players[targetIndex].blocked = true;
@@ -748,17 +707,14 @@ const day = () => {
         spyMafiaVisitInfo += `🤵 ${target.name} dikunjungi anggota Mafia\n\n`;
 
         if (players[targetIndex].bugged) {
-          spyBuggedInfo[targetIndex] +=
-            "🔍 Target kamu di roleblock sehingga dia diam dirumah saja!" +
-            "\n\n";
+          spyBuggedInfo[targetIndex] += "🔍 Target kamu di roleblock sehingga dia diam dirumah saja!" + "\n\n";
         }
 
         /// langsung kasih pesannya aja
         if (targetIndex === mafiaDoerIndex) {
           if (isBackupMafiaUseSkill) {
             this.group_session.players[mafiaDoerIndex].message +=
-              "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." +
-              "\n\n";
+              "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." + "\n\n";
           }
         }
       }
@@ -773,9 +729,7 @@ const day = () => {
 
       if (isBackupMafiaUseSkill && mafiaDoerBackupIndex !== -1) {
         mafiaDoerIndex = mafiaDoerBackupIndex;
-        this.group_session.players[
-          mafiaDoerIndex
-        ].target.index = pastTargetIndex;
+        this.group_session.players[mafiaDoerIndex].target.index = pastTargetIndex;
       }
     }
   }
@@ -783,8 +737,7 @@ const day = () => {
   /// Role Blocked message
   for (let i = 0; i < players.length; i++) {
     if (players[i].status === "alive" && players[i].blocked) {
-      this.group_session.players[i].message +=
-        "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." + "\n\n";
+      this.group_session.players[i].message += "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." + "\n\n";
     }
   }
 
@@ -803,8 +756,7 @@ const day = () => {
       let targetIndex = doer.target.index;
       let target = players[targetIndex];
 
-      this.group_session.players[i].message +=
-        "👣 Kamu ke rumah " + target.name + "\n\n";
+      this.group_session.players[i].message += "👣 Kamu ke rumah " + target.name + "\n\n";
 
       mafiaAnnouncement += `🎭 ${doer.name} akan mengimitasi role ${target.name}\n\n`;
 
@@ -856,8 +808,7 @@ const day = () => {
 
         if (doer.blocked === true) {
           this.group_session.players[i].message +=
-            "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." +
-            "\n\n";
+            "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." + "\n\n";
 
           break;
         } else if (!doer.attacked) {
@@ -893,17 +844,14 @@ const day = () => {
 
           // hax for vampire if it only one vampire
           if (vampires.length === 1) {
-            this.group_session.players[i].message +=
-              "👣 Kamu ke rumah " + target.name + "\n\n";
+            this.group_session.players[i].message += "👣 Kamu ke rumah " + target.name + "\n\n";
           } else {
-            this.group_session.players[i].message +=
-              "👣 Kamu disuruh ke rumah " + target.name + "\n\n";
+            this.group_session.players[i].message += "👣 Kamu disuruh ke rumah " + target.name + "\n\n";
           }
 
           vampireAnnouncement += `👣 ${doer.name} mengunjungi rumah ${target.name}\n\n`;
 
-          this.group_session.players[targetIndex].message +=
-            "🧛 Kamu didatangi Vampire!" + "\n\n";
+          this.group_session.players[targetIndex].message += "🧛 Kamu didatangi Vampire!" + "\n\n";
 
           let targetRoleName = target.role.name;
 
@@ -930,17 +878,13 @@ const day = () => {
           ];
 
           if (immuneToVampireBite.includes(targetRoleName)) {
-            this.group_session.players[i].message +=
-              "💡 Target kamu kebal dari gigitan!" + "\n\n";
+            this.group_session.players[i].message += "💡 Target kamu kebal dari gigitan!" + "\n\n";
 
             this.group_session.players[targetIndex].message +=
-              "💡 Ada yang menyerang kamu tapi kamu immune dari serangan!" +
-              "\n\n";
+              "💡 Ada yang menyerang kamu tapi kamu immune dari serangan!" + "\n\n";
 
             if (players[targetIndex].bugged) {
-              spyBuggedInfo[targetIndex] +=
-                "🔍 Target kamu diserang tapi serangan tersebut tidak mempan!" +
-                "\n\n";
+              spyBuggedInfo[targetIndex] += "🔍 Target kamu diserang tapi serangan tersebut tidak mempan!" + "\n\n";
             }
 
             if (targetRoleName === "vampire-hunter") {
@@ -948,38 +892,28 @@ const day = () => {
 
               this.group_session.players[targetIndex].target.index = i;
             }
-          } else if (
-            canAttacked.includes(targetRoleName) ||
-            vampireAttackMode
-          ) {
+          } else if (canAttacked.includes(targetRoleName) || vampireAttackMode) {
             if (target.role.name === "juggernaut") {
               if (target.role.skillLevel >= 2) {
-                this.group_session.players[i].message +=
-                  "💡 Target kamu kebal dari gigitan!" + "\n\n";
+                this.group_session.players[i].message += "💡 Target kamu kebal dari gigitan!" + "\n\n";
 
                 this.group_session.players[targetIndex].message +=
-                  "💡 Ada yang menyerang kamu tapi kamu immune dari serangan!" +
-                  "\n\n";
+                  "💡 Ada yang menyerang kamu tapi kamu immune dari serangan!" + "\n\n";
 
                 if (players[targetIndex].bugged) {
-                  spyBuggedInfo[targetIndex] +=
-                    "🔍 Target kamu diserang tapi serangan tersebut tidak mempan!" +
-                    "\n\n";
+                  spyBuggedInfo[targetIndex] += "🔍 Target kamu diserang tapi serangan tersebut tidak mempan!" + "\n\n";
                 }
 
                 break;
               }
             }
 
-            this.group_session.players[i].message +=
-              "💡 Kamu menyerang " + target.name + "\n\n";
+            this.group_session.players[i].message += "💡 Kamu menyerang " + target.name + "\n\n";
 
-            this.group_session.players[targetIndex].message +=
-              "🧛 Kamu diserang " + doer.role.name + "!" + "\n\n";
+            this.group_session.players[targetIndex].message += "🧛 Kamu diserang " + doer.role.name + "!" + "\n\n";
 
             if (players[targetIndex].bugged) {
-              spyBuggedInfo[targetIndex] +=
-                "🔍 Target kamu di serang Vampire!" + "\n\n";
+              spyBuggedInfo[targetIndex] += "🔍 Target kamu di serang Vampire!" + "\n\n";
             }
 
             this.group_session.players[targetIndex].attacked = true;
@@ -994,12 +928,10 @@ const day = () => {
 
             this.group_session.players[targetIndex].attackers.push(attacker);
           } else {
-            this.group_session.players[i].message +=
-              "💡 Kamu gigit " + target.name + "\n\n";
+            this.group_session.players[i].message += "💡 Kamu gigit " + target.name + "\n\n";
 
             if (players[targetIndex].bugged) {
-              spyBuggedInfo[targetIndex] +=
-                "🔍 Target kamu digigit Vampire!" + "\n\n";
+              spyBuggedInfo[targetIndex] += "🔍 Target kamu digigit Vampire!" + "\n\n";
             }
 
             this.group_session.players[targetIndex].vampireBited = true;
@@ -1038,14 +970,10 @@ const day = () => {
         pestilenceRampageTargetIndexes.push(targetIndex);
 
         this.group_session.players[i].message +=
-          "👣 Kamu ke rumah " +
-          players[targetIndex].name +
-          " dan RAMPAGE di rumahnya" +
-          "\n\n";
+          "👣 Kamu ke rumah " + players[targetIndex].name + " dan RAMPAGE di rumahnya" + "\n\n";
       } else if (targetIndex == i || targetIndex === -1) {
         rampagePlaceIndex = i;
-        this.group_session.players[i].message +=
-          "👣 Kamu diam di rumah dan akan menyerang siapa yang datang" + "\n\n";
+        this.group_session.players[i].message += "👣 Kamu diam di rumah dan akan menyerang siapa yang datang" + "\n\n";
       }
 
       for (let i = 0; i < players.length; i++) {
@@ -1073,16 +1001,13 @@ const day = () => {
       for (let u = 0; u < pestilenceRampageTargetIndexes.length; u++) {
         let targetIndex = pestilenceRampageTargetIndexes[u];
 
-        this.group_session.players[i].message +=
-          "💡 Kamu menyerang seseorang!" + "\n\n";
+        this.group_session.players[i].message += "💡 Kamu menyerang seseorang!" + "\n\n";
 
         if (players[targetIndex].bugged) {
-          spyBuggedInfo[targetIndex] +=
-            "🔍 Target kamu merasakan kesakitan karena terinfeksi!" + "\n\n";
+          spyBuggedInfo[targetIndex] += "🔍 Target kamu merasakan kesakitan karena terinfeksi!" + "\n\n";
         }
 
-        this.group_session.players[targetIndex].message +=
-          "☣️ Kamu merasa sakit, dan sepertinya terinfeksi!" + "\n\n";
+        this.group_session.players[targetIndex].message += "☣️ Kamu merasa sakit, dan sepertinya terinfeksi!" + "\n\n";
 
         this.group_session.players[targetIndex].attacked = true;
 
@@ -1111,9 +1036,7 @@ const day = () => {
       if (!this.group_session.isFullMoon && skillLevel === 0) continue;
 
       if (doer.blocked) {
-        this.group_session.players[i].message +=
-          "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." +
-          "\n\n";
+        this.group_session.players[i].message += "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." + "\n\n";
 
         continue;
       }
@@ -1151,23 +1074,16 @@ const day = () => {
           }
         }
 
-        this.group_session.players[i].message +=
-          "👣 Kamu ke rumah " + players[targetIndex].name;
+        this.group_session.players[i].message += "👣 Kamu ke rumah " + players[targetIndex].name;
 
         if (skillLevel > 2) {
-          this.group_session.players[i].message +=
-            " dan RAMPAGE di rumahnya" + "\n\n";
+          this.group_session.players[i].message += " dan RAMPAGE di rumahnya" + "\n\n";
         } else {
           this.group_session.players[i].message += "\n\n";
         }
       }
 
-      let immuneToBasicAttack = [
-        "serial-killer",
-        "arsonist",
-        "godfather",
-        "executioner"
-      ];
+      let immuneToBasicAttack = ["serial-killer", "arsonist", "godfather", "executioner"];
 
       if (this.group_session.isFullMoon) {
         immuneToBasicAttack.push("werewolf");
@@ -1177,37 +1093,29 @@ const day = () => {
       if (skillLevel < 3) {
         // kalau udah skill level 3, itu diam di rmh rampage sendiri
         if (doer.target.index === -1) {
-          this.group_session.players[i].message +=
-            "💡 Kamu tidak menggunakan skill mu" + "\n\n";
+          this.group_session.players[i].message += "💡 Kamu tidak menggunakan skill mu" + "\n\n";
 
           continue;
         } else {
           // skill level 0 dan 1
 
           if (immuneToBasicAttack.includes(players[targetIndex].role.name)) {
-            this.group_session.players[i].message +=
-              "💡 Target kamu immune dari serangan!" + "\n\n";
+            this.group_session.players[i].message += "💡 Target kamu immune dari serangan!" + "\n\n";
 
             this.group_session.players[targetIndex].message +=
-              "💡 Ada yang menyerang kamu tapi kamu immune dari serangan!" +
-              "\n\n";
+              "💡 Ada yang menyerang kamu tapi kamu immune dari serangan!" + "\n\n";
 
             if (players[targetIndex].bugged) {
-              spyBuggedInfo[targetIndex] +=
-                "🔍 Target kamu di serang tapi serangan tersebut tidak mempan!" +
-                "\n\n";
+              spyBuggedInfo[targetIndex] += "🔍 Target kamu di serang tapi serangan tersebut tidak mempan!" + "\n\n";
             }
           } else {
-            this.group_session.players[i].message +=
-              "💡 Kamu menyerang " + players[targetIndex].name + "\n\n";
+            this.group_session.players[i].message += "💡 Kamu menyerang " + players[targetIndex].name + "\n\n";
 
             if (players[targetIndex].bugged) {
-              spyBuggedInfo[targetIndex] +=
-                "🔍 Target kamu di serang Juggernaut!" + "\n\n";
+              spyBuggedInfo[targetIndex] += "🔍 Target kamu di serang Juggernaut!" + "\n\n";
             }
 
-            this.group_session.players[targetIndex].message +=
-              "💪 Kamu diserang " + roleName + "!" + "\n\n";
+            this.group_session.players[targetIndex].message += "💪 Kamu diserang " + roleName + "!" + "\n\n";
 
             this.group_session.players[targetIndex].attacked = true;
 
@@ -1232,8 +1140,7 @@ const day = () => {
         } else if (targetIndex == i || targetIndex === -1) {
           rampagePlaceIndex = i;
           this.group_session.players[i].message +=
-            "👣 Kamu diam di rumah dan akan menyerang siapa yang datang" +
-            "\n\n";
+            "👣 Kamu diam di rumah dan akan menyerang siapa yang datang" + "\n\n";
         }
 
         for (let i = 0; i < players.length; i++) {
@@ -1271,38 +1178,29 @@ const day = () => {
               }
             }
 
-            let isTargetImmune = immuneToBasicAttack.includes(targetRoleName)
-              ? true
-              : false;
+            let isTargetImmune = immuneToBasicAttack.includes(targetRoleName) ? true : false;
 
             if (isTargetImmune || isAlertVeteran) {
               this.group_session.players[i].message +=
-                "💡 Kamu menyerang seseorang tapi dia immune dari serangan!" +
-                "\n\n";
+                "💡 Kamu menyerang seseorang tapi dia immune dari serangan!" + "\n\n";
 
               this.group_session.players[targetIndex].message +=
-                "💡 Ada yang menyerang kamu tapi kamu immune dari serangan!" +
-                "\n\n";
+                "💡 Ada yang menyerang kamu tapi kamu immune dari serangan!" + "\n\n";
 
               if (players[targetIndex].bugged) {
-                spyBuggedInfo[targetIndex] +=
-                  "🔍 Target kamu di serang tapi serangan tersebut tidak mempan!" +
-                  "\n\n";
+                spyBuggedInfo[targetIndex] += "🔍 Target kamu di serang tapi serangan tersebut tidak mempan!" + "\n\n";
               }
               continue;
             }
           }
 
-          this.group_session.players[i].message +=
-            "💡 Kamu menyerang seseorang!" + "\n\n";
+          this.group_session.players[i].message += "💡 Kamu menyerang seseorang!" + "\n\n";
 
           if (players[targetIndex].bugged) {
-            spyBuggedInfo[targetIndex] +=
-              "🔍 Target kamu di serang Juggernaut!" + "\n\n";
+            spyBuggedInfo[targetIndex] += "🔍 Target kamu di serang Juggernaut!" + "\n\n";
           }
 
-          this.group_session.players[targetIndex].message +=
-            "💪 Kamu diserang " + roleName + "!" + "\n\n";
+          this.group_session.players[targetIndex].message += "💪 Kamu diserang " + roleName + "!" + "\n\n";
 
           this.group_session.players[targetIndex].attacked = true;
 
@@ -1360,14 +1258,10 @@ const day = () => {
         }
 
         this.group_session.players[i].message +=
-          "👣 Kamu ke rumah " +
-          players[targetIndex].name +
-          " dan RAMPAGE di rumahnya" +
-          "\n\n";
+          "👣 Kamu ke rumah " + players[targetIndex].name + " dan RAMPAGE di rumahnya" + "\n\n";
       } else if (targetIndex == i || targetIndex === -1) {
         rampagePlaceIndex = i;
-        this.group_session.players[i].message +=
-          "👣 Kamu diam di rumah dan akan menyerang siapa yang datang" + "\n\n";
+        this.group_session.players[i].message += "👣 Kamu diam di rumah dan akan menyerang siapa yang datang" + "\n\n";
       }
 
       for (let i = 0; i < players.length; i++) {
@@ -1395,16 +1289,13 @@ const day = () => {
       for (let u = 0; u < werewolfRampageTargetIndexes.length; u++) {
         let targetIndex = werewolfRampageTargetIndexes[u];
 
-        this.group_session.players[i].message +=
-          "💡 Kamu menyerang seseorang!" + "\n\n";
+        this.group_session.players[i].message += "💡 Kamu menyerang seseorang!" + "\n\n";
 
         if (players[targetIndex].bugged) {
-          spyBuggedInfo[targetIndex] +=
-            "🔍 Target kamu di serang Werewolf!" + "\n\n";
+          spyBuggedInfo[targetIndex] += "🔍 Target kamu di serang Werewolf!" + "\n\n";
         }
 
-        this.group_session.players[targetIndex].message +=
-          "🐺 Kamu diserang " + roleName + "!" + "\n\n";
+        this.group_session.players[targetIndex].message += "🐺 Kamu diserang " + roleName + "!" + "\n\n";
 
         this.group_session.players[targetIndex].attacked = true;
 
@@ -1484,14 +1375,12 @@ const day = () => {
           let isVisitor = targetIndexes[u].isVisitor;
 
           if (isVisitor) {
-            this.group_session.players[i].message +=
-              "💡 Ada yang datang mengunjungi kamu!" + "\n\n";
+            this.group_session.players[i].message += "💡 Ada yang datang mengunjungi kamu!" + "\n\n";
 
             // hax karna escort dan consort sudah masukkin data visitor ke veteran
             // jadi escort dan consort tak perlu masukin lagi
             if (targetRoleName !== "escort" || targetRoleName !== "consort") {
-              this.group_session.players[targetIndex].message +=
-                "👣 Kamu ke rumah " + doer.name + "\n\n";
+              this.group_session.players[targetIndex].message += "👣 Kamu ke rumah " + doer.name + "\n\n";
 
               let visitor = {
                 index: i,
@@ -1519,8 +1408,7 @@ const day = () => {
           }
 
           if (players[targetIndex].bugged) {
-            spyBuggedInfo[targetIndex] +=
-              "🔍 Target kamu di serang Veteran yang dia kunjungi!" + "\n\n";
+            spyBuggedInfo[targetIndex] += "🔍 Target kamu di serang Veteran yang dia kunjungi!" + "\n\n";
           }
 
           this.group_session.players[targetIndex].message +=
@@ -1563,12 +1451,10 @@ const day = () => {
       this.group_session.players[targetIndex].doused = true;
 
       if (players[targetIndex].bugged) {
-        spyBuggedInfo[targetIndex] +=
-          "🔍 Target kamu disiram bensin oleh Arsonist!" + "\n\n";
+        spyBuggedInfo[targetIndex] += "🔍 Target kamu disiram bensin oleh Arsonist!" + "\n\n";
       }
 
-      this.group_session.players[i].message +=
-        "👣 Kamu ke rumah " + target.name + "\n\n";
+      this.group_session.players[i].message += "👣 Kamu ke rumah " + target.name + "\n\n";
 
       let visitor = {
         index: i,
@@ -1593,8 +1479,7 @@ const day = () => {
         }
       }
 
-      this.group_session.players[i].message +=
-        "⛽ Kamu diam diam menyiram bensin ke rumah " + target.name + "\n\n";
+      this.group_session.players[i].message += "⛽ Kamu diam diam menyiram bensin ke rumah " + target.name + "\n\n";
     }
   }
 
@@ -1618,8 +1503,7 @@ const day = () => {
 
       this.group_session.players[targetIndex].justInfected = true;
 
-      this.group_session.players[i].message +=
-        "👣 Kamu ke rumah " + target.name + "\n\n";
+      this.group_session.players[i].message += "👣 Kamu ke rumah " + target.name + "\n\n";
 
       let visitor = {
         index: i,
@@ -1628,9 +1512,7 @@ const day = () => {
       };
       this.group_session.players[targetIndex].visitors.push(visitor);
 
-      this.group_session.players[
-        i
-      ].message += `☣️ Kamu akan menginfeksi ${target.name}\n\n`;
+      this.group_session.players[i].message += `☣️ Kamu akan menginfeksi ${target.name}\n\n`;
     }
   }
 
@@ -1645,8 +1527,7 @@ const day = () => {
         if (doer.target.index === -1) {
           // random kill
           this.group_session.players[i].message +=
-            "💡 Karena kamu tidak pilih target, kamu akan sembarangan menghantui orang" +
-            "\n\n";
+            "💡 Karena kamu tidak pilih target, kamu akan sembarangan menghantui orang" + "\n\n";
 
           targetIndex = getJesterTargetIndex(doer.id);
         } else {
@@ -1657,8 +1538,7 @@ const day = () => {
           "👻 SURPRISEEE!! Kamu didatangi 🤡 Jester yang mati itu" + "\n\n";
 
         if (players[targetIndex].bugged) {
-          spyBuggedInfo[targetIndex] +=
-            "🔍 Target kamu di hantui Jester!" + "\n\n";
+          spyBuggedInfo[targetIndex] += "🔍 Target kamu di hantui Jester!" + "\n\n";
         }
 
         this.group_session.players[targetIndex].attacked = true;
@@ -1677,10 +1557,7 @@ const day = () => {
         this.group_session.players[i].role.hasRevenged = true;
 
         this.group_session.players[i].message +=
-          "👻 Kamu menghantui " +
-          players[targetIndex].name +
-          " sampai dia mati ketakutan" +
-          "\n\n";
+          "👻 Kamu menghantui " + players[targetIndex].name + " sampai dia mati ketakutan" + "\n\n";
       }
     }
   }
@@ -1699,8 +1576,7 @@ const day = () => {
       let targetIndex = doer.target.index;
       let target = players[targetIndex];
 
-      this.group_session.players[i].message +=
-        "👣 Kamu ke rumah " + target.name + "\n\n";
+      this.group_session.players[i].message += "👣 Kamu ke rumah " + target.name + "\n\n";
 
       let visitor = {
         index: i,
@@ -1741,15 +1617,9 @@ const day = () => {
       }
 
       this.group_session.players[i].message +=
-        "⚰️ Kamu berhasil membangkitkan " +
-        target.name +
-        " (" +
-        targetRoleName +
-        ")" +
-        "\n\n";
+        "⚰️ Kamu berhasil membangkitkan " + target.name + " (" + targetRoleName + ")" + "\n\n";
 
-      this.group_session.players[targetIndex].message +=
-        "⚰️ Kamu berhasil dibangkitkan Retributionist!" + "\n\n";
+      this.group_session.players[targetIndex].message += "⚰️ Kamu berhasil dibangkitkan Retributionist!" + "\n\n";
 
       allAnnouncement += `⚰️ ${target.name} (${targetRoleName}) bangkit dari kematian!\n\n`;
     }
@@ -1781,8 +1651,7 @@ const day = () => {
         this.group_session.players[targetIndex].infected = false;
         this.group_session.players[targetIndex].vampireBited = false;
 
-        this.group_session.players[targetIndex].message +=
-          "⚔️ Kamu diawasi oleh Guardian Angel!" + "\n\n";
+        this.group_session.players[targetIndex].message += "⚔️ Kamu diawasi oleh Guardian Angel!" + "\n\n";
 
         let protector = {
           index: i,
@@ -1814,8 +1683,7 @@ const day = () => {
       let target = players[targetIndex];
 
       if (parseInt(targetIndex) === parseInt(i)) {
-        this.group_session.players[i].message +=
-          "🏠 Kamu memilih diam di rumah dan jaga-jaga" + "\n\n";
+        this.group_session.players[i].message += "🏠 Kamu memilih diam di rumah dan jaga-jaga" + "\n\n";
 
         this.group_session.players[i].role.selfHeal--;
 
@@ -1845,8 +1713,7 @@ const day = () => {
           }
         }
 
-        this.group_session.players[i].message +=
-          "👣 Kamu ke rumah " + target.name + "\n\n";
+        this.group_session.players[i].message += "👣 Kamu ke rumah " + target.name + "\n\n";
 
         this.group_session.players[targetIndex].healed = true;
 
@@ -1876,8 +1743,7 @@ const day = () => {
       let target = players[targetIndex];
 
       if (parseInt(targetIndex) === parseInt(i)) {
-        this.group_session.players[i].message +=
-          "🦺 Kamu memilih diam di rumah dan menggunakan vest" + "\n\n";
+        this.group_session.players[i].message += "🦺 Kamu memilih diam di rumah dan menggunakan vest" + "\n\n";
 
         this.group_session.players[i].role.vest--;
         this.group_session.players[i].vested = true;
@@ -1906,8 +1772,7 @@ const day = () => {
           }
         }
 
-        this.group_session.players[i].message +=
-          "👣 Kamu ke rumah " + target.name + "\n\n";
+        this.group_session.players[i].message += "👣 Kamu ke rumah " + target.name + "\n\n";
 
         this.group_session.players[targetIndex].guarded = true;
 
@@ -1955,11 +1820,9 @@ const day = () => {
       let target = players[targetIndex];
 
       if (doer.intercepted) {
-        this.group_session.players[i].message +=
-          "💡 Kamu tercegat oleh " + target.role.name + "\n\n";
+        this.group_session.players[i].message += "💡 Kamu tercegat oleh " + target.role.name + "\n\n";
       } else {
-        this.group_session.players[i].message +=
-          "👣 Kamu ke rumah " + target.name + "\n\n";
+        this.group_session.players[i].message += "👣 Kamu ke rumah " + target.name + "\n\n";
 
         let visitor = {
           index: i,
@@ -1986,22 +1849,17 @@ const day = () => {
       }
 
       if (target.role.team === "vampire") {
-        this.group_session.players[i].message +=
-          "🗡️ " + target.name + " adalah seorang Vampire!" + "\n\n";
+        this.group_session.players[i].message += "🗡️ " + target.name + " adalah seorang Vampire!" + "\n\n";
 
-        this.group_session.players[targetIndex].message +=
-          "🗡️ Kamu diserang " + doer.role.name + "!" + "\n\n";
+        this.group_session.players[targetIndex].message += "🗡️ Kamu diserang " + doer.role.name + "!" + "\n\n";
 
         if (doer.intercepted) {
           if (players[targetIndex].bugged) {
-            spyBuggedInfo[targetIndex] +=
-              "🔍 Target kamu di serang Vampire Hunter yang dia kunjungi!" +
-              "\n\n";
+            spyBuggedInfo[targetIndex] += "🔍 Target kamu di serang Vampire Hunter yang dia kunjungi!" + "\n\n";
           }
         } else {
           if (players[targetIndex].bugged) {
-            spyBuggedInfo[targetIndex] +=
-              "🔍 Target kamu di serang Vampire Hunter!" + "\n\n";
+            spyBuggedInfo[targetIndex] += "🔍 Target kamu di serang Vampire Hunter!" + "\n\n";
           }
         }
 
@@ -2017,8 +1875,7 @@ const day = () => {
 
         this.group_session.players[targetIndex].attackers.push(attacker);
       } else {
-        this.group_session.players[i].message +=
-          "💡 " + target.name + " bukan seorang Vampire" + "\n\n";
+        this.group_session.players[i].message += "💡 " + target.name + " bukan seorang Vampire" + "\n\n";
       }
     }
   }
@@ -2043,8 +1900,7 @@ const day = () => {
 
       this.group_session.players[i].role.bullet--;
 
-      this.group_session.players[i].message +=
-        "👣 Kamu ke rumah " + target.name + "\n\n";
+      this.group_session.players[i].message += "👣 Kamu ke rumah " + target.name + "\n\n";
 
       let visitor = {
         index: i,
@@ -2069,57 +1925,42 @@ const day = () => {
         }
       }
 
-      let immuneToBasicAttack = [
-        "serial-killer",
-        "arsonist",
-        "godfather",
-        "executioner"
-      ];
+      let immuneToBasicAttack = ["serial-killer", "arsonist", "godfather", "executioner"];
 
       if (this.group_session.isFullMoon) {
         immuneToBasicAttack.push("werewolf");
       }
 
       if (immuneToBasicAttack.includes(target.role.name)) {
-        this.group_session.players[i].message +=
-          "💡 Target kamu immune dari serangan!" + "\n\n";
+        this.group_session.players[i].message += "💡 Target kamu immune dari serangan!" + "\n\n";
         this.group_session.players[targetIndex].message +=
           "💡 Ada yang menyerang kamu tapi kamu immune dari serangan!" + "\n\n";
 
         if (players[targetIndex].bugged) {
-          spyBuggedInfo[targetIndex] +=
-            "🔍 Target kamu di serang tapi serangan tersebut tidak mempan!" +
-            "\n\n";
+          spyBuggedInfo[targetIndex] += "🔍 Target kamu di serang tapi serangan tersebut tidak mempan!" + "\n\n";
         }
       } else {
         if (target.role.name === "juggernaut") {
           if (target.role.skillLevel >= 2) {
-            this.group_session.players[i].message +=
-              "💡 Target kamu immune dari serangan!" + "\n\n";
+            this.group_session.players[i].message += "💡 Target kamu immune dari serangan!" + "\n\n";
 
             this.group_session.players[targetIndex].message +=
-              "💡 Ada yang menyerang kamu tapi kamu immune dari serangan!" +
-              "\n\n";
+              "💡 Ada yang menyerang kamu tapi kamu immune dari serangan!" + "\n\n";
 
             if (players[targetIndex].bugged) {
-              spyBuggedInfo[targetIndex] +=
-                "🔍 Target kamu diserang tapi serangan tersebut tidak mempan!" +
-                "\n\n";
+              spyBuggedInfo[targetIndex] += "🔍 Target kamu diserang tapi serangan tersebut tidak mempan!" + "\n\n";
             }
 
             continue;
           }
         }
 
-        this.group_session.players[i].message +=
-          "💡 Kamu menyerang " + target.name + "\n\n";
+        this.group_session.players[i].message += "💡 Kamu menyerang " + target.name + "\n\n";
 
-        this.group_session.players[targetIndex].message +=
-          "🔫 Kamu diserang " + doer.role.name + "!" + "\n\n";
+        this.group_session.players[targetIndex].message += "🔫 Kamu diserang " + doer.role.name + "!" + "\n\n";
 
         if (players[targetIndex].bugged) {
-          spyBuggedInfo[targetIndex] +=
-            "🔍 Target kamu di serang Vigilante!" + "\n\n";
+          spyBuggedInfo[targetIndex] += "🔍 Target kamu di serang Vigilante!" + "\n\n";
         }
 
         this.group_session.players[targetIndex].attacked = true;
@@ -2150,11 +1991,9 @@ const day = () => {
       let target = players[targetIndex];
 
       if (doer.intercepted) {
-        this.group_session.players[i].message +=
-          "💡 Kamu tercegat oleh " + target.name + "\n\n";
+        this.group_session.players[i].message += "💡 Kamu tercegat oleh " + target.name + "\n\n";
       } else {
-        this.group_session.players[i].message +=
-          "👣 Kamu ke rumah " + target.name + "\n\n";
+        this.group_session.players[i].message += "👣 Kamu ke rumah " + target.name + "\n\n";
 
         let visitor = {
           index: i,
@@ -2180,76 +2019,55 @@ const day = () => {
         }
       }
 
-      let immuneToBasicAttack = [
-        "serial-killer",
-        "arsonist",
-        "godfather",
-        "executioner"
-      ];
+      let immuneToBasicAttack = ["serial-killer", "arsonist", "godfather", "executioner"];
 
       if (this.group_session.isFullMoon) {
         immuneToBasicAttack.push("werewolf");
       }
 
       if (immuneToBasicAttack.includes(target.role.name)) {
-        this.group_session.players[i].message +=
-          "💡 Target kamu immune dari serangan!" + "\n\n";
+        this.group_session.players[i].message += "💡 Target kamu immune dari serangan!" + "\n\n";
         this.group_session.players[targetIndex].message +=
           "💡 Ada yang menyerang kamu tapi kamu immune dari serangan!" + "\n\n";
 
         if (players[targetIndex].bugged) {
-          spyBuggedInfo[targetIndex] +=
-            "🔍 Target kamu di serang tapi serangan tersebut tidak mempan!" +
-            "\n\n";
+          spyBuggedInfo[targetIndex] += "🔍 Target kamu di serang tapi serangan tersebut tidak mempan!" + "\n\n";
         }
       } else {
         if (target.role.name === "juggernaut") {
           if (target.role.skillLevel >= 2) {
-            this.group_session.players[i].message +=
-              "💡 Target kamu immune dari serangan!" + "\n\n";
+            this.group_session.players[i].message += "💡 Target kamu immune dari serangan!" + "\n\n";
 
             this.group_session.players[targetIndex].message +=
-              "💡 Ada yang menyerang kamu tapi kamu immune dari serangan!" +
-              "\n\n";
+              "💡 Ada yang menyerang kamu tapi kamu immune dari serangan!" + "\n\n";
 
             if (players[targetIndex].bugged) {
-              spyBuggedInfo[targetIndex] +=
-                "🔍 Target kamu diserang tapi serangan tersebut tidak mempan!" +
-                "\n\n";
+              spyBuggedInfo[targetIndex] += "🔍 Target kamu diserang tapi serangan tersebut tidak mempan!" + "\n\n";
             }
 
             continue;
           }
         }
 
-        this.group_session.players[i].message +=
-          "💡 Kamu menyerang " + target.name + "\n\n";
+        this.group_session.players[i].message += "💡 Kamu menyerang " + target.name + "\n\n";
 
         if (doer.intercepted) {
           this.group_session.players[targetIndex].message +=
-            "🔪 Kamu diserang " +
-            doer.role.name +
-            " yang kamu kunjungi!" +
-            "\n\n";
+            "🔪 Kamu diserang " + doer.role.name + " yang kamu kunjungi!" + "\n\n";
 
           if (players[targetIndex].bugged) {
-            spyBuggedInfo[targetIndex] +=
-              "🔍 Target kamu di serang Serial Killer yang dia kunjungi!" +
-              "\n\n";
+            spyBuggedInfo[targetIndex] += "🔍 Target kamu di serang Serial Killer yang dia kunjungi!" + "\n\n";
           }
 
           if (players[i].bugged) {
             spyBuggedInfo[targetIndex] +=
-              "🔍 Ada yang berusaha role block Targetmu, tetapi Targetmu menyerang balik!" +
-              "\n\n";
+              "🔍 Ada yang berusaha role block Targetmu, tetapi Targetmu menyerang balik!" + "\n\n";
           }
         } else {
-          this.group_session.players[targetIndex].message +=
-            "🔪 Kamu diserang " + doer.role.name + "!" + "\n\n";
+          this.group_session.players[targetIndex].message += "🔪 Kamu diserang " + doer.role.name + "!" + "\n\n";
 
           if (players[targetIndex].bugged) {
-            spyBuggedInfo[targetIndex] +=
-              "🔍 Target kamu di serang Serial Killer!" + "\n\n";
+            spyBuggedInfo[targetIndex] += "🔍 Target kamu di serang Serial Killer!" + "\n\n";
           }
         }
 
@@ -2299,15 +2117,12 @@ const day = () => {
 
         let target = players[targetIndex];
 
-        this.group_session.players[i].message +=
-          "💡 Kamu bakar rumah " + target.name + "\n\n";
+        this.group_session.players[i].message += "💡 Kamu bakar rumah " + target.name + "\n\n";
 
-        this.group_session.players[targetIndex].message +=
-          "🔥 Rumah kamu dibakar " + doer.role.name + "!" + "\n\n";
+        this.group_session.players[targetIndex].message += "🔥 Rumah kamu dibakar " + doer.role.name + "!" + "\n\n";
 
         if (players[targetIndex].bugged) {
-          spyBuggedInfo[targetIndex] +=
-            "🔍 Target kamu di bakar Arsonist!" + "\n\n";
+          spyBuggedInfo[targetIndex] += "🔍 Target kamu di bakar Arsonist!" + "\n\n";
         }
 
         this.group_session.players[targetIndex].burned = true;
@@ -2337,9 +2152,7 @@ const day = () => {
       if (pastTarget && pastTarget.role.name !== "veteran") {
         if (isBackupMafiaUseSkill && mafiaDoerBackupIndex !== -1) {
           mafiaDoerIndex = mafiaDoerBackupIndex;
-          this.group_session.players[
-            mafiaDoerIndex
-          ].target.index = pastTargetIndex;
+          this.group_session.players[mafiaDoerIndex].target.index = pastTargetIndex;
         }
       }
     }
@@ -2353,8 +2166,7 @@ const day = () => {
         if (status === "alive" && targetIndex !== -1) {
           if (doer.blocked === true) {
             this.group_session.players[i].message +=
-              "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." +
-              "\n\n";
+              "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." + "\n\n";
 
             break;
           } else if (!doer.attacked) {
@@ -2384,20 +2196,14 @@ const day = () => {
             }
 
             if (doer.role.name === "godfather") {
-              this.group_session.players[i].message +=
-                "👣 Kamu ke rumah " + target.name + "\n\n";
+              this.group_session.players[i].message += "👣 Kamu ke rumah " + target.name + "\n\n";
             } else {
-              this.group_session.players[i].message +=
-                "👣 Kamu disuruh ke rumah " + target.name + "\n\n";
+              this.group_session.players[i].message += "👣 Kamu disuruh ke rumah " + target.name + "\n\n";
             }
 
             mafiaAnnouncement += `👣 ${doer.name} mengunjungi rumah ${target.name}\n\n`;
 
-            let immuneToBasicAttack = [
-              "serial-killer",
-              "arsonist",
-              "executioner"
-            ];
+            let immuneToBasicAttack = ["serial-killer", "arsonist", "executioner"];
 
             if (this.group_session.isFullMoon) {
               immuneToBasicAttack.push("werewolf");
@@ -2406,48 +2212,38 @@ const day = () => {
             spyMafiaVisitInfo += `🤵 ${target.name} dikunjungi anggota Mafia\n\n`;
 
             if (immuneToBasicAttack.includes(target.role.name)) {
-              this.group_session.players[i].message +=
-                "💡 Target kamu immune dari serangan!" + "\n\n";
+              this.group_session.players[i].message += "💡 Target kamu immune dari serangan!" + "\n\n";
               this.group_session.players[targetIndex].message +=
-                "💡 Ada yang menyerang kamu tapi kamu immune dari serangan!" +
-                "\n\n";
+                "💡 Ada yang menyerang kamu tapi kamu immune dari serangan!" + "\n\n";
 
               if (players[targetIndex].bugged) {
-                spyBuggedInfo[targetIndex] +=
-                  "🔍 Target kamu di serang tapi serangan tersebut tidak mempan!" +
-                  "\n\n";
+                spyBuggedInfo[targetIndex] += "🔍 Target kamu di serang tapi serangan tersebut tidak mempan!" + "\n\n";
               }
             } else {
               if (target.role.name === "juggernaut") {
                 if (target.role.skillLevel >= 2) {
-                  this.group_session.players[i].message +=
-                    "💡 Target kamu immune dari serangan!" + "\n\n";
+                  this.group_session.players[i].message += "💡 Target kamu immune dari serangan!" + "\n\n";
 
                   this.group_session.players[targetIndex].message +=
-                    "💡 Ada yang menyerang kamu tapi kamu immune dari serangan!" +
-                    "\n\n";
+                    "💡 Ada yang menyerang kamu tapi kamu immune dari serangan!" + "\n\n";
 
                   if (players[targetIndex].bugged) {
                     spyBuggedInfo[targetIndex] +=
-                      "🔍 Target kamu diserang tapi serangan tersebut tidak mempan!" +
-                      "\n\n";
+                      "🔍 Target kamu diserang tapi serangan tersebut tidak mempan!" + "\n\n";
                   }
 
                   continue;
                 }
               }
 
-              this.group_session.players[i].message +=
-                "💡 Kamu menyerang " + target.name + "\n\n";
+              this.group_session.players[i].message += "💡 Kamu menyerang " + target.name + "\n\n";
 
-              this.group_session.players[targetIndex].message +=
-                "🤵 Kamu diserang " + doer.role.team + "!" + "\n\n";
+              this.group_session.players[targetIndex].message += "🤵 Kamu diserang " + doer.role.team + "!" + "\n\n";
 
               this.group_session.players[targetIndex].attacked = true;
 
               if (players[targetIndex].bugged) {
-                spyBuggedInfo[targetIndex] +=
-                  "🔍 Target kamu di serang Mafia!" + "\n\n";
+                spyBuggedInfo[targetIndex] += "🔍 Target kamu di serang Mafia!" + "\n\n";
               }
 
               let attacker = {
@@ -2505,8 +2301,7 @@ const day = () => {
                 "💡 " + players[i].name + " diserang semalam!" + "\n\n";
 
               if (isBurned || isHaunted) {
-                this.group_session.players[protector.index].message +=
-                  "💡 Namun kamu gagal melindunginya" + "\n\n";
+                this.group_session.players[protector.index].message += "💡 Namun kamu gagal melindunginya" + "\n\n";
 
                 continue;
               }
@@ -2529,23 +2324,18 @@ const day = () => {
                 // hax rampage nya werewolf / juggernaut
                 const rampagingRole = ["werewolf", "juggernaut"];
                 if (rampagingRole.includes(attacker.role.name)) {
-                  const attackerTargetIndex =
-                    players[attacker.index].target.index;
+                  const attackerTargetIndex = players[attacker.index].target.index;
                   if (attackerTargetIndex != i) continue;
                 }
 
                 // counter attack
                 if (players[protector.index].bugged) {
-                  spyBuggedInfo[protector.index] +=
-                    "🔍 Target kamu sedang melindungi seseorang!" + "\n\n";
+                  spyBuggedInfo[protector.index] += "🔍 Target kamu sedang melindungi seseorang!" + "\n\n";
                 }
 
-                this.group_session.players[i].message +=
-                  "🛡️ Ada yang menyerang balik penyerang mu!" + "\n\n";
+                this.group_session.players[i].message += "🛡️ Ada yang menyerang balik penyerang mu!" + "\n\n";
 
-                this.group_session.players[
-                  protector.index
-                ].role.counterAttackIndex = attacker.index;
+                this.group_session.players[protector.index].role.counterAttackIndex = attacker.index;
 
                 protector.used = true;
 
@@ -2554,19 +2344,16 @@ const day = () => {
 
               if (protector.roleName === "doctor") {
                 if (willSuicide || afkCounter >= 3) {
-                  this.group_session.players[protector.index].message +=
-                    "💡 Namun kamu gagal melindunginya" + "\n\n";
+                  this.group_session.players[protector.index].message += "💡 Namun kamu gagal melindunginya" + "\n\n";
 
                   continue;
                 }
 
                 if (players[protector.index].bugged) {
-                  spyBuggedInfo[protector.index] +=
-                    "🔍 Target dari Targetmu di serang!" + "\n\n";
+                  spyBuggedInfo[protector.index] += "🔍 Target dari Targetmu di serang!" + "\n\n";
                 }
 
-                this.group_session.players[i].message +=
-                  "💉 Ada yang datang berusaha menyelamatkanmu!" + "\n\n";
+                this.group_session.players[i].message += "💉 Ada yang datang berusaha menyelamatkanmu!" + "\n\n";
 
                 protector.used = true;
               }
@@ -2594,37 +2381,29 @@ const day = () => {
 
           if (isVested) {
             if (players[i].bugged) {
-              spyBuggedInfo[i] +=
-                "🔍 Target kamu selamat dari serangan berkat Vest yang digunakannya!" +
-                "\n\n";
+              spyBuggedInfo[i] += "🔍 Target kamu selamat dari serangan berkat Vest yang digunakannya!" + "\n\n";
             }
 
-            this.group_session.players[i].message +=
-              "🦺 Vest yang kamu pakai menyelamatkan nyawamu!" + "\n\n";
+            this.group_session.players[i].message += "🦺 Vest yang kamu pakai menyelamatkan nyawamu!" + "\n\n";
           }
 
           if (isSelfHeal) {
             if (players[i].bugged) {
-              spyBuggedInfo[i] +=
-                "🔍 Target kamu selamat karena menyembuhkan diri sendiri!" +
-                "\n\n";
+              spyBuggedInfo[i] += "🔍 Target kamu selamat karena menyembuhkan diri sendiri!" + "\n\n";
             }
 
-            this.group_session.players[i].message +=
-              "💉 Kamu selamat dengan menyembuhkan diri sendiri!" + "\n\n";
+            this.group_session.players[i].message += "💉 Kamu selamat dengan menyembuhkan diri sendiri!" + "\n\n";
           }
 
           if (isGuarded) {
             if (players[i].bugged) {
-              spyBuggedInfo[i] +=
-                "🔍 Target kamu selamat karena dilindungi seseorang!" + "\n\n";
+              spyBuggedInfo[i] += "🔍 Target kamu selamat karena dilindungi seseorang!" + "\n\n";
             }
           }
 
           if (isHealed) {
             if (players[i].bugged) {
-              spyBuggedInfo[i] +=
-                "🔍 Target kamu selamat karena disembuhkan!" + "\n\n";
+              spyBuggedInfo[i] += "🔍 Target kamu selamat karena disembuhkan!" + "\n\n";
             }
           }
 
@@ -2655,8 +2434,7 @@ const day = () => {
                   "💡 " + players[i].name + " gagal dilindungi!" + "\n\n";
 
                 this.group_session.players[i].message +=
-                  "⚔️ Guardian Angel berusaha melindungi mu namun gagal!" +
-                  "\n\n";
+                  "⚔️ Guardian Angel berusaha melindungi mu namun gagal!" + "\n\n";
 
                 continue;
               }
@@ -2665,13 +2443,10 @@ const day = () => {
                 "💡 " + players[i].name + " berhasil dilindungi!" + "\n\n";
 
               if (players[i].bugged) {
-                spyBuggedInfo[i] +=
-                  "🔍 Target kamu selamat karena dilindungi Guardian Angel!" +
-                  "\n\n";
+                spyBuggedInfo[i] += "🔍 Target kamu selamat karena dilindungi Guardian Angel!" + "\n\n";
               }
 
-              this.group_session.players[i].message +=
-                "⚔️ Kamu selamat karena dilindungi Guardian Angel!" + "\n\n";
+              this.group_session.players[i].message += "⚔️ Kamu selamat karena dilindungi Guardian Angel!" + "\n\n";
 
               protector.used = true;
             }
@@ -2689,8 +2464,7 @@ const day = () => {
           if (players[i].role.isPestilence) {
             this.group_session.players[i].status = "alive";
 
-            this.group_session.players[i].message +=
-              "💡 Walaupun diserang, kamu tidak akan mati!" + "\n\n";
+            this.group_session.players[i].message += "💡 Walaupun diserang, kamu tidak akan mati!" + "\n\n";
           }
         }
       } else if (willSuicide || afkCounter >= 3) {
@@ -2714,26 +2488,17 @@ const day = () => {
         let isProtected = players[i].protected;
 
         this.group_session.players[i].message +=
-          "💡 Kamu melawan penyerang " +
-          players[targetIndex].name +
-          ", dan diserang penyerang tersebut!" +
-          "\n\n";
+          "💡 Kamu melawan penyerang " + players[targetIndex].name + ", dan diserang penyerang tersebut!" + "\n\n";
 
         this.group_session.players[attackerIndex].message +=
-          "🛡️ " +
-          players[targetIndex].name +
-          " dilindungi Bodyguard! " +
-          "Kamu diserang Bodyguard!" +
-          "\n\n";
+          "🛡️ " + players[targetIndex].name + " dilindungi Bodyguard! " + "Kamu diserang Bodyguard!" + "\n\n";
 
         if (players[i].bugged) {
-          spyBuggedInfo[i] +=
-            "🔍 Target kamu diserang karena melindungi seseorang!" + "\n\n";
+          spyBuggedInfo[i] += "🔍 Target kamu diserang karena melindungi seseorang!" + "\n\n";
         }
 
         if (players[attackerIndex].bugged) {
-          spyBuggedInfo[attackerIndex] +=
-            "🔍 Target kamu diserang Bodyguard!" + "\n\n";
+          spyBuggedInfo[attackerIndex] += "🔍 Target kamu diserang Bodyguard!" + "\n\n";
         }
 
         // attacker checker
@@ -2748,15 +2513,11 @@ const day = () => {
             }
 
             this.group_session.players[protector.index].message +=
-              "💡 " +
-              players[attackerIndex].name +
-              " diserang semalam!" +
-              "\n\n";
+              "💡 " + players[attackerIndex].name + " diserang semalam!" + "\n\n";
 
             if (protector.roleName === "doctor") {
               if (players[protector.index].bugged) {
-                spyBuggedInfo[protector.index] +=
-                  "🔍 Target dari Targetmu di serang!" + "\n\n";
+                spyBuggedInfo[protector.index] += "🔍 Target dari Targetmu di serang!" + "\n\n";
               }
 
               this.group_session.players[attackerIndex].message +=
@@ -2778,35 +2539,24 @@ const day = () => {
             }
 
             this.group_session.players[protector.index].message +=
-              "💡 " +
-              players[attackerIndex].name +
-              " diserang semalam!" +
-              "\n\n";
+              "💡 " + players[attackerIndex].name + " diserang semalam!" + "\n\n";
 
             this.group_session.players[attackerIndex].doused = false;
             this.group_session.players[attackerIndex].framed = false;
             this.group_session.players[attackerIndex].infected = false;
 
             this.group_session.players[protector.index].message +=
-              "💡 " +
-              players[attackerIndex].name +
-              " berhasil dilindungi!" +
-              "\n\n";
+              "💡 " + players[attackerIndex].name + " berhasil dilindungi!" + "\n\n";
 
             if (players[attackerIndex].bugged) {
-              spyBuggedInfo[i] +=
-                "🔍 Target kamu selamat karena dilindungi Guardian Angel!" +
-                "\n\n";
+              spyBuggedInfo[i] += "🔍 Target kamu selamat karena dilindungi Guardian Angel!" + "\n\n";
             }
 
             this.group_session.players[attackerIndex].message +=
               "⚔️ Kamu selamat karena dilindungi Guardian Angel!" + "\n\n";
 
             allAnnouncement +=
-              "⚔️ Guardian Angel berhasil melindungi " +
-              players[attackerIndex].name +
-              " semalam!" +
-              "\n\n";
+              "⚔️ Guardian Angel berhasil melindungi " + players[attackerIndex].name + " semalam!" + "\n\n";
 
             // langsung sehat
             this.group_session.players[attackerIndex].damage = 0;
@@ -2817,8 +2567,7 @@ const day = () => {
           //saved
           if (isAttackerHealed) {
             if (players[attackerIndex].bugged) {
-              spyBuggedInfo[attackerIndex] +=
-                "🔍 Target kamu selamat karena disembuhkan!" + "\n\n";
+              spyBuggedInfo[attackerIndex] += "🔍 Target kamu selamat karena disembuhkan!" + "\n\n";
             }
           }
         } else {
@@ -2867,12 +2616,10 @@ const day = () => {
 
             if (protector.roleName === "doctor") {
               if (players[protector.index].bugged) {
-                spyBuggedInfo[protector.index] +=
-                  "🔍 Target dari Targetmu di serang!" + "\n\n";
+                spyBuggedInfo[protector.index] += "🔍 Target dari Targetmu di serang!" + "\n\n";
               }
 
-              this.group_session.players[i].message +=
-                "💉 Ada yang datang berusaha menyelamatkanmu!" + "\n\n";
+              this.group_session.players[i].message += "💉 Ada yang datang berusaha menyelamatkanmu!" + "\n\n";
 
               protector.used = true;
             }
@@ -2900,19 +2647,12 @@ const day = () => {
               "💡 " + players[i].name + " berhasil dilindungi!" + "\n\n";
 
             if (players[i].bugged) {
-              spyBuggedInfo[i] +=
-                "🔍 Target kamu selamat karena dilindungi Guardian Angel!" +
-                "\n\n";
+              spyBuggedInfo[i] += "🔍 Target kamu selamat karena dilindungi Guardian Angel!" + "\n\n";
             }
 
-            this.group_session.players[i].message +=
-              "⚔️ Kamu selamat karena dilindungi Guardian Angel!" + "\n\n";
+            this.group_session.players[i].message += "⚔️ Kamu selamat karena dilindungi Guardian Angel!" + "\n\n";
 
-            allAnnouncement +=
-              "⚔️ Guardian Angel berhasil melindungi " +
-              players[i].name +
-              " semalam!" +
-              "\n\n";
+            allAnnouncement += "⚔️ Guardian Angel berhasil melindungi " + players[i].name + " semalam!" + "\n\n";
 
             // langsung sehat
             this.group_session.players[i].damage = 0;
@@ -2923,8 +2663,7 @@ const day = () => {
           //saved
           if (isHealed) {
             if (players[i].bugged) {
-              spyBuggedInfo[i] +=
-                "🔍 Target kamu selamat karena disembuhkan!" + "\n\n";
+              spyBuggedInfo[i] += "🔍 Target kamu selamat karena disembuhkan!" + "\n\n";
             }
           }
         } else {
@@ -3017,8 +2756,7 @@ const day = () => {
           this.group_session.players[attackerIndex].role.skillLevel++;
 
           let text = "";
-          let skillLevel = this.group_session.players[attackerIndex].role
-            .skillLevel;
+          let skillLevel = this.group_session.players[attackerIndex].role.skillLevel;
           switch (skillLevel) {
             case 1:
               text += "💪 Kamu sekarang bisa menyerang pada malam apa saja";
@@ -3051,17 +2789,11 @@ const day = () => {
       } else if (willSuicide) {
         isSuicide = true;
         if (players[i].bugged) {
-          spyBuggedInfo[i] +=
-            "🔍 Target kamu mati bunuh diri karena perasaan bersalah!" + "\n\n";
+          spyBuggedInfo[i] += "🔍 Target kamu mati bunuh diri karena perasaan bersalah!" + "\n\n";
         }
       }
 
-      attackedAnnouncement = attackedMsg.getAttackResponse(
-        attackersRole,
-        players[i].name,
-        isSuicide,
-        isAfk
-      );
+      attackedAnnouncement = attackedMsg.getAttackResponse(attackersRole, players[i].name, isSuicide, isAfk);
 
       allAnnouncement += attackedAnnouncement + "\n";
 
@@ -3127,8 +2859,7 @@ const day = () => {
               this.group_session.players[j].role.isTargetLynched = true;
 
               this.group_session.players[j].message +=
-                "💡 Targetmu mati pas malam dibunuh. Kamu menjadi Jester" +
-                "\n\n";
+                "💡 Targetmu mati pas malam dibunuh. Kamu menjadi Jester" + "\n\n";
 
               const roleData = getRoleData("jester");
               this.group_session.players[j].role = roleData;
@@ -3148,8 +2879,7 @@ const day = () => {
               this.group_session.players[j].role.vest = 0;
 
               this.group_session.players[j].message +=
-                "💡 Targetmu mati, sekarang kamu hanyalah Survivor tanpa vest" +
-                "\n\n";
+                "💡 Targetmu mati, sekarang kamu hanyalah Survivor tanpa vest" + "\n\n";
             }
           }
         }
@@ -3168,12 +2898,9 @@ const day = () => {
 
         this.group_session.players[i].role = roleData;
 
-        this.group_session.players[i].message +=
-          "🧛 " + "Kamu berhasil diubah menjadi Vampire" + "\n\n";
+        this.group_session.players[i].message += "🧛 " + "Kamu berhasil diubah menjadi Vampire" + "\n\n";
 
-        this.group_session.players[i].message +=
-          "💡 Ketik '/role' untuk mengetahui siapa saja sesama Vampire" +
-          "\n\n";
+        this.group_session.players[i].message += "💡 Ketik '/role' untuk mengetahui siapa saja sesama Vampire" + "\n\n";
 
         vampireAnnouncement += `🧛 ${players[i].name} berhasil menjadi Vampire!\n\n`;
 
@@ -3220,11 +2947,9 @@ const day = () => {
         }
       }
 
-      this.group_session.players[i].message +=
-        "👣 Kamu ke rumah " + target.name + "\n\n";
+      this.group_session.players[i].message += "👣 Kamu ke rumah " + target.name + "\n\n";
 
-      this.group_session.players[i].message +=
-        "🎞️ Kamu menjebak " + target.name + " agar terlihat bersalah" + "\n\n";
+      this.group_session.players[i].message += "🎞️ Kamu menjebak " + target.name + " agar terlihat bersalah" + "\n\n";
 
       mafiaAnnouncement += `🎞️ ${doer.name} menjebak ${target.name}\n\n`;
 
@@ -3270,31 +2995,19 @@ const day = () => {
         }
       }
 
-      this.group_session.players[i].message +=
-        "👣 Kamu ke rumah " + target.name + "\n\n";
+      this.group_session.players[i].message += "👣 Kamu ke rumah " + target.name + "\n\n";
 
-      let suspiciousList = [
-        "mafioso",
-        "consigliere",
-        "consort",
-        "serial-killer",
-        "framer",
-        "disguiser"
-      ];
+      let suspiciousList = ["mafioso", "consigliere", "consort", "serial-killer", "framer", "disguiser"];
 
       if (this.group_session.isFullMoon) {
         suspiciousList.push("werewolf");
       }
 
       if (target.framed || suspiciousList.includes(target.role.name)) {
-        this.group_session.players[i].message +=
-          "👮 " + target.name + " mencurigakan" + "\n\n";
+        this.group_session.players[i].message += "👮 " + target.name + " mencurigakan" + "\n\n";
       } else {
         this.group_session.players[i].message +=
-          "👮 Kamu tidak menemukan bukti kesalahan target. Tampaknya " +
-          target.name +
-          " tidak bersalah" +
-          "\n\n";
+          "👮 Kamu tidak menemukan bukti kesalahan target. Tampaknya " + target.name + " tidak bersalah" + "\n\n";
       }
     }
   }
@@ -3349,8 +3062,7 @@ const day = () => {
         targetRoleName = "arsonist";
       }
 
-      this.group_session.players[i].message +=
-        "👣 Kamu ke rumah " + target.name + "\n\n";
+      this.group_session.players[i].message += "👣 Kamu ke rumah " + target.name + "\n\n";
 
       let guessResult = util.getInvestigatorResult(targetRoleName);
 
@@ -3394,8 +3106,7 @@ const day = () => {
         }
       }
 
-      this.group_session.players[i].message +=
-        "👣 Kamu ke rumah " + target.name + "\n\n";
+      this.group_session.players[i].message += "👣 Kamu ke rumah " + target.name + "\n\n";
 
       let targetRoleName = target.role.name;
       if (targetRoleName === "plaguebearer" && target.role.isPestilence) {
@@ -3448,14 +3159,12 @@ const day = () => {
         }
       }
 
-      this.group_session.players[i].message +=
-        "👣 Kamu ke rumah " + target.name + "\n\n";
+      this.group_session.players[i].message += "👣 Kamu ke rumah " + target.name + "\n\n";
 
       if (spyBuggedInfo[targetIndex]) {
         this.group_session.players[i].message += spyBuggedInfo[targetIndex];
       } else {
-        this.group_session.players[i].message +=
-          "🔍 " + target.name + " tidak terkena apa apa" + "\n\n";
+        this.group_session.players[i].message += "🔍 " + target.name + " tidak terkena apa apa" + "\n\n";
       }
     }
   }
@@ -3497,8 +3206,7 @@ const day = () => {
         }
       }
 
-      this.group_session.players[i].message +=
-        "👣 Kamu ke rumah " + target.name + "\n\n";
+      this.group_session.players[i].message += "👣 Kamu ke rumah " + target.name + "\n\n";
     }
   }
 
@@ -3514,8 +3222,7 @@ const day = () => {
       let targetIndex = doer.target.index;
       let target = players[targetIndex];
 
-      this.group_session.players[i].message +=
-        "👣 Kamu ke rumah " + target.name + "\n\n";
+      this.group_session.players[i].message += "👣 Kamu ke rumah " + target.name + "\n\n";
 
       let visitor = {
         index: i,
@@ -3555,19 +3262,11 @@ const day = () => {
         targetVisitors = visitors.join(", ");
 
         this.group_session.players[i].message +=
-          "👀 Rumah " +
-          players[targetIndex].name +
-          " dikunjungi " +
-          targetVisitors +
-          " semalam" +
-          "\n\n";
+          "👀 Rumah " + players[targetIndex].name + " dikunjungi " + targetVisitors + " semalam" + "\n\n";
       } else {
         // pasti ada 1 visitor, yaitu lookout sndiri
         this.group_session.players[i].message +=
-          "👀 Rumah " +
-          players[targetIndex].name +
-          " tidak didatangi siapa siapa" +
-          "\n\n";
+          "👀 Rumah " + players[targetIndex].name + " tidak didatangi siapa siapa" + "\n\n";
       }
     }
   }
@@ -3585,12 +3284,7 @@ const day = () => {
       let target = players[targetIndex];
 
       let result = "";
-      if (
-        target.intercepted ||
-        target.blocked ||
-        target.target.index === -1 ||
-        target.target.index === targetIndex
-      ) {
+      if (target.intercepted || target.blocked || target.target.index === -1 || target.target.index === targetIndex) {
         result += "👣 Targetmu diam dirumah saja" + "\n\n";
       } else {
         let targetTargetName = players[target.target.index].name;
@@ -3623,9 +3317,7 @@ const day = () => {
         if (neededTargetIndex === -1) {
           targetRoleName = "jester";
         } else {
-          this.group_session.players[
-            i
-          ].role.targetLynchIndex = neededTargetIndex;
+          this.group_session.players[i].role.targetLynchIndex = neededTargetIndex;
           this.group_session.players[i].role.isTargetLynched = false;
         }
       } else if (targetRoleName === "guardian-angel") {
@@ -3635,9 +3327,7 @@ const day = () => {
           targetRoleName = "survivor";
           this.group_session.players[i].role.vest = 0;
         } else {
-          this.group_session.players[
-            i
-          ].role.mustProtectIndex = neededTargetIndex;
+          this.group_session.players[i].role.mustProtectIndex = neededTargetIndex;
         }
       }
 
@@ -3645,16 +3335,9 @@ const day = () => {
       this.group_session.players[i].role = roleData;
 
       this.group_session.players[i].message +=
-        "🤕 Kamu ingat bahwa kamu adalah seorang " +
-        targetRoleName +
-        "!" +
-        "\n\n";
+        "🤕 Kamu ingat bahwa kamu adalah seorang " + targetRoleName + "!" + "\n\n";
 
-      allAnnouncement +=
-        "🤕 Amnesiac mengingat bahwa dia adalah " +
-        targetRoleName +
-        "!" +
-        "\n\n";
+      allAnnouncement += "🤕 Amnesiac mengingat bahwa dia adalah " + targetRoleName + "!" + "\n\n";
     }
   }
 
@@ -3689,14 +3372,12 @@ const day = () => {
 
       if (infectedCount === alivePlayersCount) {
         this.group_session.players[i].message +=
-          "☣️ Kamu telah menginfeksi seluruh orang! " +
-          "Kamu akan menjadi Pestilence!";
+          "☣️ Kamu telah menginfeksi seluruh orang! " + "Kamu akan menjadi Pestilence!";
 
         this.group_session.players[i].role.isPestilence = true;
         this.group_session.players[i].role.canKill = true;
 
-        allAnnouncement +=
-          "☣️ Penyakit sampar telah menyerang kota ini!" + "\n\n";
+        allAnnouncement += "☣️ Penyakit sampar telah menyerang kota ini!" + "\n\n";
       }
     }
   }
@@ -3721,8 +3402,7 @@ const day = () => {
           if (vigiTargetAttackersIndex.includes(i)) {
             if (vigiTarget.status === "death") {
               this.group_session.players[i].willSuicide = true;
-              this.group_session.players[i].message +=
-                "💡 Kamu membunuh warga!" + "\n\n";
+              this.group_session.players[i].message += "💡 Kamu membunuh warga!" + "\n\n";
             }
           }
         }
@@ -3780,20 +3460,14 @@ const day = () => {
     this.group_session.time_default = getTimeDefault(alivePlayersCount);
     this.group_session.time = this.group_session.time_default;
 
-    let timerText =
-      "💬 Warga diberi waktu diskusi selama " +
-      this.group_session.time_default +
-      " detik" +
-      "\n";
+    let timerText = "💬 Warga diberi waktu diskusi selama " + this.group_session.time_default + " detik" + "\n";
 
     timerText += "💀 Siapa yang mau di" + this.group_session.punishment;
 
     flex_text.bodyText += timerText;
 
     if (this.group_session.nightCounter === 1) {
-      flex_text.bodyText +=
-        "\n\n" +
-        "💡 Pengguna Skill jangan lupa gunakan commands '/news' di pc bot";
+      flex_text.bodyText += "\n\n" + "💡 Pengguna Skill jangan lupa gunakan commands '/news' di pc bot";
     }
 
     flex_text.buttons = [
@@ -3820,13 +3494,7 @@ const getGuardianAngelTargetIndex = (guardianAngelIndex, isAmnesiac) => {
   const players = this.group_session.players;
   const maxIndex = players.length - 1;
 
-  const prohibited = [
-    "jester",
-    "executioner",
-    "guardian-angel",
-    "bodyguard",
-    "vigilante"
-  ];
+  const prohibited = ["jester", "executioner", "guardian-angel", "bodyguard", "vigilante"];
 
   if (isAmnesiac) {
     let isTargetAvailable = false;
@@ -3847,10 +3515,7 @@ const getGuardianAngelTargetIndex = (guardianAngelIndex, isAmnesiac) => {
   while (true) {
     let targetIndex = util.getRandomInt(0, maxIndex);
     let roleName = players[targetIndex].role.name;
-    if (
-      !prohibited.includes(roleName) &&
-      players[targetIndex].status === "alive"
-    ) {
+    if (!prohibited.includes(roleName) && players[targetIndex].status === "alive") {
       return targetIndex;
     }
   }
@@ -3927,9 +3592,7 @@ const startCommand = () => {
 
   this.group_session.punishment = util.random(punishment);
 
-  this.group_session.lastFirstBloodIds = [
-    ...this.group_session.currentFirstBloodIds
-  ];
+  this.group_session.lastFirstBloodIds = [...this.group_session.currentFirstBloodIds];
   this.group_session.currentFirstBloodIds = [];
 
   randomRoles();
@@ -4003,10 +3666,7 @@ const randomRoles = () => {
 
   // cp
   client.multicast(playersUserId, [text_obj]).catch(err => {
-    console.error(
-      "error pada multicast",
-      err.originalError.response.data.message
-    );
+    console.error("error pada multicast", err.originalError.response.data.message);
   });
 
   night();
@@ -4149,13 +3809,11 @@ const night = () => {
   let announcement = "";
 
   if (this.group_session.isShowRole) {
-    announcement +=
-      "📣 Role yang ada di game ini bisa cek di '/roles'. " + "\n\n";
+    announcement += "📣 Role yang ada di game ini bisa cek di '/roles'. " + "\n\n";
   }
 
   if (this.group_session.nightCounter === 1) {
-    announcement +=
-      "💡 Jangan lupa ketik '/role' di pc bot untuk menggunakan skill" + "\n\n";
+    announcement += "💡 Jangan lupa ketik '/role' di pc bot untuk menggunakan skill" + "\n\n";
 
     const { naration } = modes[this.group_session.mode].getData();
     announcement += naration + "\n\n";
@@ -4164,8 +3822,7 @@ const night = () => {
   }
 
   if (this.group_session.isFullMoon) {
-    announcement +=
-      "🌕 Bulan terlihat indah malam ini, bulan purnama!" + "\n\n";
+    announcement += "🌕 Bulan terlihat indah malam ini, bulan purnama!" + "\n\n";
   }
 
   announcement += "⏳ Warga diberi waktu ";
@@ -4253,10 +3910,7 @@ const checkMorphingRole = (fromMorphRole, triggerRole, toMorphRole) => {
       }
 
       this.group_session.players[index].addonMessage +=
-        "💡 Role kamu menjadi " +
-        toMorphRole +
-        " karena sudah tidak ada " +
-        triggerRole;
+        "💡 Role kamu menjadi " + toMorphRole + " karena sudah tidak ada " + triggerRole;
     }
   }
 };
@@ -4315,8 +3969,7 @@ const checkCommand = () => {
   switch (state) {
     case "night":
       if (time > 0) {
-        let remindText =
-          "⏳ Sisa waktu " + time + " detik lagi untuk menyambut mentari.";
+        let remindText = "⏳ Sisa waktu " + time + " detik lagi untuk menyambut mentari.";
         return replyText(remindText);
       } else {
         return day();
@@ -4343,9 +3996,7 @@ const checkCommand = () => {
       return gameStatCommand();
 
     default:
-      return replyText(
-        "💡 " + name + ", belum ada game yang dibuat, ketik '/new'"
-      );
+      return replyText("💡 " + name + ", belum ada game yang dibuat, ketik '/new'");
   }
 };
 
@@ -4377,13 +4028,7 @@ const checkVictory = () => {
   let vampireCount = 0;
 
   // solo
-  let neutralsKilling = [
-    "serial-killer",
-    "arsonist",
-    "werewolf",
-    "juggernaut",
-    "plaguebearer"
-  ];
+  let neutralsKilling = ["serial-killer", "arsonist", "werewolf", "juggernaut", "plaguebearer"];
   let neutralsKillingCount = 0;
 
   players.forEach(item => {
@@ -4471,9 +4116,7 @@ const checkVictory = () => {
     if (otherFactionCount <= 1 && neutralsKillingCount === 1) {
       someoneWin = neutralKillingRole[0].teamName;
     } else if (!otherFactionCount && neutralsKillingCount === 2) {
-      let sortedNeutrals = neutralKillingRole.sort(
-        (a, b) => b.priority - a.priority
-      );
+      let sortedNeutrals = neutralKillingRole.sort((a, b) => b.priority - a.priority);
       someoneWin = sortedNeutrals[0].teamName;
     }
   }
@@ -4572,8 +4215,7 @@ const endGame = (flex_texts, whoWin) => {
   resetAllPlayers();
 
   const isGroup = this.event.source.type === "group" ? true : false;
-  const text =
-    "🏘️ Mungkin bisa dipertimbangkan untuk '/promote' group ini agar bisa bantu orang yang belum ada group";
+  const text = "🏘️ Mungkin bisa dipertimbangkan untuk '/promote' group ini agar bisa bantu orang yang belum ada group";
 
   if (!flex_texts) {
     if (this.group_session.gamePlayed === 2 && isGroup) {
@@ -4681,8 +4323,7 @@ const lynch = flex_texts => {
   this.group_session.players[lynchTarget.index].status = "death";
 
   let lynchedName = players[lynchTarget.index].name;
-  let announcement =
-    "💀 Warga memutuskan untuk " + this.group_session.punishment + " ";
+  let announcement = "💀 Warga memutuskan untuk " + this.group_session.punishment + " ";
   announcement += lynchedName + " dengan jumlah " + lynchTarget.count + " vote";
 
   let emoji = util.getRoleNameEmoji(roleName);
@@ -4740,8 +4381,7 @@ const voteCommand = () => {
   const players = this.group_session.players;
 
   if (index === -1) {
-    let text =
-      "💡 " + this.user_session.name + ", kamu belum join kedalam game";
+    let text = "💡 " + this.user_session.name + ", kamu belum join kedalam game";
     return replyText(text);
   }
 
@@ -4768,8 +4408,7 @@ const voteCommand = () => {
   if (players[targetIndex].protected) {
     let targetName = players[targetIndex].name;
     let text = "💡 " + this.user_session.name + ", ";
-    text +=
-      targetName + " immune dari vote karena perlindungan Guardian Angel!";
+    text += targetName + " immune dari vote karena perlindungan Guardian Angel!";
     return replyText(text);
   }
 
@@ -4789,8 +4428,7 @@ const voteCommand = () => {
 
   this.group_session.players[index].targetVoteIndex = targetIndex;
 
-  text +=
-    players[targetIndex].name + " untuk di" + this.group_session.punishment;
+  text += players[targetIndex].name + " untuk di" + this.group_session.punishment;
 
   const voteNeeded = Math.round(getAlivePlayersCount() / 2);
 
@@ -4829,8 +4467,7 @@ const votingCommand = () => {
 
   if (this.group_session.state === "day") {
     if (time > 0) {
-      let remindText =
-        "💡 " + this.user_session.name + ", belum saatnya voting" + "\n";
+      let remindText = "💡 " + this.user_session.name + ", belum saatnya voting" + "\n";
       remindText += "⏳ Sisa waktu " + time + " detik lagi untuk voting";
       return replyText(remindText);
     } else {
@@ -4849,8 +4486,7 @@ const votingCommand = () => {
   let voteNeededText = "\n" + "💡 Dibutuhkan " + voteNeeded;
   voteNeededText += " vote untuk " + this.group_session.punishment + " orang";
 
-  let flexBodyText =
-    "💀 Pilih siapa yang mau di" + this.group_session.punishment + "\n";
+  let flexBodyText = "💀 Pilih siapa yang mau di" + this.group_session.punishment + "\n";
   flexBodyText += text + voteNeededText;
 
   if (this.group_session.nightCounter === 1) {
@@ -4909,9 +4545,7 @@ const autoVote = () => {
 
   if (checkVote.status !== "enough_vote") {
     headerText = "📣 Penghukuman ditunda";
-    text =
-      "💬 Waktu habis dan warga belum menentukan siapa yang akan di" +
-      this.group_session.punishment;
+    text = "💬 Waktu habis dan warga belum menentukan siapa yang akan di" + this.group_session.punishment;
   } else {
     headerText = "📣 Voting";
   }
@@ -5420,8 +5054,7 @@ const joinCommand = () => {
     reminder += this.group_session.time + " detik lagi";
   }
 
-  let text =
-    "💡 " + this.user_session.name + " berhasil bergabung!" + "\n" + reminder;
+  let text = "💡 " + this.user_session.name + " berhasil bergabung!" + "\n" + reminder;
 
   if (this.group_session.players.length >= 5) {
     if (this.group_session.players.length === 15) {
@@ -5521,13 +5154,7 @@ const settingCommand = () => {
     return replyText(text);
   }
 
-  return setting.receive(
-    this.event,
-    this.args,
-    this.rawArgs,
-    this.group_sessions,
-    this.user_sessions
-  );
+  return setting.receive(this.event, this.args, this.rawArgs, this.group_sessions, this.user_sessions);
 };
 
 const commandCommand = () => {
@@ -5588,10 +5215,7 @@ const helpCommand = () => {
 };
 
 const statusCommand = async () => {
-  const msg = await stats.statusCommand(
-    this.user_sessions,
-    this.group_sessions
-  );
+  const msg = await stats.statusCommand(this.user_sessions, this.group_sessions);
   return replyFlex(msg);
 };
 
@@ -5610,9 +5234,7 @@ const aboutCommand = () => {
 };
 
 const personalCommand = () => {
-  const text = `💡 ${this.user_session.name}, commad ${
-    this.args[0]
-  } hanya boleh dilakukan di pc bot`;
+  const text = `💡 ${this.user_session.name}, commad ${this.args[0]} hanya boleh dilakukan di pc bot`;
   return replyText(text);
 };
 
@@ -5627,9 +5249,7 @@ const showUpdatesCommand = () => {
 };
 
 const invalidCommand = () => {
-  const text = `💡 Tidak ditemukan perintah '${
-    this.args[0]
-  }'. Cek daftar perintah yang ada di '/cmd'`;
+  const text = `💡 Tidak ditemukan perintah '${this.args[0]}'. Cek daftar perintah yang ada di '/cmd'`;
   return replyText(text);
 };
 
@@ -5739,10 +5359,7 @@ const replyFlex = (flex_raw, text_raw, new_flex_raw) => {
       if (time < 1) {
         reminder += "Waktu sudah habis, ketik '/cek' untuk lanjutkan proses";
       } else {
-        reminder +=
-          "Waktu tersisa " +
-          time +
-          " detik lagi, nanti ketik '/cek' untuk lanjutkan proses";
+        reminder += "Waktu tersisa " + time + " detik lagi, nanti ketik '/cek' untuk lanjutkan proses";
       }
 
       const opt_text = {
@@ -5765,10 +5382,7 @@ const replyFlex = (flex_raw, text_raw, new_flex_raw) => {
 
   return client.replyMessage(this.event.replyToken, msg).catch(err => {
     console.log(JSON.stringify(msg));
-    console.error(
-      "err replyFlex di main.js",
-      err.originalError.response.data.message
-    );
+    console.error("err replyFlex di main.js", err.originalError.response.data.message);
   });
 };
 
