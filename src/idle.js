@@ -203,7 +203,7 @@ const showUpdatesCommand = () => {
 
 /** message func **/
 
-const replyText = texts => {
+const replyText = async texts => {
   texts = Array.isArray(texts) ? texts : [texts];
 
   const sender = util.getSender();
@@ -216,16 +216,16 @@ const replyText = texts => {
     };
   });
 
-  return client.replyMessage(this.event.replyToken, msg).catch(err => {
+  return await client.replyMessage(this.event.replyToken, msg).catch(err => {
     console.log("err di replyText di idle.js", err.originalError.response.data);
   });
 };
 
-const replyFlex = flex_raw => {
+const replyFlex = async flex_raw => {
   const sender = util.getSender();
 
   const msg = flex.build(flex_raw, sender);
-  return client.replyMessage(this.event.replyToken, msg).catch(err => {
+  return await client.replyMessage(this.event.replyToken, msg).catch(err => {
     console.log(JSON.stringify(msg));
     console.error("err replyFlex di idle.js", err.originalError.response.data.message);
   });

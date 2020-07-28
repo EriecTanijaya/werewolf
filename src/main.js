@@ -3734,9 +3734,6 @@ const getVillagerCode = () => {
       index = i;
     }
   }
-  console.log(tmp);
-  console.log(index);
-  console.log(this.group_session.words[index].text);
   return this.group_session.words[index].text;
 };
 
@@ -5135,11 +5132,11 @@ const newCommand = () => {
 
   if (process.env.TEST === "true") {
     // cp
-    // const dummies = util.getFakeData(5);
-    // dummies.forEach(item => {
-    //   const newPlayer = createNewPlayer(item);
-    //   this.group_session.players.push(newPlayer);
-    // });
+    const dummies = util.getFakeData(5);
+    dummies.forEach(item => {
+      const newPlayer = createNewPlayer(item);
+      this.group_session.players.push(newPlayer);
+    });
   }
 
   const text = "💡 " + this.user_session.name + " berhasil bergabung!";
@@ -5304,7 +5301,7 @@ const indexOfPlayer = () => {
 
 /** message func **/
 
-const replyText = texts => {
+const replyText = async texts => {
   let state = this.group_session.state;
   texts = Array.isArray(texts) ? texts : [texts];
 
@@ -5328,12 +5325,12 @@ const replyText = texts => {
     };
   });
 
-  return client.replyMessage(this.event.replyToken, msg).catch(err => {
+  return await client.replyMessage(this.event.replyToken, msg).catch(err => {
     console.log("err di replyText di main.js", err.originalError.response.data);
   });
 };
 
-const replyFlex = (flex_raw, text_raw, new_flex_raw) => {
+const replyFlex = async (flex_raw, text_raw, new_flex_raw) => {
   let state = this.group_session.state;
   let opt_texts = [];
   let sender = {};
@@ -5380,7 +5377,7 @@ const replyFlex = (flex_raw, text_raw, new_flex_raw) => {
     msg.push(addonMsg);
   }
 
-  return client.replyMessage(this.event.replyToken, msg).catch(err => {
+  return await client.replyMessage(this.event.replyToken, msg).catch(err => {
     console.log(JSON.stringify(msg));
     console.error("err replyFlex di main.js", err.originalError.response.data.message);
   });
