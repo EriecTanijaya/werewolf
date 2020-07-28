@@ -863,10 +863,6 @@ const retributionistSkill = flex_text => {
   const players = this.group_session.players;
   const cmdText = getRoleCmdText("retributionist");
 
-  flex_text.bodyText += "\n\n" + skillText;
-
-  flex_
-
   // check for townies only death
   let isTownieDeath = false;
 
@@ -882,6 +878,7 @@ const retributionistSkill = flex_text => {
     return replyFlex(flex_text);
   }
   
+  flex_text.bodyText += "\n\n" + skillText;
   flex_text.buttons = [];
 
   let button = {};
