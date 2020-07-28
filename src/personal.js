@@ -863,10 +863,6 @@ const retributionistSkill = flex_text => {
   const players = this.group_session.players;
   const cmdText = getRoleCmdText("retributionist");
 
-  flex_text.bodyText += "\n\n" + skillText;
-
-  flex_text.buttons = [];
-
   // check for townies only death
   let isTownieDeath = false;
 
@@ -881,6 +877,9 @@ const retributionistSkill = flex_text => {
   if (!isTownieDeath) {
     return replyFlex(flex_text);
   }
+  
+  flex_text.bodyText += "\n\n" + skillText;
+  flex_text.buttons = [];
 
   let button = {};
   players.forEach((item, index) => {
@@ -1331,7 +1330,7 @@ const canSelfTarget = roleName => {
 
 /** message func **/
 
-const replyText = texts => {
+const replyText = async texts => {
   let state = this.group_session.state;
   texts = Array.isArray(texts) ? texts : [texts];
 
@@ -1355,12 +1354,12 @@ const replyText = texts => {
     };
   });
 
-  return client.replyMessage(this.event.replyToken, msg).catch(err => {
+  return await client.replyMessage(this.event.replyToken, msg).catch(err => {
     console.log("err di replyText di personal.js", err.originalError.response.data);
   });
 };
 
-const replyFlex = (flex_raw, text_raw, new_flex_raw) => {
+const replyFlex = async (flex_raw, text_raw, new_flex_raw) => {
   let state = this.group_session.state;
   let opt_texts = [];
   let sender = {};
@@ -1407,7 +1406,7 @@ const replyFlex = (flex_raw, text_raw, new_flex_raw) => {
     msg.push(addonMsg);
   }
 
-  return client.replyMessage(this.event.replyToken, msg).catch(err => {
+  return await client.replyMessage(this.event.replyToken, msg).catch(err => {
     console.log(JSON.stringify(msg));
     console.error("err replyFlex di personal.js", err.originalError.response.data.message);
   });
