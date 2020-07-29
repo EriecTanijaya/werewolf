@@ -5156,8 +5156,6 @@ const settingCommand = () => {
 
 const commandCommand = () => {
   const flex_texts = [];
-  let firstText = "";
-  let secondText = "";
   const cmds = [
     "/new : main game",
     "/cancel : keluar game",
@@ -5168,38 +5166,53 @@ const commandCommand = () => {
     "/info : tampilin list role",
     "/about : tentang bot",
     "/revoke : untuk batal voting",
-    "/extend : untuk menambah 1 menit saat baru membuat room game",
-    "/kick : untuk mengeluarkan bot dari group atau room chat",
-    "/setting : untuk melihat pengaturan game",
-    "/tutorial : tutorial menggunakan bot ini",
-    "/gamestat : status game yang berjalan di grup ini",
+    "/kick : keluarin bot",
+    "/setting : liat settingan bot",
+    "/tutorial : self explanatory",
+    "/gamestat : status game yg berjalan",
     "/forum : link ke openchat",
     "/updates : untuk melihat 5 update terakhir bot",
     "/promote : open group dengan memberikan admin group",
     "/group : melihat list group yang open"
   ];
-
-  for (let i = 0; i < cmds.length; i++) {
-    if (i > 7) {
-      secondText += "- " + cmds[i] + "\n";
-    } else {
-      firstText += "- " + cmds[i] + "\n";
+  //cmds.length = 12;
+  let flexNeeded = 0;
+  const limit = 8;
+  let cnt = 0;
+  cmds.forEach((item, index) => {
+    cnt++;
+    if (cnt === limit || index === cmds.length - 1) {
+      flexNeeded++;
+      cnt = 0;
     }
-  }
+  });
 
-  for (let i = 0; i < 2; i++) {
-    let flex_text = {
+  let startPoint = 0; //start
+  let limitCheckPoint = 8 > cmds.length ? cmds.length : 8;
+
+  let flex_text = {};
+  for (let i = 0; i < flexNeeded; i++) {
+    flex_text[i] = {
       headerText: "📚 Daftar Perintah",
       bodyText: ""
     };
 
-    if (i === 0) {
-      flex_text.bodyText = firstText;
-    } else {
-      flex_text.bodyText = secondText;
-    }
+    for (startPoint; startPoint < limitCheckPoint; startPoint++) {
+      flex_text[i].bodyText += `- ${cmds[startPoint]}\n`;
 
-    flex_texts.push(flex_text);
+      if (startPoint === limitCheckPoint - 1 || startPoint === cmds.length - 1) {
+        flex_texts.push(flex_text[i]);
+
+        if (limitCheckPoint < cmds.length) {
+          let spaceLeft = cmds.length - startPoint + 1;
+          let addonLimit = 8 > spaceLeft ? spaceLeft : 8;
+          limitCheckPoint += addonLimit;
+          startPoint++;
+        }
+
+        break;
+      }
+    }
   }
 
   return replyFlex(flex_texts);

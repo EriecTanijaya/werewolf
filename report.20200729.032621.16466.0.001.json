@@ -1,0 +1,288 @@
+
+{
+  "header": {
+    "event": "Allocation failed - JavaScript heap out of memory",
+    "trigger": "FatalError",
+    "filename": "report.20200729.032621.16466.0.001.json",
+    "dumpEventTime": "2020-07-29T03:26:21Z",
+    "dumpEventTimeStamp": "1595993181065",
+    "processId": 16466,
+    "cwd": "/app",
+    "commandLine": [
+      "node",
+      "server.js"
+    ],
+    "nodejsVersion": "v12.0.0",
+    "glibcVersionRuntime": "2.23",
+    "glibcVersionCompiler": "2.17",
+    "wordSize": 64,
+    "arch": "x64",
+    "platform": "linux",
+    "componentVersions": {
+      "node": "12.0.0",
+      "v8": "7.4.288.21-node.16",
+      "uv": "1.28.0",
+      "zlib": "1.2.11",
+      "brotli": "1.0.7",
+      "ares": "1.15.0",
+      "modules": "72",
+      "nghttp2": "1.38.0",
+      "napi": "4",
+      "llhttp": "1.1.1",
+      "http_parser": "2.8.0",
+      "openssl": "1.1.1b",
+      "cldr": "34.0",
+      "icu": "63.1",
+      "tz": "2018e",
+      "unicode": "11.0"
+    },
+    "release": {
+      "name": "node",
+      "headersUrl": "https://nodejs.org/download/release/v12.0.0/node-v12.0.0-headers.tar.gz",
+      "sourceUrl": "https://nodejs.org/download/release/v12.0.0/node-v12.0.0.tar.gz"
+    },
+    "osName": "Linux",
+    "osRelease": "4.4.0-1107-aws",
+    "osVersion": "#118-Ubuntu SMP Sun May 3 23:28:51 UTC 2020",
+    "osMachine": "x86_64",
+    "host": "c75b20f28c6f"
+  },
+  "javascriptStack": {
+    "message": "No stack.",
+    "stack": [
+      "Unavailable."
+    ]
+  },
+  "nativeStack": [
+    {
+      "pc": "0x0000000000a94fed",
+      "symbol": "report::TriggerNodeReport(v8::Isolate*, node::Environment*, char const*, char const*, std::string const&, v8::Local<v8::String>) [node]"
+    },
+    {
+      "pc": "0x000000000097b219",
+      "symbol": "node::OnFatalError(char const*, char const*) [node]"
+    },
+    {
+      "pc": "0x0000000000af2d0e",
+      "symbol": "v8::Utils::ReportOOMFailure(v8::internal::Isolate*, char const*, bool) [node]"
+    },
+    {
+      "pc": "0x0000000000af3089",
+      "symbol": "v8::internal::V8::FatalProcessOutOfMemory(v8::internal::Isolate*, char const*, bool) [node]"
+    },
+    {
+      "pc": "0x0000000000efe235",
+      "symbol": " [node]"
+    },
+    {
+      "pc": "0x0000000000f08b9b",
+      "symbol": "v8::internal::Heap::PerformGarbageCollection(v8::internal::GarbageCollector, v8::GCCallbackFlags) [node]"
+    },
+    {
+      "pc": "0x0000000000f098b7",
+      "symbol": "v8::internal::Heap::CollectGarbage(v8::internal::AllocationSpace, v8::internal::GarbageCollectionReason, v8::GCCallbackFlags) [node]"
+    },
+    {
+      "pc": "0x0000000000f0c355",
+      "symbol": "v8::internal::Heap::AllocateRawWithRetryOrFail(int, v8::internal::AllocationType, v8::internal::AllocationAlignment) [node]"
+    },
+    {
+      "pc": "0x0000000000ed7380",
+      "symbol": "v8::internal::Factory::NewFillerObject(int, bool, v8::internal::AllocationSpace) [node]"
+    },
+    {
+      "pc": "0x00000000011a917e",
+      "symbol": "v8::internal::Runtime_AllocateInNewSpace(int, unsigned long*, v8::internal::Isolate*) [node]"
+    },
+    {
+      "pc": "0x0000000001a5c1a2",
+      "symbol": " [node]"
+    }
+  ],
+  "javascriptHeap": {
+    "totalMemory": 2178498560,
+    "totalCommittedMemory": 2172767040,
+    "usedMemory": 1875860176,
+    "availableMemory": 52971824,
+    "memoryLimit": 2197815296,
+    "heapSpaces": {
+      "read_only_space": {
+        "memorySize": 524288,
+        "committedMemory": 32024,
+        "capacity": 523976,
+        "used": 31712,
+        "available": 492264
+      },
+      "new_space": {
+        "memorySize": 33554432,
+        "committedMemory": 29358176,
+        "capacity": 16767232,
+        "used": 2226136,
+        "available": 14541096
+      },
+      "old_space": {
+        "memorySize": 2126110720,
+        "committedMemory": 2125849904,
+        "capacity": 1858323360,
+        "used": 1856468864,
+        "available": 1854496
+      },
+      "code_space": {
+        "memorySize": 688128,
+        "committedMemory": 300960,
+        "capacity": 220064,
+        "used": 220064,
+        "available": 0
+      },
+      "map_space": {
+        "memorySize": 1052672,
+        "committedMemory": 657656,
+        "capacity": 406800,
+        "used": 406800,
+        "available": 0
+      },
+      "large_object_space": {
+        "memorySize": 16519168,
+        "committedMemory": 16519168,
+        "capacity": 16503144,
+        "used": 16503144,
+        "available": 0
+      },
+      "code_large_object_space": {
+        "memorySize": 49152,
+        "committedMemory": 49152,
+        "capacity": 3456,
+        "used": 3456,
+        "available": 0
+      },
+      "new_large_object_space": {
+        "memorySize": 0,
+        "committedMemory": 0,
+        "capacity": 16767232,
+        "used": 0,
+        "available": 16767232
+      }
+    }
+  },
+  "resourceUsage": {
+    "userCpuSeconds": 89.48,
+    "kernelCpuSeconds": 2.648,
+    "cpuConsumptionPercent": 35.2981,
+    "maxRss": 2248245248,
+    "pageFaults": {
+      "IORequired": 10,
+      "IONotRequired": 577295
+    },
+    "fsActivity": {
+      "reads": 1792,
+      "writes": 32
+    }
+  },
+  "uvthreadResourceUsage": {
+    "userCpuSeconds": 46.54,
+    "kernelCpuSeconds": 1.712,
+    "cpuConsumptionPercent": 18.4874,
+    "fsActivity": {
+      "reads": 1792,
+      "writes": 32
+    }
+  },
+  "libuv": [
+  ],
+  "environmentVariables": {
+    "CHANNEL_SECRET": "eccb30542c9a9caa522f1afe2eeb6456",
+    "DEFAULT_NODE_VERSION": "10",
+    "HOSTNAME": "c75b20f28c6f",
+    "GEM_HOME": "/app/.local/gems",
+    "PROJECT_DOMAIN": "werewolf-glitch-test",
+    "TERM": "xterm",
+    "PROJECT_INVITE_TOKEN": "6b72460c-5803-496f-ba00-2eac610d6457",
+    "HOST_ADDRESS": "172.17.0.1",
+    "BOT_ID": "@954nujbd",
+    "LC_ALL": "en_US.UTF-8",
+    "USER_PATH": "/app/bin:/app/.local/bin:/app/node_modules/.bin:/opt/rust/cargo/bin:/opt/swift/usr/bin:/usr/local/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+    "WATCHER_MD5": "83edca43f6a0a9f53ed8b4830ae7b765",
+    "DPKG_FRONTEND": "noninteractive",
+    "ENABLE_SERVER_SIDE_MONITORING": "false",
+    "DEV_ID": "U83caf7c21caa4cb90f5c616e0ef85e3a",
+    "WATCHER_SENTRY_DSN": "https://fea78dd2fd7e4d5ba7267f6d91460f48@sentry.io/1837769",
+    "API_SERVER_EXTERNAL": "https://api.glitch.com",
+    "MAINTENANCE": "false",
+    "PATH": "/app/bin:/app/.local/bin:/app/node_modules/.bin:/opt/rust/cargo/bin:/opt/swift/usr/bin:/usr/local/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/nvm/versions/node/v12/bin",
+    "CARGO_HOME": "/opt/rust/cargo",
+    "PROJECT_NAME": "werewolf-glitch-test",
+    "PROJECT_ID": "fc7de31a-faeb-4c50-8a38-834ec153f590",
+    "PWD": "/app",
+    "JAVA_HOME": "/usr/lib/jvm/java-8-openjdk-amd64",
+    "LANG": "en_US.UTF-8",
+    "APP_TYPES_DIR": "/opt/watcher/app-types",
+    "TEST_GROUP": "C232815eb3bd1920ec56c8c501e984778",
+    "INSIDE_DOCKER": "true",
+    "ENVIRONMENT": "production",
+    "TEST": "true",
+    "SHLVL": "3",
+    "HOME": "/app",
+    "LANGUAGE": "en_US.UTF-8",
+    "RUSTUP_HOME": "/opt/rust/multirust",
+    "DEFAULT_NODE_DIR": "/opt/nvm/versions/node/v10/bin",
+    "GLITCH_SHARED_INCLUDES_LEGACY_CLS": "true",
+    "DEBIAN_FRONTEND": "noninteractive",
+    "CHANNEL_ACCESS_TOKEN": "GBYfycP0BhTuttwy+3u8c0tMCGmKvC5RrHmNkjcNSE83JIPB6er6LptpD0H/9OYEjQgvvVgogVBTULlcdWpTQDN772ayaSZfHHmLUl8GqNPG70b79rvRAiRX8ZO4I8dBhGPGNmKJvU4I3dXSJcz1PAdB04t89/1O/w1cDnyilFU=",
+    "PORT": "3000",
+    "HOST_HOSTNAME": "docker-worker-0AC5DB",
+    "PROJECT_REMIX_CHAIN": "[\"a0fcd798-9ddf-42e5-8205-17158d4bf5bb\"]",
+    "_": "/opt/nvm/versions/node/v12/bin/node"
+  },
+  "userLimits": {
+    "core_file_size_blocks": {
+      "soft": "unlimited",
+      "hard": "unlimited"
+    },
+    "data_seg_size_kbytes": {
+      "soft": "unlimited",
+      "hard": "unlimited"
+    },
+    "file_size_blocks": {
+      "soft": "unlimited",
+      "hard": "unlimited"
+    },
+    "max_locked_memory_bytes": {
+      "soft": 65536,
+      "hard": 65536
+    },
+    "max_memory_size_kbytes": {
+      "soft": "unlimited",
+      "hard": "unlimited"
+    },
+    "open_files": {
+      "soft": 1048576,
+      "hard": 1048576
+    },
+    "stack_size_bytes": {
+      "soft": 8388608,
+      "hard": "unlimited"
+    },
+    "cpu_time_seconds": {
+      "soft": "unlimited",
+      "hard": "unlimited"
+    },
+    "max_user_processes": {
+      "soft": "unlimited",
+      "hard": "unlimited"
+    },
+    "virtual_memory_kbytes": {
+      "soft": "unlimited",
+      "hard": "unlimited"
+    }
+  },
+  "sharedObjects": [
+    "/lib/x86_64-linux-gnu/libdl.so.2",
+    "/lib/x86_64-linux-gnu/librt.so.1",
+    "/usr/lib/x86_64-linux-gnu/libstdc++.so.6",
+    "/lib/x86_64-linux-gnu/libm.so.6",
+    "/lib/x86_64-linux-gnu/libgcc_s.so.1",
+    "/lib/x86_64-linux-gnu/libpthread.so.0",
+    "/lib/x86_64-linux-gnu/libc.so.6",
+    "/lib64/ld-linux-x86-64.so.2"
+  ]
+}
