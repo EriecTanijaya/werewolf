@@ -6,7 +6,7 @@ const getData = () => {
     skillText: "Bodyguard, pilih siapa yang mau kamu lindungi",
     cmdText: "/skill",
     team: "villager",
-    canKill: false,
+    canKill: true,
     emoji: {
       team: "👨‍🌾",
       self: "🛡️"
