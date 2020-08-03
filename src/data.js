@@ -199,7 +199,6 @@ const searchGroup = async groupId => {
       promoted: false,
       adminLink: "",
       caption: "",
-      words: [],
       customRoles: [],
       lastFirstBloodIds: [],
       currentFirstBloodIds: [],
