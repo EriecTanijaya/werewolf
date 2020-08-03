@@ -26,26 +26,6 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
 
   if (!rawArgs.startsWith("/")) {
     rawArgs = rawArgs.toLowerCase();
-    let splittedWords = rawArgs.split(" ");
-
-    const wordList = this.group_session.words.map(item => {
-      return item.text;
-    });
-
-    for (let i = 0; i < splittedWords.length; i++) {
-      if (wordList.includes(splittedWords[i])) {
-        for (let j = 0; j < wordList.length; j++) {
-          if (wordList[j] === splittedWords[i]) {
-            this.group_session.words[j].value++;
-          }
-        }
-      } else if (splittedWords[i] !== "") {
-        this.group_session.words.push({
-          text: splittedWords[i],
-          value: 0
-        });
-      }
-    }
 
     if (rawArgs.includes("bot")) {
       if (args.length < 2) return replyText("Yo ada apa?");
@@ -3722,19 +3702,32 @@ const getJesterTargetIndex = jesterId => {
 };
 
 const getVillagerCode = () => {
-  if (this.group_session.words.length === 0) {
-    return "curiga";
-  }
+  const words = [
+    "curiga",
+    "bohong",
+    "setuju",
+    "tidur",
+    "fitnah",
+    "rasain",
+    "menang",
+    "kalah",
+    "percaya",
+    "janji",
+    "dusta",
+    "diam",
+    "berisik",
+    "tenang",
+    "santai",
+    "perasaan",
+    "ketahuan",
+    "terciduk",
+    "tolong",
+    "tembak"
+  ];
 
-  let tmp = 0;
-  let index = 0;
-  for (let i = 0; i < this.group_session.words.length; i++) {
-    if (this.group_session.words[i].value > tmp) {
-      tmp = this.group_session.words[i].value;
-      index = i;
-    }
-  }
-  return this.group_session.words[index].text;
+  const word = util.random(words);
+
+  return word;
 };
 
 const night = () => {
