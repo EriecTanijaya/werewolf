@@ -18,11 +18,8 @@ const getData = () => {
 
 const getInfo = () => {
   let text = "Warga yang bisa cek suatu pemain mencurigakan atau tidak. ";
-  text +=
-    "Setiap warga akan tampil tidak mencurigakan. Namun role Godfather, Arsonist, Vampire, Executioner akan tampil tidak mencurigakan juga. ";
-  text += "Jika target Sheriff di frame, maka akan tampil mencurigakan walaupun tidak. ";
-  text +=
-    "Namun jika Disguiser di cek Sheriff, maka akan tampil mencurigakan. Walaupun role imitasi Disguiser adalah warga. ";
+  text += "Yang tampil mencurigakan adalah semua anggota Mafia kecuali Godfather, Serial Killer, ";
+  text += "orang yang di frame oleh Framer, dan Werewolf pada saat malam genap (bulan purnama)";
   return text;
 };
 

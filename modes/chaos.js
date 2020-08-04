@@ -36,8 +36,7 @@ const generate = playersLength => {
     "escort",
     "retributionist",
     "tracker",
-    "psychic",
-    "villager"
+    "psychic"
   ];
 
   let neutralKillings = ["serial-killer", "werewolf", "juggernaut", "plaguebearer", "arsonist"];
