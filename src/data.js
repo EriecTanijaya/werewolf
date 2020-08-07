@@ -137,6 +137,15 @@ const searchUser = async () => {
     }
   }
 
+  const userDisplayName = user_sessions[userId].name.toLowerCase();
+  if (userDisplayName === "city of bedburg") {
+    if (!this.rawArgs.startsWith("/")) {
+      return Promise.resolve(null);
+    }
+    
+    return replyText("💡 Jangan bikin ambigu dong, kok namanya sama bos?");
+  }
+
   searchUserCallback();
 };
 
