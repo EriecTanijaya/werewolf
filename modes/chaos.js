@@ -39,7 +39,7 @@ const generate = playersLength => {
     "psychic"
   ];
 
-  let neutralKillings = ["serial-killer", "werewolf", "juggernaut", "plaguebearer", "arsonist"];
+  let neutralKillings = ["serial-killer", "werewolf", "juggernaut", "arsonist"];
 
   let randomMafia = ["framer", "consort", "consigliere", "disguiser"];
 
@@ -95,9 +95,11 @@ const generate = playersLength => {
   };
 
   let isVampireHunterAdded = false;
+  let isNeutralKilling = false;
 
   switch (getRandomEnemy()) {
     case "neutralKilling":
+      isNeutralKilling = true;
       neutralKilling();
       break;
 
@@ -112,7 +114,11 @@ const generate = playersLength => {
 
   switch (getRandomEnemy()) {
     case "neutralKilling":
-      addNeutralKilling();
+      if (isNeutralKilling) {
+        roles.push("plaguebearer");
+      } else {
+        addNeutralKilling();
+      }
       addRandomTown();
       break;
 
