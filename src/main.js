@@ -41,7 +41,7 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
         return infoCommand();
       } else if (rawArgs.match(/gas/gi)) {
         return startCommand();
-      } else if (rawArgs.match(/susah/gi)) {
+      } else if (rawArgs.match(/susah/gi) || rawArgs.match(/bingung/gi)) {
         return replyText("Kamu bisa ke tanya tanya di '/forum' kalo ada yang bingung :)");
       }
     }
@@ -5125,11 +5125,11 @@ const newCommand = () => {
 
   if (process.env.TEST === "true") {
     // cp
-    const dummies = util.getFakeData(5);
-    dummies.forEach(item => {
-      const newPlayer = createNewPlayer(item);
-      this.group_session.players.push(newPlayer);
-    });
+    // const dummies = util.getFakeData(5);
+    // dummies.forEach(item => {
+    //   const newPlayer = createNewPlayer(item);
+    //   this.group_session.players.push(newPlayer);
+    // });
   }
 
   const text = "💡 " + this.user_session.name + " berhasil bergabung!";

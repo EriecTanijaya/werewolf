@@ -306,7 +306,7 @@ const targetCommand = () => {
   const roleName = players[index].role.name;
   const roleTeam = players[index].role.team;
 
-  const prohibited = ["villager", "veteran", "survivor", "executioner", "psychic"];
+  const prohibited = ["villager", "veteran", "survivor", "executioner", "psychic", "guardian-angel"];
 
   if (prohibited.includes(roleName)) {
     return replyText("💡 Jangan pernah kau coba untuk");
@@ -700,7 +700,7 @@ const roleCommand = () => {
     return replyFlex(flex_text, text);
   }
 
-  // special role villager cp
+  // special role villager
   if (roleName === "villager") {
     let villagerCode = this.group_session.villagerCode;
     if (villagerCode !== "") {
@@ -729,7 +729,7 @@ const roleCommand = () => {
 
     // morphed role message
     if (players[index].addonMessage) {
-      text += players[index].addonMessage + "\n";
+      text += players[index].addonMessage + "\n\n";
       players[index].addonMessage = "";
     }
 
@@ -796,15 +796,15 @@ const roleCommand = () => {
     }
 
     // special role private role prop reminder
-    if (roleName === "doctor") {
+    if (roleName === "doctor" && players[index].role.selfHeal > 0) {
       text += "💉 Kamu memiliki " + players[index].role.selfHeal + " self heal";
-    } else if (roleName === "vigilante") {
+    } else if (roleName === "vigilante" && players[index].role.bullet > 0) {
       text += "🔫 Kamu memiliki " + players[index].role.bullet + " peluru";
-    } else if (roleName === "bodyguard") {
+    } else if (roleName === "bodyguard" && players[index].role.vest > 0) {
       text += "🦺 Kamu memiliki " + players[index].role.vest + " vest";
     }
 
-    // special role untuk arsonist dan plaguebearer //cp
+    // special role untuk arsonist dan plaguebearer
     if (roleName === "arsonist") {
       addon_flex_text.headerText = "🛢️ Doused List";
 
@@ -877,7 +877,7 @@ const retributionistSkill = flex_text => {
   if (!isTownieDeath) {
     return replyFlex(flex_text);
   }
-  
+
   flex_text.bodyText += "\n\n" + skillText;
   flex_text.buttons = [];
 
@@ -1367,7 +1367,7 @@ const replyFlex = async (flex_raw, text_raw, new_flex_raw) => {
   if (text_raw) {
     text_raw = Array.isArray(text_raw) ? text_raw : [text_raw];
     opt_texts = text_raw.map(item => {
-      return { type: "text", text: item };
+      return { type: "text", text: item.trim() };
     });
   }
 
