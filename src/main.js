@@ -967,7 +967,7 @@ const day = () => {
 
         if (visitor.blocked) continue;
 
-        if (visitor.target.index === rampagePlaceIndex) {
+        if (visitor.target.index == rampagePlaceIndex) {
           // hax mafia kalo yang pergi itu mafioso
           if (visitor.role.name === "godfather") {
             if (mafiaDoerIndex !== i) continue;
@@ -1134,7 +1134,7 @@ const day = () => {
 
           if (visitor.blocked) continue;
 
-          if (visitor.target.index === rampagePlaceIndex) {
+          if (visitor.target.index == rampagePlaceIndex) {
             // hax mafia kalo yang pergi itu mafioso
             if (visitor.role.name === "godfather") {
               if (mafiaDoerIndex !== i) continue;
@@ -1255,7 +1255,7 @@ const day = () => {
 
         if (visitor.blocked) continue;
 
-        if (visitor.target.index === rampagePlaceIndex) {
+        if (visitor.target.index == rampagePlaceIndex) {
           // hax mafia kalo yang pergi itu mafioso
           if (visitor.role.name === "godfather") {
             if (mafiaDoerIndex !== i) continue;
@@ -5125,11 +5125,11 @@ const newCommand = () => {
 
   if (process.env.TEST === "true") {
     // cp
-    // const dummies = util.getFakeData(5);
-    // dummies.forEach(item => {
-    //   const newPlayer = createNewPlayer(item);
-    //   this.group_session.players.push(newPlayer);
-    // });
+    const dummies = util.getFakeData(5);
+    dummies.forEach(item => {
+      const newPlayer = createNewPlayer(item);
+      this.group_session.players.push(newPlayer);
+    });
   }
 
   const text = "💡 " + this.user_session.name + " berhasil bergabung!";
