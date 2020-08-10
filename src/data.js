@@ -92,16 +92,7 @@ const receive = (event, rawArgs) => {
     }
   }
 
-  if (rawArgs.startsWith("/")) {
-    rawArgs = rawArgs.trim();
-    this.args = rawArgs.split(" ");
-    this.args = this.args.map(item => {
-      return item.toLowerCase();
-    });
-  } else {
-    this.args = rawArgs.split(" ");
-  }
-
+  this.args = rawArgs.split(" ");
   this.rawArgs = rawArgs;
 
   searchUser();
@@ -142,7 +133,7 @@ const searchUser = async () => {
     if (!this.rawArgs.startsWith("/")) {
       return Promise.resolve(null);
     }
-    
+
     return replyText("💡 Jangan bikin ambigu dong, kok namanya sama bos?");
   }
 

@@ -7,16 +7,21 @@ const util = require("../util");
 const roles = require("../roles");
 const modes = require("../modes");
 const types = require("../types");
+const addonInfo = require("../addonInfo");
 
-const receive = (event, args, groupState = null) => {
+const receive = (event, args, rawArgs, groupState = null) => {
   this.event = event;
-  this.args = args;
+  this.rawArgs = rawArgs.trim();
+  this.args = args.map(item => {
+    return item.toLowerCase();
+  });
 
-  if (!args[1]) {
+  if (!this.args[1]) {
     return commandCommand();
   }
 
   let input = args[1].toLowerCase();
+
   if (input === "role") {
     return roleListCommand();
   } else if (input === "mode") {
@@ -25,12 +30,12 @@ const receive = (event, args, groupState = null) => {
     return typeListCommand();
   }
 
-  if (args[2]) {
-    args.shift();
-    input = args.join("-");
+  if (this.args[2]) {
+    this.args.shift();
+    input = this.args.join("-");
   }
 
-  if (!roles[input] && !modes[input] && !types[input]) {
+  if (!roles[input] && !modes[input] && !types[input] && !addonInfo[input]) {
     return invalidCommand();
   }
 
@@ -77,10 +82,15 @@ const receive = (event, args, groupState = null) => {
   if (types[input] !== undefined) {
     const flex_text = {
       headerText: types[input].name,
-      bodyText:
-        types[input].list + "\n\n💡 Ketik '/info <nama-role>' untuk detailnya"
+      bodyText: types[input].list + "\n\n💡 Ketik '/info <nama-role>' untuk detailnya"
     };
 
+    flex_texts.push(flex_text);
+  }
+
+  if (addonInfo[input] !== undefined) {
+    const { headerText, bodyText } = addonInfo[input];
+    const flex_text = { headerText, bodyText };
     flex_texts.push(flex_text);
   }
 
@@ -118,9 +128,7 @@ const roleListCommand = () => {
 };
 
 const invalidCommand = () => {
-  let text = `💡 Tidak ditemukan '${
-    this.args[1]
-  }', apakah itu role, mode atau types? `;
+  let text = `💡 Tidak ditemukan '${this.args[1]}', apakah itu role, mode atau types? `;
   text += "Cek '/info' untuk detail nya";
   return replyText(text);
 };
@@ -175,10 +183,7 @@ const replyFlex = flex_raw => {
   const msg = flex.build(flex_raw, sender);
   return client.replyMessage(this.event.replyToken, msg).catch(err => {
     console.log(JSON.stringify(msg));
-    console.error(
-      "err replyFlex di info.js",
-      err.originalError.response.data.message
-    );
+    console.error("err replyFlex di info.js", err.originalError.response.data.message);
   });
 };
 

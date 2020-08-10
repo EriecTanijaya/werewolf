@@ -82,8 +82,31 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
       return showUpdatesCommand();
     case "/reset":
       return resetCommand();
+    case "/run":
+      return runCommand();
+    case "/forum":
+    case "/oc":
+    case "/openchat":
+      return forumCommand();
     default:
       return invalidCommand();
+  }
+};
+
+const forumCommand = () => {
+  const msg = util.getForumInfo();
+  return replyFlex(msg);
+};
+
+const runCommand = () => {
+  if (this.user_session.id !== process.env.DEV_ID) {
+    return invalidCommand();
+  }
+
+  try {
+    return eval(util.parseToText(this.args));
+  } catch (err) {
+    return replyText(err.message);
   }
 };
 
@@ -1270,7 +1293,7 @@ const viewCommand = async () => {
 };
 
 const infoCommand = () => {
-  info.receive(this.event, this.args);
+  info.receive(this.event, this.args, this.rawArgs);
 };
 
 const helpCommand = () => {
