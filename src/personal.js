@@ -84,9 +84,18 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
       return resetCommand();
     case "/run":
       return runCommand();
+    case "/forum":
+    case "/oc":
+    case "/openchat":
+      return forumCommand();
     default:
       return invalidCommand();
   }
+};
+
+const forumCommand = () => {
+  const msg = util.getForumInfo();
+  return replyFlex(msg);
 };
 
 const runCommand = () => {
