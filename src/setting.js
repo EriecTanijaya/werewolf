@@ -12,7 +12,7 @@ const receive = (event, args, rawArgs, group_sessions, user_sessions) => {
   const groupId = util.getGroupId(event);
   this.group_session = group_sessions[groupId];
   this.rawArgs = rawArgs.trim();
-  this.args = this.args.map(item => {
+  this.args = args.map(item => {
     return item.toLowerCase();
   });
 
@@ -206,7 +206,7 @@ const setRoleCommand = () => {
 
   // sheriff
   if (has("sheriff")) {
-    let suspiciousList = ["mafioso", "consigliere", "consort", "serial-killer", "framer", "disguiser"];
+    const suspiciousList = ["mafioso", "consigliere", "consort", "serial-killer", "framer", "disguiser", "werewolf"];
 
     let isSomeoneSuspicious = false;
     for (let i = 0; i < customRoles.length; i++) {

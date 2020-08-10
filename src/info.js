@@ -11,7 +11,7 @@ const types = require("../types");
 const receive = (event, args, rawArgs, groupState = null) => {
   this.event = event;
   this.rawArgs = rawArgs.trim();
-  this.args = this.args.map(item => {
+  this.args = args.map(item => {
     return item.toLowerCase();
   });
 
