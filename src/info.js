@@ -7,6 +7,7 @@ const util = require("../util");
 const roles = require("../roles");
 const modes = require("../modes");
 const types = require("../types");
+const addonInfo = require("../addonInfo");
 
 const receive = (event, args, rawArgs, groupState = null) => {
   this.event = event;
@@ -20,7 +21,7 @@ const receive = (event, args, rawArgs, groupState = null) => {
   }
 
   let input = args[1].toLowerCase();
-  
+
   if (input === "role") {
     return roleListCommand();
   } else if (input === "mode") {
@@ -34,7 +35,7 @@ const receive = (event, args, rawArgs, groupState = null) => {
     input = this.args.join("-");
   }
 
-  if (!roles[input] && !modes[input] && !types[input]) {
+  if (!roles[input] && !modes[input] && !types[input] && !addonInfo[input]) {
     return invalidCommand();
   }
 
@@ -84,6 +85,12 @@ const receive = (event, args, rawArgs, groupState = null) => {
       bodyText: types[input].list + "\n\n💡 Ketik '/info <nama-role>' untuk detailnya"
     };
 
+    flex_texts.push(flex_text);
+  }
+
+  if (addonInfo[input] !== undefined) {
+    const { headerText, bodyText } = addonInfo[input];
+    const flex_text = { headerText, bodyText };
     flex_texts.push(flex_text);
   }
 

@@ -91,9 +91,8 @@ const receive = (event, rawArgs) => {
       return replyText("💡 Bot ini hanya dukung LINE versi 7.5.0 atau lebih tinggi.\nCoba update dulu LINE nya");
     }
   }
-  
-  this.args = rawArgs.split(" ");
 
+  this.args = rawArgs.split(" ");
   this.rawArgs = rawArgs;
 
   searchUser();
@@ -134,7 +133,7 @@ const searchUser = async () => {
     if (!this.rawArgs.startsWith("/")) {
       return Promise.resolve(null);
     }
-    
+
     return replyText("💡 Jangan bikin ambigu dong, kok namanya sama bos?");
   }
 
