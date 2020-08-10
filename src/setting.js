@@ -6,13 +6,15 @@ const modes = require("../modes");
 
 const receive = (event, args, rawArgs, group_sessions, user_sessions) => {
   this.event = event;
-  this.args = args;
-  this.rawArgs = rawArgs;
   this.group_sessions = group_sessions;
   this.user_sessions = user_sessions;
   this.user_session = user_sessions[event.source.userId];
   const groupId = util.getGroupId(event);
   this.group_session = group_sessions[groupId];
+  this.rawArgs = rawArgs.trim();
+  this.args = this.args.map(item => {
+    return item.toLowerCase();
+  });
 
   if (!args[1]) {
     return commandCommand();

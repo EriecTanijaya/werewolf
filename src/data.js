@@ -91,16 +91,8 @@ const receive = (event, rawArgs) => {
       return replyText("💡 Bot ini hanya dukung LINE versi 7.5.0 atau lebih tinggi.\nCoba update dulu LINE nya");
     }
   }
-
-  if (rawArgs.startsWith("/")) {
-    rawArgs = rawArgs.trim();
-    this.args = rawArgs.split(" ");
-    this.args = this.args.map(item => {
-      return item.toLowerCase();
-    });
-  } else {
-    this.args = rawArgs.split(" ");
-  }
+  
+  this.args = rawArgs.split(" ");
 
   this.rawArgs = rawArgs;
 

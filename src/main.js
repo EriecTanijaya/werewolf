@@ -5223,7 +5223,7 @@ const statusCommand = async () => {
 };
 
 const infoCommand = () => {
-  info.receive(this.event, this.args, this.group_session.state);
+  info.receive(this.event, this.args, this.rawArgs, this.group_session.state);
 };
 
 const tutorialCommand = () => {
