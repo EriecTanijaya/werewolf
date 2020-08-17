@@ -1,5 +1,7 @@
 ### TODO
 
+- tos banyak rework
+
 - kasih post update
 
 - role set trick or treat (ada di tos punya fandom wiki) buat halloween ntr
