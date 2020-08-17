@@ -2551,7 +2551,7 @@ const day = () => {
               "💡 " + players[attackerIndex].name + " berhasil dilindungi!" + "\n\n";
 
             if (players[attackerIndex].bugged) {
-              spyBuggedInfo[i] += "🔍 Target kamu selamat karena dilindungi Guardian Angel!" + "\n\n"; //cp derped spyBuggedInfo[attackerIndex]
+              spyBuggedInfo[attackerIndex] += "🔍 Target kamu selamat karena dilindungi Guardian Angel!" + "\n\n";
             }
 
             this.group_session.players[attackerIndex].message +=
