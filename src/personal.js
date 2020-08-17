@@ -381,7 +381,7 @@ const targetCommand = () => {
     }
 
     if (players[targetIndex].role.team !== "villager") {
-      return replyText("💡 Kamu hanya bisa bangkitin sesama warga");
+      if (!isDisguiseAsTownie(players[targetIndex])) return replyText("💡 Kamu hanya bisa bangkitin sesama warga");
     }
   } else if (roleName === "amnesiac") {
     if (players[targetIndex].status === "alive") {
