@@ -2421,40 +2421,37 @@ const day = () => {
         }
 
         if (isProtected) {
-          for (let x = 0; x < attackers.length; x++) { //cp delete this
-            for (let u = 0; u < protectors.length; u++) {
-              let protector = protectors[u];
+          for (let u = 0; u < protectors.length; u++) {
+            let protector = protectors[u];
 
-              if (!protector.roleName === "guardian-angel") {
-                continue;
-              }
-
-              if (protector.used) continue;
-
-              this.group_session.players[protector.index].message +=
-                "💡 " + players[i].name + " diserang semalam!" + "\n\n";
-
-              if (isHaunted || willSuicide || afkCounter >= 3) {
-                this.group_session.players[protector.index].message +=
-                  "💡 " + players[i].name + " gagal dilindungi!" + "\n\n";
-
-                this.group_session.players[i].message +=
-                  "⚔️ Guardian Angel berusaha melindungi mu namun gagal!" + "\n\n";
-
-                continue;
-              }
-
-              this.group_session.players[protector.index].message +=
-                "💡 " + players[i].name + " berhasil dilindungi!" + "\n\n";
-
-              if (players[i].bugged) {
-                spyBuggedInfo[i] += "🔍 Target kamu selamat karena dilindungi Guardian Angel!" + "\n\n";
-              }
-
-              this.group_session.players[i].message += "⚔️ Kamu selamat karena dilindungi Guardian Angel!" + "\n\n";
-
-              protector.used = true;
+            if (!protector.roleName === "guardian-angel") {
+              continue;
             }
+
+            if (protector.used) continue;
+
+            this.group_session.players[protector.index].message +=
+              "💡 " + players[i].name + " diserang semalam!" + "\n\n";
+
+            if (isHaunted || willSuicide || afkCounter >= 3) {
+              this.group_session.players[protector.index].message +=
+                "💡 " + players[i].name + " gagal dilindungi!" + "\n\n";
+
+              this.group_session.players[i].message += "⚔️ Guardian Angel berusaha melindungi mu namun gagal!" + "\n\n";
+
+              continue;
+            }
+
+            this.group_session.players[protector.index].message +=
+              "💡 " + players[i].name + " berhasil dilindungi!" + "\n\n";
+
+            if (players[i].bugged) {
+              spyBuggedInfo[i] += "🔍 Target kamu selamat karena dilindungi Guardian Angel!" + "\n\n";
+            }
+
+            this.group_session.players[i].message += "⚔️ Kamu selamat karena dilindungi Guardian Angel!" + "\n\n";
+
+            protector.used = true;
           }
 
           if (!isHaunted && !willSuicide && afkCounter < 3) {
@@ -2575,7 +2572,7 @@ const day = () => {
               spyBuggedInfo[attackerIndex] += "🔍 Target kamu selamat karena disembuhkan!" + "\n\n";
             }
           }
-          
+
           this.group_session.players[i].message += "💡 Pertahanan targetmu terlalu tinggi untuk dibunuh!" + "\n\n";
         } else {
           //not enough protector or no protector
@@ -2673,8 +2670,9 @@ const day = () => {
               spyBuggedInfo[i] += "🔍 Target kamu selamat karena disembuhkan!" + "\n\n";
             }
           }
-          
-          this.group_session.players[attackerIndex].message += "💡 Pertahanan targetmu terlalu tinggi untuk dibunuh!" + "\n\n";
+
+          this.group_session.players[attackerIndex].message +=
+            "💡 Pertahanan targetmu terlalu tinggi untuk dibunuh!" + "\n\n";
         } else {
           //not enough protector or no protector
 
