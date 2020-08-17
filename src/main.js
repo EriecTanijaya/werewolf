@@ -2366,6 +2366,12 @@ const day = () => {
             }
 
             this.group_session.players[i].message += "🦺 Vest yang kamu pakai menyelamatkan nyawamu!" + "\n\n";
+
+            for (let x = 0; x < attackers.length; x++) {
+              const attackerIndex = attackers[x].index;
+              this.group_session.players[attackerIndex].message +=
+                "💡 Pertahanan targetmu terlalu tinggi untuk dibunuh!" + "\n\n";
+            }
           }
 
           if (isSelfHeal) {
@@ -2374,17 +2380,35 @@ const day = () => {
             }
 
             this.group_session.players[i].message += "💉 Kamu selamat dengan menyembuhkan diri sendiri!" + "\n\n";
+
+            for (let x = 0; x < attackers.length; x++) {
+              const attackerIndex = attackers[x].index;
+              this.group_session.players[attackerIndex].message +=
+                "💡 Pertahanan targetmu terlalu tinggi untuk dibunuh!" + "\n\n";
+            }
           }
 
           if (isGuarded) {
             if (players[i].bugged) {
               spyBuggedInfo[i] += "🔍 Target kamu selamat karena dilindungi seseorang!" + "\n\n";
             }
+
+            for (let x = 0; x < attackers.length; x++) {
+              const attackerIndex = attackers[x].index;
+              this.group_session.players[attackerIndex].message +=
+                "💡 Pertahanan targetmu terlalu tinggi untuk dibunuh!" + "\n\n";
+            }
           }
 
           if (isHealed) {
             if (players[i].bugged) {
               spyBuggedInfo[i] += "🔍 Target kamu selamat karena disembuhkan!" + "\n\n";
+            }
+
+            for (let x = 0; x < attackers.length; x++) {
+              const attackerIndex = attackers[x].index;
+              this.group_session.players[attackerIndex].message +=
+                "💡 Pertahanan targetmu terlalu tinggi untuk dibunuh!" + "\n\n";
             }
           }
 
@@ -2397,7 +2421,7 @@ const day = () => {
         }
 
         if (isProtected) {
-          for (let x = 0; x < attackers.length; x++) {
+          for (let x = 0; x < attackers.length; x++) { //cp delete this
             for (let u = 0; u < protectors.length; u++) {
               let protector = protectors[u];
 
@@ -2530,7 +2554,7 @@ const day = () => {
               "💡 " + players[attackerIndex].name + " berhasil dilindungi!" + "\n\n";
 
             if (players[attackerIndex].bugged) {
-              spyBuggedInfo[i] += "🔍 Target kamu selamat karena dilindungi Guardian Angel!" + "\n\n";
+              spyBuggedInfo[i] += "🔍 Target kamu selamat karena dilindungi Guardian Angel!" + "\n\n"; //cp derped spyBuggedInfo[attackerIndex]
             }
 
             this.group_session.players[attackerIndex].message +=
@@ -2551,6 +2575,8 @@ const day = () => {
               spyBuggedInfo[attackerIndex] += "🔍 Target kamu selamat karena disembuhkan!" + "\n\n";
             }
           }
+          
+          this.group_session.players[i].message += "💡 Pertahanan targetmu terlalu tinggi untuk dibunuh!" + "\n\n";
         } else {
           //not enough protector or no protector
           this.group_session.players[attackerIndex].status = "will_death";
@@ -2647,6 +2673,8 @@ const day = () => {
               spyBuggedInfo[i] += "🔍 Target kamu selamat karena disembuhkan!" + "\n\n";
             }
           }
+          
+          this.group_session.players[attackerIndex].message += "💡 Pertahanan targetmu terlalu tinggi untuk dibunuh!" + "\n\n";
         } else {
           //not enough protector or no protector
 
