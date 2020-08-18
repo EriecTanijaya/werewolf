@@ -381,7 +381,7 @@ const targetCommand = () => {
     }
 
     if (players[targetIndex].role.team !== "villager") {
-      return replyText("💡 Kamu hanya bisa bangkitin sesama warga");
+      if (!isDisguiseAsTownie(players[targetIndex])) return replyText("💡 Kamu hanya bisa bangkitin sesama warga");
     }
   } else if (roleName === "amnesiac") {
     if (players[targetIndex].status === "alive") {
@@ -555,6 +555,20 @@ const getRoleCmdText = roleName => {
       return cmdText;
     }
   }
+};
+
+const isDisguiseAsTownie = player => {
+  if (player.role.name === "disguiser" && player.role.disguiseAs) {
+    const rolesData = Object.keys(rawRoles);
+    for (let i = 0; i < rolesData.length; i++) {
+      if (player.role.disguiseAs === rolesData[i]) {
+        const { team } = rawRoles[rolesData[i]].getData();
+        if (team === "villager") return true;
+        return false;
+      }
+    }
+  }
+  return false;
 };
 
 const roleSkill = (flex_texts, index, text) => {
@@ -891,9 +905,11 @@ const retributionistSkill = flex_text => {
 
   for (let i = 0; i < players.length; i++) {
     let player = players[i];
-    if (player.status === "death" && player.role.team === "villager") {
-      isTownieDeath = true;
-      break;
+    if (player.status === "death") {
+      if (player.role.team === "villager" || isDisguiseAsTownie(player)) {
+        isTownieDeath = true;
+        break;
+      }
     }
   }
 
@@ -906,14 +922,16 @@ const retributionistSkill = flex_text => {
 
   let button = {};
   players.forEach((item, index) => {
-    if (item.status === "death" && item.role.team === "villager") {
-      button[index] = {
-        action: "postback",
-        label: item.name,
-        data: cmdText + " " + index
-      };
+    if (item.status === "death") {
+      if (item.role.team === "villager" || isDisguiseAsTownie(item)) {
+        button[index] = {
+          action: "postback",
+          label: item.name,
+          data: cmdText + " " + index
+        };
 
-      flex_text.buttons.push(button[index]);
+        flex_text.buttons.push(button[index]);
+      }
     }
   });
 
