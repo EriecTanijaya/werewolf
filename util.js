@@ -7,58 +7,59 @@ const getUpdates = () => {
   // body text isi aja yg penting sama emoji apa
   // buttons, ganti aja prop data nya
 
+  const baseUrl = "https://line.me/R/home/public/post?id=218mdfal&postId=";
   let flex_text = {};
   let flex_texts = [];
   let updates = [
     {
-      version: "1.3.0 🆕", //ini yg lastest aja
+      version: "1.3.5 🆕", //ini yg lastest aja
+      majorChanges: "😇 Role changes",
+      postId: "1159771303308074463"
+    },
+    {
+      version: "1.3.0",
       majorChanges: "📜 Rewrite bot",
-      link: "https://timeline.line.me/post/_dew_dlek6Q7X8WLzhe1qWvEjXko3000-cqsirfM/1159530099008079190"
+      postId: "1159530099008079190"
     },
     {
       version: "1.2.4",
       majorChanges: "⚠️ Spam prevention",
-      link: "https://timeline.line.me/post/_dew_dlek6Q7X8WLzhe1qWvEjXko3000-cqsirfM/1159408622108073821"
+      postId: "1159408622108073821"
     },
     {
       version: "1.2.3",
       majorChanges: "📜 New Custom mode command",
-      link: "https://timeline.line.me/post/_dew_dlek6Q7X8WLzhe1qWvEjXko3000-cqsirfM/1159358047608073922"
+      postId: "1159358047608073922"
     },
     {
       version: "1.2.2",
       majorChanges: "💪 Major cleanup & bugfixes",
-      link: "https://timeline.line.me/post/_dew_dlek6Q7X8WLzhe1qWvEjXko3000-cqsirfM/1159235795708072516"
+      postId: "1159235795708072516"
     },
     {
       version: "1.2.1",
       majorChanges: "☣️ New Plaguebearer role!",
-      link: "https://timeline.line.me/post/_dew_dlek6Q7X8WLzhe1qWvEjXko3000-cqsirfM/1159179246308071639"
+      postId: "1159179246308071639"
     },
     {
       version: "1.2.0",
       majorChanges: "💪 Rebase to new mechanism",
-      link: "https://timeline.line.me/post/_dew_dlek6Q7X8WLzhe1qWvEjXko3000-cqsirfM/1159110856708070799"
+      postId: "1159110856708070799"
     },
     {
       version: "1.1.9",
       majorChanges: "🎩 New Mayor role!",
-      link: "https://timeline.line.me/post/_dew_dlek6Q7X8WLzhe1qWvEjXko3000-cqsirfM/1159013388808076236"
+      postId: "1159013388808076236"
     },
     {
       version: "1.1.8",
       majorChanges: "🎞️ Rework game mode",
-      link: "https://timeline.line.me/post/_dew_dlek6Q7X8WLzhe1qWvEjXko3000-cqsirfM/1158988006208077687"
+      postId: "1158988006208077687"
     },
     {
       version: "1.1.7",
       majorChanges: "🕹️ Add '/gamestat' cmd",
-      link: "https://timeline.line.me/post/_dew_dlek6Q7X8WLzhe1qWvEjXko3000-cqsirfM/1158918791608077924"
-    },
-    {
-      version: "1.1.6",
-      majorChanges: "🗡️ Nerf Vampire Hunter",
-      link: "https://timeline.line.me/post/_dew_dlek6Q7X8WLzhe1qWvEjXko3000-cqsirfM/1158769010508073732"
+      postId: "1158918791608077924"
     }
   ];
 
@@ -70,7 +71,7 @@ const getUpdates = () => {
         {
           action: "uri",
           label: "👆 check",
-          data: item.link
+          data: baseUrl + item.postId
         }
       ]
     };
