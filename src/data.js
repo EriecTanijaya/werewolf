@@ -2,6 +2,7 @@ const client = require("./client");
 const flex = require("../message/flex");
 
 const util = require("../util");
+const respond = require("../message/respond");
 
 const personal = require("./personal");
 const main = require("./main");
@@ -118,6 +119,14 @@ const searchUser = async () => {
   if (user_sessions[userId].name === "") {
     try {
       let { displayName } = await client.getProfile(userId);
+
+      if (displayName.toLowerCase() === "city of bedburg") {
+        if (!this.rawArgs.startsWith("/")) {
+          return Promise.resolve(null);
+        }
+        return replyText("💡 Jangan bikin ambigu dong, kok namanya sama bos?");
+      }
+
       user_sessions[userId].name = displayName;
     } catch (err) {
       if (!this.rawArgs.startsWith("/")) {
@@ -126,15 +135,6 @@ const searchUser = async () => {
 
       return notAddError();
     }
-  }
-
-  const userDisplayName = user_sessions[userId].name.toLowerCase();
-  if (userDisplayName === "city of bedburg") {
-    if (!this.rawArgs.startsWith("/")) {
-      return Promise.resolve(null);
-    }
-
-    return replyText("💡 Jangan bikin ambigu dong, kok namanya sama bos?");
   }
 
   searchUserCallback();
@@ -319,20 +319,15 @@ const followResponse = () => {
 const memberJoinedResponse = async () => {
   const groupId = util.getGroupId(this.event);
   const newMemberId = this.event.joined.members[0].userId;
-  let text = "👋 Selamat datang ";
 
   if (this.event.source.type === "group") {
     let { displayName } = await client.getGroupMemberProfile(groupId, newMemberId);
-    text += displayName;
-
     let { groupName } = await getGroupData(groupId);
-    text += " di " + groupName + "!";
+    return replyText(respond.memberJoined(displayName, groupName));
   } else if (this.event.source.type === "room") {
     let { displayName } = await client.getRoomMemberProfile(groupId, newMemberId);
-    text += displayName;
+    return replyText(`👋 Selamat datang ${displayName}!`);
   }
-
-  return replyText(text);
 };
 
 const getGroupData = async groupId => {
