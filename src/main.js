@@ -4917,15 +4917,7 @@ const extendCommand = () => {
 
 const kickCommand = async () => {
   const groupId = this.group_session.groupId;
-  let text = "👋 Selamat tinggal";
-
-  if (this.event.source.type === "group") {
-    let res = await client.getGroupSummary(groupId);
-    text += " " + res.groupName + "!";
-  } else {
-    text += "!";
-  }
-
+  const text = respond.kicked();
   return util.leaveGroup(this.event, groupId, text);
 };
 

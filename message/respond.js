@@ -1,10 +1,5 @@
 const util = require("../util");
 
-const maintenance = () => {
-  const arr = [""];
-  return util.random(arr);
-};
-
 const enoughPlayer = () => {
   const arr = [
     "📣 Sudah cukup pemain, game bisa dimulai",
@@ -15,7 +10,7 @@ const enoughPlayer = () => {
 };
 
 const stopGame = who => {
-  const arr = [`💡 Jiahh, game di stop ${who}`, `💡 Game telah di stop ${who}`, `💡 Bubar bubar!`];
+  const arr = [`💡 Jiahh, game di stop ${who}`, `💡 Game telah di stop ${who}`, `💡 ${who} : Bubar bubar!`];
   return util.random(arr);
 };
 
@@ -33,7 +28,9 @@ const join = name => {
   const arr = [
     `💡 ${name} berhasil bergabung!`,
     `💡 Jeng jeng! ${name} bergabung dalam game!`,
-    `💡 ${name} diam diam join ke game dengan calo``💡 Mantab, ${name} berhasil join game!``💡 Eits eits, ${name} bergabung ke dalam game nih!`
+    `💡 ${name} diam diam join ke game dengan calo`,
+    `💡 Mantab, ${name} berhasil join game!`,
+    `💡 Eits eits, ${name} bergabung ke dalam game nih!`
   ];
   return util.random(arr);
 };
@@ -42,7 +39,8 @@ const memberJoined = (name, groupName) => {
   const arr = [
     `👋 Selamat datang ${name} di ${groupName}!`,
     `😲 Is it bird? Is it plane? NO! It's just ${name}!`,
-    `⚠️ PERHATIAN! ${name} memasuki daerah ${groupName}!``🏃 ${name} datang, pesta bubarrr`,
+    `⚠️ PERHATIAN! ${name} memasuki daerah ${groupName}!`,
+    `🏃 ${name} datang, pesta bubarrr`,
     `🤲 Akhirnya ${name} datang, sesuai dengan ramalan`,
     `🏡 ${groupName} bertambah populasi dengan datangnya ${name}`
   ];
@@ -60,12 +58,24 @@ const checkNight = time => {
   return util.random(arr);
 };
 
+const kicked = () => {
+  const arr = [
+    "👋 Selamat tinggal!",
+    "👋 Byee!",
+    "👋 Bubay! Kalo kangen invite aja lagi",
+    "💡 City Of Bedburg was here",
+    "✈️ Mari pulang marilah pulang",
+    "👋 it's been a fun ride. Thanks"
+  ];
+  return util.random(arr);
+};
+
 module.exports = {
-  maintenance,
   enoughPlayer,
   stopGame,
   punish,
   join,
   memberJoined,
-  checkNight
+  checkNight,
+  kicked
 };
