@@ -5,6 +5,7 @@ const util = require("../util");
 const attackedMsg = require("../message/attack");
 const peaceMsg = require("../message/peace");
 const punishment = require("../message/punishment");
+const respond = require("../message/respond");
 
 const setting = require("./setting");
 
@@ -3583,13 +3584,13 @@ const startCommand = () => {
 
   let minPlayers = 5;
   if (players.length < minPlayers) {
-    let text = "💡 Game belum bisa dimulai, minimal memiliki ";
-    text += minPlayers + " pemain";
+    const remainingPlayer = minPlayers - players.length;
+    let text = `💡 Game belum bisa dimulai, kurang ${remainingPlayer} pemain lagi`;
     return replyText(text);
   }
 
   if (this.group_session.mode === "custom") {
-    let customRolesCount = this.group_session.customRoles.length;
+    const customRolesCount = this.group_session.customRoles.length;
     if (customRolesCount > players.length) {
       return replyText(
         "💡 Game tidak dapat dimulai karena jumlah Custom Roles yang telah di atur melebihi jumlah pemain!"
@@ -3976,7 +3977,7 @@ const checkCommand = () => {
 
   if (state !== "idle" && state !== "new") {
     if (indexOfPlayer() === -1) {
-      let text = "💡 " + name + ", kamu belum join kedalam game";
+      let text = "💡 " + name + ", kamu tidak join kedalam game";
       return replyText(text);
     }
   }
@@ -3986,8 +3987,7 @@ const checkCommand = () => {
   switch (state) {
     case "night":
       if (time > 0) {
-        const remindText = "⏳ Sisa waktu " + time + " detik lagi untuk menyambut mentari.";
-        return replyText(remindText);
+        return replyText(respond.checkNight(time));
       } else {
         return day();
       }
@@ -4339,11 +4339,10 @@ const lynch = flex_texts => {
 
   this.group_session.players[lynchTarget.index].status = "death";
 
-  let lynchedName = players[lynchTarget.index].name;
-  let announcement = "💀 Warga memutuskan untuk " + this.group_session.punishment + " ";
-  announcement += lynchedName + " dengan jumlah " + lynchTarget.count + " vote";
+  const lynchedName = players[lynchTarget.index].name;
+  let announcement = respond.punish(this.group_session.punishment, lynchedName, lynchTarget.count);
 
-  let emoji = util.getRoleNameEmoji(roleName);
+  const emoji = util.getRoleNameEmoji(roleName);
   announcement += `\n\n✉️ Role nya adalah ${roleName} ${emoji}`;
 
   /// Set special role trigger when lynch
@@ -4398,7 +4397,7 @@ const voteCommand = () => {
   const players = this.group_session.players;
 
   if (index === -1) {
-    let text = "💡 " + this.user_session.name + ", kamu belum join kedalam game";
+    let text = "💡 " + this.user_session.name + ", kamu tidak join kedalam game";
     return replyText(text);
   }
 
@@ -4704,7 +4703,7 @@ const revokeCommand = () => {
 
   if (index === -1) {
     let text = "💡 " + this.user_session.name;
-    text += ", kamu belum join kedalam game";
+    text += ", kamu tidak join kedalam game";
     return replyText(text);
   }
 
@@ -4966,7 +4965,7 @@ const stopCommand = () => {
 
   resetAllPlayers();
 
-  const text = "💡 Game telah di stop " + this.user_session.name;
+  const text = respond.stopGame(this.user_session.name);
   return replyText(text);
 };
 
@@ -5071,13 +5070,13 @@ const joinCommand = () => {
     reminder += this.group_session.time + " detik lagi";
   }
 
-  let text = "💡 " + this.user_session.name + " berhasil bergabung!" + "\n" + reminder;
+  let text = respond.join(this.user_session.name) + "\n" + reminder;
 
   if (this.group_session.players.length >= 5) {
     if (this.group_session.players.length === 15) {
       text += "\n" + "📣 Room sudah penuh, game bisa dimulai";
     } else {
-      text += "\n" + "📣 Sudah cukup pemain, game bisa dimulai";
+      text += "\n" + respond.enoughPlayer();
     }
   }
 
@@ -5159,7 +5158,7 @@ const newCommand = () => {
     });
   }
 
-  const text = "💡 " + this.user_session.name + " berhasil bergabung!";
+  const text = respond.join(this.user_session.name);
   return replyFlex(flex_text, [text, remindText]);
 };
 
