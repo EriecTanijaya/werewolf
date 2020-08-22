@@ -29,7 +29,7 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
     rawArgs = rawArgs.toLowerCase();
 
     if (rawArgs.includes("bot")) {
-      if (args.length < 2) return replyText(respond.callBot);
+      if (args.length < 2) return replyText(respond.callBot(this.user_session.name));
 
       rawArgs = rawArgs.replace(/apa itu/g, "info");
 
