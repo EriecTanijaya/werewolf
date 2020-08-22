@@ -717,7 +717,17 @@ const roleCommand = () => {
     /// Yang bisa skill walaupun dah mati
     if (roleName !== "jester" && roleName !== "guardian-angel") {
       flex_texts.unshift(flex_text);
-      return replyFlex(flex_texts);
+      
+      let text = "";
+      if (roleName === "vigilante" && player.willSuicide) {
+        text += "😓 Kamu telah membunuh warga dan merasa sangat bersalah. ";
+        if (player.role.bullet === 0) {
+          text += "Kamu mengecek laci dan menemukan satu peluru. Lalu kamu mengisi senapanmu dengan peluru tersebut. "
+        }
+        text += "Kamu memasukkan senapanmu kedalam mulut, menutup mata, dan menarik pelatuk dengan perlahan..";
+      }
+      
+      return replyFlex(flex_texts, text);
     }
   }
 

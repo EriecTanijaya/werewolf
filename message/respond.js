@@ -50,7 +50,7 @@ const memberJoined = (name, groupName) => {
 const checkNight = time => {
   const arr = [
     `⏳ Sisa waktu ${time} detik lagi untuk menyambut mentari ☀️`,
-    `👨‍🌾 : matahawi matahawi, kapan kamu terbit?\n☀️ : ${time} detik lagi bos"`,
+    `👨‍🌾 : matahawi matahawi, kapan kamu terbit?\n☀️ : ${time} detik lagi bos`,
     `☀️ : *terbangun dari tidur*\n☀️ : *liat jam* ah masih sisa ${time} detik lagi\n☀️ : *tidur lagi*`,
     `⏳ Dalam ${time} detik lagi, matahawi terbit`,
     `☀️ : aku otw dalam ${time} detik lagi, siap siap\n🐔 : kok`
