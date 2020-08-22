@@ -10,7 +10,7 @@ module.exports = exports = {
   },
   rules: {
     semi: [2, "always"],
-    quotes: [2, "double"],
+    quotes: [2, "double", { allowTemplateLiterals: true }],
     "no-constant-condition": [
       2,
       {

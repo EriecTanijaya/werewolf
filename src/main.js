@@ -29,7 +29,7 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
     rawArgs = rawArgs.toLowerCase();
 
     if (rawArgs.includes("bot")) {
-      if (args.length < 2) return replyText("Yo ada apa?");
+      if (args.length < 2) return replyText(respond.callBot(this.user_session.name));
 
       rawArgs = rawArgs.replace(/apa itu/g, "info");
 
@@ -40,10 +40,12 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
       } else if (rawArgs.match(/info/gi)) {
         this.args.splice(0, 2);
         return infoCommand();
-      } else if (rawArgs.match(/gas/gi)) {
+      } else if (rawArgs.match(/gas/gi) || rawArgs.match(/mulai/gi)) {
         return startCommand();
       } else if (rawArgs.match(/susah/gi) || rawArgs.match(/bingung/gi)) {
         return replyText("Kamu bisa ke tanya tanya di '/forum' kalo ada yang bingung :)");
+      } else if (rawArgs.match(/stop/gi)) {
+        return stopCommand();
       }
     }
 
