@@ -46,9 +46,7 @@ const setModeCommand = () => {
 
   if (this.args[2] === "random") {
     let randomMode = util.random(modeList);
-    if (randomMode === "custom") {
-      randomMode = "classic";
-    }
+    if (randomMode === "custom") randomMode = "classic";
 
     this.group_session.mode = randomMode;
     return replyText("🎲 Game mode di ubah ke " + randomMode + " secara random!");
