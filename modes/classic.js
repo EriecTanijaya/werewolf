@@ -36,13 +36,13 @@ const generate = playersLength => {
     },
     {
       name: "investigator",
-      value: 8,
+      value: 6,
       allFriendly: true
     },
     {
       name: "mayor",
       value: 8,
-      pair: ["bodyguard", "vampire", "doctor", "lookout"]
+      pair: ["bodyguard", "doctor", "lookout", "investigator", "consigliere", "tracker"]
     },
     {
       name: "sheriff",
@@ -66,34 +66,23 @@ const generate = playersLength => {
     },
     {
       name: "veteran",
-      value: 4,
-      pair: [
-        "mafioso",
-        "serial-killer",
-        "arsonist",
-        "framer",
-        "consort",
-        "consigliere",
-        "plaguebearer",
-        "werewolf",
-        "juggernaut",
-        "godfather"
-      ]
+      value: 3,
+      allFriendly: true
     },
     {
       name: "vigilante",
       value: 5,
-      pair: ["mafioso", "consort", "consigliere", "framer", "jester", "werewolf", "juggernaut", "plaguebearer"]
+      pair: ["mafioso", "consort", "consigliere", "framer", "jester", "disguiser", "veteran"]
     },
     {
       name: "consigliere",
       value: -10,
-      pair: ["serial-killer", "arsonist", "plaguebearer", "jester", "vampire", "werewolf", "juggernaut", "executioner"]
+      pair: ["sheriff", "investigator", "mayor", "tracker", "plaguebearer"]
     },
     {
       name: "godfather",
       value: -8,
-      pair: ["mafioso"]
+      pair: ["mafioso", "bodyguard", "arsonist"]
     },
     {
       name: "mafioso",
@@ -127,18 +116,18 @@ const generate = playersLength => {
     },
     {
       name: "consort",
-      value: -8,
-      pair: ["serial-killer", "veteran", "escort"]
+      value: -10,
+      pair: ["serial-killer", "veteran", "escort", "investigator"]
     },
     {
       name: "lookout",
       value: 7,
-      pair: ["framer", "consigliere", "mafioso", "disguiser", "consort", "plaguebearer", "arsonist"]
+      allFriendly: true
     },
     {
       name: "escort",
       value: 5,
-      pair: ["serial-killer", "consort", "veteran"]
+      pair: ["serial-killer", "veteran", "escort", "investigator"]
     },
     {
       name: "retributionist",
@@ -147,12 +136,12 @@ const generate = playersLength => {
     },
     {
       name: "arsonist",
-      value: -7,
-      pair: ["bodyguard", "investigator", "godfather"]
+      value: -8,
+      pair: ["bodyguard", "godfather", "investigator"]
     },
     {
       name: "spy",
-      value: 6,
+      value: 7,
       pair: ["framer", "disguiser", "consigliere", "consort"]
     },
     {
@@ -162,13 +151,13 @@ const generate = playersLength => {
     },
     {
       name: "framer",
-      value: -6,
+      value: -7,
       pair: ["sheriff", "investigator"]
     },
     {
       name: "disguiser",
-      value: -7,
-      pair: ["vigilante", "sheriff", "investigator", "doctor", "serial-killer"]
+      value: -8,
+      pair: ["sheriff", "investigator", "doctor", "serial-killer", "psychic"]
     },
     {
       name: "juggernaut",
@@ -177,8 +166,8 @@ const generate = playersLength => {
     },
     {
       name: "psychic",
-      value: 9,
-      pair: ["jester", "executioner"]
+      value: 8,
+      pair: ["jester", "executioner", "disguiser"]
     },
     {
       name: "guardian-angel",
@@ -188,7 +177,7 @@ const generate = playersLength => {
     {
       name: "plaguebearer",
       value: -8,
-      pair: ["lookout", "tracker"]
+      allFriendly: true
     }
   ];
 
