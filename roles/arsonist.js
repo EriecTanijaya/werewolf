@@ -20,7 +20,7 @@ const getData = () => {
 const getInfo = () => {
   let text = "Maniak api yang hanya ingin semua orang terbakar. ";
   text +=
-    "Arsonist kebal dari serangan biasa saat malam. Pilih diri sendiri jika ingin membakar rumah target yang telah di sirami bensin. ";
+    "Arsonist kebal dari serangan biasa saat malam. Pilih diri sendiri jika ingin membakar rumah target yang telah di sirami bensin. Jika ada yang mengunjungi Arsonist, dia akan tersiram bensin juga.";
   return text;
 };
 
