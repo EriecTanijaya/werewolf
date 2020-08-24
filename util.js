@@ -298,10 +298,10 @@ const getFlexColor = () => {
       from: "04:00:00",
       to: "14:59:59",
       color: {
-        main: "#24a19c",
-        secondary: "#24a19c",
-        background: "#eeeeee",
-        text: "#363636"
+        main: "#1abc9c",
+        secondary: "#1abc9c",
+        background: "#ffffff",
+        text: "#1d1d1d"
       }
     },
     evening: {
