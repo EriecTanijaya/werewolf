@@ -121,6 +121,7 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
     case "/buat":
     case "/main":
     case "/play":
+    case "/create":
       return newCommand();
     case "/join":
     case "/j":

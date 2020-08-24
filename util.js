@@ -483,7 +483,7 @@ const getInvestigatorResult = roleName => {
     { desc: "Targetmu berurusan dengan mayat!", items: ["retributionist"] },
     {
       desc: "Targetmu suka menutup diri!",
-      items: ["survivor", "vampire-hunter", "psychic"]
+      items: ["survivor", "vampire-hunter", "psychic", "amnesiac"]
     },
     {
       desc: "Targetmu mengetahui rahasia terbesarmu!",
@@ -499,7 +499,7 @@ const getInvestigatorResult = roleName => {
     },
     {
       desc: "Targetmu diam didalam bayangan!",
-      items: ["lookout", "amnesiac"]
+      items: ["lookout", "juggernaut"]
     },
     {
       desc: "Targetmu ahli dalam mengganggu yang lain!",
@@ -516,10 +516,6 @@ const getInvestigatorResult = roleName => {
     {
       desc: "Targetmu tidak takut kotor!",
       items: ["bodyguard", "godfather", "arsonist"]
-    },
-    {
-      desc: "Targetmu sifatnya sangat bengis!",
-      items: ["juggernaut"]
     },
     {
       desc: "Targetmu adalah orang biasa",
