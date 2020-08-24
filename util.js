@@ -12,7 +12,12 @@ const getUpdates = () => {
   let flex_texts = [];
   let updates = [
     {
-      version: "1.3.5 🆕", //ini yg lastest aja
+      version: "1.3.6 🆕", //ini yg lastest aja
+      majorChanges: "🔥 Adjustment & Buff",
+      postId: "1159828033008074107"
+    },
+    {
+      version: "1.3.5",
       majorChanges: "😇 Role changes",
       postId: "1159771303308074463"
     },
@@ -55,11 +60,6 @@ const getUpdates = () => {
       version: "1.1.8",
       majorChanges: "🎞️ Rework game mode",
       postId: "1158988006208077687"
-    },
-    {
-      version: "1.1.7",
-      majorChanges: "🕹️ Add '/gamestat' cmd",
-      postId: "1158918791608077924"
     }
   ];
 
