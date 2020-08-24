@@ -298,6 +298,7 @@ const day = () => {
   let vampireAnnouncement = "";
   let mafiaAnnouncement = "";
   let plaguebearerAnnouncement = "";
+  let arsonistAnnouncement = {};
 
   /// Veteran targetIndexes
   let veteranTargetIndexes = [];
@@ -309,16 +310,22 @@ const day = () => {
   let spyMafiaVisitInfo = "";
   let spyBuggedInfo = {};
 
-  /// Spy lock target action
+  /// Reserved Announcement
   for (let i = 0; i < players.length; i++) {
-    let doer = players[i];
+    const doer = players[i];
+
+    // Spy lock target action
     if (doer.role.name === "spy" && doer.status === "alive") {
-      let targetIndex = doer.target.index;
+      const targetIndex = doer.target.index;
 
       if (targetIndex !== -1) {
         this.group_session.players[targetIndex].bugged = true;
         spyBuggedInfo[targetIndex] = "";
       }
+    }
+
+    if (doer.role.name === "arsonist" && doer.status === "alive") {
+      arsonistAnnouncement[i] = "";
     }
   }
 
@@ -1305,13 +1312,9 @@ const day = () => {
         let targetIndex = doer.target.index;
         let target = players[targetIndex];
 
-        if (doer.role.name === "jester") {
-          continue;
-        }
+        if (doer.role.name === "jester") continue;
 
-        if (doer.blocked) {
-          continue;
-        }
+        if (doer.blocked) continue;
 
         if (doer.role.name === "plaguebearer") {
           if (doer.role.isPestilence) continue;
@@ -2901,6 +2904,51 @@ const day = () => {
     }
   }
 
+  /// Arsonist Visitor fetch
+
+  // gather
+  for (let i = 0; i < players.length; i++) {
+    const doer = players[i];
+    if (doer.status === "alive" && doer.target.index !== -1) {
+      if (doer.target.index != i) {
+        const targetIndex = doer.target.index;
+        const target = players[targetIndex];
+
+        if (doer.role.name === "jester") continue;
+
+        if (doer.blocked) continue;
+
+        if (doer.role.name === "plaguebearer") {
+          if (doer.role.isPestilence) continue;
+        }
+
+        // hax untuk Mafia yang tukang bunuh bukan godfather, tapi mafioso
+        if (target.role.name === "arsonist") {
+          if (doer.role.name === "godfather") {
+            if (mafiaDoerIndex !== i) {
+              continue;
+            }
+          }
+
+          if (!doer.doused) {
+            this.group_session.players[i].doused = true;
+            arsonistAnnouncement[targetIndex] += `⛽ ${doer.name} mengunjungimu semalam dan tersiram bensin!\n\n`;
+          }
+        }
+      }
+    }
+  }
+
+  // inform
+  for (let i = 0; i < players.length; i++) {
+    const doer = players[i];
+    if (doer.role.name === "arsonist" && doer.status === "alive") {
+      if (arsonistAnnouncement[i]) {
+        this.group_session.players[i].message += arsonistAnnouncement[i];
+      }
+    }
+  }
+
   /// Vampire convertion Action
   for (let i = 0; i < players.length; i++) {
     if (players[i].status === "alive" && players[i].willSuicide === false) {
@@ -3354,9 +3402,11 @@ const day = () => {
 
   /// Plaguebearer action set infected
   for (let i = 0; i < players.length; i++) {
-    let status = players[i].status;
-    let justInfected = players[i].justInfected;
-    if (status === "alive" && justInfected) {
+    const status = players[i].status;
+
+    if (status === "death") continue;
+
+    if (players[i].justInfected) {
       this.group_session.players[i].infected = true;
       this.group_session.players[i].justInfected = false;
       plaguebearerAnnouncement += `☣️ ${players[i].name} telah terinfeksi!\n`;
