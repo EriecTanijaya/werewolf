@@ -866,7 +866,7 @@ const roleCommand = () => {
       players.forEach(item => {
         if (item.status === "alive" && item.doused) {
           isExists = true;
-          const table_data = [num, item.name];
+          const table_data = [`${num}.`, item.name];
           addon_flex_text.table.contents.push(table_data);
           num++;
         }
@@ -887,7 +887,7 @@ const roleCommand = () => {
       players.forEach(item => {
         if (item.status === "alive" && item.infected) {
           isExists = true;
-          const table_data = [num, item.name];
+          const table_data = [`${num}.`, item.name];
           addon_flex_text.table.contents.push(table_data);
           num++;
         }

@@ -19,7 +19,7 @@ const getData = () => {
 const getInfo = () => {
   let text = "Warga yang bisa menginvestigasi seorang warga pada malam hari. ";
   text += "Jika target mu Disguiser, dan Disguiser mengimitasi orang lain, hasil cek mu adalah ";
-  text += "role dari imitasi Disguiser. ";
+  text += "role dari imitasi Disguiser. Untuk melihat hasil cek Investigator bisa dengan '/info note invest'";
   return text;
 };
 

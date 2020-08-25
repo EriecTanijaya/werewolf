@@ -12,7 +12,12 @@ const getUpdates = () => {
   let flex_texts = [];
   let updates = [
     {
-      version: "1.3.5 🆕", //ini yg lastest aja
+      version: "1.3.6 🆕", //ini yg lastest aja
+      majorChanges: "🔥 Adjustment & Buff",
+      postId: "1159828033008074107"
+    },
+    {
+      version: "1.3.5",
       majorChanges: "😇 Role changes",
       postId: "1159771303308074463"
     },
@@ -55,11 +60,6 @@ const getUpdates = () => {
       version: "1.1.8",
       majorChanges: "🎞️ Rework game mode",
       postId: "1158988006208077687"
-    },
-    {
-      version: "1.1.7",
-      majorChanges: "🕹️ Add '/gamestat' cmd",
-      postId: "1158918791608077924"
     }
   ];
 
@@ -298,10 +298,10 @@ const getFlexColor = () => {
       from: "04:00:00",
       to: "14:59:59",
       color: {
-        main: "#24a19c",
-        secondary: "#24a19c",
-        background: "#eeeeee",
-        text: "#363636"
+        main: "#1abc9c",
+        secondary: "#1abc9c",
+        background: "#ffffff",
+        text: "#1d1d1d"
       }
     },
     evening: {
@@ -483,7 +483,7 @@ const getInvestigatorResult = roleName => {
     { desc: "Targetmu berurusan dengan mayat!", items: ["retributionist"] },
     {
       desc: "Targetmu suka menutup diri!",
-      items: ["survivor", "vampire-hunter", "psychic"]
+      items: ["survivor", "vampire-hunter", "psychic", "amnesiac"]
     },
     {
       desc: "Targetmu mengetahui rahasia terbesarmu!",
@@ -499,7 +499,7 @@ const getInvestigatorResult = roleName => {
     },
     {
       desc: "Targetmu diam didalam bayangan!",
-      items: ["lookout", "amnesiac"]
+      items: ["lookout", "juggernaut"]
     },
     {
       desc: "Targetmu ahli dalam mengganggu yang lain!",
@@ -516,10 +516,6 @@ const getInvestigatorResult = roleName => {
     {
       desc: "Targetmu tidak takut kotor!",
       items: ["bodyguard", "godfather", "arsonist"]
-    },
-    {
-      desc: "Targetmu sifatnya sangat bengis!",
-      items: ["juggernaut"]
     },
     {
       desc: "Targetmu adalah orang biasa",
