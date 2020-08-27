@@ -990,7 +990,7 @@ const guardianAngelSkill = flex_text => {
   flex_text.buttons = [
     {
       action: "postback",
-      label: "Protect dia!",
+      label: "⚔️ Protect dia!",
       data: cmdText
     }
   ];
@@ -1011,7 +1011,7 @@ const veteranSkill = flex_text => {
   flex_text.buttons = [
     {
       action: "postback",
-      label: "Alert!",
+      label: "💥 Alert!",
       data: cmdText
     }
   ];
@@ -1032,7 +1032,7 @@ const survivorSkill = flex_text => {
   flex_text.buttons = [
     {
       action: "postback",
-      label: "use vest",
+      label: "🦺 Pake Vest",
       data: cmdText
     }
   ];

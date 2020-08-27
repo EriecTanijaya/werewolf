@@ -4208,7 +4208,7 @@ const endGame = (flex_texts, whoWin) => {
     buttons: [
       {
         action: "postback",
-        label: "main lagi?",
+        label: "🔁 main lagi?",
         data: "/new"
       }
     ]
@@ -4925,7 +4925,7 @@ const playersCommand = () => {
     flex_text.buttons = [
       {
         action: "postback",
-        label: "join",
+        label: "🚪 join",
         data: "/join"
       }
     ];
@@ -5177,7 +5177,7 @@ const newCommand = () => {
     buttons: [
       {
         action: "postback",
-        label: "join",
+        label: "🚪 join",
         data: "/join"
       }
     ]
