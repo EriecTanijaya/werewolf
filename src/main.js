@@ -5196,7 +5196,7 @@ const newCommand = () => {
 
   if (process.env.TEST === "true") {
     // cp
-    const dummies = util.getFakeData(10);
+    const dummies = util.getFakeData(4);
     dummies.forEach(item => {
       const newPlayer = createNewPlayer(item);
       this.group_session.players.push(newPlayer);
