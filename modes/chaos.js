@@ -12,19 +12,18 @@ const getData = () => {
 };
 
 const generate = playersLength => {
-  let roles = ["mafioso"];
+  const roles = ["mafioso"];
 
-  let townInvestigates = ["investigator", "lookout", "psychic", "sheriff"];
+  const townInvestigates = ["investigator", "lookout", "psychic", "sheriff"];
   roles.push(util.random(townInvestigates));
 
-  let townProtectors = ["doctor", "bodyguard"];
+  const townProtectors = ["doctor", "bodyguard"];
   roles.push(util.random(townProtectors));
 
-  let townSupports = ["escort", "retributionist", "mayor"];
+  const townSupports = ["escort", "retributionist", "mayor"];
   roles.push(util.random(townSupports));
 
-  let neutralEvils = ["jester", "executioner"];
-  roles.push(util.random(neutralEvils));
+  const neutrals = ["jester", "executioner", "guardian-angel", "amnesiac", "survivor"];
 
   let randomTowns = [
     "doctor",
@@ -64,6 +63,10 @@ const generate = playersLength => {
     roles.push(util.random(neutralKillings));
   };
 
+  const addNeutral = () => {
+    roles.push(util.random(neutrals));
+  };
+
   const addMafia = () => {
     roles.push(util.random(randomMafia));
   };
@@ -96,6 +99,9 @@ const generate = playersLength => {
 
   let isVampireHunterAdded = false;
   let isNeutralKilling = false;
+  let isVampire = false;
+
+  addNeutral();
 
   switch (getRandomEnemy()) {
     case "neutralKilling":
@@ -108,6 +114,7 @@ const generate = playersLength => {
       break;
 
     case "vampire":
+      isVampire = true;
       vampire();
       break;
   }
@@ -117,6 +124,7 @@ const generate = playersLength => {
       if (isNeutralKilling) {
         roles.push("plaguebearer");
       } else {
+        isNeutralKilling = true;
         addNeutralKilling();
       }
       addRandomTown();
@@ -132,13 +140,23 @@ const generate = playersLength => {
       if (!isVampireHunterAdded) {
         roles.push("vampire-hunter");
       } else {
-        addRandomTown();
+        if (isVampire) {
+          addTownKilling();
+        } else {
+          addRandomTown();
+        }
       }
       break;
   }
 
   addRandomTown();
-  addNeutralKilling();
+
+  if (isNeutralKilling) {
+    addNeutral();
+  } else {
+    addNeutralKilling();
+  }
+
   addRandomTown();
   addRandomTown();
 
