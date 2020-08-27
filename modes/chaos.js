@@ -12,7 +12,7 @@ const getData = () => {
 };
 
 const generate = playersLength => {
-  const roles = ["mafioso"];
+  let roles = ["mafioso"];
 
   const townInvestigates = ["investigator", "lookout", "psychic", "sheriff"];
   roles.push(util.random(townInvestigates));
