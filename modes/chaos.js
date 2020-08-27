@@ -124,6 +124,7 @@ const generate = playersLength => {
       if (isNeutralKilling) {
         roles.push("plaguebearer");
       } else {
+        isNeutralKilling = true;
         addNeutralKilling();
       }
       addRandomTown();
@@ -149,7 +150,13 @@ const generate = playersLength => {
   }
 
   addRandomTown();
-  addNeutral();
+
+  if (isNeutralKilling) {
+    addNeutral();
+  } else {
+    addNeutralKilling();
+  }
+
   addRandomTown();
   addRandomTown();
 
