@@ -1,7 +1,5 @@
 ### TODO
 
-- buat warna flex yang berbeda tiap hari
-
 - role set trick or treat (ada di tos punya fandom wiki) buat halloween ntr
 
 - buat database beneran, data user store di mongodb freakin' hard tho

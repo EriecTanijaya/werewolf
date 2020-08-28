@@ -1,8 +1,6 @@
 const client = require("./src/client");
 const roles = require("./roles");
 
-let dayIndex = 0;
-
 const getUpdates = () => {
   // show last 10 updates
   // header text ganti nomor aja
@@ -291,8 +289,6 @@ const random = array => {
 
 const getFlexColor = () => {
   const day = new Date().getDay();
-  dayIndex = day == dayIndex ? dayIndex : day;
-
   const hour = new Date().getHours() + 7;
   const colors = {
     light: ["#1abc9c", "#77a6f8", "#d9c06e", "#6edb6e", "#964B00", "#303030", "#b27563"],
@@ -306,7 +302,7 @@ const getFlexColor = () => {
 
   if (hour < 17) {
     return {
-      main: colors["light"][dayIndex],
+      main: colors["light"][day],
       background: "#ffffff",
       text: "#1d1d1d"
     };
@@ -314,13 +310,13 @@ const getFlexColor = () => {
     return colors["evening"];
   } else if (hour >= 19 && hour <= 24) {
     return {
-      main: colors["dark"][dayIndex],
+      main: colors["dark"][day],
       background: "#1d1d1d",
       text: "#ffffff"
     };
   }
 
-  return colors["dark"];
+  return colors["dark"][day];
 };
 
 const getRoleNameEmoji = roleName => {
