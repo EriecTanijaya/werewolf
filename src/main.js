@@ -61,13 +61,6 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
 
         if (time === 0) return checkCommand();
 
-        if (time <= 10 && time > 0) {
-          let reminder = "💡 Waktu tersisa " + time;
-          reminder += " detik lagi, nanti ketik '/cek' ";
-          reminder += "saat waktu sudah habis untuk lanjutkan proses. ";
-          return replyText(reminder);
-        }
-
         // reset afk if chat on group
         if (players[index].afkCounter > 0) {
           this.group_session.players[index].afkCounter = 0;
@@ -98,6 +91,13 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
               }
             }
           }
+        }
+
+        if (time <= 10 && time > 0) {
+          let reminder = "💡 Waktu tersisa " + time;
+          reminder += " detik lagi, nanti ketik '/cek' ";
+          reminder += "saat waktu sudah habis untuk lanjutkan proses. ";
+          return replyText(reminder);
         }
       } else {
         let playersLength = this.group_session.players.length;
@@ -4208,7 +4208,7 @@ const endGame = (flex_texts, whoWin) => {
     buttons: [
       {
         action: "postback",
-        label: "🔁 main lagi?",
+        label: "🔁 Main lagi?",
         data: "/new"
       }
     ]
@@ -4925,7 +4925,7 @@ const playersCommand = () => {
     flex_text.buttons = [
       {
         action: "postback",
-        label: "🚪 join",
+        label: "🚪 Join",
         data: "/join"
       }
     ];
@@ -5177,7 +5177,7 @@ const newCommand = () => {
     buttons: [
       {
         action: "postback",
-        label: "🚪 join",
+        label: "🚪 Join",
         data: "/join"
       }
     ]

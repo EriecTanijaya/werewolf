@@ -171,7 +171,7 @@ const build = (flex_raw, sender, opt_texts = []) => {
           type: "button",
           action: {},
           style: "primary",
-          color: color.secondary
+          color: color.main
         };
 
         if (item.buttons[i].action === "postback") {
