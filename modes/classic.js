@@ -187,12 +187,13 @@ const generate = playersLength => {
 
   let generated = ["mafioso", "sheriff"];
 
-  let neutralLimit = 1;
+  let neutralLimit = 2;
   let neutralKillingLimit = 1;
+  let mafiaLimit = 3;
 
-  let neutral = ["amnesiac", "survivor", "guardian-angel", "jester", "executioner"];
-
-  let neutralKilling = ["arsonist", "serial-killer", "juggernaut", "plaguebearer", "werewolf"];
+  const neutral = ["amnesiac", "survivor", "guardian-angel", "jester", "executioner"];
+  const neutralKilling = ["arsonist", "serial-killer", "juggernaut", "plaguebearer", "werewolf"];
+  const mafia = ["godfather", "mafioso", "disguiser", "framer", "consigliere", "consort"];
 
   for (let i = 0; i < roles.length; i++) {
     if (generated.length === playersLength) break;
@@ -206,9 +207,9 @@ const generate = playersLength => {
         if (!generated.includes(role.name)) {
           let currentMeasure = measure;
           if (currentMeasure < -4) {
-            if (role.value < 5) continue;
+            if (role.value < 7) continue;
           } else if (currentMeasure > 4) {
-            if (role.value > 4) continue;
+            if (role.value > -1) continue;
           }
 
           if (neutral.includes(role.name)) {
@@ -227,6 +228,14 @@ const generate = playersLength => {
             }
           }
 
+          if (mafia.includes(role.name)) {
+            if (mafiaLimit) {
+              mafiaLimit--;
+            } else {
+              continue;
+            }
+          }
+
           generated.push(role.name);
           measure += role.value;
         }
@@ -239,9 +248,9 @@ const generate = playersLength => {
             if (!generated.includes(role.name)) {
               let currentMeasure = measure;
               if (currentMeasure < -4) {
-                if (role.value < 5) continue;
+                if (role.value < 7) continue;
               } else if (currentMeasure > 4) {
-                if (role.value > 4) continue;
+                if (role.value > -1) continue;
               }
 
               if (neutral.includes(role.name)) {
@@ -255,6 +264,14 @@ const generate = playersLength => {
               if (neutralKilling.includes(role.name)) {
                 if (neutralKillingLimit) {
                   neutralKillingLimit--;
+                } else {
+                  continue;
+                }
+              }
+
+              if (mafia.includes(role.name)) {
+                if (mafiaLimit) {
+                  mafiaLimit--;
                 } else {
                   continue;
                 }
@@ -276,8 +293,8 @@ const generate = playersLength => {
     generated.push("villager");
   }
 
-  // console.log(`generated role : ${generated.join(", ")}`);
-  // console.log(`measure point : ${measure}`);
+  console.log(`generated role : ${generated.join(", ")}`);
+  console.log(`measure point : ${measure} in ${playersLength} players`);
 
   generated = util.shuffleArray(generated);
 
