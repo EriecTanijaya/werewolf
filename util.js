@@ -194,8 +194,11 @@ const getSender = () => {
 
 const getAbout = () => {
   let text = "Bot semi automatic yang terinspirasi dari ";
-  text += "Town Of Salem. ";
-  text += "Thanks buat grup Avalon City, LOW, Where Wolf(?), Random, RND Twins dan semua adders!" + "\n";
+  text += "Town Of Salem.";
+  text +=
+    "\n\n" +
+    "Thanks buat grup Avalon City, LOW, Where Wolf(?), Random, RND Twins, AreYouWolf? dan semua adders!" +
+    "\n";
   text += "- Eriec (creator)";
 
   const flex_text = {

@@ -49,6 +49,8 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
         return replyText("Kamu bisa ke tanya tanya di '/forum' kalo ada yang bingung :)");
       } else if (rawArgs.match(/stop/gi)) {
         return stopCommand();
+      } else if (rawArgs.match(/hi/gi)) {
+        return replyText(respond.callBot(this.user_session.name));
       }
     }
 

@@ -293,8 +293,8 @@ const generate = playersLength => {
     generated.push("villager");
   }
 
-  console.log(`generated role : ${generated.join(", ")}`);
-  console.log(`measure point : ${measure} in ${playersLength} players`);
+  // console.log(`generated role : ${generated.join(", ")}`);
+  // console.log(`measure point : ${measure} in ${playersLength} players`);
 
   generated = util.shuffleArray(generated);
 
