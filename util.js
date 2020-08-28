@@ -1,6 +1,8 @@
 const client = require("./src/client");
 const roles = require("./roles");
 
+let dayIndex = 0;
+
 const getUpdates = () => {
   // show last 10 updates
   // header text ganti nomor aja
@@ -70,7 +72,7 @@ const getUpdates = () => {
       buttons: [
         {
           action: "uri",
-          label: "👆 check",
+          label: "👆 Check",
           data: baseUrl + item.postId
         }
       ]
@@ -136,7 +138,7 @@ const getForumInfo = () => {
     buttons: [
       {
         action: "uri",
-        label: "open forum",
+        label: "🚪 Open forum",
         data:
           "https://line.me/ti/g2/3NEqw4h7jNdOBCur8AQWyw?utm_source=invitation&utm_medium=link_copy&utm_campaign=default"
       }
@@ -288,65 +290,37 @@ const random = array => {
 };
 
 const getFlexColor = () => {
-  let color = {};
-  let today = new Date().toLocaleTimeString("id-ID", {
-    timeZone: "Asia/Bangkok",
-    hour12: false
-  });
-  let timestamp = {
-    morning: {
-      from: "04:00:00",
-      to: "14:59:59",
-      color: {
-        main: "#1abc9c",
-        secondary: "#1abc9c",
-        background: "#ffffff",
-        text: "#1d1d1d"
-      }
-    },
+  const day = new Date().getDay();
+  dayIndex = day == dayIndex ? dayIndex : day;
+
+  const hour = new Date().getHours() + 7;
+  const colors = {
+    light: ["#1abc9c", "#77a6f8", "#d9c06e", "#6edb6e", "#964B00", "#303030", "#b27563"],
     evening: {
-      from: "15:00:00",
-      to: "18:29:59",
-      color: {
-        main: "#fa744f",
-        secondary: "#fa744f",
-        background: "#fff3cd",
-        text: "#222831"
-      }
+      main: "#fa744f",
+      background: "#fff3cd",
+      text: "#222831"
     },
-    night: {
-      from: "18:30:00",
-      to: "00:00:00",
-      color: {
-        main: "#00818a",
-        secondary: "#00818a",
-        background: "#232931",
-        text: "#eeeeee"
-      }
-    },
-    dawn: {
-      from: "00:00:00",
-      to: "03:59:59",
-      color: {
-        main: "#303030",
-        secondary: "#303030",
-        background: "#1b1c1e",
-        text: "#ffffff"
-      }
-    }
+    dark: ["#00818a", "#303030", "#f3c9dd", "#126D71", "#3a97d4", "#964B00", "#7c7d7c"]
   };
 
-  let times = Object.keys(timestamp);
-
-  for (let i = 0; i < times.length; i++) {
-    let time = timestamp[times[i]];
-    if (today >= time.from && today <= time.to) {
-      color = time.color;
-      return color;
-    }
+  if (hour < 17) {
+    return {
+      main: colors["light"][dayIndex],
+      background: "#ffffff",
+      text: "#1d1d1d"
+    };
+  } else if (hour >= 17 && hour < 19) {
+    return colors["evening"];
+  } else if (hour >= 19 && hour <= 24) {
+    return {
+      main: colors["dark"][dayIndex],
+      background: "#1d1d1d",
+      text: "#ffffff"
+    };
   }
 
-  return timestamp["dawn"].color;
+  return colors["dark"];
 };
 
 const getRoleNameEmoji = roleName => {
