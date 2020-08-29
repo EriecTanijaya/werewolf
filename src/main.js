@@ -14,8 +14,6 @@ const info = require("./info");
 
 const modes = require("../modes");
 
-modes["classic"].generate(15);
-
 const rawRoles = require("../roles");
 
 const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
@@ -2974,6 +2972,9 @@ const day = () => {
       }
     }
   }
+  
+  // vampire hunter to vigi
+  checkMorphingRole("vampire-hunter", "vampire", "vigilante");
 
   /// Framer Action
   for (let i = 0; i < players.length; i++) {
