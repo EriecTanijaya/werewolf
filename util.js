@@ -194,8 +194,11 @@ const getSender = () => {
 
 const getAbout = () => {
   let text = "Bot semi automatic yang terinspirasi dari ";
-  text += "Town Of Salem. ";
-  text += "Thanks buat grup Avalon City, LOW, Where Wolf(?), Random, RND Twins dan semua adders!" + "\n";
+  text += "Town Of Salem.";
+  text +=
+    "\n\n" +
+    "Thanks buat grup Avalon City, LOW, Where Wolf(?), Random, RND Twins, AreYouWolf? dan semua adders!" +
+    "\n";
   text += "- Eriec (creator)";
 
   const flex_text = {
@@ -564,6 +567,30 @@ const getFakeData = (length = 4) => {
     {
       userId: "326542",
       name: "Mumu"
+    },
+    {
+      userId: "359745",
+      name: "Ken"
+    },
+    {
+      userId: "7895135",
+      name: "Jon"
+    },
+    {
+      userId: "5659898",
+      name: "Bob"
+    },
+    {
+      userId: "7871265",
+      name: "Sully"
+    },
+    {
+      userId: "9615753",
+      name: "Narto"
+    },
+    {
+      userId: "357159",
+      name: "Farah"
     }
   ];
 

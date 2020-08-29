@@ -401,7 +401,7 @@ const targetCommand = () => {
     }
   }
 
-  if (parseInt(targetIndex) === parseInt(index)) {
+  if (targetIndex == index) {
     // hax arsonist want to ignite
     // but check is any doused player
     if (roleName === "arsonist") {
@@ -504,10 +504,7 @@ const targetCommand = () => {
     }
   }
 
-  this.group_session.players[index].target = {
-    index: targetIndex,
-    value: 1
-  };
+  this.group_session.players[index].target = { index: targetIndex, value: 1 };
 
   if (roleName === "godfather") {
     this.group_session.players[index].target.value++;
