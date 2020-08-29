@@ -101,7 +101,7 @@ const build = (flex_raw, sender, opt_texts = []) => {
 
       let separator = {
         type: "separator",
-        color: "#00909e",
+        color: color.main,
         margin: "sm"
       };
 
