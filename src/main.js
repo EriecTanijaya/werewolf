@@ -1841,6 +1841,8 @@ const day = () => {
       if (target.role.team === "vampire") {
         this.group_session.players[i].message += "🗡️ " + target.name + " adalah seorang Vampire!" + "\n\n";
 
+        this.group_session.players[i].message += "💡 Kamu menyerang " + target.name + "\n\n";
+
         this.group_session.players[targetIndex].message += "🗡️ Kamu diserang " + doer.role.name + "!" + "\n\n";
 
         if (doer.intercepted) {
@@ -1922,7 +1924,7 @@ const day = () => {
       }
 
       if (immuneToBasicAttack.includes(target.role.name)) {
-        this.group_session.players[i].message += "💡 Pertahanan targetmu terlalu tinggi untuk dibunuh!!" + "\n\n";
+        this.group_session.players[i].message += "💡 Pertahanan targetmu terlalu tinggi untuk dibunuh!" + "\n\n";
         this.group_session.players[targetIndex].message +=
           "💡 Ada yang menyerang kamu tapi pertahanan mu lebih tinggi dari serangan!" + "\n\n";
 
@@ -2972,13 +2974,31 @@ const day = () => {
       }
     }
   }
-  
-  // vampire hunter to vigi
-  checkMorphingRole("vampire-hunter", "vampire", "vigilante");
+
+  // Check vampire hunter can convert to vigi or not
+  for (let i = 0; i < players.length; i++) {
+    const doer = players[i];
+
+    if (doer.role.name === "vampire-hunter" && doer.status === "alive") {
+      let isVampireExists = checkExistsRole("vampire");
+
+      if (isVampireExists) break;
+
+      const roleData = getRoleData("vigilante");
+
+      this.group_session.players[i].role = roleData;
+      this.group_session.players[i].role.bullet = 1;
+      this.group_session.players[i].role.isLoadBullet = false;
+
+      this.group_session.players[i].message +=
+        "🔫 Indra perasamu menunjukkan tidak ada Vampire lagi di kota ini, dan kamu memutuskan untuk menjadi Vigilante" +
+        "\n\n";
+    }
+  }
 
   /// Framer Action
   for (let i = 0; i < players.length; i++) {
-    let doer = players[i];
+    const doer = players[i];
 
     if (doer.blocked) continue;
 
