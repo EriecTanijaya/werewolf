@@ -368,7 +368,7 @@ const shuffleArray = array => {
 const getPsychicResult = (players, psychicIndex, isFullMoon) => {
   let text = "🔮 ";
 
-  const goodTeamList = ["villager", "guardian-angel", "amnesiac"];
+  const goodTeamList = ["villager", "guardian-angel", "amnesiac", "survivor"];
   let allAlivePlayers = [];
   players.forEach((item, index) => {
     // krna di main.js, itu include juga yg will_death
