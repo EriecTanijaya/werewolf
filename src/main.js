@@ -118,7 +118,7 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
     return Promise.resolve(null);
   }
 
-  let input = args[0].toLowerCase();
+  const input = args[0].toLowerCase();
   switch (input) {
     case "/new":
     case "/buat":
@@ -3861,10 +3861,6 @@ const night = () => {
 
     // only alive player
     if (item.status === "alive") {
-      item.target = {
-        index: -1,
-        value: 1
-      };
       item.attacked = false;
       item.healed = false;
       item.targetVoteIndex = -1;
@@ -3880,6 +3876,10 @@ const night = () => {
       item.selfHeal = false;
       item.damage = 0;
       item.protected = false;
+      item.target = {
+        index: -1,
+        value: 1
+      };
 
       //special role (vampire)
       if (item.role.team === "vampire") {

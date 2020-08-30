@@ -530,6 +530,11 @@ const targetCommand = () => {
   if (players[index].role.canKill && players[index].deathNote === "") {
     msg.push("💡 Kamu belum buat death note, ketik '/dnote isi note kamu'");
   }
+  
+  //cp
+  if (this.group_session.players[index].target.index === -1) {
+    return replyText("💡 Terjadi kesalahan saat menggunakan skill, coba gunakan skill lagi");
+  }
 
   return replyText(msg);
 };
