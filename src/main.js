@@ -218,16 +218,14 @@ const groupCommand = () => {
 };
 
 const promoteCommand = () => {
-  if (this.event.source.type === "room") {
-    return replyText("💡 Maaf, untuk promote hanya tersedia pada group");
-  }
+  const place = this.event.source.type;
 
   if (this.group_session.promoted) {
-    return replyText("💡 Group ini telah di promote!");
+    return replyText(`💡 ${place} ini telah di promote!`);
   }
 
   if (this.args.length < 2) {
-    return replyText("💡 Masukkan ID dari admin group!\n\nCth : '/promote tukiman y x g kuy'");
+    return replyText(`💡 Masukkan ID dari admin ${place}!\n\nCth : '/promote tukiman y x g kuy'`);
   }
 
   this.group_session.promoted = true;
@@ -252,10 +250,10 @@ const promoteCommand = () => {
     this.group_session.caption = parseToText(this.args);
   }
 
-  let text = "📣 Group berhasil di promote, cek '/group' untuk listnya. \n\n";
+  let text = `📣 ${place} berhasil di promote, cek '/group' untuk listnya. \n\n`;
   text += "Pastikan ID yang dimasukkan benar. ";
-  text += "Karena group yang telah didaftar tidak dapat di edit lagi. ";
-  text += "Group yang terdaftar akan direset dalam beberapa jam ";
+  text += `Karena ${place} yang telah didaftar tidak dapat di edit lagi. `;
+  text += `${place} yang terdaftar akan dihapus dalam beberapa jam `;
   return replyText(text);
 };
 
@@ -2823,8 +2821,6 @@ const day = () => {
         const lastFirstBloodIds = this.group_session.lastFirstBloodIds;
         for (let x = 0; x < lastFirstBloodIds.length; x++) {
           const lastId = lastFirstBloodIds[x];
-          console.log(`lastId ${lastId}`);
-          console.log(`players[i].id ${players[i].id}`);
           if (players[i].id === lastId) {
             allAnnouncement += `☠️ ${players[i].name} kenak first blood lagi sejak game terakhir\n\n`;
           }
@@ -3295,9 +3291,10 @@ const day = () => {
     }
   }
 
-  /// Lookout Action
+  /// Lookout visit action
+  // for more than 1 lookout
   for (let i = 0; i < players.length; i++) {
-    let doer = players[i];
+    const doer = players[i];
 
     if (doer.blocked) continue;
 
@@ -3307,13 +3304,12 @@ const day = () => {
       let targetIndex = doer.target.index;
       let target = players[targetIndex];
 
-      this.group_session.players[i].message += "👣 Kamu ke rumah " + target.name + "\n\n";
-
       let visitor = {
         index: i,
         name: doer.name,
         role: doer.role
       };
+
       this.group_session.players[targetIndex].visitors.push(visitor);
 
       // infection
@@ -3331,6 +3327,22 @@ const day = () => {
           this.group_session.players[i].justInfected = true;
         }
       }
+
+      this.group_session.players[i].message += "👣 Kamu ke rumah " + target.name + "\n\n";
+    }
+  }
+
+  /// Lookout Action
+  for (let i = 0; i < players.length; i++) {
+    let doer = players[i];
+
+    if (doer.blocked) continue;
+
+    if (doer.role.name === "lookout" && doer.status === "alive") {
+      if (doer.target.index === -1) continue;
+
+      let targetIndex = doer.target.index;
+      let target = players[targetIndex];
 
       if (target.visitors.length > 1) {
         let targetVisitors = "";
@@ -4310,17 +4322,17 @@ const endGame = (flex_texts, whoWin) => {
 
   resetAllPlayers();
 
-  const isGroup = this.event.source.type === "group" ? true : false;
-  const text = "🏘️ Mungkin bisa dipertimbangkan untuk '/promote' group ini agar bisa bantu orang yang belum ada group";
+  const place = this.event.source.type;
+  const text = `🏘️ Mungkin bisa dipertimbangkan untuk '/promote' ${place} ini agar bisa bantu orang yang belum ada group`;
 
   if (!flex_texts) {
-    if (this.group_session.gamePlayed === 2 && isGroup) {
+    if (this.group_session.gamePlayed === 2) {
       return replyFlex(flex_text, text);
     } else {
       return replyFlex(flex_text);
     }
   } else {
-    if (this.group_session.gamePlayed === 2 && isGroup) {
+    if (this.group_session.gamePlayed === 2) {
       return replyFlex(flex_texts, text, flex_text);
     } else {
       return replyFlex(flex_texts, null, flex_text);
