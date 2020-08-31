@@ -12,7 +12,12 @@ const getUpdates = () => {
   let flex_texts = [];
   let updates = [
     {
-      version: "1.3.6 🆕", //ini yg lastest aja
+      version: "1.3.7 🆕", //ini yg lastest aja
+      majorChanges: "🎩 Bug fix & mode tweak",
+      postId: "1159883467008077998"
+    },
+    {
+      version: "1.3.6",
       majorChanges: "🔥 Adjustment & Buff",
       postId: "1159828033008074107"
     },
@@ -55,11 +60,6 @@ const getUpdates = () => {
       version: "1.1.9",
       majorChanges: "🎩 New Mayor role!",
       postId: "1159013388808076236"
-    },
-    {
-      version: "1.1.8",
-      majorChanges: "🎞️ Rework game mode",
-      postId: "1158988006208077687"
     }
   ];
 
@@ -368,7 +368,7 @@ const shuffleArray = array => {
 const getPsychicResult = (players, psychicIndex, isFullMoon) => {
   let text = "🔮 ";
 
-  const goodTeamList = ["villager", "guardian-angel", "amnesiac"];
+  const goodTeamList = ["villager", "guardian-angel", "amnesiac", "survivor"];
   let allAlivePlayers = [];
   players.forEach((item, index) => {
     // krna di main.js, itu include juga yg will_death
