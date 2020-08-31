@@ -3250,55 +3250,17 @@ const day = () => {
     }
   }
 
-  /// Tracker visit action
-  // for lookout data
-  for (let i = 0; i < players.length; i++) {
-    let doer = players[i];
-
-    if (doer.blocked) continue;
-
-    if (doer.role.name === "tracker" && doer.status === "alive") {
-      if (doer.target.index === -1) continue;
-
-      let targetIndex = doer.target.index;
-      let target = players[targetIndex];
-
-      let visitor = {
-        index: i,
-        name: doer.name,
-        role: doer.role
-      };
-
-      this.group_session.players[targetIndex].visitors.push(visitor);
-
-      // infection
-      let isDoerInfected = players[i].infected;
-      let isTargetInfected = players[targetIndex].infected;
-
-      if (target.role.name === "plaguebearer") {
-        if (!isDoerInfected) {
-          this.group_session.players[i].justInfected = true;
-        }
-      } else {
-        if (isDoerInfected && !isTargetInfected) {
-          this.group_session.players[targetIndex].justInfected = true;
-        } else if (isTargetInfected && !isDoerInfected) {
-          this.group_session.players[i].justInfected = true;
-        }
-      }
-
-      this.group_session.players[i].message += "👣 Kamu ke rumah " + target.name + "\n\n";
-    }
-  }
-
-  /// Lookout visit action
-  // for more than 1 lookout
+  /// Lookout & Tracker visit action
+  // for more than 1 lookout and because tracker action is below lookout
   for (let i = 0; i < players.length; i++) {
     const doer = players[i];
+    const roleName = doer.role.name;
 
     if (doer.blocked) continue;
 
-    if (doer.role.name === "lookout" && doer.status === "alive") {
+    const roleList = ["lookout, tracker"];
+
+    if (roleList.includes(roleName) && doer.status === "alive") {
       if (doer.target.index === -1) continue;
 
       let targetIndex = doer.target.index;
