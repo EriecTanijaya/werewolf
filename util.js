@@ -60,11 +60,6 @@ const getUpdates = () => {
       version: "1.1.9",
       majorChanges: "🎩 New Mayor role!",
       postId: "1159013388808076236"
-    },
-    {
-      version: "1.1.8",
-      majorChanges: "🎞️ Rework game mode",
-      postId: "1158988006208077687"
     }
   ];
 
