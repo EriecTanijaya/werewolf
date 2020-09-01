@@ -1597,6 +1597,7 @@ const day = () => {
       this.group_session.players[targetIndex].guarded = false;
       this.group_session.players[targetIndex].selfHeal = false;
       this.group_session.players[targetIndex].damage = 0;
+      this.group_session.players[targetIndex].revived = true;
 
       let targetRoleName = target.role.name;
 
@@ -4911,7 +4912,15 @@ const playersCommand = () => {
           table_data.push(item.role.name);
         }
       } else {
-        table_data.push("???");
+        if (item.revived) {
+          if (item.role.disguiseAs) {
+            table_data.push(item.role.disguiseAs);
+          } else {
+            table_data.push(item.role.name);
+          }
+        } else {
+          table_data.push("???");
+        }
       }
     }
 
@@ -5361,7 +5370,8 @@ const createNewPlayer = user_session => {
     doused: false,
     burned: false,
     infected: false,
-    justInfected: false
+    justInfected: false,
+    revived: false
   };
   return newPlayer;
 };
