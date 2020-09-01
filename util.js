@@ -292,7 +292,11 @@ const random = array => {
 
 const getFlexColor = () => {
   const day = new Date().getDay();
-  const hour = new Date().getHours() + 7;
+  let hour = new Date().getHours();
+  hour += 7;
+  hour = hour > 24 ? hour - 24 : hour;
+  console.log(hour)
+  
   const colors = {
     light: ["#1abc9c", "#77a6f8", "#d9c06e", "#6edb6e", "#964B00", "#303030", "#b27563"],
     evening: {
@@ -300,7 +304,7 @@ const getFlexColor = () => {
       background: "#fff3cd",
       text: "#222831"
     },
-    dark: ["#00818a", "#303030", "#f3c9dd", "#126D71", "#3a97d4", "#964B00", "#7c7d7c"]
+    dark: ["#00818a", "#303030", "#db5777", "#126D71", "#3a97d4", "#964B00", "#7c7d7c"]
   };
 
   if (hour < 17) {
