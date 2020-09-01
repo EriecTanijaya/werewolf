@@ -4482,7 +4482,7 @@ const voteCommand = () => {
 
   if (players[targetIndex].protected) {
     let targetName = players[targetIndex].name;
-    let text = "💡 " + this.user_session.name + ", ";
+    let text = "⚔️ " + this.user_session.name + ", ";
     text += targetName + " immune dari vote karena perlindungan Guardian Angel!";
     return replyText(text);
   }

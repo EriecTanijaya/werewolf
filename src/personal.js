@@ -811,7 +811,7 @@ const roleCommand = () => {
       if (player.role.vest > 0) {
         return survivorSkill(flex_text);
       } else {
-        return replyFlex(flex_text);
+        return replyFlex(flex_text, text);
       }
     } else if (roleName === "vampire") {
       let vampireConvertCooldown = this.group_session.vampireConvertCooldown;
