@@ -1597,6 +1597,7 @@ const day = () => {
       this.group_session.players[targetIndex].guarded = false;
       this.group_session.players[targetIndex].selfHeal = false;
       this.group_session.players[targetIndex].damage = 0;
+      this.group_session.players[targetIndex].revived = true;
 
       let targetRoleName = target.role.name;
 
@@ -4423,6 +4424,7 @@ const lynch = flex_texts => {
         const roleData = getRoleData("survivor");
         this.group_session.players[i].role = roleData;
         this.group_session.players[i].role.vest = 0;
+        this.group_session.players[i].addonMessage = "💡 Targetmu mati, sekarang kamu hanyalah Survivor tanpa vest";
       }
     }
   }
@@ -4434,7 +4436,12 @@ const lynch = flex_texts => {
   }
 
   this.group_session.state = "lynch";
-  this.group_session.lynched = players[lynchTarget.index];
+  this.group_session.lynched = {
+    role: {
+      name: players[lynchTarget.index].role.name,
+      type: players[lynchTarget.index].role.type
+    }
+  };
   this.group_session.time = 8;
 
   return replyFlex(flex_texts);
@@ -4475,7 +4482,7 @@ const voteCommand = () => {
 
   if (players[targetIndex].protected) {
     let targetName = players[targetIndex].name;
-    let text = "💡 " + this.user_session.name + ", ";
+    let text = "⚔️ " + this.user_session.name + ", ";
     text += targetName + " immune dari vote karena perlindungan Guardian Angel!";
     return replyText(text);
   }
@@ -4911,7 +4918,15 @@ const playersCommand = () => {
           table_data.push(item.role.name);
         }
       } else {
-        table_data.push("???");
+        if (item.revived) {
+          if (item.role.disguiseAs) {
+            table_data.push(item.role.disguiseAs);
+          } else {
+            table_data.push(item.role.name);
+          }
+        } else {
+          table_data.push("???");
+        }
       }
     }
 
@@ -5361,7 +5376,8 @@ const createNewPlayer = user_session => {
     doused: false,
     burned: false,
     infected: false,
-    justInfected: false
+    justInfected: false,
+    revived: false
   };
   return newPlayer;
 };
