@@ -4435,7 +4435,12 @@ const lynch = flex_texts => {
   }
 
   this.group_session.state = "lynch";
-  this.group_session.lynched = players[lynchTarget.index];
+  this.group_session.lynched = {
+    role: {
+      name: players[lynchTarget.index].role.name,
+      type: players[lynchTarget.index].role.type
+    }
+  };
   this.group_session.time = 8;
 
   return replyFlex(flex_texts);
