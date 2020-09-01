@@ -4424,6 +4424,7 @@ const lynch = flex_texts => {
         const roleData = getRoleData("survivor");
         this.group_session.players[i].role = roleData;
         this.group_session.players[i].role.vest = 0;
+        this.group_session.players[i].addonMessage = "💡 Targetmu mati, sekarang kamu hanyalah Survivor tanpa vest";
       }
     }
   }
