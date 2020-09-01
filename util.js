@@ -295,8 +295,7 @@ const getFlexColor = () => {
   let hour = new Date().getHours();
   hour += 7;
   hour = hour > 24 ? hour - 24 : hour;
-  console.log(hour)
-  
+
   const colors = {
     light: ["#1abc9c", "#77a6f8", "#d9c06e", "#6edb6e", "#964B00", "#303030", "#b27563"],
     evening: {

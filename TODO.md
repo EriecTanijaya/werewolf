@@ -1,5 +1,9 @@
 ### TODO
 
+- karna sekarang event di AYW, jadi bot backup manual cherry pick dlu ya, jangan di import
+
+- banyak data yang disimpan di group_session useless, seperti prop lynched
+
 - role set trick or treat (ada di tos punya fandom wiki) buat halloween ntr
 
 - buat database beneran, data user store di mongodb freakin' hard tho
