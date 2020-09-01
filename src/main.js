@@ -3254,13 +3254,12 @@ const day = () => {
   // for more than 1 lookout and because tracker action is below lookout
   for (let i = 0; i < players.length; i++) {
     const doer = players[i];
-    const roleName = doer.role.name;
 
     if (doer.blocked) continue;
 
-    const roleList = ["lookout, tracker"];
+    const roleList = ["lookout", "tracker"];
 
-    if (roleList.includes(roleName) && doer.status === "alive") {
+    if (roleList.includes(doer.role.name) && doer.status === "alive") {
       if (doer.target.index === -1) continue;
 
       let targetIndex = doer.target.index;
@@ -5239,7 +5238,7 @@ const commandCommand = () => {
     "/promote : open group dengan memberikan admin group",
     "/group : melihat list group yang open"
   ];
-  //cmds.length = 12;
+
   let flexNeeded = 0;
   const limit = 8;
   let cnt = 0;
