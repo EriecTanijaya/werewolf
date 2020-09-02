@@ -1306,12 +1306,12 @@ const day = () => {
 
   /// Veteran Visitor fetch
   for (let i = 0; i < players.length; i++) {
-    let doer = players[i];
+    const doer = players[i];
 
     if (doer.status === "alive" && doer.target.index !== -1) {
       if (parseInt(doer.target.index) !== parseInt(i)) {
-        let targetIndex = doer.target.index;
-        let target = players[targetIndex];
+        const targetIndex = doer.target.index;
+        const target = players[targetIndex];
 
         if (doer.role.name === "jester") continue;
 
@@ -1322,11 +1322,14 @@ const day = () => {
         }
 
         // hax untuk Mafia yang tukang bunuh bukan godfather, tapi mafioso
+        // juga vampire yang pergi 1 aja
         if (target.role.name === "veteran") {
           if (doer.role.name === "godfather") {
-            if (mafiaDoerIndex !== i) {
-              continue;
-            }
+            if (mafiaDoerIndex !== i) continue;
+          }
+
+          if (doer.role.name === "vampire") {
+            if (vampireDoerIndex !== i) continue;
           }
 
           veteranTargetIndexes.push({
@@ -2925,11 +2928,14 @@ const day = () => {
         }
 
         // hax untuk Mafia yang tukang bunuh bukan godfather, tapi mafioso
+        // juga vampire yang pergi cman 1 aja
         if (target.role.name === "arsonist") {
           if (doer.role.name === "godfather") {
-            if (mafiaDoerIndex !== i) {
-              continue;
-            }
+            if (mafiaDoerIndex !== i) continue;
+          }
+
+          if (doer.role.name === "vampire") {
+            if (vampireDoerIndex !== i) continue;
           }
 
           if (!doer.doused) {
