@@ -10,11 +10,11 @@
 ### NOTEE
 
 ```
-warga 60 persen, mafia 20 persen, nk 6,6 persen, neutral 13 persen	
+warga 60 persen, mafia 20 persen, nk 7 persen, neutral 13 persen	
 
 atau	
 
-warga 60 persen, mafia 25 persen, nk 6,6 persen, neutral 6,6 persen
+warga 60 persen, mafia 26 persen, nk 7 persen, neutral 7 persen
 ```
 
 - ROLE YG JANGAN DUPLICATE
