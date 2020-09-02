@@ -3896,11 +3896,41 @@ const night = () => {
     announcement += "🌕 Bulan terlihat indah malam ini, bulan purnama!" + "\n\n";
   }
 
+  // check pestilence
+  if (checkExistsRole("plaguebearer")) {
+    const players = this.group_session.players;
+    for (let i = 0; i < players.length; i++) {
+      let doer = players[i];
+
+      if (doer.role.name === "plaguebearer" && doer.status === "alive") {
+        if (doer.role.isPestilence) continue;
+
+        let alivePlayersCount = 0;
+        let infectedCount = 0;
+        for (let j = 0; j < players.length; j++) {
+          if (players[j].status === "alive" && i != j) {
+            if (players[j].infected) infectedCount++;
+            alivePlayersCount++;
+          }
+        }
+
+        if (infectedCount === alivePlayersCount) {
+          this.group_session.players[i].addonMessage +=
+            "☣️ Kamu telah menginfeksi seluruh orang! " + "Kamu telah menjadi Pestilence!";
+
+          this.group_session.players[i].role.isPestilence = true;
+          this.group_session.players[i].role.canKill = true;
+        }
+
+        break;
+      }
+    }
+  }
+
   announcement += "⏳ Warga diberi waktu ";
   announcement += this.group_session.time_default + " detik ";
   announcement += "untuk menjalankan aksinya";
 
-  // const flex_text = getNightStateFlex(announcement);
   let headerText = this.group_session.isFullMoon ? "🌕 " : "🌙 ";
   headerText += "Malam - " + this.group_session.nightCounter;
 
