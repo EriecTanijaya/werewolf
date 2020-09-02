@@ -1306,12 +1306,12 @@ const day = () => {
 
   /// Veteran Visitor fetch
   for (let i = 0; i < players.length; i++) {
-    let doer = players[i];
+    const doer = players[i];
 
     if (doer.status === "alive" && doer.target.index !== -1) {
       if (parseInt(doer.target.index) !== parseInt(i)) {
-        let targetIndex = doer.target.index;
-        let target = players[targetIndex];
+        const targetIndex = doer.target.index;
+        const target = players[targetIndex];
 
         if (doer.role.name === "jester") continue;
 
@@ -1322,11 +1322,14 @@ const day = () => {
         }
 
         // hax untuk Mafia yang tukang bunuh bukan godfather, tapi mafioso
+        // juga vampire yang pergi 1 aja
         if (target.role.name === "veteran") {
           if (doer.role.name === "godfather") {
-            if (mafiaDoerIndex !== i) {
-              continue;
-            }
+            if (mafiaDoerIndex !== i) continue;
+          }
+
+          if (doer.role.name === "vampire") {
+            if (vampireDoerIndex !== i) continue;
           }
 
           veteranTargetIndexes.push({
@@ -2925,11 +2928,14 @@ const day = () => {
         }
 
         // hax untuk Mafia yang tukang bunuh bukan godfather, tapi mafioso
+        // juga vampire yang pergi cman 1 aja
         if (target.role.name === "arsonist") {
           if (doer.role.name === "godfather") {
-            if (mafiaDoerIndex !== i) {
-              continue;
-            }
+            if (mafiaDoerIndex !== i) continue;
+          }
+
+          if (doer.role.name === "vampire") {
+            if (vampireDoerIndex !== i) continue;
           }
 
           if (!doer.doused) {
@@ -3896,11 +3902,41 @@ const night = () => {
     announcement += "🌕 Bulan terlihat indah malam ini, bulan purnama!" + "\n\n";
   }
 
+  // check pestilence
+  if (checkExistsRole("plaguebearer")) {
+    const players = this.group_session.players;
+    for (let i = 0; i < players.length; i++) {
+      let doer = players[i];
+
+      if (doer.role.name === "plaguebearer" && doer.status === "alive") {
+        if (doer.role.isPestilence) continue;
+
+        let alivePlayersCount = 0;
+        let infectedCount = 0;
+        for (let j = 0; j < players.length; j++) {
+          if (players[j].status === "alive" && i != j) {
+            if (players[j].infected) infectedCount++;
+            alivePlayersCount++;
+          }
+        }
+
+        if (infectedCount === alivePlayersCount) {
+          this.group_session.players[i].addonMessage +=
+            "☣️ Kamu telah menginfeksi seluruh orang! " + "Kamu telah menjadi Pestilence!";
+
+          this.group_session.players[i].role.isPestilence = true;
+          this.group_session.players[i].role.canKill = true;
+        }
+
+        break;
+      }
+    }
+  }
+
   announcement += "⏳ Warga diberi waktu ";
   announcement += this.group_session.time_default + " detik ";
   announcement += "untuk menjalankan aksinya";
 
-  // const flex_text = getNightStateFlex(announcement);
   let headerText = this.group_session.isFullMoon ? "🌕 " : "🌙 ";
   headerText += "Malam - " + this.group_session.nightCounter;
 
