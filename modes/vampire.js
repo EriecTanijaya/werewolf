@@ -14,18 +14,22 @@ const getData = () => {
 const generate = playersLength => {
   let roles = ["vampire", "vampire-hunter", "doctor", "lookout", "mayor"];
 
-  let townSupports = ["escort", "retributionist"];
+  const townSupports = ["escort", "retributionist"];
 
   roles.push(util.random(townSupports));
 
   roles.push("vampire", "investigator", "vigilante", "vampire");
 
-  let townProtectors = ["doctor", "bodyguard"];
+  const townProtectors = ["doctor", "bodyguard"];
   roles.push(util.random(townProtectors));
 
   roles.push("vampire");
+  
+  roles.push("jester");
+  
+  roles.push(util.random(townSupports));
 
-  let randomTowns = [
+  const randomTowns = [
     "doctor",
     "bodyguard",
     "investigator",
@@ -38,16 +42,13 @@ const generate = playersLength => {
     "psychic",
     "villager"
   ];
+  
   roles.push(util.random(randomTowns));
-
-  roles.push("jester");
-
-  roles.push("vampire");
 
   roles.length = playersLength;
 
   roles = util.shuffleArray(roles);
-
+  
   return roles;
 };
 
