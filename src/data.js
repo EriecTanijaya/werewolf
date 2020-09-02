@@ -122,11 +122,11 @@ const searchUser = async () => {
     const forbiddenName = [
       {
         name: "city of bedburg",
-        reason: "Jangan bikin ambigu dong, kok namanya sama bos?"
+        reason: "jangan bikin ambigu dong, kok namanya sama bos?"
       },
       {
         name: "-",
-        reason: "Namanya invalid!"
+        reason: "namamu invalid!"
       }
     ];
 
@@ -135,7 +135,7 @@ const searchUser = async () => {
         if (!this.rawArgs.startsWith("/")) {
           return Promise.resolve(null);
         }
-        return replyText(`💡 ${forbiddenName[i].reason}`);
+        return replyText(`💡 ${displayName}, ${forbiddenName[i].reason}`);
       }
     }
 
