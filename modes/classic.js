@@ -14,11 +14,11 @@ const getData = () => {
 const generate = playersLength => {
   if (playersLength < 7) {
     let roles = [];
-    let mafia = ["investigator", "mafioso", "vigilante", "jester"];
-    let sk = ["serial-killer", "investigator", "doctor", "jester"];
+    const mafia = ["investigator", "mafioso", "vigilante", "jester"];
+    const sk = ["serial-killer", "investigator", "doctor", "jester"];
+    const standard = ["mafioso", "sheriff", "doctor", "jester"];
 
-    roles = util.random([mafia, sk]);
-
+    roles = util.random([mafia, sk, standard]);
     roles = util.shuffleArray(roles);
     return roles;
   }
@@ -185,11 +185,23 @@ const generate = playersLength => {
 
   let measure = 0;
 
-  let generated = ["mafioso", "sheriff"];
+  let generated = ["sheriff"];
 
-  let neutralLimit = 2;
-  let neutralKillingLimit = 1;
-  let mafiaLimit = 3;
+  const type = util.random(["mafia", "neutral"]);
+
+  let neutralLimit = 0;
+  let neutralKillingLimit = Math.round((7 / 100) * playersLength);
+  let mafiaLimit = 0;
+
+  if (type === "mafia") {
+    mafiaLimit = Math.round((26 / 100) * playersLength);
+    neutralLimit = Math.round((7 / 100) * playersLength);
+  } else {
+    mafiaLimit = Math.round((20 / 100) * playersLength);
+    neutralLimit = Math.round((13 / 100) * playersLength);
+  }
+
+  // console.log(`neutralLimit ${neutralLimit}, mafia ${mafiaLimit}, nk ${neutralKillingLimit}`);
 
   const neutral = ["amnesiac", "survivor", "guardian-angel", "jester", "executioner"];
   const neutralKilling = ["arsonist", "serial-killer", "juggernaut", "plaguebearer", "werewolf"];
@@ -291,6 +303,24 @@ const generate = playersLength => {
   if (measure > 10) {
     generated.pop();
     generated.push("villager");
+  }
+
+  // check mafia killing present or not, if not, turn to it
+  let hasMafiaKilling = false;
+  for (let i = 0; i < generated.length; i++) {
+    if (["mafioso", "godfather"].includes(generated[i])) {
+      hasMafiaKilling = true;
+      break;
+    }
+  }
+
+  if (!hasMafiaKilling) {
+    for (let i = 0; i < generated.length; i++) {
+      if (mafia.includes(generated[i])) {
+        generated[i] = "mafioso";
+        break;
+      }
+    }
   }
 
   // console.log(`generated role : ${generated.join(", ")}`);
