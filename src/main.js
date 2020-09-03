@@ -5394,7 +5394,7 @@ const resetAllPlayers = () => {
   this.group_session.players = [];
 };
 
-const createNewPlayer = user_session => {
+const createNewPlayer = user_session => {  
   // di sini set prop yang ga bisa di reset tiap malam, dan bisa persistent sepanjang game
   let newPlayer = {
     id: user_session.id,
