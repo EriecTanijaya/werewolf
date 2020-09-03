@@ -114,19 +114,21 @@ const searchUser = async () => {
       spamCount: 0
     };
     user_sessions[userId] = newUser;
+  }
 
-    try {
-      const { displayName } = await client.getProfile(userId);
-      user_sessions[userId].name = displayName;
-      return searchUserCallback();
-    } catch (err) {
-      if (!this.rawArgs.startsWith("/")) {
-        return Promise.resolve(null);
-      }
-      return notAddError();
-    }
-  } else {
+  if (user_sessions[userId].name !== "") {
     return searchUserCallback();
+  }
+  
+  try {
+    const { displayName } = await client.getProfile(userId);
+    user_sessions[userId].name = displayName;
+    return searchUserCallback();
+  } catch (err) {
+    if (!this.rawArgs.startsWith("/")) {
+      return Promise.resolve(null);
+    }
+    return notAddError();
   }
 };
 
