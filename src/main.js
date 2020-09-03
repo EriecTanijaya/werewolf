@@ -3681,6 +3681,8 @@ const randomRoles = () => {
     item.role = getRoleData(item.role.name);
   });
 
+  this.group_session.players = util.shuffleArray(this.group_session.players);
+
   this.group_session.players.forEach((item, index) => {
     /// init private prop special role
     switch (item.role.name) {
@@ -5394,7 +5396,7 @@ const resetAllPlayers = () => {
   this.group_session.players = [];
 };
 
-const createNewPlayer = user_session => {  
+const createNewPlayer = user_session => {
   // di sini set prop yang ga bisa di reset tiap malam, dan bisa persistent sepanjang game
   let newPlayer = {
     id: user_session.id,
