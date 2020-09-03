@@ -114,42 +114,19 @@ const searchUser = async () => {
       spamCount: 0
     };
     user_sessions[userId] = newUser;
-  }
 
-  try {
-    const { displayName } = await client.getProfile(userId);
-
-    const forbiddenName = [
-      {
-        name: "city of bedburg",
-        reason: "jangan bikin ambigu dong, kok namanya sama bos?"
-      },
-      {
-        name: "-",
-        reason: "namamu invalid!"
-      }
-    ];
-
-    for (let i = 0; i < forbiddenName.length; i++) {
-      if (forbiddenName[i].name === displayName.toLowerCase()) {
-        if (!this.rawArgs.startsWith("/")) {
-          return Promise.resolve(null);
-        }
-        return replyText(`💡 ${displayName}, ${forbiddenName[i].reason}`);
-      }
-    }
-
-    if (user_sessions[userId].name) {
+    try {
+      const { displayName } = await client.getProfile(userId);
+      user_sessions[userId].name = displayName;
       return searchUserCallback();
+    } catch (err) {
+      if (!this.rawArgs.startsWith("/")) {
+        return Promise.resolve(null);
+      }
+      return notAddError();
     }
-
-    user_sessions[userId].name = displayName;
-  } catch (err) {
-    if (!this.rawArgs.startsWith("/")) {
-      return Promise.resolve(null);
-    }
-
-    return notAddError();
+  } else {
+    return searchUserCallback();
   }
 };
 
