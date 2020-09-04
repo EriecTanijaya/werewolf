@@ -184,9 +184,17 @@ module.exports = {
 
       case "bodyguard":
         if (isChangeTarget) {
-          text += `🛡️ ${subjectText} berubah pikiran dan memutuskan untuk melindungi ${targetName} saja malam ini`;
+          if (isSelfTarget) {
+            text += `🦺 ${subjectText} berubah pikiran dan memutuskan untuk memakai vest mu`;
+          } else {
+            text += `🛡️ ${subjectText} berubah pikiran dan memutuskan untuk melindungi ${targetName} saja malam ini`;
+          }
         } else {
-          text += `🛡️ ${subjectText} memutuskan untuk melindungi ${targetName} malam ini`;
+          if (isSelfTarget) {
+            text += `🦺 ${subjectText} memutuskan untuk memakai vest mu`;
+          } else {
+            text += `🛡️ ${subjectText} memutuskan untuk melindungi ${targetName} malam ini`;
+          }
         }
         break;
 
@@ -208,9 +216,17 @@ module.exports = {
 
       case "juggernaut":
         if (isChangeTarget) {
-          text += `💪 ${subjectText} berubah pikiran dan memutuskan untuk menyerang ${targetName} saja malam ini`;
+          if (isSelfTarget) {
+            text += `💪 ${subjectText} berubah pikiran dan memutuskan untuk RAMPAGE di rumahmu sendiri`;
+          } else {
+            text += `💪 ${subjectText} berubah pikiran dan memutuskan untuk menyerang ${targetName} saja malam ini`;
+          }
         } else {
-          text += `💪 ${subjectText} memutuskan untuk menyerang ${targetName} malam ini`;
+          if (isSelfTarget) {
+            text += `💪 ${subjectText} memutuskan untuk RAMPAGE di rumahmu sendiri`;
+          } else {
+            text += `💪 ${subjectText} memutuskan untuk menyerang ${targetName} malam ini`;
+          }
         }
         break;
 
@@ -236,9 +252,17 @@ module.exports = {
 
       case "pestilence":
         if (isChangeTarget) {
-          text += `☣️ ${subjectText} berubah pikiran dan memutuskan untuk RAMPAGE di rumah ${targetName} saja malam ini`;
+          if (isSelfTarget) {
+            text += `☣️ ${subjectText} berubah pikiran dan memutuskan untuk RAMPAGE di rumahmu sendiri`;
+          } else {
+            text += `☣️ ${subjectText} berubah pikiran dan memutuskan untuk RAMPAGE di rumah ${targetName} saja malam ini`;
+          }
         } else {
-          text += `☣️ ${subjectText} memutuskan untuk RAMPAGE di rumah ${targetName} malam ini`;
+          if (isSelfTarget) {
+            text += `☣️ ${subjectText} memutuskan untuk RAMPAGE di rumahmu sendiri`;
+          } else {
+            text += `☣️ ${subjectText} memutuskan untuk RAMPAGE di rumah ${targetName} malam ini`;
+          }
         }
         break;
     }
