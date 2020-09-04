@@ -2356,6 +2356,8 @@ const day = () => {
               if (afkCounter < 3) this.group_session.players[i].damage--;
             }
           }
+          
+          if (isBurned || isHaunted) continue;
 
           if (isVested && !vestUsed) {
             this.group_session.players[i].damage--;
