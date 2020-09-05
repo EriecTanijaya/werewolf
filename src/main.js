@@ -3048,15 +3048,27 @@ const day = () => {
       const targetIndex = doer.target.index;
       const target = players[targetIndex];
 
-      let result = "";
-      if (target.intercepted || target.blocked || target.target.index === -1 || target.target.index === targetIndex) {
-        result += "👣 Targetmu diam dirumah saja" + "\n\n";
-      } else {
-        let targetTargetName = players[target.target.index].name;
-        result += "👣 Target mu ke rumah " + targetTargetName + "\n\n";
-      }
+      const stayAtHome = "👣 Target mu diam di rumah saja" + "\n\n";
 
-      this.group_session.players[i].message += result;
+      if (target.intercepted || target.blocked || target.target.index === -1 || target.target.index === targetIndex) {
+        this.group_session.players[i].message += stayAtHome;
+      } else {
+        let stayHome = false;
+        if (target.role.name === "godfather") {
+          if (mafiaDoerIndex != targetIndex) stayHome = true;
+        } else if (target.role.name === "vampire") {
+          if (vampireDoerIndex != targetIndex) stayHome = true;
+        } else {
+          stayHome = false;
+        }
+
+        if (stayHome) {
+          this.group_session.players[i].message += stayAtHome;
+        } else {
+          const targetTargetName = players[target.target.index].name;
+          this.group_session.players[i].message += `👣 Target mu ke rumah ${targetTargetName}\n\n`;
+        }
+      }
     }
   }
 
