@@ -1510,6 +1510,8 @@ const day = () => {
       this.group_session.players[targetIndex].infected = false;
       this.group_session.players[targetIndex].vampireBited = false;
 
+      this.group_session.players[i].message += `⚔️ Kamu menjaga ${players[targetIndex].name}\n\n`;
+
       this.group_session.players[targetIndex].message += "⚔️ Kamu diawasi oleh Guardian Angel!" + "\n\n";
 
       let protector = {
@@ -3556,6 +3558,7 @@ const night = () => {
     // all player regardless alive or not
     item.message = "";
     item.blocked = false;
+    item.target = { index: -1, value: 1 };
 
     // only alive player
     if (item.status === "alive") {
@@ -3574,10 +3577,6 @@ const night = () => {
       item.selfHeal = false;
       item.damage = 0;
       item.protected = false;
-      item.target = {
-        index: -1,
-        value: 1
-      };
 
       //special role (vampire)
       if (item.role.team === "vampire") {
@@ -4956,7 +4955,7 @@ const newCommand = () => {
 
   if (process.env.TEST === "true") {
     // cp
-    const dummies = util.getFakeData(13);
+    const dummies = util.getFakeData(4);
     dummies.forEach(item => {
       const newPlayer = createNewPlayer(item);
       this.group_session.players.push(newPlayer);
