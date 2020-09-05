@@ -566,7 +566,7 @@ const day = () => {
       }
 
       if (target.role.name === "serial-killer") {
-        this.group_session.players[i].message += "💡 Pertahanan targetmu terlalu tinggi untuk dibunuh!" + "\n\n";
+        this.group_session.players[i].message += "💡 Targetmu immune dari role block!" + "\n\n";
 
         this.group_session.players[targetIndex].message += "💡 Ada yang berusaha role block kamu!" + "\n\n";
 
@@ -579,7 +579,7 @@ const day = () => {
             "🔍 Ada yang mencoba roleblock Target kamu, hingga Targetmu menyerang nya!" + "\n\n";
         }
       } else if (immuneToRoleBlock.includes(target.role.name)) {
-        this.group_session.players[i].message += "💡 Pertahanan targetmu terlalu tinggi untuk dibunuh!" + "\n\n";
+        this.group_session.players[i].message += "💡 Targetmu immune dari role block!" + "\n\n";
 
         this.group_session.players[targetIndex].message += "💡 Ada yang berusaha role block kamu!" + "\n\n";
 
@@ -643,7 +643,7 @@ const day = () => {
       }
 
       if (target.role.name === "serial-killer") {
-        this.group_session.players[i].message += "💡 Pertahanan targetmu terlalu tinggi untuk dibunuh!" + "\n\n";
+        this.group_session.players[i].message += "💡 Targetmu immune dari role block!" + "\n\n";
 
         this.group_session.players[targetIndex].message += "💡 Ada yang berusaha role block kamu!" + "\n\n";
 
@@ -656,7 +656,7 @@ const day = () => {
             "🔍 Ada yang mencoba roleblock Target kamu, hingga Targetmu menyerang nya!" + "\n\n";
         }
       } else if (immuneToRoleBlock.includes(target.role.name)) {
-        this.group_session.players[i].message += "💡 Pertahanan targetmu terlalu tinggi untuk dibunuh!" + "\n\n";
+        this.group_session.players[i].message += "💡 Targetmu immune dari role block!" + "\n\n";
 
         this.group_session.players[targetIndex].message += "💡 Ada yang berusaha role block kamu!" + "\n\n";
 
