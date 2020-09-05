@@ -1600,7 +1600,6 @@ const day = () => {
       this.group_session.players[targetIndex].guarded = false;
       this.group_session.players[targetIndex].selfHeal = false;
       this.group_session.players[targetIndex].damage = 0;
-      this.group_session.players[targetIndex].revived = true;
 
       let targetRoleName = target.role.name;
 
@@ -2286,12 +2285,12 @@ const day = () => {
         this.group_session.players[i].damage = attackers.length;
 
         for (let x = 0; x < attackers.length; x++) {
-          let attacker = attackers[x];
-
+          const attacker = attackers[x];
+          
           if (isHealed || isGuarded) {
             for (let u = 0; u < protectors.length; u++) {
-              let protector = protectors[u];
-
+              const protector = protectors[u];
+              
               this.group_session.players[protector.index].message +=
                 "💡 " + players[i].name + " diserang semalam!" + "\n\n";
 
@@ -4958,15 +4957,7 @@ const playersCommand = () => {
           table_data.push(item.role.name);
         }
       } else {
-        if (item.revived) {
-          if (item.role.disguiseAs) {
-            table_data.push(item.role.disguiseAs);
-          } else {
-            table_data.push(item.role.name);
-          }
-        } else {
-          table_data.push("???");
-        }
+        table_data.push("???");
       }
     }
 
@@ -5250,7 +5241,7 @@ const newCommand = () => {
 
   if (process.env.TEST === "true") {
     // cp
-    const dummies = util.getFakeData(4);
+    const dummies = util.getFakeData(13);
     dummies.forEach(item => {
       const newPlayer = createNewPlayer(item);
       this.group_session.players.push(newPlayer);
@@ -5416,8 +5407,7 @@ const createNewPlayer = user_session => {
     doused: false,
     burned: false,
     infected: false,
-    justInfected: false,
-    revived: false
+    justInfected: false
   };
   return newPlayer;
 };

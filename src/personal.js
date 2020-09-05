@@ -658,7 +658,6 @@ const roleCommand = () => {
   const roleTeam = player.role.team;
   const roleDesc = player.role.description;
   const headerText = util.getRoleNameEmoji(roleName) + " " + roleName.toUpperCase();
-
   let flex_texts = [];
 
   let flex_text = {
