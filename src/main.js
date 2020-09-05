@@ -429,10 +429,9 @@ const day = () => {
     }
 
     for (let i = 0; i < players.length; i++) {
-      let doer = players[i];
-      let status = doer.status;
-      let roleName = doer.role.name;
-      if (roleName === "godfather" && status === "alive") {
+      const doer = players[i];
+      const roleName = doer.role.name;
+      if (roleName === "godfather" && doer.status === "alive") {
         mafiaDoerBackupIndex = i;
         if (doer.target.index !== -1) {
           isBackupMafiaUseSkill = true;
@@ -448,8 +447,8 @@ const day = () => {
 
     if (!isMainMafiaUseSkill && !isBackupMafiaUseSkill) {
       for (let i = 0; i < players.length; i++) {
-        let doer = players[i];
-        let roleName = doer.role.name;
+        const doer = players[i];
+        const roleName = doer.role.name;
         if (roleName === "mafioso" || roleName === "godfather") {
           this.group_session.players[i].message += "💡 Kamu tidak menggunakan skill mu" + "\n\n";
         }
@@ -488,15 +487,15 @@ const day = () => {
 
         this.group_session.players[mafiaDoerIndex].target.index = mafiaChosenTarget.index;
 
-        let doer = players[mafiaDoerIndex];
-        let target = players[mafiaChosenTarget.index];
+        const doer = players[mafiaDoerIndex];
+        const target = players[mafiaChosenTarget.index];
         mafiaAnnouncement += `🤵 ${doer.name} akan membunuh ${target.name}\n\n`;
       }
     }
   }
 
   /// Not use skill message
-  let basicNotUseSkillRole = [
+  const basicNotUseSkillRole = [
     "disguiser",
     "escort",
     "consort",
@@ -522,8 +521,8 @@ const day = () => {
   ];
 
   for (let i = 0; i < players.length; i++) {
-    let player = players[i];
-    let targetIndex = player.target.index;
+    const player = players[i];
+    const targetIndex = player.target.index;
     if (player.status === "alive" && targetIndex === -1) {
       if (basicNotUseSkillRole.includes(player.role.name)) {
         this.group_session.players[i].message += "💡 Kamu tidak menggunakan skill mu" + "\n\n";
@@ -533,42 +532,28 @@ const day = () => {
 
   /// Escort Action
   for (let i = 0; i < players.length; i++) {
-    let doer = players[i];
+    const doer = players[i];
 
     if (doer.role.name === "escort" && doer.status === "alive") {
       if (doer.target.index === -1 || doer.attacked) {
         continue;
       }
 
-      let targetIndex = doer.target.index;
-      let target = players[targetIndex];
+      const targetIndex = doer.target.index;
+      const target = players[targetIndex];
 
       this.group_session.players[i].message += "👣 Kamu ke rumah " + target.name + "\n\n";
 
-      let visitor = {
+      const visitor = {
         index: i,
         name: doer.name,
         role: doer.role
       };
       this.group_session.players[targetIndex].visitors.push(visitor);
 
-      // infection
-      let isDoerInfected = players[i].infected;
-      let isTargetInfected = players[targetIndex].infected;
+      checkInfection(i, targetIndex);
 
-      if (target.role.name === "plaguebearer") {
-        if (!isDoerInfected) {
-          this.group_session.players[i].justInfected = true;
-        }
-      } else {
-        if (isDoerInfected && !isTargetInfected) {
-          this.group_session.players[targetIndex].justInfected = true;
-        } else if (isTargetInfected && !isDoerInfected) {
-          this.group_session.players[i].justInfected = true;
-        }
-      }
-
-      let immuneToRoleBlock = ["escort", "consort", "veteran"];
+      const immuneToRoleBlock = ["escort", "consort", "veteran"];
 
       if (players[targetIndex].role.name === "plaguebearer") {
         if (players[targetIndex].role.isPestilence) {
@@ -622,44 +607,30 @@ const day = () => {
 
   /// Consort Action
   for (let i = 0; i < players.length; i++) {
-    let doer = players[i];
+    const doer = players[i];
 
     if (doer.role.name === "consort" && doer.status === "alive") {
       if (doer.target.index === -1 || doer.attacked) {
         continue;
       }
 
-      let targetIndex = doer.target.index;
-      let target = players[targetIndex];
+      const targetIndex = doer.target.index;
+      const target = players[targetIndex];
 
       this.group_session.players[i].message += "👣 Kamu ke rumah " + target.name + "\n\n";
 
       mafiaAnnouncement += `🚷 ${doer.name} berencana block skill ${target.name}\n\n`;
 
-      let visitor = {
+      const visitor = {
         index: i,
         name: doer.name,
         role: doer.role
       };
       this.group_session.players[targetIndex].visitors.push(visitor);
 
-      // infection
-      let isDoerInfected = players[i].infected;
-      let isTargetInfected = players[targetIndex].infected;
+      checkInfection(i, targetIndex);
 
-      if (target.role.name === "plaguebearer") {
-        if (!isDoerInfected) {
-          this.group_session.players[i].justInfected = true;
-        }
-      } else {
-        if (isDoerInfected && !isTargetInfected) {
-          this.group_session.players[targetIndex].justInfected = true;
-        } else if (isTargetInfected && !isDoerInfected) {
-          this.group_session.players[i].justInfected = true;
-        }
-      }
-
-      let immuneToRoleBlock = ["escort", "consort", "veteran"];
+      const immuneToRoleBlock = ["escort", "consort", "veteran"];
 
       if (players[targetIndex].role.name === "plaguebearer") {
         if (players[targetIndex].role.isPestilence) {
@@ -736,7 +707,7 @@ const day = () => {
   /// Disguiser Action
   // jangan dipindah di bawah veteran
   for (let i = 0; i < players.length; i++) {
-    let doer = players[i];
+    const doer = players[i];
 
     if (doer.blocked) continue;
 
@@ -745,8 +716,8 @@ const day = () => {
         continue;
       }
 
-      let targetIndex = doer.target.index;
-      let target = players[targetIndex];
+      const targetIndex = doer.target.index;
+      const target = players[targetIndex];
 
       this.group_session.players[i].message += "👣 Kamu ke rumah " + target.name + "\n\n";
 
@@ -757,28 +728,14 @@ const day = () => {
         continue;
       }
 
-      let visitor = {
+      const visitor = {
         index: i,
         name: doer.name,
         role: doer.role
       };
       this.group_session.players[targetIndex].visitors.push(visitor);
 
-      // infection
-      let isDoerInfected = players[i].infected;
-      let isTargetInfected = players[targetIndex].infected;
-
-      if (target.role.name === "plaguebearer") {
-        if (!isDoerInfected) {
-          this.group_session.players[i].justInfected = true;
-        }
-      } else {
-        if (isDoerInfected && !isTargetInfected) {
-          this.group_session.players[targetIndex].justInfected = true;
-        } else if (isTargetInfected && !isDoerInfected) {
-          this.group_session.players[i].justInfected = true;
-        }
-      }
+      checkInfection(i, targetIndex);
 
       this.group_session.players[i].role.disguiseAs = target.role.name;
 
@@ -790,12 +747,11 @@ const day = () => {
   // jangan dipindah di bawah veteran
   for (let i = 0; i < players.length; i++) {
     if (vampireDoerIndex === i) {
-      let doer = players[i];
-      let status = doer.status;
-      let targetIndex = doer.target.index;
-      let target = players[targetIndex];
+      const doer = players[i];
+      const targetIndex = doer.target.index;
+      const target = players[targetIndex];
 
-      if (status === "alive" && targetIndex !== -1) {
+      if (doer.status === "alive" && targetIndex !== -1) {
         vampireAnnouncement += `🧛 ${doer.name} yang akan ke rumah ${target.name}\n\n`;
 
         if (doer.blocked === true) {
@@ -816,21 +772,7 @@ const day = () => {
           };
           this.group_session.players[targetIndex].visitors.push(visitor);
 
-          // infection
-          let isDoerInfected = players[i].infected;
-          let isTargetInfected = players[targetIndex].infected;
-
-          if (target.role.name === "plaguebearer") {
-            if (!isDoerInfected) {
-              this.group_session.players[i].justInfected = true;
-            }
-          } else {
-            if (isDoerInfected && !isTargetInfected) {
-              this.group_session.players[targetIndex].justInfected = true;
-            } else if (isTargetInfected && !isDoerInfected) {
-              this.group_session.players[i].justInfected = true;
-            }
-          }
+          checkInfection(i, targetIndex);
 
           vampireAnnouncement += `🧛 Target Vampire adalah ${target.name}\n\n`;
 
@@ -849,7 +791,7 @@ const day = () => {
 
           if (target.role.isDisguiseAs) targetRoleName = "disguiser";
 
-          let immuneToVampireBite = [
+          const immuneToVampireBite = [
             "godfather",
             "vampire-hunter",
             "serial-killer",
@@ -859,7 +801,7 @@ const day = () => {
             "plaguebearer"
           ];
 
-          let canAttacked = [
+          const canAttacked = [
             "mafioso",
             "consigliere",
             "consort",
@@ -910,7 +852,7 @@ const day = () => {
 
             this.group_session.players[targetIndex].attacked = true;
 
-            let attacker = {
+            const attacker = {
               index: i,
               name: doer.name,
               role: doer.role,
@@ -928,7 +870,7 @@ const day = () => {
 
             this.group_session.players[targetIndex].vampireBited = true;
 
-            let attacker = {
+            const attacker = {
               index: i,
               name: doer.name,
               role: doer.role,
@@ -947,12 +889,11 @@ const day = () => {
   for (let i = 0; i < players.length; i++) {
     let doer = players[i];
     let roleName = doer.role.name;
-    let status = doer.status;
     let targetIndex = doer.target.index;
 
     if (doer.blocked) continue;
 
-    if (roleName === "plaguebearer" && status === "alive") {
+    if (roleName === "plaguebearer" && doer.status === "alive") {
       if (!doer.role.isPestilence) continue;
 
       let pestilenceRampageTargetIndexes = [];
@@ -991,7 +932,7 @@ const day = () => {
 
       // Plaguebearer Killing Action
       for (let u = 0; u < pestilenceRampageTargetIndexes.length; u++) {
-        let targetIndex = pestilenceRampageTargetIndexes[u];
+        const targetIndex = pestilenceRampageTargetIndexes[u];
 
         this.group_session.players[i].message += "💡 Kamu menyerang seseorang!" + "\n\n";
 
@@ -1003,7 +944,7 @@ const day = () => {
 
         this.group_session.players[targetIndex].attacked = true;
 
-        let attacker = {
+        const attacker = {
           index: i,
           name: doer.name,
           role: doer.role,
@@ -1018,13 +959,12 @@ const day = () => {
 
   /// Juggernaut Action
   for (let i = 0; i < players.length; i++) {
-    let doer = players[i];
-    let roleName = doer.role.name;
-    let status = doer.status;
-    let targetIndex = doer.target.index;
+    const doer = players[i];
+    const roleName = doer.role.name;
+    const targetIndex = doer.target.index;
 
-    if (roleName === "juggernaut" && status === "alive") {
-      let skillLevel = doer.role.skillLevel;
+    if (roleName === "juggernaut" && doer.status === "alive") {
+      const skillLevel = doer.role.skillLevel;
       if (!this.group_session.isFullMoon && skillLevel === 0) continue;
 
       if (doer.blocked) {
@@ -1034,7 +974,7 @@ const day = () => {
       }
 
       if (doer.target.index !== -1) {
-        let target = players[targetIndex];
+        const target = players[targetIndex];
 
         if (skillLevel < 3) {
           // hax for check if the target was veteran
@@ -1043,28 +983,14 @@ const day = () => {
           }
         }
 
-        let visitor = {
+        const visitor = {
           index: i,
           name: doer.name,
           role: doer.role
         };
         this.group_session.players[targetIndex].visitors.push(visitor);
 
-        // infection
-        let isDoerInfected = players[i].infected;
-        let isTargetInfected = players[targetIndex].infected;
-
-        if (target.role.name === "plaguebearer") {
-          if (!isDoerInfected) {
-            this.group_session.players[i].justInfected = true;
-          }
-        } else {
-          if (isDoerInfected && !isTargetInfected) {
-            this.group_session.players[targetIndex].justInfected = true;
-          } else if (isTargetInfected && !isDoerInfected) {
-            this.group_session.players[i].justInfected = true;
-          }
-        }
+        checkInfection(i, targetIndex);
 
         this.group_session.players[i].message += "👣 Kamu ke rumah " + players[targetIndex].name;
 
@@ -1075,7 +1001,7 @@ const day = () => {
         }
       }
 
-      let immuneToBasicAttack = ["serial-killer", "arsonist", "godfather", "executioner"];
+      const immuneToBasicAttack = ["serial-killer", "arsonist", "godfather", "executioner"];
 
       if (this.group_session.isFullMoon) {
         immuneToBasicAttack.push("werewolf");
@@ -1111,7 +1037,7 @@ const day = () => {
 
             this.group_session.players[targetIndex].attacked = true;
 
-            let attacker = {
+            const attacker = {
               index: i,
               name: doer.name,
               role: doer.role,
@@ -1196,7 +1122,7 @@ const day = () => {
 
           this.group_session.players[targetIndex].attacked = true;
 
-          let attacker = {
+          const attacker = {
             index: i,
             name: doer.name,
             role: doer.role,
@@ -1212,42 +1138,26 @@ const day = () => {
 
   /// Werewolf Action
   for (let i = 0; i < players.length; i++) {
-    let doer = players[i];
-    let roleName = doer.role.name;
-    let status = doer.status;
-    let targetIndex = doer.target.index;
+    const doer = players[i];
+    const roleName = doer.role.name;
+    const targetIndex = doer.target.index;
 
-    if (roleName === "werewolf" && status === "alive") {
+    if (roleName === "werewolf" && doer.status === "alive") {
       if (!this.group_session.isFullMoon) continue;
 
-      let werewolfRampageTargetIndexes = [];
+      const werewolfRampageTargetIndexes = [];
       let rampagePlaceIndex = targetIndex;
 
       if (i != targetIndex && targetIndex != -1) {
         werewolfRampageTargetIndexes.push(targetIndex);
-        let visitor = {
+        const visitor = {
           index: i,
           name: doer.name,
           role: doer.role
         };
         this.group_session.players[targetIndex].visitors.push(visitor);
 
-        // infection
-        let isDoerInfected = players[i].infected;
-        let isTargetInfected = players[targetIndex].infected;
-        let target = players[targetIndex];
-
-        if (target.role.name === "plaguebearer") {
-          if (!isDoerInfected) {
-            this.group_session.players[i].justInfected = true;
-          }
-        } else {
-          if (isDoerInfected && !isTargetInfected) {
-            this.group_session.players[targetIndex].justInfected = true;
-          } else if (isTargetInfected && !isDoerInfected) {
-            this.group_session.players[i].justInfected = true;
-          }
-        }
+        checkInfection(i, targetIndex);
 
         this.group_session.players[i].message +=
           "👣 Kamu ke rumah " + players[targetIndex].name + " dan RAMPAGE di rumahnya" + "\n\n";
@@ -1279,7 +1189,7 @@ const day = () => {
 
       // Werewolf Killing Action
       for (let u = 0; u < werewolfRampageTargetIndexes.length; u++) {
-        let targetIndex = werewolfRampageTargetIndexes[u];
+        const targetIndex = werewolfRampageTargetIndexes[u];
 
         this.group_session.players[i].message += "💡 Kamu menyerang seseorang!" + "\n\n";
 
@@ -1291,7 +1201,7 @@ const day = () => {
 
         this.group_session.players[targetIndex].attacked = true;
 
-        let attacker = {
+        const attacker = {
           index: i,
           name: doer.name,
           role: doer.role,
@@ -1360,10 +1270,10 @@ const day = () => {
         this.group_session.players[i].role.alert--;
 
         for (let u = 0; u < targetIndexes.length; u++) {
-          let targetIndex = targetIndexes[u].index;
-          let target = players[targetIndex];
-          let targetRoleName = target.role.name;
-          let isVisitor = targetIndexes[u].isVisitor;
+          const targetIndex = targetIndexes[u].index;
+          const target = players[targetIndex];
+          const targetRoleName = target.role.name;
+          const isVisitor = targetIndexes[u].isVisitor;
 
           if (isVisitor) {
             this.group_session.players[i].message += "💡 Ada yang datang mengunjungi kamu!" + "\n\n";
@@ -1373,28 +1283,14 @@ const day = () => {
             if (targetRoleName !== "escort" || targetRoleName !== "consort") {
               this.group_session.players[targetIndex].message += "👣 Kamu ke rumah " + doer.name + "\n\n";
 
-              let visitor = {
+              const visitor = {
                 index: i,
                 name: target.name,
                 role: target.role
               };
               this.group_session.players[i].visitors.push(visitor);
 
-              // infection
-              let isDoerInfected = players[i].infected;
-              let isTargetInfected = players[targetIndex].infected;
-
-              if (target.role.name === "plaguebearer") {
-                if (!isDoerInfected) {
-                  this.group_session.players[i].justInfected = true;
-                }
-              } else {
-                if (isDoerInfected && !isTargetInfected) {
-                  this.group_session.players[targetIndex].justInfected = true;
-                } else if (isTargetInfected && !isDoerInfected) {
-                  this.group_session.players[i].justInfected = true;
-                }
-              }
+              checkInfection(i, targetIndex);
             }
           }
 
@@ -1407,7 +1303,7 @@ const day = () => {
 
           this.group_session.players[targetIndex].attacked = true;
 
-          let attacker = {
+          const attacker = {
             index: i,
             name: doer.name,
             role: doer.role,
@@ -1423,21 +1319,20 @@ const day = () => {
 
   /// Arsonist Douse Action
   for (let i = 0; i < players.length; i++) {
-    let doer = players[i];
-    let roleName = doer.role.name;
-    let status = doer.status;
-    let targetIndex = doer.target.index;
+    const doer = players[i];
+    const roleName = doer.role.name;
+    const targetIndex = doer.target.index;
 
     if (doer.blocked) continue;
 
-    if (roleName === "arsonist" && status === "alive") {
+    if (roleName === "arsonist" && doer.status === "alive") {
       if (doer.target.index === -1 || doer.attacked) {
         continue;
       }
 
       if (targetIndex == i) continue;
 
-      let target = players[targetIndex];
+      const target = players[targetIndex];
 
       this.group_session.players[targetIndex].doused = true;
 
@@ -1447,28 +1342,14 @@ const day = () => {
 
       this.group_session.players[i].message += "👣 Kamu ke rumah " + target.name + "\n\n";
 
-      let visitor = {
+      const visitor = {
         index: i,
         name: doer.name,
         role: doer.role
       };
       this.group_session.players[targetIndex].visitors.push(visitor);
 
-      // infection
-      let isDoerInfected = players[i].infected;
-      let isTargetInfected = players[targetIndex].infected;
-
-      if (target.role.name === "plaguebearer") {
-        if (!isDoerInfected) {
-          this.group_session.players[i].justInfected = true;
-        }
-      } else {
-        if (isDoerInfected && !isTargetInfected) {
-          this.group_session.players[targetIndex].justInfected = true;
-        } else if (isTargetInfected && !isDoerInfected) {
-          this.group_session.players[i].justInfected = true;
-        }
-      }
+      checkInfection(i, targetIndex);
 
       this.group_session.players[i].message += "⛽ Kamu diam diam menyiram bensin ke rumah " + target.name + "\n\n";
     }
@@ -1476,27 +1357,26 @@ const day = () => {
 
   /// Plaguebearer action : infect
   for (let i = 0; i < players.length; i++) {
-    let doer = players[i];
-    let roleName = doer.role.name;
-    let status = doer.status;
-    let targetIndex = doer.target.index;
+    const doer = players[i];
+    const roleName = doer.role.name;
+    const targetIndex = doer.target.index;
 
     if (doer.blocked) continue;
 
-    if (roleName === "plaguebearer" && status === "alive") {
+    if (roleName === "plaguebearer" && doer.status === "alive") {
       if (doer.role.isPestilence) continue;
 
       if (doer.target.index === -1 || doer.attacked) {
         continue;
       }
 
-      let target = players[targetIndex];
+      const target = players[targetIndex];
 
       this.group_session.players[targetIndex].justInfected = true;
 
       this.group_session.players[i].message += "👣 Kamu ke rumah " + target.name + "\n\n";
 
-      let visitor = {
+      const visitor = {
         index: i,
         name: doer.name,
         role: doer.role
@@ -1535,7 +1415,7 @@ const day = () => {
         this.group_session.players[targetIndex].attacked = true;
         this.group_session.players[targetIndex].isHaunted = true;
 
-        let attacker = {
+        const attacker = {
           index: i,
           name: doer.name,
           role: doer.role,
@@ -1555,7 +1435,7 @@ const day = () => {
 
   /// Retributionist Action
   for (let i = 0; i < players.length; i++) {
-    let doer = players[i];
+    const doer = players[i];
 
     if (doer.blocked) continue;
 
@@ -1564,17 +1444,8 @@ const day = () => {
         continue;
       }
 
-      let targetIndex = doer.target.index;
-      let target = players[targetIndex];
-
-      this.group_session.players[i].message += "👣 Kamu ke rumah " + target.name + "\n\n";
-
-      let visitor = {
-        index: i,
-        name: doer.name,
-        role: doer.role
-      };
-      this.group_session.players[targetIndex].visitors.push(visitor);
+      const targetIndex = doer.target.index;
+      const target = players[targetIndex];
 
       this.group_session.players[i].role.revive--;
 
@@ -1600,7 +1471,6 @@ const day = () => {
       this.group_session.players[targetIndex].guarded = false;
       this.group_session.players[targetIndex].selfHeal = false;
       this.group_session.players[targetIndex].damage = 0;
-      this.group_session.players[targetIndex].revived = true;
 
       let targetRoleName = target.role.name;
 
@@ -1619,50 +1489,46 @@ const day = () => {
 
   /// Guardian Angel Action
   for (let i = 0; i < players.length; i++) {
-    let doer = players[i];
+    const doer = players[i];
 
     if (doer.blocked) continue;
 
     if (doer.role.name === "guardian-angel") {
       if (doer.target.index === -1) continue;
 
-      let protection = doer.role.protection;
+      let targetIndex = doer.target.index;
 
-      if (protection > 0) {
-        let targetIndex = doer.target.index;
+      const isHaunted = players[targetIndex].isHaunted;
+      const willSuicide = players[targetIndex].willSuicide;
+      const afkCounter = players[targetIndex].afkCounter;
 
-        const isHaunted = players[targetIndex].isHaunted;
-        const willSuicide = players[targetIndex].willSuicide;
-        const afkCounter = players[targetIndex].afkCounter;
+      this.group_session.players[i].role.protection--;
+      this.group_session.players[targetIndex].protected = true;
 
-        this.group_session.players[i].role.protection--;
-        this.group_session.players[targetIndex].protected = true;
+      this.group_session.players[targetIndex].doused = false;
+      this.group_session.players[targetIndex].framed = false;
+      this.group_session.players[targetIndex].infected = false;
+      this.group_session.players[targetIndex].vampireBited = false;
 
-        this.group_session.players[targetIndex].doused = false;
-        this.group_session.players[targetIndex].framed = false;
-        this.group_session.players[targetIndex].infected = false;
-        this.group_session.players[targetIndex].vampireBited = false;
+      this.group_session.players[targetIndex].message += "⚔️ Kamu diawasi oleh Guardian Angel!" + "\n\n";
 
-        this.group_session.players[targetIndex].message += "⚔️ Kamu diawasi oleh Guardian Angel!" + "\n\n";
+      let protector = {
+        index: i,
+        roleName: doer.role.name,
+        used: false
+      };
 
-        let protector = {
-          index: i,
-          roleName: doer.role.name,
-          used: false
-        };
+      this.group_session.players[targetIndex].protectors.push(protector);
 
-        this.group_session.players[targetIndex].protectors.push(protector);
-
-        if (!isHaunted && !willSuicide && afkCounter < 3) {
-          allAnnouncement += `⚔️ Guardian Angel melindungi ${players[targetIndex].name}!\n\n`;
-        }
+      if (!isHaunted && !willSuicide && afkCounter < 3) {
+        allAnnouncement += `⚔️ Guardian Angel melindungi ${players[targetIndex].name}!\n\n`;
       }
     }
   }
 
   /// Doctor Action
   for (let i = 0; i < players.length; i++) {
-    let doer = players[i];
+    const doer = players[i];
 
     if (doer.blocked) continue;
 
@@ -1671,17 +1537,17 @@ const day = () => {
         continue;
       }
 
-      let targetIndex = doer.target.index;
-      let target = players[targetIndex];
+      const targetIndex = doer.target.index;
+      const target = players[targetIndex];
 
-      if (parseInt(targetIndex) === parseInt(i)) {
+      if (targetIndex == i) {
         this.group_session.players[i].message += "🏠 Kamu memilih diam di rumah dan jaga-jaga" + "\n\n";
 
         this.group_session.players[i].role.selfHeal--;
 
         this.group_session.players[i].selfHeal = true;
       } else {
-        let visitor = {
+        const visitor = {
           index: i,
           name: doer.name,
           role: doer.role
@@ -1689,27 +1555,13 @@ const day = () => {
 
         this.group_session.players[targetIndex].visitors.push(visitor);
 
-        // infection
-        let isDoerInfected = players[i].infected;
-        let isTargetInfected = players[targetIndex].infected;
-
-        if (target.role.name === "plaguebearer") {
-          if (!isDoerInfected) {
-            this.group_session.players[i].justInfected = true;
-          }
-        } else {
-          if (isDoerInfected && !isTargetInfected) {
-            this.group_session.players[targetIndex].justInfected = true;
-          } else if (isTargetInfected && !isDoerInfected) {
-            this.group_session.players[i].justInfected = true;
-          }
-        }
+        checkInfection(i, targetIndex);
 
         this.group_session.players[i].message += "👣 Kamu ke rumah " + target.name + "\n\n";
 
         this.group_session.players[targetIndex].healed = true;
 
-        let protector = {
+        const protector = {
           index: i,
           roleName: doer.role.name,
           used: false
@@ -1722,7 +1574,7 @@ const day = () => {
 
   /// Bodyguard Action
   for (let i = 0; i < players.length; i++) {
-    let doer = players[i];
+    const doer = players[i];
 
     if (doer.blocked) continue;
 
@@ -1731,16 +1583,16 @@ const day = () => {
         continue;
       }
 
-      let targetIndex = doer.target.index;
-      let target = players[targetIndex];
+      const targetIndex = doer.target.index;
+      const target = players[targetIndex];
 
-      if (parseInt(targetIndex) === parseInt(i)) {
+      if (targetIndex == i) {
         this.group_session.players[i].message += "🦺 Kamu memilih diam di rumah dan menggunakan vest" + "\n\n";
 
         this.group_session.players[i].role.vest--;
         this.group_session.players[i].vested = true;
       } else {
-        let visitor = {
+        const visitor = {
           index: i,
           name: doer.name,
           role: doer.role
@@ -1748,27 +1600,13 @@ const day = () => {
 
         this.group_session.players[targetIndex].visitors.push(visitor);
 
-        // infection
-        let isDoerInfected = players[i].infected;
-        let isTargetInfected = players[targetIndex].infected;
-
-        if (target.role.name === "plaguebearer") {
-          if (!isDoerInfected) {
-            this.group_session.players[i].justInfected = true;
-          }
-        } else {
-          if (isDoerInfected && !isTargetInfected) {
-            this.group_session.players[targetIndex].justInfected = true;
-          } else if (isTargetInfected && !isDoerInfected) {
-            this.group_session.players[i].justInfected = true;
-          }
-        }
+        checkInfection(i, targetIndex);
 
         this.group_session.players[i].message += "👣 Kamu ke rumah " + target.name + "\n\n";
 
         this.group_session.players[targetIndex].guarded = true;
 
-        let protector = {
+        const protector = {
           index: i,
           roleName: doer.role.name,
           used: false
@@ -1781,9 +1619,9 @@ const day = () => {
 
   /// Survivor Action
   for (let i = 0; i < players.length; i++) {
-    let doer = players[i];
-    let roleName = doer.role.name;
-    let status = doer.status;
+    const doer = players[i];
+    const roleName = doer.role.name;
+    const status = doer.status;
     let isUseSkill = false;
     if (doer.target.index !== -1) {
       isUseSkill = true;
@@ -1799,7 +1637,7 @@ const day = () => {
 
   /// Vampire hunter Action
   for (let i = 0; i < players.length; i++) {
-    let doer = players[i];
+    const doer = players[i];
 
     if (doer.blocked) continue;
 
@@ -1808,36 +1646,22 @@ const day = () => {
         continue;
       }
 
-      let targetIndex = doer.target.index;
-      let target = players[targetIndex];
+      const targetIndex = doer.target.index;
+      const target = players[targetIndex];
 
       if (doer.intercepted) {
         this.group_session.players[i].message += "💡 Kamu tercegat oleh " + target.role.name + "\n\n";
       } else {
         this.group_session.players[i].message += "👣 Kamu ke rumah " + target.name + "\n\n";
 
-        let visitor = {
+        const visitor = {
           index: i,
           name: doer.name,
           role: doer.role
         };
         this.group_session.players[targetIndex].visitors.push(visitor);
 
-        // infection
-        let isDoerInfected = players[i].infected;
-        let isTargetInfected = players[targetIndex].infected;
-
-        if (target.role.name === "plaguebearer") {
-          if (!isDoerInfected) {
-            this.group_session.players[i].justInfected = true;
-          }
-        } else {
-          if (isDoerInfected && !isTargetInfected) {
-            this.group_session.players[targetIndex].justInfected = true;
-          } else if (isTargetInfected && !isDoerInfected) {
-            this.group_session.players[i].justInfected = true;
-          }
-        }
+        checkInfection(i, targetIndex);
       }
 
       if (target.role.team === "vampire") {
@@ -1859,7 +1683,7 @@ const day = () => {
 
         this.group_session.players[targetIndex].attacked = true;
 
-        let attacker = {
+        const attacker = {
           index: i,
           name: doer.name,
           role: doer.role,
@@ -1876,7 +1700,7 @@ const day = () => {
 
   /// Vigilante Action
   for (let i = 0; i < players.length; i++) {
-    let doer = players[i];
+    const doer = players[i];
 
     if (doer.blocked) continue;
 
@@ -1889,37 +1713,23 @@ const day = () => {
         continue;
       }
 
-      let targetIndex = doer.target.index;
-      let target = players[targetIndex];
+      const targetIndex = doer.target.index;
+      const target = players[targetIndex];
 
       this.group_session.players[i].role.bullet--;
 
       this.group_session.players[i].message += "👣 Kamu ke rumah " + target.name + "\n\n";
 
-      let visitor = {
+      const visitor = {
         index: i,
         name: doer.name,
         role: doer.role
       };
       this.group_session.players[targetIndex].visitors.push(visitor);
 
-      // infection
-      let isDoerInfected = players[i].infected;
-      let isTargetInfected = players[targetIndex].infected;
+      checkInfection(i, targetIndex);
 
-      if (target.role.name === "plaguebearer") {
-        if (!isDoerInfected) {
-          this.group_session.players[i].justInfected = true;
-        }
-      } else {
-        if (isDoerInfected && !isTargetInfected) {
-          this.group_session.players[targetIndex].justInfected = true;
-        } else if (isTargetInfected && !isDoerInfected) {
-          this.group_session.players[i].justInfected = true;
-        }
-      }
-
-      let immuneToBasicAttack = ["serial-killer", "arsonist", "godfather", "executioner"];
+      const immuneToBasicAttack = ["serial-killer", "arsonist", "godfather", "executioner"];
 
       if (this.group_session.isFullMoon) {
         immuneToBasicAttack.push("werewolf");
@@ -1959,7 +1769,7 @@ const day = () => {
 
         this.group_session.players[targetIndex].attacked = true;
 
-        let attacker = {
+        const attacker = {
           index: i,
           name: doer.name,
           role: doer.role,
@@ -1974,46 +1784,32 @@ const day = () => {
 
   /// Serial Killer Action
   for (let i = 0; i < players.length; i++) {
-    let doer = players[i];
+    const doer = players[i];
 
     if (doer.role.name === "serial-killer" && doer.status === "alive") {
       if (doer.target.index === -1 || doer.attacked) {
         continue;
       }
 
-      let targetIndex = doer.target.index;
-      let target = players[targetIndex];
+      const targetIndex = doer.target.index;
+      const target = players[targetIndex];
 
       if (doer.intercepted) {
         this.group_session.players[i].message += "💡 Kamu tercegat oleh " + target.name + "\n\n";
       } else {
         this.group_session.players[i].message += "👣 Kamu ke rumah " + target.name + "\n\n";
 
-        let visitor = {
+        const visitor = {
           index: i,
           name: doer.name,
           role: doer.role
         };
         this.group_session.players[targetIndex].visitors.push(visitor);
 
-        // infection
-        let isDoerInfected = players[i].infected;
-        let isTargetInfected = players[targetIndex].infected;
-
-        if (target.role.name === "plaguebearer") {
-          if (!isDoerInfected) {
-            this.group_session.players[i].justInfected = true;
-          }
-        } else {
-          if (isDoerInfected && !isTargetInfected) {
-            this.group_session.players[targetIndex].justInfected = true;
-          } else if (isTargetInfected && !isDoerInfected) {
-            this.group_session.players[i].justInfected = true;
-          }
-        }
+        checkInfection(i, targetIndex);
       }
 
-      let immuneToBasicAttack = ["serial-killer", "arsonist", "godfather", "executioner"];
+      const immuneToBasicAttack = ["serial-killer", "arsonist", "godfather", "executioner"];
 
       if (this.group_session.isFullMoon) {
         immuneToBasicAttack.push("werewolf");
@@ -2067,7 +1863,7 @@ const day = () => {
 
         this.group_session.players[targetIndex].attacked = true;
 
-        let attacker = {
+        const attacker = {
           index: i,
           name: doer.name,
           role: doer.role,
@@ -2082,14 +1878,13 @@ const day = () => {
 
   /// Arsonist Ignite Action
   for (let i = 0; i < players.length; i++) {
-    let doer = players[i];
-    let roleName = doer.role.name;
-    let status = doer.status;
-    let targetIndex = doer.target.index;
+    const doer = players[i];
+    const roleName = doer.role.name;
+    const targetIndex = doer.target.index;
 
     if (doer.blocked) continue;
 
-    if (roleName === "arsonist" && status === "alive") {
+    if (roleName === "arsonist" && doer.status === "alive") {
       if (doer.target.index === -1 || doer.attacked) {
         continue;
       }
@@ -2103,13 +1898,13 @@ const day = () => {
       });
 
       for (let u = 0; u < targetIndexes.length; u++) {
-        let targetIndex = targetIndexes[u];
+        const targetIndex = targetIndexes[u];
 
         if (targetIndex === undefined) {
           continue;
         }
 
-        let target = players[targetIndex];
+        const target = players[targetIndex];
 
         this.group_session.players[i].message += "💡 Kamu bakar rumah " + target.name + "\n\n";
 
@@ -2123,7 +1918,7 @@ const day = () => {
 
         this.group_session.players[targetIndex].attacked = true;
 
-        let attacker = {
+        const attacker = {
           index: i,
           name: doer.name,
           role: doer.role,
@@ -2153,41 +1948,26 @@ const day = () => {
 
     for (let i = 0; i < players.length; i++) {
       if (mafiaDoerIndex === i) {
-        let doer = players[i];
-        let status = doer.status;
-        let targetIndex = doer.target.index;
+        const doer = players[i];
+        const targetIndex = doer.target.index;
 
-        if (status === "alive" && targetIndex !== -1) {
+        if (doer.status === "alive" && targetIndex !== -1) {
           if (doer.blocked === true) {
             this.group_session.players[i].message +=
               "💡 Kamu di role block! Kamu tidak bisa menggunakan skillmu." + "\n\n";
 
             break;
           } else if (!doer.attacked) {
-            let target = players[targetIndex];
+            const target = players[targetIndex];
 
-            let visitor = {
+            const visitor = {
               index: i,
               name: doer.name,
               role: doer.role
             };
             this.group_session.players[targetIndex].visitors.push(visitor);
 
-            // infection
-            let isDoerInfected = players[i].infected;
-            let isTargetInfected = players[targetIndex].infected;
-
-            if (target.role.name === "plaguebearer") {
-              if (!isDoerInfected) {
-                this.group_session.players[i].justInfected = true;
-              }
-            } else {
-              if (isDoerInfected && !isTargetInfected) {
-                this.group_session.players[targetIndex].justInfected = true;
-              } else if (isTargetInfected && !isDoerInfected) {
-                this.group_session.players[i].justInfected = true;
-              }
-            }
+            checkInfection(i, targetIndex);
 
             if (doer.role.name === "godfather") {
               this.group_session.players[i].message += "👣 Kamu ke rumah " + target.name + "\n\n";
@@ -2197,7 +1977,7 @@ const day = () => {
 
             mafiaAnnouncement += `👣 ${doer.name} mengunjungi rumah ${target.name}\n\n`;
 
-            let immuneToBasicAttack = ["serial-killer", "arsonist", "executioner"];
+            const immuneToBasicAttack = ["serial-killer", "arsonist", "executioner"];
 
             if (this.group_session.isFullMoon) {
               immuneToBasicAttack.push("werewolf");
@@ -2241,7 +2021,7 @@ const day = () => {
                 spyBuggedInfo[targetIndex] += "🔍 Target kamu di serang Mafia!" + "\n\n";
               }
 
-              let attacker = {
+              const attacker = {
                 index: i,
                 name: doer.name,
                 role: doer.role,
@@ -2262,22 +2042,22 @@ const day = () => {
   /// DEATH ACTION
   for (let i = 0; i < players.length; i++) {
     if (players[i].status === "alive") {
-      let isAttacked = players[i].attacked;
-      let isVampireBited = players[i].vampireBited;
+      const isAttacked = players[i].attacked;
+      const isVampireBited = players[i].vampireBited;
 
-      let isHealed = players[i].healed;
-      let isVested = players[i].vested;
-      let isGuarded = players[i].guarded;
-      let isSelfHeal = players[i].selfHeal;
-      let isProtected = players[i].protected;
+      const isHealed = players[i].healed;
+      const isVested = players[i].vested;
+      const isGuarded = players[i].guarded;
+      const isSelfHeal = players[i].selfHeal;
+      const isProtected = players[i].protected;
 
-      let isBurned = players[i].burned;
-      let isHaunted = players[i].isHaunted;
-      let willSuicide = players[i].willSuicide;
-      let afkCounter = players[i].afkCounter;
+      const isBurned = players[i].burned;
+      const isHaunted = players[i].isHaunted;
+      const willSuicide = players[i].willSuicide;
+      const afkCounter = players[i].afkCounter;
 
-      let attackers = players[i].attackers;
-      let protectors = players[i].protectors;
+      const attackers = players[i].attackers;
+      const protectors = players[i].protectors;
 
       let vestUsed = false;
       let selfHealUsed = false;
@@ -2286,11 +2066,11 @@ const day = () => {
         this.group_session.players[i].damage = attackers.length;
 
         for (let x = 0; x < attackers.length; x++) {
-          let attacker = attackers[x];
+          const attacker = attackers[x];
 
           if (isHealed || isGuarded) {
             for (let u = 0; u < protectors.length; u++) {
-              let protector = protectors[u];
+              const protector = protectors[u];
 
               this.group_session.players[protector.index].message +=
                 "💡 " + players[i].name + " diserang semalam!" + "\n\n";
@@ -2356,7 +2136,7 @@ const day = () => {
               if (afkCounter < 3) this.group_session.players[i].damage--;
             }
           }
-          
+
           if (isBurned || isHaunted) continue;
 
           if (isVested && !vestUsed) {
@@ -2493,17 +2273,17 @@ const day = () => {
 
   /// Bodyguard Counter Attack Action
   for (let i = 0; i < players.length; i++) {
-    let doer = players[i];
+    const doer = players[i];
 
     if (doer.role.name === "bodyguard") {
-      let attackerIndex = players[i].role.counterAttackIndex;
-      let targetIndex = doer.target.index;
+      const attackerIndex = players[i].role.counterAttackIndex;
+      const targetIndex = doer.target.index;
 
       if (attackerIndex !== -1) {
-        let isAttackerHealed = players[attackerIndex].healed;
-        let isHealed = players[i].healed;
-        let isAttackerProtected = players[attackerIndex].protected;
-        let isProtected = players[i].protected;
+        const isAttackerHealed = players[attackerIndex].healed;
+        const isHealed = players[i].healed;
+        const isAttackerProtected = players[attackerIndex].protected;
+        const isProtected = players[i].protected;
 
         this.group_session.players[i].message +=
           "💡 Kamu melawan penyerang " + players[targetIndex].name + ", dan diserang penyerang tersebut!" + "\n\n";
@@ -2522,9 +2302,9 @@ const day = () => {
         // attacker checker
         this.group_session.players[attackerIndex].damage += 1;
         if (isAttackerHealed) {
-          let attackerProtectors = players[attackerIndex].protectors;
+          const attackerProtectors = players[attackerIndex].protectors;
           for (let u = 0; u < attackerProtectors.length; u++) {
-            let protector = attackerProtectors[u];
+            const protector = attackerProtectors[u];
 
             if (protector.used) {
               continue;
@@ -2549,7 +2329,7 @@ const day = () => {
         }
 
         if (isAttackerProtected) {
-          let attackerProtectors = players[attackerIndex].protectors;
+          const attackerProtectors = players[attackerIndex].protectors;
           for (let u = 0; u < attackerProtectors.length; u++) {
             let protector = attackerProtectors[u];
             if (!protector.roleName === "guardian-angel") {
@@ -2594,7 +2374,7 @@ const day = () => {
           //not enough protector or no protector
           this.group_session.players[attackerIndex].status = "will_death";
 
-          let attacker = {
+          const attacker = {
             index: i,
             name: doer.name,
             role: doer.role,
@@ -2694,7 +2474,7 @@ const day = () => {
 
           this.group_session.players[i].status = "will_death";
 
-          let attacker = {
+          const attacker = {
             index: attackerIndex,
             name: players[attackerIndex].name,
             role: players[attackerIndex].role,
@@ -2704,11 +2484,11 @@ const day = () => {
 
           // hax jika kenak effect rampage werewolf atau juggernaut
           // soalnya pas rampage udah ada dimasukin obj attacker
-          let rampageRole = ["werewolf"];
+          const rampageRole = ["werewolf"];
 
           if (!rampageRole.includes(players[attackerIndex].role.name)) {
             // check juggernaut juga
-            let targetRoleName = players[attackerIndex].role.name;
+            const targetRoleName = players[attackerIndex].role.name;
             if (targetRoleName === "juggernaut") {
               if (players[attackerIndex].role.skillLevel < 3) {
                 this.group_session.players[i].attackers.push(attacker);
@@ -2774,12 +2554,12 @@ const day = () => {
       }
 
       for (let i = 0; i < attackersIndex.length; i++) {
-        let attackerIndex = attackersIndex[i];
+        const attackerIndex = attackersIndex[i];
         if (players[attackerIndex].role.name === "juggernaut") {
           this.group_session.players[attackerIndex].role.skillLevel++;
 
           let text = "";
-          let skillLevel = this.group_session.players[attackerIndex].role.skillLevel;
+          const skillLevel = this.group_session.players[attackerIndex].role.skillLevel;
           switch (skillLevel) {
             case 1:
               text += "💪 Kamu sekarang bisa menyerang pada malam apa saja";
@@ -2837,7 +2617,7 @@ const day = () => {
 
       //Thanks to
       //https://stackoverflow.com/questions/24806772/how-to-skip-over-an-element-in-map/24806827
-      let attackersDeathNote = players[i].attackers
+      const attackersDeathNote = players[i].attackers
         .filter(atkr => {
           if (!atkr.deathNote) {
             return false;
@@ -3010,10 +2790,10 @@ const day = () => {
     if (doer.role.name === "framer" && doer.status === "alive") {
       if (doer.target.index === -1) continue;
 
-      let targetIndex = doer.target.index;
-      let target = players[targetIndex];
+      const targetIndex = doer.target.index;
+      const target = players[targetIndex];
 
-      let visitor = {
+      const visitor = {
         index: i,
         name: doer.name,
         role: doer.role
@@ -3021,21 +2801,7 @@ const day = () => {
 
       this.group_session.players[targetIndex].visitors.push(visitor);
 
-      // infection
-      let isDoerInfected = players[i].infected;
-      let isTargetInfected = players[targetIndex].infected;
-
-      if (target.role.name === "plaguebearer") {
-        if (!isDoerInfected) {
-          this.group_session.players[i].justInfected = true;
-        }
-      } else {
-        if (isDoerInfected && !isTargetInfected) {
-          this.group_session.players[targetIndex].justInfected = true;
-        } else if (isTargetInfected && !isDoerInfected) {
-          this.group_session.players[i].justInfected = true;
-        }
-      }
+      checkInfection(i, targetIndex);
 
       this.group_session.players[i].message += "👣 Kamu ke rumah " + target.name + "\n\n";
 
@@ -3051,17 +2817,17 @@ const day = () => {
 
   /// Sheriff Action
   for (let i = 0; i < players.length; i++) {
-    let doer = players[i];
+    const doer = players[i];
 
     if (doer.blocked) continue;
 
     if (doer.role.name === "sheriff" && doer.status === "alive") {
       if (doer.target.index === -1) continue;
 
-      let targetIndex = doer.target.index;
-      let target = players[targetIndex];
+      const targetIndex = doer.target.index;
+      const target = players[targetIndex];
 
-      let visitor = {
+      const visitor = {
         index: i,
         name: doer.name,
         role: doer.role
@@ -3069,25 +2835,11 @@ const day = () => {
 
       this.group_session.players[targetIndex].visitors.push(visitor);
 
-      // infection
-      let isDoerInfected = players[i].infected;
-      let isTargetInfected = players[targetIndex].infected;
-
-      if (target.role.name === "plaguebearer") {
-        if (!isDoerInfected) {
-          this.group_session.players[i].justInfected = true;
-        }
-      } else {
-        if (isDoerInfected && !isTargetInfected) {
-          this.group_session.players[targetIndex].justInfected = true;
-        } else if (isTargetInfected && !isDoerInfected) {
-          this.group_session.players[i].justInfected = true;
-        }
-      }
+      checkInfection(i, targetIndex);
 
       this.group_session.players[i].message += "👣 Kamu ke rumah " + target.name + "\n\n";
 
-      let suspiciousList = ["mafioso", "consigliere", "consort", "serial-killer", "framer", "disguiser"];
+      const suspiciousList = ["mafioso", "consigliere", "consort", "serial-killer", "framer", "disguiser"];
 
       if (this.group_session.isFullMoon) {
         suspiciousList.push("werewolf");
@@ -3104,17 +2856,17 @@ const day = () => {
 
   /// Investigator Action
   for (let i = 0; i < players.length; i++) {
-    let doer = players[i];
+    const doer = players[i];
 
     if (doer.blocked) continue;
 
     if (doer.role.name === "investigator" && doer.status === "alive") {
       if (doer.target.index === -1) continue;
 
-      let targetIndex = doer.target.index;
-      let target = players[targetIndex];
+      const targetIndex = doer.target.index;
+      const target = players[targetIndex];
 
-      let visitor = {
+      const visitor = {
         index: i,
         name: doer.name,
         role: doer.role
@@ -3122,21 +2874,7 @@ const day = () => {
 
       this.group_session.players[targetIndex].visitors.push(visitor);
 
-      // infection
-      let isDoerInfected = players[i].infected;
-      let isTargetInfected = players[targetIndex].infected;
-
-      if (target.role.name === "plaguebearer") {
-        if (!isDoerInfected) {
-          this.group_session.players[i].justInfected = true;
-        }
-      } else {
-        if (isDoerInfected && !isTargetInfected) {
-          this.group_session.players[targetIndex].justInfected = true;
-        } else if (isTargetInfected && !isDoerInfected) {
-          this.group_session.players[i].justInfected = true;
-        }
-      }
+      checkInfection(i, targetIndex);
 
       let targetRoleName = target.role.name;
 
@@ -3154,7 +2892,7 @@ const day = () => {
 
       this.group_session.players[i].message += "👣 Kamu ke rumah " + target.name + "\n\n";
 
-      let guessResult = util.getInvestigatorResult(targetRoleName);
+      const guessResult = util.getInvestigatorResult(targetRoleName);
 
       this.group_session.players[i].message += guessResult + "\n\n";
     }
@@ -3162,17 +2900,17 @@ const day = () => {
 
   /// Consigliere Action
   for (let i = 0; i < players.length; i++) {
-    let doer = players[i];
+    const doer = players[i];
 
     if (doer.blocked) continue;
 
     if (doer.role.name === "consigliere" && doer.status === "alive") {
       if (doer.target.index === -1) continue;
 
-      let targetIndex = doer.target.index;
-      let target = players[targetIndex];
+      const targetIndex = doer.target.index;
+      const target = players[targetIndex];
 
-      let visitor = {
+      const visitor = {
         index: i,
         name: doer.name,
         role: doer.role
@@ -3180,21 +2918,7 @@ const day = () => {
 
       this.group_session.players[targetIndex].visitors.push(visitor);
 
-      // infection
-      let isDoerInfected = players[i].infected;
-      let isTargetInfected = players[targetIndex].infected;
-
-      if (target.role.name === "plaguebearer") {
-        if (!isDoerInfected) {
-          this.group_session.players[i].justInfected = true;
-        }
-      } else {
-        if (isDoerInfected && !isTargetInfected) {
-          this.group_session.players[targetIndex].justInfected = true;
-        } else if (isTargetInfected && !isDoerInfected) {
-          this.group_session.players[i].justInfected = true;
-        }
-      }
+      checkInfection(i, targetIndex);
 
       this.group_session.players[i].message += "👣 Kamu ke rumah " + target.name + "\n\n";
 
@@ -3211,7 +2935,7 @@ const day = () => {
 
   /// Spy Action
   for (let i = 0; i < players.length; i++) {
-    let doer = players[i];
+    const doer = players[i];
 
     if (doer.blocked) continue;
 
@@ -3222,10 +2946,10 @@ const day = () => {
 
       if (doer.target.index === -1) continue;
 
-      let targetIndex = doer.target.index;
-      let target = players[targetIndex];
+      const targetIndex = doer.target.index;
+      const target = players[targetIndex];
 
-      let visitor = {
+      const visitor = {
         index: i,
         name: doer.name,
         role: doer.role
@@ -3233,21 +2957,7 @@ const day = () => {
 
       this.group_session.players[targetIndex].visitors.push(visitor);
 
-      // infection
-      let isDoerInfected = players[i].infected;
-      let isTargetInfected = players[targetIndex].infected;
-
-      if (target.role.name === "plaguebearer") {
-        if (!isDoerInfected) {
-          this.group_session.players[i].justInfected = true;
-        }
-      } else {
-        if (isDoerInfected && !isTargetInfected) {
-          this.group_session.players[targetIndex].justInfected = true;
-        } else if (isTargetInfected && !isDoerInfected) {
-          this.group_session.players[i].justInfected = true;
-        }
-      }
+      checkInfection(i, targetIndex);
 
       this.group_session.players[i].message += "👣 Kamu ke rumah " + target.name + "\n\n";
 
@@ -3271,10 +2981,10 @@ const day = () => {
     if (roleList.includes(doer.role.name) && doer.status === "alive") {
       if (doer.target.index === -1) continue;
 
-      let targetIndex = doer.target.index;
-      let target = players[targetIndex];
+      const targetIndex = doer.target.index;
+      const target = players[targetIndex];
 
-      let visitor = {
+      const visitor = {
         index: i,
         name: doer.name,
         role: doer.role
@@ -3282,21 +2992,7 @@ const day = () => {
 
       this.group_session.players[targetIndex].visitors.push(visitor);
 
-      // infection
-      let isDoerInfected = players[i].infected;
-      let isTargetInfected = players[targetIndex].infected;
-
-      if (target.role.name === "plaguebearer") {
-        if (!isDoerInfected) {
-          this.group_session.players[i].justInfected = true;
-        }
-      } else {
-        if (isDoerInfected && !isTargetInfected) {
-          this.group_session.players[targetIndex].justInfected = true;
-        } else if (isTargetInfected && !isDoerInfected) {
-          this.group_session.players[i].justInfected = true;
-        }
-      }
+      checkInfection(i, targetIndex);
 
       this.group_session.players[i].message += "👣 Kamu ke rumah " + target.name + "\n\n";
     }
@@ -3304,15 +3000,15 @@ const day = () => {
 
   /// Lookout Action
   for (let i = 0; i < players.length; i++) {
-    let doer = players[i];
+    const doer = players[i];
 
     if (doer.blocked) continue;
 
     if (doer.role.name === "lookout" && doer.status === "alive") {
       if (doer.target.index === -1) continue;
 
-      let targetIndex = doer.target.index;
-      let target = players[targetIndex];
+      const targetIndex = doer.target.index;
+      const target = players[targetIndex];
 
       if (target.visitors.length > 1) {
         let targetVisitors = "";
@@ -3340,15 +3036,15 @@ const day = () => {
 
   /// Tracker action
   for (let i = 0; i < players.length; i++) {
-    let doer = players[i];
+    const doer = players[i];
 
     if (doer.blocked) continue;
 
     if (doer.role.name === "tracker" && doer.status === "alive") {
       if (doer.target.index === -1) continue;
 
-      let targetIndex = doer.target.index;
-      let target = players[targetIndex];
+      const targetIndex = doer.target.index;
+      const target = players[targetIndex];
 
       let result = "";
       if (target.intercepted || target.blocked || target.target.index === -1 || target.target.index === targetIndex) {
@@ -3364,15 +3060,15 @@ const day = () => {
 
   /// Amnesiac Action
   for (let i = 0; i < players.length; i++) {
-    let doer = players[i];
+    const doer = players[i];
 
     if (doer.blocked) continue;
 
     if (doer.role.name === "amnesiac" && doer.status === "alive") {
       if (doer.target.index === -1) continue;
 
-      let targetIndex = doer.target.index;
-      let target = players[targetIndex];
+      const targetIndex = doer.target.index;
+      const target = players[targetIndex];
       let targetRoleName = target.role.name;
 
       if (target.role.isDisguiseAs) {
@@ -3398,7 +3094,7 @@ const day = () => {
         }
       }
 
-      let roleData = getRoleData(targetRoleName);
+      const roleData = getRoleData(targetRoleName);
       this.group_session.players[i].role = roleData;
 
       this.group_session.players[i].message +=
@@ -3556,6 +3252,24 @@ const day = () => {
 
     flex_texts.unshift(flex_text);
     return replyFlex(flex_texts);
+  }
+};
+
+const checkInfection = (index, targetIndex) => {
+  const target = this.group_session.players[targetIndex];
+  const isDoerInfected = this.group_session.players[index].infected;
+  const isTargetInfected = this.group_session.players[targetIndex].infected;
+
+  if (target.role.name === "plaguebearer") {
+    if (!isDoerInfected) {
+      this.group_session.players[index].justInfected = true;
+    }
+  } else {
+    if (isDoerInfected && !isTargetInfected) {
+      this.group_session.players[targetIndex].justInfected = true;
+    } else if (isTargetInfected && !isDoerInfected) {
+      this.group_session.players[index].justInfected = true;
+    }
   }
 };
 
@@ -4958,15 +4672,7 @@ const playersCommand = () => {
           table_data.push(item.role.name);
         }
       } else {
-        if (item.revived) {
-          if (item.role.disguiseAs) {
-            table_data.push(item.role.disguiseAs);
-          } else {
-            table_data.push(item.role.name);
-          }
-        } else {
-          table_data.push("???");
-        }
+        table_data.push("???");
       }
     }
 
@@ -5250,7 +4956,7 @@ const newCommand = () => {
 
   if (process.env.TEST === "true") {
     // cp
-    const dummies = util.getFakeData(4);
+    const dummies = util.getFakeData(13);
     dummies.forEach(item => {
       const newPlayer = createNewPlayer(item);
       this.group_session.players.push(newPlayer);
@@ -5416,8 +5122,7 @@ const createNewPlayer = user_session => {
     doused: false,
     burned: false,
     infected: false,
-    justInfected: false,
-    revived: false
+    justInfected: false
   };
   return newPlayer;
 };
