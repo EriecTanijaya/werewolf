@@ -16,6 +16,8 @@ const modes = require("../modes");
 
 const rawRoles = require("../roles");
 
+const database = require("../database");
+
 const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
   this.event = event;
   this.args = args;
@@ -181,9 +183,16 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
       return promoteCommand();
     case "/group":
       return groupCommand();
+    case "/rank":
+      return rankCommand();
     default:
       return invalidCommand();
   }
+};
+
+const rankCommand = async () => {
+  const flex_text = await util.getRank();
+  return replyFlex(flex_text);
 };
 
 const groupCommand = () => {
@@ -3974,6 +3983,7 @@ const endGame = (flex_texts, whoWin) => {
 
     if (roleTeam === whoWin) {
       table_data.push("win");
+      database.update(players[i].id, "win");
     } else {
       /// check the win condition of some role
       if (roleName === "jester") {
@@ -3988,8 +3998,10 @@ const endGame = (flex_texts, whoWin) => {
         handleGuardianAngelWin(i, table_data, surviveTeam);
       } else if (whoWin === "draw") {
         table_data.push("draw");
+        database.update(players[i].id, "draw");
       } else {
         table_data.push("lose");
+        database.update(players[i].id, "lose");
       }
     }
 
@@ -4050,8 +4062,10 @@ const handleGuardianAngelWin = (index, table_data, surviveTeam) => {
   if (this.group_session.players[targetIndex].status === "alive") {
     table_data.push("win");
     surviveTeam.push("guardian angel 😇");
+    database.update(this.group_session.players[index].id, "win");
   } else {
     table_data.push("lose");
+    database.update(this.group_session.players[index].id, "lose");
   }
 };
 
@@ -4059,26 +4073,25 @@ const handleExecutionerWin = (index, table_data, surviveTeam) => {
   if (this.group_session.players[index].role.isTargetLynched) {
     table_data.push("win");
     surviveTeam.push("executioner 🪓");
+    database.update(this.group_session.players[index].id, "win");
   } else {
     table_data.push("lose");
+    database.update(this.group_session.players[index].id, "lose");
   }
 };
 
 const handleAmnesiacWin = (index, table_data, surviveTeam) => {
-  if (this.group_session.players[index].status === "alive") {
-    table_data.push("win");
-    surviveTeam.push("amnesiac 🤕");
-  } else {
-    table_data.push("lose");
-  }
+  database.update(this.group_session.players[index].id, "lose");
 };
 
 const handleSurvivorWin = (index, table_data, surviveTeam) => {
   if (this.group_session.players[index].status === "alive") {
     table_data.push("win");
     surviveTeam.push("survivor 🏳️");
+    database.update(this.group_session.players[index].id, "win");
   } else {
     table_data.push("lose");
+    database.update(this.group_session.players[index].id, "lose");
   }
 };
 
@@ -4086,8 +4099,10 @@ const handleJesterWin = (index, table_data, surviveTeam) => {
   if (this.group_session.players[index].role.isLynched) {
     table_data.push("win");
     surviveTeam.push("jester 🤡");
+    database.update(this.group_session.players[index].id, "win");
   } else {
     table_data.push("lose");
+    database.update(this.group_session.players[index].id, "lose");
   }
 };
 
@@ -4854,6 +4869,9 @@ const joinCommand = () => {
 
   this.group_session.players.push(newPlayer);
 
+  //cp
+  database.add(this.user_session);
+
   let reminder = "⏳ Sisa waktu ";
 
   if (this.group_session.time > 90) {
@@ -4941,6 +4959,9 @@ const newCommand = () => {
 
   const newPlayer = createNewPlayer(this.user_session);
   this.group_session.players.push(newPlayer);
+
+  //cp
+  database.add(this.user_session);
 
   if (process.env.TEST === "true") {
     // cp

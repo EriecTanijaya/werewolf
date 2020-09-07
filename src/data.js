@@ -8,20 +8,6 @@ const personal = require("./personal");
 const main = require("./main");
 const idle = require("./idle");
 
-const mongoose = require("mongoose");
-const connectionString = process.env.mongo_uri;
-mongoose
-  .connect(connectionString, {
-    useUnifiedTopology: true,
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useFindAndModify: false
-  })
-  .then(() => console.log("You are now connected to Mongo!"))
-  .catch(err => console.error("Something went wrong", err));
-
-
-
 // game storage
 const group_sessions = {};
 const user_sessions = {};
@@ -263,8 +249,10 @@ const joinResponse = async () => {
 
   let text = "";
 
-  group_sessions[groupId].state = "idle";
-  group_sessions[groupId].time = 300;
+  if (group_sessions[groupId]) {
+    group_sessions[groupId].state = "idle";
+    group_sessions[groupId].time = 300;
+  }
 
   if (this.event.source.type === "group") {
     let { groupName } = await getGroupData(groupId);

@@ -1,5 +1,6 @@
 const client = require("./src/client");
 const roles = require("./roles");
+const database = require("./database");
 
 const getUpdates = () => {
   // show last 10 updates
@@ -653,6 +654,25 @@ const getPromotedGroup = group_sessions => {
   return flex_texts;
 };
 
+const getRank = async () => {
+  const ranker = await database.getRank();
+  const flex_text = {
+    headerText: "🏆 Ranking 🏆",
+    table: {
+      headers: ["No.", "Name", "Win", "Rate"],
+      contents: []
+    }
+  };
+
+  let num = 1;
+  ranker.forEach(item => {
+    const table_data = [`${num}.`, item.name, item.win, item.winRate];
+    flex_text.table.contents.push(table_data);
+    num++;
+  });
+  return flex_text;
+};
+
 module.exports = {
   leaveGroup,
   random,
@@ -674,5 +694,6 @@ module.exports = {
   getRandomInt,
   parseToText,
   getFakeData,
-  getPromotedGroup
+  getPromotedGroup,
+  getRank
 };
