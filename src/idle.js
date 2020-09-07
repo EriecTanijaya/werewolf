@@ -60,10 +60,18 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
       return runCommand();
     case "/rank":
       return rankCommand();
+    case "/me":
+      return meCommand();
     default:
       return invalidCommand();
   }
 };
+
+const meCommand = async () => {
+  const msg = await util.getSelfData(this.user_session.id);
+  if (typeof msg === "string") return replyText(msg);
+  return replyFlex(msg);
+}
 
 const rankCommand = async () => {
   const flex_text = await util.getRank();
@@ -193,7 +201,9 @@ const commandCommand = () => {
     "/forum : link ke openchat",
     "/status : untuk melihat berapa yang online",
     "/updates : untuk melihat 10 update terakhir bot",
-    "/group : untuk melihat daftar group yang open"
+    "/group : untuk melihat daftar group yang open",
+    "/rank : list top 10 pemain",
+    "/me : info data diri sendiri"
   ];
 
   cmds.forEach((item, index) => {

@@ -37,14 +37,15 @@ const getRank = async () => {
     }
 
     return {
+      id: item.id,
       name: item.name,
       win: item.win,
-      winRate
+      winRate,
+      totalGame
     };
   });
 
   data = rank_sort(data);
-  data.length = 10;
   data.forEach(item => {
     item.winRate = `${item.winRate}%`;
   });

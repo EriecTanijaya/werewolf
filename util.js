@@ -656,6 +656,7 @@ const getPromotedGroup = group_sessions => {
 
 const getRank = async () => {
   const ranker = await database.getRank();
+  ranker.length = 10;
   const flex_text = {
     headerText: "🏆 Ranking 🏆",
     table: {
@@ -671,6 +672,27 @@ const getRank = async () => {
     num++;
   });
   return flex_text;
+};
+
+const getSelfData = async userId => {
+  const ranker = await database.getRank();
+  for (let i = 0; i < ranker.length; i++) {
+    if (ranker[i].id === userId) {
+      const rank = i + 1;
+      const self = ranker[i];
+
+      let bodyText = `🏆 Rank ke ${rank} dari ${ranker.length} pemain\n`;
+      bodyText += `📊 WR : ${self.winRate} 🎮 Game : ${self.totalGame}`;
+
+      const flex_text = {
+        headerText: `📜 ${self.name}`,
+        bodyText
+      };
+
+      return flex_text;
+    }
+  }
+  return "💡 Datamu tidak ditemukan, coba main 1 game";
 };
 
 module.exports = {
@@ -695,5 +717,6 @@ module.exports = {
   parseToText,
   getFakeData,
   getPromotedGroup,
-  getRank
+  getRank,
+  getSelfData
 };

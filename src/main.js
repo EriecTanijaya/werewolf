@@ -184,11 +184,21 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
     case "/group":
       return groupCommand();
     case "/rank":
+    case "/peringkat":
+    case "/ranking":
       return rankCommand();
+    case "/me":
+      return meCommand();
     default:
       return invalidCommand();
   }
 };
+
+const meCommand = async () => {
+  const msg = await util.getSelfData(this.user_session.id);
+  if (typeof msg === "string") return replyText(msg);
+  return replyFlex(msg);
+}
 
 const rankCommand = async () => {
   const flex_text = await util.getRank();
@@ -5001,7 +5011,9 @@ const commandCommand = () => {
     "/forum : link ke openchat",
     "/updates : untuk melihat 5 update terakhir bot",
     "/promote : open group dengan memberikan admin group",
-    "/group : melihat list group yang open"
+    "/group : melihat list group yang open",
+    "/rank : list top 10 pemain",
+    "/me : info data diri sendiri"
   ];
 
   let flexNeeded = 0;
