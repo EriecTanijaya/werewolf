@@ -40,7 +40,7 @@ const getRank = async () => {
       winRate
     };
   });
-
+  console.log(data);
   data = rank_sort(data);
   data.length = 10;
   data.forEach(item => {
@@ -55,8 +55,8 @@ const rank_sort = array => {
 
   // descending
   return array.sort((person1, person2) => {
-    let person1_winRate = person1.winRate.match(/\d+/);
-    let person2_winRate = person2.winRate.match(/\d+/);
+    let person1_winRate = person1.winRate;
+    let person2_winRate = person2.winRate;
     return person2.win - person1.win || person2_winRate - person1_winRate;
   });
 };

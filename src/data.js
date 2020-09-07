@@ -249,8 +249,10 @@ const joinResponse = async () => {
 
   let text = "";
 
-  group_sessions[groupId].state = "idle";
-  group_sessions[groupId].time = 300;
+  if (group_sessions[groupId]) {
+    group_sessions[groupId].state = "idle";
+    group_sessions[groupId].time = 300;
+  }
 
   if (this.event.source.type === "group") {
     let { groupName } = await getGroupData(groupId);
