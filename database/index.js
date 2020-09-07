@@ -2,16 +2,18 @@ const userSchema = require("./model");
 
 const add = data => {
   const newUserData = { id: data.id, name: data.name, win: 0, lose: 0, draw: 0 };
-  userSchema.create(newUserData, (err, res) => {
+  userSchema.create(newUserData, err => {
     if (err) return console.error(err);
   });
 };
 
-const update = (id, status) => {
+const update = (id, status, gameMode) => {
+  if (gameMode === "custom") return;
+
   const toIncrease = { $inc: {} };
   toIncrease.$inc[status] = 1;
 
-  userSchema.findOneAndUpdate({ id }, toIncrease, (err, res) => {
+  userSchema.findOneAndUpdate({ id }, toIncrease, err => {
     if (err) return console.error(err);
   });
 };
@@ -35,14 +37,15 @@ const getRank = async () => {
     }
 
     return {
+      id: item.id,
       name: item.name,
       win: item.win,
-      winRate
+      winRate,
+      totalGame
     };
   });
-  console.log(data);
+
   data = rank_sort(data);
-  data.length = 10;
   data.forEach(item => {
     item.winRate = `${item.winRate}%`;
   });
@@ -55,8 +58,8 @@ const rank_sort = array => {
 
   // descending
   return array.sort((person1, person2) => {
-    let person1_winRate = person1.winRate;
-    let person2_winRate = person2.winRate;
+    const person1_winRate = person1.winRate;
+    const person2_winRate = person2.winRate;
     return person2.win - person1.win || person2_winRate - person1_winRate;
   });
 };

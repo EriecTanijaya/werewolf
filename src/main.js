@@ -184,11 +184,21 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
     case "/group":
       return groupCommand();
     case "/rank":
+    case "/peringkat":
+    case "/ranking":
       return rankCommand();
+    case "/me":
+      return meCommand();
     default:
       return invalidCommand();
   }
 };
+
+const meCommand = async () => {
+  const msg = await util.getSelfData(this.user_session.id);
+  if (typeof msg === "string") return replyText(msg);
+  return replyFlex(msg);
+}
 
 const rankCommand = async () => {
   const flex_text = await util.getRank();
@@ -3983,7 +3993,7 @@ const endGame = (flex_texts, whoWin) => {
 
     if (roleTeam === whoWin) {
       table_data.push("win");
-      database.update(players[i].id, "win");
+      database.update(players[i].id, "win", this.group_session.mode);
     } else {
       /// check the win condition of some role
       if (roleName === "jester") {
@@ -3991,17 +4001,18 @@ const endGame = (flex_texts, whoWin) => {
       } else if (roleName === "survivor") {
         handleSurvivorWin(i, table_data, surviveTeam);
       } else if (roleName === "amnesiac") {
-        handleAmnesiacWin(i, table_data, surviveTeam);
+        table_data.push("lose");
+        database.update(players[i].id, "lose", this.group_session.mode);
       } else if (roleName === "executioner") {
         handleExecutionerWin(i, table_data, surviveTeam);
       } else if (roleName === "guardian-angel") {
         handleGuardianAngelWin(i, table_data, surviveTeam);
       } else if (whoWin === "draw") {
         table_data.push("draw");
-        database.update(players[i].id, "draw");
+        database.update(players[i].id, "draw", this.group_session.mode);
       } else {
         table_data.push("lose");
-        database.update(players[i].id, "lose");
+        database.update(players[i].id, "lose", this.group_session.mode);
       }
     }
 
@@ -4062,10 +4073,10 @@ const handleGuardianAngelWin = (index, table_data, surviveTeam) => {
   if (this.group_session.players[targetIndex].status === "alive") {
     table_data.push("win");
     surviveTeam.push("guardian angel 😇");
-    database.update(this.group_session.players[index].id, "win");
+    database.update(this.group_session.players[index].id, "win", this.group_session.mode);
   } else {
     table_data.push("lose");
-    database.update(this.group_session.players[index].id, "lose");
+    database.update(this.group_session.players[index].id, "lose", this.group_session.mode);
   }
 };
 
@@ -4073,25 +4084,21 @@ const handleExecutionerWin = (index, table_data, surviveTeam) => {
   if (this.group_session.players[index].role.isTargetLynched) {
     table_data.push("win");
     surviveTeam.push("executioner 🪓");
-    database.update(this.group_session.players[index].id, "win");
+    database.update(this.group_session.players[index].id, "win", this.group_session.mode);
   } else {
     table_data.push("lose");
-    database.update(this.group_session.players[index].id, "lose");
+    database.update(this.group_session.players[index].id, "lose", this.group_session.mode);
   }
-};
-
-const handleAmnesiacWin = (index, table_data, surviveTeam) => {
-  database.update(this.group_session.players[index].id, "lose");
 };
 
 const handleSurvivorWin = (index, table_data, surviveTeam) => {
   if (this.group_session.players[index].status === "alive") {
     table_data.push("win");
     surviveTeam.push("survivor 🏳️");
-    database.update(this.group_session.players[index].id, "win");
+    database.update(this.group_session.players[index].id, "win", this.group_session.mode);
   } else {
     table_data.push("lose");
-    database.update(this.group_session.players[index].id, "lose");
+    database.update(this.group_session.players[index].id, "lose", this.group_session.mode);
   }
 };
 
@@ -4099,10 +4106,10 @@ const handleJesterWin = (index, table_data, surviveTeam) => {
   if (this.group_session.players[index].role.isLynched) {
     table_data.push("win");
     surviveTeam.push("jester 🤡");
-    database.update(this.group_session.players[index].id, "win");
+    database.update(this.group_session.players[index].id, "win", this.group_session.mode);
   } else {
     table_data.push("lose");
-    database.update(this.group_session.players[index].id, "lose");
+    database.update(this.group_session.players[index].id, "lose", this.group_session.mode);
   }
 };
 
@@ -4869,7 +4876,6 @@ const joinCommand = () => {
 
   this.group_session.players.push(newPlayer);
 
-  //cp
   database.add(this.user_session);
 
   let reminder = "⏳ Sisa waktu ";
@@ -4960,7 +4966,6 @@ const newCommand = () => {
   const newPlayer = createNewPlayer(this.user_session);
   this.group_session.players.push(newPlayer);
 
-  //cp
   database.add(this.user_session);
 
   if (process.env.TEST === "true") {
@@ -5006,7 +5011,9 @@ const commandCommand = () => {
     "/forum : link ke openchat",
     "/updates : untuk melihat 5 update terakhir bot",
     "/promote : open group dengan memberikan admin group",
-    "/group : melihat list group yang open"
+    "/group : melihat list group yang open",
+    "/rank : list top 10 pemain",
+    "/me : info data diri sendiri"
   ];
 
   let flexNeeded = 0;

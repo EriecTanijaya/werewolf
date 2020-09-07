@@ -13,7 +13,12 @@ const getUpdates = () => {
   let flex_texts = [];
   let updates = [
     {
-      version: "1.3.8 🆕", //ini yg lastest aja
+      version: "1.4.0 🆕", //ini yg lastest aja
+      majorChanges: "🏆 Ranking System is Back!",
+      postId: "1159946063808077689"
+    },
+    {
+      version: "1.3.8",
       majorChanges: "🧛 Bug fix & mode tweak (lagi)",
       postId: "1159909437908072793"
     },
@@ -56,11 +61,6 @@ const getUpdates = () => {
       version: "1.2.1",
       majorChanges: "☣️ New Plaguebearer role!",
       postId: "1159179246308071639"
-    },
-    {
-      version: "1.2.0",
-      majorChanges: "💪 Rebase to new mechanism",
-      postId: "1159110856708070799"
     }
   ];
 
@@ -656,6 +656,7 @@ const getPromotedGroup = group_sessions => {
 
 const getRank = async () => {
   const ranker = await database.getRank();
+  ranker.length = 10;
   const flex_text = {
     headerText: "🏆 Ranking 🏆",
     table: {
@@ -671,6 +672,27 @@ const getRank = async () => {
     num++;
   });
   return flex_text;
+};
+
+const getSelfData = async userId => {
+  const ranker = await database.getRank();
+  for (let i = 0; i < ranker.length; i++) {
+    if (ranker[i].id === userId) {
+      const rank = i + 1;
+      const self = ranker[i];
+
+      let bodyText = `🏆 Rank ke ${rank} dari ${ranker.length} pemain\n`;
+      bodyText += `📊 WR : ${self.winRate} 🎮 Game : ${self.totalGame}`;
+
+      const flex_text = {
+        headerText: `📜 ${self.name}`,
+        bodyText
+      };
+
+      return flex_text;
+    }
+  }
+  return "💡 Datamu tidak ditemukan, coba main 1 game";
 };
 
 module.exports = {
@@ -695,5 +717,6 @@ module.exports = {
   parseToText,
   getFakeData,
   getPromotedGroup,
-  getRank
+  getRank,
+  getSelfData
 };
