@@ -8,37 +8,9 @@ const personal = require("./personal");
 const main = require("./main");
 const idle = require("./idle");
 
-const getUserSessions = () => {
-  const fs = require("fs");
-  const path = require("path");
-  let userPath = path.join(__dirname, "../.data/", "user_sessions.json");
-  try {
-    const data = fs.readFileSync(userPath);
-    return JSON.parse(data);
-  } catch (err) {
-    console.error("err getUserSessions", err);
-    const data = {};
-    return data;
-  }
-};
-
-const getGroupSessions = () => {
-  const fs = require("fs");
-  const path = require("path");
-  let groupPath = path.join(__dirname, "../.data/", "group_sessions.json");
-  try {
-    const data = fs.readFileSync(groupPath);
-    return JSON.parse(data);
-  } catch (err) {
-    console.error("err getGroupSessions", err);
-    const data = {};
-    return data;
-  }
-};
-
 // game storage
-const group_sessions = getGroupSessions();
-const user_sessions = getUserSessions();
+const group_sessions = {};
+const user_sessions = {};
 
 // Update session
 setInterval(() => {
@@ -406,21 +378,6 @@ const resetAllPlayers = players => {
   });
   players = [];
 };
-
-process.on("SIGTERM", () => {
-  const fs = require("fs");
-  const userPath = "/app/.data/user_sessions.json";
-  const groupPath = "/app/.data/group_sessions.json";
-
-  fs.writeFile(userPath, JSON.stringify(user_sessions), err => {
-    if (err) console.error("error save user_sessions");
-  });
-
-  fs.writeFile(groupPath, JSON.stringify(group_sessions), err => {
-    if (err) console.error("error save group_sessions");
-    process.exit(0);
-  });
-});
 
 module.exports = {
   receive,
