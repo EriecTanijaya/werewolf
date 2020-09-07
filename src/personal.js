@@ -88,9 +88,16 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
     case "/oc":
     case "/openchat":
       return forumCommand();
+    case "/rank":
+      return rankCommand();
     default:
       return invalidCommand();
   }
+};
+
+const rankCommand = async () => {
+  const flex_text = await util.getRank();
+  return replyFlex(flex_text);
 };
 
 const forumCommand = () => {
