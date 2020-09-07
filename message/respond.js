@@ -76,11 +76,6 @@ const kicked = () => {
   return util.random(arr);
 };
 
-const callBot = name => {
-  const arr = [`👋 Hi ${name}!`, `😃 Ada yang manggil?`, `💡 Yoyoyo, ada ape ni`, `😤 Ada apa manggil-manggil`];
-  return util.random(arr);
-};
-
 module.exports = {
   enoughPlayer,
   stopGame,
@@ -88,6 +83,5 @@ module.exports = {
   join,
   memberJoined,
   checkNight,
-  kicked,
-  callBot
+  kicked
 };

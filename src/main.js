@@ -29,29 +29,6 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
   if (!rawArgs.startsWith("/")) {
     rawArgs = rawArgs.toLowerCase();
 
-    if (rawArgs.includes("bot")) {
-      if (args.length < 2) return replyText(respond.callBot(this.user_session.name));
-
-      rawArgs = rawArgs.replace(/apa itu/g, "info");
-
-      if (rawArgs.match(/corona/gi)) {
-        return replyText("#dirumahaja");
-      } else if (rawArgs.match(/main/gi)) {
-        return newCommand();
-      } else if (rawArgs.match(/info/gi)) {
-        this.args.splice(0, 2);
-        return infoCommand();
-      } else if (rawArgs.match(/gas/gi) || rawArgs.match(/mulai/gi)) {
-        return startCommand();
-      } else if (rawArgs.match(/susah/gi) || rawArgs.match(/bingung/gi)) {
-        return replyText("Kamu bisa ke tanya tanya di '/forum' kalo ada yang bingung :)");
-      } else if (rawArgs.match(/stop/gi)) {
-        return stopCommand();
-      } else if (rawArgs.match(/hi/gi)) {
-        return replyText(respond.callBot(this.user_session.name));
-      }
-    }
-
     let time = this.group_session.time;
     const state = this.group_session.state;
 
