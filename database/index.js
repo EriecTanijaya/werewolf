@@ -3,7 +3,9 @@ const userSchema = require("./model");
 const add = data => {
   const newUserData = { id: data.id, name: data.name, win: 0, lose: 0, draw: 0 };
   userSchema.create(newUserData, err => {
-    if (err) return console.error(err);
+    if (err && err.code !== 11000) {
+      return console.error(err);
+    }
   });
 };
 
