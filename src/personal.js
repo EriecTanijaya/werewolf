@@ -434,7 +434,7 @@ const targetCommand = () => {
       }
     }
 
-    if (!canSelfTarget(roleName)) {
+    if (!canSelfTarget(players[index].role)) {
       return replyText("💡 Kamu tidak bisa pilih diri sendiri di role ini");
     }
   } else {
@@ -581,7 +581,7 @@ const roleSkill = (flex_texts, index, text) => {
 
   let skillText = getRoleSkillText(role.name);
   const cmdText = getRoleCmdText(role.name);
-  let isCanSelfTarget = canSelfTarget(role.name);
+  let isCanSelfTarget = canSelfTarget(role);
 
   /// special role yang bisa berubah selfTarget
 
@@ -665,7 +665,7 @@ const roleCommand = () => {
   const roleTeam = player.role.team;
   const roleDesc = player.role.description;
   const headerText = util.getRoleNameEmoji(roleName) + " " + roleName.toUpperCase();
-  
+
   let flex_texts = [];
 
   let flex_text = {
@@ -1373,10 +1373,24 @@ const invalidCommand = () => {
 
 /** helper func **/
 
-const canSelfTarget = roleName => {
+const canSelfTarget = role => {
   const canSelfTargetRoles = ["survivor", "veteran", "bodyguard", "arsonist", "doctor", "werewolf"];
 
-  if (canSelfTargetRoles.includes(roleName)) {
+  // Juggernaut yang skillLevel udah 3 keatas
+  if (role.name === "juggernaut") {
+    if (role.skillLevel >= 3) {
+      canSelfTargetRoles.push("juggernaut");
+    }
+  }
+
+  // special role plaguebearer yang udah pestilence
+  if (role.name === "plaguebearer") {
+    if (role.isPestilence) {
+      canSelfTargetRoles.push("plaguebearer");
+    }
+  }
+
+  if (canSelfTargetRoles.includes(role.name)) {
     return true;
   } else {
     return false;
