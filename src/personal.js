@@ -90,9 +90,21 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
       return forumCommand();
     case "/rank":
       return rankCommand();
+    case "/players":
+    case "/p":
+    case "/player":
+    case "/pemain":
+      return playersCommand();
     default:
       return invalidCommand();
   }
+};
+
+const playersCommand = () => {
+  const players = this.group_session.players;
+  const state = this.group_session.state;
+  const flex_text = util.getPlayersList(players, state);
+  return replyFlex(flex_text);
 };
 
 const rankCommand = async () => {
@@ -1344,7 +1356,8 @@ const commandCommand = () => {
     "/journal : cek journal kamu",
     "/revoke: untuk batal menggunakan skill",
     "/roles : tampilin role list",
-    "/updates : untuk melihat 5 update terakhir bot"
+    "/updates : untuk melihat 5 update terakhir bot",
+    "/players : untuk liat daftar pemain"
   ];
 
   cmds.forEach((item, index) => {

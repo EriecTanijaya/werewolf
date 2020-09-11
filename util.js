@@ -695,6 +695,49 @@ const getSelfData = async userId => {
   return "💡 Datamu tidak ditemukan, coba main 1 game";
 };
 
+const getPlayersList = (players, state) => {
+  const flex_text = {
+    headerText: "🤵 Daftar Pemain 👨‍🌾",
+    table: {
+      headers: ["No.", "Name", "Status"],
+      contents: []
+    }
+  };
+
+  if (state !== "new") {
+    flex_text.table.headers.push("Role");
+  }
+
+  let num = 1;
+  players.forEach(item => {
+    let table_data = [`${num}.`, item.name];
+
+    if (item.status === "death") {
+      table_data.push("💀");
+    } else {
+      table_data.push("😃");
+    }
+
+    if (state !== "new") {
+      if (item.status === "death") {
+        if (item.role.disguiseAs) {
+          table_data.push(item.role.disguiseAs);
+        } else {
+          table_data.push(item.role.name);
+        }
+      } else {
+        table_data.push("???");
+      }
+    }
+
+    num++;
+
+    flex_text.table.contents.push(table_data);
+  });
+  
+  return flex_text;
+}
+
 module.exports = {
   leaveGroup,
   random,
@@ -718,5 +761,6 @@ module.exports = {
   getFakeData,
   getPromotedGroup,
   getRank,
-  getSelfData
+  getSelfData,
+  getPlayersList
 };
