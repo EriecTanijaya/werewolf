@@ -113,6 +113,7 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
     case "/quit":
     case "/keluar":
     case "/left":
+    case "/leave":
       return cancelCommand();
     case "/start":
     case "/mulai":
@@ -198,7 +199,7 @@ const meCommand = async () => {
   const msg = await util.getSelfData(this.user_session.id);
   if (typeof msg === "string") return replyText(msg);
   return replyFlex(msg);
-}
+};
 
 const rankCommand = async () => {
   const flex_text = await util.getRank();
@@ -4648,48 +4649,13 @@ const playersCommand = () => {
   }
 
   const players = this.group_session.players;
+
   if (players.length === 0) {
     return replyText("💡 Belum ada pemain, ketik '/join' utk bergabung");
   }
 
-  let flex_text = {
-    headerText: "🤵 Daftar Pemain 👨‍🌾",
-    table: {
-      headers: ["No.", "Name", "Status"],
-      contents: []
-    }
-  };
-
-  if (this.group_session.state !== "new") {
-    flex_text.table.headers.push("Role");
-  }
-
-  let num = 1;
-  players.forEach(item => {
-    let table_data = [`${num}.`, item.name];
-
-    if (item.status === "death") {
-      table_data.push("💀");
-    } else {
-      table_data.push("😃");
-    }
-
-    if (this.group_session.state !== "new") {
-      if (item.status === "death") {
-        if (item.role.disguiseAs) {
-          table_data.push(item.role.disguiseAs);
-        } else {
-          table_data.push(item.role.name);
-        }
-      } else {
-        table_data.push("???");
-      }
-    }
-
-    num++;
-
-    flex_text.table.contents.push(table_data);
-  });
+  const state = this.group_session.state;
+  const flex_text = util.getPlayersList(players, state);
 
   if (this.group_session.state === "new") {
     flex_text.buttons = [
