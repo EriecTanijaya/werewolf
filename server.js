@@ -63,7 +63,7 @@ async function handleEvent(event) {
   }
 
   if (event.type !== "message" || event.message.type !== "text") {
-    const otherEvents = ["follow", "memberJoined", "join", "leave", "memberLeft"];
+    const otherEvents = ["follow", "memberJoined", "join", "leave", "memberLeft", "unfollow"];
     if (otherEvents.includes(event.type)) {
       return data.receive(event, "");
     }

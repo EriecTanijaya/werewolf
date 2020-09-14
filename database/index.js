@@ -66,8 +66,20 @@ const rank_sort = array => {
   });
 };
 
+const remove = id => {
+  userSchema
+    .deleteOne({ id })
+    .then(res => {
+      console.log(`ada yang unfollow, ${id}`);
+    })
+    .catch(err => {
+      console.error(err);
+    });
+};
+
 module.exports = {
   add,
   update,
-  getRank
+  getRank,
+  remove
 };
