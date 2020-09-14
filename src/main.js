@@ -4000,7 +4000,10 @@ const endGame = (flex_texts, whoWin) => {
 
     table_data.push(`${num}.`, name, roleName);
 
-    if (roleTeam === whoWin) {
+    if (players[i].afkCounter >= 3) {
+      table_data.push("lose");
+      database.update(players[i].id, "lose", this.group_session.mode);
+    } else if (roleTeam === whoWin) {
       table_data.push("win");
       database.update(players[i].id, "win", this.group_session.mode);
     } else {
