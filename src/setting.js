@@ -83,7 +83,7 @@ const setModeCommand = () => {
 
 const setShowRoleCommand = () => {
   if (!this.args[2]) {
-    const text = "📜 Jika show_role no, maka tidak bisa akses cmd '/roles' pada game";
+    const text = "📜 Jika show_role no, maka tidak bisa akses cmd '/roles' pada game. Tidak berlaku pada mode custom.";
     return replyText(text);
   }
 
@@ -94,6 +94,10 @@ const setShowRoleCommand = () => {
     this.group_session.isShowRole = true;
     text += "Show role diaktifkan!";
   } else if (input === "no" || input === "n") {
+    if (this.group_session.mode === "custom") {
+      return replyText("💡 Mode custom tidak dapat hide role list pada game!");
+    }
+
     this.group_session.isShowRole = false;
     text += "Show role di non-aktifkan!";
   } else {
@@ -280,6 +284,11 @@ const setRoleCommand = () => {
 
   let text = "📜 Roles : " + customRoles.join(", ") + "\n\n";
   text += "💡 Untuk menggunakan mode yang lain bisa dengan cmd '/set mode'";
+
+  if (!this.group_session.isShowRole) {
+    this.group_session.isShowRole = true;
+    text += "\n\n" + "💡 Karena ini mode custom, role nya akan ditampilkan";
+  }
 
   let flex_text = {
     headerText: "📣 Custom Roles Set!",
