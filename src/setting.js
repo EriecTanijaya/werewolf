@@ -121,14 +121,14 @@ const setRoleCommand = () => {
 
   this.args.splice(0, 2);
 
-  let customRoles = this.args.map(item => {
+  const customRoles = this.args.map(item => {
     return item.toLowerCase();
   });
 
-  let errors = [];
+  const errors = [];
 
   // check unknown role
-  let knownRoleNames = Object.keys(rawRoles);
+  const knownRoleNames = Object.keys(rawRoles);
 
   customRoles.forEach(item => {
     if (!knownRoleNames.includes(item)) {
@@ -137,25 +137,24 @@ const setRoleCommand = () => {
   });
 
   // check needed team
-  let knownRoles = Object.keys(rawRoles).map(item => {
+  const knownRoles = Object.keys(rawRoles).map(item => {
     const { name, team } = rawRoles[item].getData();
-    return {
-      name: name,
-      team: team
-    };
+    return { name, team };
   });
 
-  let teams = [];
-  let neutrals = ["executioner", "jester", "survivor", "amnesiac", "guardian-angel"];
+  const teams = [];
+  const neutrals = ["executioner", "jester", "survivor", "amnesiac", "guardian-angel"];
+  let allTeamsCount = 0; //without neutrals
 
   for (let i = 0; i < customRoles.length; i++) {
     for (let u = 0; u < knownRoles.length; u++) {
-      let knownRoleName = knownRoles[u].name;
+      const knownRoleName = knownRoles[u].name;
       if (knownRoleName === customRoles[i]) {
         if (neutrals.includes(customRoles[i])) {
           continue;
         }
 
+        allTeamsCount++;
         if (!teams.includes(knownRoles[u].team)) {
           teams.push(knownRoles[u].team);
         }
@@ -165,6 +164,10 @@ const setRoleCommand = () => {
 
   if (teams.length < 2) {
     errors.push("💡 Masukkan minimal 2 team yang berlawanan dalam 1 game.");
+  } else {
+    if (teams.length === 2 && allTeamsCount === 2) {
+      errors.push(`💡 Jumlah team ${teams[0]} dan ${teams[1]} terlalu sedikit, disarankan tambah 1 team baru lagi`);
+    }
   }
 
   // check special role
