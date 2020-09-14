@@ -93,7 +93,7 @@ const updateName = async (id, newName) => {
         return resolve("💡 Datamu tidak ditemukan, coba main 1 game");
       }
 
-      resolve("💡 Data kamu berhasil di sinkron!");
+      resolve("🔄 Data kamu berhasil di sinkron!");
     });
   });
 };

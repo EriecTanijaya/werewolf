@@ -1,6 +1,7 @@
 ### TODO
 
 - role set trick or treat (ada di tos punya fandom wiki) buat halloween ntr
+  deadline oktober 31
 
 
 ### NOTEE

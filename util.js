@@ -13,7 +13,12 @@ const getUpdates = () => {
   let flex_texts = [];
   let updates = [
     {
-      version: "1.4.0 🆕", //ini yg lastest aja
+      version: "1.4.1 🆕", //ini yg lastest aja
+      majorChanges: "😪 Sanksi pemain afk",
+      postId: "1160005689408076142"
+    },
+    {
+      version: "1.4.0",
       majorChanges: "🏆 Ranking System is Back!",
       postId: "1159946063808077689"
     },
@@ -56,11 +61,6 @@ const getUpdates = () => {
       version: "1.2.2",
       majorChanges: "💪 Major cleanup & bugfixes",
       postId: "1159235795708072516"
-    },
-    {
-      version: "1.2.1",
-      majorChanges: "☣️ New Plaguebearer role!",
-      postId: "1159179246308071639"
     }
   ];
 

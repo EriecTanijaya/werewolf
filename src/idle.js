@@ -70,6 +70,9 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
 
 const updateName = async () => {
   const { displayName } = await client.getProfile(this.user_session.id);
+  if (this.user_session.name !== displayName) {
+    this.user_session.name = displayName;
+  }
   const res = await database.updateName(this.user_session.id, displayName);
   return replyText(res);
 };
