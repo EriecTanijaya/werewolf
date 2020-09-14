@@ -7,6 +7,7 @@ const respond = require("../message/respond");
 const personal = require("./personal");
 const main = require("./main");
 const idle = require("./idle");
+const database = require("../database");
 
 // game storage
 const group_sessions = {};
@@ -51,7 +52,7 @@ const receive = (event, rawArgs) => {
   this.event = event;
 
   // handle other events
-  const otherEvents = ["follow", "memberJoined", "join", "leave", "memberLeft"];
+  const otherEvents = ["follow", "memberJoined", "join", "leave", "memberLeft", "unfollow"];
   if (otherEvents.includes(event.type)) {
     return handleOtherEvent(event);
   }
@@ -211,7 +212,14 @@ const handleOtherEvent = () => {
       return followResponse();
     case "memberJoined":
       return memberJoinedResponse();
+    case "unfollow":
+      return unfollowResponse();
   }
+};
+
+const unfollowResponse = () => {
+  const userId = this.event.source.userId;
+  database.remove(userId);
 };
 
 const leaveResponse = () => {

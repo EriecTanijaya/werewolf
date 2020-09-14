@@ -66,8 +66,42 @@ const rank_sort = array => {
   });
 };
 
+const remove = id => {
+  userSchema
+    .deleteOne({ id })
+    .then(res => {
+      console.log(`ada yang unfollow, ${res}`);
+    })
+    .catch(err => {
+      console.error(err);
+    });
+};
+
+const updateName = async (id, newName) => {
+  const option = {
+    name: newName
+  };
+
+  return new Promise((resolve, reject) => {
+    userSchema.findOneAndUpdate({ id }, option, (err, doc) => {
+      if (err) {
+        console.error(err);
+        return reject(err);
+      }
+
+      if (!doc) {
+        return resolve("💡 Datamu tidak ditemukan, coba main 1 game");
+      }
+
+      resolve("🔄 Data kamu berhasil di sinkron!");
+    });
+  });
+};
+
 module.exports = {
   add,
   update,
-  getRank
+  getRank,
+  remove,
+  updateName
 };

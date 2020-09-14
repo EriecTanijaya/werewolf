@@ -190,9 +190,24 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
       return rankCommand();
     case "/me":
       return meCommand();
+    case "/sync":
+      return updateName();
     default:
       return invalidCommand();
   }
+};
+
+const updateName = async () => {
+  if (indexOfPlayer() !== -1) {
+    return replyText("💡 Tidak dapat melakukan sinkronisasi sekarang, lakukan saat tidak berada didalam game");
+  }
+
+  const { displayName } = await client.getProfile(this.user_session.id);
+  if (this.user_session.name !== displayName) {
+    this.user_session.name = displayName;
+  }
+  const res = await database.updateName(this.user_session.id, displayName);
+  return replyText(res);
 };
 
 const meCommand = async () => {
@@ -3797,8 +3812,6 @@ const checkCommand = () => {
     }
   }
 
-  // console.log("state sebelumnya : " + state);
-
   switch (state) {
     case "night":
       if (time > 0) {
@@ -3812,7 +3825,6 @@ const checkCommand = () => {
 
     case "vote":
       if (time > 0) {
-        //munculin button player-player sama kasih tau waktu tersisa berapa detik
         return votingCommand();
       } else {
         return autoVote();
@@ -3992,7 +4004,10 @@ const endGame = (flex_texts, whoWin) => {
 
     table_data.push(`${num}.`, name, roleName);
 
-    if (roleTeam === whoWin) {
+    if (players[i].afkCounter >= 3) {
+      table_data.push("lose");
+      database.update(players[i].id, "lose", this.group_session.mode);
+    } else if (roleTeam === whoWin) {
       table_data.push("win");
       database.update(players[i].id, "win", this.group_session.mode);
     } else {
@@ -4979,7 +4994,8 @@ const commandCommand = () => {
     "/promote : open group dengan memberikan admin group",
     "/group : melihat list group yang open",
     "/rank : list top 10 pemain",
-    "/me : info data diri sendiri"
+    "/me : info data diri sendiri",
+    "/sync : sinkronisasi data pemain"
   ];
 
   let flexNeeded = 0;
