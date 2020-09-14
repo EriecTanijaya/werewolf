@@ -70,7 +70,7 @@ const remove = id => {
   userSchema
     .deleteOne({ id })
     .then(res => {
-      console.log(`ada yang unfollow, ${id}`);
+      console.log(`ada yang unfollow, ${res}`);
     })
     .catch(err => {
       console.error(err);
@@ -84,9 +84,13 @@ const updateName = async (id, newName) => {
 
   return new Promise((resolve, reject) => {
     userSchema.findOneAndUpdate({ id }, option, (err, doc) => {
-      if (err || !doc) {
+      if (err) {
         console.error(err);
-        return resolve("💡 Data kamu gagal di sinkron!");
+        return reject(err);
+      }
+
+      if (!doc) {
+        return resolve("💡 Datamu tidak ditemukan, coba main 1 game");
       }
 
       resolve("💡 Data kamu berhasil di sinkron!");

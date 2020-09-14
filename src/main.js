@@ -3805,8 +3805,6 @@ const checkCommand = () => {
     }
   }
 
-  // console.log("state sebelumnya : " + state);
-
   switch (state) {
     case "night":
       if (time > 0) {
@@ -3820,7 +3818,6 @@ const checkCommand = () => {
 
     case "vote":
       if (time > 0) {
-        //munculin button player-player sama kasih tau waktu tersisa berapa detik
         return votingCommand();
       } else {
         return autoVote();

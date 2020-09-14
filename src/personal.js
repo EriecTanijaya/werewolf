@@ -102,7 +102,7 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
 
 const updateName = () => {
   return replyText("💡 Tidak dapat melakukan sinkronisasi sekarang, lakukan saat tidak berada didalam game");
-}
+};
 
 const playersCommand = () => {
   const players = this.group_session.players;

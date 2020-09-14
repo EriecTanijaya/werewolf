@@ -734,9 +734,9 @@ const getPlayersList = (players, state) => {
 
     flex_text.table.contents.push(table_data);
   });
-  
+
   return flex_text;
-}
+};
 
 module.exports = {
   leaveGroup,

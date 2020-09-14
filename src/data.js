@@ -220,7 +220,7 @@ const handleOtherEvent = () => {
 const unfollowResponse = () => {
   const userId = this.event.source.userId;
   database.remove(userId);
-}
+};
 
 const leaveResponse = () => {
   const groupId = util.getGroupId(this.event);
