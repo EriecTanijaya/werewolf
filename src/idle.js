@@ -4,6 +4,7 @@ const util = require("../util");
 
 const info = require("./info");
 const stats = require("./stats");
+const database = require("../database");
 
 const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
   this.event = event;
@@ -37,8 +38,6 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
       return usersListCommand();
     case "/view":
       return viewCommand();
-    case "/reset":
-      return resetCommand();
     case "/tutorial":
       return tutorialCommand();
     case "/forum":
@@ -62,16 +61,24 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
       return rankCommand();
     case "/me":
       return meCommand();
+    case "/sync":
+      return updateName();
     default:
       return invalidCommand();
   }
+};
+
+const updateName = async () => {
+  const { displayName } = await client.getProfile(this.user_session.id);
+  const res = await database.updateName(this.user_session.id, displayName);
+  return replyText(res);
 };
 
 const meCommand = async () => {
   const msg = await util.getSelfData(this.user_session.id);
   if (typeof msg === "string") return replyText(msg);
   return replyFlex(msg);
-}
+};
 
 const rankCommand = async () => {
   const flex_text = await util.getRank();
@@ -154,29 +161,6 @@ const viewCommand = async () => {
   return replyFlex(msg);
 };
 
-const resetCommand = () => {
-  if (this.user_session.id !== process.env.DEV_ID) {
-    return invalidCommand();
-  }
-
-  const fs = require("fs");
-  const reset_data = JSON.stringify({});
-
-  let path = "";
-  if (this.args[1] === "user") {
-    path = "/app/.data/user_sessions.json";
-  } else if (this.args[1] === "group") {
-    path = "/app/.data/group_sessions.json";
-  } else {
-    return replyText("/reset user atau group");
-  }
-
-  fs.writeFile(path, reset_data, err => {
-    if (err) return replyText("gagal reset");
-    process.exit(1);
-  });
-};
-
 const invalidCommand = () => {
   const text = `💡 Tidak ditemukan perintah '${this.args[0]}'. Cek daftar perintah yang ada di '/cmd'`;
   return replyText(text);
@@ -192,7 +176,7 @@ const aboutCommand = () => {
 };
 
 const commandCommand = () => {
-  let text = "";
+  const flex_texts = [];
   const cmds = [
     "/help : bantuan game",
     "/about : tentang bot",
@@ -203,22 +187,50 @@ const commandCommand = () => {
     "/updates : untuk melihat 10 update terakhir bot",
     "/group : untuk melihat daftar group yang open",
     "/rank : list top 10 pemain",
-    "/me : info data diri sendiri"
+    "/me : info data diri sendiri",
+    "/sync : sinkronisasi data pemain"
   ];
 
+  let flexNeeded = 0;
+  const limit = 8;
+  let cnt = 0;
   cmds.forEach((item, index) => {
-    text += "- " + item;
-    if (index !== cmds.length - 1) {
-      text += "\n";
+    cnt++;
+    if (cnt === limit || index === cmds.length - 1) {
+      flexNeeded++;
+      cnt = 0;
     }
   });
 
-  const flex_text = {
-    headerText: "📚 Daftar Perintah",
-    bodyText: text
-  };
+  let startPoint = 0; //start
+  let limitCheckPoint = 8 > cmds.length ? cmds.length : 8;
 
-  return replyFlex(flex_text);
+  let flex_text = {};
+  for (let i = 0; i < flexNeeded; i++) {
+    flex_text[i] = {
+      headerText: "📚 Daftar Perintah",
+      bodyText: ""
+    };
+
+    for (startPoint; startPoint < limitCheckPoint; startPoint++) {
+      flex_text[i].bodyText += `- ${cmds[startPoint]}\n`;
+
+      if (startPoint === limitCheckPoint - 1 || startPoint === cmds.length - 1) {
+        flex_texts.push(flex_text[i]);
+
+        if (limitCheckPoint < cmds.length) {
+          let spaceLeft = cmds.length - startPoint + 1;
+          let addonLimit = 8 > spaceLeft ? spaceLeft : 8;
+          limitCheckPoint += addonLimit;
+          startPoint++;
+        }
+
+        break;
+      }
+    }
+  }
+
+  return replyFlex(flex_texts);
 };
 
 const helpCommand = () => {

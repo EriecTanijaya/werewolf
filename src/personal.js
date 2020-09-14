@@ -80,8 +80,6 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
     case "/update":
     case "/updates":
       return showUpdatesCommand();
-    case "/reset":
-      return resetCommand();
     case "/run":
       return runCommand();
     case "/forum":
@@ -95,10 +93,16 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
     case "/player":
     case "/pemain":
       return playersCommand();
+    case "/sync":
+      return updateName();
     default:
       return invalidCommand();
   }
 };
+
+const updateName = () => {
+  return replyText("💡 Tidak dapat melakukan sinkronisasi sekarang, lakukan saat tidak berada didalam game");
+}
 
 const playersCommand = () => {
   const players = this.group_session.players;
@@ -127,29 +131,6 @@ const runCommand = () => {
   } catch (err) {
     return replyText(err.message);
   }
-};
-
-const resetCommand = () => {
-  if (this.user_session.id !== process.env.DEV_ID) {
-    return invalidCommand();
-  }
-
-  const fs = require("fs");
-  const reset_data = JSON.stringify({});
-
-  let path = "";
-  if (this.args[1] === "user") {
-    path = "/app/.data/user_sessions.json";
-  } else if (this.args[1] === "group") {
-    path = "/app/.data/group_sessions.json";
-  } else {
-    return replyText("/reset user atau group");
-  }
-
-  fs.writeFile(path, reset_data, err => {
-    if (err) return replyText("gagal reset");
-    process.exit(1);
-  });
 };
 
 const cancelCommand = () => {

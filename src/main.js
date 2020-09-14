@@ -190,9 +190,17 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
       return rankCommand();
     case "/me":
       return meCommand();
+    case "/sync":
+      return updateName();
     default:
       return invalidCommand();
   }
+};
+
+const updateName = async () => {
+  const { displayName } = await client.getProfile(this.user_session.id);
+  const res = await database.updateName(this.user_session.id, displayName);
+  return replyText(res);
 };
 
 const meCommand = async () => {
@@ -4979,7 +4987,8 @@ const commandCommand = () => {
     "/promote : open group dengan memberikan admin group",
     "/group : melihat list group yang open",
     "/rank : list top 10 pemain",
-    "/me : info data diri sendiri"
+    "/me : info data diri sendiri",
+    "/sync : sinkronisasi data pemain"
   ];
 
   let flexNeeded = 0;

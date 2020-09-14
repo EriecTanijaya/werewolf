@@ -77,9 +77,27 @@ const remove = id => {
     });
 };
 
+const updateName = async (id, newName) => {
+  const option = {
+    name: newName
+  };
+
+  return new Promise((resolve, reject) => {
+    userSchema.findOneAndUpdate({ id }, option, (err, doc) => {
+      if (err || !doc) {
+        console.error(err);
+        return resolve("💡 Data kamu gagal di sinkron!");
+      }
+
+      resolve("💡 Data kamu berhasil di sinkron!");
+    });
+  });
+};
+
 module.exports = {
   add,
   update,
   getRank,
-  remove
+  remove,
+  updateName
 };
