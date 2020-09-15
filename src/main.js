@@ -3222,15 +3222,12 @@ const day = () => {
     }
 
     if (item.message) {
-      // cp
-
       const flex_text = {
         headerText: "🌙 Berita Malam ke - " + this.group_session.nightCounter,
         bodyText: item.message
       };
 
-      //pushFlex(item.id, flex_text);
-      //pushText(item.id, item.message);
+      pushFlex(item.id, flex_text);
 
       /// journal , keep this below any special Announcement
 
