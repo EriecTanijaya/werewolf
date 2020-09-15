@@ -50,8 +50,8 @@ setInterval(() => {
 
 const receive = (event, rawArgs) => {
   this.event = event;
-
-  // handle other events
+  
+  // handle other events but let other event message type flow
   const otherEvents = ["follow", "memberJoined", "join", "leave", "memberLeft", "unfollow"];
   if (otherEvents.includes(event.type)) {
     return handleOtherEvent(event);

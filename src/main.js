@@ -37,11 +37,11 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
     if (state !== "idle") {
       if (state !== "new") {
         const players = this.group_session.players;
+
+        if (time === 0) return checkCommand(true);
+
         const index = indexOfPlayer();
-
         if (index === -1) return Promise.resolve(null);
-
-        if (time === 0) return checkCommand();
 
         // reset afk if chat on group
         if (players[index].afkCounter > 0) {
@@ -3804,16 +3804,13 @@ const checkExistsRole = roleName => {
   return false;
 };
 
-const checkCommand = () => {
+const checkCommand = isAuto => {
   const state = this.group_session.state;
   const time = this.group_session.time;
   const name = this.user_session.name;
 
-  if (state !== "idle" && state !== "new") {
-    if (indexOfPlayer() === -1) {
-      let text = "💡 " + name + ", kamu tidak join kedalam game";
-      return replyText(text);
-    }
+  if (!isAuto && indexOfPlayer() === -1) {
+    return replyText(`💡 ${name}, kamu tidak bergabung kedalam game`);
   }
 
   switch (state) {
