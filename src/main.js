@@ -3221,9 +3221,12 @@ const day = () => {
       item.message += "🛏️ Kamu tidak diganggu semalam";
     }
 
+    // cp
+    pushText(item.id, item.message);
+
     /// journal , keep this below any special Announcement
 
-    let journal = {
+    const journal = {
       nightCounter: this.group_session.nightCounter,
       content: item.message.trim()
     };
@@ -3473,11 +3476,6 @@ const randomRoles = () => {
 
   const playersUserId = players.map(p => {
     return p.id;
-  });
-
-  // cp
-  client.multicast(playersUserId, [text_obj]).catch(err => {
-    console.error("error pada multicast", err.originalError.response.data.message);
   });
 
   night();
@@ -5135,6 +5133,28 @@ const indexOfPlayer = () => {
 };
 
 /** message func **/
+
+const pushText = async (userId, texts) => {
+  texts = Array.isArray(texts) ? texts : [texts];
+
+  const sender = {
+    name: "Moderator",
+    iconUrl:
+      "https://cdn.glitch.com/fc7de31a-faeb-4c50-8a38-834ec153f590%2F%E2%80%94Pngtree%E2%80%94microphone%20vector%20icon_3725450.png?v=1587456628843"
+  };
+
+  const msg = texts.map(text => {
+    return {
+      sender,
+      type: "text",
+      text: text.trim()
+    };
+  });
+
+  return await client.pushMessage(userId, msg).catch(err => {
+    console.log("err di pushText di main.js", err.originalError.response.data);
+  });
+};
 
 const replyText = async texts => {
   let state = this.group_session.state;
