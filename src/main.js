@@ -18,6 +18,351 @@ const rawRoles = require("../roles");
 
 const database = require("../database");
 
+const bots = require("../bots");
+
+const accusedWords = [
+  "jahat",
+  "jhat",
+  "mafia",
+  "mapia",
+  "bersalah",
+  "salah",
+  "vote",
+  "consort",
+  "gf",
+  "consig",
+  "mafioso",
+  "vampire",
+  "vampir",
+  "pampir"
+];
+
+const infoWords = ["info", "inpo", "infoo", "info?", "infoo?"];
+
+const evilTeams = [
+  "mafia",
+  "executioner",
+  "jester",
+  "vampire",
+  "serial-killer",
+  "arsonist",
+  "werewolf",
+  "juggernaut",
+  "plaguebearer"
+];
+
+const framedWords = ["framer", "jester"];
+
+const dousedWords = ["arso", "arsonist", "arsonis"];
+
+const botGetAccusedRole = () => {
+  const evilRoles = [
+    "godfather",
+    "mafioso",
+    "disguiser",
+    "framer",
+    "consort",
+    "consigliere",
+    "executioner",
+    "jester",
+    "vampire",
+    "serial-killer",
+    "arsonist",
+    "werewolf",
+    "juggernaut",
+    "plaguebearer"
+  ];
+  return util.random(evilRoles);
+};
+
+const botTellFakeInfo = bot => {
+  const players = this.group_session.players;
+  const justDead = this.group_session.justDead;
+
+  if (bot.claimedRole.name !== "") {
+    const path = "bot_" + bot.claimedRole.name;
+    const needDeadProof = ["lookout", "tracker"];
+
+    if (needDeadProof.includes(bot.claimedRole.name) && justDead.length === 0) {
+      return;
+    }
+
+    if (!bots[path]) return;
+
+    const botTargetIndex = bot.claimedRole.targetIndex;
+    if (players[botTargetIndex].status === "death") {
+      const newTargetIndex = botGetTargetIndex(bot);
+
+      for (let i = 0; i < this.group_session.players.length; i++) {
+        if (bot.id === this.group_session.players[i].id) {
+          this.group_session.players[i].claimedRole.targetIndex = newTargetIndex;
+          if (this.group_session.players[i].claimedRole.name === "investigator") {
+            this.group_session.players[i].claimedRole.accusedRole = botGetAccusedRole();
+          }
+        }
+      }
+    }
+
+    const res = bots[path](players, justDead, bot);
+    return replyText(res, bot);
+  }
+
+  const availableRoles = ["investigator", "sheriff"];
+  if (justDead.length > 0) {
+    availableRoles.push("lookout", "tracker");
+  }
+
+  const randomRole = util.random(availableRoles);
+  let targetIndex = -1;
+
+  if (bot.role.name === "executioner") {
+    targetIndex = bot.role.targetLynchIndex;
+  } else {
+    targetIndex = botGetTargetIndex(bot);
+  }
+
+  for (let i = 0; i < this.group_session.players.length; i++) {
+    if (bot.id === this.group_session.players[i].id) {
+      this.group_session.players[i].claimedRole.name = randomRole;
+      this.group_session.players[i].claimedRole.targetIndex = targetIndex;
+
+      if (randomRole === "investigator") {
+        this.group_session.players[i].claimedRole.accusedRole = botGetAccusedRole();
+      }
+
+      const path = "bot_" + randomRole;
+      const res = bots[path](players, justDead, this.group_session.players[i]);
+      return replyText(res, bot);
+    }
+  }
+};
+
+const botGetTargetIndex = bot => {
+  const alivePlayersIndex = this.group_session.players
+    .map((item, index) => {
+      if (item.status === "alive" && item.id !== bot.id) {
+        if (bot.role.team === "mafia" || bot.role.team === "vampire") {
+          if (bot.role.team !== item.role.team) {
+            return index;
+          }
+        } else {
+          return index;
+        }
+      }
+    })
+    .filter(item => {
+      return item !== undefined;
+    });
+
+  return util.random(alivePlayersIndex);
+};
+
+const botTellFakeRole = bot => {
+  const players = this.group_session.players;
+
+  if (bot.claimedRole.name !== "") {
+    const justDead = this.group_session.justDead;
+    const path = "bot_" + bot.claimedRole.name;
+    const needDeadProof = ["lookout", "tracker"];
+
+    if (needDeadProof.includes(bot.claimedRole.name) && justDead.length === 0) {
+      return;
+    }
+
+    if (!bots[path]) {
+      const text = `Role ku ${bot.claimedRole.name}`;
+      return replyText(text, bot);
+    }
+
+    const botTargetIndex = bot.claimedRole.targetIndex;
+    if (players[botTargetIndex].status === "death") {
+      const newTargetIndex = botGetTargetIndex(bot);
+      bot.claimedRole.targetIndex = newTargetIndex;
+
+      if (bot.claimedRole.name === "investigator") {
+        bot.claimedRole.accusedRole = botGetAccusedRole();
+      }
+    }
+
+    const res = bots[path](players, justDead, bot);
+    return replyText(res, bot);
+  }
+
+  const fakeRoles = ["amnesiac", "survivor", "jester", "guardian-angel", "veteran", "retributionist", "doctor"];
+
+  const randomRole = util.random(fakeRoles);
+
+  return replyText(`Role ku ${randomRole}`, bot);
+};
+
+const botTellInfo = () => {
+  const players = this.group_session.players;
+  const botNames = util.getFakeData(14).map(item => {
+    return item.name;
+  });
+
+  let bots = this.group_session.players
+    .map(item => {
+      if (botNames.includes(item.name) && item.status === "alive") {
+        return {
+          id: item.id,
+          name: item.name,
+          role: item.role,
+          targetIndex: item.target.index,
+          skillResult: item.skillResult,
+          claimedRole: item.claimedRole
+        };
+      }
+    })
+    .filter(item => {
+      return item !== undefined;
+    });
+
+  const infoTeller = ["investigator", "lookout", "psychic", "sheriff", "spy", "tracker", "consigliere"];
+
+  bots = util.shuffleArray(bots);
+
+  const who = util.random(["scam", "truth"]);
+
+  for (let i = 0; i < bots.length; i++) {
+    if (who === "truth") {
+      if (infoTeller.includes(bots[i].role.name)) {
+        if (!bots[i].skillResult) continue;
+
+        if (bots[i].role.name === "consigliere") {
+          const targetName = players[bots[i].targetIndex].name;
+          const investResult = util.getInvestigatorResult(players[bots[i].targetIndex].role.name);
+          return replyText(`Cek ${targetName}\n${investResult}`, bots[i]);
+        }
+
+        return replyText(bots[i].skillResult, bots[i]);
+      }
+    } else {
+      if (evilTeams.includes(bots[i].role.team)) {
+        return botTellFakeInfo(bots[i]);
+      }
+    }
+  }
+};
+
+const botSpeakAction = botName => {
+  const players = this.group_session.players;
+
+  for (let i = 0; i < players.length; i++) {
+    if (players[i].name.toLowerCase() === botName) {
+      const bot = players[i];
+
+      for (let j = 0; j < this.args.length; j++) {
+        const input = this.args[j].toLowerCase();
+        if (accusedWords.includes(input)) {
+          if (evilTeams.includes(bot.role.team)) {
+            const randomActions = ["deny", "fake_role"];
+            switch (util.random(randomActions)) {
+              case "deny":
+                return justDeny(bot);
+              case "fake_role":
+                return botTellFakeRole(bot);
+            }
+          } else if (bot.role.name === "guardian-angel") {
+            const targetName = players[bot.role.mustProtectIndex].name;
+            return replyText(`Role ku guardian angel, targetku ${targetName}`, bot);
+          } else {
+            return innocentRespond(bot);
+          }
+        }
+
+        if (framedWords.includes(input)) {
+          return replyText(`Aku bukan ${input}, aku di frame nih`, bot);
+        }
+
+        if (dousedWords.includes(input)) {
+          return replyText(`Aku bukan ${input}, aku di sirami bensin`, bot);
+        }
+      }
+    }
+  }
+};
+
+const justDeny = bot => {
+  const denies = [
+    "Aku aman",
+    "Aku bukan orang jahat",
+    "Aku baik",
+    "Role ku penting",
+    "Role ku sangat penting",
+    "Jangan micin, aku role baik",
+    `Role ku bukan ${bot.role.name}`,
+    `Aku bukan ${bot.role.team}`
+  ];
+  return replyText(util.random(denies), bot);
+};
+
+const innocentRespond = bot => {
+  const inno = [
+    "Aku aman",
+    "Aku bukan orang jahat",
+    "Aku baik",
+    "Role ku penting",
+    "Role ku sangat penting",
+    "Jangan micin, aku role baik",
+    `Aku ${bot.role.team}`,
+    `Role ku ${bot.role.name}`
+  ];
+  return replyText(util.random(inno), bot);
+};
+
+const botVoteAction = () => {
+  const botNames = util.getFakeData(14).map(item => {
+    return item.name;
+  });
+  const candidates = getVoteCandidates();
+  let voteTarget = util.getMostFrequent(candidates);
+
+  this.group_session.players.forEach((item, index) => {
+    if (botNames.includes(item.name)) {
+      let targetNone = false;
+
+      if (item.claimedRole.targetIndex !== -1) {
+        if (this.group_session.players[item.claimedRole.targetIndex].status === "death") {
+          targetNone = true;
+        } else {
+          item.targetVoteIndex = item.claimedRole.targetIndex;
+        }
+      } else {
+        targetNone = true;
+      }
+
+      if (targetNone) {
+        const what = util.random(["mayoritas", "skip", "random"]);
+
+        if (what === "mayoritas") {
+          if (voteTarget.index !== undefined && voteTarget.index != index) {
+            item.targetVoteIndex = voteTarget.index;
+          }
+        } else if (what === "random") {
+          const alivePlayerIndex = this.group_session.players
+            .map((p, idx) => {
+              if (p.status === "alive") {
+                if (item.role.team === "mafia" || item.role.team === "vampire") {
+                  if (item.role.team !== p.role.team) {
+                    return idx;
+                  }
+                } else {
+                  return idx;
+                }
+              }
+            })
+            .filter(item => {
+              return item !== undefined;
+            });
+
+          item.targetVoteIndex = util.random(alivePlayerIndex);
+        }
+      }
+    }
+  });
+};
+
 const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
   this.event = event;
   this.args = args;
@@ -48,7 +393,52 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
           this.group_session.players[index].afkCounter = 0;
         }
 
+        // parse bot speak action
+        const botNames = util.getFakeData(14).map(item => {
+          return item.name.toLowerCase();
+        });
+
+        for (let i = 0; i < args.length; i++) {
+          for (let u = 0; u < botNames.length; u++) {
+            if (botNames[u] === args[i].toLowerCase()) {
+              return botSpeakAction(botNames[u]);
+            }
+          }
+        }
+
         if (state === "day" || state === "vote") {
+          for (let i = 0; i < args.length; i++) {
+            if (infoWords.includes(args[i].toLowerCase())) {
+              return botTellInfo();
+            }
+          }
+
+          if (rawArgs.toLowerCase() === "siapa mayor") {
+            const reveal = util.random([false, false, false, true, false]);
+            if (reveal) {
+              for (let i = 0; i < players.length; i++) {
+                const name = players[i].name.toLowerCase();
+                const roleName = players[i].role.name;
+                const status = players[i].status;
+
+                if (botNames.includes(name) && roleName === "mayor" && status === "alive") {
+                  if (!players[i].role.revealed) {
+                    this.group_session.players[i].role.revealed = true;
+                    let text = "🎩 " + players[i].name;
+                    text += " telah mengungkapkan dirinya sebagai Mayor!";
+
+                    let flex_text = {
+                      headerText: "📜 Info",
+                      bodyText: text
+                    };
+
+                    return replyFlex(flex_text);
+                  }
+                }
+              }
+            }
+          }
+
           let roleName = players[index].role.name;
 
           // special role yang bisa trigger lewat text biasa
@@ -192,9 +582,47 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
       return meCommand();
     case "/sync":
       return updateName();
+    case "/addbot":
+      return addBotCommand();
     default:
       return invalidCommand();
   }
+};
+
+const addBotCommand = () => {
+  if (this.group_session.state !== "new") {
+    let text = "";
+    if (this.group_session.state === "idle") {
+      text += "💡 Belum ada game yang dibuat, ketik '/new'";
+    } else {
+      text += "💡 Bot tidak dapat menambah pemain jika game sudah dimulai";
+    }
+    return replyText(text);
+  }
+
+  const playersCount = this.group_session.players.length;
+
+  if (playersCount === 15) {
+    return replyText("💡 Room game sudah full!");
+  }
+
+  let quantity = this.args[1] || 1;
+
+  if (isNaN(quantity)) quantity = 1;
+
+  const totalPlayers = playersCount + parseInt(quantity);
+
+  if (totalPlayers > 15) {
+    quantity = totalPlayers - 15;
+  }
+
+  const dummies = util.getFakeData(quantity);
+  dummies.forEach(item => {
+    const newPlayer = createNewPlayer(item);
+    this.group_session.players.push(newPlayer);
+  });
+
+  return replyText(`💡 ${quantity} bot berhasil ditambahkan!`);
 };
 
 const updateName = async () => {
@@ -403,7 +831,7 @@ const day = () => {
           vampireChosenTarget = {
             index: vampireCandidates[0]
           };
-          vampireAnnouncement += "Para Vampire memiliki target yang berbeda, sehingga random pilih" + "\n";
+          vampireAnnouncement += "🦇 Para Vampire memiliki target yang berbeda, sehingga random pilih" + "\n\n";
         }
       }
 
@@ -493,7 +921,7 @@ const day = () => {
             mafiaChosenTarget = {
               index: mafiaCandidates[0]
             };
-            mafiaAnnouncement += "Para Mafia memiliki target yang berbeda, sehingga random pilih" + "\n";
+            mafiaAnnouncement += "🤵 Para Mafia memiliki target yang berbeda, sehingga random pilih" + "\n\n";
           }
         }
 
@@ -1231,7 +1659,7 @@ const day = () => {
     const doer = players[i];
 
     if (doer.status === "alive" && doer.target.index !== -1) {
-      if (parseInt(doer.target.index) !== parseInt(i)) {
+      if (doer.target.index != i) {
         const targetIndex = doer.target.index;
         const target = players[targetIndex];
 
@@ -2526,14 +2954,17 @@ const day = () => {
     if (doer.blocked) continue;
 
     if (doer.role.name === "psychic" && doer.status === "alive") {
-      let isFullMoon = this.group_session.isFullMoon;
-      let psychicResult = util.getPsychicResult(players, i, isFullMoon);
+      const isFullMoon = this.group_session.isFullMoon;
+      const psychicResult = util.getPsychicResult(players, i, isFullMoon);
 
-      this.group_session.players[i].message += psychicResult + "\n\n";
+      this.group_session.players[i].message += "🔮 " + psychicResult + "\n\n";
+
+      this.group_session.players[i].skillResult = psychicResult;
     }
   }
 
   /// Death Action II
+  const nonVisitDead = ["veteran", "jester", "arsonist"];
   for (let i = 0; i < players.length; i++) {
     if (players[i].status === "will_death") {
       let attackedAnnouncement = "";
@@ -2567,8 +2998,8 @@ const day = () => {
         });
       }
 
-      for (let i = 0; i < attackersIndex.length; i++) {
-        const attackerIndex = attackersIndex[i];
+      for (let j = 0; j < attackersIndex.length; j++) {
+        const attackerIndex = attackersIndex[j];
         if (players[attackerIndex].role.name === "juggernaut") {
           this.group_session.players[attackerIndex].role.skillLevel++;
 
@@ -2593,6 +3024,10 @@ const day = () => {
           }
 
           this.group_session.players[attackerIndex].addonMessage = text;
+        }
+
+        if (!nonVisitDead.includes(players[attackerIndex].role.name)) {
+          this.group_session.justDead.push(players[i].name);
         }
       }
 
@@ -2861,9 +3296,16 @@ const day = () => {
 
       if (target.framed || suspiciousList.includes(target.role.name)) {
         this.group_session.players[i].message += "👮 " + target.name + " mencurigakan" + "\n\n";
+
+        this.group_session.players[i].skillResult = target.name + " mencurigakan";
+
+        this.group_session.players[i].claimedRole.targetIndex = targetIndex;
       } else {
         this.group_session.players[i].message +=
           "👮 Kamu tidak menemukan bukti kesalahan target. Tampaknya " + target.name + " tidak bersalah" + "\n\n";
+
+        this.group_session.players[i].skillResult =
+          "Kamu tidak menemukan bukti kesalahan target. Tampaknya " + target.name + " tidak bersalah";
       }
     }
   }
@@ -2908,7 +3350,9 @@ const day = () => {
 
       const guessResult = util.getInvestigatorResult(targetRoleName);
 
-      this.group_session.players[i].message += guessResult + "\n\n";
+      this.group_session.players[i].message += "🕵️ " + guessResult + "\n\n";
+
+      this.group_session.players[i].skillResult = `Cek ${target.name}\n${guessResult}`;
     }
   }
 
@@ -2956,6 +3400,7 @@ const day = () => {
     if (doer.role.name === "spy" && doer.status === "alive") {
       if (!doer.blocked) {
         this.group_session.players[i].message += spyMafiaVisitInfo;
+        this.group_session.players[i].skillResult = spyMafiaVisitInfo + "\n\n";
       }
 
       if (doer.target.index === -1) continue;
@@ -2977,8 +3422,12 @@ const day = () => {
 
       if (spyBuggedInfo[targetIndex]) {
         this.group_session.players[i].message += spyBuggedInfo[targetIndex];
+
+        this.group_session.players[i].skillResult += `Sadap ${target.name}\n${spyBuggedInfo[targetIndex].trim()}`;
       } else {
         this.group_session.players[i].message += "🔍 " + target.name + " tidak terkena apa apa" + "\n\n";
+
+        this.group_session.players[i].skillResult = "🔍 " + target.name + " tidak terkena apa apa";
       }
     }
   }
@@ -3040,10 +3489,16 @@ const day = () => {
 
         this.group_session.players[i].message +=
           "👀 Rumah " + players[targetIndex].name + " dikunjungi " + targetVisitors + " semalam" + "\n\n";
+
+        this.group_session.players[i].skillResult =
+          "Rumah " + players[targetIndex].name + " dikunjungi " + targetVisitors + " semalam";
       } else {
         // pasti ada 1 visitor, yaitu lookout sndiri
         this.group_session.players[i].message +=
           "👀 Rumah " + players[targetIndex].name + " tidak didatangi siapa siapa" + "\n\n";
+
+        this.group_session.players[i].skillResult =
+          "Rumah " + players[targetIndex].name + " tidak didatangi siapa siapa";
       }
     }
   }
@@ -3076,9 +3531,13 @@ const day = () => {
 
         if (stayHome) {
           this.group_session.players[i].message += stayAtHome;
+
+          this.group_session.players[i].skillResult = `${target.name} diam di rumah saja`;
         } else {
           const targetTargetName = players[target.target.index].name;
           this.group_session.players[i].message += `👣 Target mu ke rumah ${targetTargetName}\n\n`;
+
+          this.group_session.players[i].skillResult = `${target.name} ke rumah ${targetTargetName}`;
         }
       }
     }
@@ -3227,6 +3686,7 @@ const day = () => {
         bodyText: item.message
       };
 
+      // cp
       pushFlex(item.id, flex_text);
 
       /// journal , keep this below any special Announcement
@@ -3469,21 +3929,6 @@ const randomRoles = () => {
     this.group_session.villagerCode = getVillagerCode();
   }
 
-  // kasih tau kalo game dh mulai
-
-  let text = "🔔 Hai! Game nya sudah dimulai ya!" + "\n\n";
-  text += "Ketik '/role' untuk melihat rolemu, ";
-  text += "ketik '/info <nama-role>' untuk info role!";
-
-  const text_obj = {
-    type: "text",
-    text
-  };
-
-  const playersUserId = players.map(p => {
-    return p.id;
-  });
-
   night();
 };
 
@@ -3576,6 +4021,8 @@ const night = () => {
     this.group_session.isFullMoon = false;
   }
 
+  this.group_session.justDead = [];
+
   /// special role chat
   this.group_session.mafiaChat = [];
   this.group_session.vampireChat = [];
@@ -3587,6 +4034,7 @@ const night = () => {
     item.message = "";
     item.blocked = false;
     item.target = { index: -1, value: 1 };
+    item.skillResult = "";
 
     // only alive player
     if (item.status === "alive") {
@@ -3677,6 +4125,16 @@ const night = () => {
       }
     }
   }
+
+  const botNames = util.getFakeData(14).map(item => {
+    return item.name;
+  });
+
+  this.group_session.players.forEach((item, index) => {
+    if (botNames.includes(item.name)) {
+      rawRoles[item.role.name].botSkillAction(util, this.group_session, index);
+    }
+  });
 
   announcement += "⏳ Warga diberi waktu ";
   announcement += this.group_session.time_default + " detik ";
@@ -4387,6 +4845,8 @@ const autoVote = () => {
     bodyText: ""
   };
 
+  botVoteAction();
+
   this.group_session.players.forEach(item => {
     if (item.status === "alive") {
       if (item.targetVoteIndex === -1) {
@@ -4950,15 +5410,6 @@ const newCommand = () => {
 
   database.add(this.user_session);
 
-  if (process.env.TEST === "true") {
-    // cp
-    const dummies = util.getFakeData(4);
-    dummies.forEach(item => {
-      const newPlayer = createNewPlayer(item);
-      this.group_session.players.push(newPlayer);
-    });
-  }
-
   const text = respond.join(this.user_session.name);
   return replyFlex(flex_text, [text, remindText]);
 };
@@ -4996,7 +5447,8 @@ const commandCommand = () => {
     "/group : melihat list group yang open",
     "/rank : list top 10 pemain",
     "/me : info data diri sendiri",
-    "/sync : sinkronisasi data pemain"
+    "/sync : sinkronisasi data pemain",
+    "/addbot : nambahin bot kedalam game"
   ];
 
   let flexNeeded = 0;
@@ -5067,7 +5519,7 @@ const aboutCommand = () => {
 };
 
 const personalCommand = () => {
-  const text = `💡 ${this.user_session.name}, commad ${this.args[0]} hanya boleh dilakukan di pc bot`;
+  const text = `💡 ${this.user_session.name}, command ${this.args[0]} hanya boleh dilakukan di pc bot`;
   return replyText(text);
 };
 
@@ -5121,7 +5573,13 @@ const createNewPlayer = user_session => {
     doused: false,
     burned: false,
     infected: false,
-    justInfected: false
+    justInfected: false,
+    skillResult: "",
+    claimedRole: {
+      name: "",
+      targetIndex: -1,
+      accusedRole: ""
+    }
   };
   return newPlayer;
 };
@@ -5151,29 +5609,7 @@ const pushFlex = async (userId, flex_raw) => {
   });
 };
 
-const pushText = async (userId, texts) => {
-  texts = Array.isArray(texts) ? texts : [texts];
-
-  const sender = {
-    name: "Moderator",
-    iconUrl:
-      "https://cdn.glitch.com/fc7de31a-faeb-4c50-8a38-834ec153f590%2F%E2%80%94Pngtree%E2%80%94microphone%20vector%20icon_3725450.png?v=1587456628843"
-  };
-
-  const msg = texts.map(text => {
-    return {
-      sender,
-      type: "text",
-      text: text.trim()
-    };
-  });
-
-  return await client.pushMessage(userId, msg).catch(err => {
-    console.log("err di pushText di main.js", err.originalError.response.data);
-  });
-};
-
-const replyText = async texts => {
+const replyText = async (texts, bot) => {
   let state = this.group_session.state;
   texts = Array.isArray(texts) ? texts : [texts];
 
@@ -5187,6 +5623,13 @@ const replyText = async texts => {
     };
   } else {
     sender = util.getSender();
+  }
+
+  if (bot) {
+    sender = {
+      name: bot.name,
+      iconUrl: util.getFakeData(null, bot.id).imageLink
+    };
   }
 
   let msg = texts.map(text => {

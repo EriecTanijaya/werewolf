@@ -70,7 +70,7 @@ const remove = id => {
   userSchema
     .deleteOne({ id })
     .then(res => {
-      console.log(`ada yang unfollow, ${res}`);
+      console.log(`ada yang unfollow, ${JSON.stringify(res)}`);
     })
     .catch(err => {
       console.error(err);

@@ -1,6 +1,7 @@
 const client = require("./src/client");
 const roles = require("./roles");
 const database = require("./database");
+const rawRoles = require("./roles");
 
 const getUpdates = () => {
   // show last 10 updates
@@ -370,7 +371,7 @@ const shuffleArray = array => {
 };
 
 const getPsychicResult = (players, psychicIndex, isFullMoon) => {
-  let text = "🔮 ";
+  let text = "";
 
   const goodTeamList = ["villager", "guardian-angel", "amnesiac", "survivor"];
   let allAlivePlayers = [];
@@ -451,7 +452,22 @@ const getPsychicResult = (players, psychicIndex, isFullMoon) => {
 };
 
 const getInvestigatorResult = roleName => {
-  let text = "🕵️ ";
+  let text = "";
+  const pairList = getInvestigatorPairList(roleName);
+
+  text += pairList.desc + " Targetmu bisa jadi adalah ";
+  pairList.items.forEach((item, index) => {
+    text += item;
+    if (index == pairList.items.length - 2) {
+      text += " atau ";
+    } else if (index != pairList.items.length - 1) {
+      text += ", ";
+    }
+  });
+  return text;
+};
+
+const getInvestigatorPairList = roleName => {
   const pairList = [
     {
       desc: "Targetmu memiliki senjata!",
@@ -503,16 +519,7 @@ const getInvestigatorResult = roleName => {
   for (let i = 0; i < pairList.length; i++) {
     for (let u = 0; u < pairList[i].items.length; u++) {
       if (roleName === pairList[i].items[u]) {
-        text += pairList[i].desc + " Targetmu bisa jadi adalah ";
-        pairList[i].items.forEach((item, index) => {
-          text += item;
-          if (index == pairList[i].items.length - 2) {
-            text += " atau ";
-          } else if (index != pairList[i].items.length - 1) {
-            text += ", ";
-          }
-        });
-        return text;
+        return pairList[i];
       }
     }
   }
@@ -538,65 +545,94 @@ const parseToText = arr => {
   return text;
 };
 
-const getFakeData = (length = 4) => {
-  const raw = [
+const getFakeData = (length = 4, botId) => {
+  let raw = [
     {
       userId: "121212",
-      name: "Jenny"
+      name: "Spongebob",
+      imageLink: "https://nickelodeonuniverse.com/wp-content/uploads/Spongebob.png"
     },
     {
       userId: "408040",
-      name: "Lala"
+      name: "Patrick",
+      imageLink: "https://nickelodeonuniverse.com/wp-content/uploads/Patrick.png"
     },
     {
       userId: "969696",
-      name: "Ron"
+      name: "Mr. Krabs",
+      imageLink: "https://nickelodeonuniverse.com/wp-content/uploads/Mr.Krabs_.png"
     },
     {
       userId: "555555",
-      name: "Karen"
+      name: "Squidward",
+      imageLink: "https://nickelodeonuniverse.com/wp-content/uploads/Squidward.png"
     },
     {
       userId: "789878",
-      name: "Fongteng"
+      name: "Sandy",
+      imageLink: "https://nickelodeonuniverse.com/wp-content/uploads/Sandy.png"
     },
     {
       userId: "201220",
-      name: "Nasa"
+      name: "Mrs. Puff",
+      imageLink: "https://nickelodeonuniverse.com/wp-content/uploads/Mrs.Puff_.png"
     },
     {
       userId: "794821",
-      name: "Tukiman"
+      name: "Rudy Tabootie",
+      imageLink:
+        "https://vignette.wikia.nocookie.net/chalkzone/images/c/ca/Rudy-Tabootie-Looking-Happy-iyt519.png/revision/latest/scale-to-width-down/200?cb=20200415224304"
     },
     {
       userId: "326542",
-      name: "Mumu"
+      name: "Snap",
+      imageLink:
+        "https://vignette.wikia.nocookie.net/chalkzone/images/8/82/SNAP_2.png/revision/latest/scale-to-width-down/310?cb=20200906162313"
     },
     {
       userId: "359745",
-      name: "Ken"
+      name: "George",
+      imageLink:
+        "https://cms-tc.pbskids.org/global/show-icons/square-transparent/curious-george.png?mtime=20160720102031"
     },
     {
       userId: "7895135",
-      name: "Jon"
+      name: "Naruto",
+      imageLink:
+        "https://vignette.wikia.nocookie.net/naruto/images/0/09/Naruto_newshot.png/revision/latest/scale-to-width-down/340?cb=20170621101134"
     },
     {
       userId: "5659898",
-      name: "Bob"
+      name: "Sasuke",
+      imageLink:
+        "https://vignette.wikia.nocookie.net/naruto/images/2/21/Sasuke_Part_1.png/revision/latest/scale-to-width-down/340?cb=20170716092103"
     },
     {
       userId: "7871265",
-      name: "Sully"
+      name: "Itachi",
+      imageLink: "https://vignette.wikia.nocookie.net/naruto/images/b/bb/Itachi.png/revision/latest?cb=20160125182202"
     },
     {
       userId: "9615753",
-      name: "Narto"
+      name: "Aang",
+      imageLink: "https://upload.wikimedia.org/wikipedia/id/d/d5/Aang_.jpg"
     },
     {
       userId: "357159",
-      name: "Farah"
+      name: "Toph",
+      imageLink:
+        "https://vignette.wikia.nocookie.net/avatar/images/4/46/Toph_Beifong.png/revision/latest/smart/width/400/height/225?cb=20131230122047"
     }
   ];
+  raw = shuffleArray(raw);
+
+  if (botId) {
+    for (let i = 0; i < raw.length; i++) {
+      if (raw[i].userId === botId) {
+        return raw[i];
+      }
+    }
+  }
 
   const data = raw.map(item => {
     const obj = {
@@ -738,6 +774,20 @@ const getPlayersList = (players, state) => {
   return flex_text;
 };
 
+const isDisguiseAsTownie = player => {
+  if (player.role.name === "disguiser" && player.role.disguiseAs) {
+    const rolesData = Object.keys(rawRoles);
+    for (let i = 0; i < rolesData.length; i++) {
+      if (player.role.disguiseAs === rolesData[i]) {
+        const { team } = rawRoles[rolesData[i]].getData();
+        if (team === "villager") return true;
+        return false;
+      }
+    }
+  }
+  return false;
+};
+
 module.exports = {
   leaveGroup,
   random,
@@ -762,5 +812,6 @@ module.exports = {
   getPromotedGroup,
   getRank,
   getSelfData,
-  getPlayersList
+  getPlayersList,
+  isDisguiseAsTownie
 };

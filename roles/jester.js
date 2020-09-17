@@ -26,7 +26,12 @@ const getInfo = () => {
   return text;
 };
 
+const botSkillAction = () => {
+  return;
+};
+
 module.exports = {
   getData,
-  getInfo
+  getInfo,
+  botSkillAction
 };

@@ -21,7 +21,25 @@ const getInfo = () => {
   return text;
 };
 
+const botSkillAction = (util, group_session, botIndex) => {
+  const players = group_session.players;
+  let targets = players
+    .map((item, index) => {
+      if (item.id !== players[botIndex].id && item.status === "alive") {
+        return index;
+      }
+    })
+    .filter(item => {
+      return item !== undefined;
+    });
+
+  targets = util.shuffleArray(targets);
+
+  group_session.players[botIndex].target.index = targets[0];
+};
+
 module.exports = {
   getData,
-  getInfo
+  getInfo,
+  botSkillAction
 };
