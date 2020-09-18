@@ -8,7 +8,7 @@ const roles = require("../roles");
 const modes = require("../modes");
 const types = require("../types");
 const addonInfo = require("../addonInfo");
-console.log(Object.keys(addonInfo));
+
 const receive = (event, args, rawArgs, groupState = null) => {
   this.event = event;
   this.rawArgs = rawArgs.trim();

@@ -21,7 +21,7 @@ module.exports = {
   bot: {
     headerText: "🤖 Bots",
     bodyText:
-      "Pemain yang bisa mengisi suatu game. Bot bisa menggunakan skill dan vote, tapi masih bodoh. Bot menggunakan skill secara random. Guide nya bisa di cek di '/info note bot'"
+      "Pemain yang bisa mengisi suatu game. Bot bisa menggunakan skill dan vote, tetapi kebanyakan random. Cara nambah bot ke room '/addbot <jumlah-bot>'. Guide nya bisa di cek di '/info note bot'"
   },
   "note-bot": {
     headerText: "🤖 Note Bots",

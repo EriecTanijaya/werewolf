@@ -675,26 +675,30 @@ const addBotCommand = () => {
     quantity = totalPlayers - 15;
   }
 
-  const dummies = util.getFakeData(quantity);
+  const dummies = util.getFakeData(14);
 
   const currentPlayersId = this.group_session.players.map(item => {
     return item.id;
   });
 
-  dummies.forEach(item => {
-    if (!currentPlayersId.includes(item.id)) {
-      const newPlayer = createNewPlayer(item);
+  let cnt = 0;
+  for (let i = 0; i < dummies.length; i++) {
+    if (cnt == quantity) break;
+
+    if (!currentPlayersId.includes(dummies[i].id)) {
+      const newPlayer = createNewPlayer(dummies[i]);
       this.group_session.players.push(newPlayer);
+      cnt++;
     }
-  });
+  }
 
   const wasHasBot = this.group_session.hasBot;
   this.group_session.hasBot = true;
 
-  let text = `💡 ${quantity} bot berhasil ditambahkan!`;
+  let text = `🤖 ${quantity} bot berhasil ditambahkan!`;
 
   if (!wasHasBot) {
-    text += " Dikarenakan ada bot, maka hasil game tidak akan berpengaruh dengan winrate pemain asli";
+    text += "\n\n" + "💡 Dikarenakan ada bot, maka hasil game tidak akan berpengaruh dengan winrate pemain asli";
   }
 
   return replyText(text);
