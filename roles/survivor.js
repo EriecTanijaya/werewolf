@@ -24,7 +24,20 @@ const getInfo = () => {
   return text;
 };
 
+const botSkillAction = (util, group_session, botIndex) => {
+  if (group_session.players[botIndex].role.vest === 0) {
+    return;
+  }
+
+  const what = util.random(["self", "nah"]);
+
+  if (what === "nah") return;
+
+  group_session.players[botIndex].target.index = botIndex;
+};
+
 module.exports = {
   getData,
-  getInfo
+  getInfo,
+  botSkillAction
 };

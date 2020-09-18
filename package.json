@@ -1,6 +1,6 @@
 {
   "name": "werewolf",
-  "version": "1.4.1",
+  "version": "1.5.0",
   "description": "Bot Werewolf untuk line messenger",
   "main": "server.js",
   "scripts": {
@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@line/bot-sdk": "^7.0.0",
-    "eslint": "^7.8.1",
+    "eslint": "^7.9.0",
     "express": "^4.17.1",
     "mongoose": "^5.10.5"
   },

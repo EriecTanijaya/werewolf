@@ -25,7 +25,32 @@ const getInfo = () => {
   return text;
 };
 
+const botSkillAction = (util, group_session, botIndex) => {
+  const isFullMoon = group_session.isFullMoon;
+
+  if (!isFullMoon) {
+    return;
+  }
+
+  const players = this.group_session.players;
+
+  let targets = players
+    .map((item, index) => {
+      if (item.status === "alive") {
+        return index;
+      }
+    })
+    .filter(item => {
+      return item !== undefined;
+    });
+
+  targets = util.shuffleArray(targets);
+
+  group_session.players[botIndex].target.index = targets[0];
+};
+
 module.exports = {
   getData,
-  getInfo
+  getInfo,
+  botSkillAction
 };

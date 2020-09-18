@@ -32,7 +32,20 @@ const getInfo = () => {
   return text;
 };
 
+const botSkillAction = (util, group_session, botIndex) => {
+  const protection = group_session.players[botIndex].role.protection;
+  if (protection === 0) return;
+
+  const what = util.random(["protect", "nah"]);
+
+  if (what === "protect") {
+    const mustProtectIndex = group_session.players[botIndex].role.mustProtectIndex;
+    group_session.players[botIndex].target.index = mustProtectIndex;
+  }
+};
+
 module.exports = {
   getData,
-  getInfo
+  getInfo,
+  botSkillAction
 };

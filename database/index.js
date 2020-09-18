@@ -9,8 +9,10 @@ const add = data => {
   });
 };
 
-const update = (id, status, gameMode) => {
-  if (gameMode === "custom") return;
+const update = (id, status, group_session) => {
+  if (group_session.mode === "custom") return;
+
+  if (group_session.hasBot) return;
 
   const toIncrease = { $inc: {} };
   toIncrease.$inc[status] = 1;
@@ -70,7 +72,7 @@ const remove = id => {
   userSchema
     .deleteOne({ id })
     .then(res => {
-      console.log(`ada yang unfollow, ${res}`);
+      console.log(`ada yang unfollow, ${JSON.stringify(res)}`);
     })
     .catch(err => {
       console.error(err);

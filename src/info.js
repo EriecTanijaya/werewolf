@@ -28,6 +28,8 @@ const receive = (event, args, rawArgs, groupState = null) => {
     return modeListCommand();
   } else if (input === "type") {
     return typeListCommand();
+  } else if (input === "lain") {
+    return addonInfoCommand();
   }
 
   if (this.args[2]) {
@@ -127,6 +129,15 @@ const roleListCommand = () => {
   return replyFlex(flex_text);
 };
 
+const addonInfoCommand = () => {
+  const addonInfoList = Object.keys(addonInfo);
+  const flex_text = {
+    headerText: "📜 Addon Info",
+    bodyText: addonInfoList.join(", ")
+  };
+  return replyFlex(flex_text);
+};
+
 const invalidCommand = () => {
   let text = `💡 Tidak ditemukan '${this.args[1]}', apakah itu role, mode atau types? `;
   text += "Cek '/info' untuk detail nya";
@@ -142,7 +153,8 @@ const commandCommand = () => {
     "/info mode : list mode yang ada",
     "/info <nama-role> : deskripsi role tersebut",
     "/info <nama-type> : deskripsi role tersebut",
-    "/info mode <nama-mode> : deskripsi mode tersebut"
+    "/info mode <nama-mode> : deskripsi mode tersebut",
+    "/info lain : info tambahan"
   ];
 
   cmds.forEach(item => {

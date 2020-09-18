@@ -22,7 +22,35 @@ const getInfo = () => {
   return text;
 };
 
+const botSkillAction = (util, group_session, botIndex) => {
+  const players = group_session.players;
+  if (players[botIndex].role.revive === 0) {
+    return;
+  }
+
+  let targets = players
+    .map((item, index) => {
+      if (item.id !== players[botIndex].id && item.status === "death") {
+        if (item.role.team === "villager") {
+          return index;
+        } else if (util.isDisguiseAsTownie(item)) {
+          return index;
+        }
+      }
+    })
+    .filter(item => {
+      return item !== undefined;
+    });
+
+  if (targets.length === 0) return;
+
+  targets = util.shuffleArray(targets);
+
+  group_session.players[botIndex].target.index = targets[0];
+};
+
 module.exports = {
   getData,
-  getInfo
+  getInfo,
+  botSkillAction
 };

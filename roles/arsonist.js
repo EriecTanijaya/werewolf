@@ -24,7 +24,35 @@ const getInfo = () => {
   return text;
 };
 
+const botSkillAction = (util, group_session, botIndex) => {
+  const players = group_session.players;
+  let targets = group_session.players
+    .map((item, index) => {
+      if (item.id !== players[botIndex].id && item.status === "alive") {
+        return {
+          index,
+          doused: item.doused
+        };
+      }
+    })
+    .filter(item => {
+      return item !== undefined;
+    });
+
+  targets = util.shuffleArray(targets);
+
+  for (let i = 0; i < targets.length; i++) {
+    if (!targets[i].doused) {
+      group_session.players[botIndex].target.index = targets[i].index;
+      return;
+    }
+  }
+
+  group_session.players[botIndex].target.index = botIndex;
+};
+
 module.exports = {
   getData,
-  getInfo
+  getInfo,
+  botSkillAction
 };
