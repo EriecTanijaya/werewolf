@@ -40,7 +40,7 @@ const infoWords = ["info", "inpo", "infoo", "info?", "infoo?"];
 
 const claimRoleWords = ["role", "rolee", "role?", "rolee?", "claim"];
 
-const voteWords = ["vote", "votee"];
+const voteWords = ["vote", "votee", "gas"];
 
 const evilTeams = [
   "mafia",
@@ -3840,11 +3840,6 @@ const day = () => {
         action: "uri",
         label: "✉️ News",
         data: "https://line.me/R/oaMessage/" + process.env.BOT_ID + "/?%2Fnews"
-      },
-      {
-        action: "postback",
-        label: "📣 Voting!",
-        data: "/check"
       }
     ];
 
@@ -4256,11 +4251,6 @@ const night = () => {
         action: "uri",
         label: "🚪 Role",
         data: "https://line.me/R/oaMessage/" + process.env.BOT_ID + "/?%2Frole"
-      },
-      {
-        action: "postback",
-        label: "🔔 Check",
-        data: "/check"
       }
     ]
   };
@@ -4284,14 +4274,14 @@ const getTimeDefault = playersLength => {
   let time = 0;
 
   if (playersLength === 3) {
-    time = 45;
+    time = 35;
   } else if (playersLength > 10) {
-    time = 100;
+    time = 90;
   } else {
     // 4 - 9 players logic
     let temp = playersLength;
     while (temp) {
-      time += 0.95;
+      time += 0.9;
       temp--;
     }
     time = Math.round(time) * 10;
