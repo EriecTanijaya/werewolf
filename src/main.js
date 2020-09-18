@@ -84,7 +84,6 @@ const botTellFakeInfo = bot => {
 
   if (bot.claimedRole.name !== "") {
     const path = "bot_" + bot.claimedRole.name;
-    const needDeadProof = ["lookout", "tracker"];
 
     if (!bots[path]) return;
 
@@ -157,8 +156,6 @@ const botGetTargetIndex = bot => {
 };
 
 const botTellFakeRole = bot => {
-  const players = this.group_session.players;
-
   if (bot.claimedRole.name !== "") {
     const text = `Role ku ${bot.claimedRole.name}`;
     return replyText(text, bot);
@@ -4864,7 +4861,7 @@ const voteCommand = (botIndex, botTargetIndex) => {
     let botText = "";
     if (botIds.includes(players[targetIndex].id)) {
       const bot = players[targetIndex];
-      let botTargetIndex = bot.claimedRole.targetIndex;
+      const botTargetIndex = bot.claimedRole.targetIndex;
       let voteIndex = -1;
       botText += "☝️ " + bot.name;
 

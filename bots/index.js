@@ -11,7 +11,7 @@ const bot_investigator = (players, justDeadIndexes, bot) => {
 const bot_lookout = (players, justDeadIndexes, bot) => {
   if (justDeadIndexes.length === 0) {
     const alivePlayersName = players
-      .map((item, index) => {
+      .map(item => {
         if (item.id !== bot.id && item.status === "alive") {
           return item.name;
         }
@@ -40,7 +40,7 @@ const bot_sheriff = (players, justDeadIndexes, bot) => {
 const bot_tracker = (players, justDeadIndexes, bot) => {
   if (justDeadIndexes.length === 0) {
     const alivePlayersName = players
-      .map((item, index) => {
+      .map(item => {
         if (item.id !== bot.id && item.status === "alive") {
           return item.name;
         }
