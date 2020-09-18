@@ -164,36 +164,15 @@ const botTellFakeRole = bot => {
   const players = this.group_session.players;
 
   if (bot.claimedRole.name !== "") {
-    const justDeadIndexes = this.group_session.justDeadIndexes;
-    const path = "bot_" + bot.claimedRole.name;
-    const needDeadProof = ["lookout", "tracker"];
-
-    if (needDeadProof.includes(bot.claimedRole.name) && justDeadIndexes.length === 0) {
-      return;
-    }
-
-    if (!bots[path]) {
-      const text = `Role ku ${bot.claimedRole.name}`;
-      return replyText(text, bot);
-    }
-
-    const botTargetIndex = bot.claimedRole.targetIndex;
-    if (players[botTargetIndex].status === "death") {
-      const newTargetIndex = botGetTargetIndex(bot);
-      bot.claimedRole.targetIndex = newTargetIndex;
-
-      if (bot.claimedRole.name === "investigator") {
-        bot.claimedRole.accusedRole = botGetAccusedRole();
-      }
-    }
-
-    const res = bots[path](players, justDeadIndexes, bot);
-    return replyText(res, bot);
+    const text = `Role ku ${bot.claimedRole.name}`;
+    return replyText(text, bot);
   }
 
-  const fakeRoles = ["amnesiac", "survivor", "jester", "guardian-angel", "veteran", "retributionist", "doctor"];
+  const fakeRoles = ["amnesiac", "survivor", "jester", "veteran", "retributionist", "doctor"];
 
   const randomRole = util.random(fakeRoles);
+
+  bot.claimedRole.name = randomRole;
 
   return replyText(`Role ku ${randomRole}`, bot);
 };
