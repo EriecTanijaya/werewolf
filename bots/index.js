@@ -1,6 +1,6 @@
 const util = require("../util");
 
-const bot_investigator = (players, justDead, bot) => {
+const bot_investigator = (players, justDeadIndexes, bot) => {
   const accusedRole = bot.claimedRole.accusedRole;
   const result = util.getInvestigatorResult(accusedRole);
   const targetName = players[bot.claimedRole.targetIndex].name;
@@ -8,23 +8,23 @@ const bot_investigator = (players, justDead, bot) => {
   return text;
 };
 
-const bot_lookout = (players, justDead, bot) => {
+const bot_lookout = (players, justDeadIndexes, bot) => {
   const targetName = players[bot.claimedRole.targetIndex].name;
-  const randomDead = util.random(justDead);
-  let text = "Rumah " + randomDead + " dikunjungi " + targetName + " semalam";
+  const randomDeadIndex = util.random(justDeadIndexes);
+  let text = "Rumah " + players[justDeadIndexes].name + " dikunjungi " + targetName + " semalam";
   return text;
 };
 
-const bot_sheriff = (players, justDead, bot) => {
+const bot_sheriff = (players, justDeadIndexes, bot) => {
   const targetName = players[bot.claimedRole.targetIndex].name;
   let text = targetName + " mencurigakan";
   return text;
 };
 
-const bot_tracker = (players, justDead, bot) => {
+const bot_tracker = (players, justDeadIndexes, bot) => {
   const targetName = players[bot.claimedRole.targetIndex].name;
-  const randomDead = util.random(justDead);
-  let text = targetName + " ke rumah " + randomDead;
+  const randomDeadIndex = util.random(justDeadIndexes);
+  let text = targetName + " ke rumah " + players[randomDeadIndex].name;
   return text;
 };
 

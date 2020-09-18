@@ -77,13 +77,13 @@ const botGetAccusedRole = () => {
 
 const botTellFakeInfo = bot => {
   const players = this.group_session.players;
-  const justDead = this.group_session.justDead;
+  const justDeadIndexes = this.group_session.justDeadIndexes;
 
   if (bot.claimedRole.name !== "") {
     const path = "bot_" + bot.claimedRole.name;
     const needDeadProof = ["lookout", "tracker"];
 
-    if (needDeadProof.includes(bot.claimedRole.name) && justDead.length === 0) {
+    if (needDeadProof.includes(bot.claimedRole.name) && justDeadIndexes.length === 0) {
       return;
     }
 
@@ -103,12 +103,12 @@ const botTellFakeInfo = bot => {
       }
     }
 
-    const res = bots[path](players, justDead, bot);
+    const res = bots[path](players, justDeadIndexes, bot);
     return replyText(res, bot);
   }
 
   const availableRoles = ["investigator", "sheriff"];
-  if (justDead.length > 0) {
+  if (justDeadIndexes.length > 0) {
     availableRoles.push("lookout", "tracker");
   }
 
@@ -131,7 +131,7 @@ const botTellFakeInfo = bot => {
       }
 
       const path = "bot_" + randomRole;
-      const res = bots[path](players, justDead, this.group_session.players[i]);
+      const res = bots[path](players, justDeadIndexes, this.group_session.players[i]);
       return replyText(res, bot);
     }
   }
@@ -161,11 +161,11 @@ const botTellFakeRole = bot => {
   const players = this.group_session.players;
 
   if (bot.claimedRole.name !== "") {
-    const justDead = this.group_session.justDead;
+    const justDeadIndexes = this.group_session.justDeadIndexes;
     const path = "bot_" + bot.claimedRole.name;
     const needDeadProof = ["lookout", "tracker"];
 
-    if (needDeadProof.includes(bot.claimedRole.name) && justDead.length === 0) {
+    if (needDeadProof.includes(bot.claimedRole.name) && justDeadIndexes.length === 0) {
       return;
     }
 
@@ -184,7 +184,7 @@ const botTellFakeRole = bot => {
       }
     }
 
-    const res = bots[path](players, justDead, bot);
+    const res = bots[path](players, justDeadIndexes, bot);
     return replyText(res, bot);
   }
 
@@ -3027,7 +3027,7 @@ const day = () => {
         }
 
         if (!nonVisitDead.includes(players[attackerIndex].role.name)) {
-          this.group_session.justDead.push(players[i].name);
+          this.group_session.justDeadIndexes.push(i);
         }
       }
 
@@ -3353,6 +3353,15 @@ const day = () => {
       this.group_session.players[i].message += "🕵️ " + guessResult + "\n\n";
 
       this.group_session.players[i].skillResult = `Cek ${target.name}\n${guessResult}`;
+
+      const { items } = util.getInvestigatorPairList(targetRoleName);
+      for (let u = 0; u < items.length; u++) {
+        const { team } = rawRoles[items[u]].getData();
+        if (evilTeams.includes(team)) {
+          this.group_session.players[i].claimedRole.targetIndex = targetIndex;
+          break;
+        }
+      }
     }
   }
 
@@ -3476,22 +3485,36 @@ const day = () => {
       if (target.visitors.length > 1) {
         let targetVisitors = "";
         let visitors = target.visitors.map(v => {
-          return v.name;
+          return {
+            name: v.name,
+            index: v.index
+          };
         });
 
         for (let i = 0; i < visitors.length; i++) {
-          if (visitors[i] === doer.name) {
+          if (visitors[i].name === doer.name) {
             visitors.splice(i, 1);
           }
         }
 
-        targetVisitors = visitors.join(", ");
+        targetVisitors = visitors.map(item => {
+          return item.name;
+        });
 
         this.group_session.players[i].message +=
-          "👀 Rumah " + players[targetIndex].name + " dikunjungi " + targetVisitors + " semalam" + "\n\n";
+          "👀 Rumah " + players[targetIndex].name + " dikunjungi " + targetVisitors.join(", ") + " semalam" + "\n\n";
 
         this.group_session.players[i].skillResult =
-          "Rumah " + players[targetIndex].name + " dikunjungi " + targetVisitors + " semalam";
+          "Rumah " + players[targetIndex].name + " dikunjungi " + targetVisitors.join(", ") + " semalam";
+
+        if (this.group_session.justDeadIndexes.includes(targetIndex)) {
+          if (visitors.length === 1) {
+            this.group_session.players[i].claimedRole.targetIndex = visitors[0].index;
+          } else {
+            const { index } = util.random(visitors);
+            this.group_session.players[i].claimedRole.targetIndex = index;
+          }
+        }
       } else {
         // pasti ada 1 visitor, yaitu lookout sndiri
         this.group_session.players[i].message +=
@@ -3538,6 +3561,10 @@ const day = () => {
           this.group_session.players[i].message += `👣 Target mu ke rumah ${targetTargetName}\n\n`;
 
           this.group_session.players[i].skillResult = `${target.name} ke rumah ${targetTargetName}`;
+
+          if (this.group_session.justDeadIndexes.includes(target.target.index)) {
+            this.group_session.players[i].claimedRole.targetIndex = targetIndex;
+          }
         }
       }
     }
@@ -4021,7 +4048,7 @@ const night = () => {
     this.group_session.isFullMoon = false;
   }
 
-  this.group_session.justDead = [];
+  this.group_session.justDeadIndexes = [];
 
   /// special role chat
   this.group_session.mafiaChat = [];
