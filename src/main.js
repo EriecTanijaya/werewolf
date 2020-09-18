@@ -4975,15 +4975,17 @@ const votingCommand = () => {
   };
 
   let button = {};
+  let num = 1;
   players.forEach((item, index) => {
     if (item.status === "alive") {
       button[index] = {
         action: "postback",
-        label: item.name,
-        data: "/vote_flex " + index
+        label: `${num}. ${item.name}`,
+        data: `/vote_flex ${index}`
       };
 
       flex_text.buttons.push(button[index]);
+      num++;
     }
   });
   flex_texts.push(flex_text);
