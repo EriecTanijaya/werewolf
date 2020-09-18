@@ -615,7 +615,7 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
     case "/c":
     case "/cok":
       return checkCommand();
-    case "/vote":
+    case "/vote_flex":
       return voteCommand();
     case "/about":
       return aboutCommand();
@@ -4980,7 +4980,7 @@ const votingCommand = () => {
       button[index] = {
         action: "postback",
         label: item.name,
-        data: "/vote " + index
+        data: "/vote_flex " + index
       };
 
       flex_text.buttons.push(button[index]);
