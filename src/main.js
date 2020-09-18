@@ -332,14 +332,14 @@ const innocentRespond = bot => {
 };
 
 const botVoteAction = () => {
-  const botNames = util.getFakeData(14).map(item => {
-    return item.name;
+  const botIds = util.getFakeData(14).map(item => {
+    return item.id;
   });
   const candidates = getVoteCandidates();
   let voteTarget = util.getMostFrequent(candidates);
 
   this.group_session.players.forEach((item, index) => {
-    if (botNames.includes(item.name)) {
+    if (botIds.includes(item.id)) {
       let targetNone = false;
 
       if (item.claimedRole.targetIndex !== -1) {
@@ -4814,6 +4814,36 @@ const voteCommand = () => {
     }
 
     text += "\n" + voteFlex;
+
+    // bot respond to vote
+    const botIds = util.getFakeData(14).map(item => {
+      return item.id;
+    });
+
+    let botText = "";
+    if (botIds.includes(players[targetIndex].id)) {
+      const bot = players[targetIndex];
+      botText += "☝️ " + bot.name + " vote ";
+      if (bot.claimedRole.targetIndex !== -1) {
+        if (this.group_session.players[bot.claimedRole.targetIndex].status === "death") {
+          this.group_session.players[targetIndex].targetVoteIndex = index;
+          botText += players[index].name;
+        } else {
+          this.group_session.players[targetIndex].targetVoteIndex = bot.claimedRole.targetIndex;
+          botText += players[bot.claimedRole.targetIndex].name;
+        }
+      } else {
+        this.group_session.players[targetIndex].targetVoteIndex = index;
+        botText += players[index].name;
+      }
+
+      botText += " untuk di" + this.group_session.punishment;
+    }
+
+    if (botText) {
+      text = [text, botText];
+    }
+
     return replyText(text);
   } else {
     const flex_text = {
@@ -5633,7 +5663,8 @@ const createNewPlayer = user_session => {
       name: "",
       targetIndex: -1,
       accusedRole: ""
-    }
+    },
+    addonMessage: ""
   };
   return newPlayer;
 };
