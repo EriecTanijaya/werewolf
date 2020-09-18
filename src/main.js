@@ -3838,7 +3838,7 @@ const day = () => {
     flex_text.buttons = [
       {
         action: "uri",
-        label: "✉️ News",
+        label: "✉️ Hasil Skill",
         data: "https://line.me/R/oaMessage/" + process.env.BOT_ID + "/?%2Fnews"
       }
     ];
@@ -4249,7 +4249,7 @@ const night = () => {
     buttons: [
       {
         action: "uri",
-        label: "🚪 Role",
+        label: "🚪 Pakai Skill",
         data: "https://line.me/R/oaMessage/" + process.env.BOT_ID + "/?%2Frole"
       }
     ]
@@ -4864,21 +4864,29 @@ const voteCommand = (botIndex, botTargetIndex) => {
     let botText = "";
     if (botIds.includes(players[targetIndex].id)) {
       const bot = players[targetIndex];
-      botText += "☝️ " + bot.name + " vote ";
-      if (bot.claimedRole.targetIndex !== -1) {
-        if (this.group_session.players[bot.claimedRole.targetIndex].status === "death") {
-          this.group_session.players[targetIndex].targetVoteIndex = index;
-          botText += players[index].name;
-        } else {
-          this.group_session.players[targetIndex].targetVoteIndex = bot.claimedRole.targetIndex;
-          botText += players[bot.claimedRole.targetIndex].name;
-        }
+      let botTargetIndex = bot.claimedRole.targetIndex;
+      let voteIndex = -1;
+      botText += "☝️ " + bot.name;
+
+      if (botTargetIndex === -1 || players[botTargetIndex].status === "death") {
+        voteIndex = index;
       } else {
-        this.group_session.players[targetIndex].targetVoteIndex = index;
-        botText += players[index].name;
+        voteIndex = botTargetIndex;
       }
 
-      botText += " untuk di" + this.group_session.punishment;
+      if (bot.targetVoteIndex === voteIndex) {
+        return replyText(text);
+      }
+
+      if (bot.targetVoteIndex === -1) {
+        botText += " vote ";
+      } else {
+        botText += " mengganti vote ke ";
+      }
+
+      this.group_session.players[targetIndex].targetVoteIndex = voteIndex;
+
+      botText += players[voteIndex].name + " untuk di" + this.group_session.punishment;
     }
 
     if (botText) {
