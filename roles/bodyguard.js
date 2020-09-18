@@ -32,7 +32,7 @@ const botSkillAction = (util, group_session, botIndex) => {
   let targets = players
     .map((item, index) => {
       if (item.id !== players[botIndex].id && item.status === "alive") {
-        return index
+        return index;
       }
     })
     .filter(item => {
@@ -45,7 +45,7 @@ const botSkillAction = (util, group_session, botIndex) => {
 
   if (players[botIndex].role.vest > 0 && what === "self") {
     group_session.players[botIndex].target.index = botIndex;
-  } else {    
+  } else {
     group_session.players[botIndex].target.index = targets[0];
   }
 };

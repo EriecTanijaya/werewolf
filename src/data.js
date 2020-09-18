@@ -50,7 +50,7 @@ setInterval(() => {
 
 const receive = (event, rawArgs) => {
   this.event = event;
-  
+
   // handle other events but let other event message type flow
   const otherEvents = ["follow", "memberJoined", "join", "leave", "memberLeft", "unfollow"];
   if (otherEvents.includes(event.type)) {
@@ -248,13 +248,6 @@ const joinResponse = async () => {
     util.leaveGroup(this.event, groupId, text);
   }
 
-  const membersCount = await getMembersCount(groupId);
-  if (!isTestGroup && membersCount < 5) {
-    let text = "🙏 Maaf, undang kembali jika jumlah member sudah minimal 5 orang. ";
-    text += "🌕 Game hanya bisa dimainkan dengan jumlah minimal 5 orang";
-    util.leaveGroup(this.event, groupId, text);
-  }
-
   let text = "";
 
   if (group_sessions[groupId]) {
@@ -307,16 +300,6 @@ const memberJoinedResponse = async () => {
 const getGroupData = async groupId => {
   const groupData = await client.getGroupSummary(groupId);
   return groupData;
-};
-
-const getMembersCount = async groupId => {
-  if (this.event.source.type === "group") {
-    const { count } = await client.getGroupMembersCount(groupId);
-    return count;
-  } else {
-    const { count } = await client.getRoomMembersCount(groupId);
-    return count;
-  }
 };
 
 /** message func **/

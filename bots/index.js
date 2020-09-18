@@ -11,7 +11,7 @@ const bot_investigator = (players, justDeadIndexes, bot) => {
 const bot_lookout = (players, justDeadIndexes, bot) => {
   const targetName = players[bot.claimedRole.targetIndex].name;
   const randomDeadIndex = util.random(justDeadIndexes);
-  let text = "Rumah " + players[justDeadIndexes].name + " dikunjungi " + targetName + " semalam";
+  let text = "Rumah " + players[randomDeadIndex].name + " dikunjungi " + targetName + " semalam";
   return text;
 };
 
