@@ -86,10 +86,6 @@ const botTellFakeInfo = bot => {
     const path = "bot_" + bot.claimedRole.name;
     const needDeadProof = ["lookout", "tracker"];
 
-    if (needDeadProof.includes(bot.claimedRole.name) && justDeadIndexes.length === 0) {
-      return;
-    }
-
     if (!bots[path]) return;
 
     const botTargetIndex = bot.claimedRole.targetIndex;
@@ -179,13 +175,13 @@ const botTellFakeRole = bot => {
 
 const botTellInfo = () => {
   const players = this.group_session.players;
-  const botNames = util.getFakeData(14).map(item => {
-    return item.name;
+  const botIds = util.getFakeData(14).map(item => {
+    return item.id;
   });
 
   let bots = this.group_session.players
     .map(item => {
-      if (botNames.includes(item.name) && item.status === "alive") {
+      if (botIds.includes(item.id) && item.status === "alive") {
         return {
           id: item.id,
           name: item.name,
