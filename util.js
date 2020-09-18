@@ -559,7 +559,7 @@ const getFakeData = (length = 4, botId) => {
     },
     {
       userId: "969696",
-      name: "Mr. Krabs",
+      name: "Krabs",
       imageLink: "https://nickelodeonuniverse.com/wp-content/uploads/Mr.Krabs_.png"
     },
     {
@@ -574,12 +574,12 @@ const getFakeData = (length = 4, botId) => {
     },
     {
       userId: "201220",
-      name: "Mrs. Puff",
+      name: "Puff",
       imageLink: "https://nickelodeonuniverse.com/wp-content/uploads/Mrs.Puff_.png"
     },
     {
       userId: "794821",
-      name: "Rudy Tabootie",
+      name: "Rudy",
       imageLink:
         "https://vignette.wikia.nocookie.net/chalkzone/images/c/ca/Rudy-Tabootie-Looking-Happy-iyt519.png/revision/latest/scale-to-width-down/200?cb=20200415224304"
     },
