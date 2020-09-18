@@ -39,6 +39,8 @@ const accusedWords = [
 
 const infoWords = ["info", "inpo", "infoo", "info?", "infoo?"];
 
+const claimRoleWords = ["role", "rolee", "role?", "rolee?"];
+
 const evilTeams = [
   "mafia",
   "executioner",
@@ -252,6 +254,8 @@ const botSpeakAction = botName => {
     if (players[i].name.toLowerCase() === botName) {
       const bot = players[i];
 
+      if (bot.status === "death") return;
+
       for (let j = 0; j < this.args.length; j++) {
         const input = this.args[j].toLowerCase();
         if (accusedWords.includes(input)) {
@@ -271,6 +275,10 @@ const botSpeakAction = botName => {
           }
         }
 
+        if (claimRoleWords.includes(input)) {
+          return botClaimRole(bot);
+        }
+
         if (framedWords.includes(input)) {
           return replyText(`Aku bukan ${input}, aku di frame nih`, bot);
         }
@@ -281,6 +289,18 @@ const botSpeakAction = botName => {
       }
     }
   }
+};
+
+const botClaimRole = bot => {
+  if (bot.claimedRole.name !== "") {
+    return replyText(`Role ku ${bot.claimedRole.name}`, bot);
+  }
+
+  if (evilTeams.includes(bot.role.team)) {
+    return botTellFakeRole(bot);
+  }
+
+  return replyText(`Role ku ${bot.role.name}`, bot);
 };
 
 const justDeny = bot => {
