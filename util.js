@@ -813,5 +813,6 @@ module.exports = {
   getRank,
   getSelfData,
   getPlayersList,
-  isDisguiseAsTownie
+  isDisguiseAsTownie,
+  getInvestigatorPairList
 };

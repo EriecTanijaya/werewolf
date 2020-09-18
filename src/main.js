@@ -617,9 +617,16 @@ const addBotCommand = () => {
   }
 
   const dummies = util.getFakeData(quantity);
+
+  const currentPlayersId = this.group_session.players.map(item => {
+    return item.id;
+  });
+
   dummies.forEach(item => {
-    const newPlayer = createNewPlayer(item);
-    this.group_session.players.push(newPlayer);
+    if (!currentPlayersId.includes(item.id)) {
+      const newPlayer = createNewPlayer(item);
+      this.group_session.players.push(newPlayer);
+    }
   });
 
   return replyText(`💡 ${quantity} bot berhasil ditambahkan!`);
