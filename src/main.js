@@ -3517,7 +3517,7 @@ const day = () => {
       } else {
         this.group_session.players[i].message += "🔍 " + target.name + " tidak terkena apa apa" + "\n\n";
 
-        this.group_session.players[i].skillResult = "🔍 " + target.name + " tidak terkena apa apa";
+        this.group_session.players[i].skillResult += target.name + " tidak terkena apa apa";
       }
     }
   }
@@ -5385,16 +5385,28 @@ const cancelCommand = () => {
 
   let text = "💡 " + this.user_session.name + " telah meninggalkan game. ";
 
-  if (this.group_session.players.length === 0) {
+  const botIds = util.getFakeData(14).map(item => {
+    return item.id;
+  });
+
+  let hasHuman = false;
+  const players = this.group_session.players;
+  for (let i = 0; i < players.length; i++) {
+    if (!botIds.includes(players[i].id)) {
+      if (this.group_session.roomHostId === this.user_session.id) {
+        let randomPlayer = util.random(this.group_session.players);
+        this.group_session.roomHostId = randomPlayer.id;
+        text += "\n" + "👑 " + randomPlayer.name;
+        text += " menjadi host baru dalam room ini. ";
+      }
+      hasHuman = true;
+      break;
+    }
+  }
+
+  if (this.group_session.players.length === 0 || !hasHuman) {
     this.group_session.state = "idle";
     text += "\n" + "💡 Game di stop karena tidak ada pemain";
-  } else {
-    if (this.group_session.roomHostId === this.user_session.id) {
-      let randomPlayer = util.random(this.group_session.players);
-      this.group_session.roomHostId = randomPlayer.id;
-      text += "\n" + "👑 " + randomPlayer.name;
-      text += " menjadi host baru dalam room ini. ";
-    }
   }
 
   this.user_session.state = "inactive";
