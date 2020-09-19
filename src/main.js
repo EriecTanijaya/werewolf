@@ -399,9 +399,7 @@ const botVote = () => {
       }
 
       if (targetNone) {
-        const what = util.random(["mayoritas", "skip", "random", "follow"]);
-
-        if (what === "skip") return;
+        const what = util.random(["mayoritas", "random", "follow"]);
 
         if (what === "mayoritas") {
           if (voteTarget.index !== undefined && voteTarget.index != i) {
@@ -567,7 +565,6 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
     case "/start":
     case "/mulai":
     case "/gas":
-    case "/anjing":
       return startCommand();
     case "/stop":
       return stopCommand();
