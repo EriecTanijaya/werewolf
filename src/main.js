@@ -38,7 +38,7 @@ const accusedWords = [
 
 const infoWords = ["info", "inpo", "infoo", "info?", "infoo?"];
 
-const claimRoleWords = ["role", "rolee", "role?", "rolee?", "claim"];
+const claimRoleWords = ["role", "rolee", "role?", "rolee?", "claim", "claim?"];
 
 const voteWords = ["vote", "votee", "gas"];
 
@@ -399,9 +399,7 @@ const botVote = () => {
       }
 
       if (targetNone) {
-        const what = util.random(["mayoritas", "skip", "random", "follow"]);
-
-        if (what === "skip") return;
+        const what = util.random(["mayoritas", "random", "follow"]);
 
         if (what === "mayoritas") {
           if (voteTarget.index !== undefined && voteTarget.index != i) {
@@ -567,7 +565,6 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
     case "/start":
     case "/mulai":
     case "/gas":
-    case "/anjing":
       return startCommand();
     case "/stop":
       return stopCommand();
@@ -667,12 +664,17 @@ const addBotCommand = () => {
 
   let quantity = this.args[1] || 1;
 
+  if (quantity > 40) {
+    const randomBruhImageLink = util.getBruhImage();
+    return replyImage(randomBruhImageLink);
+  }
+
   if (isNaN(quantity)) quantity = 1;
 
-  const totalPlayers = playersCount + parseInt(quantity);
-
-  if (totalPlayers > 15) {
-    quantity = totalPlayers - 15;
+  let totalPlayers = playersCount + parseInt(quantity);
+  while (totalPlayers > 15) {
+    quantity--;
+    totalPlayers = playersCount + quantity;
   }
 
   const dummies = util.getFakeData(14);
@@ -5669,6 +5671,11 @@ const showUpdatesCommand = () => {
 };
 
 const invalidCommand = () => {
+  if (util.hasBadWord(this.args[0])) {
+    const randomImageLink = util.getBruhImage();
+    return replyImage(randomImageLink);
+  }
+
   const text = `💡 Tidak ditemukan perintah '${this.args[0]}'. Cek daftar perintah yang ada di '/cmd'`;
   return replyText(text);
 };
@@ -5742,6 +5749,14 @@ const pushFlex = async (userId, flex_raw) => {
 
   return await client.pushMessage(userId, msg).catch(err => {
     console.log("err di pushFlex di main.js", err.originalError.response.data);
+  });
+};
+
+const replyImage = async imageLink => {
+  return await client.replyMessage(this.event.replyToken, {
+    type: "image",
+    originalContentUrl: imageLink,
+    previewImageUrl: imageLink
   });
 };
 

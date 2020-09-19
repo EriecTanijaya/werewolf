@@ -165,6 +165,11 @@ const viewCommand = async () => {
 };
 
 const invalidCommand = () => {
+  if (util.hasBadWord(this.args[0])) {
+    const randomImageLink = util.getBruhImage();
+    return replyImage(randomImageLink);
+  }
+  
   const text = `💡 Tidak ditemukan perintah '${this.args[0]}'. Cek daftar perintah yang ada di '/cmd'`;
   return replyText(text);
 };
@@ -274,6 +279,14 @@ const replyFlex = async flex_raw => {
   return await client.replyMessage(this.event.replyToken, msg).catch(err => {
     console.log(JSON.stringify(msg));
     console.error("err replyFlex di idle.js", err.originalError.response.data.message);
+  });
+};
+
+const replyImage = async imageLink => {
+  return await client.replyMessage(this.event.replyToken, {
+    type: "image",
+    originalContentUrl: imageLink,
+    previewImageUrl: imageLink
   });
 };
 

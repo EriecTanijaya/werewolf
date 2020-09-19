@@ -788,6 +788,45 @@ const isDisguiseAsTownie = player => {
   return false;
 };
 
+const getBruhImage = () => {
+  const bruhs = [
+    "https://pbs.twimg.com/profile_images/454466287071416320/01N38O_e.jpeg",
+    "https://i.kym-cdn.com/photos/images/facebook/001/598/887/730.jpg",
+    "https://i.pinimg.com/originals/6f/df/db/6fdfdb015ed8bad17b99c1b80a93f1d2.jpg",
+    "https://en.meming.world/images/en/thumb/b/bc/Mike_Wazowski-Sulley_Face_Swap.jpg/300px-Mike_Wazowski-Sulley_Face_Swap.jpg",
+    "https://i.pinimg.com/originals/23/6e/17/236e17a73d0ae54a7fa423ee156c3dd5.png",
+    "https://media1.giphy.com/media/l3q2K5jinAlChoCLS/200w.gif",
+    "https://i.pinimg.com/236x/a2/e9/c0/a2e9c020f3a8101826e26d1187fb4d4f--future-memes-pinterest.jpg",
+    "https://i.pinimg.com/236x/56/80/a3/5680a32ff670608ba0526c2ca7627c9f--funny-tweets-reaction-pictures.jpg"
+  ];
+
+  return random(bruhs);
+};
+
+const hasBadWord = firstArgs => {
+  const bad = [
+    "/kontol",
+    "/memek",
+    "/anjing",
+    "/babi",
+    "/pepek",
+    "/bacot",
+    "/goblog",
+    "/goblok",
+    "/asu",
+    "/meki",
+    "/anjay",
+    "/ngentot",
+    "/ngentod"
+  ];
+
+  if (bad.includes(firstArgs)) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
 module.exports = {
   leaveGroup,
   random,
@@ -814,5 +853,7 @@ module.exports = {
   getSelfData,
   getPlayersList,
   isDisguiseAsTownie,
-  getInvestigatorPairList
+  getInvestigatorPairList,
+  getBruhImage,
+  hasBadWord
 };
