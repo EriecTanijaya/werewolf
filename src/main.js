@@ -3517,7 +3517,7 @@ const day = () => {
       } else {
         this.group_session.players[i].message += "🔍 " + target.name + " tidak terkena apa apa" + "\n\n";
 
-        this.group_session.players[i].skillResult = "🔍 " + target.name + " tidak terkena apa apa";
+        this.group_session.players[i].skillResult += target.name + " tidak terkena apa apa";
       }
     }
   }
