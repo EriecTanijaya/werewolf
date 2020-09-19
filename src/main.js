@@ -90,14 +90,22 @@ const botTellFakeInfo = bot => {
     const botTargetIndex = bot.claimedRole.targetIndex;
     if (players[botTargetIndex].status === "death") {
       const newTargetIndex = botGetTargetIndex(bot);
+      bot.claimedRole.targetIndex = newTargetIndex;
+      if (bot.claimedRole.name === "investigator") {
+        bot.claimedRole.accusedRole = botGetAccusedRole();
+      }
+    }
 
-      for (let i = 0; i < this.group_session.players.length; i++) {
-        if (bot.id === this.group_session.players[i].id) {
-          this.group_session.players[i].claimedRole.targetIndex = newTargetIndex;
-          if (this.group_session.players[i].claimedRole.name === "investigator") {
-            this.group_session.players[i].claimedRole.accusedRole = botGetAccusedRole();
-          }
-        }
+    const needJustDeadBait = ["lookout", "tracker"];
+    if (needJustDeadBait.includes(bot.role.name)) {
+      if (justDeadIndexes.length === 0) {
+        const res = bots[path](players, justDeadIndexes, bot);
+        return replyText(res, bot);
+      }
+
+      if (bot.claimedRole.justDeadBaitIndex === -1) {
+        const randomDeadIndex = util.random(justDeadIndexes);
+        bot.claimedRole.justDeadBaitIndex = randomDeadIndex;
       }
     }
 
@@ -119,20 +127,16 @@ const botTellFakeInfo = bot => {
     targetIndex = botGetTargetIndex(bot);
   }
 
-  for (let i = 0; i < this.group_session.players.length; i++) {
-    if (bot.id === this.group_session.players[i].id) {
-      this.group_session.players[i].claimedRole.name = randomRole;
-      this.group_session.players[i].claimedRole.targetIndex = targetIndex;
+  bot.claimedRole.name = randomRole;
+  bot.claimedRole.targetIndex = targetIndex;
 
-      if (randomRole === "investigator") {
-        this.group_session.players[i].claimedRole.accusedRole = botGetAccusedRole();
-      }
-
-      const path = "bot_" + randomRole;
-      const res = bots[path](players, justDeadIndexes, this.group_session.players[i]);
-      return replyText(res, bot);
-    }
+  if (randomRole === "investigator") {
+    bot.claimedRole.accusedRole = botGetAccusedRole();
   }
+
+  const path = "bot_" + randomRole;
+  const res = bots[path](players, justDeadIndexes, bot);
+  return replyText(res, bot);
 };
 
 const botGetTargetIndex = bot => {
@@ -176,17 +180,10 @@ const botTellInfo = () => {
     return item.id;
   });
 
-  let bots = this.group_session.players
+  let currentBotIds = this.group_session.players
     .map(item => {
       if (botIds.includes(item.id) && item.status === "alive") {
-        return {
-          id: item.id,
-          name: item.name,
-          role: item.role,
-          targetIndex: item.target.index,
-          skillResult: item.skillResult,
-          claimedRole: item.claimedRole
-        };
+        return item.id;
       }
     })
     .filter(item => {
@@ -195,7 +192,7 @@ const botTellInfo = () => {
 
   const infoTeller = ["investigator", "lookout", "psychic", "sheriff", "spy", "tracker", "consigliere"];
 
-  bots = util.shuffleArray(bots);
+  currentBotIds = util.shuffleArray(currentBotIds);
 
   let options = ["scam", "truth"];
   if (checkExistsRole("mayor")) {
@@ -203,29 +200,69 @@ const botTellInfo = () => {
     if (reveal) options.push("reveal");
   }
 
-  const who = util.random(options);
+  const what = util.random(options);
 
-  for (let i = 0; i < bots.length; i++) {
-    if (who === "truth") {
-      if (infoTeller.includes(bots[i].role.name)) {
-        if (!bots[i].skillResult) continue;
+  for (let i = 0; i < currentBotIds.length; i++) {
+    const botIndex = indexOfBot(currentBotIds[i]);
 
-        if (bots[i].role.name === "consigliere") {
-          const targetName = players[bots[i].targetIndex].name;
-          const investResult = util.getInvestigatorResult(players[bots[i].targetIndex].role.name);
-          return replyText(`Cek ${targetName}\n${investResult}`, bots[i]);
+    if (what === "truth") {
+      if (infoTeller.includes(players[botIndex].role.name)) {
+        if (!players[botIndex].skillResult) continue;
+
+        if (players[botIndex].role.name === "consigliere") {
+          const personalTargetIndex = players[botIndex].targetIndex;
+          const targetName = players[personalTargetIndex].name;
+          const investResult = util.getInvestigatorResult(players[personalTargetIndex].role.name);
+          return replyText(`Cek ${targetName}\n${investResult}`, players[botIndex]);
         }
 
-        return replyText(bots[i].skillResult, bots[i]);
+        return replyText(players[botIndex].skillResult, players[botIndex]);
       }
-    } else if (who === "scam") {
-      if (evilTeams.includes(bots[i].role.team)) {
-        return botTellFakeInfo(bots[i]);
+    } else if (what === "scam") {
+      if (evilTeams.includes(players[botIndex].role.team)) {
+        return botTellFakeInfo(players[botIndex]);
       }
-    } else if (who === "reveal") {
+    } else if (what === "reveal") {
       botMayorReveal();
     }
   }
+};
+
+const botMayorReveal = () => {
+  const players = this.group_session.players;
+  const botIds = util.getFakeData(14).map(item => {
+    return item.id;
+  });
+
+  for (let i = 0; i < players.length; i++) {
+    const id = players[i].id;
+    const roleName = players[i].role.name;
+    const status = players[i].status;
+
+    if (botIds.includes(id) && roleName === "mayor" && status === "alive") {
+      if (!players[i].role.revealed) {
+        this.group_session.players[i].role.revealed = true;
+        let text = "🎩 " + players[i].name;
+        text += " telah mengungkapkan dirinya sebagai Mayor!";
+
+        let flex_text = {
+          headerText: "📜 Info",
+          bodyText: text
+        };
+
+        return replyFlex(flex_text);
+      }
+    }
+  }
+};
+
+const indexOfBot = botId => {
+  for (let i = 0; i < this.group_session.players.length; i++) {
+    if (this.group_session.players[i].id === botId) {
+      return i;
+    }
+  }
+  return -1;
 };
 
 const botSpeakAction = botName => {
@@ -310,34 +347,6 @@ const innocentRespond = bot => {
     `Role ku ${bot.role.name}`
   ];
   return replyText(util.random(inno), bot);
-};
-
-const botMayorReveal = () => {
-  const players = this.group_session.players;
-  const botIds = util.getFakeData(14).map(item => {
-    return item.id;
-  });
-
-  for (let i = 0; i < players.length; i++) {
-    const id = players[i].id;
-    const roleName = players[i].role.name;
-    const status = players[i].status;
-
-    if (botIds.includes(id) && roleName === "mayor" && status === "alive") {
-      if (!players[i].role.revealed) {
-        this.group_session.players[i].role.revealed = true;
-        let text = "🎩 " + players[i].name;
-        text += " telah mengungkapkan dirinya sebagai Mayor!";
-
-        let flex_text = {
-          headerText: "📜 Info",
-          bodyText: text
-        };
-
-        return replyFlex(flex_text);
-      }
-    }
-  }
 };
 
 const botVote = () => {
@@ -5732,7 +5741,8 @@ const createNewPlayer = user_session => {
     claimedRole: {
       name: "",
       targetIndex: -1,
-      accusedRole: ""
+      accusedRole: "",
+      justDeadBaitIndex: -1
     },
     addonMessage: ""
   };

@@ -26,8 +26,8 @@ const bot_lookout = (players, justDeadIndexes, bot) => {
   }
 
   const targetName = players[bot.claimedRole.targetIndex].name;
-  const randomDeadIndex = util.random(justDeadIndexes);
-  let text = "Rumah " + players[randomDeadIndex].name + " dikunjungi " + targetName + " semalam";
+  const justDeadBaitIndex = bot.claimedRole.justDeadBaitIndex;
+  let text = "Rumah " + players[justDeadBaitIndex].name + " dikunjungi " + targetName + " semalam";
   return text;
 };
 
@@ -55,8 +55,8 @@ const bot_tracker = (players, justDeadIndexes, bot) => {
   }
 
   const targetName = players[bot.claimedRole.targetIndex].name;
-  const randomDeadIndex = util.random(justDeadIndexes);
-  let text = targetName + " ke rumah " + players[randomDeadIndex].name;
+  const justDeadBaitIndex = bot.claimedRole.justDeadBaitIndex;
+  let text = targetName + " ke rumah " + players[justDeadBaitIndex].name;
   return text;
 };
 

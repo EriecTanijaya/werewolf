@@ -35,7 +35,7 @@ const botSkillAction = (util, group_session, botIndex) => {
 
   const canSelfTarget = bot.role.skillLevel >= 3 ? true : false;
 
-  const players = this.group_session.players;
+  const players = group_session.players;
 
   let targets = players
     .map((item, index) => {
