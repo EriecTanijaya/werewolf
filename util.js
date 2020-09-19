@@ -803,6 +803,30 @@ const getBruhImage = () => {
   return random(bruhs);
 };
 
+const hasBadWord = firstArgs => {
+  const bad = [
+    "/kontol",
+    "/memek",
+    "/anjing",
+    "/babi",
+    "/pepek",
+    "/bacot",
+    "/goblog",
+    "/goblok",
+    "/asu",
+    "/meki",
+    "/anjay",
+    "/ngentot",
+    "/ngentod"
+  ];
+
+  if (bad.includes(firstArgs)) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
 module.exports = {
   leaveGroup,
   random,
@@ -830,5 +854,6 @@ module.exports = {
   getPlayersList,
   isDisguiseAsTownie,
   getInvestigatorPairList,
-  getBruhImage
+  getBruhImage,
+  hasBadWord
 };

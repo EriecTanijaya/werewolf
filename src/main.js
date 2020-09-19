@@ -5671,6 +5671,11 @@ const showUpdatesCommand = () => {
 };
 
 const invalidCommand = () => {
+  if (util.hasBadWord(this.args[0])) {
+    const randomImageLink = util.getBruhImage();
+    return replyImage(randomImageLink);
+  }
+
   const text = `💡 Tidak ditemukan perintah '${this.args[0]}'. Cek daftar perintah yang ada di '/cmd'`;
   return replyText(text);
 };
