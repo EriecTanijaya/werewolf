@@ -428,7 +428,11 @@ const botVote = () => {
       if (targetNone) {
         const what = util.random(["mayoritas", "random", "follow"]);
 
-        if (what === "mayoritas") {
+        if (what === "follow") {
+          return voteCommand(i, accusedTargetIndex);
+        }
+
+        if (what === "follow") {
           if (voteTarget.index !== undefined && voteTarget.index != i) {
             return voteCommand(i, voteTarget.index);
           }
@@ -454,9 +458,6 @@ const botVote = () => {
           const randomIndex = util.random(alivePlayerIndex);
           return voteCommand(i, randomIndex);
         }
-
-        // follow
-        return voteCommand(i, accusedTargetIndex);
       }
     }
   }
