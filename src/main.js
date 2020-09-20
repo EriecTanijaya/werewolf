@@ -42,6 +42,8 @@ const claimRoleWords = ["role", "rolee", "role?", "rolee?", "claim", "claim?"];
 
 const voteWords = ["vote", "votee", "gas"];
 
+const lieWords = ["bacod", "bacot", "bohong", "nipu", "tipu", "bct", "bcd"];
+
 const evilTeams = [
   "mafia",
   "executioner",
@@ -304,9 +306,25 @@ const botSpeakAction = botName => {
         if (dousedWords.includes(input)) {
           return replyText(`Aku bukan ${input}, aku di sirami bensin`, bot);
         }
+
+        if (lieWords.includes(input)) {
+          return botDenyLies(bot);
+        }
       }
     }
   }
+};
+
+const botDenyLies = bot => {
+  const denies = [
+    "Aku ga bohong",
+    "Aku jujur nih",
+    "Ga percaya yaudah",
+    "Info ku valid",
+    "Aku tidak boong",
+    "Aku jujur"
+  ];
+  return replyText(util.random(denies), bot);
 };
 
 const botClaimRole = bot => {
