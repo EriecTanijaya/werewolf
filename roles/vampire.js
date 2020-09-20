@@ -29,6 +29,10 @@ const getInfo = () => {
 };
 
 const botSkillAction = (util, group_session, botIndex) => {
+  if (group_session.vampireConvertCooldown > 0) {
+    return;
+  }
+  
   const players = group_session.players;
   let targets = players
     .map((item, index) => {
