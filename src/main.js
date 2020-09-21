@@ -395,54 +395,48 @@ const botVote = () => {
     const item = players[i];
 
     if (botIds.includes(item.id) && item.status === "alive") {
-      if (item.targetVoteIndex !== -1) {
-        const what = util.random(["change", "keep", "keep", "keep"]);
-        if (what === "keep") continue;
+      if (item.targetVoteIndex !== -1) continue;
+
+      let targetIndex = item.claimedRole.targetIndex === -1 ? -1 : item.claimedRole.targetIndex;
+
+      if (targetIndex !== -1 && players[targetIndex].status === "alive") {
+        return voteCommand(i, targetIndex);
       }
 
-      let targetNone = false;
-      if (item.claimedRole.targetIndex !== -1) {
-        if (this.group_session.players[item.claimedRole.targetIndex].status === "death") {
-          targetNone = true;
-        } else {
-          return voteCommand(i, item.claimedRole.targetIndex);
-        }
-      } else {
-        targetNone = true;
+      const options = ["mayoritas", "random"];
+      if (accusedTargetIndex !== -1) {
+        options.push("follow");
       }
 
-      if (targetNone) {
-        const what = util.random(["mayoritas", "random", "follow"]);
+      const what = util.random(options);
 
-        if (what === "mayoritas") {
-          if (voteTarget.index !== undefined && voteTarget.index != i) {
-            return voteCommand(i, voteTarget.index);
-          }
-        }
-
-        if (what === "random" || accusedTargetIndex === -1) {
-          const alivePlayerIndex = this.group_session.players
-            .map((p, idx) => {
-              if (p.id !== item.id && p.status === "alive") {
-                if (item.role.team === "mafia" || item.role.team === "vampire") {
-                  if (item.role.team !== p.role.team) {
-                    return idx;
-                  }
-                } else {
-                  return idx;
-                }
-              }
-            })
-            .filter(item => {
-              return item !== undefined;
-            });
-
-          const randomIndex = util.random(alivePlayerIndex);
-          return voteCommand(i, randomIndex);
-        }
-
+      if (what === "follow" && i !== accusedTargetIndex) {
         return voteCommand(i, accusedTargetIndex);
+      } else if (what === "mayoritas") {
+        if (voteTarget.index !== undefined && voteTarget.index != i) {
+          return voteCommand(i, voteTarget.index);
+        }
       }
+
+      // random anyways
+      const alivePlayerIndex = this.group_session.players
+        .map((p, idx) => {
+          if (p.id !== item.id && p.status === "alive") {
+            if (item.role.team === "mafia" || item.role.team === "vampire") {
+              if (item.role.team !== p.role.team) {
+                return idx;
+              }
+            } else {
+              return idx;
+            }
+          }
+        })
+        .filter(item => {
+          return item !== undefined;
+        });
+
+      const randomIndex = util.random(alivePlayerIndex);
+      return voteCommand(i, randomIndex);
     }
   }
 };
