@@ -26,8 +26,6 @@ const infoWords = ["info", "inpo", "infoo", "info?", "infoo?"];
 
 const claimRoleWords = ["role", "rolee", "role?", "rolee?", "claim", "claim?"];
 
-const voteWords = ["vote", "votee", "gas"];
-
 const lieWords = ["bacod", "bacot", "bohong", "nipu", "tipu", "bct", "bcd"];
 
 const evilTeams = [
@@ -399,7 +397,7 @@ const botVote = () => {
     if (botIds.includes(item.id) && item.status === "alive") {
       if (item.targetVoteIndex !== -1) {
         const what = util.random(["change", "keep", "keep", "keep"]);
-        if (what === "keep") return;
+        if (what === "keep") continue;
       }
 
       let targetNone = false;
