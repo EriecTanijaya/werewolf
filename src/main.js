@@ -471,23 +471,6 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
             if (reveal) botMayorReveal();
           }
 
-          if (state === "vote") {
-            return botVote();
-          }
-
-          // parse bot speak action
-          const botNames = util.getFakeData(14).map(item => {
-            return item.name.toLowerCase();
-          });
-
-          for (let i = 0; i < args.length; i++) {
-            for (let u = 0; u < botNames.length; u++) {
-              if (botNames[u] === args[i].toLowerCase()) {
-                return botSpeakAction(botNames[u]);
-              }
-            }
-          }
-
           const roleName = players[index].role.name;
 
           // special role yang bisa trigger lewat text biasa
@@ -511,6 +494,23 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
                 }
               }
             }
+          }
+
+          // parse bot speak action
+          const botNames = util.getFakeData(14).map(item => {
+            return item.name.toLowerCase();
+          });
+
+          for (let i = 0; i < args.length; i++) {
+            for (let u = 0; u < botNames.length; u++) {
+              if (botNames[u] === args[i].toLowerCase()) {
+                return botSpeakAction(botNames[u]);
+              }
+            }
+          }
+
+          if (state === "vote") {
+            return botVote();
           }
         }
 
