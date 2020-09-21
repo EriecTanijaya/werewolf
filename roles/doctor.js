@@ -40,7 +40,7 @@ const botSkillAction = (util, group_session, botIndex) => {
     });
   targets = util.shuffleArray(targets);
 
-  const what = util.random(["self", "other"]);
+  const what = util.random(["self", "other", "other", "other"]);
 
   if (players[botIndex].role.selfHeal > 0 && what === "self") {
     group_session.players[botIndex].target.index = botIndex;

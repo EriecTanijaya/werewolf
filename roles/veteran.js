@@ -30,7 +30,7 @@ const botSkillAction = (util, group_session, botIndex) => {
     return;
   }
 
-  const what = util.random(["self", "nah"]);
+  const what = util.random(["self", "nah", "self"]);
 
   if (what === "nah") return;
 
