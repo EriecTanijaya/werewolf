@@ -36,7 +36,7 @@ const botSkillAction = (util, group_session, botIndex) => {
   const protection = group_session.players[botIndex].role.protection;
   if (protection === 0) return;
 
-  const what = util.random(["protect", "nah"]);
+  const what = util.random(["protect", "nah", "nah"]);
 
   if (what === "protect") {
     const mustProtectIndex = group_session.players[botIndex].role.mustProtectIndex;
