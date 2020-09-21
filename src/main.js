@@ -165,7 +165,17 @@ const botTellFakeRole = bot => {
     return replyText(text, bot);
   }
 
-  const fakeRoles = ["amnesiac", "survivor", "jester", "veteran", "retributionist", "doctor"];
+  const fakeRoles = [
+    "amnesiac",
+    "survivor",
+    "jester",
+    "veteran",
+    "retributionist",
+    "doctor",
+    "vigilante",
+    "bodyguard",
+    "escort"
+  ];
 
   const randomRole = util.random(fakeRoles);
 
