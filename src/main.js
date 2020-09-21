@@ -3492,7 +3492,7 @@ const day = () => {
     if (doer.role.name === "spy" && doer.status === "alive") {
       if (!doer.blocked) {
         this.group_session.players[i].message += spyMafiaVisitInfo;
-        this.group_session.players[i].skillResult = spyMafiaVisitInfo + "\n\n";
+        this.group_session.players[i].skillResult = spyMafiaVisitInfo;
       }
 
       if (doer.target.index === -1) continue;
@@ -3519,7 +3519,7 @@ const day = () => {
       } else {
         this.group_session.players[i].message += "🔍 " + target.name + " tidak terkena apa apa" + "\n\n";
 
-        this.group_session.players[i].skillResult += target.name + " tidak terkena apa apa";
+        this.group_session.players[i].skillResult += "🔍 " + target.name + " tidak terkena apa apa";
       }
     }
   }
