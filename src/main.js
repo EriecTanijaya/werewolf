@@ -20,21 +20,7 @@ const database = require("../database");
 
 const bots = require("../bots");
 
-const accusedWords = [
-  "jahat",
-  "jhat",
-  "mafia",
-  "mapia",
-  "bersalah",
-  "salah",
-  "consort",
-  "gf",
-  "consig",
-  "mafioso",
-  "vampire",
-  "vampir",
-  "pampir"
-];
+const accusedWords = ["jahat", "jhat", "bersalah", "salah", "mencurigakan"];
 
 const infoWords = ["info", "inpo", "infoo", "info?", "infoo?"];
 
@@ -279,20 +265,7 @@ const botSpeakAction = botName => {
       for (let j = 0; j < this.args.length; j++) {
         const input = this.args[j].toLowerCase();
         if (accusedWords.includes(input)) {
-          if (evilTeams.includes(bot.role.team)) {
-            const randomActions = ["deny", "fake_role"];
-            switch (util.random(randomActions)) {
-              case "deny":
-                return justDeny(bot);
-              case "fake_role":
-                return botTellFakeRole(bot);
-            }
-          } else if (bot.role.name === "guardian-angel") {
-            const targetName = players[bot.role.mustProtectIndex].name;
-            return replyText(`Role ku guardian angel, targetku ${targetName}`, bot);
-          } else {
-            return innocentRespond(bot);
-          }
+          return justDeny(bot);
         }
 
         if (claimRoleWords.includes(input)) {
@@ -300,7 +273,7 @@ const botSpeakAction = botName => {
         }
 
         if (framedWords.includes(input)) {
-          return replyText(`Aku bukan ${input}, aku di frame nih`, bot);
+          return replyText(`Aku bukan ${input}, aku di frame`, bot);
         }
 
         if (dousedWords.includes(input)) {
@@ -328,12 +301,19 @@ const botDenyLies = bot => {
 };
 
 const botClaimRole = bot => {
+  const players = this.group_session.players;
+
   if (bot.claimedRole.name !== "") {
     return replyText(`Role ku ${bot.claimedRole.name}`, bot);
   }
 
   if (evilTeams.includes(bot.role.team)) {
     return botTellFakeRole(bot);
+  }
+
+  if (bot.role.name === "guardian-angel") {
+    const targetName = players[bot.role.mustProtectIndex].name;
+    return replyText(`Role ku guardian angel, targetku ${targetName}`, bot);
   }
 
   return replyText(`Role ku ${bot.role.name}`, bot);
@@ -346,25 +326,9 @@ const justDeny = bot => {
     "Aku baik",
     "Role ku penting",
     "Role ku sangat penting",
-    "Jangan micin, aku role baik",
-    `Role ku bukan ${bot.role.name}`,
-    `Aku bukan ${bot.role.team}`
+    "Jangan micin, aku role baik"
   ];
   return replyText(util.random(denies), bot);
-};
-
-const innocentRespond = bot => {
-  const inno = [
-    "Aku aman",
-    "Aku bukan orang jahat",
-    "Aku baik",
-    "Role ku penting",
-    "Role ku sangat penting",
-    "Jangan micin, aku role baik",
-    `Aku ${bot.role.team}`,
-    `Role ku ${bot.role.name}`
-  ];
-  return replyText(util.random(inno), bot);
 };
 
 const botVote = () => {
