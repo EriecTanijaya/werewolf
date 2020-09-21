@@ -375,10 +375,12 @@ const botVote = () => {
     const item = players[i];
 
     if (botIds.includes(item.id) && item.status === "alive") {
-      if (item.targetVoteIndex !== -1) continue;
+      if (item.targetVoteIndex !== -1) {
+        const what = util.random(["change", "keep"]);
+        if (what === "keep") continue;
+      }
 
       let targetNone = false;
-
       if (item.claimedRole.targetIndex !== -1) {
         if (this.group_session.players[item.claimedRole.targetIndex].status === "death") {
           targetNone = true;
@@ -470,9 +472,7 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
           }
 
           if (state === "vote") {
-            if (voteWords.includes(args[0].toLowerCase())) {
-              return botVote();
-            }
+            return botVote();
           }
 
           // parse bot speak action
