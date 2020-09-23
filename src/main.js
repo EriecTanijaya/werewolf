@@ -1762,20 +1762,21 @@ const day = () => {
           if (doer.role.isPestilence) continue;
         }
 
-        // hax untuk Mafia yang tukang bunuh bukan godfather, tapi mafioso
-        // juga vampire yang pergi 1 aja
         if (target.role.name === "veteran") {
-          // hax buat spy mafia visit info
-          if (doer.role.team === "mafia") {
-            spyMafiaVisitInfo += `🤵 ${target.name} dikunjungi anggota Mafia\n\n`;
-
-            if (doer.role.name === "godfather") {
-              if (mafiaDoerIndex !== i) continue;
-            }
+          
+          // hax untuk Mafia yang tukang bunuh bukan godfather, tapi mafioso
+          // juga vampire yang pergi 1 aja
+          if (doer.role.name === "godfather") {
+            if (mafiaDoerIndex !== i) continue;
           }
 
           if (doer.role.name === "vampire") {
             if (vampireDoerIndex !== i) continue;
+          }
+
+          // hax buat spy mafia visit info
+          if (doer.role.team === "mafia") {
+            spyMafiaVisitInfo += `🤵 ${target.name} dikunjungi anggota Mafia\n\n`;
           }
 
           veteranTargetIndexes.push({
