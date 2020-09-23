@@ -3798,7 +3798,6 @@ const day = () => {
         bodyText: item.message
       };
 
-      // cp
       pushFlex(item.id, flex_text);
 
       /// journal , keep this below any special Announcement
@@ -3962,7 +3961,8 @@ const startCommand = () => {
   let minPlayers = 5;
   if (players.length < minPlayers) {
     const remainingPlayer = minPlayers - players.length;
-    let text = `💡 Game belum bisa dimulai, kurang ${remainingPlayer} pemain lagi`;
+    let text = `💡 Game belum bisa dimulai, kurang ${remainingPlayer} pemain lagi. `;
+    text += "🤖 Kamu bisa nambahin bot sebagai pemain dengan '/addbot'";
     return replyText(text);
   }
 
