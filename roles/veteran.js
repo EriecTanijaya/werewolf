@@ -26,6 +26,7 @@ const getInfo = () => {
 };
 
 const botSkillAction = (util, group_session, botIndex) => {
+  return;
   if (group_session.players[botIndex].role.alert === 0) {
     return;
   }

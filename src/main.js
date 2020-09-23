@@ -1816,9 +1816,10 @@ const day = () => {
           if (isVisitor) {
             this.group_session.players[i].message += "💡 Ada yang datang mengunjungi kamu!" + "\n\n";
 
-            // hax karna escort dan consort sudah masukkin data visitor ke veteran
-            // jadi escort dan consort tak perlu masukin lagi
-            if (targetRoleName !== "escort" || targetRoleName !== "consort") {
+            // hax karna ada sebagian role yang sudah masukkin data visitor ke veteran
+            const alreadyVisit = ["escort", "consort", "werewolf", "juggernaut"];
+
+            if (!alreadyVisit.includes(targetRoleName)) {
               this.group_session.players[targetIndex].message += "👣 Kamu ke rumah " + doer.name + "\n\n";
 
               const visitor = {
