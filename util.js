@@ -828,6 +828,11 @@ const hasBadWord = firstArgs => {
   }
 };
 
+const getDayEmoji = () => {
+  const weathers = ["🌧️", "🌩️", "🌨️", "☀️", "⛈️", "🌥️", "🌦️", "🌤️", "⛅", "☁️", "🌞"];
+  return random(weathers);
+};
+
 module.exports = {
   leaveGroup,
   random,
@@ -856,5 +861,6 @@ module.exports = {
   isDisguiseAsTownie,
   getInvestigatorPairList,
   getBruhImage,
-  hasBadWord
+  hasBadWord,
+  getDayEmoji
 };

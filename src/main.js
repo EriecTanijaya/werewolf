@@ -617,6 +617,8 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
     case "/extend":
       return extendCommand();
     case "/kick":
+    case "/bye":
+    case "/reset":
       return kickCommand();
     case "/set":
     case "/setting":
@@ -3815,8 +3817,9 @@ const day = () => {
     allAnnouncement += peaceText + "\n\n";
   }
 
+  const dayCounter = this.group_session.nightCounter + 1;
   let flex_text = {
-    headerText: "⛅ Day",
+    headerText: `${util.getDayEmoji()} Hari - ${dayCounter}`,
     bodyText: allAnnouncement
   };
 
