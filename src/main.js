@@ -1763,7 +1763,8 @@ const day = () => {
         }
 
         if (target.role.name === "veteran") {
-          
+          if (target.target.index === -1) continue;
+
           // hax untuk Mafia yang tukang bunuh bukan godfather, tapi mafioso
           // juga vampire yang pergi 1 aja
           if (doer.role.name === "godfather") {
