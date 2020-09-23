@@ -1194,7 +1194,9 @@ const day = () => {
       } else {
         this.group_session.players[targetIndex].blocked = true;
 
-        spyMafiaVisitInfo += `🤵 ${target.name} dikunjungi anggota Mafia\n\n`;
+        if (target.role.name !== "veteran" || target.target.index === -1) {
+          spyMafiaVisitInfo += `🤵 ${target.name} dikunjungi anggota Mafia\n\n`;
+        }
 
         if (players[targetIndex].bugged) {
           spyBuggedInfo[targetIndex] += "🔍 Target kamu di roleblock sehingga dia diam dirumah saja!" + "\n\n";
@@ -1266,7 +1268,9 @@ const day = () => {
 
       this.group_session.players[i].role.disguiseAs = target.role.name;
 
-      spyMafiaVisitInfo += `🤵 ${target.name} dikunjungi anggota Mafia\n\n`;
+      if (target.role.name !== "veteran" || target.target.index === -1) {
+        spyMafiaVisitInfo += `🤵 ${target.name} dikunjungi anggota Mafia\n\n`;
+      }
     }
   }
 
@@ -1761,8 +1765,13 @@ const day = () => {
         // hax untuk Mafia yang tukang bunuh bukan godfather, tapi mafioso
         // juga vampire yang pergi 1 aja
         if (target.role.name === "veteran") {
-          if (doer.role.name === "godfather") {
-            if (mafiaDoerIndex !== i) continue;
+          // hax buat spy mafia visit info
+          if (doer.role.team === "mafia") {
+            spyMafiaVisitInfo += `🤵 ${target.name} dikunjungi anggota Mafia\n\n`;
+
+            if (doer.role.name === "godfather") {
+              if (mafiaDoerIndex !== i) continue;
+            }
           }
 
           if (doer.role.name === "vampire") {
@@ -2512,7 +2521,9 @@ const day = () => {
               immuneToBasicAttack.push("werewolf");
             }
 
-            spyMafiaVisitInfo += `🤵 ${target.name} dikunjungi anggota Mafia\n\n`;
+            if (target.role.name !== "veteran" || target.target.index === -1) {
+              spyMafiaVisitInfo += `🤵 ${target.name} dikunjungi anggota Mafia\n\n`;
+            }
 
             if (immuneToBasicAttack.includes(target.role.name)) {
               this.group_session.players[i].message += "💡 Pertahanan targetmu terlalu tinggi untuk dibunuh!" + "\n\n";
@@ -3345,7 +3356,9 @@ const day = () => {
 
       mafiaAnnouncement += `🎞️ ${doer.name} menjebak ${target.name}\n\n`;
 
-      spyMafiaVisitInfo += `🤵 ${target.name} dikunjungi anggota Mafia\n\n`;
+      if (target.role.name !== "veteran" || target.target.index === -1) {
+        spyMafiaVisitInfo += `🤵 ${target.name} dikunjungi anggota Mafia\n\n`;
+      }
 
       this.group_session.players[targetIndex].framed = true;
     }
@@ -3483,7 +3496,9 @@ const day = () => {
 
       mafiaAnnouncement += `✒️ Role ${target.name} adalah ${targetRoleName}\n\n`;
 
-      spyMafiaVisitInfo += `🤵 ${target.name} dikunjungi anggota Mafia\n\n`;
+      if (target.role.name !== "veteran" || target.target.index === -1) {
+        spyMafiaVisitInfo += `🤵 ${target.name} dikunjungi anggota Mafia\n\n`;
+      }
     }
   }
 
