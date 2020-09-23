@@ -14,11 +14,20 @@ const getData = () => {
 const generate = playersLength => {
   if (playersLength < 7) {
     let roles = [];
-    const mafia = ["investigator", "mafioso", "vigilante", "jester"];
-    const sk = ["serial-killer", "investigator", "doctor", "jester"];
-    const standard = ["mafioso", "sheriff", "doctor", "jester"];
 
-    roles = util.random([mafia, sk, standard]);
+    const standard = ["mafioso", "sheriff", "doctor", "vigilante"];
+    const invest = ["investigator", "doctor", "vigilante"];
+    invest.push(util.random(["serial-killer", "mafioso"]));
+
+    roles = util.random([standard, invest]);
+
+    roles.push(util.random(["escort", "retributionist", "mayor"]));
+
+    const neutral = ["amnesiac", "survivor", "guardian-angel", "jester", "executioner"];
+    roles.push(util.random(neutral));
+
+    roles.length = playersLength;
+
     roles = util.shuffleArray(roles);
     return roles;
   }

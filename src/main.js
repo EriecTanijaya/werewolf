@@ -526,7 +526,7 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
           }
         }
 
-        if (time <= 10 && time > 0) {
+        if (time <= 5 && time > 0) {
           let reminder = "💡 Waktu tersisa " + time;
           reminder += " detik lagi, nanti ketik '/cek' ";
           reminder += "saat waktu sudah habis untuk lanjutkan proses. ";
@@ -617,6 +617,8 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
     case "/extend":
       return extendCommand();
     case "/kick":
+    case "/bye":
+    case "/reset":
       return kickCommand();
     case "/set":
     case "/setting":
@@ -3798,7 +3800,6 @@ const day = () => {
         bodyText: item.message
       };
 
-      // cp
       pushFlex(item.id, flex_text);
 
       /// journal , keep this below any special Announcement
@@ -3816,8 +3817,9 @@ const day = () => {
     allAnnouncement += peaceText + "\n\n";
   }
 
+  const dayCounter = this.group_session.nightCounter + 1;
   let flex_text = {
-    headerText: "⛅ Day",
+    headerText: `${util.getDayEmoji()} Hari - ${dayCounter}`,
     bodyText: allAnnouncement
   };
 
@@ -3962,7 +3964,8 @@ const startCommand = () => {
   let minPlayers = 5;
   if (players.length < minPlayers) {
     const remainingPlayer = minPlayers - players.length;
-    let text = `💡 Game belum bisa dimulai, kurang ${remainingPlayer} pemain lagi`;
+    let text = `💡 Game belum bisa dimulai, kurang ${remainingPlayer} pemain lagi. `;
+    text += "🤖 Kamu bisa nambahin bot sebagai pemain dengan '/addbot'";
     return replyText(text);
   }
 

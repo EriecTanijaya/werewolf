@@ -718,7 +718,8 @@ const getSelfData = async userId => {
       const self = ranker[i];
 
       let bodyText = `🏆 Rank ke ${rank} dari ${ranker.length} pemain\n`;
-      bodyText += `📊 WR : ${self.winRate} 🎮 Games played : ${self.totalGame}`;
+      bodyText += `📊 WR : ${self.winRate}\n⭐ Win : ${self.win}\n`;
+      bodyText += `🎮 Games played : ${self.totalGame}`;
 
       const flex_text = {
         headerText: `📜 ${self.name}`,
@@ -827,6 +828,11 @@ const hasBadWord = firstArgs => {
   }
 };
 
+const getDayEmoji = () => {
+  const weathers = ["🌧️", "🌩️", "🌨️", "☀️", "⛈️", "🌥️", "🌦️", "🌤️", "⛅", "☁️", "🌞"];
+  return random(weathers);
+};
+
 module.exports = {
   leaveGroup,
   random,
@@ -855,5 +861,6 @@ module.exports = {
   isDisguiseAsTownie,
   getInvestigatorPairList,
   getBruhImage,
-  hasBadWord
+  hasBadWord,
+  getDayEmoji
 };
