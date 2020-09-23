@@ -526,7 +526,7 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
           }
         }
 
-        if (time <= 10 && time > 0) {
+        if (time <= 5 && time > 0) {
           let reminder = "💡 Waktu tersisa " + time;
           reminder += " detik lagi, nanti ketik '/cek' ";
           reminder += "saat waktu sudah habis untuk lanjutkan proses. ";
