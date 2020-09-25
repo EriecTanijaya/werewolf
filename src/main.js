@@ -1456,6 +1456,10 @@ const day = () => {
           if (visitor.role.name === "godfather") {
             if (mafiaDoerIndex !== i) continue;
           }
+          
+          if (visitor.role.name === "vampire") {
+            if (vampireDoerIndex !== i) continue;
+          }
 
           pestilenceRampageTargetIndexes.push(i);
         }
@@ -1608,6 +1612,14 @@ const day = () => {
             if (visitor.role.name === "godfather") {
               if (mafiaDoerIndex !== i) continue;
             }
+            
+            if (visitor.role.name === "vampire") {
+              if (vampireDoerIndex !== i) continue;
+            }
+            
+            if (visitor.role.name === "plaguebearer") {
+              if (visitor.role.isPestilence) continue;
+            }
 
             juggernautRampageTargetIndexes.push(i);
           }
@@ -1707,11 +1719,19 @@ const day = () => {
         if (visitor.status !== "alive") continue;
 
         if (visitor.blocked) continue;
+        
+        if (visitor.role.name === "plaguebearer") {
+          if (visitor.role.isPestilence) continue;
+        }
 
         if (visitor.target.index == rampagePlaceIndex) {
           // hax mafia kalo yang pergi itu mafioso
           if (visitor.role.name === "godfather") {
             if (mafiaDoerIndex !== i) continue;
+          }
+          
+          if (visitor.role.name === "vampire") {
+            if (vampireDoerIndex !== i) continue;
           }
 
           werewolfRampageTargetIndexes.push(i);
@@ -1744,7 +1764,7 @@ const day = () => {
       }
     }
   }
-
+  
   /// Veteran Visitor fetch
   for (let i = 0; i < players.length; i++) {
     const doer = players[i];
@@ -3754,7 +3774,7 @@ const day = () => {
 
       if (infectedCount === alivePlayersCount) {
         this.group_session.players[i].message +=
-          "☣️ Kamu telah menginfeksi seluruh orang! " + "Kamu akan menjadi Pestilence!";
+          "☣️ Kamu telah menginfeksi seluruh orang! Kamu akan menjadi Pestilence!";
 
         this.group_session.players[i].role.isPestilence = true;
         this.group_session.players[i].role.canKill = true;
