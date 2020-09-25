@@ -1074,26 +1074,17 @@ const announceCommand = () => {
     return journalCommand();
   }
 
-  const flex_texts = [
-    {
-      headerText: "🌙 Berita Malam ke - " + this.group_session.nightCounter,
-      bodyText: players[index].message
-    }
-  ];
-
-  if (players[index].status === "alive") {
-    flex_texts.push({
-      headerText: "📣 Info",
-      bodyText: "☝️ Kembali ke group chat untuk voting"
-    });
-  }
+  const flex_text = {
+    headerText: "🌙 Berita Malam ke - " + this.group_session.nightCounter,
+    bodyText: players[index].message
+  };
 
   const journals = players[index].journals;
 
   if (journals.length === 2) {
-    return replyFlex(flex_texts, "📓 Kamu bisa cek journal kamu dengan '/jurnal'");
+    return replyFlex(flex_text, "📓 Kamu bisa cek journal kamu dengan '/jurnal'");
   } else {
-    return replyFlex(flex_texts);
+    return replyFlex(flex_text);
   }
 };
 
