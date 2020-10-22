@@ -1456,7 +1456,7 @@ const day = () => {
           if (visitor.role.name === "godfather") {
             if (mafiaDoerIndex !== i) continue;
           }
-          
+
           if (visitor.role.name === "vampire") {
             if (vampireDoerIndex !== i) continue;
           }
@@ -1612,11 +1612,11 @@ const day = () => {
             if (visitor.role.name === "godfather") {
               if (mafiaDoerIndex !== i) continue;
             }
-            
+
             if (visitor.role.name === "vampire") {
               if (vampireDoerIndex !== i) continue;
             }
-            
+
             if (visitor.role.name === "plaguebearer") {
               if (visitor.role.isPestilence) continue;
             }
@@ -1719,7 +1719,7 @@ const day = () => {
         if (visitor.status !== "alive") continue;
 
         if (visitor.blocked) continue;
-        
+
         if (visitor.role.name === "plaguebearer") {
           if (visitor.role.isPestilence) continue;
         }
@@ -1729,7 +1729,7 @@ const day = () => {
           if (visitor.role.name === "godfather") {
             if (mafiaDoerIndex !== i) continue;
           }
-          
+
           if (visitor.role.name === "vampire") {
             if (vampireDoerIndex !== i) continue;
           }
@@ -1764,7 +1764,7 @@ const day = () => {
       }
     }
   }
-  
+
   /// Veteran Visitor fetch
   for (let i = 0; i < players.length; i++) {
     const doer = players[i];
@@ -4651,7 +4651,6 @@ const endGame = (flex_texts, whoWin) => {
 
   flex_text.headerText = headerText;
 
-  this.group_session.gamePlayed++;
   this.group_session.time = 300; // reset to init time
   this.group_session.state = "idle";
   delete this.group_session.nightCounter;
@@ -4667,21 +4666,10 @@ const endGame = (flex_texts, whoWin) => {
 
   resetAllPlayers();
 
-  const place = this.event.source.type;
-  const text = `🏘️ Mungkin bisa dipertimbangkan untuk '/promote' ${place} ini agar bisa bantu orang yang belum ada group`;
-
   if (!flex_texts) {
-    if (this.group_session.gamePlayed === 2) {
-      return replyFlex(flex_text, text);
-    } else {
-      return replyFlex(flex_text);
-    }
+    return replyFlex(flex_text);
   } else {
-    if (this.group_session.gamePlayed === 2) {
-      return replyFlex(flex_texts, text, flex_text);
-    } else {
-      return replyFlex(flex_texts, null, flex_text);
-    }
+    return replyFlex(flex_texts, null, flex_text);
   }
 };
 

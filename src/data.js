@@ -160,7 +160,6 @@ const searchGroup = async groupId => {
       time: 300,
       mode: "classic",
       isShowRole: true,
-      gamePlayed: 0,
       promoted: false,
       adminLink: "",
       caption: "",
