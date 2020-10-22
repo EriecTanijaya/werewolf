@@ -95,9 +95,16 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
       return playersCommand();
     case "/sync":
       return updateName();
+    case "/tutorial":
+      return tutorialCommand();
     default:
       return invalidCommand();
   }
+};
+
+const tutorialCommand = () => {
+  const msg = util.getTutorial();
+  return replyFlex(msg);
 };
 
 const updateName = () => {
