@@ -27,7 +27,7 @@ setInterval(() => {
           group_sessions[key].state = "idle";
           resetAllPlayers(group_sessions[key].players);
         } else if (state === "idle") {
-          if (group_sessions[key].groupId !== process.env.TEST_GROUP) {
+          if (!group_sessions[key].stay) {
             group_sessions[key].state = "inactive";
           }
         }
@@ -161,6 +161,7 @@ const searchGroup = async groupId => {
       mode: "classic",
       isShowRole: true,
       promoted: false,
+      stay: false,
       adminLink: "",
       caption: "",
       customRoles: [],

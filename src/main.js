@@ -646,9 +646,21 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
       return updateName();
     case "/addbot":
       return addBotCommand();
+    case "/stay":
+      return stayCommand();
     default:
       return invalidCommand();
   }
+};
+
+const stayCommand = () => {
+  if (this.user_session.id !== process.env.DEV_ID) {
+    return invalidCommand();
+  }
+
+  this.group_session.stay = true;
+
+  return replyText("💡 Bot akan stay disini sementara");
 };
 
 const addBotCommand = () => {
