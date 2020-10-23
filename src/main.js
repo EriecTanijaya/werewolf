@@ -3887,7 +3887,16 @@ const day = () => {
   };
 
   ///check victory
-  let someoneWin = checkVictory();
+  let someoneWin = "";
+
+  if (this.group_session.mode === "vip") {
+    if (players[this.group_session.vipIndex].status === "death") {
+      someoneWin = "mafia";
+      flex_text.bodyText += `\n\n⭐ ${players[this.group_session.vipIndex].name} telah mati!`;
+    }
+  } else {
+    someoneWin = checkVictory();
+  }
 
   if (someoneWin) {
     flex_texts.unshift(flex_text);
@@ -4066,6 +4075,28 @@ const randomRoles = () => {
   });
 
   this.group_session.players = util.shuffleArray(this.group_session.players);
+
+  // get the vip
+  if (this.group_session.mode === "vip") {
+    const prohibited = ["bodyguard", "vigilante"];
+    let vipId = "";
+    for (let i = 0; i < this.group_session.players.length; i++) {
+      const role = this.group_session.players[i].role;
+      if (role.team === "villager" && !prohibited.includes(role.name)) {
+        vipId = this.group_session.players[i].id;
+        break;
+      }
+    }
+
+    this.group_session.players = util.shuffleArray(this.group_session.players);
+
+    for (let i = 0; i < this.group_session.players.length; i++) {
+      if (this.group_session.players[i].id === vipId) {
+        this.group_session.vipIndex = i;
+        break;
+      }
+    }
+  }
 
   this.group_session.players.forEach((item, index) => {
     /// init private prop special role
@@ -4478,7 +4509,20 @@ const postLynch = () => {
   if (!lynched) {
     return night(null);
   } else {
-    let someoneWin = checkVictory();
+    let someoneWin = "";
+
+    if (this.group_session.mode === "vip") {
+      const players = this.group_session.players;
+      if (players[this.group_session.vipIndex].status === "death") {
+        let flex_text = {
+          headerText: "📜 Info",
+          bodyText: `⭐ ${players[this.group_session.vipIndex].name} telah mati!`
+        };
+        return endGame(flex_text, "mafia");
+      }
+    } else {
+      someoneWin = checkVictory();
+    }
 
     if (someoneWin) {
       return endGame(null, someoneWin);

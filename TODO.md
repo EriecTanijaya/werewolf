@@ -1,4 +1,8 @@
-    kasih noun patah hati", ini damagenigated = false
+    kasih nogame mode vip
+  - akan dipilih salah satu warga sebagai VIP, dimana setiap warga tahu siapa VIP nya, 
+    jika VIP mati, warga auto kalah walaupun semua mafia telah mati
+  - VIP selalu warga, dan tidak bisa vigilante dan bodyguard
+  igated = false
   - taruh func lagi di bawah Post Vigilante check the target, buat checker if status === alive, 
     lalu if framed && investigated, buat jadi framed = false
   - update /info juga

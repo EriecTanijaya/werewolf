@@ -665,14 +665,16 @@ const roleCommand = () => {
 
   let flex_texts = [];
 
-  let flex_text = {
-    headerText,
-    bodyText: roleDesc
-  };
+  let flex_text = { headerText, bodyText: "" };
 
-  let addon_flex_text = {
-    headerText: ""
-  };
+  if (this.group_session.mode === "vip" && player.role.team === "villager") {
+    flex_text.bodyText = `⭐ ${players[this.group_session.vipIndex].name} adalah VIP!`;
+    flex_text.bodyText += "\n\n" + roleDesc;
+  } else {
+    flex_text.bodyText = roleDesc;
+  }
+
+  let addon_flex_text = { headerText: "" };
 
   if (players[index].afkCounter > 0) {
     this.group_session.players[index].afkCounter = 0;
