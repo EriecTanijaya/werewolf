@@ -164,7 +164,4 @@ const generate = playersLength => {
   return roles;
 };
 
-module.exports = {
-  getData,
-  generate
-};
+module.exports = { getData, generate };

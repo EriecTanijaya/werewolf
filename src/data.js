@@ -1,9 +1,7 @@
 const client = require("./client");
 const flex = require("../message/flex");
-
 const util = require("../util");
 const respond = require("../message/respond");
-
 const personal = require("./personal");
 const main = require("./main");
 const idle = require("./idle");

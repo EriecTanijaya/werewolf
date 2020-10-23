@@ -17,7 +17,4 @@ const generate = (playersLength, customRoles) => {
   return roles;
 };
 
-module.exports = {
-  getData,
-  generate
-};
+module.exports = { getData, generate };

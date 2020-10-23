@@ -1,9 +1,6 @@
 const client = require("./client");
-
 const flex = require("../message/flex");
-
 const util = require("../util");
-
 const roles = require("../roles");
 const modes = require("../modes");
 const types = require("../types");

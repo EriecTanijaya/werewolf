@@ -1,33 +1,24 @@
 const client = require("./client");
 const flex = require("../message/flex");
 const util = require("../util");
-
 const attackedMsg = require("../message/attack");
 const peaceMsg = require("../message/peace");
 const punishment = require("../message/punishment");
 const respond = require("../message/respond");
-
 const setting = require("./setting");
-
 const stats = require("./stats");
 const info = require("./info");
-
 const modes = require("../modes");
-
 const rawRoles = require("../roles");
-
 const database = require("../database");
-
 const bots = require("../bots");
 
 const accusedWords = ["jahat", "jhat", "bersalah", "salah", "mencurigakan"];
-
 const infoWords = ["info", "inpo", "infoo", "info?", "infoo?"];
-
 const claimRoleWords = ["role", "rolee", "role?", "rolee?", "claim", "claim?"];
-
 const lieWords = ["bacod", "bacot", "bohong", "nipu", "tipu", "bct", "bcd"];
-
+const framedWords = ["framer", "jester"];
+const dousedWords = ["arso", "arsonist", "arsonis"];
 const evilTeams = [
   "mafia",
   "executioner",
@@ -39,10 +30,6 @@ const evilTeams = [
   "juggernaut",
   "plaguebearer"
 ];
-
-const framedWords = ["framer", "jester"];
-
-const dousedWords = ["arso", "arsonist", "arsonis"];
 
 const botGetAccusedRole = () => {
   const evilRoles = [

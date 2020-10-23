@@ -23,9 +23,9 @@ const generate = playersLength => {
   roles.push(util.random(townProtectors));
 
   roles.push("vampire");
-  
+
   roles.push("jester");
-  
+
   roles.push(util.random(townSupports));
 
   const randomTowns = [
@@ -41,17 +41,14 @@ const generate = playersLength => {
     "psychic",
     "villager"
   ];
-  
+
   roles.push(util.random(randomTowns));
 
   roles.length = playersLength;
 
   roles = util.shuffleArray(roles);
-  
+
   return roles;
 };
 
-module.exports = {
-  getData,
-  generate
-};
+module.exports = { getData, generate };

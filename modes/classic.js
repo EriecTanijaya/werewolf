@@ -339,7 +339,4 @@ const generate = playersLength => {
   return generated;
 };
 
-module.exports = {
-  getData,
-  generate
-};
+module.exports = { getData, generate };

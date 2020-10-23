@@ -1,7 +1,6 @@
 const client = require("./client");
 const flex = require("../message/flex");
 const util = require("../util");
-
 const info = require("./info");
 const stats = require("./stats");
 const database = require("../database");
