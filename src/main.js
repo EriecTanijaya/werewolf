@@ -3887,16 +3887,16 @@ const day = () => {
   };
 
   ///check victory
-  let someoneWin = "";
 
   if (this.group_session.mode === "vip") {
     if (players[this.group_session.vipIndex].status === "death") {
-      someoneWin = "mafia";
-      flex_text.bodyText += `\n\n⭐ ${players[this.group_session.vipIndex].name} telah mati!`;
+      flex_text.bodyText += `⭐ ${players[this.group_session.vipIndex].name} telah mati!`;
+      flex_texts.unshift(flex_text);
+      return endGame(flex_texts, "mafia");
     }
-  } else {
-    someoneWin = checkVictory();
   }
+
+  let someoneWin = checkVictory();
 
   if (someoneWin) {
     flex_texts.unshift(flex_text);
@@ -4509,8 +4509,6 @@ const postLynch = () => {
   if (!lynched) {
     return night(null);
   } else {
-    let someoneWin = "";
-
     if (this.group_session.mode === "vip") {
       const players = this.group_session.players;
       if (players[this.group_session.vipIndex].status === "death") {
@@ -4520,9 +4518,9 @@ const postLynch = () => {
         };
         return endGame(flex_text, "mafia");
       }
-    } else {
-      someoneWin = checkVictory();
     }
+
+    let someoneWin = checkVictory();
 
     if (someoneWin) {
       return endGame(null, someoneWin);

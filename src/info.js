@@ -72,7 +72,7 @@ const receive = (event, args, rawArgs, groupState = null) => {
       flex_text.buttons = [
         {
           action: "postback",
-          label: "set mode ini",
+          label: "👆 set mode ini",
           data: `/set mode ${id}`
         }
       ];
