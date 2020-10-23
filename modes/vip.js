@@ -14,13 +14,15 @@ const getData = () => {
 const generate = playersLength => {
   const townSupports = ["escort", "mayor", "retributionist"];
   const townProtectors = ["doctor", "bodyguard"];
+  const neutrals = ["amnesiac", "survivor", "jester"];
 
   let roles = ["mafioso", "sheriff", "vigilante", "doctor"];
   roles.push(util.random(townSupports));
   roles.push("guardian-angel");
   roles.push("godfather");
   roles.push(util.random(townProtectors));
-  roles.push("amnesiac", "consort", "tracker", "bodyguard", "psychic", "consigliere");
+  roles.push(util.random(neutrals));
+  roles.push("consort", "tracker", "bodyguard", "psychic", "consigliere");
   roles.push(util.random(townProtectors));
 
   roles.length = playersLength;
