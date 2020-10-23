@@ -20,6 +20,8 @@ const getData = () => {
 const getInfo = () => {
   let text = "Anggota Mafia yang bisa membuat suatu pemain tampak bersalah. ";
   text += "Jika Target Framer di cek Sheriff, maka akan tampak bersalah walaupun ia adalah warga. ";
+  text += "Jika di cek Investigator, hasilnya adalah Framer, Vampire atau Jester. ";
+  text += "Efek dari frame akan tetap bertahan hingga target telah di cek Sheriff atau Investigator";
   return text;
 };
 

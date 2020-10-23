@@ -3429,6 +3429,8 @@ const day = () => {
         suspiciousList.push("werewolf");
       }
 
+      this.group_session.players[targetIndex].investigated = true;
+
       if (target.framed || suspiciousList.includes(target.role.name)) {
         this.group_session.players[i].message += "👮 " + target.name + " mencurigakan" + "\n\n";
 
@@ -3480,6 +3482,8 @@ const day = () => {
       if (target.doused) {
         targetRoleName = "arsonist";
       }
+
+      this.group_session.players[targetIndex].investigated = true;
 
       this.group_session.players[i].message += "👣 Kamu ke rumah " + target.name + "\n\n";
 
@@ -3820,6 +3824,15 @@ const day = () => {
             }
           }
         }
+      }
+    }
+  }
+
+  // Restore framed status
+  for (let i = 0; i < players.length; i++) {
+    if (players[i].status === "alive") {
+      if (players[i].framed && players[i].investigated) {
+        this.group_session.players[i].framed = false;
       }
     }
   }
@@ -4213,6 +4226,7 @@ const night = () => {
       item.selfHeal = false;
       item.damage = 0;
       item.protected = false;
+      item.investigated = false;
 
       //special role (vampire)
       if (item.role.team === "vampire") {
@@ -5780,7 +5794,8 @@ const createNewPlayer = user_session => {
       accusedRole: "",
       justDeadBaitIndex: -1
     },
-    addonMessage: ""
+    addonMessage: "",
+    investigated: false
   };
   return newPlayer;
 };

@@ -1,4 +1,7 @@
-### TODO
+    kasih noun patah hati", ini damagenigated = false
+  - taruh func lagi di bawah Post Vigilante check the target, buat checker if status === alive, 
+    lalu if framed && investigated, buat jadi framed = false
+  - update /info juga
 
 - bug, kalau ada yang ke veteran, lalu di heal, nanti data visitor veteran duplikat
   - cara cek, lookout ke veteran, veteran alert, doctor heal lookout biar lookout bisa liat skill
@@ -18,12 +21,6 @@ warga 60 persen, mafia 20 persen, nk 7 persen, neutral 13 persen
 
 atau	
 
-warga 60 persen, mafia 26 persen, nk 7 persen, neutral 7 persen
-```
-
-- ROLE YG JANGAN DUPLICATE
-  - plaguebearer
-  - VETERAN
-  - vampire hunter hanya ada saat ada vampire
+warga 60 persen, mafia 26 persen, nk 7 perter hanya ada saat ada vampire
   - sheriff ada kalau ada list yg bisa di suspiciouskan
   - mayor
