@@ -25,7 +25,7 @@ const punish = (punishment, lynchedName, voteCount) => {
     `💀 Disaat para warga masih sibuk berdebat, ${lynchedName} ${punishment} diri sendiri`,
     `💀 Selamat, ${lynchedName} berhasil di${punishment} dengan jumlah ${voteCount} vote!`,
     `💀 Warga merasa kasihan dengan ${lynchedName}, tetapi tetap ae mereka ${punishment} dia`,
-    `💀 "Avada Kedavra!" ${lynchedName} menghilang tanpa ada jejak. \n\nHairy Potter : "err, aku bisa jelaskan"`
+    `💀 "Avada Kedavra!" ${lynchedName} menghilang tanpa ada jejak. \n\n🧙 Hairy Potter : "err, aku bisa jelaskan"`
   ];
   return util.random(arr);
 };

@@ -4,7 +4,6 @@ const getData = () => {
   const data = {
     id: "2",
     name: "🤡🪓 Chaos",
-    isShowRole: false,
     description: "Sesuai namanya, role role yang ada beneran buat chaos. ",
     naration: "🔥 Telah di curigai kota Bedburg dengan sangat banyak kriminal yang berpura pura seperti warga"
   };
@@ -165,7 +164,4 @@ const generate = playersLength => {
   return roles;
 };
 
-module.exports = {
-  getData,
-  generate
-};
+module.exports = { getData, generate };

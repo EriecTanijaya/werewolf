@@ -1,9 +1,7 @@
 const client = require("./client");
 const flex = require("../message/flex");
-
 const util = require("../util");
 const respond = require("../message/respond");
-
 const personal = require("./personal");
 const main = require("./main");
 const idle = require("./idle");
@@ -27,7 +25,7 @@ setInterval(() => {
           group_sessions[key].state = "idle";
           resetAllPlayers(group_sessions[key].players);
         } else if (state === "idle") {
-          if (group_sessions[key].groupId !== process.env.TEST_GROUP) {
+          if (!group_sessions[key].stay) {
             group_sessions[key].state = "inactive";
           }
         }
@@ -160,8 +158,8 @@ const searchGroup = async groupId => {
       time: 300,
       mode: "classic",
       isShowRole: true,
-      gamePlayed: 0,
       promoted: false,
+      stay: false,
       adminLink: "",
       caption: "",
       customRoles: [],

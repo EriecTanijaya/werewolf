@@ -7,10 +7,6 @@
 - bug juga, gmna kalau werewolf rampage diri sndiri, lalu lookout ke ww, lalu ada yang ke ww
   itu gak ada data visitor loh. kalau lookout di heal, kosong
 
-- role set trick or treat (ada di tos punya fandom wiki) buat halloween ntr
-  deadline oktober 31
-
-
 ### NOTEE
 
 ```
@@ -18,12 +14,6 @@ warga 60 persen, mafia 20 persen, nk 7 persen, neutral 13 persen
 
 atau	
 
-warga 60 persen, mafia 26 persen, nk 7 persen, neutral 7 persen
-```
-
-- ROLE YG JANGAN DUPLICATE
-  - plaguebearer
-  - VETERAN
-  - vampire hunter hanya ada saat ada vampire
+warga 60 persen, mafia 26 persen, nk 7 perter hanya ada saat ada vampire
   - sheriff ada kalau ada list yg bisa di suspiciouskan
   - mayor

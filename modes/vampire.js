@@ -4,7 +4,6 @@ const getData = () => {
   const data = {
     id: "3",
     name: "🦇🧛 Vampire",
-    isShowRole: true,
     description: "Disana Vampire, disini Vampire, dimana mana ada Vampire.",
     naration: "🧛 Kota Bedburg telah disusupi Vampire! Para warga harus menyelamatkan kota ini dari serbuan Vampire!"
   };
@@ -24,9 +23,9 @@ const generate = playersLength => {
   roles.push(util.random(townProtectors));
 
   roles.push("vampire");
-  
+
   roles.push("jester");
-  
+
   roles.push(util.random(townSupports));
 
   const randomTowns = [
@@ -42,17 +41,14 @@ const generate = playersLength => {
     "psychic",
     "villager"
   ];
-  
+
   roles.push(util.random(randomTowns));
 
   roles.length = playersLength;
 
   roles = util.shuffleArray(roles);
-  
+
   return roles;
 };
 
-module.exports = {
-  getData,
-  generate
-};
+module.exports = { getData, generate };

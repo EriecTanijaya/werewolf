@@ -2,10 +2,8 @@ const client = require("./client");
 const skillText = require("../message/skill");
 const flex = require("../message/flex");
 const util = require("../util");
-
 const stats = require("./stats");
 const info = require("./info");
-
 const rawRoles = require("../roles");
 
 const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
@@ -95,9 +93,16 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
       return playersCommand();
     case "/sync":
       return updateName();
+    case "/tutorial":
+      return tutorialCommand();
     default:
       return invalidCommand();
   }
+};
+
+const tutorialCommand = () => {
+  const msg = util.getTutorial();
+  return replyFlex(msg);
 };
 
 const updateName = () => {
@@ -647,6 +652,7 @@ const roleCommand = () => {
     return replyText("💡 Game belum dimulai");
   }
 
+  // const index = this.args[1] !== undefined ? this.args[1] : indexOfPlayer();
   const index = indexOfPlayer();
   const players = this.group_session.players;
   const player = players[index];
@@ -658,14 +664,21 @@ const roleCommand = () => {
 
   let flex_texts = [];
 
-  let flex_text = {
-    headerText,
-    bodyText: roleDesc
-  };
+  let flex_text = { headerText, bodyText: "" };
 
-  let addon_flex_text = {
-    headerText: ""
-  };
+  if (this.group_session.mode === "vip" && player.role.team === "villager") {
+    if (this.group_session.vipIndex == index) {
+      flex_text.bodyText = `⭐ Kamu adalah VIP!`;
+    } else {
+      flex_text.bodyText = `⭐ ${players[this.group_session.vipIndex].name} adalah VIP!`;
+    }
+
+    flex_text.bodyText += "\n\n" + roleDesc;
+  } else {
+    flex_text.bodyText = roleDesc;
+  }
+
+  let addon_flex_text = { headerText: "" };
 
   if (players[index].afkCounter > 0) {
     this.group_session.players[index].afkCounter = 0;

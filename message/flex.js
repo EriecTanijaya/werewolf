@@ -3,10 +3,10 @@ const util = require("../util");
 const build = (flex_raw, sender, opt_texts = []) => {
   const color = util.getFlexColor();
   flex_raw = Array.isArray(flex_raw) ? flex_raw : [flex_raw];
-
+  
   let flex_msg = {
     type: "flex",
-    altText: "📣 Ada pesan untuk kamu!",
+    altText: `${flex_raw[0].headerText}`,
     contents: {
       type: "carousel",
       contents: []

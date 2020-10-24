@@ -1,33 +1,24 @@
 const client = require("./client");
 const flex = require("../message/flex");
 const util = require("../util");
-
 const attackedMsg = require("../message/attack");
 const peaceMsg = require("../message/peace");
 const punishment = require("../message/punishment");
 const respond = require("../message/respond");
-
 const setting = require("./setting");
-
 const stats = require("./stats");
 const info = require("./info");
-
 const modes = require("../modes");
-
 const rawRoles = require("../roles");
-
 const database = require("../database");
-
 const bots = require("../bots");
 
 const accusedWords = ["jahat", "jhat", "bersalah", "salah", "mencurigakan"];
-
 const infoWords = ["info", "inpo", "infoo", "info?", "infoo?"];
-
 const claimRoleWords = ["role", "rolee", "role?", "rolee?", "claim", "claim?"];
-
 const lieWords = ["bacod", "bacot", "bohong", "nipu", "tipu", "bct", "bcd"];
-
+const framedWords = ["framer", "jester"];
+const dousedWords = ["arso", "arsonist", "arsonis"];
 const evilTeams = [
   "mafia",
   "executioner",
@@ -39,10 +30,6 @@ const evilTeams = [
   "juggernaut",
   "plaguebearer"
 ];
-
-const framedWords = ["framer", "jester"];
-
-const dousedWords = ["arso", "arsonist", "arsonis"];
 
 const botGetAccusedRole = () => {
   const evilRoles = [
@@ -646,9 +633,21 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
       return updateName();
     case "/addbot":
       return addBotCommand();
+    case "/stay":
+      return stayCommand();
     default:
       return invalidCommand();
   }
+};
+
+const stayCommand = () => {
+  if (this.user_session.id !== process.env.DEV_ID) {
+    return invalidCommand();
+  }
+
+  this.group_session.stay = true;
+
+  return replyText("💡 Bot akan stay disini sementara");
 };
 
 const addBotCommand = () => {
@@ -830,9 +829,6 @@ const day = () => {
 
   /// Veteran targetIndexes
   let veteranTargetIndexes = [];
-
-  /// vigilante check existences
-  let vigilanteExists = checkExistsRole("vigilante");
 
   /// Spy global var
   let spyMafiaVisitInfo = "";
@@ -1456,7 +1452,7 @@ const day = () => {
           if (visitor.role.name === "godfather") {
             if (mafiaDoerIndex !== i) continue;
           }
-          
+
           if (visitor.role.name === "vampire") {
             if (vampireDoerIndex !== i) continue;
           }
@@ -1612,11 +1608,11 @@ const day = () => {
             if (visitor.role.name === "godfather") {
               if (mafiaDoerIndex !== i) continue;
             }
-            
+
             if (visitor.role.name === "vampire") {
               if (vampireDoerIndex !== i) continue;
             }
-            
+
             if (visitor.role.name === "plaguebearer") {
               if (visitor.role.isPestilence) continue;
             }
@@ -1719,7 +1715,7 @@ const day = () => {
         if (visitor.status !== "alive") continue;
 
         if (visitor.blocked) continue;
-        
+
         if (visitor.role.name === "plaguebearer") {
           if (visitor.role.isPestilence) continue;
         }
@@ -1729,7 +1725,7 @@ const day = () => {
           if (visitor.role.name === "godfather") {
             if (mafiaDoerIndex !== i) continue;
           }
-          
+
           if (visitor.role.name === "vampire") {
             if (vampireDoerIndex !== i) continue;
           }
@@ -1764,7 +1760,7 @@ const day = () => {
       }
     }
   }
-  
+
   /// Veteran Visitor fetch
   for (let i = 0; i < players.length; i++) {
     const doer = players[i];
@@ -3377,13 +3373,13 @@ const day = () => {
 
       this.group_session.players[i].message += "🎞️ Kamu menjebak " + target.name + " agar terlihat bersalah" + "\n\n";
 
+      this.group_session.players[targetIndex].framed = true;
+
       mafiaAnnouncement += `🎞️ ${doer.name} menjebak ${target.name}\n\n`;
 
       if (target.role.name !== "veteran" || target.target.index === -1) {
         spyMafiaVisitInfo += `🤵 ${target.name} dikunjungi anggota Mafia\n\n`;
       }
-
-      this.group_session.players[targetIndex].framed = true;
     }
   }
 
@@ -3415,6 +3411,10 @@ const day = () => {
 
       if (this.group_session.isFullMoon) {
         suspiciousList.push("werewolf");
+      }
+
+      if (target.framed) {
+        this.group_session.players[targetIndex].investigated = true;
       }
 
       if (target.framed || suspiciousList.includes(target.role.name)) {
@@ -3467,6 +3467,10 @@ const day = () => {
 
       if (target.doused) {
         targetRoleName = "arsonist";
+      }
+
+      if (target.framed) {
+        this.group_session.players[targetIndex].investigated = true;
       }
 
       this.group_session.players[i].message += "👣 Kamu ke rumah " + target.name + "\n\n";
@@ -3785,29 +3789,36 @@ const day = () => {
   }
 
   /// Post Vigilante check the target
-  if (vigilanteExists) {
-    for (let i = 0; i < players.length; i++) {
-      let doer = players[i];
-      if (doer.role.name === "vigilante" && doer.status === "alive") {
-        let vigiTargetIndex = doer.target.index;
-        if (vigiTargetIndex !== -1) {
-          let vigiTarget = players[vigiTargetIndex];
+  for (let i = 0; i < players.length; i++) {
+    let doer = players[i];
+    if (doer.role.name === "vigilante" && doer.status === "alive") {
+      let vigiTargetIndex = doer.target.index;
+      if (vigiTargetIndex !== -1) {
+        let vigiTarget = players[vigiTargetIndex];
 
-          if (vigiTarget.role.team !== "villager") {
-            continue;
-          }
+        if (vigiTarget.role.team !== "villager") {
+          continue;
+        }
 
-          let vigiTargetAttackersIndex = vigiTarget.attackers.map(atkr => {
-            return atkr.index;
-          });
+        let vigiTargetAttackersIndex = vigiTarget.attackers.map(atkr => {
+          return atkr.index;
+        });
 
-          if (vigiTargetAttackersIndex.includes(i)) {
-            if (vigiTarget.status === "death") {
-              this.group_session.players[i].willSuicide = true;
-              this.group_session.players[i].message += "💡 Kamu membunuh warga!" + "\n\n";
-            }
+        if (vigiTargetAttackersIndex.includes(i)) {
+          if (vigiTarget.status === "death") {
+            this.group_session.players[i].willSuicide = true;
+            this.group_session.players[i].message += "💡 Kamu membunuh warga!" + "\n\n";
           }
         }
+      }
+    }
+  }
+
+  // Restore framed status
+  for (let i = 0; i < players.length; i++) {
+    if (players[i].status === "alive") {
+      if (players[i].framed && players[i].investigated) {
+        this.group_session.players[i].framed = false;
       }
     }
   }
@@ -3862,6 +3873,15 @@ const day = () => {
   };
 
   ///check victory
+
+  if (this.group_session.mode === "vip") {
+    if (players[this.group_session.vipIndex].status === "death") {
+      flex_text.bodyText += `⭐ ${players[this.group_session.vipIndex].name} telah mati!`;
+      flex_texts.unshift(flex_text);
+      return endGame(flex_texts, "mafia");
+    }
+  }
+
   let someoneWin = checkVictory();
 
   if (someoneWin) {
@@ -4042,6 +4062,28 @@ const randomRoles = () => {
 
   this.group_session.players = util.shuffleArray(this.group_session.players);
 
+  // get the vip
+  if (this.group_session.mode === "vip") {
+    const prohibited = ["bodyguard", "vigilante"];
+    let vipId = "";
+    for (let i = 0; i < this.group_session.players.length; i++) {
+      const role = this.group_session.players[i].role;
+      if (role.team === "villager" && !prohibited.includes(role.name)) {
+        vipId = this.group_session.players[i].id;
+        break;
+      }
+    }
+
+    this.group_session.players = util.shuffleArray(this.group_session.players);
+
+    for (let i = 0; i < this.group_session.players.length; i++) {
+      if (this.group_session.players[i].id === vipId) {
+        this.group_session.vipIndex = i;
+        break;
+      }
+    }
+  }
+
   this.group_session.players.forEach((item, index) => {
     /// init private prop special role
     switch (item.role.name) {
@@ -4197,10 +4239,10 @@ const night = () => {
       item.vested = false;
       item.guarded = false;
       item.bugged = false;
-      item.framed = false;
       item.selfHeal = false;
       item.damage = 0;
       item.protected = false;
+      item.investigated = false;
 
       //special role (vampire)
       if (item.role.team === "vampire") {
@@ -4452,6 +4494,17 @@ const postLynch = () => {
   if (!lynched) {
     return night(null);
   } else {
+    if (this.group_session.mode === "vip") {
+      const players = this.group_session.players;
+      if (players[this.group_session.vipIndex].status === "death") {
+        let flex_text = {
+          headerText: "📜 Info",
+          bodyText: `⭐ ${players[this.group_session.vipIndex].name} telah mati!`
+        };
+        return endGame(flex_text, "mafia");
+      }
+    }
+
     let someoneWin = checkVictory();
 
     if (someoneWin) {
@@ -4651,7 +4704,6 @@ const endGame = (flex_texts, whoWin) => {
 
   flex_text.headerText = headerText;
 
-  this.group_session.gamePlayed++;
   this.group_session.time = 300; // reset to init time
   this.group_session.state = "idle";
   delete this.group_session.nightCounter;
@@ -4667,21 +4719,10 @@ const endGame = (flex_texts, whoWin) => {
 
   resetAllPlayers();
 
-  const place = this.event.source.type;
-  const text = `🏘️ Mungkin bisa dipertimbangkan untuk '/promote' ${place} ini agar bisa bantu orang yang belum ada group`;
-
   if (!flex_texts) {
-    if (this.group_session.gamePlayed === 2) {
-      return replyFlex(flex_text, text);
-    } else {
-      return replyFlex(flex_text);
-    }
+    return replyFlex(flex_text);
   } else {
-    if (this.group_session.gamePlayed === 2) {
-      return replyFlex(flex_texts, text, flex_text);
-    } else {
-      return replyFlex(flex_texts, null, flex_text);
-    }
+    return replyFlex(flex_texts, null, flex_text);
   }
 };
 
@@ -5780,7 +5821,8 @@ const createNewPlayer = user_session => {
       accusedRole: "",
       justDeadBaitIndex: -1
     },
-    addonMessage: ""
+    addonMessage: "",
+    investigated: false
   };
   return newPlayer;
 };
@@ -5806,7 +5848,7 @@ const pushFlex = async (userId, flex_raw) => {
   const msg = flex.build(flex_raw, sender);
 
   return await client.pushMessage(userId, msg).catch(err => {
-    console.log("err di pushFlex di main.js", err.originalError.response.data);
+    //console.log("err di pushFlex di main.js", err.originalError.response.data); //cp
   });
 };
 

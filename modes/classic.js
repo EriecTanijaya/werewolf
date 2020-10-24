@@ -4,7 +4,6 @@ const getData = () => {
   const data = {
     id: "1",
     name: "👨‍🌾🤵 Classic",
-    isShowRole: true,
     description: "Mode normal, cocok untuk pemula. Bisa juga tweak dengan '/set show_role no' agar lebih menantank",
     naration: "☁️ Kota Bedburg sedang diambang kehancuran, para warga harus menyelamatkan kota ini dari serangan Mafia!"
   };
@@ -340,7 +339,4 @@ const generate = playersLength => {
   return generated;
 };
 
-module.exports = {
-  getData,
-  generate
-};
+module.exports = { getData, generate };

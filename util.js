@@ -14,7 +14,12 @@ const getUpdates = () => {
   let flex_texts = [];
   let updates = [
     {
-      version: "1.5.0 🆕", //ini yg lastest aja
+      version: "1.5.1 🆕", //ini yg lastest aja
+      majorChanges: "⭐ VIP Mode",
+      postId: "1160350313808077828"
+    },
+    {
+      version: "1.5.0",
       majorChanges: "🤖 Bzz Bzz ROBO",
       postId: "1160042126908073474"
     },
@@ -57,11 +62,6 @@ const getUpdates = () => {
       version: "1.2.4",
       majorChanges: "⚠️ Spam prevention",
       postId: "1159408622108073821"
-    },
-    {
-      version: "1.2.3",
-      majorChanges: "📜 New Custom mode command",
-      postId: "1159358047608073922"
     }
   ];
 
@@ -107,10 +107,7 @@ const getMostFrequent = array => {
   }
 
   //jika ada yang sama, maka akan pilih yang di pertama kali diisi di variable 'item'
-  obj = {
-    index: item,
-    count: mf
-  };
+  obj = { index: item, count: mf };
 
   return obj;
 };
@@ -178,19 +175,11 @@ const getSender = () => {
   const rolesData = Object.keys(roles).map(item => {
     let { name, iconUrl } = roles[item].getData();
     let roleName = name[0].toUpperCase() + name.substring(1);
-    return {
-      name: roleName,
-      iconUrl
-    };
+    return { name: roleName, iconUrl };
   });
 
   let { name, iconUrl } = random(rolesData);
-
-  let sender = {
-    name: name,
-    iconUrl: iconUrl
-  };
-
+  let sender = { name, iconUrl };
   return sender;
 };
 
@@ -818,7 +807,10 @@ const hasBadWord = firstArgs => {
     "/meki",
     "/anjay",
     "/ngentot",
-    "/ngentod"
+    "/ngentod",
+    "/pantek",
+    "/bangsat",
+    "/bangsad"
   ];
 
   if (bad.includes(firstArgs)) {
