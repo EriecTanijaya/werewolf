@@ -7,10 +7,6 @@
 - bug juga, gmna kalau werewolf rampage diri sndiri, lalu lookout ke ww, lalu ada yang ke ww
   itu gak ada data visitor loh. kalau lookout di heal, kosong
 
-- role set trick or treat (ada di tos punya fandom wiki) buat halloween ntr
-  deadline oktober 31
-
-
 ### NOTEE
 
 ```

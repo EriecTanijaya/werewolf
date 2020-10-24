@@ -107,10 +107,7 @@ const getMostFrequent = array => {
   }
 
   //jika ada yang sama, maka akan pilih yang di pertama kali diisi di variable 'item'
-  obj = {
-    index: item,
-    count: mf
-  };
+  obj = { index: item, count: mf };
 
   return obj;
 };
@@ -178,19 +175,11 @@ const getSender = () => {
   const rolesData = Object.keys(roles).map(item => {
     let { name, iconUrl } = roles[item].getData();
     let roleName = name[0].toUpperCase() + name.substring(1);
-    return {
-      name: roleName,
-      iconUrl
-    };
+    return { name: roleName, iconUrl };
   });
 
   let { name, iconUrl } = random(rolesData);
-
-  let sender = {
-    name: name,
-    iconUrl: iconUrl
-  };
-
+  let sender = { name, iconUrl };
   return sender;
 };
 
@@ -818,7 +807,10 @@ const hasBadWord = firstArgs => {
     "/meki",
     "/anjay",
     "/ngentot",
-    "/ngentod"
+    "/ngentod",
+    "/pantek",
+    "/bangsat",
+    "/bangsad"
   ];
 
   if (bad.includes(firstArgs)) {

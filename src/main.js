@@ -830,9 +830,6 @@ const day = () => {
   /// Veteran targetIndexes
   let veteranTargetIndexes = [];
 
-  /// vigilante check existences
-  let vigilanteExists = checkExistsRole("vigilante");
-
   /// Spy global var
   let spyMafiaVisitInfo = "";
   let spyBuggedInfo = {};
@@ -3788,27 +3785,25 @@ const day = () => {
   }
 
   /// Post Vigilante check the target
-  if (vigilanteExists) {
-    for (let i = 0; i < players.length; i++) {
-      let doer = players[i];
-      if (doer.role.name === "vigilante" && doer.status === "alive") {
-        let vigiTargetIndex = doer.target.index;
-        if (vigiTargetIndex !== -1) {
-          let vigiTarget = players[vigiTargetIndex];
+  for (let i = 0; i < players.length; i++) {
+    let doer = players[i];
+    if (doer.role.name === "vigilante" && doer.status === "alive") {
+      let vigiTargetIndex = doer.target.index;
+      if (vigiTargetIndex !== -1) {
+        let vigiTarget = players[vigiTargetIndex];
 
-          if (vigiTarget.role.team !== "villager") {
-            continue;
-          }
+        if (vigiTarget.role.team !== "villager") {
+          continue;
+        }
 
-          let vigiTargetAttackersIndex = vigiTarget.attackers.map(atkr => {
-            return atkr.index;
-          });
+        let vigiTargetAttackersIndex = vigiTarget.attackers.map(atkr => {
+          return atkr.index;
+        });
 
-          if (vigiTargetAttackersIndex.includes(i)) {
-            if (vigiTarget.status === "death") {
-              this.group_session.players[i].willSuicide = true;
-              this.group_session.players[i].message += "💡 Kamu membunuh warga!" + "\n\n";
-            }
+        if (vigiTargetAttackersIndex.includes(i)) {
+          if (vigiTarget.status === "death") {
+            this.group_session.players[i].willSuicide = true;
+            this.group_session.players[i].message += "💡 Kamu membunuh warga!" + "\n\n";
           }
         }
       }
