@@ -3373,13 +3373,13 @@ const day = () => {
 
       this.group_session.players[i].message += "🎞️ Kamu menjebak " + target.name + " agar terlihat bersalah" + "\n\n";
 
+      this.group_session.players[targetIndex].framed = true;
+
       mafiaAnnouncement += `🎞️ ${doer.name} menjebak ${target.name}\n\n`;
 
       if (target.role.name !== "veteran" || target.target.index === -1) {
         spyMafiaVisitInfo += `🤵 ${target.name} dikunjungi anggota Mafia\n\n`;
       }
-
-      this.group_session.players[targetIndex].framed = true;
     }
   }
 
@@ -3413,7 +3413,9 @@ const day = () => {
         suspiciousList.push("werewolf");
       }
 
-      this.group_session.players[targetIndex].investigated = true;
+      if (target.framed) {
+        this.group_session.players[targetIndex].investigated = true;
+      }
 
       if (target.framed || suspiciousList.includes(target.role.name)) {
         this.group_session.players[i].message += "👮 " + target.name + " mencurigakan" + "\n\n";
@@ -3467,7 +3469,9 @@ const day = () => {
         targetRoleName = "arsonist";
       }
 
-      this.group_session.players[targetIndex].investigated = true;
+      if (target.framed) {
+        this.group_session.players[targetIndex].investigated = true;
+      }
 
       this.group_session.players[i].message += "👣 Kamu ke rumah " + target.name + "\n\n";
 
@@ -4235,7 +4239,6 @@ const night = () => {
       item.vested = false;
       item.guarded = false;
       item.bugged = false;
-      item.framed = false;
       item.selfHeal = false;
       item.damage = 0;
       item.protected = false;
@@ -5845,7 +5848,7 @@ const pushFlex = async (userId, flex_raw) => {
   const msg = flex.build(flex_raw, sender);
 
   return await client.pushMessage(userId, msg).catch(err => {
-    console.log("err di pushFlex di main.js", err.originalError.response.data);
+    //console.log("err di pushFlex di main.js", err.originalError.response.data); //cp
   });
 };
 
