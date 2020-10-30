@@ -3,6 +3,7 @@ module.exports = {
     attackersRoleName array
     victimName string
     isDieFromGuilt bool
+    isAfk bool
   */
   getAttackResponse: function(attackersRoleName, victimName, isDieFromGuilt, isAfk) {
     let text = "💀 " + victimName + " ditemukan mati ";

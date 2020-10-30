@@ -120,7 +120,7 @@ const roleListCommand = () => {
   const roleList = Object.keys(roles);
   const text = "\n\n💡 Ketik '/info <nama-role>' untuk detailnya";
   const flex_text = {
-    headerText: "🐺 Role List 🔮",
+    headerText: "✒️ Role List 🕵️",
     bodyText: roleList.join(", ") + text
   };
   return replyFlex(flex_text);

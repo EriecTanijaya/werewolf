@@ -3152,14 +3152,16 @@ const day = () => {
       let isSuicide = false;
 
       if (attackersRole.length > 0) {
-        //
+        this.group_session.players[i].causeOfDeath = `dibunuh ${attackersRole.join(", ")}`;
       } else if (players[i].afkCounter >= 3) {
         isAfk = true;
+        this.group_session.players[i].causeOfDeath = "terkena hukuman AFK";
       } else if (willSuicide) {
         isSuicide = true;
         if (players[i].bugged) {
           spyBuggedInfo[i] += "🔍 Target kamu mati bunuh diri karena perasaan bersalah!" + "\n\n";
         }
+        this.group_session.players[i].causeOfDeath = "bunuh diri karena merasa bersalah telah membunuh sesama warga";
       }
 
       attackedAnnouncement = attackedMsg.getAttackResponse(attackersRole, players[i].name, isSuicide, isAfk);
@@ -3818,6 +3820,7 @@ const day = () => {
   for (let i = 0; i < players.length; i++) {
     if (players[i].status === "alive") {
       if (players[i].framed && players[i].investigated) {
+        console.log(`${players[i].name} restored`);
         this.group_session.players[i].framed = false;
       }
     }
@@ -4814,6 +4817,7 @@ const lynch = flex_texts => {
   }
 
   this.group_session.players[lynchTarget.index].status = "death";
+  this.group_session.players[lynchTarget.index].causeOfDeath = "dihukum melalui voting";
 
   const lynchedName = players[lynchTarget.index].name;
   let announcement = respond.punish(this.group_session.punishment, lynchedName, lynchTarget.count);
@@ -4884,7 +4888,7 @@ const voteCommand = (botIndex, botTargetIndex) => {
   }
 
   if (players[index].status !== "alive") {
-    let text = "💡 " + players[index].name + ", kamu sudah mati";
+    let text = respond.alreadyDead(players[index].name, players[index].causeOfDeath);
     return replyText(text);
   }
 
@@ -5232,7 +5236,7 @@ const revokeCommand = () => {
   const players = this.group_session.players;
 
   if (players[index].status !== "alive") {
-    let text = "💡 " + this.user_session.name + ", kamu sudah mati";
+    let text = respond.alreadyDead(players[index].name, players[index].causeOfDeath);
     return replyText(text);
   }
 
@@ -5822,7 +5826,8 @@ const createNewPlayer = user_session => {
       justDeadBaitIndex: -1
     },
     addonMessage: "",
-    investigated: false
+    investigated: false,
+    causeOfDeath: ""
   };
   return newPlayer;
 };
@@ -5847,9 +5852,7 @@ const pushFlex = async (userId, flex_raw) => {
 
   const msg = flex.build(flex_raw, sender);
 
-  return await client.pushMessage(userId, msg).catch(err => {
-    //console.log("err di pushFlex di main.js", err.originalError.response.data); //cp
-  });
+  return await client.pushMessage(userId, msg);
 };
 
 const replyImage = async imageLink => {
