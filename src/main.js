@@ -3818,6 +3818,7 @@ const day = () => {
   for (let i = 0; i < players.length; i++) {
     if (players[i].status === "alive") {
       if (players[i].framed && players[i].investigated) {
+        console.log(`${players[i].name} restored`);
         this.group_session.players[i].framed = false;
       }
     }
