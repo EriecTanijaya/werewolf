@@ -85,6 +85,10 @@ const kicked = () => {
   return util.random(arr);
 };
 
+const alreadyDead = (name, causeOfDeath) => {
+  return `💡 ${name}, kamu sudah mati. Penyebabnya adalah ${causeOfDeath}`;
+};
+
 module.exports = {
   enoughPlayer,
   stopGame,
@@ -92,5 +96,6 @@ module.exports = {
   join,
   memberJoined,
   checkNight,
-  kicked
+  kicked,
+  alreadyDead
 };

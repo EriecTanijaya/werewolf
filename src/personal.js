@@ -1,5 +1,6 @@
 const client = require("./client");
 const skillText = require("../message/skill");
+const respond = require("../message/respond");
 const flex = require("../message/flex");
 const util = require("../util");
 const stats = require("./stats");
@@ -191,7 +192,8 @@ const revokeCommand = () => {
   const players = this.group_session.players;
 
   if (players[index].status !== "alive") {
-    return replyText("💡 " + this.user_session.name + ", kamu sudah mati");
+    let text = respond.alreadyDead(players[index].name, players[index].causeOfDeath);
+    return replyText(text);
   }
 
   if (players[index].target.index === -1) {
@@ -258,7 +260,8 @@ const alertCommand = () => {
   }
 
   if (players[index].status === "death") {
-    return replyText("💡 Kamu sudah mati");
+    let text = respond.alreadyDead(players[index].name, players[index].causeOfDeath);
+    return replyText(text);
   }
 
   if (players[index].role.alert === 0) {
@@ -304,7 +307,8 @@ const vestCommand = () => {
   }
 
   if (players[index].status === "death") {
-    return replyText("💡 Kamu sudah mati");
+    let text = respond.alreadyDead(players[index].name, players[index].causeOfDeath);
+    return replyText(text);
   }
 
   if (players[index].role.vest === 0) {
@@ -355,7 +359,8 @@ const targetCommand = () => {
   if (players[index].status === "death") {
     // Jester
     if (roleName !== "jester") {
-      return replyText("💡 Kamu sudah mati");
+      let text = respond.alreadyDead(players[index].name, players[index].causeOfDeath);
+      return replyText(text);
     } else {
       if (!players[index].role.isLynched) {
         return replyText("💡 Kamu hanya bisa hantui orang jika mati digantung");
@@ -1110,19 +1115,21 @@ const deathNoteCommand = () => {
   const players = this.group_session.players;
 
   if (players[index].status === "death") {
+    let deathText = respond.alreadyDead(players[index].name, players[index].causeOfDeath);
+    
     // special jester
     if (players[index].role.name !== "jester") {
-      return replyText("💡 Kamu sudah mati");
+      return replyText(deathText);
     }
 
     let isLynched = players[index].role.isLynched;
     let hasRevenged = players[index].role.hasRevenged;
     if (!isLynched) {
-      return replyText("💡 Kamu sudah mati");
+      return replyText(deathText);
     }
 
     if (hasRevenged) {
-      return replyText("💡 Kamu sudah mati");
+      return replyText(deathText);
     }
   }
 
@@ -1164,7 +1171,8 @@ const refreshCommand = () => {
   let roleTeam = players[index].role.team;
 
   if (players[index].status === "death") {
-    return replyText("💡 Kamu sudah mati");
+    let text = respond.alreadyDead(players[index].name, players[index].causeOfDeath);
+    return replyText(text);
   }
 
   if (roleTeam !== "mafia" && roleTeam !== "vampire") {
