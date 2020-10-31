@@ -4,7 +4,7 @@ const getData = () => {
   const data = {
     id: "3",
     name: "🦇🧛 Vampire",
-    description: "Disana Vampire, disini Vampire, dimana mana ada Vampire.",
+    description: "Hati-hati! Vampire dapat mengubah warga menjadi Vampire!",
     naration: "🧛 Kota Bedburg telah disusupi Vampire! Para warga harus menyelamatkan kota ini dari serbuan Vampire!"
   };
   return data;
