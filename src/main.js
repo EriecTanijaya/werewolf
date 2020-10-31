@@ -3820,7 +3820,6 @@ const day = () => {
   for (let i = 0; i < players.length; i++) {
     if (players[i].status === "alive") {
       if (players[i].framed && players[i].investigated) {
-        console.log(`${players[i].name} restored`);
         this.group_session.players[i].framed = false;
       }
     }
@@ -5622,6 +5621,9 @@ const newCommand = () => {
   if (this.group_session.mode === "custom" && this.group_session.isShowRole) {
     let customRoles = this.group_session.customRoles;
     infoText += "\n" + "📜 Roles : " + customRoles.join(", ");
+  } else {
+    const { description } = modes[this.group_session.mode].getData();
+    infoText += "\n" + "📜 Info : " + description;
   }
 
   const flex_text = {
@@ -5636,9 +5638,6 @@ const newCommand = () => {
     ]
   };
 
-  let remindText = "⏳ Jika jumlah pemain kurang dari 5 dalam 10 menit, ";
-  remindText += "game akan diberhentikan";
-
   this.group_session.roomHostId = this.user_session.id;
   this.user_session.state = "active";
   this.user_session.groupId = this.group_session.groupId;
@@ -5648,9 +5647,11 @@ const newCommand = () => {
   this.group_session.players.push(newPlayer);
 
   database.add(this.user_session);
+  
+  let remindText = "⏳ Jika jumlah pemain kurang dari 5 dalam 10 menit, ";
+  remindText += "game akan diberhentikan";
 
-  const text = respond.join(this.user_session.name);
-  return replyFlex(flex_text, [text, remindText]);
+  return replyFlex(flex_text, remindText);
 };
 
 const settingCommand = () => {
@@ -5852,7 +5853,9 @@ const pushFlex = async (userId, flex_raw) => {
 
   const msg = flex.build(flex_raw, sender);
 
-  return await client.pushMessage(userId, msg);
+  return await client.pushMessage(userId, msg).catch(err => {
+    console.log(`ga bisa push flex`);
+  });
 };
 
 const replyImage = async imageLink => {
