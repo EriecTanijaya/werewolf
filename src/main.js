@@ -5638,9 +5638,6 @@ const newCommand = () => {
     ]
   };
 
-  let remindText = "⏳ Jika jumlah pemain kurang dari 5 dalam 10 menit, ";
-  remindText += "game akan diberhentikan";
-
   this.group_session.roomHostId = this.user_session.id;
   this.user_session.state = "active";
   this.user_session.groupId = this.group_session.groupId;
@@ -5650,9 +5647,11 @@ const newCommand = () => {
   this.group_session.players.push(newPlayer);
 
   database.add(this.user_session);
+  
+  let remindText = "⏳ Jika jumlah pemain kurang dari 5 dalam 10 menit, ";
+  remindText += "game akan diberhentikan";
 
-  const text = respond.join(this.user_session.name);
-  return replyFlex(flex_text, [text, remindText]);
+  return replyFlex(flex_text, remindText);
 };
 
 const settingCommand = () => {
