@@ -5647,7 +5647,7 @@ const newCommand = () => {
   this.group_session.players.push(newPlayer);
 
   database.add(this.user_session);
-  
+
   let remindText = "⏳ Jika jumlah pemain kurang dari 5 dalam 10 menit, ";
   remindText += "game akan diberhentikan";
 
