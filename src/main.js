@@ -5853,7 +5853,7 @@ const pushFlex = async (userId, flex_raw) => {
 
   const msg = flex.build(flex_raw, sender);
 
-  return await client.pushMessage(userId, msg).catch(err => {
+  return await client.pushMessage(userId, msg).catch(() => {
     console.log(`ga bisa push flex`);
   });
 };

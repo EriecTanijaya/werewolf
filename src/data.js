@@ -46,6 +46,16 @@ setInterval(() => {
   }
 }, 1000);
 
+setInterval(() => {
+  for (let key in user_sessions) {
+    if (user_sessions[key]) {
+      if (user_sessions[key].state === "inactive") {
+        user_sessions[key] = null;
+      }
+    }
+  }
+}, 600000);
+
 const receive = (event, rawArgs) => {
   this.event = event;
 
@@ -99,6 +109,9 @@ const searchUser = async () => {
     if (!this.rawArgs.startsWith("/")) {
       return Promise.resolve(null);
     }
+
+    // cp
+
     return notAddError();
   }
 };
