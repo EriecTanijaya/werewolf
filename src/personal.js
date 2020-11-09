@@ -177,6 +177,7 @@ const cancelCommand = () => {
   this.user_session.state = "inactive";
   this.user_session.groupId = "";
   this.user_session.groupName = "";
+  this.user_session.time = 300;
 
   return replyText(text);
 };

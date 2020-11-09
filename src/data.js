@@ -8,7 +8,37 @@ const idle = require("./idle");
 const database = require("../database");
 
 // commands list
-const createGameCommands = ["/new", "/buat", "/main", "/play", "/create"];
+const safeCommands = [
+  "/help",
+  "/gamestat",
+  "/players",
+  "/player",
+  "/pemain",
+  "/p",
+  "/about",
+  "/status",
+  "/info",
+  "/roles",
+  "/rolelist",
+  "/tutorial",
+  "/role",
+  "/news",
+  "/extend",
+  "/kick",
+  "/bye",
+  "/reset",
+  "/forum",
+  "/oc",
+  "/openchat",
+  "/update",
+  "/updates",
+  "/promote",
+  "/group",
+  "/rank",
+  "/peringkat",
+  "/ranking",
+  "/addbot"
+];
 
 // game storage
 const group_sessions = {};
@@ -112,9 +142,14 @@ const searchUser = async () => {
       return Promise.resolve(null);
     }
 
-    // cp
-
-    return notAddError();
+    const input = this.args[0].toLowerCase();
+    if (["/join", "/j"].includes(input)) {
+      return notAddError();
+    } else if (safeCommands.includes(input)) {
+      return searchUserCallback();
+    } else {
+      return Promise.resolve(null);
+    }
   }
 };
 
