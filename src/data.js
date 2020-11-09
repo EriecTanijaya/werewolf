@@ -7,6 +7,9 @@ const main = require("./main");
 const idle = require("./idle");
 const database = require("../database");
 
+// commands list
+const createGameCommands = ["/new", "/buat", "/main", "/play", "/create"];
+
 // game storage
 const group_sessions = {};
 const user_sessions = {};
@@ -42,19 +45,17 @@ setInterval(() => {
       if (user_sessions[key].commandCount > 0) {
         user_sessions[key].commandCount = 0;
       }
-    }
-  }
-}, 1000);
 
-setInterval(() => {
-  for (let key in user_sessions) {
-    if (user_sessions[key]) {
       if (user_sessions[key].state === "inactive") {
-        user_sessions[key] = null;
+        if (user_sessions[key].time > 0) {
+          user_sessions[key].time--;
+        } else {
+          user_sessions[key] = null;
+        }
       }
     }
   }
-}, 600000);
+}, 1000);
 
 const receive = (event, rawArgs) => {
   this.event = event;
@@ -92,7 +93,8 @@ const searchUser = async () => {
       groupName: "",
       commandCount: 0,
       cooldown: 0,
-      spamCount: 0
+      spamCount: 0,
+      time: 300
     };
     user_sessions[userId] = newUser;
   }
@@ -379,6 +381,7 @@ const resetAllPlayers = players => {
     user_sessions[item.id].state = "inactive";
     user_sessions[item.id].groupId = "";
     user_sessions[item.id].groupName = "";
+    user_sessions[item.id].time = 300;
   });
   players = [];
 };
