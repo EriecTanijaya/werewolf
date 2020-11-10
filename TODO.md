@@ -1,11 +1,5 @@
 ### TODO
 
-- refactor sistem checker "/", jadi ada bagi 2 commands handler,
-  - ada list commands yang tanpa add bisa diakses,
-  - ada list commands yang harus add baru bisa akses
-
-- jika ada yang buat /asal, itu kalau tidak add, kita hiraukan saja
-
 - bug, kalau ada yang ke veteran, lalu di heal, nanti data visitor veteran duplikat
   - cara cek, lookout ke veteran, veteran alert, doctor heal lookout biar lookout bisa liat skill
   - lalu coba salah satu role ke veteran

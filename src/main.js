@@ -5652,7 +5652,8 @@ const newCommand = () => {
   let remindText = "⏳ Jika jumlah pemain kurang dari 5 dalam 10 menit, ";
   remindText += "game akan diberhentikan";
 
-  return replyFlex(flex_text, remindText);
+  const text = respond.join(this.user_session.name);
+  return replyFlex(flex_text, [text, remindText]);
 };
 
 const settingCommand = () => {
