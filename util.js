@@ -718,7 +718,7 @@ const getSelfData = async userId => {
       return flex_text;
     }
   }
-  return "💡 Datamu tidak ditemukan, coba main 1 game";
+  return "💡 Datamu tidak ditemukan, coba main 1 game dulu";
 };
 
 const getPlayersList = (players, state) => {

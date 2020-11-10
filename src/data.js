@@ -9,6 +9,7 @@ const database = require("../database");
 
 // commands list
 const safeCommands = [
+  "/cmd",
   "/help",
   "/gamestat",
   "/players",
