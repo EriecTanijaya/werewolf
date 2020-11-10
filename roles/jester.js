@@ -1,7 +1,8 @@
 const getData = () => {
   const data = {
     name: "jester",
-    description: "Kamu menang jika berhasil digantung. Dan bisa bunuh siapa saja disaat sudah mati",
+    description:
+      "Kamu menang jika berhasil dihukum lewat voting. Jika kamu telah di hukum, kamu bisa memilih siapa yang ingin dihantui",
     team: "jester",
     skillText: "Jester, pilih siapa yang ingin dihantui",
     cmdText: "/skill",

@@ -7,6 +7,40 @@ const main = require("./main");
 const idle = require("./idle");
 const database = require("../database");
 
+// commands list
+const safeCommands = [
+  "/cmd",
+  "/help",
+  "/gamestat",
+  "/players",
+  "/player",
+  "/pemain",
+  "/p",
+  "/about",
+  "/status",
+  "/info",
+  "/roles",
+  "/rolelist",
+  "/tutorial",
+  "/role",
+  "/news",
+  "/extend",
+  "/kick",
+  "/bye",
+  "/reset",
+  "/forum",
+  "/oc",
+  "/openchat",
+  "/update",
+  "/updates",
+  "/promote",
+  "/group",
+  "/rank",
+  "/peringkat",
+  "/ranking",
+  "/addbot"
+];
+
 // game storage
 const group_sessions = {};
 const user_sessions = {};
@@ -41,6 +75,14 @@ setInterval(() => {
 
       if (user_sessions[key].commandCount > 0) {
         user_sessions[key].commandCount = 0;
+      }
+
+      if (user_sessions[key].state === "inactive") {
+        if (user_sessions[key].time > 0) {
+          user_sessions[key].time--;
+        } else {
+          user_sessions[key] = null;
+        }
       }
     }
   }
@@ -82,7 +124,8 @@ const searchUser = async () => {
       groupName: "",
       commandCount: 0,
       cooldown: 0,
-      spamCount: 0
+      spamCount: 0,
+      time: 300
     };
     user_sessions[userId] = newUser;
   }
@@ -99,7 +142,15 @@ const searchUser = async () => {
     if (!this.rawArgs.startsWith("/")) {
       return Promise.resolve(null);
     }
-    return notAddError();
+
+    const input = this.args[0].toLowerCase();
+    if (["/join", "/j"].includes(input)) {
+      return notAddError();
+    } else if (safeCommands.includes(input)) {
+      return searchUserCallback();
+    } else {
+      return Promise.resolve(null);
+    }
   }
 };
 
@@ -366,6 +417,7 @@ const resetAllPlayers = players => {
     user_sessions[item.id].state = "inactive";
     user_sessions[item.id].groupId = "";
     user_sessions[item.id].groupName = "";
+    user_sessions[item.id].time = 300;
   });
   players = [];
 };

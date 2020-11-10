@@ -5501,6 +5501,7 @@ const cancelCommand = () => {
   this.user_session.state = "inactive";
   this.user_session.groupId = "";
   this.user_session.groupName = "";
+  this.user_session.time = 300;
 
   return replyText(text);
 };
@@ -5647,11 +5648,12 @@ const newCommand = () => {
   this.group_session.players.push(newPlayer);
 
   database.add(this.user_session);
-  
+
   let remindText = "⏳ Jika jumlah pemain kurang dari 5 dalam 10 menit, ";
   remindText += "game akan diberhentikan";
 
-  return replyFlex(flex_text, remindText);
+  const text = respond.join(this.user_session.name);
+  return replyFlex(flex_text, [text, remindText]);
 };
 
 const settingCommand = () => {
@@ -5853,7 +5855,7 @@ const pushFlex = async (userId, flex_raw) => {
 
   const msg = flex.build(flex_raw, sender);
 
-  return await client.pushMessage(userId, msg).catch(err => {
+  return await client.pushMessage(userId, msg).catch(() => {
     console.log(`ga bisa push flex`);
   });
 };

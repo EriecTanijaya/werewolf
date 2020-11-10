@@ -286,7 +286,7 @@ const getFlexColor = () => {
   let hour = new Date().getHours();
   hour += 7;
   hour = hour > 24 ? hour - 24 : hour;
-
+  
   const colors = {
     light: ["#1abc9c", "#77a6f8", "#d9c06e", "#6edb6e", "#964B00", "#303030", "#b27563"],
     evening: {
@@ -297,7 +297,7 @@ const getFlexColor = () => {
     dark: ["#00818a", "#303030", "#db5777", "#126D71", "#3a97d4", "#964B00", "#7c7d7c"]
   };
 
-  if (hour < 17) {
+  if (hour > 5 && hour < 17) {
     return {
       main: colors["light"][day],
       background: "#ffffff",
@@ -718,7 +718,7 @@ const getSelfData = async userId => {
       return flex_text;
     }
   }
-  return "💡 Datamu tidak ditemukan, coba main 1 game";
+  return "💡 Datamu tidak ditemukan, coba main 1 game dulu";
 };
 
 const getPlayersList = (players, state) => {
