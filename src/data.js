@@ -221,7 +221,7 @@ const searchGroup = async groupId => {
     group_sessions[groupId] = newGroup;
   }
 
-  if (group_sessions[groupId].state === "inactive") {
+  if (this.event.source.type !== "user" && group_sessions[groupId].state === "inactive") {
     let text = "👋 Sistem mendeteksi tidak ada permainan dalam 5 menit. ";
     text += "Undang kembali jika mau main ya!";
     return util.leaveGroup(this.event, groupId, text);
