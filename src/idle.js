@@ -52,8 +52,6 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
     case "/c":
     case "/skill":
       return notInGameCommand();
-    case "/group":
-      return groupCommand();
     case "/run":
       return runCommand();
     case "/rank":
@@ -97,14 +95,6 @@ const runCommand = () => {
   } catch (err) {
     return replyText(err.message);
   }
-};
-
-const groupCommand = () => {
-  const msg = util.getPromotedGroup(this.group_sessions);
-
-  if (typeof msg === "string") return replyText(msg);
-
-  return replyFlex(msg);
 };
 
 const notInGameCommand = () => {
@@ -192,7 +182,6 @@ const commandCommand = () => {
     "/forum : link ke openchat",
     "/status : untuk melihat berapa yang online",
     "/updates : untuk melihat 10 update terakhir bot",
-    "/group : untuk melihat daftar group yang open",
     "/rank : list top 10 pemain",
     "/me : info data diri sendiri",
     "/sync : sinkronisasi data pemain"

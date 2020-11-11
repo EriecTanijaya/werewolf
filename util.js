@@ -641,44 +641,6 @@ const getFakeData = (length = 4, botId) => {
   return data;
 };
 
-const getPromotedGroup = group_sessions => {
-  const flex_texts = [];
-  const flex_text = {};
-  let found = false;
-
-  Object.keys(group_sessions).forEach((item, index) => {
-    const { name, promoted, adminLink, caption } = group_sessions[item];
-
-    if (promoted) {
-      found = true;
-      flex_text[index] = {
-        headerText: `🏘️ ${name}`,
-        buttons: [
-          {
-            action: "uri",
-            label: "🗨️ Chat Admin",
-            data: adminLink
-          }
-        ]
-      };
-
-      if (caption) {
-        flex_text[index].bodyText = `${caption}`;
-      } else {
-        flex_text[index].bodyText = "📣 Chat admin group ini agar bisa diinvite ke group!";
-      }
-
-      flex_texts.push(flex_text[index]);
-    }
-  });
-
-  if (!found) {
-    return "💡 Tidak ada group yang tersedia. Coba nyari di '/forum'";
-  }
-
-  return flex_texts;
-};
-
 const getRank = async () => {
   const ranker = await database.getRank();
   ranker.length = 10;
@@ -846,7 +808,6 @@ module.exports = {
   getRandomInt,
   parseToText,
   getFakeData,
-  getPromotedGroup,
   getRank,
   getSelfData,
   getPlayersList,
