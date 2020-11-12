@@ -5514,16 +5514,17 @@ const joinCommand = () => {
 
   database.add(this.user_session);
 
-  let reminder = "⏳ Sisa waktu ";
-
-  if (this.group_session.time > 90) {
-    let minute = Math.round(this.group_session.time / 60);
-    reminder += minute + " menit lagi";
-  } else {
-    reminder += this.group_session.time + " detik lagi";
+  let text = respond.join(this.user_session.name);
+  if (this.group_session.time > 0) {
+    let reminder = "⏳ Sisa waktu ";
+    if (this.group_session.time > 90) {
+      let minute = Math.round(this.group_session.time / 60);
+      reminder += minute + " menit lagi";
+    } else {
+      reminder += this.group_session.time + " detik lagi";
+    }
+    text += "\n" + reminder;
   }
-
-  let text = respond.join(this.user_session.name) + "\n" + reminder;
 
   if (this.group_session.players.length >= 5) {
     if (this.group_session.players.length === 15) {
