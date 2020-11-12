@@ -666,10 +666,10 @@ const roleCommand = () => {
   const roleName = player.role.name;
   const roleTeam = player.role.team;
   const roleDesc = player.role.description;
-  const headerText = util.getRoleNameEmoji(roleName) + " " + roleName.toUpperCase();
+  const goodName = roleName[0].toUpperCase() + roleName.substring(1);
+  const headerText = util.getRoleNameEmoji(roleName) + " " + goodName;
 
   let flex_texts = [];
-
   let flex_text = { headerText, bodyText: "" };
 
   if (this.group_session.mode === "vip" && player.role.team === "villager") {
@@ -1117,7 +1117,7 @@ const deathNoteCommand = () => {
 
   if (players[index].status === "death") {
     let deathText = respond.alreadyDead(players[index].name, players[index].causeOfDeath);
-    
+
     // special jester
     if (players[index].role.name !== "jester") {
       return replyText(deathText);
