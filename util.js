@@ -148,24 +148,19 @@ const getTutorial = () => {
   const flex_texts = [
     {
       headerText: "🌝 Phase Malam",
-      bodyText: `Pemain personal chat dengan bot, dengan ketik '/role' untuk mengetahui role dan menggunakan skill. 
-          Hingga seterusnya jika ingin menggunakan skill pc bot '/role'. Saat menggunakan skill bisa di cancel dengan ketik '/revoke'.`
+      bodyText: `Untuk menggunakan skill dapat pc bot '/role', untuk batal menggunakan skill dapat ketik '/revoke'`
     },
     {
       headerText: "🌤️ Phase Pagi",
-      bodyText: `Pada pagi hari akan ada berita, berita publik (berita yang di beritahu di group chat) dan berita pribadi (berita yang hanya di ketahui sendiri). 
-          Berita pribadi bisa di akses dengan personal chat bot '/news'. 
-          Dikarenakan bot ini tidak auto, jadi pemain perlu cek berita setiap pagi nya`
+      bodyText: `Dikarenakan Bot ini tidak auto, hasil skill di cek dengan pc bot '/news'.`
     },
     {
       headerText: "☝️ Phase Voting",
-      bodyText: `Para warga bisa voting, bisa cancel vote dengan ketik '/revoke', bisa ganti vote sebelum waktu habis. 
-          Jika ada yang sama jumlah vote, maka system akan random salah satu dari kandidat tersebut untuk dibunuh`
+      bodyText: `Pilih nama yang ingin di vote, jika ada 2 orang yang memiliki vote yang sama, system akan memilih secara acak dari 2 orang tersebut. Pemain dapat mengganti vote sebelum waktu habis atau batal melakukan vote dengan ketik '/revoke'`
     },
     {
       headerText: "📜 Note",
-      bodyText: `Setiap Phase ada waktu nya, waktunya tergantung dari total pemain yang hidup. Jika makin sedikit, makin cepat waktunya.
-          Setiap Phase juga tidak berjalan otomatis. Itulah kenapa setiap waktu habis, salah satu dari pemain perlu ada ketik '/cek' untuk lanjutin Phase Game.`
+      bodyText: `Setiap Phase ada waktu nya, waktunya tergantung dari total pemain yang hidup. Jika makin sedikit, makin cepat waktunya. Setiap Phase juga tidak berjalan otomatis. Itulah kenapa setiap waktu habis, salah satu dari pemain perlu ada ketik '/cek' untuk lanjutin Phase Game.`
     }
   ];
   return flex_texts;
@@ -286,7 +281,7 @@ const getFlexColor = () => {
   let hour = new Date().getHours();
   hour += 7;
   hour = hour > 24 ? hour - 24 : hour;
-  
+
   const colors = {
     light: ["#1abc9c", "#77a6f8", "#d9c06e", "#6edb6e", "#964B00", "#303030", "#b27563"],
     evening: {
