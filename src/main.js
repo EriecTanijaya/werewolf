@@ -619,10 +619,6 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
     case "/update":
     case "/updates":
       return showUpdatesCommand();
-    case "/promote":
-      return promoteCommand();
-    case "/group":
-      return groupCommand();
     case "/rank":
     case "/peringkat":
     case "/ranking":
@@ -741,46 +737,6 @@ const groupCommand = () => {
   if (typeof msg === "string") return replyText(msg);
 
   return replyFlex(msg);
-};
-
-const promoteCommand = () => {
-  const place = this.event.source.type;
-
-  if (this.group_session.promoted) {
-    return replyText(`💡 ${place} ini telah di promote!`);
-  }
-
-  if (this.args.length < 2) {
-    return replyText(`💡 Masukkan ID dari admin ${place}!\n\nCth : '/promote tukiman y x g kuy'`);
-  }
-
-  this.group_session.promoted = true;
-  this.group_session.adminLink = "https://line.me/ti/p/~" + this.args[1];
-
-  function parseToText(arr) {
-    let text = "";
-    arr.forEach((item, index) => {
-      if (index !== 0 && index !== 1) {
-        //ini untuk tidak parse text command '/command'
-        if (index !== 2) {
-          text += " ";
-        }
-        text += item;
-      }
-    });
-
-    return text;
-  }
-
-  if (this.args.length > 2) {
-    this.group_session.caption = parseToText(this.args);
-  }
-
-  let text = `📣 ${place} berhasil di promote, cek '/group' untuk listnya. \n\n`;
-  text += "Pastikan ID yang dimasukkan benar. ";
-  text += `Karena ${place} yang telah didaftar tidak dapat di edit lagi. `;
-  text += `${place} yang terdaftar akan dihapus dalam beberapa jam `;
-  return replyText(text);
 };
 
 const day = () => {
@@ -5558,16 +5514,17 @@ const joinCommand = () => {
 
   database.add(this.user_session);
 
-  let reminder = "⏳ Sisa waktu ";
-
-  if (this.group_session.time > 90) {
-    let minute = Math.round(this.group_session.time / 60);
-    reminder += minute + " menit lagi";
-  } else {
-    reminder += this.group_session.time + " detik lagi";
+  let text = respond.join(this.user_session.name);
+  if (this.group_session.time > 0) {
+    let reminder = "⏳ Sisa waktu ";
+    if (this.group_session.time > 90) {
+      let minute = Math.round(this.group_session.time / 60);
+      reminder += minute + " menit lagi";
+    } else {
+      reminder += this.group_session.time + " detik lagi";
+    }
+    text += "\n" + reminder;
   }
-
-  let text = respond.join(this.user_session.name) + "\n" + reminder;
 
   if (this.group_session.players.length >= 5) {
     if (this.group_session.players.length === 15) {
@@ -5686,7 +5643,6 @@ const commandCommand = () => {
     "/forum : link ke openchat",
     "/updates : untuk melihat 5 update terakhir bot",
     "/promote : open group dengan memberikan admin group",
-    "/group : melihat list group yang open",
     "/rank : list top 10 pemain",
     "/me : info data diri sendiri",
     "/sync : sinkronisasi data pemain",

@@ -33,8 +33,6 @@ const safeCommands = [
   "/openchat",
   "/update",
   "/updates",
-  "/promote",
-  "/group",
   "/rank",
   "/peringkat",
   "/ranking",
@@ -209,10 +207,7 @@ const searchGroup = async groupId => {
       time: 300,
       mode: "classic",
       isShowRole: true,
-      promoted: false,
       stay: false,
-      adminLink: "",
-      caption: "",
       customRoles: [],
       lastFirstBloodIds: [],
       currentFirstBloodIds: [],
@@ -327,7 +322,7 @@ const followResponse = () => {
     bodyText:
       "Thanks udah add bot ini 😃, undang bot ini ke group kamu untuk bermain!\n📚 Untuk bantuan bisa ketik '/tutorial' atau '/cmd'"
   };
-  let text = "🏘️ Untuk kamu yang belum ada group, bisa ketik '/group' atau nyari di '/forum'";
+  let text = "🏘️ Untuk kamu yang belum ada group, bisa nyari di '/forum'";
 
   return replyFlex(flex_text, text);
 };
