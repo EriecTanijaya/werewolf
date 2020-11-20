@@ -137,7 +137,7 @@ const searchUser = async () => {
   try {
     const { displayName } = await client.getProfile(userId);
 
-    if (["/join", "/j"].includes(input) && displayName === "​") {
+    if (["/join", "/j"].includes(input) && displayName === "\u200b") {
       if (this.event.type === "postback") {
         return Promise.resolve(null);
       } else {
