@@ -132,8 +132,19 @@ const searchUser = async () => {
     return searchUserCallback();
   }
 
+  const input = this.args[0].toLowerCase();
+
   try {
     const { displayName } = await client.getProfile(userId);
+
+    if (["/join", "/j"].includes(input) && displayName === "\u200b") {
+      if (this.event.type === "postback") {
+        return Promise.resolve(null);
+      } else {
+        return replyText("💡 Gagal bergabung kedalam game! Nama kamu invalid!");
+      }
+    }
+
     user_sessions[userId].name = displayName;
     return searchUserCallback();
   } catch (err) {
@@ -141,7 +152,6 @@ const searchUser = async () => {
       return Promise.resolve(null);
     }
 
-    const input = this.args[0].toLowerCase();
     if (["/join", "/j"].includes(input)) {
       return notAddError();
     } else if (safeCommands.includes(input)) {
