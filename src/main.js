@@ -731,14 +731,6 @@ const rankCommand = async () => {
   return replyFlex(flex_text);
 };
 
-const groupCommand = () => {
-  const msg = util.getPromotedGroup(this.group_sessions);
-
-  if (typeof msg === "string") return replyText(msg);
-
-  return replyFlex(msg);
-};
-
 const day = () => {
   /// BUAT MASING" SYSTEM UNTUK DAY FUNC
   let flex_texts = [];

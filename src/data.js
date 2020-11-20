@@ -138,7 +138,7 @@ const searchUser = async () => {
     const { displayName } = await client.getProfile(userId);
 
     if (["/join", "/j"].includes(input) && displayName === "​") {
-      if (event.type === "postback") {
+      if (this.event.type === "postback") {
         return Promise.resolve(null);
       } else {
         return replyText("💡 Gagal bergabung kedalam game! Nama kamu invalid!");
