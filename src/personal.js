@@ -765,8 +765,8 @@ const roleCommand = () => {
     let villagerCode = this.group_session.villagerCode;
     if (villagerCode !== "") {
       let text = "👨‍🌾 Kamu tidak sendirian pada kota ini! ";
-      text += `✉️ Gunakan kode '${villagerCode}' untuk mengetahui sesama Villager. \n\n`;
-      text += `💡 Cara nya dengan menyisipkan kata '${villagerCode}' disaat kamu berdiskusi!`;
+      text += `✉️ Kamu mendapatkan kode '${villagerCode}' yang hanya diketahui sesama Villager. \n\n`;
+      text += `💡 Sisipkan kata '${villagerCode}' disaat kamu berdiskusi untuk memberi tanda bahwa kamu adalah Villager!`;
       return replyFlex(flex_text, text);
     }
   }
