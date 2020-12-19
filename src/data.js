@@ -35,8 +35,7 @@ const safeCommands = [
   "/updates",
   "/rank",
   "/peringkat",
-  "/ranking",
-  "/addbot"
+  "/ranking"
 ];
 
 // game storage
