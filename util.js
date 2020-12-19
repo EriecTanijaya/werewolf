@@ -4,7 +4,7 @@ const database = require("./database");
 const rawRoles = require("./roles");
 
 const getUpdates = () => {
-  // show last 10 updates
+  // show last 12 updates
   // header text ganti nomor aja
   // body text isi aja yg penting sama emoji apa
   // buttons, ganti aja prop data nya
@@ -12,7 +12,7 @@ const getUpdates = () => {
   const baseUrl = "https://line.me/R/home/public/post?id=218mdfal&postId=";
   let flex_text = {};
   let flex_texts = [];
-  let updates = [
+  let updates = [ //masih bisa nampung 2 update lagi
     {
       version: "1.5.1 🆕", //ini yg lastest aja
       majorChanges: "⭐ VIP Mode",

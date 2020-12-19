@@ -12,8 +12,6 @@ const add = data => {
 const update = (id, status, group_session) => {
   if (group_session.mode === "custom") return;
 
-  if (group_session.hasBot) return;
-
   const toIncrease = { $inc: {} };
   toIncrease.$inc[status] = 1;
 
