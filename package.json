@@ -4,8 +4,8 @@
   "description": "Bot Werewolf untuk line messenger",
   "main": "server.js",
   "scripts": {
-    "//start": "node server.js",
-    "start": "eslint . && node server.js"
+    "start": "node server.js",
+    "//start": "eslint . && node server.js"
   },
   "dependencies": {
     "@line/bot-sdk": "^7.2.0",

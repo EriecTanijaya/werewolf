@@ -43,6 +43,10 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
         }
 
         if (state === "day" || state === "vote") {
+          if (state === "vote" && this.args[0].toLowerCase() === "vote") {
+            return votingCommand();
+          }
+
           const roleName = players[index].role.name;
 
           // special role yang bisa trigger lewat text biasa
@@ -4247,7 +4251,7 @@ const lynch = flex_texts => {
   return replyFlex(flex_texts);
 };
 
-const voteCommand = () => {
+const voteCommand = voteTargetIndex => {
   if (this.group_session.state !== "vote") {
     return Promise.resolve(null);
   }
@@ -4265,7 +4269,7 @@ const voteCommand = () => {
     return replyText(text);
   }
 
-  let targetIndex = this.args[1];
+  let targetIndex = voteTargetIndex !== undefined ? voteTargetIndex : this.args[1];
 
   if (targetIndex === undefined) {
     return votingCommand();
@@ -4955,6 +4959,13 @@ const newCommand = () => {
     const { description } = modes[this.group_session.mode].getData();
     infoText += "\n" + "📜 Info : " + description;
   }
+
+  // cp
+  // const dummies = util.getFakeData(4);
+  // for (let i = 0; i < dummies.length; i++) {
+  //   const newPlayer = createNewPlayer(dummies[i]);
+  //   this.group_session.players.push(newPlayer);
+  // }
 
   const flex_text = {
     headerText: "🎮 Game Baru",

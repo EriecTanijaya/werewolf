@@ -1,8 +1,5 @@
 ### TODO
 
-- hapus semua ygberkaitan sama fitur fake bot ai
-- buat amne buat 100% ada di chaos kalo pemain 10 dan keatas
-
 - bug, kalau ada yang ke veteran, lalu di heal, nanti data visitor veteran duplikat
   - cara cek, lookout ke veteran, veteran alert, doctor heal lookout biar lookout bisa liat skill
   - lalu coba salah satu role ke veteran
