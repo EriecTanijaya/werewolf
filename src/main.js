@@ -4251,7 +4251,7 @@ const lynch = flex_texts => {
   return replyFlex(flex_texts);
 };
 
-const voteCommand = voteTargetIndex => {
+const voteCommand = () => {
   if (this.group_session.state !== "vote") {
     return Promise.resolve(null);
   }
@@ -4269,7 +4269,7 @@ const voteCommand = voteTargetIndex => {
     return replyText(text);
   }
 
-  let targetIndex = voteTargetIndex !== undefined ? voteTargetIndex : this.args[1];
+  let targetIndex = this.args[1];
 
   if (targetIndex === undefined) {
     return votingCommand();
@@ -4386,7 +4386,7 @@ const votingCommand = () => {
     if (item.status === "alive") {
       button[index] = {
         action: "postback",
-        label: `${num}. ${item.name}`,
+        label: `${item.name}`,
         data: `/vote_flex ${index}`
       };
 
