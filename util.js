@@ -12,9 +12,15 @@ const getUpdates = () => {
   const baseUrl = "https://line.me/R/home/public/post?id=218mdfal&postId=";
   let flex_text = {};
   let flex_texts = [];
-  let updates = [ //masih bisa nampung 2 update lagi
+  let updates = [
+    //masih bisa nampung 1 update lagi
     {
-      version: "1.5.1 🆕", //ini yg lastest aja
+      version: "1.5.2 🆕", //ini yg lastest aja
+      majorChanges: "🧹 Pembersihan",
+      postId: "1160853304908079613"
+    },
+    {
+      version: "1.5.1",
       majorChanges: "⭐ VIP Mode",
       postId: "1160350313808077828"
     },
