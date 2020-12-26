@@ -306,15 +306,13 @@ const getFlexColor = () => {
     };
   } else if (hour >= 17 && hour < 19) {
     return colors["evening"];
-  } else if (hour >= 19 && hour <= 24) {
+  } else {
     return {
       main: colors["dark"][day],
       background: "#1d1d1d",
       text: "#ffffff"
     };
   }
-
-  return colors["dark"][day];
 };
 
 const getRoleNameEmoji = roleName => {
