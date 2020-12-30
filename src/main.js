@@ -172,6 +172,8 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
       return settingCommand();
     case "/skill":
       return skillCommand();
+    case "/anu":
+      return anuCommand();
     case "/forum":
     case "/oc":
     case "/openchat":
@@ -4604,6 +4606,7 @@ const skillCommand = () => {
     return invalidCommand();
   }
 
+  const players = this.group_session.players;
   const doerIndex = this.args[1];
   const targetIndex = this.args[2];
 
@@ -4612,6 +4615,33 @@ const skillCommand = () => {
   }
 
   this.group_session.players[doerIndex].target.index = targetIndex;
+
+  return replyText(`${players[doerIndex].name} akan pake skill ke ${players[targetIndex].name}`);
+};
+
+const anuCommand = () => {
+  if (this.user_session.id !== process.env.DEV_ID) {
+    return invalidCommand();
+  }
+
+  const players = this.group_session.players;
+  const doerIndex = this.args[1];
+  const targetIndex = this.args[2];
+
+  if (doerIndex === undefined || targetIndex === undefined) {
+    return replyText("/skill doerIndex targetIndex");
+  }
+
+  this.group_session.players[doerIndex].targetVoteIndex = targetIndex;
+
+  // set if vote jester or not
+  if (players[targetIndex].role.name === "jester") {
+    this.group_session.players[doerIndex].voteJester = true;
+  } else {
+    this.group_session.players[doerIndex].voteJester = false;
+  }
+
+  return replyText(`${players[doerIndex].name} vote ${players[targetIndex].name}`);
 };
 
 const roleListCommand = () => {
