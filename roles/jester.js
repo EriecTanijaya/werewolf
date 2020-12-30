@@ -22,7 +22,7 @@ const getData = () => {
 const getInfo = () => {
   let text = "Jester menang jika dia berhasil digantung. ";
   text += "Jika berhasil digantung, dia bisa membalas kematiannya ";
-  text += "dengan menghantui orang lain sampai mati. ";
+  text += "dengan menghantui orang yang vote dia. ";
   text += "Target yang dihantui Jester tidak dapat diselamatkan oleh apapun. ";
   return text;
 };

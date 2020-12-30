@@ -241,6 +241,8 @@ const day = () => {
         item.message = "";
       }
 
+      item.voteJester = false;
+
       // check afk
       const noSkillRoles = ["villager", "jester", "executioner", "mayor", "psychic"];
 
@@ -1471,6 +1473,7 @@ const day = () => {
       this.group_session.players[targetIndex].guarded = false;
       this.group_session.players[targetIndex].selfHeal = false;
       this.group_session.players[targetIndex].damage = 0;
+      this.group_session.players[targetIndex].voteJester = false;
 
       let targetRoleName = target.role.name;
 
@@ -4309,23 +4312,24 @@ const voteCommand = () => {
 
   text += players[targetIndex].name + " untuk di" + this.group_session.punishment;
 
+  // set if vote jester or not
+  if (players[targetIndex].role.name === "jester") {
+    this.group_session.players[index].voteJester = true;
+  } else {
+    this.group_session.players[index].voteJester = false;
+  }
+
   const voteNeeded = Math.round(getAlivePlayersCount() / 2);
-
   const headerText = "📣 Voting";
-
   const time = this.group_session.time;
-
   const checkVote = checkVoteStatus(voteNeeded);
 
   if (checkVote.status !== "enough_vote") {
     let voteFlex = "💡 Ketik '/cek' untuk munculin flex vote. ";
-
     if (time > 15) {
       voteFlex += "⏳ Waktu tersisa " + this.group_session.time + " detik lagi";
     }
-
     text += "\n" + voteFlex;
-
     return replyText(text);
   } else {
     const flex_text = {
@@ -5160,7 +5164,8 @@ const createNewPlayer = user_session => {
     infected: false,
     justInfected: false,
     addonMessage: "",
-    causeOfDeath: ""
+    causeOfDeath: "",
+    voteJester: false
   };
   return newPlayer;
 };
