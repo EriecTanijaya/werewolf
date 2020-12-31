@@ -172,6 +172,8 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
       return settingCommand();
     case "/skill":
       return skillCommand();
+    case "/anu":
+      return anuCommand();
     case "/forum":
     case "/oc":
     case "/openchat":
@@ -240,6 +242,8 @@ const day = () => {
       if (item.message) {
         item.message = "";
       }
+
+      item.voteJester = false;
 
       // check afk
       const noSkillRoles = ["villager", "jester", "executioner", "mayor", "psychic"];
@@ -1471,6 +1475,7 @@ const day = () => {
       this.group_session.players[targetIndex].guarded = false;
       this.group_session.players[targetIndex].selfHeal = false;
       this.group_session.players[targetIndex].damage = 0;
+      this.group_session.players[targetIndex].voteJester = false;
 
       let targetRoleName = target.role.name;
 
@@ -4309,23 +4314,24 @@ const voteCommand = () => {
 
   text += players[targetIndex].name + " untuk di" + this.group_session.punishment;
 
+  // set if vote jester or not
+  if (players[targetIndex].role.name === "jester") {
+    this.group_session.players[index].voteJester = true;
+  } else {
+    this.group_session.players[index].voteJester = false;
+  }
+
   const voteNeeded = Math.round(getAlivePlayersCount() / 2);
-
   const headerText = "📣 Voting";
-
   const time = this.group_session.time;
-
   const checkVote = checkVoteStatus(voteNeeded);
 
   if (checkVote.status !== "enough_vote") {
     let voteFlex = "💡 Ketik '/cek' untuk munculin flex vote. ";
-
     if (time > 15) {
       voteFlex += "⏳ Waktu tersisa " + this.group_session.time + " detik lagi";
     }
-
     text += "\n" + voteFlex;
-
     return replyText(text);
   } else {
     const flex_text = {
@@ -4600,6 +4606,7 @@ const skillCommand = () => {
     return invalidCommand();
   }
 
+  const players = this.group_session.players;
   const doerIndex = this.args[1];
   const targetIndex = this.args[2];
 
@@ -4608,6 +4615,33 @@ const skillCommand = () => {
   }
 
   this.group_session.players[doerIndex].target.index = targetIndex;
+
+  return replyText(`${players[doerIndex].name} akan pake skill ke ${players[targetIndex].name}`);
+};
+
+const anuCommand = () => {
+  if (this.user_session.id !== process.env.DEV_ID) {
+    return invalidCommand();
+  }
+
+  const players = this.group_session.players;
+  const doerIndex = this.args[1];
+  const targetIndex = this.args[2];
+
+  if (doerIndex === undefined || targetIndex === undefined) {
+    return replyText("/skill doerIndex targetIndex");
+  }
+
+  this.group_session.players[doerIndex].targetVoteIndex = targetIndex;
+
+  // set if vote jester or not
+  if (players[targetIndex].role.name === "jester") {
+    this.group_session.players[doerIndex].voteJester = true;
+  } else {
+    this.group_session.players[doerIndex].voteJester = false;
+  }
+
+  return replyText(`${players[doerIndex].name} vote ${players[targetIndex].name}`);
 };
 
 const roleListCommand = () => {
@@ -5160,7 +5194,8 @@ const createNewPlayer = user_session => {
     infected: false,
     justInfected: false,
     addonMessage: "",
-    causeOfDeath: ""
+    causeOfDeath: "",
+    voteJester: false
   };
   return newPlayer;
 };

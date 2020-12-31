@@ -616,6 +616,8 @@ const roleSkill = (flex_texts, index, text) => {
         if (index == i && !players[i].role.selfHeal) continue;
       } else if (role.name === "bodyguard") {
         if (index == i && !players[i].role.vest) continue;
+      } else if (role.name === "jester") {
+        if (!players[i].voteJester) continue;
       }
 
       button[i] = {
