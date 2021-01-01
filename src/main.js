@@ -3949,7 +3949,6 @@ const checkVictory = () => {
   }
 
   /// Vampire win
-
   if (vampireCount > 0) {
     if (!mafiaCount && villagerCount <= 1 && !neutralsKillingCount) {
       someoneWin = "vampire";
@@ -3957,7 +3956,6 @@ const checkVictory = () => {
   }
 
   /// Villager win
-
   if (villagerCount > 0) {
     if (!mafiaCount && !vampireCount && !neutralsKillingCount) {
       someoneWin = "villager";

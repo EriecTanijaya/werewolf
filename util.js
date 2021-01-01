@@ -13,9 +13,13 @@ const getUpdates = () => {
   let flex_text = {};
   let flex_texts = [];
   let updates = [
-    //masih bisa nampung 1 update lagi
     {
-      version: "1.5.2 🆕", //ini yg lastest aja
+      version: "1.5.3 🆕", //ini yg lastest aja
+      majorChanges: "🤡 Adjustment for Jester",
+      postId: "1160953468508079330"
+    },
+    {
+      version: "1.5.2",
       majorChanges: "🧹 Pembersihan",
       postId: "1160853304908079613"
     },
