@@ -3522,10 +3522,10 @@ const randomRoles = () => {
 
 const getRoleList = () => {
   let roles = this.group_session.players.map(player => {
-    if (this.group_session.mode === "custom") {
-      return player.role.name;
-    } else {
+    if (this.group_session.mode === "chaos") {
       return player.role.type;
+    } else {
+      return player.role.name;
     }
   });
 
