@@ -81,7 +81,7 @@ const receive = (event, args, rawArgs, groupState = null) => {
   if (types[input] !== undefined) {
     const flex_text = {
       headerText: types[input].name,
-      bodyText: types[input].list + "\n\n💡 Ketik '/info <nama-role>' untuk detailnya"
+      bodyText: types[input].list
     };
 
     flex_texts.push(flex_text);
@@ -98,7 +98,7 @@ const receive = (event, args, rawArgs, groupState = null) => {
 
 const modeListCommand = () => {
   const modeList = Object.keys(modes);
-  const text = "\n\n💡 Ketik '/info <nama-mode>' untuk detailnya";
+  const text = "\n\n📜 Ex: Ketik '/info vip' untuk detail mode VIP";
   const flex_text = {
     headerText: "💪 Mode List 🧛",
     bodyText: modeList.join(", ") + text
@@ -108,7 +108,7 @@ const modeListCommand = () => {
 
 const typeListCommand = () => {
   const typeList = Object.keys(types);
-  const text = "\n\n💡 Ketik '/info <nama-type>' untuk detailnya";
+  const text = "\n\n📜 Ex: Ketik '/info town investigate' untuk daftar role pada tipe Town Investigate";
   const flex_text = {
     headerText: "👨‍🌾 Type List 🤵",
     bodyText: typeList.join(", ") + text
@@ -118,7 +118,7 @@ const typeListCommand = () => {
 
 const roleListCommand = () => {
   const roleList = Object.keys(roles);
-  const text = "\n\n💡 Ketik '/info <nama-role>' untuk detailnya";
+  const text = "\n\n📜 Ex: Ketik '/info villager' untuk detail role Villager";
   const flex_text = {
     headerText: "✒️ Role List 🕵️",
     bodyText: roleList.join(", ") + text

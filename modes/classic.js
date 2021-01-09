@@ -10,7 +10,7 @@ const getData = () => {
   return data;
 };
 
-const generate = playersLength => {
+const generate = playersLength => {  
   if (playersLength < 7) {
     let roles = [];
 

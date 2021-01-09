@@ -3522,10 +3522,10 @@ const randomRoles = () => {
 
 const getRoleList = () => {
   let roles = this.group_session.players.map(player => {
-    if (this.group_session.mode === "custom") {
-      return player.role.name;
-    } else {
+    if (this.group_session.mode === "chaos") {
       return player.role.type;
+    } else {
+      return player.role.name;
     }
   });
 
@@ -3552,7 +3552,7 @@ const getRoleList = () => {
       list.push(role);
     }
   }
-  util.shuffleArray(list);
+  list = util.shuffleArray(list);
   return list;
 };
 
@@ -4659,7 +4659,7 @@ const roleListCommand = () => {
   const roles = this.group_session.roles.join(", ");
   let flex_text = {
     headerText: "🤵 Role List 🕵️",
-    bodyText: `${roles}\n\n📜 Ex : '/info town investigate' untuk tau role apa aja dari tipe TI"`
+    bodyText: `${roles}\n\n📜 Ex: '/info town investigate' untuk tau role apa aja dari tipe TI"`
   };
   return replyFlex(flex_text);
 };
