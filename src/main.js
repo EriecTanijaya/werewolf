@@ -3552,7 +3552,7 @@ const getRoleList = () => {
       list.push(role);
     }
   }
-  util.shuffleArray(list);
+  list = util.shuffleArray(list);
   return list;
 };
 
@@ -4659,7 +4659,7 @@ const roleListCommand = () => {
   const roles = this.group_session.roles.join(", ");
   let flex_text = {
     headerText: "🤵 Role List 🕵️",
-    bodyText: `${roles}\n\n📜 Ex : '/info town investigate' untuk tau role apa aja dari tipe TI"`
+    bodyText: `${roles}\n\n📜 Ex: '/info town investigate' untuk tau role apa aja dari tipe TI"`
   };
   return replyFlex(flex_text);
 };
