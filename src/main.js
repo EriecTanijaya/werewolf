@@ -4385,7 +4385,6 @@ const votingCommand = () => {
   };
 
   let button = {};
-  let num = 1;
   players.forEach((item, index) => {
     if (item.status === "alive") {
       button[index] = {
@@ -4395,7 +4394,6 @@ const votingCommand = () => {
       };
 
       flex_text.buttons.push(button[index]);
-      num++;
     }
   });
   flex_texts.push(flex_text);
