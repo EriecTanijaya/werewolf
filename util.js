@@ -294,22 +294,15 @@ const getFlexColor = () => {
 
   const colors = {
     light: ["#1abc9c", "#77a6f8", "#d9c06e", "#6edb6e", "#964B00", "#303030", "#b27563"],
-    evening: {
-      main: "#fa744f",
-      background: "#fff3cd",
-      text: "#222831"
-    },
     dark: ["#00818a", "#303030", "#db5777", "#126D71", "#3a97d4", "#964B00", "#7c7d7c"]
   };
 
-  if (hour > 5 && hour < 17) {
+  if (hour > 5 && hour < 18) {
     return {
       main: colors["light"][day],
       background: "#ffffff",
       text: "#1d1d1d"
     };
-  } else if (hour >= 17 && hour < 19) {
-    return colors["evening"];
   } else {
     return {
       main: colors["dark"][day],
