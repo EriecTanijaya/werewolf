@@ -1341,7 +1341,7 @@ const commandCommand = () => {
     "/journal : cek journal kamu",
     "/revoke: untuk batal menggunakan skill",
     "/roles : tampilin role list",
-    "/updates : untuk melihat 5 update terakhir bot",
+    "/updates : untuk melihat 12 update terakhir bot",
     "/players : untuk liat daftar pemain"
   ];
 

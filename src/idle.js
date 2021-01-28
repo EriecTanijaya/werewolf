@@ -181,7 +181,7 @@ const commandCommand = () => {
     "/tutorial : tutorial menggunakan bot ini",
     "/forum : link ke openchat",
     "/status : untuk melihat berapa yang online",
-    "/updates : untuk melihat 10 update terakhir bot",
+    "/updates : untuk melihat 12 update terakhir bot",
     "/rank : list top 10 pemain",
     "/me : info data diri sendiri",
     "/sync : sinkronisasi data pemain"

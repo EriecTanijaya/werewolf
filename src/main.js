@@ -5054,7 +5054,7 @@ const commandCommand = () => {
     "/tutorial : self explanatory",
     "/gamestat : status game yg berjalan",
     "/forum : link ke openchat",
-    "/updates : untuk melihat 5 update terakhir bot",
+    "/updates : untuk melihat 12 update terakhir bot",
     "/promote : open group dengan memberikan admin group",
     "/rank : list top 10 pemain",
     "/me : info data diri sendiri",
