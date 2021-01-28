@@ -135,15 +135,6 @@ const searchUser = async () => {
 
   try {
     const { displayName } = await client.getProfile(userId);
-
-    if (["/join", "/j"].includes(input) && displayName === "\u200b") {
-      if (this.event.type === "postback") {
-        return Promise.resolve(null);
-      } else {
-        return replyText("💡 Gagal bergabung kedalam game! Nama kamu invalid!");
-      }
-    }
-
     user_sessions[userId].name = displayName;
     return searchUserCallback();
   } catch (err) {
@@ -163,7 +154,6 @@ const searchUser = async () => {
 
 const searchUserCallback = () => {
   let userId = this.event.source.userId;
-
   let usingCommand = this.args[0].startsWith("/") ? true : false;
   if (usingCommand) {
     let cooldown = user_sessions[userId].cooldown;
@@ -182,7 +172,6 @@ const searchUserCallback = () => {
       user_sessions[userId].cooldown += spamCooldown;
 
       let { cooldown, name } = user_sessions[userId];
-
       return replyText(`💡 ${name} melakukan spam! Kamu akan dicuekin bot selama ${cooldown} detik!`);
     }
   }
@@ -406,7 +395,7 @@ const notAddError = async () => {
       let { displayName } = await client.getRoomMemberProfile(groupId, userId);
       text += "💡 " + displayName;
     }
-    text += " gagal bergabung kedalam game, add dulu botnya" + "\n";
+    text += " gagal bergabung kedalam game, add dulu botnya ya" + "\n";
     text += "https://line.me/R/ti/p/" + process.env.BOT_ID;
     return replyText(text);
   } catch (err) {
