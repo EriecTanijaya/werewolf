@@ -395,7 +395,7 @@ const notAddError = async () => {
       let { displayName } = await client.getRoomMemberProfile(groupId, userId);
       text += "💡 " + displayName;
     }
-    text += " gagal bergabung kedalam game, add dulu botnya" + "\n";
+    text += " gagal bergabung kedalam game, add dulu botnya ya" + "\n";
     text += "https://line.me/R/ti/p/" + process.env.BOT_ID;
     return replyText(text);
   } catch (err) {

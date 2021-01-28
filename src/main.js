@@ -25,6 +25,14 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
   if (!rawArgs.startsWith("/")) {
     rawArgs = rawArgs.toLowerCase();
 
+    if (rawArgs.includes("error")) {
+      let text = `👷 Bot ini error?\n\nBagi pemain yang didalam game, `;
+      text += `semuanya ketik /checkdata untuk mengecek data didalam game. `;
+      text += `Jika semua data pemain yang tadi join aman semua, coba ulang buat gamenya dan rejoin.`;
+      text += `\n\nJika masih error, lapor ke /forum yak`;
+      return replyText(text);
+    }
+
     let time = this.group_session.time;
     const state = this.group_session.state;
 
@@ -191,8 +199,20 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
       return updateName();
     case "/stay":
       return stayCommand();
+    case "/checkdata":
+      return checkDataCommand();
     default:
       return invalidCommand();
+  }
+};
+
+const checkDataCommand = () => {
+  if (this.user_session.name !== "") {
+    return replyText("💡 Datamu didalam game tidak bermasalah!");
+  } else {
+    let text = "💡 Datamu didalam game ada masalah! ";
+    text += "Coba keluar dari game lalu rejoin. Jika masih error, lapor ke /forum";
+    return replyText(text);
   }
 };
 
