@@ -3614,13 +3614,11 @@ const getVillagerCode = () => {
   ];
 
   const word = util.random(words);
-
   return word;
 };
 
 const night = () => {
   this.group_session.nightCounter++;
-
   this.group_session.state = "night";
 
   if (this.group_session.nightCounter % 2 == 0) {
@@ -4027,6 +4025,7 @@ const checkVictory = () => {
 };
 
 const endGame = (flex_texts, whoWin) => {
+  const isVipMode = this.group_session.mode === "vip" ? true : false;
   let surviveTeam = [];
   const players = this.group_session.players;
   let headerText = "";
@@ -4055,10 +4054,16 @@ const endGame = (flex_texts, whoWin) => {
     let name = "";
 
     if (players[i].status === "death") {
-      name += "💀 " + players[i].name;
+      name += "💀";
     } else {
-      name += "😃 " + players[i].name;
+      name += "😃";
     }
+
+    if (isVipMode && i === this.group_session.vipIndex) {
+      name += "⭐";
+    }
+
+    name += ` ${players[i].name}`;
 
     table_data.push(`${num}.`, name, roleName);
 
@@ -5011,11 +5016,11 @@ const newCommand = () => {
   }
 
   // cp
-  // const dummies = util.getFakeData(4);
-  // for (let i = 0; i < dummies.length; i++) {
-  //   const newPlayer = createNewPlayer(dummies[i]);
-  //   this.group_session.players.push(newPlayer);
-  // }
+  const dummies = util.getFakeData(4);
+  for (let i = 0; i < dummies.length; i++) {
+    const newPlayer = createNewPlayer(dummies[i]);
+    this.group_session.players.push(newPlayer);
+  }
 
   const flex_text = {
     headerText: "🎮 Game Baru",
