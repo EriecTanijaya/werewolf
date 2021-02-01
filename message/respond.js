@@ -37,7 +37,6 @@ const join = name => {
     `💡 ${name} diam diam join ke game dengan calo`,
     `💡 Mantab, ${name} berhasil join game!`,
     `💡 Eits eits, ${name} bergabung ke dalam game nih!`,
-    `💡 Wah, ${name} join ke dalam game. Bubarrrrrr`,
     `💡 Akhirnya, ${name} join ke dalam game`,
     `💡 ${name} menyalip diantara kerumunan dan join kedalam game`
   ];

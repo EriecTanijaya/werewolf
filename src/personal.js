@@ -1275,7 +1275,7 @@ const roleListCommand = () => {
   const roles = this.group_session.roles.join(", ");
   let flex_text = {
     headerText: "🤵 Role List 🕵️",
-    bodyText: `${roles}\n\n📜 Ex : '/info town investigate' untuk tau role apa aja dari tipe TI"`
+    bodyText: roles
   };
   return replyFlex(flex_text);
 };
