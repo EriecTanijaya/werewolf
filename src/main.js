@@ -3583,7 +3583,7 @@ const getJesterTargetIndex = jesterId => {
   while (true) {
     let targetIndex = util.getRandomInt(0, maxIndex);
     let targetId = players[targetIndex].id;
-    if (targetId !== jesterId && players[targetIndex].status === "alive") {
+    if (players[targetIndex].voteJester && players[targetIndex].status === "alive") {
       return targetIndex;
     }
   }
