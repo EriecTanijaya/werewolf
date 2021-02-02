@@ -50,16 +50,6 @@ setInterval(() => {
       const state = group_sessions[key].state;
       if (time > 0) {
         group_sessions[key].time--;
-      } else {
-        const playersLength = group_sessions[key].players.length;
-        if (playersLength < 5 && state === "new") {
-          group_sessions[key].state = "idle";
-          resetAllPlayers(group_sessions[key].players);
-        } else if (state === "idle") {
-          if (!group_sessions[key].stay) {
-            group_sessions[key].state = "inactive";
-          }
-        }
       }
     }
   }
@@ -153,8 +143,8 @@ const searchUser = async () => {
 };
 
 const searchUserCallback = () => {
-  let userId = this.event.source.userId;
-  let usingCommand = this.args[0].startsWith("/") ? true : false;
+  const userId = this.event.source.userId;
+  const usingCommand = this.args[0].startsWith("/") ? true : false;
   if (usingCommand) {
     let cooldown = user_sessions[userId].cooldown;
 
@@ -188,8 +178,8 @@ const searchUserCallback = () => {
 };
 
 const searchGroup = async groupId => {
-  let isMaintenance = process.env.MAINTENANCE === "true" ? true : false;
-  let isTestGroup = groupId === process.env.TEST_GROUP ? true : false;
+  const isMaintenance = process.env.MAINTENANCE === "true" ? true : false;
+  const isTestGroup = groupId === process.env.TEST_GROUP ? true : false;
   if (isMaintenance && !isTestGroup) {
     let text = "👋 Sorry, botnya sedang maintenance. ";
     text += "💡 Untuk info lebih lanjut bisa cek di http://bit.ly/openchatww";
@@ -214,7 +204,20 @@ const searchGroup = async groupId => {
     group_sessions[groupId] = newGroup;
   }
 
-  if (this.event.source.type !== "user" && group_sessions[groupId].state === "inactive") {
+  const usingCommand = this.args[0].startsWith("/") ? true : false;
+  const groupAvailableTime = group_sessions[groupId].time;
+  const isGroup = this.event.source.type !== "user" ? true : false;
+  const isStay = group_sessions[groupId].stay;
+  const playersLength = group_sessions[groupId].players.length;
+  const hasMinimumPlayers = playersLength > 4 ? true : false;
+
+  if (isGroup && !groupAvailableTime && !usingCommand && !isStay && !hasMinimumPlayers) {
+    const groupState = group_sessions[groupId].state;
+    if (playersLength < 5 && groupState === "new") {
+      group_sessions[groupId].state = "idle";
+      resetAllPlayers(group_sessions[groupId].players);
+    }
+
     let text = "👋 Sistem mendeteksi tidak ada permainan dalam 5 menit. ";
     text += "Undang kembali jika mau main ya!";
     return util.leaveGroup(this.event, groupId, text);

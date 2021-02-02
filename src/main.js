@@ -4099,10 +4099,10 @@ const endGame = (flex_texts, whoWin) => {
 
   if (whoWin !== "draw") {
     let emoji = util.getRoleTeamEmoji(whoWin) + " ";
-    headerText = "🎉 " + emoji + whoWin.toUpperCase() + " win! 🎉";
+    headerText = "🎉 " + emoji + whoWin.toUpperCase() + " WIN! 🎉";
   } else if (surviveTeam.length > 0) {
     let surviveTeamList = surviveTeam.join(", ");
-    headerText = "🎉 " + surviveTeamList.toUpperCase() + " win! 🎉";
+    headerText = "🎉 " + surviveTeamList.toUpperCase() + " WIN! 🎉";
   } else {
     headerText = "😶 Draw Game 😶";
   }
