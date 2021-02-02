@@ -1,10 +1,4 @@
 ### TODO
-- logging system
-  - text: apa aja yang diketik (termasuk commands)
-  - postback:
-  
-  - format logs
-    [tanggal dan waktu] isi
 
 - bug, kalau ada yang ke veteran, lalu di heal, nanti data visitor veteran duplikat
   - cara cek, lookout ke veteran, veteran alert, doctor heal lookout biar lookout bisa liat skill
