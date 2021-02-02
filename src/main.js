@@ -3244,34 +3244,31 @@ const day = () => {
 
   /// untuk announcement certain role
   this.group_session.players.forEach(item => {
-    /// Vampire Announcement
-    if (item.role.team === "vampire" && item.status === "alive") {
-      item.message += vampireAnnouncement;
-    }
+    if (item.status === "alive") {
+      if (item.role.team === "vampire") {
+        item.message += vampireAnnouncement;
+      }
 
-    /// Mafia Announcement
-    if (item.role.team === "mafia" && item.status === "alive") {
-      item.message += mafiaAnnouncement;
-    }
+      if (item.role.team === "mafia") {
+        item.message += mafiaAnnouncement;
+      }
 
-    if (!item.message && item.status === "alive") {
-      item.message += "🛏️ Kamu tidak diganggu semalam";
-    }
+      if (!item.message) {
+        item.message += "🛏️ Kamu tidak diganggu semalam";
+      } else {
+        const flex_text = {
+          headerText: "🌙 Berita Malam ke - " + this.group_session.nightCounter,
+          bodyText: item.message
+        };
 
-    if (process.env.TEST === "true") {
-      console.log(`pesan ${item.name} (${item.role.name}) : ${item.message}`);
-    }
+        pushFlex(item.id, flex_text);
+      }
 
-    if (item.message) {
-      const flex_text = {
-        headerText: "🌙 Berita Malam ke - " + this.group_session.nightCounter,
-        bodyText: item.message
-      };
-
-      pushFlex(item.id, flex_text);
+      if (process.env.TEST === "true") {
+        console.log(`pesan ${item.name} (${item.role.name}) : ${item.message}`);
+      }
 
       /// journal , keep this below any special Announcement
-
       const journal = {
         nightCounter: this.group_session.nightCounter,
         content: item.message.trim()
@@ -5016,11 +5013,11 @@ const newCommand = () => {
   }
 
   // cp
-  const dummies = util.getFakeData(4);
-  for (let i = 0; i < dummies.length; i++) {
-    const newPlayer = createNewPlayer(dummies[i]);
-    this.group_session.players.push(newPlayer);
-  }
+  // const dummies = util.getFakeData(4);
+  // for (let i = 0; i < dummies.length; i++) {
+  //   const newPlayer = createNewPlayer(dummies[i]);
+  //   this.group_session.players.push(newPlayer);
+  // }
 
   const flex_text = {
     headerText: "🎮 Game Baru",
