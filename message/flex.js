@@ -15,7 +15,7 @@ const build = (flex_raw, sender, opt_texts = []) => {
   };
 
   let bubble = {};
-  
+
   const headerTextColor = isLightColor(color.main) ? "#121212" : "#ffffff";
 
   flex_raw.forEach((item, index) => {
@@ -127,7 +127,8 @@ const build = (flex_raw, sender, opt_texts = []) => {
             flex: 1,
             wrap: true,
             align: "start",
-            color: color.text
+            color: color.text,
+            size: "sm"
           };
 
           if (table_content[idx].text.length > 14) {
@@ -220,7 +221,7 @@ const build = (flex_raw, sender, opt_texts = []) => {
 const isLightColor = color => {
   // Thanks to
   // https://awik.io/determine-color-bright-dark-using-javascript/
-  
+
   // Variables for red, green, blue values
   let r, g, b, hsp;
 

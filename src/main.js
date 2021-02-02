@@ -263,8 +263,6 @@ const day = () => {
         item.message = "";
       }
 
-      item.voteJester = false;
-
       // check afk
       const noSkillRoles = ["villager", "jester", "executioner", "mayor", "psychic"];
 
@@ -1420,17 +1418,16 @@ const day = () => {
         let targetIndex = -1;
 
         if (doer.target.index === -1) {
-          // random kill
           this.group_session.players[i].message +=
             "💡 Karena kamu tidak pilih target, kamu akan sembarangan menghantui orang" + "\n\n";
 
-          targetIndex = getJesterTargetIndex(doer.id);
+          targetIndex = getJesterTargetIndex(i);
         } else {
           targetIndex = doer.target.index;
         }
 
         this.group_session.players[targetIndex].message +=
-          "👻 SURPRISEEE!! Kamu didatangi 🤡 Jester yang mati itu" + "\n\n";
+          "👻 SURPRISEEE!! Kamu didatangi 🤡 Jester yang kamu vote itu" + "\n\n";
 
         if (players[targetIndex].bugged) {
           spyBuggedInfo[targetIndex] += "🔍 Target kamu di hantui Jester!" + "\n\n";
@@ -1495,7 +1492,7 @@ const day = () => {
       this.group_session.players[targetIndex].guarded = false;
       this.group_session.players[targetIndex].selfHeal = false;
       this.group_session.players[targetIndex].damage = 0;
-      this.group_session.players[targetIndex].voteJester = false;
+      this.group_session.players[targetIndex].voteJesterIndex = -1;
 
       let targetRoleName = target.role.name;
 
@@ -3242,36 +3239,39 @@ const day = () => {
     }
   }
 
-  /// untuk announcement certain role
+  /// untuk announcement certain role dan voteJester reset
   this.group_session.players.forEach(item => {
-    /// Vampire Announcement
-    if (item.role.team === "vampire" && item.status === "alive") {
-      item.message += vampireAnnouncement;
-    }
+    if (item.status == "alive") {
+      item.voteJesterIndex = -1;
 
-    /// Mafia Announcement
-    if (item.role.team === "mafia" && item.status === "alive") {
-      item.message += mafiaAnnouncement;
-    }
+      if (item.role.team === "vampire") {
+        item.message += vampireAnnouncement;
+      }
 
-    if (!item.message && item.status === "alive") {
-      item.message += "🛏️ Kamu tidak diganggu semalam";
-    }
-
-    if (process.env.TEST === "true") {
-      console.log(`pesan ${item.name} (${item.role.name}) : ${item.message}`);
+      if (item.role.team === "mafia") {
+        item.message += mafiaAnnouncement;
+      }
     }
 
     if (item.message) {
+      if (process.env.TEST === "true") {
+        console.log(`pesan ${item.name} (${item.role.name}) : ${item.message}`);
+      }
+
       const flex_text = {
         headerText: "🌙 Berita Malam ke - " + this.group_session.nightCounter,
         bodyText: item.message
       };
 
       pushFlex(item.id, flex_text);
+    }
 
+    if (!item.message && item.status === "alive") {
+      item.message += "🛏️ Kamu tidak diganggu semalam";
+    }
+
+    if (item.message) {
       /// journal , keep this below any special Announcement
-
       const journal = {
         nightCounter: this.group_session.nightCounter,
         content: item.message.trim()
@@ -3576,14 +3576,15 @@ const getRoleList = () => {
   return list;
 };
 
-const getJesterTargetIndex = jesterId => {
+const getJesterTargetIndex = jesterIndex => {
   const players = this.group_session.players;
-  let maxIndex = players.length - 1;
+  const maxIndex = players.length - 1;
 
   while (true) {
     let targetIndex = util.getRandomInt(0, maxIndex);
-    let targetId = players[targetIndex].id;
-    if (targetId !== jesterId && players[targetIndex].status === "alive") {
+    let isAlive = players[targetIndex].status === "alive" ? true : false;
+
+    if (players[targetIndex].voteJesterIndex == jesterIndex && isAlive) {
       return targetIndex;
     }
   }
@@ -3614,13 +3615,11 @@ const getVillagerCode = () => {
   ];
 
   const word = util.random(words);
-
   return word;
 };
 
 const night = () => {
   this.group_session.nightCounter++;
-
   this.group_session.state = "night";
 
   if (this.group_session.nightCounter % 2 == 0) {
@@ -4027,6 +4026,7 @@ const checkVictory = () => {
 };
 
 const endGame = (flex_texts, whoWin) => {
+  const isVipMode = this.group_session.mode === "vip" ? true : false;
   let surviveTeam = [];
   const players = this.group_session.players;
   let headerText = "";
@@ -4055,10 +4055,16 @@ const endGame = (flex_texts, whoWin) => {
     let name = "";
 
     if (players[i].status === "death") {
-      name += "💀 " + players[i].name;
+      name += "💀";
     } else {
-      name += "😃 " + players[i].name;
+      name += "😃";
     }
+
+    if (isVipMode && i === this.group_session.vipIndex) {
+      name += "⭐";
+    }
+
+    name += ` ${players[i].name}`;
 
     table_data.push(`${num}.`, name, roleName);
 
@@ -4097,10 +4103,10 @@ const endGame = (flex_texts, whoWin) => {
 
   if (whoWin !== "draw") {
     let emoji = util.getRoleTeamEmoji(whoWin) + " ";
-    headerText = "🎉 " + emoji + whoWin.toUpperCase() + " win! 🎉";
+    headerText = "🎉 " + emoji + whoWin.toUpperCase() + " WIN! 🎉";
   } else if (surviveTeam.length > 0) {
     let surviveTeamList = surviveTeam.join(", ");
-    headerText = "🎉 " + surviveTeamList.toUpperCase() + " win! 🎉";
+    headerText = "🎉 " + surviveTeamList.toUpperCase() + " WIN! 🎉";
   } else {
     headerText = "😶 Draw Game 😶";
   }
@@ -4334,9 +4340,9 @@ const voteCommand = () => {
 
   // set if vote jester or not
   if (players[targetIndex].role.name === "jester") {
-    this.group_session.players[index].voteJester = true;
+    this.group_session.players[index].voteJesterIndex = targetIndex;
   } else {
-    this.group_session.players[index].voteJester = false;
+    this.group_session.players[index].voteJesterIndex = -1;
   }
 
   const voteNeeded = Math.round(getAlivePlayersCount() / 2);
@@ -4449,7 +4455,7 @@ const autoVote = () => {
 
   if (checkVote.status !== "enough_vote") {
     headerText = "📣 Penghukuman ditunda";
-    text = "💬 Waktu habis dan warga belum menentukan siapa yang akan di" + this.group_session.punishment;
+    text = respond.notLynch(this.group_session.punishment);
   } else {
     headerText = "📣 Voting";
   }
@@ -4645,16 +4651,16 @@ const anuCommand = () => {
   const targetIndex = this.args[2];
 
   if (doerIndex === undefined || targetIndex === undefined) {
-    return replyText("/skill doerIndex targetIndex");
+    return replyText("/anu doerIndex targetIndex");
   }
 
   this.group_session.players[doerIndex].targetVoteIndex = targetIndex;
 
   // set if vote jester or not
   if (players[targetIndex].role.name === "jester") {
-    this.group_session.players[doerIndex].voteJester = true;
+    this.group_session.players[doerIndex].voteJesterIndex = targetIndex;
   } else {
-    this.group_session.players[doerIndex].voteJester = false;
+    this.group_session.players[doerIndex].voteJesterIndex = -1;
   }
 
   return replyText(`${players[doerIndex].name} vote ${players[targetIndex].name}`);
@@ -4677,7 +4683,7 @@ const roleListCommand = () => {
   const roles = this.group_session.roles.join(", ");
   let flex_text = {
     headerText: "🤵 Role List 🕵️",
-    bodyText: `${roles}\n\n📜 Ex: '/info town investigate' untuk tau role apa aja dari tipe TI"`
+    bodyText: roles
   };
   return replyFlex(flex_text);
 };
@@ -5011,11 +5017,11 @@ const newCommand = () => {
   }
 
   // cp
-  // const dummies = util.getFakeData(4);
-  // for (let i = 0; i < dummies.length; i++) {
-  //   const newPlayer = createNewPlayer(dummies[i]);
-  //   this.group_session.players.push(newPlayer);
-  // }
+  const dummies = util.getFakeData(4);
+  for (let i = 0; i < dummies.length; i++) {
+    const newPlayer = createNewPlayer(dummies[i]);
+    this.group_session.players.push(newPlayer);
+  }
 
   const flex_text = {
     headerText: "🎮 Game Baru",
@@ -5211,7 +5217,7 @@ const createNewPlayer = user_session => {
     justInfected: false,
     addonMessage: "",
     causeOfDeath: "",
-    voteJester: false
+    voteJesterIndex: -1
   };
   return newPlayer;
 };

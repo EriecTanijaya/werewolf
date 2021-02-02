@@ -107,14 +107,14 @@ const statusCommand = (user_sessions, group_sessions) => {
 
   let userText = "";
   if (usersOnlineCount) {
-    userText = "Ada " + usersOnlineCount + " user(s) sedang online";
+    userText = "Ada " + usersOnlineCount + " user sedang online";
   } else {
     userText = "Semua user sedang offline";
   }
 
   let groupText = "";
   if (groupsOnlineCount) {
-    groupText = "Ada " + groupsOnlineCount + " group(s) sedang online";
+    groupText = "Ada " + groupsOnlineCount + " group sedang online";
   } else {
     groupText = "Semua group sedang offline";
   }

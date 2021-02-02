@@ -617,7 +617,7 @@ const roleSkill = (flex_texts, index, text) => {
       } else if (role.name === "bodyguard") {
         if (index == i && !players[i].role.vest) continue;
       } else if (role.name === "jester") {
-        if (!players[i].voteJester) continue;
+        if (players[i].voteJesterIndex === -1) continue;
       }
 
       button[i] = {
@@ -1275,7 +1275,7 @@ const roleListCommand = () => {
   const roles = this.group_session.roles.join(", ");
   let flex_text = {
     headerText: "🤵 Role List 🕵️",
-    bodyText: `${roles}\n\n📜 Ex : '/info town investigate' untuk tau role apa aja dari tipe TI"`
+    bodyText: roles
   };
   return replyFlex(flex_text);
 };

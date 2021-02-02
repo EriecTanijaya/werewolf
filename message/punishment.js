@@ -5,7 +5,7 @@ const punishment = [
   "bakar 🔥",
   "jual 💰",
   "pancung 🤕",
-  "gebuk 👊",
+  "gebuk 🥊",
   "suntik mati 💉",
   "kubur hiduphidup ⚰️",
   "tenggelamkan 🌊",

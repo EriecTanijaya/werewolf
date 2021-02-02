@@ -25,7 +25,9 @@ const punish = (punishment, lynchedName, voteCount) => {
     `💀 Disaat para warga masih sibuk berdebat, ${lynchedName} ${punishment} diri sendiri`,
     `💀 Selamat, ${lynchedName} berhasil di${punishment} dengan jumlah ${voteCount} vote!`,
     `💀 Warga merasa kasihan dengan ${lynchedName}, tetapi tetap ae mereka ${punishment} dia`,
-    `💀 "Avada Kedavra!" ${lynchedName} menghilang tanpa ada jejak. \n\n🧙 Hairy Potter : "err, aku bisa jelaskan"`
+    `💀 "Avada Kedavra!" ${lynchedName} menghilang tanpa ada jejak. \n\n🧙 Hairy Potter : "err, aku bisa jelaskan"`,
+    `🥊 "WATCH OUT WATCH OUT WATCH OUT" ${lynchedName} di RKO 👨‍🦲 Randy Orton`,
+    `💀 Tanpa nasi basi, ${lynchedName} di${punishment} dari hasil voting para warga`
   ];
   return util.random(arr);
 };
@@ -37,7 +39,6 @@ const join = name => {
     `💡 ${name} diam diam join ke game dengan calo`,
     `💡 Mantab, ${name} berhasil join game!`,
     `💡 Eits eits, ${name} bergabung ke dalam game nih!`,
-    `💡 Wah, ${name} join ke dalam game. Bubarrrrrr`,
     `💡 Akhirnya, ${name} join ke dalam game`,
     `💡 ${name} menyalip diantara kerumunan dan join kedalam game`
   ];
@@ -89,6 +90,18 @@ const alreadyDead = (name, causeOfDeath) => {
   return `💡 ${name}, kamu sudah mati. Penyebabnya adalah ${causeOfDeath}`;
 };
 
+const notLynch = punishment => {
+  const arr = [
+    `💬 Para warga belum menemukan titik terang dan tidak ${punishment} siapapun hari ini`,
+    `💬 Waktu habis, balik tidur sono!`,
+    `💬 Hasil voting hari ini, tidak ada yang ${punishment} hari ini`,
+    `💬 Waktu telah habis, dan para warga belum mendapatkan kandidat yang akan di${punishment} hari ini`,
+    `🧹 "Wah, akhirnya hari ini bisa agak nyantai hari ini" kata Office Boy`,
+    `💬 Para warga belum mendapatkan sosok yang layak untuk di${punishment}`
+  ];
+  return util.random(arr);
+};
+
 module.exports = {
   enoughPlayer,
   stopGame,
@@ -97,5 +110,6 @@ module.exports = {
   memberJoined,
   checkNight,
   kicked,
-  alreadyDead
+  alreadyDead,
+  notLynch
 };
