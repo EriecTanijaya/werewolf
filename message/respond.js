@@ -90,6 +90,18 @@ const alreadyDead = (name, causeOfDeath) => {
   return `💡 ${name}, kamu sudah mati. Penyebabnya adalah ${causeOfDeath}`;
 };
 
+const notLynch = punishment => {
+  const arr = [
+    `💬 Para warga belum menemukan titik terang dan tidak ${punishment} siapapun hari ini`,
+    `💬 Waktu habis, balik tidur sono!`,
+    `💬 Hasil voting hari ini, tidak ada yang ${punishment} hari ini`,
+    `💬 Waktu telah habis, dan para warga belum mendapatkan kandidat yang akan di${punishment} hari ini`,
+    `🧹 "Wah, akhirnya hari ini bisa agak nyantai hari ini" kata Office Boy`,
+    `💬 Para warga belum mendapatkan sosok yang layak untuk di${punishment}`
+  ];
+  return util.random(arr);
+};
+
 module.exports = {
   enoughPlayer,
   stopGame,
@@ -98,5 +110,6 @@ module.exports = {
   memberJoined,
   checkNight,
   kicked,
-  alreadyDead
+  alreadyDead,
+  notLynch
 };

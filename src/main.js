@@ -4455,7 +4455,7 @@ const autoVote = () => {
 
   if (checkVote.status !== "enough_vote") {
     headerText = "📣 Penghukuman ditunda";
-    text = "💬 Waktu habis dan warga belum menentukan siapa yang akan di" + this.group_session.punishment;
+    text = respond.notLynch(this.group_session.punishment);
   } else {
     headerText = "📣 Voting";
   }
