@@ -617,7 +617,7 @@ const roleSkill = (flex_texts, index, text) => {
       } else if (role.name === "bodyguard") {
         if (index == i && !players[i].role.vest) continue;
       } else if (role.name === "jester") {
-        if (!players[i].voteJester) continue;
+        if (players[i].voteJesterIndex === -1) continue;
       }
 
       button[i] = {
