@@ -1424,7 +1424,7 @@ const day = () => {
           this.group_session.players[i].message +=
             "💡 Karena kamu tidak pilih target, kamu akan sembarangan menghantui orang" + "\n\n";
 
-          targetIndex = getJesterTargetIndex(doer.id);
+          targetIndex = getJesterTargetIndex();
         } else {
           targetIndex = doer.target.index;
         }
@@ -3573,13 +3573,12 @@ const getRoleList = () => {
   return list;
 };
 
-const getJesterTargetIndex = jesterId => {
+const getJesterTargetIndex = () => {
   const players = this.group_session.players;
   let maxIndex = players.length - 1;
 
   while (true) {
     let targetIndex = util.getRandomInt(0, maxIndex);
-    let targetId = players[targetIndex].id;
     if (players[targetIndex].voteJester && players[targetIndex].status === "alive") {
       return targetIndex;
     }

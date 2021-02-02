@@ -47,7 +47,6 @@ setInterval(() => {
   for (let key in group_sessions) {
     if (group_sessions[key]) {
       const time = group_sessions[key].time;
-      const state = group_sessions[key].state;
       if (time > 0) {
         group_sessions[key].time--;
       }
@@ -269,7 +268,6 @@ const unfollowResponse = () => {
 
 const leaveResponse = () => {
   const groupId = util.getGroupId(this.event);
-  group_sessions[groupId].state = "inactive";
   if (group_sessions[groupId] && group_sessions[groupId].players.length > 0) {
     return resetAllPlayers(group_sessions[groupId].players);
   }
