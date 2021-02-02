@@ -13,7 +13,7 @@ const getOnlineGroups = group_sessions => {
   const onlineGroups = [];
   Object.keys(group_sessions).forEach(key => {
     let group = group_sessions[key];
-    if (group && group.state !== "idle" && group.state !== "inactive") {
+    if (group && group.state !== "idle") {
       onlineGroups.push(group);
     }
   });
