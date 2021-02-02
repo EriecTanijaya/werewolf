@@ -263,8 +263,6 @@ const day = () => {
         item.message = "";
       }
 
-      item.voteJester = false;
-
       // check afk
       const noSkillRoles = ["villager", "jester", "executioner", "mayor", "psychic"];
 
@@ -3242,9 +3240,11 @@ const day = () => {
     }
   }
 
-  /// untuk announcement certain role
+  /// untuk announcement certain role dan voteJester reset
   this.group_session.players.forEach(item => {
     if (item.status === "alive") {
+      item.voteJester = false;
+      
       if (item.role.team === "vampire") {
         item.message += vampireAnnouncement;
       }
@@ -4646,7 +4646,7 @@ const anuCommand = () => {
   const targetIndex = this.args[2];
 
   if (doerIndex === undefined || targetIndex === undefined) {
-    return replyText("/skill doerIndex targetIndex");
+    return replyText("/anu doerIndex targetIndex");
   }
 
   this.group_session.players[doerIndex].targetVoteIndex = targetIndex;
