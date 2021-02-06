@@ -269,6 +269,7 @@ const unfollowResponse = () => {
 const leaveResponse = () => {
   const groupId = util.getGroupId(this.event);
   if (group_sessions[groupId] && group_sessions[groupId].players.length > 0) {
+    group_sessions[groupId].state = "idle";
     return resetAllPlayers(group_sessions[groupId].players);
   }
 };
