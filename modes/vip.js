@@ -2,7 +2,7 @@ const util = require("../util");
 
 const getData = () => {
   const data = {
-    id: "4",
+    id: "5",
     name: "⭐👨‍🌾 VIP",
     description:
       "Akan ditunjuk secara random 1 warga menjadi VIP. Setiap warga mengetahui siapa VIP nya. Jika VIP mati, maka warga akan kalah. Role Bodyguard dan Vigilante tidak bisa menjadi VIP.",
@@ -26,9 +26,7 @@ const generate = playersLength => {
   roles.push(util.random(townProtectors));
 
   roles.length = playersLength;
-
   roles = util.shuffleArray(roles);
-
   return roles;
 };
 
