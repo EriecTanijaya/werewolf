@@ -192,7 +192,7 @@ const searchGroup = async groupId => {
       state: "idle",
       time_default: 0,
       time: 300,
-      mode: "classic",
+      mode: "beginner",
       isShowRole: true,
       stay: false,
       customRoles: [],

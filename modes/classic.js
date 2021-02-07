@@ -2,7 +2,7 @@ const util = require("../util");
 
 const getData = () => {
   const data = {
-    id: "1",
+    id: "2",
     name: "👨‍🌾🤵 Classic",
     description: "Mode normal, cocok untuk pemula. Bisa juga tweak dengan '/set show_role no' agar lebih menantank",
     naration: "☁️ Kota Bedburg sedang diambang kehancuran, para warga harus menyelamatkan kota ini dari serangan Mafia!"

@@ -2,7 +2,7 @@ const util = require("../util");
 
 const getData = () => {
   const data = {
-    id: "2",
+    id: "3",
     name: "🤡🪓 Chaos",
     description: "Sesuai namanya, role role yang ada beneran buat chaos",
     naration: "🔥 Telah di curigai kota Bedburg dengan sangat banyak kriminal yang berpura pura seperti warga"

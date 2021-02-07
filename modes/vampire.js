@@ -2,7 +2,7 @@ const util = require("../util");
 
 const getData = () => {
   const data = {
-    id: "3",
+    id: "4",
     name: "🦇🧛 Vampire",
     description: "Hati-hati! Vampire dapat mengubah warga menjadi Vampire!",
     naration: "🧛 Kota Bedburg telah disusupi Vampire! Para warga harus menyelamatkan kota ini dari serbuan Vampire!"
@@ -43,11 +43,8 @@ const generate = playersLength => {
   ];
 
   roles.push(util.random(randomTowns));
-
   roles.length = playersLength;
-
   roles = util.shuffleArray(roles);
-
   return roles;
 };
 
