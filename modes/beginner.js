@@ -11,7 +11,24 @@ const getData = () => {
 };
 
 const generate = playersLength => {
-  let roles = ["sheriff", "mafioso", "doctor"];
+  let roles = [
+    "mafioso",
+    "sheriff",
+    "doctor",
+    "villager",
+    "villager",
+    "vigilante",
+    "godfather",
+    "sheriff",
+    "villager",
+    "mafioso",
+    "villager",
+    "doctor",
+    "villager",
+    "vigilante",
+    "mafioso"
+  ];
+
   roles.length = playersLength;
   roles = util.shuffleArray(roles);
   return roles;

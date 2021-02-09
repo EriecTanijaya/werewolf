@@ -5017,7 +5017,7 @@ const newCommand = () => {
   }
 
   // cp
-  // const dummies = util.getFakeData(4);
+  // const dummies = util.getFakeData(6);
   // for (let i = 0; i < dummies.length; i++) {
   //   const newPlayer = createNewPlayer(dummies[i]);
   //   this.group_session.players.push(newPlayer);
