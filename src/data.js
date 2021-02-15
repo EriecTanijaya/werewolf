@@ -108,7 +108,8 @@ const receive = async (event, rawArgs) => {
       commandCount: 0,
       cooldown: 0,
       spamCount: 0,
-      time: 300
+      time: 300,
+      messages: []
     };
     user_sessions[userId] = newUser;
   }
@@ -132,7 +133,7 @@ const receive = async (event, rawArgs) => {
       }
     }
   }
-
+  
   if (usingCommand) {
     const cooldown = user_sessions[userId].cooldown;
 
@@ -153,7 +154,7 @@ const receive = async (event, rawArgs) => {
       return replyText(`💡 ${name} melakukan spam! Kamu akan dicuekin bot selama ${cooldown} detik!`);
     }
   }
-
+  
   if (this.event.source.type === "user") {
     if (user_sessions[userId].state === "inactive") {
       return idle.receive(this.event, this.args, this.rawArgs, user_sessions, group_sessions);
@@ -191,7 +192,8 @@ const receive = async (event, rawArgs) => {
       customRoles: [],
       lastFirstBloodIds: [],
       currentFirstBloodIds: [],
-      players: []
+      players: [],
+      dev_messages: []
     };
     group_sessions[groupId] = newGroup;
   }

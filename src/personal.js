@@ -96,9 +96,57 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
       return updateName();
     case "/tutorial":
       return tutorialCommand();
+    case "/cg":
+      return sendToGroupMessageCommand();
+    case "/read":
+      return readUserMessageCommand();
+    case "/cm":
+      return sendToDevMessageCommand();
     default:
       return invalidCommand();
   }
+};
+
+const sendToDevMessageCommand = () => {
+  if (this.args.length < 2) {
+    return replyText("💡 Masukkan pesan. Cth: /cm pesann");
+  }
+
+  this.user_session.messages.push({
+    message: util.parseToText(this.args),
+    timestamp: new Date().getTime()
+  });
+
+  return replyText("✉️ Pesanmu telah dikirim!");
+};
+
+const readUserMessageCommand = async () => {
+  if (this.user_session.id !== process.env.DEV_ID) {
+    return invalidCommand();
+  }
+
+  const msg = await stats.readUserMessageCommand(this.user_sessions);
+  return replyText(msg);
+};
+
+const sendToGroupMessageCommand = async () => {
+  if (this.user_session.id !== process.env.DEV_ID) {
+    return invalidCommand();
+  }
+
+  let message = "";
+  this.args.forEach((item, index) => {
+    if (index !== 0 && index !== 1) {
+      //ini untuk tidak parse text command '/command'
+      if (index !== 2) {
+        message += " ";
+      }
+      message += item;
+    }
+  });
+
+  const msg = await stats.insertDevMessage(this.group_sessions, this.args[1], message);
+  return replyText(msg);
 };
 
 const tutorialCommand = () => {
@@ -1342,7 +1390,8 @@ const commandCommand = () => {
     "/revoke: untuk batal menggunakan skill",
     "/roles : tampilin role list",
     "/updates : untuk melihat 12 update terakhir bot",
-    "/players : untuk liat daftar pemain"
+    "/players : untuk liat daftar pemain",
+    "/cm pesan : untuk mengirimkan pesan kepada dev bot"
   ];
 
   cmds.forEach((item, index) => {

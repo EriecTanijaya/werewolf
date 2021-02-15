@@ -100,6 +100,23 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
       }
     }
 
+    if (this.group_session.dev_messages.length > 0) {
+      let text = `📨 Pesan dari dev bot:\n`;
+
+      this.group_session.dev_messages.forEach(item => {
+        const { message, timestamp } = item;
+        const time = new Date(timestamp).toLocaleTimeString("en-US", {
+          timeZone: "Asia/Jakarta",
+          hour: "2-digit",
+          minute: "2-digit"
+        });
+        text += `[${time}] ${message}\n`;
+      });
+
+      this.group_session.dev_messages = [];
+      return replyText(text);
+    }
+
     return Promise.resolve(null);
   }
 
@@ -201,9 +218,25 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
       return stayCommand();
     case "/checkdata":
       return checkDataCommand();
+    case "/cm":
+      return sendToDevMessageCommand();
     default:
       return invalidCommand();
   }
+};
+
+const sendToDevMessageCommand = () => {
+  if (this.args.length < 2) {
+    return replyText("💡 Masukkan pesan. Cth: /cm pesann");
+  }
+
+  this.user_session.messages.push({
+    message: util.parseToText(this.args),
+    timestamp: new Date().getTime(),
+    groupName: this.group_session.name
+  });
+
+  return replyText("✉️ Pesanmu telah dikirim!");
 };
 
 const checkDataCommand = () => {
@@ -5084,7 +5117,8 @@ const commandCommand = () => {
     "/promote : open group dengan memberikan admin group",
     "/rank : list top 10 pemain",
     "/me : info data diri sendiri",
-    "/sync : sinkronisasi data pemain"
+    "/sync : sinkronisasi data pemain",
+    "/cm pesan : untuk mengirimkan pesan kepada dev bot"
   ];
 
   let flexNeeded = 0;
