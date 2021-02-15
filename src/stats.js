@@ -45,18 +45,11 @@ const viewCommand = async (group_sessions, targetIndex) => {
   text += `night count : ${group.nightCounter}\n`;
 
   if (group.state !== "new") {
-    let roles = [];
-    let alivePlayerCount = 0;
-
+    let num = 1;
     group.players.forEach(item => {
-      roles.push(item.role.name);
-      if (item.status === "alive") {
-        alivePlayerCount++;
-      }
+      text += `${num}. ${item.name} - ${item.role.name} (${item.status})\n`;
+      num++;
     });
-
-    text += `alive players : ${alivePlayerCount}/${group.players.length}\n`;
-    text += `roles : ${roles.join(", ")}`;
   }
 
   return text;
