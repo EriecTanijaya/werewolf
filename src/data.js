@@ -268,7 +268,7 @@ const joinResponse = async () => {
   if (isMaintenance && !isTestGroup) {
     let text = "👋 Sorry, botnya sedang maintenance. ";
     text += "💡 Untuk info lebih lanjut bisa cek di http://bit.ly/openchatww";
-    util.leaveGroup(this.event, groupId, text);
+    return util.leaveGroup(this.event, groupId, text);
   }
 
   let text = "";
@@ -311,11 +311,11 @@ const memberJoinedResponse = async () => {
   const newMemberId = this.event.joined.members[0].userId;
 
   if (this.event.source.type === "group") {
-    let { displayName } = await client.getGroupMemberProfile(groupId, newMemberId);
-    let { groupName } = await getGroupData(groupId);
+    const { displayName } = await client.getGroupMemberProfile(groupId, newMemberId);
+    const { groupName } = await getGroupData(groupId);
     return replyText(respond.memberJoined(displayName, groupName));
   } else if (this.event.source.type === "room") {
-    let { displayName } = await client.getRoomMemberProfile(groupId, newMemberId);
+    const { displayName } = await client.getRoomMemberProfile(groupId, newMemberId);
     return replyText(`👋 Selamat datang ${displayName}!`);
   }
 };
@@ -329,10 +329,8 @@ const getGroupData = async groupId => {
 
 const replyText = async texts => {
   texts = Array.isArray(texts) ? texts : [texts];
-
   const sender = util.getSender();
-
-  let msg = texts.map(text => {
+  const msg = texts.map(text => {
     return {
       sender,
       type: "text",
@@ -364,16 +362,16 @@ const replyFlex = async (flex_raw, text_raw) => {
 };
 
 const notAddError = async () => {
-  let userId = this.event.source.userId;
+  const userId = this.event.source.userId;
   let text = "";
   try {
     if (this.event.source.type === "group") {
-      let groupId = this.event.source.groupId;
-      let { displayName } = await client.getGroupMemberProfile(groupId, userId);
+      const groupId = this.event.source.groupId;
+      const { displayName } = await client.getGroupMemberProfile(groupId, userId);
       text += "💡 " + displayName;
     } else if (this.event.source.type === "room") {
-      let groupId = this.event.source.roomId;
-      let { displayName } = await client.getRoomMemberProfile(groupId, userId);
+      const groupId = this.event.source.roomId;
+      const { displayName } = await client.getRoomMemberProfile(groupId, userId);
       text += "💡 " + displayName;
     }
     text += " gagal bergabung kedalam game, add dulu botnya ya" + "\n";
