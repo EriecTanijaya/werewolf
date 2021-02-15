@@ -74,7 +74,7 @@ setInterval(() => {
   }
 }, 1000);
 
-const receive = (event, rawArgs) => {
+const receive = async (event, rawArgs) => {
   this.event = event;
 
   // handle other events but let other event message type flow
@@ -95,12 +95,9 @@ const receive = (event, rawArgs) => {
   this.args = rawArgs.split(" ");
   this.rawArgs = rawArgs;
 
-  searchUser();
-};
+  const usingCommand = this.args[0].startsWith("/") ? true : false;
 
-const searchUser = async () => {
   const userId = this.event.source.userId;
-
   if (!user_sessions[userId]) {
     let newUser = {
       id: userId,
@@ -111,41 +108,34 @@ const searchUser = async () => {
       commandCount: 0,
       cooldown: 0,
       spamCount: 0,
-      time: 300
+      time: 300,
+      messages: []
     };
     user_sessions[userId] = newUser;
   }
 
-  if (user_sessions[userId].name !== "") {
-    return searchUserCallback();
-  }
+  if (user_sessions[userId].name === "") {
+    const input = this.args[0].toLowerCase();
+    try {
+      const { displayName } = await client.getProfile(userId);
+      user_sessions[userId].name = displayName;
+    } catch (err) {
+      if (!usingCommand) {
+        return Promise.resolve(null);
+      }
 
-  const input = this.args[0].toLowerCase();
+      if (["/join", "/j"].includes(input)) {
+        return notAddError();
+      }
 
-  try {
-    const { displayName } = await client.getProfile(userId);
-    user_sessions[userId].name = displayName;
-    return searchUserCallback();
-  } catch (err) {
-    if (!this.rawArgs.startsWith("/")) {
-      return Promise.resolve(null);
-    }
-
-    if (["/join", "/j"].includes(input)) {
-      return notAddError();
-    } else if (safeCommands.includes(input)) {
-      return searchUserCallback();
-    } else {
-      return Promise.resolve(null);
+      if (!safeCommands.includes(input)) {
+        return Promise.resolve(null);
+      }
     }
   }
-};
-
-const searchUserCallback = () => {
-  const userId = this.event.source.userId;
-  const usingCommand = this.args[0].startsWith("/") ? true : false;
+  
   if (usingCommand) {
-    let cooldown = user_sessions[userId].cooldown;
+    const cooldown = user_sessions[userId].cooldown;
 
     user_sessions[userId].commandCount++;
 
@@ -153,32 +143,36 @@ const searchUserCallback = () => {
       return Promise.resolve(null);
     }
 
-    let commandCount = user_sessions[userId].commandCount;
+    const commandCount = user_sessions[userId].commandCount;
 
     if (commandCount > 2 && cooldown === 0) {
       user_sessions[userId].spamCount++;
-      let spamCooldown = user_sessions[userId].spamCount * 5;
+      const spamCooldown = user_sessions[userId].spamCount * 5;
       user_sessions[userId].cooldown += spamCooldown;
 
-      let { cooldown, name } = user_sessions[userId];
+      const { cooldown, name } = user_sessions[userId];
       return replyText(`💡 ${name} melakukan spam! Kamu akan dicuekin bot selama ${cooldown} detik!`);
     }
   }
-
-  if (this.event.source.type === "group") {
-    return searchGroup(this.event.source.groupId);
-  } else if (this.event.source.type === "room") {
-    return searchGroup(this.event.source.roomId);
-  } else if (user_sessions[userId].state === "active") {
-    return searchGroup(user_sessions[userId].groupId);
-  } else {
-    return idle.receive(this.event, this.args, this.rawArgs, user_sessions, group_sessions);
+  
+  if (this.event.source.type === "user") {
+    if (user_sessions[userId].state === "inactive") {
+      return idle.receive(this.event, this.args, this.rawArgs, user_sessions, group_sessions);
+    } else {
+      return personal.receive(this.event, this.args, this.rawArgs, user_sessions, group_sessions);
+    }
   }
-};
 
-const searchGroup = async groupId => {
+  let groupId = "";
+  if (this.event.source.type === "group") {
+    groupId = this.event.source.groupId;
+  } else if (this.event.source.type === "room") {
+    groupId = this.event.source.roomId;
+  }
+
   const isMaintenance = process.env.MAINTENANCE === "true" ? true : false;
   const isTestGroup = groupId === process.env.TEST_GROUP ? true : false;
+
   if (isMaintenance && !isTestGroup) {
     let text = "👋 Sorry, botnya sedang maintenance. ";
     text += "💡 Untuk info lebih lanjut bisa cek di http://bit.ly/openchatww";
@@ -198,19 +192,18 @@ const searchGroup = async groupId => {
       customRoles: [],
       lastFirstBloodIds: [],
       currentFirstBloodIds: [],
-      players: []
+      players: [],
+      dev_messages: []
     };
     group_sessions[groupId] = newGroup;
   }
 
-  const usingCommand = this.args[0].startsWith("/") ? true : false;
   const groupAvailableTime = group_sessions[groupId].time;
-  const isGroup = this.event.source.type !== "user" ? true : false;
   const isStay = group_sessions[groupId].stay;
   const playersLength = group_sessions[groupId].players.length;
   const hasMinimumPlayers = playersLength > 4 ? true : false;
 
-  if (isGroup && !groupAvailableTime && !usingCommand && !isStay && !hasMinimumPlayers) {
+  if (!groupAvailableTime && !usingCommand && !isStay && !hasMinimumPlayers) {
     const groupState = group_sessions[groupId].state;
     if (playersLength < 5 && groupState === "new") {
       group_sessions[groupId].state = "idle";
@@ -222,24 +215,12 @@ const searchGroup = async groupId => {
     return util.leaveGroup(this.event, groupId, text);
   }
 
-  if (this.event.source.type === "room") {
-    return searchGroupCallback();
-  }
-
-  if (group_sessions[groupId].name === "") {
+  if (this.event.source.type === "group" && group_sessions[groupId].name === "") {
     let { groupName } = await client.getGroupSummary(groupId);
     group_sessions[groupId].name = groupName;
   }
 
-  searchGroupCallback();
-};
-
-const searchGroupCallback = () => {
-  if (this.event.source.type === "user") {
-    personal.receive(this.event, this.args, this.rawArgs, user_sessions, group_sessions);
-  } else {
-    main.receive(this.event, this.args, this.rawArgs, user_sessions, group_sessions);
-  }
+  return main.receive(this.event, this.args, this.rawArgs, user_sessions, group_sessions);
 };
 
 /** helper func **/
@@ -289,7 +270,7 @@ const joinResponse = async () => {
   if (isMaintenance && !isTestGroup) {
     let text = "👋 Sorry, botnya sedang maintenance. ";
     text += "💡 Untuk info lebih lanjut bisa cek di http://bit.ly/openchatww";
-    util.leaveGroup(this.event, groupId, text);
+    return util.leaveGroup(this.event, groupId, text);
   }
 
   let text = "";
@@ -332,11 +313,11 @@ const memberJoinedResponse = async () => {
   const newMemberId = this.event.joined.members[0].userId;
 
   if (this.event.source.type === "group") {
-    let { displayName } = await client.getGroupMemberProfile(groupId, newMemberId);
-    let { groupName } = await getGroupData(groupId);
+    const { displayName } = await client.getGroupMemberProfile(groupId, newMemberId);
+    const { groupName } = await getGroupData(groupId);
     return replyText(respond.memberJoined(displayName, groupName));
   } else if (this.event.source.type === "room") {
-    let { displayName } = await client.getRoomMemberProfile(groupId, newMemberId);
+    const { displayName } = await client.getRoomMemberProfile(groupId, newMemberId);
     return replyText(`👋 Selamat datang ${displayName}!`);
   }
 };
@@ -350,10 +331,8 @@ const getGroupData = async groupId => {
 
 const replyText = async texts => {
   texts = Array.isArray(texts) ? texts : [texts];
-
   const sender = util.getSender();
-
-  let msg = texts.map(text => {
+  const msg = texts.map(text => {
     return {
       sender,
       type: "text",
@@ -385,16 +364,16 @@ const replyFlex = async (flex_raw, text_raw) => {
 };
 
 const notAddError = async () => {
-  let userId = this.event.source.userId;
+  const userId = this.event.source.userId;
   let text = "";
   try {
     if (this.event.source.type === "group") {
-      let groupId = this.event.source.groupId;
-      let { displayName } = await client.getGroupMemberProfile(groupId, userId);
+      const groupId = this.event.source.groupId;
+      const { displayName } = await client.getGroupMemberProfile(groupId, userId);
       text += "💡 " + displayName;
     } else if (this.event.source.type === "room") {
-      let groupId = this.event.source.roomId;
-      let { displayName } = await client.getRoomMemberProfile(groupId, userId);
+      const groupId = this.event.source.roomId;
+      const { displayName } = await client.getRoomMemberProfile(groupId, userId);
       text += "💡 " + displayName;
     }
     text += " gagal bergabung kedalam game, add dulu botnya ya" + "\n";

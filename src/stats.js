@@ -20,18 +20,18 @@ const getOnlineGroups = group_sessions => {
   return onlineGroups;
 };
 
-const viewCommand = async (group_sessions, targetIndex) => {
+const viewCommand = async (group_sessions, groupIndex) => {
   const groupsData = getOnlineGroups(group_sessions);
 
-  if (targetIndex === undefined) {
+  if (groupIndex === undefined) {
     return "masukin index dari group list";
   }
 
   if (!groupsData.length) return "ga ada group yang online";
 
-  if (!groupsData[targetIndex]) return "invalid, array mulai dari 0";
+  if (!groupsData[groupIndex]) return "invalid, array mulai dari 0";
 
-  const group = groupsData[targetIndex];
+  const group = groupsData[groupIndex];
   let text = "";
 
   if (group.name) {
@@ -45,21 +45,37 @@ const viewCommand = async (group_sessions, targetIndex) => {
   text += `night count : ${group.nightCounter}\n`;
 
   if (group.state !== "new") {
-    let roles = [];
-    let alivePlayerCount = 0;
-
+    let num = 1;
     group.players.forEach(item => {
-      roles.push(item.role.name);
-      if (item.status === "alive") {
-        alivePlayerCount++;
-      }
+      text += `${num}. ${item.name} - ${item.role.name} (${item.status})\n`;
+      num++;
     });
-
-    text += `alive players : ${alivePlayerCount}/${group.players.length}\n`;
-    text += `roles : ${roles.join(", ")}`;
   }
 
   return text;
+};
+
+const insertDevMessage = async (group_sessions, groupIndex, message) => {
+  const groupsData = getOnlineGroups(group_sessions);
+
+  if (groupIndex === undefined) {
+    return "masukin index dari group list";
+  }
+
+  if (!groupsData.length) return "ga ada group yang online";
+
+  if (!groupsData[groupIndex]) return "invalid, array mulai dari 0";
+
+  const group = groupsData[groupIndex];
+
+  const data = {
+    message: message,
+    timestamp: new Date().getTime()
+  };
+
+  group_sessions[group.groupId].dev_messages.push(data);
+
+  return "message sent!";
 };
 
 const groupsListCommand = async group_sessions => {
@@ -133,9 +149,43 @@ const statusCommand = (user_sessions, group_sessions) => {
   return flex_text;
 };
 
+const readUserMessageCommand = async user_sessions => {
+  let text = "";
+  let hasMessage = false;
+  for (let key in user_sessions) {
+    if (user_sessions[key] && user_sessions[key].messages.length > 0) {
+      hasMessage = true;
+      user_sessions[key].messages.forEach(item => {
+        const { message, timestamp, groupName } = item;
+        const time = new Date(timestamp).toLocaleTimeString("en-US", {
+          timeZone: "Asia/Jakarta",
+          hour: "2-digit",
+          minute: "2-digit"
+        });
+        text += `[${time}] `;
+
+        if (groupName) {
+          text += `[${groupName}] `;
+        }
+
+        text += `${user_sessions[key].name}: ${message}\n`;
+      });
+      user_sessions[key].messages = [];
+    }
+  }
+
+  if (!hasMessage) {
+    return "ga ada pesan";
+  }
+
+  return text;
+};
+
 module.exports = {
   statusCommand,
   usersListCommand,
   groupsListCommand,
-  viewCommand
+  viewCommand,
+  insertDevMessage,
+  readUserMessageCommand
 };
