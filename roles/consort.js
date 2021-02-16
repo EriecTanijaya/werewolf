@@ -19,7 +19,7 @@ const getData = () => {
 const getInfo = () => {
   let text =
     "Bisa block skill suatu pemain. Namun jika Consort nge block Serial Killer, maka Serial Killer akan menyerang Consort ";
-  text += "dan mengabaikan target awalnya. Consort immune dari blocknya Escort. Escort akan berubah menjadi Mafioso ";
+  text += "dan mengabaikan target awalnya. Consort immune dari blocknya Escort. Consort akan berubah menjadi Mafioso ";
   text += "jika sudah tidak ada Mafia Killing";
   return text;
 };
