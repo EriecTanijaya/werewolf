@@ -783,6 +783,15 @@ const getDayEmoji = () => {
   return random(weathers);
 };
 
+const isContainWord = (args, word) => {
+  for (let i = 0; i < args.length; i++) {
+    if (args[i].toLowerCase() === word) {
+      return true;
+    }
+  }
+  return false;
+};
+
 module.exports = {
   leaveGroup,
   random,
@@ -811,5 +820,6 @@ module.exports = {
   getInvestigatorPairList,
   getBruhImage,
   hasBadWord,
-  getDayEmoji
+  getDayEmoji,
+  isContainWord
 };

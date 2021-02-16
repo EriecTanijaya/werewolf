@@ -25,7 +25,7 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
   if (!rawArgs.startsWith("/")) {
     rawArgs = rawArgs.toLowerCase();
 
-    if (rawArgs.includes("error")) {
+    if (util.isContainWord(this.args, "error") || rawArgs.includes("bug")) {
       let text = `👷 Bot ini error?\n\nBagi pemain yang didalam game, `;
       text += `semuanya ketik /checkdata untuk mengecek data didalam game. `;
       text += `Jika semua data pemain yang tadi join aman semua, coba ulang buat gamenya dan rejoin.`;
@@ -115,6 +115,10 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
 
       this.group_session.dev_messages = [];
       return replyText(text);
+    }
+
+    if (rawArgs === "test") {
+      return replyText("✨ MASOKK");
     }
 
     return Promise.resolve(null);
