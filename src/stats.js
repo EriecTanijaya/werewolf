@@ -44,7 +44,7 @@ const viewCommand = async (group_sessions, groupIndex) => {
   text += `mode : ${group.mode}\n`;
   text += `night count : ${group.nightCounter}\n`;
 
-  if (group.state !== "new") {
+  if (group.players.length > 0) {
     let num = 1;
     group.players.forEach(item => {
       text += `${num}. ${item.name} - ${item.role.name} (${item.status})\n`;
