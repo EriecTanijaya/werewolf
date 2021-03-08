@@ -100,7 +100,7 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
       return sendToGroupMessageCommand();
     case "/read":
       return readUserMessageCommand();
-    case "/cm":
+    case "/pesan":
       return sendToDevMessageCommand();
     default:
       return invalidCommand();
@@ -109,7 +109,7 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
 
 const sendToDevMessageCommand = () => {
   if (this.args.length < 2) {
-    return replyText("💡 Masukkan pesan. Cth: /cm pesann");
+    return replyText("💡 Masukkan pesan. Cth: /pesan pesann");
   }
 
   this.user_session.messages.push({
@@ -1391,7 +1391,7 @@ const commandCommand = () => {
     "/roles : tampilin role list",
     "/updates : untuk melihat 12 update terakhir bot",
     "/players : untuk liat daftar pemain",
-    "/cm pesan : untuk mengirimkan pesan kepada dev bot"
+    "/pesan pesan : untuk mengirimkan pesan kepada dev bot"
   ];
 
   cmds.forEach((item, index) => {
