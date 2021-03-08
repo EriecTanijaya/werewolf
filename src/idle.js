@@ -64,7 +64,7 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
       return meCommand();
     case "/sync":
       return updateName();
-    case "/cm":
+    case "/pesan":
       return sendToDevMessageCommand();
     default:
       return invalidCommand();
@@ -73,7 +73,7 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
 
 const sendToDevMessageCommand = () => {
   if (this.args.length < 2) {
-    return replyText("💡 Masukkan pesan. Cth: /cm pesann");
+    return replyText("💡 Masukkan pesan. Cth: /pesan pesan");
   }
 
   this.user_session.messages.push({

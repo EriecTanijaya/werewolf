@@ -222,7 +222,7 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
       return stayCommand();
     case "/checkdata":
       return checkDataCommand();
-    case "/cm":
+    case "/pesan":
       return sendToDevMessageCommand();
     default:
       return invalidCommand();
@@ -231,7 +231,7 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
 
 const sendToDevMessageCommand = () => {
   if (this.args.length < 2) {
-    return replyText("💡 Masukkan pesan. Cth: /cm pesann");
+    return replyText("💡 Masukkan pesan. Cth: /pesan pesann");
   }
 
   this.user_session.messages.push({
@@ -5122,7 +5122,7 @@ const commandCommand = () => {
     "/rank : list top 10 pemain",
     "/me : info data diri sendiri",
     "/sync : sinkronisasi data pemain",
-    "/cm pesan : untuk mengirimkan pesan kepada dev bot"
+    "/pesan pesan : untuk mengirimkan pesan kepada dev bot"
   ];
 
   let flexNeeded = 0;
