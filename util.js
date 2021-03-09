@@ -176,18 +176,6 @@ const getTutorial = () => {
   return flex_texts;
 };
 
-const getSender = () => {
-  const rolesData = Object.keys(roles).map(item => {
-    let { name, iconUrl } = roles[item].getData();
-    let roleName = name[0].toUpperCase() + name.substring(1);
-    return { name: roleName, iconUrl };
-  });
-
-  let { name, iconUrl } = random(rolesData);
-  let sender = { name, iconUrl };
-  return sender;
-};
-
 const getAbout = () => {
   let text = "Bot semi automatic yang terinspirasi dari ";
   text += "Town Of Salem.";
@@ -797,7 +785,6 @@ module.exports = {
   random,
   getUpdates,
   getFlexColor,
-  getSender,
   getGroupId,
   getForumInfo,
   getAbout,

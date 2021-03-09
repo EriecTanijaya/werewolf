@@ -5294,22 +5294,15 @@ const replyImage = async imageLink => {
 };
 
 const replyText = async texts => {
-  let state = this.group_session.state;
   texts = Array.isArray(texts) ? texts : [texts];
 
-  let sender = {};
+  const sender = {
+    name: "Moderator",
+    iconUrl:
+      "https://cdn.glitch.com/fc7de31a-faeb-4c50-8a38-834ec153f590%2F%E2%80%94Pngtree%E2%80%94microphone%20vector%20icon_3725450.png?v=1587456628843"
+  };
 
-  if (state !== "idle" && state !== "new") {
-    sender = {
-      name: "Moderator",
-      iconUrl:
-        "https://cdn.glitch.com/fc7de31a-faeb-4c50-8a38-834ec153f590%2F%E2%80%94Pngtree%E2%80%94microphone%20vector%20icon_3725450.png?v=1587456628843"
-    };
-  } else {
-    sender = util.getSender();
-  }
-
-  let msg = texts.map(text => {
+  const msg = texts.map(text => {
     return {
       sender,
       type: "text",
@@ -5323,9 +5316,13 @@ const replyText = async texts => {
 };
 
 const replyFlex = async (flex_raw, text_raw, new_flex_raw) => {
-  let state = this.group_session.state;
+  const state = this.group_session.state;
   let opt_texts = [];
-  let sender = {};
+  const sender = {
+    name: "Moderator",
+    iconUrl:
+      "https://cdn.glitch.com/fc7de31a-faeb-4c50-8a38-834ec153f590%2F%E2%80%94Pngtree%E2%80%94microphone%20vector%20icon_3725450.png?v=1587456628843"
+  };
 
   if (text_raw) {
     text_raw = Array.isArray(text_raw) ? text_raw : [text_raw];
@@ -5335,12 +5332,6 @@ const replyFlex = async (flex_raw, text_raw, new_flex_raw) => {
   }
 
   if (state !== "idle" && state !== "new") {
-    sender = {
-      name: "Moderator",
-      iconUrl:
-        "https://cdn.glitch.com/fc7de31a-faeb-4c50-8a38-834ec153f590%2F%E2%80%94Pngtree%E2%80%94microphone%20vector%20icon_3725450.png?v=1587456628843"
-    };
-
     const time = this.group_session.time;
     if (time < 15) {
       let reminder = "💡 ";
@@ -5357,8 +5348,6 @@ const replyFlex = async (flex_raw, text_raw, new_flex_raw) => {
       };
       opt_texts.push(opt_text);
     }
-  } else {
-    sender = util.getSender();
   }
 
   let msg = flex.build(flex_raw, sender, opt_texts);
