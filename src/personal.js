@@ -1495,9 +1495,9 @@ const replyFlex = async (flex_raw, text_raw, new_flex_raw) => {
       let reminder = "💡 ";
 
       if (time < 1) {
-        reminder += "Waktu sudah habis, ketik '/cek' untuk lanjutkan proses";
+        reminder += "Waktu sudah habis, ketik '/cek' di group untuk lanjutkan proses";
       } else {
-        reminder += "Waktu tersisa " + time + " detik lagi, nanti ketik '/cek' untuk lanjutkan proses";
+        reminder += "Waktu tersisa " + time + " detik lagi, nanti ketik '/cek' di group untuk lanjutkan proses";
       }
 
       const opt_text = {

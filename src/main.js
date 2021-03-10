@@ -87,16 +87,6 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
           reminder += "saat waktu sudah habis untuk lanjutkan proses. ";
           return replyText(reminder);
         }
-      } else {
-        let playersLength = this.group_session.players.length;
-
-        if (playersLength < 5) {
-          if (time <= 50 && time > 0) {
-            let reminder = "💡 Waktu tersisa " + time;
-            reminder += " detik lagi. Jika tidak ada yang join, game akan dihentikan";
-            return replyText(reminder);
-          }
-        }
       }
     }
 
