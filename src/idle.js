@@ -55,6 +55,7 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
     case "/r":
     case "/c":
     case "/skill":
+    case "/cek":
       return notInGameCommand();
     case "/run":
       return runCommand();
@@ -126,7 +127,7 @@ const runCommand = () => {
 };
 
 const notInGameCommand = () => {
-  const text = "💡 Kamu sedang tidak berada didalam game";
+  const text = "💡 Kamu sedang tidak berada didalam game atau game telah selesai";
   return replyText(text);
 };
 
