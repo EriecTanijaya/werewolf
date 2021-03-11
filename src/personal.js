@@ -1143,7 +1143,7 @@ const announceCommand = () => {
   const journals = players[index].journals;
 
   if (journals.length === 2) {
-    return replyFlex(flex_text, "📓 Kamu bisa cek journal kamu dengan '/jurnal'");
+    return replyFlex(flex_text, "📓 Kamu bisa cek journal kamu dengan ketik /jurnal");
   } else {
     return replyFlex(flex_text);
   }
