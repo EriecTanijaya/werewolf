@@ -225,7 +225,7 @@ const commandCommand = () => {
     "/rank : list top 10 pemain",
     "/me : info data diri sendiri",
     "/sync : sinkronisasi data pemain",
-    "/cm pesan : untuk mengirimkan pesan kepada dev bot"
+    "/pesan pesan : untuk mengirimkan pesan kepada dev bot"
   ];
 
   let flexNeeded = 0;
