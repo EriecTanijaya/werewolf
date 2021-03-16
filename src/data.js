@@ -133,7 +133,7 @@ const receive = async (event, rawArgs) => {
       }
     }
   }
-  
+
   if (usingCommand) {
     const cooldown = user_sessions[userId].cooldown;
 
@@ -154,7 +154,7 @@ const receive = async (event, rawArgs) => {
       return replyText(`💡 ${name} melakukan spam! Kamu akan dicuekin bot selama ${cooldown} detik!`);
     }
   }
-  
+
   if (this.event.source.type === "user") {
     if (user_sessions[userId].state === "inactive") {
       return idle.receive(this.event, this.args, this.rawArgs, user_sessions, group_sessions);
@@ -331,7 +331,12 @@ const getGroupData = async groupId => {
 
 const replyText = async texts => {
   texts = Array.isArray(texts) ? texts : [texts];
-  const sender = util.getSender();
+  const sender = {
+    name: "Moderator",
+    iconUrl:
+      "https://cdn.glitch.com/fc7de31a-faeb-4c50-8a38-834ec153f590%2F%E2%80%94Pngtree%E2%80%94microphone%20vector%20icon_3725450.png?v=1587456628843"
+  };
+
   const msg = texts.map(text => {
     return {
       sender,
@@ -354,7 +359,11 @@ const replyFlex = async (flex_raw, text_raw) => {
     });
   }
 
-  const sender = util.getSender();
+  const sender = {
+    name: "Moderator",
+    iconUrl:
+      "https://cdn.glitch.com/fc7de31a-faeb-4c50-8a38-834ec153f590%2F%E2%80%94Pngtree%E2%80%94microphone%20vector%20icon_3725450.png?v=1587456628843"
+  };
 
   const msg = flex.build(flex_raw, sender, opt_texts);
   return await client.replyMessage(this.event.replyToken, msg).catch(err => {
