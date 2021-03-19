@@ -17,6 +17,15 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
   const groupId = this.user_session.groupId;
   this.group_session = group_sessions[groupId];
 
+  // reset afk if active on personal chat
+  const index = indexOfPlayer();
+
+  if (this.group_session.state !== "new") {
+    if (this.group_session.players[index].afkCounter > 0) {
+      this.group_session.players[index].afkCounter = 0;
+    }
+  }
+
   if (!rawArgs.startsWith("/")) {
     let time = this.group_session.time;
 
@@ -32,10 +41,10 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
   const input = args[0].toLowerCase();
   switch (input) {
     case "/role":
-      return roleCommand();
+      return roleCommand(index);
     case "/announce":
     case "/news":
-      return announceCommand();
+      return announceCommand(index);
     case "/help":
       return helpCommand();
     case "/cmd":
@@ -43,15 +52,15 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
     case "/info":
       return infoCommand();
     case "/skill":
-      return targetCommand();
+      return targetCommand(index);
     case "/revoke":
-      return revokeCommand();
+      return revokeCommand(index);
     case "/alert":
-      return alertCommand();
+      return alertCommand(index);
     case "/vest":
-      return vestCommand();
+      return vestCommand(index);
     case "/protect":
-      return protectCommand();
+      return protectCommand(index);
     case "/status":
       return statusCommand();
     case "/groups":
@@ -62,18 +71,18 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
       return viewCommand();
     case "/dnote":
     case "/dn":
-      return deathNoteCommand();
+      return deathNoteCommand(index);
     case "/journal":
     case "/jurnal":
-      return journalCommand();
+      return journalCommand(index);
     case "/r":
     case "/refresh":
-      return refreshCommand();
+      return refreshCommand(index);
     case "/c":
     case "/chat":
-      return chatCommand();
+      return chatCommand(index);
     case "/cancel":
-      return cancelCommand();
+      return cancelCommand(index);
     case "/roles":
       return roleListCommand();
     case "/update":
@@ -187,12 +196,10 @@ const runCommand = () => {
   }
 };
 
-const cancelCommand = () => {
+const cancelCommand = index => {
   if (this.group_session.state !== "new") {
     return replyText("💡 Game sedang berjalan. ");
   }
-
-  const index = indexOfPlayer();
 
   util.cutFromArray(this.group_session.players, index);
 
@@ -222,13 +229,11 @@ const cancelCommand = () => {
   return replyText(text);
 };
 
-const revokeCommand = () => {
+const revokeCommand = index => {
   const state = this.group_session.state;
   if (state === "new") {
     return replyText("💡 Game belum dimulai");
   }
-
-  const index = indexOfPlayer();
 
   const players = this.group_session.players;
 
@@ -246,8 +251,7 @@ const revokeCommand = () => {
   return replyText("💡 Kamu batal menggunakan skill");
 };
 
-const protectCommand = () => {
-  const index = indexOfPlayer();
+const protectCommand = index => {
   const players = this.group_session.players;
   const state = this.group_session.state;
 
@@ -285,8 +289,7 @@ const protectCommand = () => {
   return replyText(msg);
 };
 
-const alertCommand = () => {
-  const index = indexOfPlayer();
+const alertCommand = index => {
   const players = this.group_session.players;
   const state = this.group_session.state;
 
@@ -332,8 +335,7 @@ const alertCommand = () => {
   return replyText(msg);
 };
 
-const vestCommand = () => {
-  const index = indexOfPlayer();
+const vestCommand = index => {
   const players = this.group_session.players;
   const state = this.group_session.state;
 
@@ -374,12 +376,11 @@ const vestCommand = () => {
   return replyText(msg);
 };
 
-const targetCommand = () => {
+const targetCommand = index => {
   if (this.group_session.state === "new") {
     return replyText("💡 Game belum dimulai");
   }
 
-  const index = indexOfPlayer();
   const players = this.group_session.players;
   const state = this.group_session.state;
 
@@ -695,13 +696,12 @@ const isSomeoneDeath = () => {
   return false;
 };
 
-const roleCommand = () => {
+const roleCommand = index => {
   if (this.group_session.state === "new") {
     return replyText("💡 Game belum dimulai");
   }
 
   // const index = this.args[1] !== undefined ? this.args[1] : indexOfPlayer();
-  const index = indexOfPlayer();
   const players = this.group_session.players;
   const player = players[index];
   const state = this.group_session.state;
@@ -844,7 +844,7 @@ const roleCommand = () => {
       }
     } else if (roleName === "veteran") {
       if (player.role.alert > 0) {
-        return veteranSkill(flex_text);
+        return veteranSkill(flex_text, index);
       } else {
         return replyFlex(flex_text);
       }
@@ -862,7 +862,7 @@ const roleCommand = () => {
       }
     } else if (roleName === "survivor") {
       if (player.role.vest > 0) {
-        return survivorSkill(flex_text);
+        return survivorSkill(flex_text, index);
       } else {
         return replyFlex(flex_text, text);
       }
@@ -891,7 +891,7 @@ const roleCommand = () => {
       }
     } else if (roleName === "guardian-angel") {
       if (player.role.protection > 0) {
-        return guardianAngelSkill(flex_text);
+        return guardianAngelSkill(flex_text, index);
       } else {
         return replyFlex(flex_text);
       }
@@ -1028,11 +1028,10 @@ const amnesiacSkill = flex_text => {
   return replyFlex(flex_text);
 };
 
-const guardianAngelSkill = flex_text => {
+const guardianAngelSkill = (flex_text, index) => {
   const skillText = getRoleSkillText("guardian-angel");
   const players = this.group_session.players;
   const cmdText = getRoleCmdText("guardian-angel");
-  const index = indexOfPlayer();
 
   flex_text.bodyText += "\n\n" + skillText + "\n\n";
 
@@ -1053,11 +1052,10 @@ const guardianAngelSkill = flex_text => {
   return replyFlex(flex_text);
 };
 
-const veteranSkill = flex_text => {
+const veteranSkill = (flex_text, index) => {
   const skillText = getRoleSkillText("veteran");
   const players = this.group_session.players;
   const cmdText = getRoleCmdText("veteran");
-  const index = indexOfPlayer();
 
   flex_text.bodyText += "\n\n" + skillText + "\n\n";
 
@@ -1074,11 +1072,10 @@ const veteranSkill = flex_text => {
   return replyFlex(flex_text);
 };
 
-const survivorSkill = flex_text => {
+const survivorSkill = (flex_text, index) => {
   const skillText = getRoleSkillText("survivor");
   const players = this.group_session.players;
   const cmdText = getRoleCmdText("survivor");
-  const index = indexOfPlayer();
 
   flex_text.bodyText += "\n\n" + skillText + "\n\n";
 
@@ -1095,12 +1092,11 @@ const survivorSkill = flex_text => {
   return replyFlex(flex_text);
 };
 
-const journalCommand = () => {
+const journalCommand = index => {
   if (this.group_session.state === "new") {
     return replyText("💡 Game belum dimulai");
   }
 
-  const index = indexOfPlayer();
   const players = this.group_session.players;
   const journals = players[index].journals;
 
@@ -1122,17 +1118,16 @@ const journalCommand = () => {
   return replyFlex(flex_texts);
 };
 
-const announceCommand = () => {
+const announceCommand = index => {
   if (this.group_session.state === "new") {
     return replyText("💡 Game belum dimulai");
   }
 
-  const index = indexOfPlayer();
   const players = this.group_session.players;
   const state = this.group_session.state;
 
   if (state === "night" || players[index].status === "death") {
-    return journalCommand();
+    return journalCommand(index);
   }
 
   const flex_text = {
@@ -1149,12 +1144,11 @@ const announceCommand = () => {
   }
 };
 
-const deathNoteCommand = () => {
+const deathNoteCommand = index => {
   if (this.group_session.state === "new") {
     return replyText("💡 Game belum dimulai");
   }
 
-  const index = indexOfPlayer();
   const players = this.group_session.players;
 
   if (players[index].status === "death") {
@@ -1199,7 +1193,7 @@ const deathNoteCommand = () => {
   return replyText(text);
 };
 
-const refreshCommand = () => {
+const refreshCommand = index => {
   if (this.group_session.state !== "night") {
     if (this.group_session.state === "new") {
       return replyText("💡 Game belum dimulai");
@@ -1208,7 +1202,6 @@ const refreshCommand = () => {
     }
   }
 
-  const index = indexOfPlayer();
   const players = this.group_session.players;
   let roleName = players[index].role.name;
   let roleTeam = players[index].role.team;
@@ -1253,7 +1246,7 @@ const refreshCommand = () => {
   return replyText(text);
 };
 
-const chatCommand = () => {
+const chatCommand = index => {
   if (this.group_session.state !== "night") {
     if (this.group_session.state === "new") {
       return replyText("💡 Game belum dimulai");
@@ -1262,7 +1255,6 @@ const chatCommand = () => {
     }
   }
 
-  const index = indexOfPlayer();
   const players = this.group_session.players;
   let roleTeam = players[index].role.team;
 
