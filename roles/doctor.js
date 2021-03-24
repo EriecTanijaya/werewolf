@@ -19,38 +19,12 @@ const getData = () => {
 };
 
 const getInfo = () => {
-  let text =
-    "Warga yang bisa memilih siapa yang ingin dilindungi. Dapat melindungi dari serangan biasa atau gigitan Vampire. ";
-  text += "Kamu bisa tahu target mu diserang atau tidak. Skill Heal Doctor tidak bisa menolong ";
-  text += "Vigilante yang akan mati karena bunuh diri, pembakaran Arsonist dan penyerangan Jester. ";
-  text += "Doctor hanya bisa menyembuhkan diri sendiri 1 kali saja. ";
-  return text;
+  const info = {
+    summary:
+      "Seorang ahli bedah yang diam-diam merawat orang yang diserang. Doctor akan diberi info jika targetnya diserang.",
+    goal: "Menghukum semua kriminal dan penjahat"
+  };
+  return info;
 };
 
-const botSkillAction = (util, group_session, botIndex) => {
-  const players = group_session.players;
-  let targets = players
-    .map((item, index) => {
-      if (item.id !== players[botIndex].id && item.status === "alive") {
-        return index;
-      }
-    })
-    .filter(item => {
-      return item !== undefined;
-    });
-  targets = util.shuffleArray(targets);
-
-  const what = util.random(["self", "other", "other", "other"]);
-
-  if (players[botIndex].role.selfHeal > 0 && what === "self") {
-    group_session.players[botIndex].target.index = botIndex;
-  } else {
-    group_session.players[botIndex].target.index = targets[0];
-  }
-};
-
-module.exports = {
-  getData,
-  getInfo,
-  botSkillAction
-};
+module.exports = { getData, getInfo };

@@ -17,17 +17,12 @@ const getData = () => {
 };
 
 const getInfo = () => {
-  let text = "Pemimpin warga yang menyamar menjadi warga biasa. Jika Mayor mengungkapkan identitas nya, ";
-  text += "Jumlah vote nya akan terhitung 3, tetapi Doctor tidak bisa heal Mayor yang telah mengungkapkan identitasnya";
-  return text;
+  const info = {
+    summary:
+      "Pemimpin dari kota. Jika Mayor telah mengaku rolenya, maka jumlah vote yang dikeluarkan berjumlah 3. Doctor tidak dapat heal Mayor yang telah mengungkapkan identitasnya.",
+    goal: "Menghukum semua kriminal dan penjahat"
+  };
+  return info;
 };
 
-const botSkillAction = () => {
-  return;
-};
-
-module.exports = {
-  getData,
-  getInfo,
-  botSkillAction
-};
+module.exports = { getData, getInfo };

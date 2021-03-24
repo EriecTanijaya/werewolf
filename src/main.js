@@ -22,6 +22,19 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
   const groupId = util.getGroupId(event);
   this.group_session = group_sessions[groupId];
 
+  const state = this.group_session.state;
+  if (state !== "idle") {
+    if (state !== "new") {
+      const index = indexOfPlayer();
+      if (index === -1) return Promise.resolve(null);
+
+      // reset afk if active at group
+      if (this.group_session.players[index].afkCounter > 0) {
+        this.group_session.players[index].afkCounter = 0;
+      }
+    }
+  }
+
   if (!rawArgs.startsWith("/")) {
     rawArgs = rawArgs.toLowerCase();
 
@@ -34,7 +47,6 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
     }
 
     let time = this.group_session.time;
-    const state = this.group_session.state;
 
     if (state !== "idle") {
       if (state !== "new") {
@@ -44,11 +56,6 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
 
         const index = indexOfPlayer();
         if (index === -1) return Promise.resolve(null);
-
-        // reset afk if chat on group
-        if (players[index].afkCounter > 0) {
-          this.group_session.players[index].afkCounter = 0;
-        }
 
         if (state === "day" || state === "vote") {
           if (state === "vote" && this.args[0].toLowerCase() === "vote") {
@@ -224,13 +231,31 @@ const sendToDevMessageCommand = () => {
     return replyText("💡 Masukkan pesan. Cth: /pesan pesann");
   }
 
-  this.user_session.messages.push({
-    message: util.parseToText(this.args),
-    timestamp: new Date().getTime(),
-    groupName: this.group_session.name
-  });
+  try {
+    const message = util.parseToText(this.args);
+    const timestamp = new Date().getTime();
+    const time = new Date(timestamp).toLocaleTimeString("en-US", {
+      timeZone: "Asia/Jakarta",
+      hour: "2-digit",
+      minute: "2-digit"
+    });
 
-  return replyText("✉️ Pesanmu telah dikirim!");
+    let text = "";
+    text += `[${time}] [${this.group_session.name}] `;
+    text += `${this.user_session.name}: ${message}`;
+
+    client.pushMessage(process.env.DEV_ID, { type: "text", text: text }).then(() => {
+      return replyText("✉️ Pesanmu telah dikirim!");
+    });
+  } catch {
+    this.user_session.messages.push({
+      message: util.parseToText(this.args),
+      timestamp: new Date().getTime(),
+      groupName: this.group_session.name
+    });
+
+    return replyText("✉️ Pesanmu telah dikirim!");
+  }
 };
 
 const checkDataCommand = () => {
@@ -288,29 +313,6 @@ const day = () => {
       // reset alive player message
       if (item.message) {
         item.message = "";
-      }
-
-      // check afk
-      const noSkillRoles = ["villager", "jester", "executioner", "mayor", "psychic"];
-
-      if (!noSkillRoles.includes(item.role.name)) {
-        if (item.target.index === -1) {
-          let isFullMoon = this.group_session.isFullMoon;
-          let roleName = item.role.name;
-          if (!isFullMoon) {
-            if (roleName !== "werewolf" && roleName !== "juggernaut") {
-              item.afkCounter++;
-            } else if (roleName === "juggernaut") {
-              if (item.role.skillLevel > 0) {
-                item.afkCounter++;
-              }
-            }
-          } else {
-            item.afkCounter++;
-          }
-        } else {
-          item.afkCounter = 0;
-        }
       }
     }
   });
@@ -3638,7 +3640,18 @@ const getVillagerCode = () => {
     "ketahuan",
     "terciduk",
     "tolong",
-    "tembak"
+    "tembak",
+    "sembarangan",
+    "serius",
+    "canda",
+    "jujur",
+    "menyesal",
+    "optimis",
+    "pesimis",
+    "malas",
+    "berani",
+    "tampan",
+    "menabung"
   ];
 
   const word = util.random(words);
@@ -3669,6 +3682,8 @@ const night = () => {
 
     // only alive player
     if (item.status === "alive") {
+      item.afkCounter++;
+
       item.attacked = false;
       item.healed = false;
       item.targetVoteIndex = -1;
@@ -3902,7 +3917,7 @@ const checkCommand = isAuto => {
       if (time > 0) {
         return votingCommand();
       } else {
-        return autoVote();
+        return processVote();
       }
 
     case "lynch":
@@ -4357,10 +4372,6 @@ const voteCommand = () => {
     text += " mengganti vote ke ";
   }
 
-  if (players[index].afkCounter > 0) {
-    this.group_session.players[index].afkCounter = 0;
-  }
-
   this.group_session.players[index].targetVoteIndex = targetIndex;
 
   text += players[targetIndex].name + " untuk di" + this.group_session.punishment;
@@ -4458,7 +4469,7 @@ const votingCommand = () => {
   return replyFlex(flex_texts);
 };
 
-const autoVote = () => {
+const processVote = () => {
   const voteNeeded = Math.round(getAlivePlayersCount() / 2);
 
   let headerText = "";
@@ -4467,16 +4478,6 @@ const autoVote = () => {
     headerText: "",
     bodyText: ""
   };
-
-  this.group_session.players.forEach(item => {
-    if (item.status === "alive") {
-      if (item.targetVoteIndex === -1) {
-        item.afkCounter++;
-      } else {
-        item.afkCounter = 0;
-      }
-    }
-  });
 
   let checkVote = checkVoteStatus(voteNeeded);
 

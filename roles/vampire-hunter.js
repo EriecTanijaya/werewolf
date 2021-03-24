@@ -18,31 +18,12 @@ const getData = () => {
 };
 
 const getInfo = () => {
-  let text = "Warga yang berani melawan Vampire, disaat Vampire ke rumahnya, Vampire itu pasti mati. ";
-  text += "Mampu mendengar percakapan Vampire saat malam. Vampire Hunter akan berubah menjadi Vigilante ";
-  text += "jika semua Vampire telah di basmi";
-  return text;
+  const info = {
+    summary:
+      "Warga yang memburu Vampire pada malam hari. Jika Vampire mengunjungi Vampire Hunter, maka Vampire Hunter akan menyerang Vampire tersebut. Jika semua Vampire di kota telah dibasmi, maka rolenya akan berubah menjadi Vigilante dengan satu peluru.",
+    goal: "Menghukum semua kriminal dan penjahat"
+  };
+  return info;
 };
 
-const botSkillAction = (util, group_session, botIndex) => {
-  const players = group_session.players;
-  let targets = players
-    .map((item, index) => {
-      if (item.id !== players[botIndex].id && item.status === "alive") {
-        return index;
-      }
-    })
-    .filter(item => {
-      return item !== undefined;
-    });
-
-  targets = util.shuffleArray(targets);
-
-  group_session.players[botIndex].target.index = targets[0];
-};
-
-module.exports = {
-  getData,
-  getInfo,
-  botSkillAction
-};
+module.exports = { getData, getInfo };

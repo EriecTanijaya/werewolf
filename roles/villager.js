@@ -16,19 +16,11 @@ const getData = () => {
 };
 
 const getInfo = () => {
-  let text = "Villager atau Townie, adalah kelompok warga yang memiliki misi ";
-  text += "untuk menghukum orang yang membawa malapetaka di Kota Bedburg. ";
-  text += "Jika ada lebih dari 1 Villager di kota, maka nanti akan diberi suatu kode ";
-  text += "agar Villager bisa mengetahui sesamanya";
-  return text;
+  const info = {
+    summary: "Warga biasa yang dapat mengetahui sesamanya dengan petunjuk berupa kata spesifik.",
+    goal: "Menghukum semua kriminal dan penjahat"
+  };
+  return info;
 };
 
-const botSkillAction = () => {
-  return;
-};
-
-module.exports = {
-  getData,
-  getInfo,
-  botSkillAction
-};
+module.exports = { getData, getInfo };

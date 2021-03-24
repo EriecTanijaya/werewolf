@@ -20,40 +20,12 @@ const getData = () => {
 };
 
 const getInfo = () => {
-  let text = "Warga yang bisa menyerang orang lain saat malam. ";
-  text += "Tetapi jika dia membunuh sesama warga, dia akan bunuh diri keesokan harinya. ";
-  text += "Vigilante harus menunggu satu malam untuk menyiapkan senjatanya dan baru bisa menggunakan skill ";
-  text += "keesokkan harinya. ";
-  return text;
+  const info = {
+    summary:
+      "Polisi militan yang sering main hakim sendiri. Vigilante dapat menembak seseorang pada malam hari. Jika Vigilante menyerang warga, maka ia akan bunuh diri keesokan harinya.",
+    goal: "Menghukum semua kriminal dan penjahat"
+  };
+  return info;
 };
 
-const botSkillAction = (util, group_session, botIndex) => {
-  const isLoadBullet = group_session.players[botIndex].role.isLoadBullet;
-  if (isLoadBullet) return;
-
-  const bullet = group_session.players[botIndex].role.bullet;
-  if (bullet === 0) return;
-
-  if (group_session.players[botIndex].willSuicide) return;
-
-  const players = group_session.players;
-  let targets = players
-    .map((item, index) => {
-      if (item.id !== players[botIndex].id && item.status === "alive") {
-        return index;
-      }
-    })
-    .filter(item => {
-      return item !== undefined;
-    });
-
-  targets = util.shuffleArray(targets);
-
-  group_session.players[botIndex].target.index = targets[0];
-};
-
-module.exports = {
-  getData,
-  getInfo,
-  botSkillAction
-};
+module.exports = { getData, getInfo };

@@ -17,30 +17,12 @@ const getData = () => {
 };
 
 const getInfo = () => {
-  let text = "Bisa mengecek suatu pemain untuk di ketahui role nya. Consigliere akan berubah menjadi Mafioso jika ";
-  text += "sudah tidak ada Mafia Killing";
-  return text;
+  const info = {
+    summary:
+      "Investigator korup yang membantu mengumpulkan informasi bagi Mafia. Setiap malam dapat mengecek role asli dari salah satu warga.",
+    goal: "Menyingkirkan semua warga yang menentang Mafia"
+  };
+  return info;
 };
 
-const botSkillAction = (util, group_session, botIndex) => {
-  const players = group_session.players;
-  let targets = players
-    .map((item, index) => {
-      if (item.id !== players[botIndex].id && item.status === "alive" && item.role.team !== "mafia") {
-        return index;
-      }
-    })
-    .filter(item => {
-      return item !== undefined;
-    });
-
-  targets = util.shuffleArray(targets);
-
-  group_session.players[botIndex].target.index = targets[0];
-};
-
-module.exports = {
-  getData,
-  getInfo,
-  botSkillAction
-};
+module.exports = { getData, getInfo };

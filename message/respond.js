@@ -40,7 +40,8 @@ const join = name => {
     `💡 Mantab, ${name} berhasil join game!`,
     `💡 Eits eits, ${name} bergabung ke dalam game nih!`,
     `💡 Akhirnya, ${name} join ke dalam game`,
-    `💡 ${name} menyalip diantara kerumunan dan join kedalam game`
+    `💡 ${name} menyalip diantara kerumunan dan join kedalam game`,
+    `💡 ${name} menerobos kerumunan dan join kedalam game duluan`
   ];
   return util.random(arr);
 };

@@ -18,30 +18,12 @@ const getData = () => {
 };
 
 const getInfo = () => {
-  let text = "Warga yang bisa memilih rumah siapa yang ingin dipantau pas malam. ";
-  text += "Lookout bisa mengetahui siapa saja pendatang rumah dari target yang dipantau. ";
-  return text;
+  const info = {
+    summary:
+      "Pengawas bermata elang yang diam-diam berkemah diluar rumah seorang target untuk mendapatkan informasi berupa siapa saja tamu yang mendatangi target.",
+    goal: "Menghukum semua kriminal dan penjahat"
+  };
+  return info;
 };
 
-const botSkillAction = (util, group_session, botIndex) => {
-  const players = group_session.players;
-  let targets = players
-    .map((item, index) => {
-      if (item.id !== players[botIndex].id && item.status === "alive") {
-        return index;
-      }
-    })
-    .filter(item => {
-      return item !== undefined;
-    });
-
-  targets = util.shuffleArray(targets);
-
-  group_session.players[botIndex].target.index = targets[0];
-};
-
-module.exports = {
-  getData,
-  getInfo,
-  botSkillAction
-};
+module.exports = { getData, getInfo };

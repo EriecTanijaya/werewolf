@@ -20,38 +20,12 @@ const getData = () => {
 };
 
 const getInfo = () => {
-  let text = "Warga yang bisa memilih siapa pemain yang ingin dilindungi. ";
-  text += "Jika Target Bodyguard mau diserang, maka Bodyguard akan melawan balik penyerang tersebut, ";
-  text += "dan penyerang itu akan balik menyerang Bodyguard dan mengabaikan target awalnya. ";
-  text += "Bodyguard memiliki 1 vest yang bisa digunakan untuk melindungi diri sendiri dari serangan biasa. ";
-  return text;
+  const info = {
+    summary:
+      "Mantan tentara yang membantu melindungi seseorang dari serangan langsung pada malam hari. Jika targetnya diserang, maka Bodyguard akan melawan balik penyerang tersebut.",
+    goal: "Menghukum semua kriminal dan penjahat"
+  };
+  return info;
 };
 
-const botSkillAction = (util, group_session, botIndex) => {
-  const players = group_session.players;
-  let targets = players
-    .map((item, index) => {
-      if (item.id !== players[botIndex].id && item.status === "alive") {
-        return index;
-      }
-    })
-    .filter(item => {
-      return item !== undefined;
-    });
-
-  targets = util.shuffleArray(targets);
-
-  const what = util.random(["self", "other", "other", "other"]);
-
-  if (players[botIndex].role.vest > 0 && what === "self") {
-    group_session.players[botIndex].target.index = botIndex;
-  } else {
-    group_session.players[botIndex].target.index = targets[0];
-  }
-};
-
-module.exports = {
-  getData,
-  getInfo,
-  botSkillAction
-};
+module.exports = { getData, getInfo };

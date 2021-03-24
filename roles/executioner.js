@@ -1,7 +1,7 @@
 const getData = () => {
   const data = {
     name: "executioner",
-    description: "Kamu adalah pendendam mengerikan dan kamu menang jika targetmu itu mati digantung oleh warga",
+    description: "Kamu adalah pendendam mengerikan dan kamu menang jika targetmu itu mati dihukum oleh warga",
     team: "executioner",
     canKill: false,
     emoji: {
@@ -16,18 +16,12 @@ const getData = () => {
 };
 
 const getInfo = () => {
-  let text = "Pendendam yang ingin targetnya mati di gantung. Jika targetnya mati di serang saat malam, ";
-  text +=
-    "maka dia akan menjadi Jester. Targetnya akan selalu di pihak warga dan dia bisa immune dari serangan biasa. ";
-  return text;
+  const info = {
+    summary:
+      "Algojo yang sangat terobsesi untuk menghukum seorang target dengan cara apapun. Executioner kebal dari serangan biasa dan akan menjadi Jester jika targetnya terbunuh saat malam hari.",
+    goal: "Menghukum target dengan segala cara."
+  };
+  return info;
 };
 
-const botSkillAction = () => {
-  return;
-};
-
-module.exports = {
-  getData,
-  getInfo,
-  botSkillAction
-};
+module.exports = { getData, getInfo };

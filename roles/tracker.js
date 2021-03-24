@@ -17,29 +17,11 @@ const getData = () => {
 };
 
 const getInfo = () => {
-  let text = "Warga yang bisa melacak suatu pemain untuk diketahui kemana aja Targetnya. ";
-  return text;
+  const info = {
+    summary: "Warga yang terampil dalam melacak seseorang kemanapun ia berada",
+    goal: "Menghukum semua kriminal dan penjahat"
+  };
+  return info;
 };
 
-const botSkillAction = (util, group_session, botIndex) => {
-  const players = group_session.players;
-  let targets = players
-    .map((item, index) => {
-      if (item.id !== players[botIndex].id && item.status === "alive") {
-        return index;
-      }
-    })
-    .filter(item => {
-      return item !== undefined;
-    });
-
-  targets = util.shuffleArray(targets);
-
-  group_session.players[botIndex].target.index = targets[0];
-};
-
-module.exports = {
-  getData,
-  getInfo,
-  botSkillAction
-};
+module.exports = { getData, getInfo };

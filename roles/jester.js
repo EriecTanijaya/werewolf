@@ -20,19 +20,12 @@ const getData = () => {
 };
 
 const getInfo = () => {
-  let text = "Jester menang jika dia berhasil digantung. ";
-  text += "Jika berhasil digantung, dia bisa membalas kematiannya ";
-  text += "dengan menghantui orang yang vote dia. ";
-  text += "Target yang dihantui Jester tidak dapat diselamatkan oleh apapun. ";
-  return text;
+  const info = {
+    summary:
+      "Orang gila yang ingin mati dihukum oleh warga. Jika Jester berhasil dihukum mati, maka Jester dapat menghantui orang yang vote Jester sebelumnya.",
+    goal: "Buat diri sendiri dihukum mati dengan cara apapun"
+  };
+  return info;
 };
 
-const botSkillAction = () => {
-  return;
-};
-
-module.exports = {
-  getData,
-  getInfo,
-  botSkillAction
-};
+module.exports = { getData, getInfo };

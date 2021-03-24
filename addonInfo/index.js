@@ -6,7 +6,7 @@ module.exports = {
   afk: {
     headerText: "💤 Away From Kibord",
     bodyText:
-      "Moderator akan mengeliminasi kamu jika ketahuan AFK, yang afk itu adalah yang tidak ada ikut diskusi di grup, tidak vote, tidak menggunakan skill secara berturut-turut"
+      "Moderator akan mengeliminasi kamu jika ketahuan AFK, yang afk itu adalah orang yang tidak aktif di group maupun di personal chat bot"
   },
   mafia: {
     headerText: "🤵 Mafia",

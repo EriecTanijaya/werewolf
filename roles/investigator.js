@@ -17,31 +17,12 @@ const getData = () => {
 };
 
 const getInfo = () => {
-  let text = "Warga yang bisa menginvestigasi seorang warga pada malam hari. ";
-  text += "Jika target mu Disguiser, dan Disguiser mengimitasi orang lain, hasil cek mu adalah ";
-  text += "role dari imitasi Disguiser. Untuk melihat hasil cek Investigator bisa dengan '/info note invest'";
-  return text;
+  const info = {
+    summary:
+      "Seorang warga yang diam-diam mengumpulkan informasi. Investigator dapat mengecek seseorang pada malam hari untuk mendapatkan petunjuk tentang role orang tersebut.",
+    goal: "Menghukum semua kriminal dan penjahat"
+  };
+  return info;
 };
 
-const botSkillAction = (util, group_session, botIndex) => {
-  const players = group_session.players;
-  let targets = players
-    .map((item, index) => {
-      if (item.id !== players[botIndex].id && item.status === "alive") {
-        return index;
-      }
-    })
-    .filter(item => {
-      return item !== undefined;
-    });
-
-  targets = util.shuffleArray(targets);
-
-  group_session.players[botIndex].target.index = targets[0];
-};
-
-module.exports = {
-  getData,
-  getInfo,
-  botSkillAction
-};
+module.exports = { getData, getInfo };

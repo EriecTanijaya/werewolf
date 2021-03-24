@@ -19,30 +19,12 @@ const getData = () => {
 };
 
 const getInfo = () => {
-  let text = "Warga yang bisa menyadap suatu pemain saat malam. Spy bisa tahu apa yang terjadi pada Targetnya. ";
-  text += "Spy juga bisa tahu Mafia ke rumah siapa saja saat malam. ";
-  return text;
+  const info = {
+    summary:
+      "Mata-mata yang aktif dalam melacak tindak kejahatan. Spy dapat menyadap seseorang untuk diketahui apa yang terjadi pada orang tersebut saat malam hari.",
+    goal: "Menghukum semua kriminal dan penjahat"
+  };
+  return info;
 };
 
-const botSkillAction = (util, group_session, botIndex) => {
-  const players = group_session.players;
-  let targets = players
-    .map((item, index) => {
-      if (item.id !== players[botIndex].id && item.status === "alive") {
-        return index;
-      }
-    })
-    .filter(item => {
-      return item !== undefined;
-    });
-
-  targets = util.shuffleArray(targets);
-
-  group_session.players[botIndex].target.index = targets[0];
-};
-
-module.exports = {
-  getData,
-  getInfo,
-  botSkillAction
-};
+module.exports = { getData, getInfo };

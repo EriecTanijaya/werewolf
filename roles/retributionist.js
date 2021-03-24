@@ -18,39 +18,11 @@ const getData = () => {
 };
 
 const getInfo = () => {
-  let text = "Warga yang bisa membangkitkan orang yang sudah mati. Namun kesempatan ini hanya 1 kali saja. ";
-  return text;
+  const info = {
+    summary: "Warga yang memiliki kekuatan mistik untuk membangkitkan orang yang telah mati dalam 1 kali kesempatan.",
+    goal: "Menghukum semua kriminal dan penjahat"
+  };
+  return info;
 };
 
-const botSkillAction = (util, group_session, botIndex) => {
-  const players = group_session.players;
-  if (players[botIndex].role.revive === 0) {
-    return;
-  }
-
-  let targets = players
-    .map((item, index) => {
-      if (item.id !== players[botIndex].id && item.status === "death") {
-        if (item.role.team === "villager") {
-          return index;
-        } else if (util.isDisguiseAsTownie(item)) {
-          return index;
-        }
-      }
-    })
-    .filter(item => {
-      return item !== undefined;
-    });
-
-  if (targets.length === 0) return;
-
-  targets = util.shuffleArray(targets);
-
-  group_session.players[botIndex].target.index = targets[0];
-};
-
-module.exports = {
-  getData,
-  getInfo,
-  botSkillAction
-};
+module.exports = { getData, getInfo };

@@ -17,31 +17,12 @@ const getData = () => {
 };
 
 const getInfo = () => {
-  let text = "Tangan kanan Godfather dalam pembunuhan. Mafioso akan menjadi Godfather jika Godfather yang ada mati. ";
-  text += "Jika Godfather tidak menggunakan skill, maka target yang dituju adalah target Mafioso. ";
-  text += "Namun jika pas malam itu Mafioso di block oleh Escort, maka Mafia tidak jadi membunuh. ";
-  return text;
+  const info = {
+    summary:
+      "Anggota Mafia yang bertugas untuk membunuh target yang telah ditentukan oleh Godfather. Mafioso akan diangkat menjadi Godfather jika Godfather sebelumnya telah mati.",
+    goal: "Menyingkirkan semua warga yang menentang Mafia"
+  };
+  return info;
 };
 
-const botSkillAction = (util, group_session, botIndex) => {
-  const players = group_session.players;
-  let targets = players
-    .map((item, index) => {
-      if (item.id !== players[botIndex].id && item.status === "alive" && item.role.team !== "mafia") {
-        return index;
-      }
-    })
-    .filter(item => {
-      return item !== undefined;
-    });
-  
-  targets = util.shuffleArray(targets);
-
-  group_session.players[botIndex].target.index = targets[0];
-};
-
-module.exports = {
-  getData,
-  getInfo,
-  botSkillAction
-};
+module.exports = { getData, getInfo };

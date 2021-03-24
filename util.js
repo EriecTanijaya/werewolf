@@ -14,7 +14,12 @@ const getUpdates = () => {
   let flex_texts = [];
   let updates = [
     {
-      version: "1.5.3 🆕", //ini yg lastest aja
+      version: "1.6.0 🆕", //ini yg lastest aja
+      majorChanges: "📜 AFK detection rework",
+      postId: "1161656404108074904"
+    },
+    {
+      version: "1.5.3",
       majorChanges: "🤡 Adjustment for Jester",
       postId: "1160953468508079330"
     },
@@ -67,11 +72,6 @@ const getUpdates = () => {
       version: "1.3.0",
       majorChanges: "📜 Rewrite bot",
       postId: "1159530099008079190"
-    },
-    {
-      version: "1.2.4",
-      majorChanges: "⚠️ Spam prevention",
-      postId: "1159408622108073821"
     }
   ];
 
@@ -428,15 +428,20 @@ const getInvestigatorResult = roleName => {
   let text = "";
   const pairList = getInvestigatorPairList(roleName);
 
-  text += pairList.desc + " Targetmu bisa jadi adalah ";
-  pairList.items.forEach((item, index) => {
-    text += item;
-    if (index == pairList.items.length - 2) {
-      text += " atau ";
-    } else if (index != pairList.items.length - 1) {
-      text += ", ";
-    }
-  });
+  text += pairList.desc;
+  if (pairList.items.length > 1) {
+    text += " Targetmu bisa jadi adalah ";
+    pairList.items.forEach((item, index) => {
+      text += item;
+      if (index == pairList.items.length - 2) {
+        text += " atau ";
+      } else if (index != pairList.items.length - 1) {
+        text += ", ";
+      }
+    });
+  } else {
+    text += ` Targetmu sudah pasti adalah ${pairList.items[0]}`;
+  }
   return text;
 };
 
@@ -780,6 +785,16 @@ const isContainWord = (args, word) => {
   return false;
 };
 
+const getSheriffResult = roleName => {
+  const suspiciousList = ["mafioso", "consigliere", "consort", "serial-killer", "framer", "disguiser"];
+
+  if (suspiciousList.includes(roleName)) {
+    return "Targetmu mencurigakan";
+  } else {
+    return "Kamu tidak menemukan bukti kesalahan target. Tampaknya targetmu tidak bersalah";
+  }
+};
+
 module.exports = {
   leaveGroup,
   random,
@@ -808,5 +823,6 @@ module.exports = {
   getBruhImage,
   hasBadWord,
   getDayEmoji,
-  isContainWord
+  isContainWord,
+  getSheriffResult
 };
