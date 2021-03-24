@@ -231,31 +231,32 @@ const sendToDevMessageCommand = () => {
     return replyText("💡 Masukkan pesan. Cth: /pesan pesann");
   }
 
-  try {
-    const message = util.parseToText(this.args);
-    const timestamp = new Date().getTime();
-    const time = new Date(timestamp).toLocaleTimeString("en-US", {
-      timeZone: "Asia/Jakarta",
-      hour: "2-digit",
-      minute: "2-digit"
-    });
+  const message = util.parseToText(this.args);
+  const timestamp = new Date().getTime();
+  const time = new Date(timestamp).toLocaleTimeString("en-US", {
+    timeZone: "Asia/Jakarta",
+    hour: "2-digit",
+    minute: "2-digit"
+  });
 
-    let text = "";
-    text += `[${time}] [${this.group_session.name}] `;
-    text += `${this.user_session.name}: ${message}`;
+  let text = "";
+  text += `[${time}] [${this.group_session.name}] `;
+  text += `${this.user_session.name}: ${message}`;
 
-    client.pushMessage(process.env.DEV_ID, { type: "text", text: text }).then(() => {
+  client
+    .pushMessage(process.env.DEV_ID, { type: "text", text: text })
+    .then(() => {
+      return replyText("✉️ Pesanmu telah dikirim!");
+    })
+    .catch(() => {
+      this.user_session.messages.push({
+        message: util.parseToText(this.args),
+        timestamp: new Date().getTime(),
+        groupName: this.group_session.name
+      });
+
       return replyText("✉️ Pesanmu telah dikirim!");
     });
-  } catch {
-    this.user_session.messages.push({
-      message: util.parseToText(this.args),
-      timestamp: new Date().getTime(),
-      groupName: this.group_session.name
-    });
-
-    return replyText("✉️ Pesanmu telah dikirim!");
-  }
 };
 
 const checkDataCommand = () => {
