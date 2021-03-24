@@ -1,5 +1,4 @@
 ### TODO
-- buat /info lebih menarik, untuk yg panjang descnya, di buat simple, untuk yg kependekan, jelasin detail lagi
 
 - bug, kalau ada yang ke veteran, lalu di heal, nanti data visitor veteran duplikat
   - cara cek, lookout ke veteran, veteran alert, doctor heal lookout biar lookout bisa liat skill
