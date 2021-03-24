@@ -3645,7 +3645,13 @@ const getVillagerCode = () => {
     "serius",
     "canda",
     "jujur",
-    "menyesal"
+    "menyesal",
+    "optimis",
+    "pesimis",
+    "malas",
+    "berani",
+    "tampan",
+    "menabung"
   ];
 
   const word = util.random(words);
