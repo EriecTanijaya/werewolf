@@ -58,15 +58,20 @@ const receive = (event, args, rawArgs, groupState = null) => {
     };
 
     const { items } = util.getInvestigatorPairList(name);
-    let investResult = "Targetmu bisa jadi adalah ";
-    items.forEach((item, index) => {
-      investResult += item;
-      if (index == items.length - 2) {
-        investResult += " atau ";
-      } else if (index != items.length - 1) {
-        investResult += ", ";
-      }
-    });
+    let investResult = "";
+    if (items.length > 1) {
+      investResult += "Targetmu bisa jadi adalah ";
+      items.forEach((item, index) => {
+        investResult += item;
+        if (index == items.length - 2) {
+          investResult += " atau ";
+        } else if (index != items.length - 1) {
+          investResult += ", ";
+        }
+      });
+    } else {
+      investResult += `Targetmu sudah pasti adalah ${items[0]}`;
+    }
 
     const sheriffResult = util.getSheriffResult(name);
 

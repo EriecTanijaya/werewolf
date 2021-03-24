@@ -428,15 +428,20 @@ const getInvestigatorResult = roleName => {
   let text = "";
   const pairList = getInvestigatorPairList(roleName);
 
-  text += pairList.desc + " Targetmu bisa jadi adalah ";
-  pairList.items.forEach((item, index) => {
-    text += item;
-    if (index == pairList.items.length - 2) {
-      text += " atau ";
-    } else if (index != pairList.items.length - 1) {
-      text += ", ";
-    }
-  });
+  text += pairList.desc;
+  if (pairList.items.length > 1) {
+    text += " Targetmu bisa jadi adalah ";
+    pairList.items.forEach((item, index) => {
+      text += item;
+      if (index == pairList.items.length - 2) {
+        text += " atau ";
+      } else if (index != pairList.items.length - 1) {
+        text += ", ";
+      }
+    });
+  } else {
+    text += ` Targetmu sudah pasti adalah ${pairList.items[0]}`;
+  }
   return text;
 };
 
