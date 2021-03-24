@@ -17,33 +17,12 @@ const getData = () => {
 };
 
 const getInfo = () => {
-  let text = "Ketua geng Mafia, yang biasanya berkelompok. ";
-  text += "Jika ada Mafioso, maka yang membunuh adalah Mafioso. Godfather kebal dari serangan biasa. ";
-  text += "Jika Mafioso di block atau tidak ada, Godfather lah yang akan membunuh target";
-
-  return text;
+  const info = {
+    summary:
+      "Kepala dari organisasi kriminal. Dapat memilih siapa yang akan dibunuh pada malam hari, dimana pembunuhnya akan dilakukan oleh Mafioso jika ada. Godfather kebal dari serangan biasa pada malam hari, dan akan tampak tidak mencurigakan jika di cek Sheriff.",
+    goal: "Menyingkirkan semua warga yang menentang Mafia"
+  };
+  return info;
 };
 
-const botSkillAction = (util, group_session, botIndex) => {
-  const players = group_session.players;
-  let targets = players
-    .map((item, index) => {
-      if (item.id !== players[botIndex].id && item.status === "alive" && item.role.team !== "mafia") {
-        return index;
-      }
-    })
-    .filter(item => {
-      return item !== undefined;
-    });
-
-  targets = util.shuffleArray(targets);
-
-  group_session.players[botIndex].target.index = targets[0];
-  group_session.players[botIndex].target.value++;
-};
-
-module.exports = {
-  getData,
-  getInfo,
-  botSkillAction
-};
+module.exports = { getData, getInfo };

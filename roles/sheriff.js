@@ -1,7 +1,7 @@
 const getData = () => {
   const data = {
     name: "sheriff",
-    description: "Kamu adalah warga yang bisa cek suatu warga mencurigakan atau tidak. ",
+    description: "Kamu adalah penegak hukum yang bisa cek suatu warga mencurigakan atau tidak.",
     skillText: "Sheriff, pilih siapa yang mau kamu cek",
     cmdText: "/skill",
     team: "villager",
@@ -17,31 +17,12 @@ const getData = () => {
 };
 
 const getInfo = () => {
-  let text = "Warga yang bisa cek suatu pemain mencurigakan atau tidak. ";
-  text += "Yang tampil mencurigakan adalah semua anggota Mafia kecuali Godfather, Serial Killer, ";
-  text += "orang yang di frame oleh Framer, dan Werewolf pada saat malam genap (bulan purnama)";
-  return text;
+  const info = {
+    summary:
+      "Penegak hukum yang terpaksa menyembunyikan identitasnya dari ancaman pembunuhan. Sheriff dapat mengecek aktivitas mencurigkan dari seseorang warga tiap malam.",
+    goal: "Menghukum semua kriminal dan penjahat"
+  };
+  return info;
 };
 
-const botSkillAction = (util, group_session, botIndex) => {
-  const players = group_session.players;
-  let targets = players
-    .map((item, index) => {
-      if (item.id !== players[botIndex].id && item.status === "alive") {
-        return index;
-      }
-    })
-    .filter(item => {
-      return item !== undefined;
-    });
-
-  targets = util.shuffleArray(targets);
-
-  group_session.players[botIndex].target.index = targets[0];
-};
-
-module.exports = {
-  getData,
-  getInfo,
-  botSkillAction
-};
+module.exports = { getData, getInfo };

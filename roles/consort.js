@@ -17,32 +17,12 @@ const getData = () => {
 };
 
 const getInfo = () => {
-  let text =
-    "Bisa block skill suatu pemain. Namun jika Consort nge block Serial Killer, maka Serial Killer akan menyerang Consort ";
-  text += "dan mengabaikan target awalnya. Consort immune dari blocknya Escort. Consort akan berubah menjadi Mafioso ";
-  text += "jika sudah tidak ada Mafia Killing";
-  return text;
+  const info = {
+    summary:
+      "Penari cantik yang bekerja untuk Mafia. Consort dapat mengganggu perhatian dari target, sehingga dapat block skill dari seorang warga.",
+    goal: "Menyingkirkan semua warga yang menentang Mafia"
+  };
+  return info;
 };
 
-const botSkillAction = (util, group_session, botIndex) => {
-  const players = group_session.players;
-  let targets = players
-    .map((item, index) => {
-      if (item.id !== players[botIndex].id && item.status === "alive" && item.role.team !== "mafia") {
-        return index;
-      }
-    })
-    .filter(item => {
-      return item !== undefined;
-    });
-
-  targets = util.shuffleArray(targets);
-
-  group_session.players[botIndex].target.index = targets[0];
-};
-
-module.exports = {
-  getData,
-  getInfo,
-  botSkillAction
-};
+module.exports = { getData, getInfo };

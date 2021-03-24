@@ -15,19 +15,12 @@ const getData = () => {
 };
 
 const getInfo = () => {
-  let text = "Warga yang setiap malam bisa dapat penglihatan. ";
-  text += "Pada bulan purnama ia dapat penglihatan 2 orang dan salah satu nya adalah orang baik. ";
-  text += "Jika tidak bulan purnama, ia dapat penglihatan 3 orang dan salah satunya adalah orang jahat. ";
-  text += "Orang baik adalah sesama warga, Survivor, Amnesiac dan Guardian Angel";
-  return text;
+  const info = {
+    summary:
+      "Warga yang diberi kekuatan untuk menerima penglihatan mengenai siapa orang yang jahat dan baik setiap malam.",
+    goal: "Menghukum semua kriminal dan penjahat"
+  };
+  return info;
 };
 
-const botSkillAction = () => {
-  return;
-};
-
-module.exports = {
-  getData,
-  getInfo,
-  botSkillAction
-};
+module.exports = { getData, getInfo };

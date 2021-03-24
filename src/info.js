@@ -4,6 +4,7 @@ const roles = require("../roles");
 const modes = require("../modes");
 const types = require("../types");
 const addonInfo = require("../addonInfo");
+const util = require("../util");
 
 const receive = (event, args, rawArgs, groupState = null) => {
   this.event = event;
@@ -42,16 +43,39 @@ const receive = (event, args, rawArgs, groupState = null) => {
   if (roles[input] !== undefined) {
     const role = roles[input];
     const { name, type, emoji } = role.getData();
-    const text = role.getInfo();
+    const { summary, goal } = role.getInfo();
 
     const goodName = name[0].toUpperCase() + name.substring(1);
 
-    const flex_text = {
+    const summary_flex = {
       headerText: `${emoji.self} ${goodName}`,
-      bodyText: `Type : ${type}\n\n${text}`
+      bodyText: `Type : ${type}\n\n${summary}`
     };
 
-    flex_texts.push(flex_text);
+    const goal_flex = {
+      headerText: `🎯 Goal`,
+      bodyText: goal
+    };
+
+    const { items } = util.getInvestigatorPairList(name);
+    let investResult = "Targetmu bisa jadi adalah ";
+    items.forEach((item, index) => {
+      investResult += item;
+      if (index == items.length - 2) {
+        investResult += " atau ";
+      } else if (index != items.length - 1) {
+        investResult += ", ";
+      }
+    });
+
+    const sheriffResult = util.getSheriffResult(name);
+
+    const invest_result_flex = {
+      headerText: `📜 Hasil Cek ${goodName}`,
+      bodyText: `👮 Sheriff: ${sheriffResult}\n\n🕵️ Investigator: ${investResult}`
+    };
+
+    flex_texts.push(summary_flex, goal_flex, invest_result_flex);
   }
 
   if (modes[input] !== undefined) {

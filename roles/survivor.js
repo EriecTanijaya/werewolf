@@ -19,25 +19,12 @@ const getData = () => {
 };
 
 const getInfo = () => {
-  let text = "Orang yang bisa menang dengan siapa saja, asalkan dia tidak mati hingga akhir game. ";
-  text += "Survivor dibekali 4 vest untuk melindungi diri dari serangan biasa. ";
-  return text;
+  const info = {
+    summary:
+      "Hanyalah orang yang ingin tetap hidup. Survivor dibekali 4 vest untuk melindungi diri sendiri dari serangan biasa.",
+    goal: "Tetap hidup hingga akhir game"
+  };
+  return info;
 };
 
-const botSkillAction = (util, group_session, botIndex) => {
-  if (group_session.players[botIndex].role.vest === 0) {
-    return;
-  }
-
-  const what = util.random(["self", "nah", "self"]);
-
-  if (what === "nah") return;
-
-  group_session.players[botIndex].target.index = botIndex;
-};
-
-module.exports = {
-  getData,
-  getInfo,
-  botSkillAction
-};
+module.exports = { getData, getInfo };

@@ -780,6 +780,16 @@ const isContainWord = (args, word) => {
   return false;
 };
 
+const getSheriffResult = roleName => {
+  const suspiciousList = ["mafioso", "consigliere", "consort", "serial-killer", "framer", "disguiser"];
+
+  if (suspiciousList.includes(roleName)) {
+    return "Targetmu mencurigakan";
+  } else {
+    return "Kamu tidak menemukan bukti kesalahan target. Tampaknya targetmu tidak bersalah";
+  }
+};
+
 module.exports = {
   leaveGroup,
   random,
@@ -808,5 +818,6 @@ module.exports = {
   getBruhImage,
   hasBadWord,
   getDayEmoji,
-  isContainWord
+  isContainWord,
+  getSheriffResult
 };

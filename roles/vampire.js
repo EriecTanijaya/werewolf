@@ -19,38 +19,12 @@ const getData = () => {
 };
 
 const getInfo = () => {
-  let text = "Makhluk hidup yang membawa kerusuhan dengan bisa mengubah warga menjadi sejenisnya. ";
-  text += "Vampire jika berhasil mengubah seoranga warga menjadi Vampire, akan ada jeda untuk ";
-  text += "menggigit target selanjutnya. ";
-  text += "Jika jumlah Vampire sudah 4 atau lebih, maka Vampire tidak lagi mengubah seorang warga ";
-  text += "warga menjadi Vampire, tetapi menyerangnya. ";
-  text += "Vampire tidak bisa gigit role yang bisa kebal dari serangan biasa. ";
-  return text;
+  const info = {
+    summary:
+      "Makhluk yang dapat mengubah warga menjadi sesama Vampire. Jika jumlah Vampire mencapai 4, maka Vampire akan menyerang warga.",
+    goal: "Mengubah warga menjadi Vampire dan membunuh mereka yang menentang Vampire"
+  };
+  return info;
 };
 
-const botSkillAction = (util, group_session, botIndex) => {
-  if (group_session.vampireConvertCooldown > 0) {
-    return;
-  }
-  
-  const players = group_session.players;
-  let targets = players
-    .map((item, index) => {
-      if (item.id !== players[botIndex].id && item.status === "alive" && item.role.team !== "vampire") {
-        return index;
-      }
-    })
-    .filter(item => {
-      return item !== undefined;
-    });
-
-  targets = util.shuffleArray(targets);
-
-  group_session.players[botIndex].target.index = targets[0];
-};
-
-module.exports = {
-  getData,
-  getInfo,
-  botSkillAction
-};
+module.exports = { getData, getInfo };

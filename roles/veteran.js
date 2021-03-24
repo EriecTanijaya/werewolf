@@ -19,26 +19,11 @@ const getData = () => {
 };
 
 const getInfo = () => {
-  let text = "Warga yang merupakan Veteran perang yang paranoia. ";
-  text += "Mudah terkejut sehingga jika dalam keadaan 'alert', bisa membunuh siapa saja yang kerumahnya. ";
-  text += "Veteran immune dari role block Escort atau Consort. ";
-  return text;
+  const info = {
+    summary: "Veteran yang paranoid, jika sedang alert akan membunuh siapa saja yang kerumahnya.",
+    goal: "Menghukum semua kriminal dan penjahat"
+  };
+  return info;
 };
 
-const botSkillAction = (util, group_session, botIndex) => {
-  if (group_session.players[botIndex].role.alert === 0) {
-    return;
-  }
-
-  const what = util.random(["self", "nah", "self"]);
-
-  if (what === "nah") return;
-
-  group_session.players[botIndex].target.index = botIndex;
-};
-
-module.exports = {
-  getData,
-  getInfo,
-  botSkillAction
-};
+module.exports = { getData, getInfo };

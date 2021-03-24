@@ -18,32 +18,12 @@ const getData = () => {
 };
 
 const getInfo = () => {
-  let text = "Psikopat yang menang jika berhasil membunuh Team yang melawannya. ";
-  text += "Serial Killer kebal dari serangan biasa. Jika di role block, kamu akan bunuh yang ngerole block dan ";
-  text += "mengabaikan target awalmu. ";
-
-  return text;
+  const info = {
+    summary:
+      "Seorang psikopat kriminal yang ingin semua orang mati. Jika skill Serial Killer di block, maka Serial Killer akan membunuh orang yang ngeblock skillnya.",
+    goal: "Membunuh semua orang yang menentangmu"
+  };
+  return info;
 };
 
-const botSkillAction = (util, group_session, botIndex) => {
-  const players = group_session.players;
-  let targets = players
-    .map((item, index) => {
-      if (item.id !== players[botIndex].id && item.status === "alive") {
-        return index;
-      }
-    })
-    .filter(item => {
-      return item !== undefined;
-    });
-
-  targets = util.shuffleArray(targets);
-
-  group_session.players[botIndex].target.index = targets[0];
-};
-
-module.exports = {
-  getData,
-  getInfo,
-  botSkillAction
-};
+module.exports = { getData, getInfo };

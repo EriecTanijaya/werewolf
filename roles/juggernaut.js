@@ -18,45 +18,11 @@ const getData = () => {
 };
 
 const getInfo = () => {
-  let text = "Seorang kriminal yang kekuatannya makin bertambah tiap kali ia berhasil membunuh. ";
-  text += "Jika berhasil membunuh sekali, dia bisa serang tiap malam. ";
-  text += "Kedua kali, bisa kebal dari serangan biasa. ";
-  text += "Ketiga kali, bisa juga menyerang orang yang kerumah Targetnya. ";
-  text += "Keempat kali, serangannya menembus perlindungan biasa. Tapi Bodyguard tetap bisa membunuhnya. ";
-  return text;
+  const info = {
+    summary: `Seorang kriminal yang kekuatannya semakin bertambah setiap kali ia berhasil membunuh. Awalnya Juggernaut hanya bisa menggunakan skillnya pada bulan purnama.\n\n🥊 Jika berhasil membunuh sekali, ia dapat menggunakan skill setiap malam\n🥊 2 kali membunuh, ia dapat kebal dari serangan biasa\n🥊 3 kali membunuh, ia dapat membunuh target beserta tamu dari target tersebut\n🥊 4 kali membunuh, serangannya dapat menembus pertahanan biasa`,
+    goal: "Membunuh semua orang yang menentangmu"
+  };
+  return info;
 };
 
-const botSkillAction = (util, group_session, botIndex) => {
-  const isFullMoon = group_session.isFullMoon;
-  const bot = group_session.players[botIndex];
-  if (bot.role.skillLevel === 0 && isFullMoon) {
-    return;
-  }
-
-  const canSelfTarget = bot.role.skillLevel >= 3 ? true : false;
-
-  const players = group_session.players;
-
-  let targets = players
-    .map((item, index) => {
-      if (item.status === "alive") {
-        if (item.id !== players[botIndex].id) {
-          return index;
-        } else if (canSelfTarget) {
-          return index;
-        }
-      }
-    })
-    .filter(item => {
-      return item !== undefined;
-    });
-  targets = util.shuffleArray(targets);
-
-  group_session.players[botIndex].target.index = targets[0];
-};
-
-module.exports = {
-  getData,
-  getInfo,
-  botSkillAction
-};
+module.exports = { getData, getInfo };

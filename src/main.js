@@ -3687,8 +3687,6 @@ const night = () => {
         }
       }
     }
-    
-    console.log(`${item.name} afk: ${item.afkCounter}`);
   });
 
   /// untuk role yang berubah-berubah

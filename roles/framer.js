@@ -18,32 +18,12 @@ const getData = () => {
 };
 
 const getInfo = () => {
-  let text = "Anggota Mafia yang bisa membuat suatu pemain tampak bersalah. ";
-  text += "Jika Target Framer di cek Sheriff, maka akan tampak bersalah walaupun ia adalah warga. ";
-  text += "Jika di cek Investigator, hasilnya adalah Framer, Vampire atau Jester. ";
-  text += "Efek dari frame akan tetap bertahan hingga target telah di cek Sheriff atau Investigator";
-  return text;
+  const info = {
+    summary:
+      "Anggota Mafia yang ahli dalam pemalsuan data. Framer dapat memanipulasi data dari seorang warga agar tampak mencurigakan jika dicek oleh Investigator atau Sheriff.",
+    goal: "Menyingkirkan semua warga yang menentang Mafia"
+  };
+  return info;
 };
 
-const botSkillAction = (util, group_session, botIndex) => {
-  const players = group_session.players;
-  let targets = players
-    .map((item, index) => {
-      if (item.id !== players[botIndex].id && item.status === "alive" && item.role.team !== "mafia") {
-        return index;
-      }
-    })
-    .filter(item => {
-      return item !== undefined;
-    });
-
-  targets = util.shuffleArray(targets);
-
-  group_session.players[botIndex].target.index = targets[0];
-};
-
-module.exports = {
-  getData,
-  getInfo,
-  botSkillAction
-};
+module.exports = { getData, getInfo };

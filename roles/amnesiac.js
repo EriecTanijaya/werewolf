@@ -19,34 +19,12 @@ const getData = () => {
 };
 
 const getInfo = () => {
-  let text =
-    "Orang yang lupa dengan siapa dirinya. Dapat mengingat siapa dirinya dengan memilih orang yang telah mati. ";
-  text += "Jika Amnesiac telah ingat role nya, maka akan di beritahu secara publik. ";
-  text += "Jika Amnesiac mengingat seorang Disguiser yang sedang mengimitasi, maka dia akan menjadi Disguiser.";
-  return text;
+  const info = {
+    summary:
+      "Orang yang lupa dengan siapa dirinya. Dia dapat mengingat siapa dirinya dengan memilih salah satu dari orang yang telah mati. Jika Amnesiac telah mengingat apa rolenya, maka semua warga akan mengetahui apa role yang telah diingat oleh Amnesiac.",
+    goal: "Mengingat salah satu role yang telah mati, lalu jalani goal role tersebut"
+  };
+  return info;
 };
 
-const botSkillAction = (util, group_session, botIndex) => {
-  const players = group_session.players;
-  let targets = players
-    .map((item, index) => {
-      if (item.id !== players[botIndex].id && item.status === "death") {
-        return index;
-      }
-    })
-    .filter(item => {
-      return item !== undefined;
-    });
-
-  if (targets.length === 0) return;
-
-  targets = util.shuffleArray(targets);
-
-  group_session.players[botIndex].target.index = targets[0];
-};
-
-module.exports = {
-  getData,
-  getInfo,
-  botSkillAction
-};
+module.exports = { getData, getInfo };

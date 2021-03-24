@@ -18,32 +18,12 @@ const getData = () => {
 };
 
 const getInfo = () => {
-  let text = "Warga yang bisa block skill orang lain, sehingga targetnya tidak bisa menggunakan skillnya. ";
-  text +=
-    "Namun jika ke rumah Serial Killer, Escort ini bisa dibunuhnya dan Serial Killer akan mengabaikan target awalnya. ";
-  text += "Escort juga immune dari role block. ";
-  return text;
+  const info = {
+    summary:
+      "Warga good-looking yang dapat mengganggu fokus dari seorang target. Sehingga dapat block skill dari seorang target.",
+    goal: "Menghukum semua kriminal dan penjahat"
+  };
+  return info;
 };
 
-const botSkillAction = (util, group_session, botIndex) => {
-  const players = group_session.players;
-  let targets = players
-    .map((item, index) => {
-      if (item.id !== players[botIndex].id && item.status === "alive") {
-        return index;
-      }
-    })
-    .filter(item => {
-      return item !== undefined;
-    });
-
-  targets = util.shuffleArray(targets);
-
-  group_session.players[botIndex].target.index = targets[0];
-};
-
-module.exports = {
-  getData,
-  getInfo,
-  botSkillAction
-};
+module.exports = { getData, getInfo };
