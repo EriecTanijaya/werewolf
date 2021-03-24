@@ -15,8 +15,8 @@ const getUpdates = () => {
   let updates = [
     {
       version: "1.6.0 🆕", //ini yg lastest aja
-      majorChanges: "📜 New Featuree reeee",
-      postId: ""
+      majorChanges: "📜 AFK detection rework",
+      postId: "1161656404108074904"
     },
     {
       version: "1.5.3",
