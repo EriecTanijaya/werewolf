@@ -21,9 +21,12 @@ const build = (flex_raw, sender, opt_texts = []) => {
   flex_raw.forEach((item, index) => {
     bubble[index] = {
       type: "bubble",
+      size: "mega",
       header: {
         type: "box",
         layout: "vertical",
+        borderWidth: "none",
+        cornerRadius: "none",
         contents: [
           {
             type: "text",
@@ -39,6 +42,7 @@ const build = (flex_raw, sender, opt_texts = []) => {
       body: {
         type: "box",
         layout: "vertical",
+        borderWidth: "none",
         contents: []
       },
       styles: {

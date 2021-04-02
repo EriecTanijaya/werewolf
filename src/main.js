@@ -3808,23 +3808,25 @@ const night = () => {
 };
 
 const getTimeDefault = playersLength => {
-  let time = 0;
+  if (this.group_session.mode === "beginner") {
+    return 90;
+  }
 
   if (playersLength === 3) {
-    time = 35;
+    return 35;
   } else if (playersLength > 10) {
-    time = 90;
+    return 90;
   } else {
     // 4 - 9 players logic
+    let time = 0;
     let temp = playersLength;
     while (temp) {
       time += 0.9;
       temp--;
     }
     time = Math.round(time) * 10;
+    return time;
   }
-
-  return time;
 };
 
 const checkMorphingRole = (fromMorphRole, triggerRole, toMorphRole) => {
