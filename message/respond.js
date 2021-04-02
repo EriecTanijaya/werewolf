@@ -41,7 +41,9 @@ const join = name => {
     `💡 Eits eits, ${name} bergabung ke dalam game nih!`,
     `💡 Akhirnya, ${name} join ke dalam game`,
     `💡 ${name} menyalip diantara kerumunan dan join kedalam game`,
-    `💡 ${name} menerobos kerumunan dan join kedalam game duluan`
+    `💡 ${name} menerobos kerumunan dan join kedalam game duluan`,
+    `💡 ${name} coming thru, with the wooooo!`,
+    `💡 ${name} arrived!, here comes the party!`
   ];
   return util.random(arr);
 };
@@ -67,7 +69,6 @@ const checkNight = time => {
     `👨‍🌾 : matahawi matahawi, kapan kamu terbit?\n☀️ : ${time} detik lagi bos`,
     `☀️ : *terbangun dari tidur*\n☀️ : *liat jam* ah masih sisa ${time} detik lagi\n☀️ : *tidur lagi*`,
     `⏳ Dalam ${time} detik lagi, matahawi terbit`,
-    `☀️ : aku otw dalam ${time} detik lagi, siap siap\n🐔 : kok?`,
     `⏳ ${time} detik lagi matahari terbit ☀️`,
     `⏳ Waktu tersisa ${time} detik lagi`
   ];
@@ -95,7 +96,7 @@ const notLynch = punishment => {
   const arr = [
     `💬 Para warga belum menemukan titik terang dan tidak ${punishment} siapapun hari ini`,
     `💬 Waktu habis, balik tidur sono!`,
-    `💬 Hasil voting hari ini, tidak ada yang ${punishment} hari ini`,
+    `💬 Hasil voting hari ini, tidak ada yang di${punishment} hari ini`,
     `💬 Waktu telah habis, dan para warga belum mendapatkan kandidat yang akan di${punishment} hari ini`,
     `🧹 "Wah, akhirnya hari ini bisa agak nyantai hari ini" kata Office Boy`,
     `💬 Para warga belum mendapatkan sosok yang layak untuk di${punishment}`
