@@ -11,15 +11,14 @@ const config = {
   channelSecret: process.env.CHANNEL_SECRET
 };
 
-app.use("/callback", line.middleware(config));
-
 app.get("/", (req, res) => res.sendStatus(200));
 
-app.post("/callback", (req, res) => {
+app.post("/callback", line.middleware(config), (req, res) => {
   Promise.all(req.body.events.map(handleEvent))
-    .then(result => res.json(result))
+    .then(() => res.end())
     .catch(err => {
       console.error("error di app.post", err);
+      res.status(500).end();
     });
 });
 
@@ -37,7 +36,6 @@ async function handleEvent(event) {
     } else if (event.type === "message") {
       return data.receive(event, event.message.type);
     }
-
     return Promise.resolve(null);
   }
 
