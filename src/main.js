@@ -3431,6 +3431,15 @@ const startCommand = () => {
     return replyText(text);
   }
 
+  for (let i = 0; i < players.length; i++) {
+    if (players[i].name === "") {
+      resetGroup();
+      return replyText(
+        `💡 Ditemukan error pada data pemain yang telah bergabung! Game dihentikan, ketik /new untuk membuat game baru lagi. Jika kamu masih mendapatkan pesan ini terus menerus, lapor ke /forum`
+      );
+    }
+  }
+
   let minPlayers = 5;
   if (players.length < minPlayers) {
     const remainingPlayer = minPlayers - players.length;
@@ -4824,6 +4833,13 @@ const stopCommand = () => {
     return replyText(text);
   }
 
+  resetGroup();
+
+  const text = respond.stopGame(this.user_session.name);
+  return replyText(text);
+};
+
+const resetGroup = () => {
   this.group_session.state = "idle";
   this.group_session.time = 300; // reset to initial time
   delete this.group_session.nightCounter;
@@ -4835,11 +4851,7 @@ const stopCommand = () => {
   delete this.group_session.mafiaChat;
   delete this.group_session.vampireChat;
   delete this.group_session.vampireHunterChat;
-
   resetAllPlayers();
-
-  const text = respond.stopGame(this.user_session.name);
-  return replyText(text);
 };
 
 const cancelCommand = () => {
@@ -5000,14 +5012,14 @@ const newCommand = () => {
   this.group_session.vampireConvertCooldown = 0;
   this.group_session.isFullMoon = false;
 
-  let infoText = "🕹️ Mode : " + this.group_session.mode;
+  let infoText = "🕹️ Mode: " + this.group_session.mode;
 
   if (this.group_session.mode === "custom" && this.group_session.isShowRole) {
     let customRoles = this.group_session.customRoles;
-    infoText += "\n" + "📜 Roles : " + customRoles.join(", ");
+    infoText += "\n" + "📜 Roles: " + customRoles.join(", ");
   } else {
     const { description } = modes[this.group_session.mode].getData();
-    infoText += "\n" + "📜 Info : " + description;
+    infoText += "\n" + "📜 Info: " + description;
   }
 
   // cp
