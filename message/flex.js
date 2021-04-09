@@ -21,7 +21,7 @@ const build = (flex_raw, sender, opt_texts = []) => {
   flex_raw.forEach((item, index) => {
     bubble[index] = {
       type: "bubble",
-      size: "mega",
+      size: "giga",
       header: {
         type: "box",
         layout: "vertical",

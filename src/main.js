@@ -37,15 +37,6 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
 
   if (!rawArgs.startsWith("/")) {
     rawArgs = rawArgs.toLowerCase();
-
-    if (util.isContainWord(this.args, "error") || rawArgs.includes("bug")) {
-      let text = `👷 Bot ini error?\n\nBagi pemain yang didalam game, `;
-      text += `semuanya ketik /checkdata untuk mengecek data didalam game. `;
-      text += `Jika semua data pemain yang tadi join aman semua, coba ulang buat gamenya dan rejoin.`;
-      text += `\n\nJika masih error, lapor ke /forum yak`;
-      return replyText(text);
-    }
-
     let time = this.group_session.time;
 
     if (state !== "idle") {
@@ -88,7 +79,7 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
           }
         }
 
-        if (time <= 5 && time > 0) {
+        if (time <= 3 && time > 0) {
           let reminder = "💡 Waktu tersisa " + time;
           reminder += " detik lagi, nanti ketik '/cek' ";
           reminder += "saat waktu sudah habis untuk lanjutkan proses. ";
@@ -112,10 +103,6 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
 
       this.group_session.dev_messages = [];
       return replyText(text);
-    }
-
-    if (rawArgs === "test") {
-      return replyText("✨ MASOKK");
     }
 
     return Promise.resolve(null);
@@ -215,10 +202,6 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
       return meCommand();
     case "/sync":
       return updateName();
-    case "/stay":
-      return stayCommand();
-    case "/checkdata":
-      return checkDataCommand();
     case "/pesan":
       return sendToDevMessageCommand();
     default:
@@ -257,26 +240,6 @@ const sendToDevMessageCommand = () => {
 
       return replyText("✉️ Pesanmu telah dikirim!");
     });
-};
-
-const checkDataCommand = () => {
-  if (this.user_session.name !== "") {
-    return replyText("💡 Datamu didalam game tidak bermasalah!");
-  } else {
-    let text = "💡 Datamu didalam game ada masalah! ";
-    text += "Coba keluar dari game lalu rejoin. Jika masih error, lapor ke /forum";
-    return replyText(text);
-  }
-};
-
-const stayCommand = () => {
-  if (this.user_session.id !== process.env.DEV_ID) {
-    return invalidCommand();
-  }
-
-  this.group_session.stay = true;
-
-  return replyText("💡 Bot akan stay disini sementara");
 };
 
 const updateName = async () => {
