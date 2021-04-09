@@ -49,7 +49,7 @@ const receive = (event, args, rawArgs, groupState = null) => {
 
     const summary_flex = {
       headerText: `${emoji.self} ${goodName}`,
-      bodyText: `Type : ${type}\n\n${summary}`
+      bodyText: `Type: ${type}\n\n${summary}`
     };
 
     const goal_flex = {
