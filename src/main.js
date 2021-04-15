@@ -235,7 +235,11 @@ const updateName = async () => {
     this.user_session.name = displayName;
   }
   const res = await database.updateName(this.user_session.id, displayName);
-  return replyText(res);
+  if (res === "nodata") {
+    return replyText("💡 Datamu tidak ditemukan, coba main 1 game");
+  } else if (res === "success") {
+    return replyText("🔄 Data kamu berhasil di sinkron!");
+  }
 };
 
 const meCommand = async () => {
@@ -3277,11 +3281,9 @@ const day = () => {
     }
   }
 
-  let someoneWin = checkVictory();
-
-  if (someoneWin) {
+  if (isSomeoneWin()) {
     flex_texts.unshift(flex_text);
-    return endGame(flex_texts, someoneWin);
+    return endGame(flex_texts, isSomeoneWin());
   } else {
     let alivePlayersCount = getAlivePlayersCount();
     this.group_session.time_default = getTimeDefault(alivePlayersCount);
@@ -3909,10 +3911,8 @@ const postLynch = () => {
       }
     }
 
-    let someoneWin = checkVictory();
-
-    if (someoneWin) {
-      return endGame(null, someoneWin);
+    if (isSomeoneWin()) {
+      return endGame(null, isSomeoneWin());
     } else {
       substituteMafia(lynched);
       return night(null);
@@ -3920,7 +3920,7 @@ const postLynch = () => {
   }
 };
 
-const checkVictory = () => {
+const isSomeoneWin = () => {
   let someoneWin = "";
   const players = this.group_session.players;
   let alivePeople = 0;
@@ -4025,7 +4025,7 @@ const checkVictory = () => {
   return someoneWin;
 };
 
-const endGame = (flex_texts, whoWin) => {
+const endGame = async (flex_texts, whoWin) => {
   const isVipMode = this.group_session.mode === "vip" ? true : false;
   let surviveTeam = [];
   const players = this.group_session.players;
@@ -4095,6 +4095,8 @@ const endGame = (flex_texts, whoWin) => {
         database.update(players[i].id, "lose", this.group_session);
       }
     }
+
+    await database.updateName(players[i].id, players[i].name);
 
     flex_text.table.contents.push(table_data);
 

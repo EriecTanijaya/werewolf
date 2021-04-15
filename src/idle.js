@@ -104,7 +104,11 @@ const updateName = async () => {
     this.user_session.name = displayName;
   }
   const res = await database.updateName(this.user_session.id, displayName);
-  return replyText(res);
+  if (res === "nodata") {
+    return replyText("💡 Datamu tidak ditemukan, coba main 1 game");
+  } else if (res === "success") {
+    return replyText("🔄 Data kamu berhasil di sinkron!");
+  }
 };
 
 const meCommand = async () => {
