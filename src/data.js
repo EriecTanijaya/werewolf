@@ -114,23 +114,33 @@ const receive = async (event, rawArgs) => {
     user_sessions[userId] = newUser;
   }
 
-  if (user_sessions[userId].name === "") {
-    const input = this.args[0].toLowerCase();
-    try {
-      const { displayName } = await client.getProfile(userId);
+  const input = this.args[0].toLowerCase();
+  try {
+    const { displayName } = await client.getProfile(userId);
+    if (user_sessions[userId].name === "") {
       user_sessions[userId].name = displayName;
-    } catch (err) {
-      if (!usingCommand) {
-        return Promise.resolve(null);
+    } else if (user_sessions[userId].name !== displayName) {
+      if (user_sessions[userId].state === "active") {
+        const groupId = user_sessions[userId].groupId;
+        for (let i = 0; i < group_sessions[groupId].players.length; i++) {
+          if (group_sessions[groupId].players[i].name === user_sessions[userId].name) {
+            group_sessions[groupId].players[i].name = displayName;
+          }
+        }
       }
+      user_sessions[userId].name = displayName;
+    }
+  } catch (err) {
+    if (!usingCommand) {
+      return Promise.resolve(null);
+    }
 
-      if (["/join", "/j"].includes(input)) {
-        return notAddError();
-      }
+    if (["/join", "/j"].includes(input)) {
+      return notAddError();
+    }
 
-      if (!safeCommands.includes(input)) {
-        return Promise.resolve(null);
-      }
+    if (!safeCommands.includes(input)) {
+      return Promise.resolve(null);
     }
   }
 
