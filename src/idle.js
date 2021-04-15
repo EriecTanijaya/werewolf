@@ -37,10 +37,6 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
       return usersListCommand();
     case "/view":
       return viewCommand();
-    case "/cg":
-      return sendToGroupMessageCommand();
-    case "/read":
-      return readUserMessageCommand();
     case "/tutorial":
       return tutorialCommand();
     case "/forum":
@@ -57,8 +53,6 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
     case "/skill":
     case "/cek":
       return notInGameCommand();
-    case "/run":
-      return runCommand();
     case "/rank":
       return rankCommand();
     case "/me":
@@ -104,15 +98,6 @@ const sendToDevMessageCommand = () => {
     });
 };
 
-const readUserMessageCommand = async () => {
-  if (this.user_session.id !== process.env.DEV_ID) {
-    return invalidCommand();
-  }
-
-  const msg = await stats.readUserMessageCommand(this.user_sessions);
-  return replyText(msg);
-};
-
 const updateName = async () => {
   const { displayName } = await client.getProfile(this.user_session.id);
   if (this.user_session.name !== displayName) {
@@ -131,18 +116,6 @@ const meCommand = async () => {
 const rankCommand = async () => {
   const flex_text = await util.getRank();
   return replyFlex(flex_text);
-};
-
-const runCommand = () => {
-  if (this.user_session.id !== process.env.DEV_ID) {
-    return invalidCommand();
-  }
-
-  try {
-    return eval(util.parseToText(this.args));
-  } catch (err) {
-    return replyText(err.message);
-  }
 };
 
 const notInGameCommand = () => {
@@ -189,26 +162,6 @@ const viewCommand = async () => {
   }
 
   const msg = await stats.viewCommand(this.group_sessions, this.args[1]);
-  return replyText(msg);
-};
-
-const sendToGroupMessageCommand = async () => {
-  if (this.user_session.id !== process.env.DEV_ID) {
-    return invalidCommand();
-  }
-
-  let message = "";
-  this.args.forEach((item, index) => {
-    if (index !== 0 && index !== 1) {
-      //ini untuk tidak parse text command '/command'
-      if (index !== 2) {
-        message += " ";
-      }
-      message += item;
-    }
-  });
-
-  const msg = await stats.insertDevMessage(this.group_sessions, this.args[1], message);
   return replyText(msg);
 };
 

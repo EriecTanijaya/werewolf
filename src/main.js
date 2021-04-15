@@ -88,23 +88,6 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
       }
     }
 
-    if (this.group_session.dev_messages.length > 0) {
-      let text = `📨 Pesan dari dev bot:\n`;
-
-      this.group_session.dev_messages.forEach(item => {
-        const { message, timestamp } = item;
-        const time = new Date(timestamp).toLocaleTimeString("en-US", {
-          timeZone: "Asia/Jakarta",
-          hour: "2-digit",
-          minute: "2-digit"
-        });
-        text += `[${time}] ${message}\n`;
-      });
-
-      this.group_session.dev_messages = [];
-      return replyText(text);
-    }
-
     return Promise.resolve(null);
   }
 

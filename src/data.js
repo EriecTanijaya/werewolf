@@ -202,8 +202,7 @@ const receive = async (event, rawArgs) => {
       customRoles: [],
       lastFirstBloodIds: [],
       currentFirstBloodIds: [],
-      players: [],
-      dev_messages: []
+      players: []
     };
     group_sessions[groupId] = newGroup;
   }
