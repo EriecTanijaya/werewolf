@@ -132,6 +132,8 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
     case "/cok":
       return checkCommand();
     case "/vote_flex":
+    case "/vote":
+    case "/v":
       return voteCommand();
     case "/about":
       return aboutCommand();
@@ -4303,10 +4305,33 @@ const voteCommand = () => {
     return replyText(text);
   }
 
-  const targetIndex = getTargetIndex();
+  let targetIndex = -1;
 
-  if (targetIndex === undefined) {
-    return votingCommand();
+  if (this.event.type === "postback") {
+    targetIndex = this.args[1];
+  } else {
+    // eslint-disable-next-line no-prototype-builtins
+    if (!this.event.message.hasOwnProperty("mention")) {
+      return replyText(`💡 ${this.user_session.name}, kamu bisa vote dengan ketik /vote @nama`);
+    }
+
+    const mentionees = this.event.message.mention.mentionees;
+
+    if (mentionees.length > 1) {
+      return replyText(`💡 ${this.user_session.name}, kamu hanya bisa vote 1 orang saja`);
+    }
+
+    const mentionedUserId = mentionees[0].userId;
+    for (let i = 0; i < this.group_session.players.length; i++) {
+      if (this.group_session.players[i].id === mentionedUserId) {
+        targetIndex = i;
+        break;
+      }
+    }
+
+    if (targetIndex === -1) {
+      return replyText(`💡 ${this.user_session.name}, orang yang kamu tag tidak bergabung kedalam game ini`);
+    }
   }
 
   if (targetIndex == index) {
@@ -4337,7 +4362,7 @@ const voteCommand = () => {
 
   this.group_session.players[index].targetVoteIndex = targetIndex;
 
-  text += players[targetIndex].name + " untuk di" + this.group_session.punishment;
+  text += `${players[targetIndex].name} untuk di${this.group_session.punishment}`;
 
   // set if vote jester or not
   if (players[targetIndex].role.name === "jester") {
@@ -4352,11 +4377,6 @@ const voteCommand = () => {
   const checkVote = checkVoteStatus(voteNeeded);
 
   if (checkVote.status !== "enough_vote") {
-    let voteFlex = "💡 Ketik '/cek' untuk munculin flex vote. ";
-    if (time > 15) {
-      voteFlex += "⏳ Waktu tersisa " + this.group_session.time + " detik lagi";
-    }
-    text += "\n" + voteFlex;
     return replyText(text);
   } else {
     const flex_text = {
@@ -4368,28 +4388,6 @@ const voteCommand = () => {
     const playerListFlex = getTableFlex(alivePlayers, null, headerText);
     return lynch([flex_text, playerListFlex]);
   }
-};
-
-const getTargetIndex = () => {
-  // eslint-disable-next-line no-prototype-builtins
-  if (!this.event.message.hasOwnProperty("mention")) {
-    return this.args[1];
-  }
-
-  const mentionees = this.event.message.mention.mentionees;
-
-  if (mentionees.length > 1) {
-    return replyText(`💡 ${this.user_session.name}, kamu hanya bisa vote 1 orang saja`);
-  }
-
-  const mentionedUserId = mentionees[0].userId;
-  for (let i = 0; i < this.group_session.players.length; i++) {
-    if (this.group_session.players[i].id === mentionedUserId) {
-      return i;
-    }
-  }
-
-  return replyText(`💡 ${this.user_session.name}, orang yang kamu tag tidak bergabung kedalam game ini`);
 };
 
 const votingCommand = () => {
@@ -4514,7 +4512,7 @@ const getTableFlex = (alivePlayers, text, headerText, opt_buttons) => {
   }
 
   flex_text.table = {
-    headers: ["No.", "Name", "Status", "Vote"],
+    headers: ["No.", "Name", "Vote"],
     contents: []
   };
 
@@ -4523,9 +4521,9 @@ const getTableFlex = (alivePlayers, text, headerText, opt_buttons) => {
     let table_data = [`${num}.`, voter.name];
 
     if (voter.targetVoteIndex === -1) {
-      table_data.push("pending", "-");
+      table_data.push("-");
     } else {
-      table_data.push("done", players[voter.targetVoteIndex].name);
+      table_data.push(players[voter.targetVoteIndex].name);
     }
 
     num++;

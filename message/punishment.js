@@ -1,19 +1,12 @@
 // di + punishment
 const punishment = [
   "gantung 🦥",
-  "gelitik 🐙",
   "bakar 🔥",
-  "jual 💰",
   "pancung 🤕",
   "gebuk 🥊",
-  "suntik mati 💉",
-  "kubur hiduphidup ⚰️",
+  "kubur hidup-hidup ⚰️",
   "tenggelamkan 🌊",
   "tampol ✋",
-  "cubit 🤏",
-  "panah 🏹",
-  "gulai 🍛",
-  "friendzone 👍",
   "setrum ⚡"
 ];
 
