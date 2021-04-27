@@ -72,11 +72,6 @@ const getUpdates = () => {
       version: "1.3.5",
       majorChanges: "😇 Role changes",
       postId: "1159771303308074463"
-    },
-    {
-      version: "1.3.0",
-      majorChanges: "📜 Rewrite bot",
-      postId: "1159530099008079190"
     }
   ];
 
