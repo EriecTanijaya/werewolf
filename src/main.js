@@ -148,13 +148,7 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
     case "/news":
       return personalCommand();
     case "/skip":
-      if (this.user_session.id === process.env.DEV_ID) {
-        this.group_session.time = 0;
-        checkCommand();
-      } else {
-        return invalidCommand();
-      }
-      break;
+      return skipCommand();
     case "/revoke":
       return revokeCommand();
     case "/extend":
@@ -189,6 +183,15 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
       return sendToDevMessageCommand();
     default:
       return invalidCommand();
+  }
+};
+
+const skipCommand = () => {
+  if (this.user_session.id === process.env.DEV_ID) {
+    this.group_session.time = 0;
+    checkCommand();
+  } else {
+    return invalidCommand();
   }
 };
 
@@ -4291,23 +4294,23 @@ const voteCommand = () => {
   const players = this.group_session.players;
 
   if (index === -1) {
-    let text = "💡 " + this.user_session.name + ", kamu tidak join kedalam game";
+    const text = "💡 " + this.user_session.name + ", kamu tidak join kedalam game";
     return replyText(text);
   }
 
   if (players[index].status !== "alive") {
-    let text = respond.alreadyDead(players[index].name, players[index].causeOfDeath);
+    const text = respond.alreadyDead(players[index].name, players[index].causeOfDeath);
     return replyText(text);
   }
 
-  let targetIndex = this.args[1];
+  const targetIndex = getTargetIndex();
 
   if (targetIndex === undefined) {
     return votingCommand();
   }
 
   if (targetIndex == index) {
-    let text = "💡 " + players[index].name + ", gak bisa vote diri sendiri";
+    const text = "💡 " + players[index].name + ", gak bisa vote diri sendiri";
     return replyText(text);
   }
 
@@ -4316,7 +4319,7 @@ const voteCommand = () => {
   }
 
   if (players[targetIndex].protected) {
-    let targetName = players[targetIndex].name;
+    const targetName = players[targetIndex].name;
     let text = "⚔️ " + players[index].name + ", ";
     text += targetName + " immune dari vote karena perlindungan Guardian Angel!";
     return replyText(text);
@@ -4365,6 +4368,28 @@ const voteCommand = () => {
     const playerListFlex = getTableFlex(alivePlayers, null, headerText);
     return lynch([flex_text, playerListFlex]);
   }
+};
+
+const getTargetIndex = () => {
+  // eslint-disable-next-line no-prototype-builtins
+  if (!this.event.message.hasOwnProperty("mention")) {
+    return this.args[1];
+  }
+
+  const mentionees = this.event.message.mention.mentionees;
+
+  if (mentionees.length > 1) {
+    return replyText(`💡 ${this.user_session.name}, kamu hanya bisa vote 1 orang saja`);
+  }
+
+  const mentionedUserId = mentionees[0].userId;
+  for (let i = 0; i < this.group_session.players.length; i++) {
+    if (this.group_session.players[i].id === mentionedUserId) {
+      return i;
+    }
+  }
+
+  return replyText(`💡 ${this.user_session.name}, orang yang kamu tag tidak bergabung kedalam game ini`);
 };
 
 const votingCommand = () => {
