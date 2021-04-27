@@ -4628,6 +4628,7 @@ const revokeCommand = () => {
   const pastTargetVoteName = players[players[index].targetVoteIndex].name;
 
   this.group_session.players[index].targetVoteIndex = -1;
+  this.group_session.players[index].voteJesterIndex = -1;
 
   let text = "💡 " + this.user_session.name;
   text += " batal vote " + pastTargetVoteName;
