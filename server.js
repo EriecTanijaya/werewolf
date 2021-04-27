@@ -38,7 +38,7 @@ async function handleEvent(event) {
     }
     return Promise.resolve(null);
   }
-
+  
   let rawArgs = event.message.text;
   return data.receive(event, rawArgs);
 }

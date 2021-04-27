@@ -12,9 +12,14 @@ const getUpdates = () => {
   const baseUrl = "https://line.me/R/home/public/post?id=218mdfal&postId=";
   let flex_text = {};
   let flex_texts = [];
-  let updates = [
+  const updates = [
     {
-      version: "1.6.0 🆕", //ini yg lastest aja
+      version: "1.6.2 🆕", //ini yg lastest aja
+      majorChanges: "🗳️ Bisa vote pake tag",
+      postId: "1161950403808071694"
+    },
+    {
+      version: "1.6.0",
       majorChanges: "📜 AFK detection rework",
       postId: "1161656404108074904"
     },
@@ -67,11 +72,6 @@ const getUpdates = () => {
       version: "1.3.5",
       majorChanges: "😇 Role changes",
       postId: "1159771303308074463"
-    },
-    {
-      version: "1.3.0",
-      majorChanges: "📜 Rewrite bot",
-      postId: "1159530099008079190"
     }
   ];
 

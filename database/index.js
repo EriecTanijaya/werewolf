@@ -90,10 +90,10 @@ const updateName = async (id, newName) => {
       }
 
       if (!doc) {
-        return resolve("💡 Datamu tidak ditemukan, coba main 1 game");
+        return resolve("nodata");
       }
 
-      resolve("🔄 Data kamu berhasil di sinkron!");
+      resolve("success");
     });
   });
 };

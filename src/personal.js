@@ -105,10 +105,6 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
       return updateName();
     case "/tutorial":
       return tutorialCommand();
-    case "/cg":
-      return sendToGroupMessageCommand();
-    case "/read":
-      return readUserMessageCommand();
     case "/pesan":
       return sendToDevMessageCommand();
     default:
@@ -146,35 +142,6 @@ const sendToDevMessageCommand = () => {
 
       return replyText("✉️ Pesanmu telah dikirim!");
     });
-};
-
-const readUserMessageCommand = async () => {
-  if (this.user_session.id !== process.env.DEV_ID) {
-    return invalidCommand();
-  }
-
-  const msg = await stats.readUserMessageCommand(this.user_sessions);
-  return replyText(msg);
-};
-
-const sendToGroupMessageCommand = async () => {
-  if (this.user_session.id !== process.env.DEV_ID) {
-    return invalidCommand();
-  }
-
-  let message = "";
-  this.args.forEach((item, index) => {
-    if (index !== 0 && index !== 1) {
-      //ini untuk tidak parse text command '/command'
-      if (index !== 2) {
-        message += " ";
-      }
-      message += item;
-    }
-  });
-
-  const msg = await stats.insertDevMessage(this.group_sessions, this.args[1], message);
-  return replyText(msg);
 };
 
 const tutorialCommand = () => {
@@ -794,11 +761,7 @@ const roleCommand = index => {
 
       let text = "";
       if (roleName === "vigilante" && player.willSuicide) {
-        text += "😓 Kamu telah membunuh warga dan merasa sangat bersalah. ";
-        if (player.role.bullet === 0) {
-          text += "Kamu mengecek laci dan menemukan satu peluru. Lalu kamu mengisi senapanmu dengan peluru tersebut. ";
-        }
-        text += "Kamu memasukkan senapanmu kedalam mulut, menutup mata, dan menarik pelatuk dengan perlahan..";
+        text += "😓 Kamu telah membunuh warga dan merasa sangat bersalah.";
       }
 
       return replyFlex(flex_texts, text);

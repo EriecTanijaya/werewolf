@@ -55,29 +55,6 @@ const viewCommand = async (group_sessions, groupIndex) => {
   return text;
 };
 
-const insertDevMessage = async (group_sessions, groupIndex, message) => {
-  const groupsData = getOnlineGroups(group_sessions);
-
-  if (groupIndex === undefined) {
-    return "masukin index dari group list";
-  }
-
-  if (!groupsData.length) return "ga ada group yang online";
-
-  if (!groupsData[groupIndex]) return "invalid, array mulai dari 0";
-
-  const group = groupsData[groupIndex];
-
-  const data = {
-    message: message,
-    timestamp: new Date().getTime()
-  };
-
-  group_sessions[group.groupId].dev_messages.push(data);
-
-  return "message sent!";
-};
-
 const groupsListCommand = async group_sessions => {
   const groupsData = getOnlineGroups(group_sessions);
 
@@ -108,7 +85,11 @@ const usersListCommand = async user_sessions => {
   let text = `Users (${usersData.length}) : \n`;
   let num = 1;
   usersData.forEach(item => {
-    text += `${num}. ${item.name} (${item.groupName})\n`;
+    text += `${num}. ${item.name}`;
+    if (item.groupName !== "") {
+      text += ` (${item.groupName})`;
+    }
+    text += `\n`;
     num++;
   });
 
@@ -149,43 +130,9 @@ const statusCommand = (user_sessions, group_sessions) => {
   return flex_text;
 };
 
-const readUserMessageCommand = async user_sessions => {
-  let text = "";
-  let hasMessage = false;
-  for (let key in user_sessions) {
-    if (user_sessions[key] && user_sessions[key].messages.length > 0) {
-      hasMessage = true;
-      user_sessions[key].messages.forEach(item => {
-        const { message, timestamp, groupName } = item;
-        const time = new Date(timestamp).toLocaleTimeString("en-US", {
-          timeZone: "Asia/Jakarta",
-          hour: "2-digit",
-          minute: "2-digit"
-        });
-        text += `[${time}] `;
-
-        if (groupName) {
-          text += `[${groupName}] `;
-        }
-
-        text += `${user_sessions[key].name}: ${message}\n`;
-      });
-      user_sessions[key].messages = [];
-    }
-  }
-
-  if (!hasMessage) {
-    return "ga ada pesan";
-  }
-
-  return text;
-};
-
 module.exports = {
   statusCommand,
   usersListCommand,
   groupsListCommand,
-  viewCommand,
-  insertDevMessage,
-  readUserMessageCommand
+  viewCommand
 };

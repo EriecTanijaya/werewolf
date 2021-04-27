@@ -88,23 +88,6 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
       }
     }
 
-    if (this.group_session.dev_messages.length > 0) {
-      let text = `📨 Pesan dari dev bot:\n`;
-
-      this.group_session.dev_messages.forEach(item => {
-        const { message, timestamp } = item;
-        const time = new Date(timestamp).toLocaleTimeString("en-US", {
-          timeZone: "Asia/Jakarta",
-          hour: "2-digit",
-          minute: "2-digit"
-        });
-        text += `[${time}] ${message}\n`;
-      });
-
-      this.group_session.dev_messages = [];
-      return replyText(text);
-    }
-
     return Promise.resolve(null);
   }
 
@@ -149,6 +132,8 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
     case "/cok":
       return checkCommand();
     case "/vote_flex":
+    case "/vote":
+    case "/v":
       return voteCommand();
     case "/about":
       return aboutCommand();
@@ -165,13 +150,7 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
     case "/news":
       return personalCommand();
     case "/skip":
-      if (this.user_session.id === process.env.DEV_ID) {
-        this.group_session.time = 0;
-        checkCommand();
-      } else {
-        return invalidCommand();
-      }
-      break;
+      return skipCommand();
     case "/revoke":
       return revokeCommand();
     case "/extend":
@@ -206,6 +185,15 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
       return sendToDevMessageCommand();
     default:
       return invalidCommand();
+  }
+};
+
+const skipCommand = () => {
+  if (this.user_session.id === process.env.DEV_ID) {
+    this.group_session.time = 0;
+    checkCommand();
+  } else {
+    return invalidCommand();
   }
 };
 
@@ -252,7 +240,11 @@ const updateName = async () => {
     this.user_session.name = displayName;
   }
   const res = await database.updateName(this.user_session.id, displayName);
-  return replyText(res);
+  if (res === "nodata") {
+    return replyText("💡 Datamu tidak ditemukan, coba main 1 game");
+  } else if (res === "success") {
+    return replyText("🔄 Data kamu berhasil di sinkron!");
+  }
 };
 
 const meCommand = async () => {
@@ -3294,11 +3286,9 @@ const day = () => {
     }
   }
 
-  let someoneWin = checkVictory();
-
-  if (someoneWin) {
+  if (isSomeoneWin()) {
     flex_texts.unshift(flex_text);
-    return endGame(flex_texts, someoneWin);
+    return endGame(flex_texts, isSomeoneWin());
   } else {
     let alivePlayersCount = getAlivePlayersCount();
     this.group_session.time_default = getTimeDefault(alivePlayersCount);
@@ -3309,10 +3299,6 @@ const day = () => {
     timerText += "💀 Siapa yang mau di" + this.group_session.punishment;
 
     flex_text.bodyText += timerText;
-
-    if (this.group_session.nightCounter === 1) {
-      flex_text.bodyText += "\n\n" + "💡 Pengguna Skill jangan lupa gunakan commands '/news' di pc bot";
-    }
 
     flex_text.buttons = [
       {
@@ -3697,13 +3683,7 @@ const night = () => {
 
   let announcement = "";
 
-  if (this.group_session.isShowRole) {
-    announcement += "📣 Role yang ada di game ini bisa cek di '/roles'. " + "\n\n";
-  }
-
   if (this.group_session.nightCounter === 1) {
-    announcement += "💡 Jangan lupa ketik '/role' di pc bot untuk menggunakan skill" + "\n\n";
-
     const { naration } = modes[this.group_session.mode].getData();
     announcement += naration + "\n\n";
   } else {
@@ -3926,10 +3906,8 @@ const postLynch = () => {
       }
     }
 
-    let someoneWin = checkVictory();
-
-    if (someoneWin) {
-      return endGame(null, someoneWin);
+    if (isSomeoneWin()) {
+      return endGame(null, isSomeoneWin());
     } else {
       substituteMafia(lynched);
       return night(null);
@@ -3937,7 +3915,7 @@ const postLynch = () => {
   }
 };
 
-const checkVictory = () => {
+const isSomeoneWin = () => {
   let someoneWin = "";
   const players = this.group_session.players;
   let alivePeople = 0;
@@ -4042,7 +4020,7 @@ const checkVictory = () => {
   return someoneWin;
 };
 
-const endGame = (flex_texts, whoWin) => {
+const endGame = async (flex_texts, whoWin) => {
   const isVipMode = this.group_session.mode === "vip" ? true : false;
   let surviveTeam = [];
   const players = this.group_session.players;
@@ -4112,6 +4090,8 @@ const endGame = (flex_texts, whoWin) => {
         database.update(players[i].id, "lose", this.group_session);
       }
     }
+
+    await database.updateName(players[i].id, players[i].name);
 
     flex_text.table.contents.push(table_data);
 
@@ -4306,23 +4286,46 @@ const voteCommand = () => {
   const players = this.group_session.players;
 
   if (index === -1) {
-    let text = "💡 " + this.user_session.name + ", kamu tidak join kedalam game";
+    const text = "💡 " + this.user_session.name + ", kamu tidak join kedalam game";
     return replyText(text);
   }
 
   if (players[index].status !== "alive") {
-    let text = respond.alreadyDead(players[index].name, players[index].causeOfDeath);
+    const text = respond.alreadyDead(players[index].name, players[index].causeOfDeath);
     return replyText(text);
   }
 
-  let targetIndex = this.args[1];
+  let targetIndex = -1;
 
-  if (targetIndex === undefined) {
-    return votingCommand();
+  if (this.event.type === "postback") {
+    targetIndex = this.args[1];
+  } else {
+    // eslint-disable-next-line no-prototype-builtins
+    if (!this.event.message.hasOwnProperty("mention")) {
+      return replyText(`💡 ${this.user_session.name}, kamu bisa vote dengan ketik /vote @nama`);
+    }
+
+    const mentionees = this.event.message.mention.mentionees;
+
+    if (mentionees.length > 1) {
+      return replyText(`💡 ${this.user_session.name}, kamu hanya bisa vote 1 orang saja`);
+    }
+
+    const mentionedUserId = mentionees[0].userId;
+    for (let i = 0; i < this.group_session.players.length; i++) {
+      if (this.group_session.players[i].id === mentionedUserId) {
+        targetIndex = i;
+        break;
+      }
+    }
+
+    if (targetIndex === -1) {
+      return replyText(`💡 ${this.user_session.name}, orang yang kamu tag tidak bergabung kedalam game ini`);
+    }
   }
 
   if (targetIndex == index) {
-    let text = "💡 " + players[index].name + ", gak bisa vote diri sendiri";
+    const text = "💡 " + players[index].name + ", gak bisa vote diri sendiri";
     return replyText(text);
   }
 
@@ -4331,7 +4334,7 @@ const voteCommand = () => {
   }
 
   if (players[targetIndex].protected) {
-    let targetName = players[targetIndex].name;
+    const targetName = players[targetIndex].name;
     let text = "⚔️ " + players[index].name + ", ";
     text += targetName + " immune dari vote karena perlindungan Guardian Angel!";
     return replyText(text);
@@ -4349,7 +4352,7 @@ const voteCommand = () => {
 
   this.group_session.players[index].targetVoteIndex = targetIndex;
 
-  text += players[targetIndex].name + " untuk di" + this.group_session.punishment;
+  text += `${players[targetIndex].name} untuk di${this.group_session.punishment}`;
 
   // set if vote jester or not
   if (players[targetIndex].role.name === "jester") {
@@ -4364,11 +4367,6 @@ const voteCommand = () => {
   const checkVote = checkVoteStatus(voteNeeded);
 
   if (checkVote.status !== "enough_vote") {
-    let voteFlex = "💡 Ketik '/cek' untuk munculin flex vote. ";
-    if (time > 15) {
-      voteFlex += "⏳ Waktu tersisa " + this.group_session.time + " detik lagi";
-    }
-    text += "\n" + voteFlex;
     return replyText(text);
   } else {
     const flex_text = {
@@ -4504,7 +4502,7 @@ const getTableFlex = (alivePlayers, text, headerText, opt_buttons) => {
   }
 
   flex_text.table = {
-    headers: ["No.", "Name", "Status", "Vote"],
+    headers: ["No.", "Name", "Vote"],
     contents: []
   };
 
@@ -4513,9 +4511,9 @@ const getTableFlex = (alivePlayers, text, headerText, opt_buttons) => {
     let table_data = [`${num}.`, voter.name];
 
     if (voter.targetVoteIndex === -1) {
-      table_data.push("pending", "-");
+      table_data.push("-");
     } else {
-      table_data.push("done", players[voter.targetVoteIndex].name);
+      table_data.push(players[voter.targetVoteIndex].name);
     }
 
     num++;
@@ -4620,6 +4618,7 @@ const revokeCommand = () => {
   const pastTargetVoteName = players[players[index].targetVoteIndex].name;
 
   this.group_session.players[index].targetVoteIndex = -1;
+  this.group_session.players[index].voteJesterIndex = -1;
 
   let text = "💡 " + this.user_session.name;
   text += " batal vote " + pastTargetVoteName;
@@ -5072,26 +5071,27 @@ const settingCommand = () => {
 const commandCommand = () => {
   const flex_texts = [];
   const cmds = [
-    "/new : main game",
-    "/cancel : keluar game",
-    "/join : join game",
-    "/players : cek list pemain",
-    "/stop : stop game",
-    "/start : start game",
-    "/info : tampilin list role",
-    "/about : tentang bot",
-    "/revoke : untuk batal voting",
-    "/kick : keluarin bot",
-    "/setting : liat settingan bot",
-    "/tutorial : self explanatory",
-    "/gamestat : status game yg berjalan",
-    "/forum : link ke openchat",
-    "/updates : untuk melihat 12 update terakhir bot",
-    "/promote : open group dengan memberikan admin group",
-    "/rank : list top 10 pemain",
-    "/me : info data diri sendiri",
-    "/sync : sinkronisasi data pemain",
-    "/pesan pesan : untuk mengirimkan pesan kepada dev bot"
+    "/new: main game",
+    "/cancel: keluar game",
+    "/join: join game",
+    "/players: cek list pemain",
+    "/stop: stop game",
+    "/start: start game",
+    "/info: tampilin list role",
+    "/about: tentang bot",
+    "/revoke: untuk batal voting",
+    "/kick: keluarin bot",
+    "/setting: liat settingan bot",
+    "/tutorial: self explanatory",
+    "/gamestat: status game yg berjalan",
+    "/forum: link ke openchat",
+    "/updates: untuk melihat 12 update terakhir bot",
+    "/promote: open group dengan memberikan admin group",
+    "/rank: list top 10 pemain",
+    "/me: info data diri sendiri",
+    "/sync: sinkronisasi data pemain",
+    "/pesan pesan: untuk mengirimkan pesan kepada dev bot",
+    "/roles: menampilkan semua peran yang ada disuatu game"
   ];
 
   let flexNeeded = 0;
