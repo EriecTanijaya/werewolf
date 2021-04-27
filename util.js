@@ -12,9 +12,14 @@ const getUpdates = () => {
   const baseUrl = "https://line.me/R/home/public/post?id=218mdfal&postId=";
   let flex_text = {};
   let flex_texts = [];
-  let updates = [
+  const updates = [
     {
-      version: "1.6.0 🆕", //ini yg lastest aja
+      version: "1.6.2 🆕", //ini yg lastest aja
+      majorChanges: "",
+      postId: ""
+    },
+    {
+      version: "1.6.0",
       majorChanges: "📜 AFK detection rework",
       postId: "1161656404108074904"
     },

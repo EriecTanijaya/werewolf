@@ -3300,10 +3300,6 @@ const day = () => {
 
     flex_text.bodyText += timerText;
 
-    if (this.group_session.nightCounter === 1) {
-      flex_text.bodyText += "\n\n" + "💡 Pengguna Skill jangan lupa gunakan commands '/news' di pc bot";
-    }
-
     flex_text.buttons = [
       {
         action: "uri",
@@ -3687,13 +3683,7 @@ const night = () => {
 
   let announcement = "";
 
-  if (this.group_session.isShowRole) {
-    announcement += "📣 Role yang ada di game ini bisa cek di '/roles'. " + "\n\n";
-  }
-
   if (this.group_session.nightCounter === 1) {
-    announcement += "💡 Jangan lupa ketik '/role' di pc bot untuk menggunakan skill" + "\n\n";
-
     const { naration } = modes[this.group_session.mode].getData();
     announcement += naration + "\n\n";
   } else {
@@ -5081,26 +5071,27 @@ const settingCommand = () => {
 const commandCommand = () => {
   const flex_texts = [];
   const cmds = [
-    "/new : main game",
-    "/cancel : keluar game",
-    "/join : join game",
-    "/players : cek list pemain",
-    "/stop : stop game",
-    "/start : start game",
-    "/info : tampilin list role",
-    "/about : tentang bot",
-    "/revoke : untuk batal voting",
-    "/kick : keluarin bot",
-    "/setting : liat settingan bot",
-    "/tutorial : self explanatory",
-    "/gamestat : status game yg berjalan",
-    "/forum : link ke openchat",
-    "/updates : untuk melihat 12 update terakhir bot",
-    "/promote : open group dengan memberikan admin group",
-    "/rank : list top 10 pemain",
-    "/me : info data diri sendiri",
-    "/sync : sinkronisasi data pemain",
-    "/pesan pesan : untuk mengirimkan pesan kepada dev bot"
+    "/new: main game",
+    "/cancel: keluar game",
+    "/join: join game",
+    "/players: cek list pemain",
+    "/stop: stop game",
+    "/start: start game",
+    "/info: tampilin list role",
+    "/about: tentang bot",
+    "/revoke: untuk batal voting",
+    "/kick: keluarin bot",
+    "/setting: liat settingan bot",
+    "/tutorial: self explanatory",
+    "/gamestat: status game yg berjalan",
+    "/forum: link ke openchat",
+    "/updates: untuk melihat 12 update terakhir bot",
+    "/promote: open group dengan memberikan admin group",
+    "/rank: list top 10 pemain",
+    "/me: info data diri sendiri",
+    "/sync: sinkronisasi data pemain",
+    "/pesan pesan: untuk mengirimkan pesan kepada dev bot",
+    "/roles: menampilkan semua peran yang ada disuatu game"
   ];
 
   let flexNeeded = 0;
