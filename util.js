@@ -15,8 +15,8 @@ const getUpdates = () => {
   const updates = [
     {
       version: "1.6.2 🆕", //ini yg lastest aja
-      majorChanges: "",
-      postId: ""
+      majorChanges: "🗳️ Bisa vote pake tag",
+      postId: "1161950403808071694"
     },
     {
       version: "1.6.0",
