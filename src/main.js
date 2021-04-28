@@ -4758,6 +4758,15 @@ const playersCommand = () => {
   const flex_text = util.getPlayersList(players, state);
 
   if (this.group_session.state === "new") {
+    for (let i = 0; i < players.length; i++) {
+      if (players[i].name === "") {
+        resetGroup();
+        return replyText(
+          `💡 Ditemukan error pada data pemain yang telah bergabung! Game dihentikan, ketik /new untuk membuat game baru lagi. Jika kamu masih mendapatkan pesan ini terus menerus, lapor ke /forum`
+        );
+      }
+    }
+    
     flex_text.buttons = [
       {
         action: "postback",
