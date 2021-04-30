@@ -3765,15 +3765,15 @@ const getTimeDefault = playersLength => {
   }
 
   if (playersLength === 3) {
-    return 35;
+    return 40;
   } else if (playersLength > 10) {
-    return 90;
+    return 100;
   } else {
     // 4 - 9 players logic
     let time = 0;
     let temp = playersLength;
     while (temp) {
-      time += 0.9;
+      time += 0.95;
       temp--;
     }
     time = Math.round(time) * 10;
@@ -4398,7 +4398,7 @@ const votingCommand = () => {
 
       runTimer();
 
-      let default_time = this.group_session.time_default;
+      const default_time = this.group_session.time_default;
       text += "⏳ Waktu yang diberikan " + default_time + " detik" + "\n";
     }
   }
@@ -4766,7 +4766,7 @@ const playersCommand = () => {
         );
       }
     }
-    
+
     flex_text.buttons = [
       {
         action: "postback",
