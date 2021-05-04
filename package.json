@@ -4,6 +4,7 @@
   "description": "Bot Werewolf untuk line messenger",
   "main": "server.js",
   "scripts": {
+    "preinstall": "npm set progress=false && npm set audit false && npm config set fund false",
     "start": "node server.js",
     "//start": "eslint . && node server.js"
   },
@@ -11,7 +12,7 @@
     "@line/bot-sdk": "^7.3.0",
     "eslint": "^7.25.0",
     "express": "^4.17.1",
-    "mongoose": "^5.12.6"
+    "mongoose": "^5.12.7"
   },
   "engines": {
     "node": "14.x"

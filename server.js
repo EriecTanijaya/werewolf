@@ -1,3 +1,5 @@
+const cluster = require("cluster");
+const numCPUs = require("os").cpus().length;
 const line = require("@line/bot-sdk");
 const express = require("express");
 const app = express();
@@ -11,40 +13,58 @@ const config = {
   channelSecret: process.env.CHANNEL_SECRET
 };
 
-app.get("/", (req, res) => res.sendStatus(200));
+if (cluster.isMaster) {
+  console.log(`Master ${process.pid} is running`);
 
-app.post("/callback", line.middleware(config), (req, res) => {
-  Promise.all(req.body.events.map(handleEvent))
-    .then(() => res.end())
-    .catch(err => {
-      console.error("error di app.post", err);
-      res.status(500).end();
-    });
-});
-
-async function handleEvent(event) {
-  //Note: should return! So Promise.all could catch the error
-  if (event.type === "postback") {
-    let rawArgs = event.postback.data;
-    return data.receive(event, rawArgs);
+  // Fork workers.
+  for (let i = 0; i < numCPUs; i++) {
+    cluster.fork();
   }
 
-  if (event.type !== "message" || event.message.type !== "text") {
-    const otherEvents = ["follow", "memberJoined", "join", "leave", "memberLeft", "unfollow"];
-    if (otherEvents.includes(event.type)) {
-      return data.receive(event, "");
-    } else if (event.type === "message") {
-      return data.receive(event, event.message.type);
+  //Check if work id is died
+  cluster.on("exit", (worker, code, signal) => {
+    console.log(`worker ${worker.process.pid} died`);
+    console.log(`Let's fork another worker!`);
+    cluster.fork();
+  });
+} else {
+  // This is Workers can share any TCP connection
+  // It will be initialized using express
+  console.log(`Worker ${process.pid} started`);
+
+  app.get("/", (req, res) => res.sendStatus(200));
+
+  app.post("/callback", line.middleware(config), (req, res) => {
+    Promise.all(req.body.events.map(handleEvent))
+      .then(() => res.end())
+      .catch(err => {
+        console.error("error di app.post", err);
+        res.status(500).end();
+      });
+  });
+
+  async function handleEvent(event) {
+    //Note: should return! So Promise.all could catch the error
+    if (event.type === "postback") {
+      return data.receive(event, event.postback.data);
     }
-    return Promise.resolve(null);
-  }
-  
-  let rawArgs = event.message.text;
-  return data.receive(event, rawArgs);
-}
 
-// listen for requests :)
-const port = process.env.PORT || 3000;
-app.listen(port, () => {
-  console.log("Your app is listening on port " + port);
-});
+    if (event.type !== "message" || event.message.type !== "text") {
+      const otherEvents = ["follow", "memberJoined", "join", "leave", "memberLeft", "unfollow"];
+      if (otherEvents.includes(event.type)) {
+        return data.receive(event, "");
+      } else if (event.type === "message") {
+        return data.receive(event, event.message.type);
+      }
+      return Promise.resolve(null);
+    }
+
+    return data.receive(event, event.message.text);
+  }
+
+  // listen for requests :)
+  const port = process.env.PORT || 3000;
+  app.listen(port, () => {
+    console.log("Your app is listening on port " + port);
+  });
+}
