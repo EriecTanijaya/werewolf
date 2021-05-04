@@ -3952,7 +3952,7 @@ const isSomeoneWin = () => {
   /// mafia win
   if (mafiaCount > 0) {
     if (villagerCount <= 1 && !vampireCount && !neutralsKillingCount) {
-      someoneWin = "mafia";
+      someoneWin = "mafia"; 
     }
   }
 
@@ -4363,7 +4363,6 @@ const voteCommand = () => {
 
   const voteNeeded = Math.round(getAlivePlayersCount() / 2);
   const headerText = "📣 Voting";
-  const time = this.group_session.time;
   const checkVote = checkVoteStatus(voteNeeded);
 
   if (checkVote.status !== "enough_vote") {
