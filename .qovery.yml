@@ -1,0 +1,11 @@
+---
+application:
+  name: "bedburg-bot"
+  project: "bedburg-bot"
+  organization: "QoveryCommunity"
+routers:
+- name: "main-bedburg-bot"
+  routes:
+  - application_name: "bedburg-bot"
+    paths:
+    - "/*"
