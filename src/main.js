@@ -3410,9 +3410,7 @@ const startCommand = () => {
   const players = this.group_session.players;
 
   if (index === -1) {
-    let text = "💡 " + this.user_session.name;
-    text += ", kamu belum join kedalam game";
-    return replyText(text);
+    return replyText(`💡 ${this.user_session.name}, kamu belum join kedalam game`);
   }
 
   for (let i = 0; i < players.length; i++) {
@@ -5047,9 +5045,7 @@ const newCommand = () => {
 const settingCommand = () => {
   const state = this.group_session.state;
   if (state !== "idle" && state !== "new") {
-    let text = "💡 " + this.user_session.name;
-    text += ", setting hanya bisa di atur saat game belum berjalan";
-    return replyText(text);
+    return replyText(`💡 ${this.user_session.name}, setting hanya bisa di atur saat game belum berjalan`);
   }
 
   return setting.receive(this.event, this.args, this.rawArgs, this.group_sessions, this.user_sessions);
