@@ -212,17 +212,17 @@ const receive = async (event, rawArgs) => {
   const playersLength = group_sessions[groupId].players.length;
   const hasMinimumPlayers = playersLength > 4 ? true : false;
 
-  if (!groupAvailableTime && !usingCommand && !isStay && !hasMinimumPlayers) {
-    const groupState = group_sessions[groupId].state;
-    if (playersLength < 5 && groupState === "new") {
-      group_sessions[groupId].state = "idle";
-      resetAllPlayers(group_sessions[groupId].players);
-    }
+//   if (!groupAvailableTime && !usingCommand && !isStay && !hasMinimumPlayers) {
+//     const groupState = group_sessions[groupId].state;
+//     if (playersLength < 5 && groupState === "new") {
+//       group_sessions[groupId].state = "idle";
+//       resetAllPlayers(group_sessions[groupId].players);
+//     }
 
-    let text = "👋 Sistem mendeteksi tidak ada permainan dalam 5 menit. ";
-    text += "Undang kembali jika mau main ya!";
-    return util.leaveGroup(this.event, groupId, text);
-  }
+//     let text = "👋 Sistem mendeteksi tidak ada permainan dalam 5 menit. ";
+//     text += "Undang kembali jika mau main ya!";
+//     return util.leaveGroup(this.event, groupId, text);
+//   }
 
   if (this.event.source.type === "group" && group_sessions[groupId].name === "") {
     let { groupName } = await client.getGroupSummary(groupId);
