@@ -198,7 +198,6 @@ const receive = async (event, rawArgs) => {
       time: 300,
       mode: "beginner",
       isShowRole: true,
-      stay: false,
       customRoles: [],
       lastFirstBloodIds: [],
       currentFirstBloodIds: [],
@@ -207,10 +206,12 @@ const receive = async (event, rawArgs) => {
     group_sessions[groupId] = newGroup;
   }
 
-  const groupAvailableTime = group_sessions[groupId].time;
-  const isStay = group_sessions[groupId].stay;
-  const playersLength = group_sessions[groupId].players.length;
-  const hasMinimumPlayers = playersLength > 4 ? true : false;
+  
+  
+  // cp Test ga leave group
+  // const groupAvailableTime = group_sessions[groupId].time;
+  // const playersLength = group_sessions[groupId].players.length;
+  // const hasMinimumPlayers = playersLength > 4 ? true : false;
 
 //   if (!groupAvailableTime && !usingCommand && !isStay && !hasMinimumPlayers) {
 //     const groupState = group_sessions[groupId].state;
