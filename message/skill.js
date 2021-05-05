@@ -1,9 +1,9 @@
 module.exports = {
   response: function(doer, wantBroadcast) {
-    let roleName = doer.roleName;
-    let targetName = doer.targetName;
-    let isChangeTarget = doer.changeTarget;
-    let isSelfTarget = doer.selfTarget;
+    const roleName = doer.roleName;
+    const targetName = doer.targetName;
+    const isChangeTarget = doer.changeTarget;
+    const isSelfTarget = doer.selfTarget;
     let text = "";
     let subjectText = "Kamu";
 

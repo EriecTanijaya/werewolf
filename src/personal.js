@@ -194,12 +194,12 @@ const cancelCommand = index => {
   const players = this.group_session.players;
   for (let i = 0; i < players.length; i++) {
     if (this.group_session.roomHostId === this.user_session.id) {
-      let randomPlayer = util.random(this.group_session.players);
+      const randomPlayer = util.random(this.group_session.players);
       this.group_session.roomHostId = randomPlayer.id;
       text += "\n" + "👑 " + randomPlayer.name;
       text += " menjadi host baru dalam room ini. ";
+      break;
     }
-    break;
   }
 
   if (this.group_session.players.length === 0) {
@@ -255,14 +255,14 @@ const protectCommand = index => {
     return replyText("💡 Kamu sudah tidak memiliki protection yang tersisa");
   }
 
-  let targetIndex = this.group_session.players[index].role.mustProtectIndex;
+  const targetIndex = this.group_session.players[index].role.mustProtectIndex;
 
   this.group_session.players[index].target.index = targetIndex;
 
   let text = "";
   let msg = [];
 
-  let doer = {
+  const doer = {
     name: players[index].name,
     roleName: roleName,
     targetName: players[targetIndex].name,
@@ -303,7 +303,7 @@ const alertCommand = index => {
   let text = "";
   let msg = [];
 
-  let doer = {
+  const doer = {
     name: players[index].name,
     roleName: roleName,
     targetName: "",
@@ -314,8 +314,7 @@ const alertCommand = index => {
   msg = [text];
 
   if (players[index].role.canKill && players[index].deathNote === "") {
-    let dnoteText = "💡 Kamu belum buat death note, ketik '/dnote' <isi note kamu>";
-    msg.push(dnoteText);
+    msg.push("💡 Kamu belum buat death note, ketik '/dnote' <isi note kamu>");
   }
 
   return replyText(msg);
@@ -329,7 +328,7 @@ const vestCommand = index => {
     return replyText("💡 Bukan saatnya menggunakan skill");
   }
 
-  let roleName = players[index].role.name;
+  const roleName = players[index].role.name;
 
   if (roleName !== "survivor") {
     return replyText("💡 Role mu bukan Survivor");
@@ -349,7 +348,7 @@ const vestCommand = index => {
   let text = "";
   let msg = [];
 
-  let doer = {
+  const doer = {
     name: players[index].name,
     roleName: roleName,
     targetName: "",

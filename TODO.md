@@ -1,5 +1,6 @@
 ### TODO
-
+- proses database fuckup, itu ambil data lambat, querynya harus diganti, database musti direset, yang buat lambat itu hitung rank
+  keknya buat sistem poin untuk ranking aja deh (ini points cman dev yg tau)
 - bug, kalau ada yang ke veteran, lalu di heal, nanti data visitor veteran duplikat
   - cara cek, lookout ke veteran, veteran alert, doctor heal lookout biar lookout bisa liat skill
   - lalu coba salah satu role ke veteran

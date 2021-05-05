@@ -8,7 +8,7 @@ module.exports = {
   getAttackResponse: function(attackersRoleName, victimName, isDieFromGuilt, isAfk) {
     let text = "💀 " + victimName + " ditemukan mati ";
 
-    let attackersCount = attackersRoleName.length;
+    const attackersCount = attackersRoleName.length;
 
     if (attackersCount > 1) {
       if (attackersCount > 2) {

@@ -12,14 +12,14 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
   this.user_sessions = user_sessions;
   this.group_sessions = group_sessions;
 
-  let userId = event.source.userId;
+  const userId = event.source.userId;
   this.user_session = user_sessions[userId];
 
   if (!rawArgs.startsWith("/")) {
     return Promise.resolve(null);
   }
 
-  let input = args[0].toLowerCase();
+  const input = args[0].toLowerCase();
   switch (input) {
     case "/help":
       return helpCommand();
@@ -268,7 +268,7 @@ const replyText = async texts => {
       "https://cdn.glitch.com/fc7de31a-faeb-4c50-8a38-834ec153f590%2F%E2%80%94Pngtree%E2%80%94microphone%20vector%20icon_3725450.png?v=1587456628843"
   };
 
-  let msg = texts.map(text => {
+  const msg = texts.map(text => {
     return {
       sender,
       type: "text",

@@ -1,16 +1,5 @@
 const util = require("../util");
 
-const enoughPlayer = () => {
-  const arr = [
-    "📣 Sudah cukup pemain, game bisa dimulai",
-    "📣 Oke, pemainnya udah cukup, udah bisa dimulai gamenya",
-    "📣 Yok yok nambah pemain lagii",
-    "📣 Yakin segini aja cukup?",
-    "📣 Game udah bisa di mulai, tapi masih bisa nambah pemain!"
-  ];
-  return util.random(arr);
-};
-
 const stopGame = who => {
   const arr = [`💡 Jiahh, game di stop ${who}`, `💡 Game telah di stop ${who}`, `💡 Bubar bubar!`];
   return util.random(arr);
@@ -25,8 +14,6 @@ const punish = (punishment, lynchedName, voteCount) => {
     `💀 Disaat para warga masih sibuk berdebat, ${lynchedName} ${punishment} diri sendiri`,
     `💀 Selamat, ${lynchedName} berhasil di${punishment} dengan jumlah ${voteCount} vote!`,
     `💀 Warga merasa kasihan dengan ${lynchedName}, tetapi tetap ae mereka ${punishment} dia`,
-    `💀 "Avada Kedavra!" ${lynchedName} menghilang tanpa ada jejak. \n\n🧙 Hairy Potter : "err, aku bisa jelaskan"`,
-    `🥊 "WATCH OUT WATCH OUT WATCH OUT" ${lynchedName} di RKO 👨‍🦲 Randy Orton`,
     `💀 Tanpa nasi basi, ${lynchedName} di${punishment} dari hasil voting para warga`
   ];
   return util.random(arr);
@@ -105,7 +92,6 @@ const notLynch = punishment => {
 };
 
 module.exports = {
-  enoughPlayer,
   stopGame,
   punish,
   join,
