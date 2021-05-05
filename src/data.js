@@ -99,7 +99,7 @@ const receive = async (event, rawArgs) => {
 
   const userId = this.event.source.userId;
   if (!user_sessions[userId]) {
-    let newUser = {
+    const newUser = {
       id: userId,
       name: "",
       state: "inactive",
@@ -190,7 +190,7 @@ const receive = async (event, rawArgs) => {
   }
 
   if (!group_sessions[groupId]) {
-    let newGroup = {
+    const newGroup = {
       groupId: groupId,
       name: "",
       state: "idle",

@@ -18,7 +18,6 @@ const receive = (event, args, rawArgs, groupState = null) => {
   }
 
   let input = args[1].toLowerCase();
-
   if (input === "role") {
     return roleListCommand();
   } else if (input === "mode") {

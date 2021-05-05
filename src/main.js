@@ -64,12 +64,10 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
               for (let i = 0; i < subjects.length; i++) {
                 if (rawArgs.indexOf(subjects[i]) !== -1) {
                   this.group_session.players[index].role.revealed = true;
-                  let text = "🎩 " + players[index].name;
-                  text += " telah mengungkapkan dirinya sebagai Mayor!";
 
-                  let flex_text = {
+                  const flex_text = {
                     headerText: "📜 Info",
-                    bodyText: text
+                    bodyText: `🎩 ${players[index].name} telah mengungkapkan dirinya sebagai Mayor!`
                   };
 
                   return replyFlex(flex_text);
@@ -260,9 +258,9 @@ const rankCommand = async () => {
 
 const day = () => {
   /// BUAT MASING" SYSTEM UNTUK DAY FUNC
-  let flex_texts = [];
+  const flex_texts = [];
   this.group_session.state = "day";
-  let players = this.group_session.players;
+  const players = this.group_session.players;
 
   this.group_session.players.forEach(item => {
     if (item.status === "alive") {
@@ -280,7 +278,7 @@ const day = () => {
   let arsonistAnnouncement = {};
 
   /// Veteran targetIndexes
-  let veteranTargetIndexes = [];
+  const veteranTargetIndexes = [];
 
   /// Spy global var
   let spyMafiaVisitInfo = "";
@@ -3412,9 +3410,7 @@ const startCommand = () => {
   const players = this.group_session.players;
 
   if (index === -1) {
-    let text = "💡 " + this.user_session.name;
-    text += ", kamu belum join kedalam game";
-    return replyText(text);
+    return replyText(`💡 ${this.user_session.name}, kamu belum join kedalam game`);
   }
 
   for (let i = 0; i < players.length; i++) {
@@ -3952,7 +3948,7 @@ const isSomeoneWin = () => {
   /// mafia win
   if (mafiaCount > 0) {
     if (villagerCount <= 1 && !vampireCount && !neutralsKillingCount) {
-      someoneWin = "mafia"; 
+      someoneWin = "mafia";
     }
   }
 
@@ -4413,8 +4409,8 @@ const votingCommand = () => {
     flexBodyText += "\n\n" + "💡 Untuk batal vote bisa ketik '/revoke'";
   }
 
-  let flex_texts = [];
-  let flex_text = {
+  const flex_texts = [];
+  const flex_text = {
     headerText: "📣 Voting",
     bodyText: flexBodyText,
     buttons: []
@@ -4451,8 +4447,7 @@ const processVote = () => {
     bodyText: ""
   };
 
-  let checkVote = checkVoteStatus(voteNeeded);
-
+  const checkVote = checkVoteStatus(voteNeeded);
   if (checkVote.status !== "enough_vote") {
     headerText = "📣 Penghukuman ditunda";
     text = respond.notLynch(this.group_session.punishment);
@@ -4507,7 +4502,7 @@ const getTableFlex = (alivePlayers, text, headerText, opt_buttons) => {
 
   let num = 1;
   alivePlayers.forEach(voter => {
-    let table_data = [`${num}.`, voter.name];
+    const table_data = [`${num}.`, voter.name];
 
     if (voter.targetVoteIndex === -1) {
       table_data.push("-");
@@ -4524,7 +4519,7 @@ const getTableFlex = (alivePlayers, text, headerText, opt_buttons) => {
 };
 
 const getAlivePlayers = () => {
-  let alivePlayers = [];
+  const alivePlayers = [];
   this.group_session.players.forEach(item => {
     if (item.status === "alive") {
       alivePlayers.push(item);
@@ -4534,18 +4529,18 @@ const getAlivePlayers = () => {
 };
 
 const checkVoteStatus = voteNeeded => {
-  let response = {
+  const response = {
     status: "no_candidate",
     lynchTarget: {}
   };
 
-  const notVote = getNotVotePlayers();
+  const notVoteCount = getNotVotePlayersCount();
   const players = this.group_session.players;
 
-  if (this.group_session.time === 0 || notVote.length === 0) {
+  if (this.group_session.time === 0 || notVoteCount === 0) {
     const candidates = getVoteCandidates();
 
-    let lynchTarget = util.getMostFrequent(candidates);
+    const lynchTarget = util.getMostFrequent(candidates);
 
     if (players[lynchTarget.index] && lynchTarget.count >= voteNeeded) {
       response.lynchTarget = lynchTarget;
@@ -4556,18 +4551,18 @@ const checkVoteStatus = voteNeeded => {
   return response;
 };
 
-const getNotVotePlayers = () => {
-  let notVote = [];
+const getNotVotePlayersCount = () => {
+  let cnt = 0;
   this.group_session.players.forEach(item => {
     if (item.status === "alive" && item.targetVoteIndex === -1) {
-      notVote.push(item);
+      cnt++;
     }
   });
-  return notVote;
+  return cnt;
 };
 
 const getVoteCandidates = () => {
-  let candidates = [];
+  const candidates = [];
   this.group_session.players.forEach(item => {
     if (item.status === "alive" && item.targetVoteIndex !== -1) {
       candidates.push(item.targetVoteIndex);
@@ -4596,9 +4591,7 @@ const revokeCommand = () => {
   const index = indexOfPlayer();
 
   if (index === -1) {
-    let text = "💡 " + this.user_session.name;
-    text += ", kamu tidak join kedalam game";
-    return replyText(text);
+    return replyText(`💡 ${this.user_session.name}, kamu tidak join kedalam game`);
   }
 
   const players = this.group_session.players;
@@ -4609,9 +4602,7 @@ const revokeCommand = () => {
   }
 
   if (players[index].targetVoteIndex === -1) {
-    let text = "💡 " + this.user_session.name;
-    text += ", kamu belum vote siapa - siapa";
-    return replyText(text);
+    return replyText(`💡 ${this.user_session.name}, kamu belum vote siapa-siapa`);
   }
 
   const pastTargetVoteName = players[players[index].targetVoteIndex].name;
@@ -4619,9 +4610,7 @@ const revokeCommand = () => {
   this.group_session.players[index].targetVoteIndex = -1;
   this.group_session.players[index].voteJesterIndex = -1;
 
-  let text = "💡 " + this.user_session.name;
-  text += " batal vote " + pastTargetVoteName;
-  return replyText(text);
+  return replyText(`💡 ${this.user_session.name} batal vote ${pastTargetVoteName}`);
 };
 
 const skillCommand = () => {
@@ -4682,7 +4671,7 @@ const roleListCommand = () => {
   }
 
   const roles = this.group_session.roles.join(", ");
-  let flex_text = {
+  const flex_text = {
     headerText: "🤵 Role List 🕵️",
     bodyText: roles
   };
@@ -4790,7 +4779,7 @@ const extendCommand = () => {
   }
 
   if (this.group_session.time >= 600) {
-    let minute = Math.round(this.group_session.time / 60);
+    const minute = Math.round(this.group_session.time / 60);
     let text = "💡 Belum bisa menambah waktu tunggu. ";
     text += "⏳ Waktu masih tersisa " + minute + " menit";
     return replyText(text);
@@ -4799,14 +4788,12 @@ const extendCommand = () => {
   this.group_session.time += 60;
 
   let remind = "⏳ Waktu berhasil di tambah 1 menit. ";
-  remind += "Sisa waktu ";
-
   if (this.group_session.time > 90) {
     let minute = Math.round(this.group_session.time / 60);
-    remind += minute + " menit lagi. ";
+    remind += "Sisa waktu " + minute + " menit lagi. ";
     remind += "💡 Game akan di berhentikan jika waktu telah habis. ";
   } else {
-    remind += this.group_session.time + " detik lagi";
+    remind += "Sisa waktu " + this.group_session.time + " detik lagi";
   }
 
   return replyText(remind);
@@ -4826,9 +4813,7 @@ const stopCommand = () => {
   const index = indexOfPlayer();
 
   if (index === -1) {
-    let text = "💡 " + this.user_session.name;
-    text += ", kamu belum join kedalam game";
-    return replyText(text);
+    return replyText(`💡 ${this.user_session.name}, kamu belum join kedalam game`);
   }
 
   if (this.user_session.id !== this.group_session.roomHostId) {
@@ -4875,9 +4860,7 @@ const cancelCommand = () => {
   const index = indexOfPlayer();
 
   if (index === -1) {
-    let text = "💡 " + this.user_session.name;
-    text += ", kamu belum join kedalam game";
-    return replyText(text);
+    return replyText(`💡 ${this.user_session.name}, kamu belum join kedalam game`);
   }
 
   util.cutFromArray(this.group_session.players, index);
@@ -4887,12 +4870,12 @@ const cancelCommand = () => {
   const players = this.group_session.players;
   for (let i = 0; i < players.length; i++) {
     if (this.group_session.roomHostId === this.user_session.id) {
-      let randomPlayer = util.random(this.group_session.players);
+      const randomPlayer = util.random(this.group_session.players);
       this.group_session.roomHostId = randomPlayer.id;
       text += "\n" + "👑 " + randomPlayer.name;
       text += " menjadi host baru dalam room ini. ";
+      break;
     }
-    break;
   }
 
   if (this.group_session.players.length === 0) {
@@ -4945,16 +4928,14 @@ const joinCommand = () => {
   }
 
   if (this.group_session.players.length === 15) {
-    let text = "💡 " + this.user_session.name;
-    text += ", room sudah penuh";
-    return replyText(text);
+    return replyText(`💡 ${this.user_session.name}, room sudah penuh`);
   }
 
   this.user_session.state = "active";
   this.user_session.groupId = this.group_session.groupId;
   this.user_session.groupName = this.group_session.name;
 
-  let newPlayer = createNewPlayer(this.user_session);
+  const newPlayer = createNewPlayer(this.user_session);
 
   this.group_session.players.push(newPlayer);
 
@@ -4972,12 +4953,8 @@ const joinCommand = () => {
     text += "\n" + reminder;
   }
 
-  if (this.group_session.players.length >= 5) {
-    if (this.group_session.players.length === 15) {
-      text += "\n" + "📣 Room sudah penuh, game bisa dimulai";
-    } else {
-      text += "\n" + respond.enoughPlayer();
-    }
+  if (this.group_session.players.length === 15) {
+    text += "\n" + "📣 Room sudah penuh, game bisa dimulai";
   }
 
   return replyText(text);
@@ -5068,9 +5045,7 @@ const newCommand = () => {
 const settingCommand = () => {
   const state = this.group_session.state;
   if (state !== "idle" && state !== "new") {
-    let text = "💡 " + this.user_session.name;
-    text += ", setting hanya bisa di atur saat game belum berjalan";
-    return replyText(text);
+    return replyText(`💡 ${this.user_session.name}, setting hanya bisa di atur saat game belum berjalan`);
   }
 
   return setting.receive(this.event, this.args, this.rawArgs, this.group_sessions, this.user_sessions);
@@ -5213,7 +5188,7 @@ const resetAllPlayers = () => {
 
 const createNewPlayer = user_session => {
   // di sini set prop yang ga bisa di reset tiap malam, dan bisa persistent sepanjang game
-  let newPlayer = {
+  const newPlayer = {
     id: user_session.id,
     name: user_session.name,
     role: {
