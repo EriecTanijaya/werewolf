@@ -982,11 +982,7 @@ const day = () => {
         }
       }
 
-      const immuneToBasicAttack = ["serial-killer", "arsonist", "godfather", "executioner"];
-
-      if (this.group_session.isFullMoon) {
-        immuneToBasicAttack.push("werewolf");
-      }
+      const immuneToBasicAttack = ["serial-killer", "arsonist", "godfather", "executioner", "werewolf"];
 
       /// skill level 0
       if (skillLevel < 3) {
@@ -1736,11 +1732,7 @@ const day = () => {
 
       checkInfection(i, targetIndex);
 
-      const immuneToBasicAttack = ["serial-killer", "arsonist", "godfather", "executioner"];
-
-      if (this.group_session.isFullMoon) {
-        immuneToBasicAttack.push("werewolf");
-      }
+      const immuneToBasicAttack = ["serial-killer", "arsonist", "godfather", "executioner", "werewolf"];
 
       if (immuneToBasicAttack.includes(target.role.name)) {
         this.group_session.players[i].message += "💡 Pertahanan targetmu terlalu tinggi untuk dibunuh!" + "\n\n";
@@ -1816,11 +1808,7 @@ const day = () => {
         checkInfection(i, targetIndex);
       }
 
-      const immuneToBasicAttack = ["serial-killer", "arsonist", "godfather", "executioner"];
-
-      if (this.group_session.isFullMoon) {
-        immuneToBasicAttack.push("werewolf");
-      }
+      const immuneToBasicAttack = ["serial-killer", "arsonist", "godfather", "executioner", "werewolf"];
 
       if (immuneToBasicAttack.includes(target.role.name)) {
         this.group_session.players[i].message += "💡 Pertahanan targetmu terlalu tinggi untuk dibunuh!" + "\n\n";
@@ -1984,11 +1972,7 @@ const day = () => {
 
             mafiaAnnouncement += `👣 ${doer.name} mengunjungi rumah ${target.name}\n\n`;
 
-            const immuneToBasicAttack = ["serial-killer", "arsonist", "executioner"];
-
-            if (this.group_session.isFullMoon) {
-              immuneToBasicAttack.push("werewolf");
-            }
+            const immuneToBasicAttack = ["serial-killer", "arsonist", "executioner", "werewolf"];
 
             if (target.role.name !== "veteran" || target.target.index === -1) {
               spyMafiaVisitInfo += `🤵 ${target.name} dikunjungi anggota Mafia\n\n`;
