@@ -19,7 +19,7 @@ const getData = () => {
 
 const getInfo = () => {
   const info = {
-    summary: "Warga biasa yang dapat berubah menjadi Manusia Serigala saat bulan purnama. ",
+    summary: "Warga biasa yang dapat berubah menjadi Manusia Serigala saat bulan purnama. Werewolf kebal dari serangan biasa",
     goal: "Membunuh semua orang yang menentangmu"
   };
   return info;
