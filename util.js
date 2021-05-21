@@ -13,7 +13,17 @@ const getUpdates = () => {
   let flex_texts = [];
   const updates = [
     {
-      version: "1.6.2 🆕", //ini yg lastest aja
+      version: "1.6.5 🆕", //ini yg lastest aja
+      majorChanges: "🧹 Revert Ranking System",
+      postId: "1162158617808078901"
+    },
+    {
+      version: "1.6.2",
+      majorChanges: "🗳️ Bisa vote pake tag",
+      postId: "1161950403808071694"
+    },
+    {
+      version: "1.6.2",
       majorChanges: "🗳️ Bisa vote pake tag",
       postId: "1161950403808071694"
     },
@@ -66,11 +76,6 @@ const getUpdates = () => {
       version: "1.3.6",
       majorChanges: "🔥 Adjustment & Buff",
       postId: "1159828033008074107"
-    },
-    {
-      version: "1.3.5",
-      majorChanges: "😇 Role changes",
-      postId: "1159771303308074463"
     }
   ];
 

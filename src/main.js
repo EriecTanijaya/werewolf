@@ -4985,7 +4985,6 @@ const commandCommand = () => {
     "/gamestat: status game yg berjalan",
     "/forum: link ke openchat",
     "/updates: untuk melihat 12 update terakhir bot",
-    "/promote: open group dengan memberikan admin group",
     "/pesan pesan: untuk mengirimkan pesan kepada dev bot",
     "/roles: menampilkan semua peran yang ada disuatu game"
   ];
