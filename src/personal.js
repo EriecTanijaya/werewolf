@@ -94,15 +94,11 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
     case "/oc":
     case "/openchat":
       return forumCommand();
-    case "/rank":
-      return rankCommand();
     case "/players":
     case "/p":
     case "/player":
     case "/pemain":
       return playersCommand();
-    case "/sync":
-      return updateName();
     case "/tutorial":
       return tutorialCommand();
     case "/pesan":
@@ -149,19 +145,10 @@ const tutorialCommand = () => {
   return replyFlex(msg);
 };
 
-const updateName = () => {
-  return replyText("💡 Tidak dapat melakukan sinkronisasi sekarang, lakukan saat tidak berada didalam game");
-};
-
 const playersCommand = () => {
   const players = this.group_session.players;
   const state = this.group_session.state;
   const flex_text = util.getPlayersList(players, state);
-  return replyFlex(flex_text);
-};
-
-const rankCommand = async () => {
-  const flex_text = await util.getRank();
   return replyFlex(flex_text);
 };
 

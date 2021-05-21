@@ -10,7 +10,6 @@ const stats = require("./stats");
 const info = require("./info");
 const modes = require("../modes");
 const rawRoles = require("../roles");
-const database = require("../database");
 
 const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
   this.event = event;
@@ -171,14 +170,6 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
     case "/update":
     case "/updates":
       return showUpdatesCommand();
-    case "/rank":
-    case "/peringkat":
-    case "/ranking":
-      return rankCommand();
-    case "/me":
-      return meCommand();
-    case "/sync":
-      return updateName();
     case "/pesan":
       return sendToDevMessageCommand();
     default:
@@ -226,34 +217,6 @@ const sendToDevMessageCommand = () => {
 
       return replyText("✉️ Pesanmu telah dikirim!");
     });
-};
-
-const updateName = async () => {
-  if (indexOfPlayer() !== -1) {
-    return replyText("💡 Tidak dapat melakukan sinkronisasi sekarang, lakukan saat tidak berada didalam game");
-  }
-
-  const { displayName } = await client.getProfile(this.user_session.id);
-  if (this.user_session.name !== displayName) {
-    this.user_session.name = displayName;
-  }
-  const res = await database.updateName(this.user_session.id, displayName);
-  if (res === "nodata") {
-    return replyText("💡 Datamu tidak ditemukan, coba main 1 game");
-  } else if (res === "success") {
-    return replyText("🔄 Data kamu berhasil di sinkron!");
-  }
-};
-
-const meCommand = async () => {
-  const msg = await util.getSelfData(this.user_session.id);
-  if (typeof msg === "string") return replyText(msg);
-  return replyFlex(msg);
-};
-
-const rankCommand = async () => {
-  const flex_text = await util.getRank();
-  return replyFlex(flex_text);
 };
 
 const day = () => {
@@ -2598,18 +2561,6 @@ const day = () => {
       let emoji = util.getRoleNameEmoji(roleName);
       allAnnouncement += `✉️ Role nya adalah ${roleName} ${emoji}\n\n`;
 
-      if (this.group_session.nightCounter === 1) {
-        const lastFirstBloodIds = this.group_session.lastFirstBloodIds;
-        for (let x = 0; x < lastFirstBloodIds.length; x++) {
-          const lastId = lastFirstBloodIds[x];
-          if (players[i].id === lastId) {
-            allAnnouncement += `☠️ ${players[i].name} kenak first blood lagi sejak game terakhir\n\n`;
-          }
-        }
-
-        this.group_session.currentFirstBloodIds.push(players[i].id);
-      }
-
       //Thanks to
       //https://stackoverflow.com/questions/24806772/how-to-skip-over-an-element-in-map/24806827
       const attackersDeathNote = players[i].attackers
@@ -4045,10 +3996,8 @@ const endGame = async (flex_texts, whoWin) => {
 
     if (players[i].afkCounter >= 3) {
       table_data.push("lose");
-      database.update(players[i].id, "lose", this.group_session);
     } else if (roleTeam === whoWin) {
       table_data.push("win");
-      database.update(players[i].id, "win", this.group_session);
     } else {
       /// check the win condition of some role
       if (roleName === "jester") {
@@ -4057,21 +4006,16 @@ const endGame = async (flex_texts, whoWin) => {
         handleSurvivorWin(i, table_data, surviveTeam);
       } else if (roleName === "amnesiac") {
         table_data.push("lose");
-        database.update(players[i].id, "lose", this.group_session);
       } else if (roleName === "executioner") {
         handleExecutionerWin(i, table_data, surviveTeam);
       } else if (roleName === "guardian-angel") {
         handleGuardianAngelWin(i, table_data, surviveTeam);
       } else if (whoWin === "draw") {
         table_data.push("draw");
-        database.update(players[i].id, "draw", this.group_session);
       } else {
         table_data.push("lose");
-        database.update(players[i].id, "lose", this.group_session);
       }
     }
-
-    await database.updateName(players[i].id, players[i].name);
 
     flex_text.table.contents.push(table_data);
 
@@ -4118,10 +4062,8 @@ const handleGuardianAngelWin = (index, table_data, surviveTeam) => {
   if (this.group_session.players[targetIndex].status === "alive") {
     table_data.push("win");
     surviveTeam.push("guardian angel 😇");
-    database.update(this.group_session.players[index].id, "win", this.group_session);
   } else {
     table_data.push("lose");
-    database.update(this.group_session.players[index].id, "lose", this.group_session);
   }
 };
 
@@ -4129,10 +4071,8 @@ const handleExecutionerWin = (index, table_data, surviveTeam) => {
   if (this.group_session.players[index].role.isTargetLynched) {
     table_data.push("win");
     surviveTeam.push("executioner 🪓");
-    database.update(this.group_session.players[index].id, "win", this.group_session);
   } else {
     table_data.push("lose");
-    database.update(this.group_session.players[index].id, "lose", this.group_session);
   }
 };
 
@@ -4140,10 +4080,8 @@ const handleSurvivorWin = (index, table_data, surviveTeam) => {
   if (this.group_session.players[index].status === "alive") {
     table_data.push("win");
     surviveTeam.push("survivor 🏳️");
-    database.update(this.group_session.players[index].id, "win", this.group_session);
   } else {
     table_data.push("lose");
-    database.update(this.group_session.players[index].id, "lose", this.group_session);
   }
 };
 
@@ -4151,10 +4089,8 @@ const handleJesterWin = (index, table_data, surviveTeam) => {
   if (this.group_session.players[index].role.isLynched) {
     table_data.push("win");
     surviveTeam.push("jester 🤡");
-    database.update(this.group_session.players[index].id, "win", this.group_session);
   } else {
     table_data.push("lose");
-    database.update(this.group_session.players[index].id, "lose", this.group_session);
   }
 };
 
@@ -4923,8 +4859,6 @@ const joinCommand = () => {
 
   this.group_session.players.push(newPlayer);
 
-  database.add(this.user_session);
-
   let text = respond.join(this.user_session.name);
   if (this.group_session.time > 0) {
     let reminder = "⏳ Sisa waktu ";
@@ -5017,8 +4951,6 @@ const newCommand = () => {
   const newPlayer = createNewPlayer(this.user_session);
   this.group_session.players.push(newPlayer);
 
-  database.add(this.user_session);
-
   let remindText = "⏳ Jika jumlah pemain kurang dari 5 dalam 10 menit, ";
   remindText += "game akan diberhentikan";
 
@@ -5054,9 +4986,6 @@ const commandCommand = () => {
     "/forum: link ke openchat",
     "/updates: untuk melihat 12 update terakhir bot",
     "/promote: open group dengan memberikan admin group",
-    "/rank: list top 10 pemain",
-    "/me: info data diri sendiri",
-    "/sync: sinkronisasi data pemain",
     "/pesan pesan: untuk mengirimkan pesan kepada dev bot",
     "/roles: menampilkan semua peran yang ada disuatu game"
   ];

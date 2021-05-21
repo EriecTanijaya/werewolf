@@ -5,7 +5,6 @@ const respond = require("../message/respond");
 const personal = require("./personal");
 const main = require("./main");
 const idle = require("./idle");
-const database = require("../database");
 
 // commands list
 const safeCommands = [
@@ -32,10 +31,7 @@ const safeCommands = [
   "/oc",
   "/openchat",
   "/update",
-  "/updates",
-  "/rank",
-  "/peringkat",
-  "/ranking"
+  "/updates"
 ];
 
 // game storage
@@ -199,8 +195,6 @@ const receive = async (event, rawArgs) => {
       mode: "beginner",
       isShowRole: true,
       customRoles: [],
-      lastFirstBloodIds: [],
-      currentFirstBloodIds: [],
       players: []
     };
     group_sessions[groupId] = newGroup;
@@ -253,8 +247,7 @@ const handleOtherEvent = () => {
 };
 
 const unfollowResponse = () => {
-  const userId = this.event.source.userId;
-  database.remove(userId);
+  //
 };
 
 const leaveResponse = () => {
