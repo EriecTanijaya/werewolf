@@ -1,6 +1,5 @@
 const client = require("./src/client");
 const roles = require("./roles");
-const database = require("./database");
 const rawRoles = require("./roles");
 
 const getUpdates = () => {
@@ -14,7 +13,17 @@ const getUpdates = () => {
   let flex_texts = [];
   const updates = [
     {
-      version: "1.6.2 🆕", //ini yg lastest aja
+      version: "1.6.5 🆕", //ini yg lastest aja
+      majorChanges: "🧹 Revert Ranking System",
+      postId: "1162158617808078901"
+    },
+    {
+      version: "1.6.2",
+      majorChanges: "🗳️ Bisa vote pake tag",
+      postId: "1161950403808071694"
+    },
+    {
+      version: "1.6.2",
       majorChanges: "🗳️ Bisa vote pake tag",
       postId: "1161950403808071694"
     },
@@ -67,11 +76,6 @@ const getUpdates = () => {
       version: "1.3.6",
       majorChanges: "🔥 Adjustment & Buff",
       postId: "1159828033008074107"
-    },
-    {
-      version: "1.3.5",
-      majorChanges: "😇 Role changes",
-      postId: "1159771303308074463"
     }
   ];
 
@@ -630,48 +634,6 @@ const getFakeData = (length = 4, botId) => {
   return data;
 };
 
-const getRank = async () => {
-  const ranker = await database.getRank();
-  ranker.length = 10;
-  const flex_text = {
-    headerText: "🏆 Ranking 🏆",
-    table: {
-      headers: ["No.", "Name", "Win", "Rate"],
-      contents: []
-    }
-  };
-
-  let num = 1;
-  ranker.forEach(item => {
-    const table_data = [`${num}.`, item.name, item.win, item.winRate];
-    flex_text.table.contents.push(table_data);
-    num++;
-  });
-  return flex_text;
-};
-
-const getSelfData = async userId => {
-  const ranker = await database.getRank();
-  for (let i = 0; i < ranker.length; i++) {
-    if (ranker[i].id === userId) {
-      const rank = i + 1;
-      const self = ranker[i];
-
-      let bodyText = `🏆 Rank ke ${rank} dari ${ranker.length} pemain\n`;
-      bodyText += `📊 WR : ${self.winRate}\n⭐ Win : ${self.win}\n`;
-      bodyText += `🎮 Games played : ${self.totalGame}`;
-
-      const flex_text = {
-        headerText: `📜 ${self.name}`,
-        bodyText
-      };
-
-      return flex_text;
-    }
-  }
-  return "💡 Datamu tidak ditemukan, coba main 1 game dulu";
-};
-
 const getPlayersList = (players, state) => {
   const flex_text = {
     headerText: "🤵 Daftar Pemain 👨‍🌾",
@@ -815,8 +777,6 @@ module.exports = {
   getRandomInt,
   parseToText,
   getFakeData,
-  getRank,
-  getSelfData,
   getPlayersList,
   isDisguiseAsTownie,
   getInvestigatorPairList,

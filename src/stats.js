@@ -37,7 +37,7 @@ const viewCommand = async (group_sessions, groupIndex) => {
   if (group.name) {
     text += `group name : ${group.name}\n`;
   } else {
-    text += `room id : ${group.groupId}`;
+    text += `room id : ${group.groupId}\n`;
   }
   text += `state : ${group.state}\n`;
   text += `time : ${group.time} sec\n`;

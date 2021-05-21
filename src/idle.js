@@ -3,7 +3,6 @@ const flex = require("../message/flex");
 const util = require("../util");
 const info = require("./info");
 const stats = require("./stats");
-const database = require("../database");
 
 const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
   this.event = event;
@@ -53,12 +52,6 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
     case "/skill":
     case "/cek":
       return notInGameCommand();
-    case "/rank":
-      return rankCommand();
-    case "/me":
-      return meCommand();
-    case "/sync":
-      return updateName();
     case "/pesan":
       return sendToDevMessageCommand();
     default:
@@ -96,30 +89,6 @@ const sendToDevMessageCommand = () => {
 
       return replyText("✉️ Pesanmu telah dikirim!");
     });
-};
-
-const updateName = async () => {
-  const { displayName } = await client.getProfile(this.user_session.id);
-  if (this.user_session.name !== displayName) {
-    this.user_session.name = displayName;
-  }
-  const res = await database.updateName(this.user_session.id, displayName);
-  if (res === "nodata") {
-    return replyText("💡 Datamu tidak ditemukan, coba main 1 game");
-  } else if (res === "success") {
-    return replyText("🔄 Data kamu berhasil di sinkron!");
-  }
-};
-
-const meCommand = async () => {
-  const msg = await util.getSelfData(this.user_session.id);
-  if (typeof msg === "string") return replyText(msg);
-  return replyFlex(msg);
-};
-
-const rankCommand = async () => {
-  const flex_text = await util.getRank();
-  return replyFlex(flex_text);
 };
 
 const notInGameCommand = () => {
@@ -198,9 +167,6 @@ const commandCommand = () => {
     "/forum : link ke openchat",
     "/status : untuk melihat berapa yang online",
     "/updates : untuk melihat 12 update terakhir bot",
-    "/rank : list top 10 pemain",
-    "/me : info data diri sendiri",
-    "/sync : sinkronisasi data pemain",
     "/pesan pesan : untuk mengirimkan pesan kepada dev bot"
   ];
 
