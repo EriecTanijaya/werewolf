@@ -3375,9 +3375,6 @@ const startCommand = () => {
 
   this.group_session.punishment = util.random(punishment);
 
-  this.group_session.lastFirstBloodIds = [...this.group_session.currentFirstBloodIds];
-  this.group_session.currentFirstBloodIds = [];
-
   randomRoles();
 };
 
