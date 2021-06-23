@@ -200,29 +200,30 @@ const receive = async (event, rawArgs) => {
     group_sessions[groupId] = newGroup;
   }
 
-  // cp Test ga leave group
-  const groupAvailableTime = group_sessions[groupId].time;
-  const playersLength = group_sessions[groupId].players.length;
-  const hasMinimumPlayers = playersLength > 4 ? true : false;
+  if (process.env.BEHAVIOUR === "leave") {
+    const groupAvailableTime = group_sessions[groupId].time;
+    const playersLength = group_sessions[groupId].players.length;
+    const hasMinimumPlayers = playersLength > 4 ? true : false;
 
-  if (!groupAvailableTime && !usingCommand && !hasMinimumPlayers) {
-    const groupState = group_sessions[groupId].state;
-    if (playersLength < 5 && groupState === "new") {
-      group_sessions[groupId].state = "idle";
-      resetAllPlayers(group_sessions[groupId].players);
+    if (!groupAvailableTime && !usingCommand && !hasMinimumPlayers) {
+      const groupState = group_sessions[groupId].state;
+      if (playersLength < 5 && groupState === "new") {
+        group_sessions[groupId].state = "idle";
+        resetAllPlayers(group_sessions[groupId].players);
+      }
+
+      let text = "👋 Sistem mendeteksi tidak ada permainan dalam 5 menit. ";
+      text += "Undang kembali jika mau main ya!";
+      return util.leaveGroup(this.event, groupId, text);
     }
 
-    let text = "👋 Sistem mendeteksi tidak ada permainan dalam 5 menit. ";
-    text += "Undang kembali jika mau main ya!";
-    return util.leaveGroup(this.event, groupId, text);
-  }
+    if (this.event.source.type === "group" && group_sessions[groupId].name === "") {
+      let { groupName } = await client.getGroupSummary(groupId);
+      group_sessions[groupId].name = groupName;
+    }
 
-  if (this.event.source.type === "group" && group_sessions[groupId].name === "") {
-    let { groupName } = await client.getGroupSummary(groupId);
-    group_sessions[groupId].name = groupName;
+    return main.receive(this.event, this.args, this.rawArgs, user_sessions, group_sessions);
   }
-
-  return main.receive(this.event, this.args, this.rawArgs, user_sessions, group_sessions);
 };
 
 /** helper func **/
