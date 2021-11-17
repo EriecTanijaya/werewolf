@@ -71,11 +71,6 @@ const getUpdates = () => {
       version: "1.3.7",
       majorChanges: "🎩 Bug fix & mode tweak",
       postId: "1159883467008077998"
-    },
-    {
-      version: "1.3.6",
-      majorChanges: "🔥 Adjustment & Buff",
-      postId: "1159828033008074107"
     }
   ];
 
