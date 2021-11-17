@@ -110,7 +110,7 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
 
 const sendToDevMessageCommand = () => {
   if (this.args.length < 2) {
-    return replyText("💡 Masukkan pesan. Cth: /pesan pesann");
+    return replyText("💡 Masukkan pesan untuk creator bot. Cth: /pesan pesann");
   }
 
   const message = util.parseToText(this.args);
@@ -128,7 +128,7 @@ const sendToDevMessageCommand = () => {
   client
     .pushMessage(process.env.DEV_ID, { type: "text", text: text })
     .then(() => {
-      return replyText("✉️ Pesanmu telah dikirim!");
+      return replyText("✉️ Pesanmu telah dikirim kepada creator bot!");
     })
     .catch(() => {
       this.user_session.messages.push({
@@ -301,7 +301,7 @@ const alertCommand = index => {
   msg = [text];
 
   if (players[index].role.canKill && players[index].deathNote === "") {
-    msg.push("💡 Kamu belum buat death note, ketik '/dnote' <isi note kamu>");
+    msg.push("💡 Kamu belum buat death note, ketik /dnote <isi note kamu>");
   }
 
   return replyText(msg);
@@ -563,7 +563,7 @@ const targetCommand = index => {
   let text = skillText.response(doer, null);
   let msg = [text];
   if (players[index].role.canKill && players[index].deathNote === "") {
-    msg.push("💡 Kamu belum buat death note, ketik '/dnote isi note kamu'");
+    msg.push("💡 Kamu belum buat death note, ketik /dnote isi note kamu");
   }
 
   return replyText(msg);
