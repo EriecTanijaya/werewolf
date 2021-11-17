@@ -72,7 +72,6 @@ setInterval(() => {
 
 const receive = async (event, rawArgs) => {
   this.event = event;
-
   // handle other events but let other event message type flow
   const otherEvents = ["follow", "memberJoined", "join", "leave", "memberLeft", "unfollow"];
   if (otherEvents.includes(event.type)) {
@@ -216,14 +215,14 @@ const receive = async (event, rawArgs) => {
       text += "Undang kembali jika mau main ya!";
       return util.leaveGroup(this.event, groupId, text);
     }
-
-    if (this.event.source.type === "group" && group_sessions[groupId].name === "") {
-      let { groupName } = await client.getGroupSummary(groupId);
-      group_sessions[groupId].name = groupName;
-    }
-
-    return main.receive(this.event, this.args, this.rawArgs, user_sessions, group_sessions);
   }
+
+  if (this.event.source.type === "group" && group_sessions[groupId].name === "") {
+    let { groupName } = await client.getGroupSummary(groupId);
+    group_sessions[groupId].name = groupName;
+  }
+
+  return main.receive(this.event, this.args, this.rawArgs, user_sessions, group_sessions);
 };
 
 /** helper func **/

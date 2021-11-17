@@ -20,7 +20,7 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
   this.user_session = user_sessions[event.source.userId];
   const groupId = util.getGroupId(event);
   this.group_session = group_sessions[groupId];
-
+  
   const state = this.group_session.state;
   if (state !== "idle") {
     if (state !== "new") {
@@ -146,7 +146,7 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
     case "/role":
     case "/news":
       return personalCommand();
-    case "/skip":
+    case "/next":
       return skipCommand();
     case "/revoke":
       return revokeCommand();
