@@ -161,15 +161,15 @@ const getTutorial = () => {
     },
     {
       headerText: "🌤️ Phase Pagi",
-      bodyText: `Dikarenakan Bot ini tidak auto, hasil skill di cek dengan pc bot '/news'.`
+      bodyText: `Dikarenakan Bot ini tidak auto, hasil skill di cek dengan pc bot '/news'. Disarankan berdiskusi melalui groupcall`
     },
     {
       headerText: "☝️ Phase Voting",
-      bodyText: `Pilih nama yang ingin di vote, jika ada 2 orang yang memiliki vote yang sama, system akan memilih secara acak dari 2 orang tersebut. Pemain dapat mengganti vote sebelum waktu habis atau batal melakukan vote dengan ketik '/revoke'`
+      bodyText: `Pilih nama yang ingin di vote, jika ada 2 orang yang memiliki vote yang sama, system akan memilih secara acak dari 2 orang tersebut. Jika tidak ada yang memenuhi kriteria jumlah vote, maka penghukuman dibatalkan`
     },
     {
       headerText: "📜 Note",
-      bodyText: `Setiap Phase ada waktu nya, waktunya tergantung dari total pemain yang hidup. Jika makin sedikit, makin cepat waktunya. Setiap Phase juga tidak berjalan otomatis. Itulah kenapa setiap waktu habis, salah satu dari pemain perlu ada ketik '/cek' untuk lanjutin Phase Game.`
+      bodyText: `Setiap Phase ada waktu nya, waktunya tergantung dari total pemain yang hidup. Jika makin sedikit, makin cepat waktunya. Setiap Phase juga tidak berjalan otomatis. Itulah kenapa setiap waktu habis, salah satu dari pemain perlu ada ketik '/cek' untuk lanjutin Phase Game`
     }
   ];
   return flex_texts;

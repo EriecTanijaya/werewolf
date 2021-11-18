@@ -776,7 +776,7 @@ const roleCommand = index => {
     if (villagerCode !== "") {
       let text = "👨‍🌾 Kamu tidak sendirian pada kota ini! ";
       text += `✉️ Kamu mendapatkan kode '${villagerCode}' yang hanya diketahui sesama Villager. \n\n`;
-      text += `💡 Sisipkan kata '${villagerCode}' disaat kamu berdiskusi untuk memberi tanda bahwa kamu adalah Villager!`;
+      text += `💡 Ex: Disaat kamu dituduh, kamu bisa sisipkan kata '${villagerCode}' dalam argumenmu.`;
       return replyFlex(flex_text, text);
     }
   }
