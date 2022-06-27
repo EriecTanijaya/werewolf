@@ -11,7 +11,7 @@ const getUpdates = () => {
   const baseUrl = "https://line.me/R/home/public/post?id=218mdfal&postId=";
   let flex_text = {};
   let flex_texts = [];
-  const updates = [ // ini masih ada 11, max 12
+  const updates = [ //max 12
     {
       version: "1.6.5 🆕", //ini yg lastest aja
       majorChanges: "🧹 Revert Ranking System",
@@ -66,6 +66,11 @@ const getUpdates = () => {
       version: "1.3.7",
       majorChanges: "🎩 Bug fix & mode tweak",
       postId: "1159883467008077998"
+    },
+    {
+      version: "1.3.6",
+      majorChanges: "🔥 Adjustment & Buff",
+      postId: "1159828033008074107"
     }
   ];
 
