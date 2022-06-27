@@ -11,16 +11,11 @@ const getUpdates = () => {
   const baseUrl = "https://line.me/R/home/public/post?id=218mdfal&postId=";
   let flex_text = {};
   let flex_texts = [];
-  const updates = [
+  const updates = [ //max 12
     {
       version: "1.6.5 🆕", //ini yg lastest aja
       majorChanges: "🧹 Revert Ranking System",
       postId: "1162158617808078901"
-    },
-    {
-      version: "1.6.2",
-      majorChanges: "🗳️ Bisa vote pake tag",
-      postId: "1161950403808071694"
     },
     {
       version: "1.6.2",
@@ -71,6 +66,11 @@ const getUpdates = () => {
       version: "1.3.7",
       majorChanges: "🎩 Bug fix & mode tweak",
       postId: "1159883467008077998"
+    },
+    {
+      version: "1.3.6",
+      majorChanges: "🔥 Adjustment & Buff",
+      postId: "1159828033008074107"
     }
   ];
 
