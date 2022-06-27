@@ -2518,7 +2518,7 @@ const day = () => {
           const skillLevel = this.group_session.players[attackerIndex].role.skillLevel;
           switch (skillLevel) {
             case 1:
-              text += "💪 Kamu sekarang bisa menyerang pada malam apa saja";
+              text += "💪 Kamu sekarang bisa menyerang setiap malam";
               break;
 
             case 2:
