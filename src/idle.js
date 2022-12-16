@@ -254,7 +254,7 @@ const replyFlex = async flex_raw => {
       "https://cdn.glitch.com/fc7de31a-faeb-4c50-8a38-834ec153f590%2F%E2%80%94Pngtree%E2%80%94microphone%20vector%20icon_3725450.png?v=1587456628843"
   };
 
-  const msg = flex.build(flex_raw, sender);
+  const msg = await flex.build(flex_raw, sender);
   return await client.replyMessage(this.event.replyToken, msg).catch(err => {
     console.log(JSON.stringify(msg));
     console.error("err replyFlex di idle.js", err.originalError.response.data.message);
