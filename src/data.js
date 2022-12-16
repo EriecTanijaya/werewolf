@@ -75,7 +75,6 @@ const receive = async (event, rawArgs) => {
   // handle other events but let other event message type flow
   const otherEvents = ["follow", "memberJoined", "join", "leave", "memberLeft", "unfollow"];
   if (otherEvents.includes(event.type)) {
-    // cp
     return handleOtherEvent(event);
   }
 
