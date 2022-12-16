@@ -11,7 +11,7 @@ const info = require("./info");
 const modes = require("../modes");
 const rawRoles = require("../roles");
 
-const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
+const receive = async (event, args, rawArgs, user_sessions, group_sessions) => {
   this.event = event;
   this.args = args;
   this.rawArgs = rawArgs;
@@ -113,7 +113,7 @@ const receive = (event, args, rawArgs, user_sessions, group_sessions) => {
     case "/stop":
       return stopCommand();
     case "/cmd":
-      return commandCommand();
+      await commandCommand();
     case "/help":
       return helpCommand();
     case "/gamestat":
@@ -5039,12 +5039,12 @@ const helpCommand = () => {
 };
 
 const statusCommand = async () => {
-  const msg = await stats.statusCommand(this.user_sessions, this.group_sessions);
-  return replyFlex(msg);
+  const msg = stats.statusCommand(this.user_sessions, this.group_sessions);
+  await replyFlex(msg);
 };
 
-const infoCommand = () => {
-  info.receive(this.event, this.args, this.rawArgs, this.group_session.state);
+const infoCommand = async () => {
+  await info.receive(this.event, this.args, this.rawArgs, this.group_session.state);
 };
 
 const tutorialCommand = () => {
@@ -5175,7 +5175,7 @@ const replyText = async texts => {
     };
   });
 
-  return await client.replyMessage(this.event.replyToken, msg).catch(err => {
+  await client.replyMessage(this.event.replyToken, msg).catch(err => {
     console.log("err di replyText di main.js", err.originalError.response.data);
   });
 };
@@ -5223,8 +5223,9 @@ const replyFlex = async (flex_raw, text_raw, new_flex_raw) => {
     msg.push(addonMsg);
   }
 
-  return await client.replyMessage(this.event.replyToken, msg).catch(err => {
+  await client.replyMessage(this.event.replyToken, msg).catch(err => {
     console.log(JSON.stringify(msg));
+    console.log(err)
     console.error("err replyFlex di main.js", err.originalError.response.data.message);
   });
 };

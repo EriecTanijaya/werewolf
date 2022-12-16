@@ -1,6 +1,6 @@
-const getOnlineUsers = user_sessions => {
+const getOnlineUsers = (user_sessions) => {
   const onlineUsers = [];
-  Object.keys(user_sessions).forEach(key => {
+  Object.keys(user_sessions).forEach((key) => {
     let user = user_sessions[key];
     if (user && user.state === "active") {
       onlineUsers.push(user);
@@ -9,9 +9,9 @@ const getOnlineUsers = user_sessions => {
   return onlineUsers;
 };
 
-const getOnlineGroups = group_sessions => {
+const getOnlineGroups = (group_sessions) => {
   const onlineGroups = [];
-  Object.keys(group_sessions).forEach(key => {
+  Object.keys(group_sessions).forEach((key) => {
     let group = group_sessions[key];
     if (group && group.state !== "idle") {
       onlineGroups.push(group);
@@ -46,7 +46,7 @@ const viewCommand = async (group_sessions, groupIndex) => {
 
   if (group.players.length > 0) {
     let num = 1;
-    group.players.forEach(item => {
+    group.players.forEach((item) => {
       text += `${num}. ${item.name} - ${item.role.name} (${item.status})\n`;
       num++;
     });
@@ -55,14 +55,14 @@ const viewCommand = async (group_sessions, groupIndex) => {
   return text;
 };
 
-const groupsListCommand = async group_sessions => {
+const groupsListCommand = async (group_sessions) => {
   const groupsData = getOnlineGroups(group_sessions);
 
   if (!groupsData.length) return "ga ada group yang online";
 
   let text = `Groups (${groupsData.length}) : \n`;
   let num = 1;
-  groupsData.forEach(item => {
+  groupsData.forEach((item) => {
     let name = item.name;
 
     if (!name) {
@@ -77,14 +77,14 @@ const groupsListCommand = async group_sessions => {
   return text;
 };
 
-const usersListCommand = async user_sessions => {
+const usersListCommand = async (user_sessions) => {
   const usersData = getOnlineUsers(user_sessions);
 
   if (!usersData.length) return "ga ada user yang online";
 
   let text = `Users (${usersData.length}) : \n`;
   let num = 1;
-  usersData.forEach(item => {
+  usersData.forEach((item) => {
     text += `${num}. ${item.name}`;
     if (item.groupName !== "") {
       text += ` (${item.groupName})`;
@@ -124,7 +124,7 @@ const statusCommand = (user_sessions, group_sessions) => {
 
   const flex_text = {
     headerText: "🌐 Status",
-    bodyText: statusText
+    bodyText: statusText,
   };
 
   return flex_text;
@@ -134,5 +134,5 @@ module.exports = {
   statusCommand,
   usersListCommand,
   groupsListCommand,
-  viewCommand
+  viewCommand,
 };

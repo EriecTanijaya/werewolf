@@ -120,6 +120,7 @@ const receive = async (event, rawArgs) => {
         for (let i = 0; i < group_sessions[groupId].players.length; i++) {
           if (group_sessions[groupId].players[i].name === user_sessions[userId].name) {
             group_sessions[groupId].players[i].name = displayName;
+            break;
           }
         }
       }
@@ -227,7 +228,7 @@ const receive = async (event, rawArgs) => {
 
 /** helper func **/
 
-const handleOtherEvent = () => {
+const handleOtherEvent = async () => {
   switch (this.event.type) {
     case "memberLeft":
       return memberLeftResponse();
@@ -346,7 +347,7 @@ const replyText = async texts => {
     };
   });
 
-  return await client.replyMessage(this.event.replyToken, msg).catch(err => {
+  await client.replyMessage(this.event.replyToken, msg).catch(err => {
     console.log("err di replyText di data.js", err.originalError.response.data);
   });
 };
@@ -367,7 +368,7 @@ const replyFlex = async (flex_raw, text_raw) => {
   };
 
   const msg = flex.build(flex_raw, sender, opt_texts);
-  return await client.replyMessage(this.event.replyToken, msg).catch(err => {
+  await client.replyMessage(this.event.replyToken, msg).catch(err => {
     console.log(JSON.stringify(msg));
     console.error("err replyFlex di data.js", err.originalError.response.data.message);
   });

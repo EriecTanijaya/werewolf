@@ -5,7 +5,7 @@ const modes = require("../modes");
 const types = require("../types");
 const util = require("../util");
 
-const receive = (event, args, rawArgs, groupState = null) => {
+const receive = async (event, args, rawArgs, groupState = null) => {
   this.event = event;
   this.rawArgs = rawArgs.trim();
   this.args = args.map(item => {
@@ -144,13 +144,13 @@ const roleListCommand = () => {
   return replyFlex(flex_text);
 };
 
-const invalidCommand = () => {
+const invalidCommand = async () => {
   let text = `💡 Tidak ditemukan '${this.args[1]}', apakah itu role, mode atau types? `;
   text += "Cek '/info' untuk detail nya";
-  return replyText(text);
+  await replyText(text);
 };
 
-const commandCommand = () => {
+const commandCommand = async () => {
   let text = "";
   const cmds = [
     "/info :  tampilin list command info",
@@ -171,12 +171,12 @@ const commandCommand = () => {
     bodyText: text
   };
 
-  return replyFlex(flex_text);
+  await replyFlex(flex_text);
 };
 
 /** message func **/
 
-const replyText = texts => {
+const replyText = async (texts) => {
   texts = Array.isArray(texts) ? texts : [texts];
 
   const sender = {
@@ -193,12 +193,12 @@ const replyText = texts => {
     };
   });
 
-  return client.replyMessage(this.event.replyToken, msg).catch(err => {
+  await client.replyMessage(this.event.replyToken, msg).catch(err => {
     console.log("err di replyText di info.js", err.originalError.response.data);
   });
 };
 
-const replyFlex = flex_raw => {
+const replyFlex = async (flex_raw) => {
   const sender = {
     name: "Moderator",
     iconUrl:
@@ -206,7 +206,7 @@ const replyFlex = flex_raw => {
   };
 
   const msg = flex.build(flex_raw, sender);
-  return client.replyMessage(this.event.replyToken, msg).catch(err => {
+  await client.replyMessage(this.event.replyToken, msg).catch(err => {
     console.log(JSON.stringify(msg));
     console.error("err replyFlex di info.js", err.originalError.response.data.message);
   });

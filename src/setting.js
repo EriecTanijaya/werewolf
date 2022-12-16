@@ -345,7 +345,7 @@ const replyText = async texts => {
     };
   });
 
-  return await client.replyMessage(this.event.replyToken, msg).catch(err => {
+  await client.replyMessage(this.event.replyToken, msg).catch(err => {
     console.log("err di replyText di setting.js", err.originalError.response.data);
   });
 };
@@ -358,7 +358,7 @@ const replyFlex = async flex_raw => {
   };
 
   const msg = flex.build(flex_raw, sender);
-  return await client.replyMessage(this.event.replyToken, msg).catch(err => {
+  await client.replyMessage(this.event.replyToken, msg).catch(err => {
     console.log(JSON.stringify(msg));
     console.error("err replyFlex di setting.js", err.originalError.response.data.message);
   });
